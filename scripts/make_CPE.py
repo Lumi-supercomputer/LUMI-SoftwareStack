@@ -34,6 +34,7 @@ package_versions = {
     'cray-python':     '3.8.5.0',
     'cray-R':          '4.0.3.0',
     'libfabric':       '1.10.2pre1',
+    'rocm':            'rocm',
 }
 
 moduleroot = sys.argv[1]
@@ -61,7 +62,7 @@ def create_link_reg( modulename, modulesrcdir, packagename, package_versions):
         raise Exception( 'Could not locate the module file %s[.lua]' % modulename_tcl )
     # Create the subdirectory for the module link
     try:
-        moduledir = os.path.join( moduleroot, modulename)
+        moduledir = os.path.join( moduleroot, modulename )
         if not os.path.isdir( moduledir ):
             os.mkdir( moduledir )
     except OSError:
@@ -94,13 +95,45 @@ def create_link_vpath( modulename, modulesrcdirstart, modulesrcdirend, packagena
     # Create the subdirectory for the module link
     # It usually will already exist, except in the very first call to one of the create_link routines.
     try:
-        moduledir = os.path.join( moduleroot)
+        moduledir = os.path.join( moduleroot )
         if not os.path.isdir( moduledir ):
             os.mkdir( moduledir )
     except OSError:
         raise Exception( 'Failed to create %s, giving up.' % moduledir )
     # Create the module link.
     link_dest = os.path.join( moduleroot, modulename_short )
+    try:
+        if not os.path.isfile( link_dest ):
+            os.symlink( modulename_full, link_dest )
+    except OSError:
+        raise Exception( 'Failed to create the link %s to %s.' % (link_dest, modulename_full) )
+
+
+def create_link_nover( modulename, modulesrcdir ):
+
+    # Check the module name
+    try:
+        modulename_tcl = os.path.join( modulesrcdir, modulename )
+        modulename_lua = modulename_tcl + '.lua'
+    except:
+        raise Exception( 'Unexptected error, this should be a problem with the code' )
+    if os.path.isfile( modulename_lua ):
+        modulename_full =  modulename_lua
+        modulename_short = modulename + '.lua'
+    elif os.path.isfile( modulename_tcl ):
+        modulename_full =  modulename_tcl
+        modulename_short = modulename
+    else:
+        raise Exception( 'Could not locate the module file %s[.lua]' % modulename_tcl )
+    # Create the subdirectory for the module link
+    try:
+        moduledir = os.path.join( moduleroot, modulename)
+        if not os.path.isdir( moduledir ):
+            os.mkdir( moduledir )
+    except OSError:
+        raise Exception( 'Failed to create %s, giving up.' % moduledir )
+    # Create the module link.
+    link_dest = os.path.join( moduleroot,   modulename, modulename_short )
     try:
         if not os.path.isfile( link_dest ):
             os.symlink( modulename_full, link_dest )
@@ -161,6 +194,7 @@ create_link_reg( 'cray-fftw',                '/opt/cray/pe/modulefiles', 'FFTW',
 create_link_vpath( 'craype-x86-rome', '/opt/cray/pe/craype', 'modulefiles', 'craype', package_versions )
 if system == 'grenoble':
     create_link_vpath( 'craype-network-ofi', '/opt/cray/pe/craype', 'modulefiles', 'craype', package_versions )
+create_link_nover( 'craype-accel-amd-gfx908', '/opt/cray/pe/craype-targets/default/modulefiles' )
 # - cpe-prgenv: cpe modules for Cray, GNU and AMD (when available)
 create_link_vpath( 'cpe-cray', '/opt/cray/pe/cpe-prgenv', 'modules', 'cpe-prgenv', package_versions )
 create_link_vpath( 'cpe-gnu',  '/opt/cray/pe/cpe-prgenv', 'modules', 'cpe-prgenv', package_versions )
