@@ -125,45 +125,45 @@ def make_CPE( moduleroot, system, package_versions ):
     # We'll first populate Cray
     #
     # - cce
-    create_link_reg( 'cce',                      '/opt/cray/pe/modulefiles', 'Cray', 'CCE',            package_versions )
+    create_link_reg( 'cce',                      '/opt/cray/pe/lmod/modulefiles/core', 'Cray', 'CCE',            package_versions )
     # - MPICH
-    create_link_reg( 'cray-mpich',               '/opt/cray/pe/modulefiles', 'Cray', 'MPICH',          package_versions )
-    #create_link_reg( 'cray-mpich-abi',           '/opt/cray/pe/modulefiles', 'Cray', 'MPICH',          package_versions )
-    #create_link_reg( 'cray-mpich-ucx',           '/opt/cray/pe/modulefiles', 'Cray', 'MPICH',          package_versions )
-    create_link_reg( 'libfabric',                '/opt/cray/modulefiles',    'Cray', 'libfabric',      package_versions )
+    create_link_reg( 'cray-mpich',               '/opt/cray/pe/modulefiles',           'Cray', 'MPICH',          package_versions )
+    #create_link_reg( 'cray-mpich-abi',           '/opt/cray/pe/modulefiles',           'Cray', 'MPICH',          package_versions )
+    #create_link_reg( 'cray-mpich-ucx',           '/opt/cray/pe/modulefiles',           'Cray', 'MPICH',          package_versions )
+    create_link_reg( 'libfabric',                '/opt/cray/modulefiles',              'Cray', 'libfabric',      package_versions )
     # - DSMML
-    create_link_reg( 'cray-dsmml',               '/opt/cray/pe/modulefiles', 'Cray', 'DSMML',          package_versions )
+    create_link_reg( 'cray-dsmml',               '/opt/cray/pe/modulefiles',           'Cray', 'DSMML',          package_versions )
     # - PMI
-    create_link_reg( 'cray-pmi',                 '/opt/cray/pe/modulefiles', 'Cray', 'PMI',            package_versions )
-    create_link_reg( 'cray-pmi-lib',             '/opt/cray/pe/modulefiles', 'Cray', 'PMI',            package_versions )
+    create_link_reg( 'cray-pmi',                 '/opt/cray/pe/lmod/modulefiles/core', 'Cray', 'PMI',            package_versions )
+    create_link_reg( 'cray-pmi-lib',             '/opt/cray/pe/lmod/modulefiles/core', 'Cray', 'PMI',            package_versions )
     # - OpenSHMEMX
-    create_link_reg( 'cray-openshmemx',          '/opt/cray/pe/modulefiles', 'Cray', 'OpenSHMEMX',     package_versions )
+    create_link_reg( 'cray-openshmemx',          '/opt/cray/pe/modulefiles',           'Cray', 'OpenSHMEMX',     package_versions )
     # - ATP
-    create_link_reg( 'atp',                      '/opt/cray/pe/modulefiles', 'Cray', 'ATP',            package_versions )
+    create_link_reg( 'atp',                      '/opt/cray/pe/modulefiles',           'Cray', 'ATP',            package_versions )
     # - CCDB
-    create_link_reg( 'cray-ccdb',                '/opt/cray/pe/modulefiles', 'Cray', 'CCDB',           package_versions )
+    create_link_reg( 'cray-ccdb',                '/opt/cray/pe/lmod/modulefiles/core', 'Cray', 'CCDB',           package_versions )
     # - CTI
-    create_link_reg( 'cray-cti',                 '/opt/cray/pe/modulefiles', 'Cray', 'CTI',            package_versions )
+    create_link_reg( 'cray-cti',                 '/opt/cray/pe/lmod/modulefiles/core', 'Cray', 'CTI',            package_versions )
     # - gdb4hpc
-    create_link_reg( 'gdb4hpc',                  '/opt/cray/pe/modulefiles', 'Cray', 'gdb4hpc',        package_versions )
+    create_link_reg( 'gdb4hpc',                  '/opt/cray/pe/lmod/modulefiles/core', 'Cray', 'gdb4hpc',        package_versions )
     # - STAT
-    create_link_reg( 'cray-stat',                '/opt/cray/pe/modulefiles', 'Cray', 'STAT',           package_versions )
+    create_link_reg( 'cray-stat',                '/opt/cray/pe/lmod/modulefiles/core', 'Cray', 'STAT',           package_versions )
     # - valgrind4hpc
-    create_link_reg( 'valgrind4hpc',             '/opt/cray/pe/modulefiles', 'Cray', 'valgrind4hpc',   package_versions )
+    create_link_reg( 'valgrind4hpc',             '/opt/cray/pe/lmod/modulefiles/core', 'Cray', 'valgrind4hpc',   package_versions )
     # - Perftools
-    create_link_reg( 'perftools-base',           '/opt/cray/pe/modulefiles', 'Cray', 'Perftools',      package_versions )
+    create_link_reg( 'perftools-base',           '/opt/cray/pe/modulefiles',           'Cray', 'Perftools',      package_versions )
     # - PAPI
-    create_link_reg( 'papi',                     '/opt/cray/pe/modulefiles', 'Cray', 'PAPI',           package_versions )
+    create_link_reg( 'papi',                     '/opt/cray/pe/lmod/modulefiles/core', 'Cray', 'PAPI',           package_versions )
     # - LibSci
-    create_link_reg( 'cray-libsci',              '/opt/cray/pe/modulefiles', 'Cray', 'LibSci',         package_versions )
+    create_link_reg( 'cray-libsci',              '/opt/cray/pe/lmod/modulefiles/core', 'Cray', 'LibSci',         package_versions )
     # - LibSci_acc
-    create_link_reg( 'cray-libsci_acc',          '/opt/cray/pe/modulefiles', 'Cray', 'LibSci_acc',     package_versions )
+    create_link_reg( 'cray-libsci_acc',          '/opt/cray/pe/modulefiles',           'Cray', 'LibSci_acc',     package_versions )
     # - FFTW
-    create_link_reg( 'cray-fftw',                '/opt/cray/pe/modulefiles', 'Cray', 'FFTW',           package_versions )
+    create_link_reg( 'cray-fftw',                '/opt/cray/pe/modulefiles',           'Cray', 'FFTW',           package_versions )
     # - cpe-prgenv: cpe modules for Cray, GNU and AMD (when available)
-    create_link_vpath( 'cpe-cray', '/opt/cray/pe/cpe-prgenv', 'modules', 'Cray', 'cpe-prgenv', package_versions )
-    create_link_vpath( 'cpe-gnu',  '/opt/cray/pe/cpe-prgenv', 'modules', 'Cray', 'cpe-prgenv', package_versions )
-    #create_link_path( 'cpe-aocc', '/opt/cray/pe/cpe-prgenv', 'modules', 'Cray', 'cpe-prgenv', package_versions )
+    create_link_vpath( 'cpe-cray', '/opt/cray/pe/cpe-prgenv', 'lmod', 'Cray', 'cpe-prgenv', package_versions )
+    create_link_vpath( 'cpe-gnu',  '/opt/cray/pe/cpe-prgenv', 'lmod', 'Cray', 'cpe-prgenv', package_versions )
+    #create_link_path( 'cpe-aocc', '/opt/cray/pe/cpe-prgenv', 'lmod', 'Cray', 'cpe-prgenv', package_versions )
     # - HDF5
     create_link_reg( 'cray-hdf5',                '/opt/cray/pe/modulefiles', 'Cray', 'HDF5',            package_versions )
     create_link_reg( 'cray-hdf5-parallel',       '/opt/cray/pe/modulefiles', 'Cray', 'HDF5',            package_versions )
@@ -190,8 +190,13 @@ def make_CPE( moduleroot, system, package_versions ):
     #create_link_vpath( 'craype-x86-rome', '/opt/cray/pe/craype', 'modulefiles', 'Cray-targets', 'craype', package_versions )
     #if system == 'grenoble':
     #    create_link_vpath( 'craype-network-ofi', '/opt/cray/pe/craype', 'modulefiles', 'Cray-targets', 'craype', package_versions )
-    create_link_nover( 'craype-x86-rome',         '/opt/cray/pe/craype-targets/default/modulefiles', 'Cray-targets' )
-    create_link_nover( 'craype-x86-milan',        '/opt/cray/pe/craype-targets/default/modulefiles', 'Cray-targets' )
+    create_link_vpath( 'craype-x86-rome',             '/opt/cray/pe/lmod/modulefiles/craype-targets', '', 'Cray-targets', 'craype-targets', package_versions )
+    create_link_vpath( 'craype-x86-milan',            '/opt/cray/pe/lmod/modulefiles/craype-targets', '', 'Cray-targets', 'craype-targets', package_versions )
     if system == 'grenoble':
-        create_link_nover( 'craype-network-ofi',      '/opt/cray/pe/craype-targets/default/modulefiles', 'Cray-targets' )
-        create_link_nover( 'craype-accel-amd-gfx908', '/opt/cray/pe/craype-targets/default/modulefiles', 'Cray-targets' )
+        create_link_vpath( 'craype-network-ofi',      '/opt/cray/pe/lmod/modulefiles/craype-targets', '', 'Cray-targets', 'craype-targets', package_versions )
+        create_link_vpath( 'craype-accel-amd-gfx908', '/opt/cray/pe/lmod/modulefiles/craype-targets', '', 'Cray-targets', 'craype-targets', package_versions )
+#    create_link_nover( 'craype-x86-rome',         '/opt/cray/pe/craype-targets/default/modulefiles', 'Cray-targets' )
+#    create_link_nover( 'craype-x86-milan',        '/opt/cray/pe/craype-targets/default/modulefiles', 'Cray-targets' )
+#    if system == 'grenoble':
+#        create_link_nover( 'craype-network-ofi',      '/opt/cray/pe/craype-targets/default/modulefiles', 'Cray-targets' )
+#        create_link_nover( 'craype-accel-amd-gfx908', '/opt/cray/pe/craype-targets/default/modulefiles', 'Cray-targets' )

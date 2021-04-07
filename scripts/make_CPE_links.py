@@ -21,6 +21,7 @@ package_versions = {
     'LibSci_acc':      '21.02.9.1',
     'FFTW':            '3.3.8.8', # Not the standard version for 21.02!
     'craypkg-gen':     '1.3.12',
+    'craype-targets':  '1.2.0',
     'craype':          '2.7.5',
     'cpe-prgenv':      '7.0.0',
     'Cray-lmod':       '8.3.1.0',
