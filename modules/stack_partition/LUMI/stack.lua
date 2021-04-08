@@ -1,9 +1,12 @@
-family( 'SoftwareStack' )
+family( 'LUMI_SoftwareStack' )
 
 local partition = os.getenv( 'LUMI_PARTITION' )
 local stack_version = myModuleVersion()
 
 local root = os.getenv( 'LUMITEST_ROOT')
+if root == nil then
+  LmodError( 'The environment variable LUMITEST_ROOT is not found but needed to find the components of the LUMI prototype.' )
+end
 
 whatis( 'Enables the LUMI-' .. stack_version .. ' software stack for the current partition.' )
 
