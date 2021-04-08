@@ -4,6 +4,12 @@ testroot='/home/klust/appl_stack_partition_EB'
 
 PATH=/home/klust/LUMI-easybuild/scripts:/home/klust/LUMI-easybuild/scripts/prototype:$PATH
 
+create_link () {
+
+  test -s "$2" || ln -s "$1" "$2"
+
+}
+
 #
 # Make the support directories
 #
@@ -13,7 +19,9 @@ test -s $testroot/github || ln -s $HOME/LUMI-easybuild $testroot/github
 #
 # Create the root modules with the software stacks
 #
+mkdir -p $testroot/modules
 mkdir -p $testroot/modules/SoftwareStack
+mkdir -p $testroot/modules/PrgEnv
 
 #
 # Make the directories with the software stacks
@@ -52,8 +60,35 @@ done
 #
 make_CPE_links.py $testroot/modules/LUMI-21.02
 
+#
+# Populate modules/SoftwareStack and modules/LUMI-XX.YY/LUMIpartition
+#
+modsrc="$testroot/github/modules"
+moddest="$testroot/modules"
+mkdir -p $moddest/SoftwareStack/LUMI
+for stack in 21.02
+do
 
+  # LUMI software stack
+  create_link $modsrc/stack_partition/LUMI/stack.lua $moddest/SoftwareStack/LUMI/$stack.lua
 
+  # Populate the LUMIpartition directory for this version of the LUMI software stack
+  for partition in C G D L
+  do
+  	create_link $modsrc/stack_partition/LUMI-partition.EB.lua $moddest/LUMI-$stack/LUMIpartition/LUMI-$partition.lua
+  done
+
+done
+
+create_link $modsrc/stack_partition/CrayEnv.lua $moddest/SoftwareStack/CrayEnv.lua
+
+#
+# Install the PrgEnv-* modules for use with the CrayEnv and CrayEnvMax software stacks
+#
+for prgenv in cray gnu aocc manual
+do
+  create_link $modsrc/stack_partition/PrgEnv/PrgEnv-$prgenv.lua $moddest/PrgEnv/PrgEnv-$prgenv.lua
+done
 
 #
 # Instructions for the MODULEPATH etc
