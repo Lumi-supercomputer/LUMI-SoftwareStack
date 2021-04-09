@@ -1,8 +1,9 @@
 #! /bin/bash
 
-testroot='/home/klust/appl_stack_partition_EB'
+version="0.1"
+testroot="/home/klust/appltest/design_$version/stack_partition_EB"
 
-PATH=/home/klust/LUMI-easybuild/scripts:/home/klust/LUMI-easybuild/scripts/prototype:$PATH
+PATH=/home/klust/LUMI-easybuild/scripts:/home/klust/LUMI-easybuild/scripts/prototype/design_$version:$PATH
 
 create_link () {
 
@@ -63,7 +64,7 @@ make_CPE_links.py $testroot/modules/LUMI-21.02
 #
 # Populate modules/SoftwareStack and modules/LUMI-XX.YY/LUMIpartition
 #
-modsrc="$testroot/github/modules"
+modsrc="$testroot/github/modules/design_$version"
 moddest="$testroot/modules"
 mkdir -p $moddest/SoftwareStack/LUMI
 for stack in 21.02
