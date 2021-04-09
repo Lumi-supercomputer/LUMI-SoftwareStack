@@ -1,0 +1,97 @@
+#! /bin/bash
+
+version="0.2"
+testroot="/home/klust/appltest/design_$version/stack_partition_MOD"
+
+PATH=/home/klust/LUMI-easybuild/scripts:/home/klust/LUMI-easybuild/scripts/prototype/design_$version:$PATH
+
+create_link () {
+
+  test -s "$2" || ln -s "$1" "$2"
+
+}
+
+generate_mod () {
+
+  gpp -o $2 -DLUMI_PARTITION="$3" -DLUMI_STACK_VERSION="$4" $1
+
+}
+
+#
+# Make the support directories
+#
+mkdir -p $testroot
+test -s $testroot/github || ln -s $HOME/LUMI-easybuild $testroot/github
+
+#
+# Create the root modules with the software stacks
+#
+mkdir -p $testroot/modules
+mkdir -p $testroot/modules/SoftwareStack
+
+mkdir -p $testroot/software
+
+mkdir -p $testroot/mgmt
+mkdir -p $testroot/mgmt/ebrepo_files
+
+#
+# Make the directories with the software stacks
+#
+for stack in 21.02
+do
+
+  mkdir -p $testroot/modules/LUMI-$stack
+  mkdir -p $testroot/modules/LUMI-$stack/LUMIpartition
+
+  mkdir -p $testroot/software/LUMI-$stack
+
+  mkdir -p $testroot/mgmt/ebrepo_files/LUMI-$stack
+
+  for partition in C G D L
+  do
+
+    mkdir -p $testroot/modules/LUMI-$stack/LUMI-$partition
+	mkdir -p $testroot/modules/LUMI-$stack/LUMI-$partition/easybuild
+   	mkdir -p $testroot/modules/LUMI-$stack/LUMI-$partition/spack
+   	mkdir -p $testroot/modules/LUMI-$stack/LUMI-$partition/manual
+
+   	mkdir -p $testroot/software/LUMI-$stack/LUMI-$partition
+   	mkdir -p $testroot/software/LUMI-$stack/LUMI-$partition/easybuild
+   	mkdir -p $testroot/software/LUMI-$stack/LUMI-$partition/spack
+   	mkdir -p $testroot/software/LUMI-$stack/LUMI-$partition/manual
+
+   	mkdir -p $testroot/mgmt/ebrepo_files/LUMI-$stack/LUMI-$partition
+
+  done
+
+done
+
+#
+# Populate modules/SoftwareStack and modules/LUMI-XX.YY/LUMIpartition
+#
+modsrc="$testroot/github/modules/design_$version"
+moddest="$testroot/modules"
+mkdir -p $moddest/SoftwareStack/LUMI
+for stack in 21.02
+do
+
+  # LUMI software stack. The only OS environment variables used are variables that are
+  # not supposed to change on the LUMI (but are for now set by the initialisation modules).
+  create_link $modsrc/stack_partition/LUMI/stack.lua $moddest/SoftwareStack/LUMI/$stack.lua
+
+  # Populate the LUMIpartition directory for this version of the LUMI software stack
+  for partition in C G D L
+  do
+  	# Need to replace this by generated modules.
+  	generate_mod $modsrc/stack_partition/LUMI-partition.MOD.tmpl.lua $moddest/LUMI-$stack/LUMIpartition/LUMI-$partition.lua "LUMI-$partition" "$stack"
+  done
+
+done
+
+# Provide the CrayEnv stack. This module does not depend on variables set by modules so
+# we can use a link for now.
+create_link $modsrc/stack_partition/CrayEnv.lua $moddest/SoftwareStack/CrayEnv.lua
+
+#
+# Instructions for the MODULEPATH etc
+#
