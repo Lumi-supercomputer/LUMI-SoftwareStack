@@ -3,7 +3,7 @@
 version="0.2"
 testroot="$HOME/appltest/design_$version/partition_stack_EB"
 
-PATH=$HOME/LUMI-easybuild/scripts:$HOME/LUMI-easybuild/scripts/prototype:$HOME/LUMI-easybuild/scripts/prototype/design_$version:$PATH
+PATH=$HOME/LUMI-easybuild/prototypes:$HOME/LUMI-easybuild/prototypes/design_$version:$PATH
 
 create_link () {
 
@@ -65,7 +65,7 @@ done
 #
 # Populate modules/LUMIpartition and modules/LUMI-*/SoftwareStack
 #
-modsrc="$testroot/github/modules/design_$version"
+modsrc="$testroot/github/prototypes/design_$version/modules"
 moddest="$testroot/modules"
 mkdir -p $moddest/LUMIpartition/partition
 for partition in C G D L
