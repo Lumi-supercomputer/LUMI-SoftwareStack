@@ -4,10 +4,7 @@ end
 
 family( 'LUMI_SoftwareStack' )
 
-local root = os.getenv( 'LUMITEST_ROOT' )
-if root == nil then
-  LmodError( 'The environment variable LUMITEST_ROOT is not found but needed to find the components of the LUMI prototype.' )
-end
+local root = 'LUMITEST_ROOT'
 
 -- local partition = 'LUMI_PARTITION'
 

@@ -1,9 +1,9 @@
 #! /bin/bash
 
 version="0.2"
-testroot="/home/klust/appltest/design_$version/stack_partition_EB"
+testroot="$HOME/appltest/design_$version/stack_partition_EB"
 
-PATH=/home/klust/LUMI-easybuild/scripts:/home/klust/LUMI-easybuild/scripts/prototype/design_$version:$PATH
+PATH=$HOME/LUMI-easybuild/scripts:$HOME/LUMI-easybuild/scripts/prototype:$HOME/LUMI-easybuild/scripts/prototype/design_$version:$PATH
 
 create_link () {
 
@@ -13,7 +13,7 @@ create_link () {
 
 generate_mod () {
 
-  gpp -o $2 -DLUMI_PARTITION="$3" -DLUMI_STACK_VERSION="$4" $1
+  gpp -o $2 -DLUMI_PARTITION="$3" -DLUMI_STACK_VERSION="$4" -DLUMITEST_ROOT=$5 $1
 
 }
 
@@ -72,19 +72,47 @@ do
 
   # LUMI software stack. The only OS environment variables used are variables that are
   # not supposed to change on the LUMI (but are for now set by the initialisation modules).
-  create_link $modsrc/stack_partition/LUMI/stack.lua $moddest/SoftwareStack/LUMI/$stack.lua
+  generate_mod $modsrc/stack_partition/LUMI/stack.tmpl.lua $moddest/SoftwareStack/LUMI/$stack.lua  "LUMI-$partition" "$stack"  "$testroot"
 
   # Populate the LUMIpartition directory for this version of the LUMI software stack
   for partition in C G D L
   do
-  	generate_mod $modsrc/stack_partition/LUMI-partition.EB.tmpl.lua $moddest/LUMI-$stack/LUMIpartition/LUMI-$partition.lua "LUMI-$partition" "$stack"
+  	generate_mod $modsrc/stack_partition/LUMI-partition.EB.tmpl.lua $moddest/LUMI-$stack/LUMIpartition/LUMI-$partition.lua "LUMI-$partition" "$stack"  "$testroot"
   done
 
 done
 
 # Provide the CrayEnv stack. This module does not depend on variables set by modules so
 # we can use a link for now.
-create_link $modsrc/stack_partition/CrayEnv.lua $moddest/SoftwareStack/CrayEnv.lua
+generate_mod $modsrc/stack_partition/CrayEnv.tmpl.lua $moddest/SoftwareStack/CrayEnv.lua "LUMI-$partition" "$stack"  "$testroot"
+
+#
+# Now build some demo modules
+#
+function software_root () {
+    echo "$testroot/stack/LUMI-$1/LUMI-$2/easybuild/software"
+}
+
+function module_root () {
+    echo "$testroot/stack/LUMI-$1/LUMI-$2/easybuild/modules"
+}
+
+stack="21.02"
+empty_module_EB.sh GROMACS 20.3 "cpeGNU-$stack" ""    $(software_root $stack C) $(module_root $stack C)
+empty_module_EB.sh GROMACS 20.3 "cpeGNU-$stack" "GPU" $(software_root $stack G) $(module_root $stack G)
+
+empty_module_EB.sh gnuplot 5.4.0 "cpeGNU-$stack" "" $(software_root $stack L) $(module_root $stack L)
+empty_module_EB.sh gnuplot 5.4.0 "cpeGNU-$stack" "" $(software_root $stack D) $(module_root $stack D)
+
+empty_module_EB.sh GSL 2.5 "cpeGNU-$stack" "" $(software_root $stack C) $(module_root $stack C)
+empty_module_EB.sh GSL 2.5 "cpeCCE-$stack" "" $(software_root $stack C) $(module_root $stack C)
+empty_module_EB.sh GSL 2.5 "cpeGNU-$stack" "" $(software_root $stack G) $(module_root $stack G)
+empty_module_EB.sh GSL 2.5 "cpeCCE-$stack" "" $(software_root $stack G) $(module_root $stack G)
+empty_module_EB.sh GSL 2.5 "cpeGNU-$stack" "" $(software_root $stack D) $(module_root $stack D)
+empty_module_EB.sh GSL 2.5 "cpeCCE-$stack" "" $(software_root $stack D) $(module_root $stack D)
+empty_module_EB.sh GSL 2.5 "cpeGNU-$stack" "" $(software_root $stack L) $(module_root $stack L)
+empty_module_EB.sh GSL 2.5 "cpeCCE-$stack" "" $(software_root $stack L) $(module_root $stack L)
+
 
 #
 # Instructions for the MODULEPATH etc

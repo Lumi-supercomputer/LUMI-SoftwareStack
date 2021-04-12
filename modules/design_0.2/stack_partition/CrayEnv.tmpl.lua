@@ -1,6 +1,6 @@
 family( 'LUMI_SoftwareStack' )
 
-local root = os.getenv( 'LUMITEST_ROOT' )
+local root = 'LUMITEST_ROOT'
 
 whatis( 'CrayEnv restores the typical Cray Environment rather than using one of the LUMI software stacks.' )
 

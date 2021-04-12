@@ -6,15 +6,11 @@ family( 'LUMI_SoftwareStack' )
 
 local stack_version = 'LUMI_STACK_VERSION'
 local partition =     'LUMI_PARTITION'
-
-local root = os.getenv( 'LUMITEST_ROOT' )
-if root == nil then
-  LmodError( 'The environment variable LUMITEST_ROOT is not found but needed to find the components of the LUMI prototype.' )
-end
+local root =          'LUMITEST_ROOT'
 
 whatis( 'Enables the LUMI/LUMI_STACK_VERSION software stack for the ' .. partition .. ' partition.' )
 
-helpp( [[
+help( [[
 This module enables the LUMI/LUMI_STACK_VERSION software stack for the LUMI_PARTITION partition.
 
 By swapping the LUMI_PARTITION partition module it is possible to load software compiled for

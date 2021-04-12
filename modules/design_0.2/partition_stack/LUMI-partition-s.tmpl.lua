@@ -6,11 +6,7 @@ family( 'LUMI_partition' )
 add_property("lmod","sticky")
 
 local partition = 'LUMI_PARTITION'
-
-local root = os.getenv( 'LUMITEST_ROOT')
-if root == nil then
-  LmodError( 'The environment variable LUMITEST_ROOT is not found but needed to find the components of the LUMI prototype.' )
-end
+local root =      'LUMITEST_ROOT'
 
 whatis( 'Description: Enables the software stacks for the LUMI_PARTITION partition.' )
 
