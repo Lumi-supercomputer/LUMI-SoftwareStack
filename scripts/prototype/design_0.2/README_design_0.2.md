@@ -363,29 +363,3 @@ the software and modules:
     rather than simply use different modules in a single LUMIpartition
     family).
 
-## Problems with any of the 0.1 design variants
-
-  * Design 0.1 still mostly uses the Cray TCL modules which is not the logical
-    thing to do if we will rely on LMOD. The TCL module scheme from Cray is a
-    flat scheme which makes it very easy to just link the relevant modules
-    in a local tree so that a user of a particular toolchain is only confronted
-    with those modules that are relevant for the selected version of the LUMI
-    software stack and so that these modules can be put together in a minimal
-    number of directories to reduce clutter on the screen when using
-    ``module avail``. The LMOD version of the scheme is a very hierarchical
-    one with even more level than one would expect: Core - Compiler -
-    transport library - MPI and it probably even doesn't end there. This needs
-    more exploration. Due to the way the LMOD modules are written they cannot
-    be easily transported to a different directory.
-  * We used variables to communicate between different layers of the hierarchy
-    which is very difficult to get right because it turns out that LMOD loads
-    and unloads modules in a very unexpected order when changing modules at
-    a lower level of the hierarchy. This will have to be changed to a templated
-    design relying on a preprocessor.
-  * We did make PrgEnv-* modules to load the Cray programming environment (though
-    not yet with all modules in the correct version). However, switching from, e.g.,
-    the GNU to the Cray compiler by simply loading PrgEnv-cray which would notice
-    that it is from the same family as PrgEnv-gnu doesn't work due to the strange
-    order in which loads and unloads happen. There was a conflict between the
-    ``cpe-gnu`` and ``cpe-cray`` modules and this is the consequence of using the
-    TCL-based modules.
