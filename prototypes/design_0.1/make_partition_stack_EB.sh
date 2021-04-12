@@ -105,3 +105,8 @@ done
 #
 # Instructions for the MODULEPATH etc
 #
+cat <<EOF
+To enable prototype partion_stack_EB version $version, add the followin directory
+to the MOUDLEPATH:
+$HOME/appltest/design_$version/partition_stack_EB/modules/LUMIpartition
+EOF

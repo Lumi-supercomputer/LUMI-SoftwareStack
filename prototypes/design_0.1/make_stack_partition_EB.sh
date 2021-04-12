@@ -94,3 +94,8 @@ done
 #
 # Instructions for the MODULEPATH etc
 #
+cat <<EOF
+To enable prototype stack_partition_EB version $version, add the followin directory
+to the MOUDLEPATH:
+$HOME/appltest/design_$version/stack_partition_EB/modules/SoftwareStack
+EOF
