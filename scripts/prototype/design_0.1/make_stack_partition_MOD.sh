@@ -1,9 +1,9 @@
 #! /bin/bash
 
 version="0.1"
-testroot="/home/klust/appltest/design_$version/stack_partition_MOD"
+testroot="$HOME/appltest/design_$version/stack_partition_MOD"
 
-PATH=/home/klust/LUMI-easybuild/scripts:/home/klust/LUMI-easybuild/scripts/prototype/design_$version:$PATH
+PATH=$HOME/LUMI-easybuild/scripts:$HOME/LUMI-easybuild/scripts/prototype/design_$version:$PATH
 
 create_link () {
 
