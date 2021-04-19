@@ -180,6 +180,9 @@ the software and modules:
 
 -   The system sets an environment variable LUMI_PARTITION with value
     LUMI-C, LUMI-G, LUMI-D or LUMI-L depending on the node type.
+    This is used by the SoftwareStack module to then auto-load the
+    module for the current partition when it is loaded.
+
 
 ### Default behaviour when loading modules
 
@@ -331,6 +334,7 @@ the software and modules:
 
 -   The system sets an environment variable LUMI_PARTITION with value
     LUMI-C, LUMI-G, LUMI-D or LUMI-L depending on the node type.
+    The system also loads the matching partition module by default.
 
 ### Default behaviour when loading modules
 

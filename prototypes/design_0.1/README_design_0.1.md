@@ -166,6 +166,8 @@ the software and modules:
 
 -   The system sets an environment variable LUMI_PARTITION with value
     LUMI-C, LUMI-G, LUMI-D or LUMI-L depending on the node type.
+    This is used by the SoftwareStack module to then auto-load the
+    module for the current partition when it is loaded.
 
 ### Default behaviour when loading modules
 
@@ -323,6 +325,7 @@ the software and modules:
 
 -   The system sets an environment variable LUMI_PARTITION with value
     LUMI-C, LUMI-G, LUMI-D or LUMI-L depending on the node type.
+    The system also loads the matching partition module by default.
 
 ### Default behaviour when loading modules
 
@@ -359,11 +362,11 @@ the software and modules:
 
   * Design 0.1 still mostly uses the Cray TCL modules which is not the logical
     thing to do if we will rely on LMOD. The TCL module scheme from Cray is a
-    flat scheme which makes it very easy to just link the relevant modules 
+    flat scheme which makes it very easy to just link the relevant modules
     in a local tree so that a user of a particular toolchain is only confronted
     with those modules that are relevant for the selected version of the LUMI
     software stack and so that these modules can be put together in a minimal
-    number of directories to reduce clutter on the screen when using 
+    number of directories to reduce clutter on the screen when using
     ``module avail``. The LMOD version of the scheme is a very hierarchical
     one with even more level than one would expect: Core - Compiler -
     transport library - MPI and it probably even doesn't end there. This needs
@@ -378,6 +381,6 @@ the software and modules:
     not yet with all modules in the correct version). However, switching from, e.g.,
     the GNU to the Cray compiler by simply loading PrgEnv-cray which would notice
     that it is from the same family as PrgEnv-gnu doesn't work due to the strange
-    order in which loads and unloads happen. There was a conflict between the 
+    order in which loads and unloads happen. There was a conflict between the
     ``cpe-gnu`` and ``cpe-cray`` modules and this is the consequence of using the
-    TCL-based modules.  
+    TCL-based modules.

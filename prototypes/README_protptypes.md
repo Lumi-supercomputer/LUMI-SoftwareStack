@@ -13,6 +13,14 @@
   * The prototype does contain some dummy modules to test the process of finding software.
 
 
+## Design 0.3
+
+  * Design 0.2 is robust but it requires generating the software stack and partition
+    modules by preprocessing templates. In design 0.3 we seek to avoid this by using
+    the Lmod introspection functions, but this requires a different way of setting
+    up the module structure to be compatible with the way Lmod handles a module hierarchy.
+
+
 ## Experimenting with the prototypes
 
   * Make sure lmod and gpp are installed. gpp is needed from design 0.2 on.
