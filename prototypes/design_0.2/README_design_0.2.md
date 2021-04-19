@@ -1,6 +1,6 @@
 # Design 0.2 of the module system
 
-Changes compared to design 0,1:
+Changes compared to design 0.1:
 
   * We rely on the Cray LMOD modules for the programming environment
     and don't try to copy those to our own directory structures as
