@@ -118,7 +118,7 @@ empty_module_EB.sh GSL 2.5 "cpeCCE-$stack" "" $(software_root $stack L) $(module
 # Instructions for the MODULEPATH etc
 #
 cat <<EOF
-To enable prototype partion_stack_EB version $version, add the followin directory
+To enable prototype partion_stack_EB version $version, add the following directory
 to the MOUDLEPATH:
 $HOME/appltest/design_$version/partition_stack_EB/modules/LUMIpartition
 EOF

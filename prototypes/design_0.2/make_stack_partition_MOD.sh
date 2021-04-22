@@ -82,7 +82,6 @@ do
   # Populate the LUMIpartition directory for this version of the LUMI software stack
   for partition in C G D L
   do
-  	# Need to replace this by generated modules.
   	generate_mod $modsrc/stack_partition/LUMI-partition.MOD.tmpl.lua $moddest/LUMI-$stack/LUMIpartition/LUMI-$partition.lua "LUMI-$partition" "$stack" "$testroot"
   done
 
@@ -123,7 +122,7 @@ empty_module_EB.sh GSL 2.5 "cpeCCE-$stack" "" $(software_root $stack L) $(module
 # Instructions for the MODULEPATH etc
 #
 cat <<EOF
-To enable prototype stack_partition_MOD version $version, add the followin directory
+To enable prototype stack_partition_MOD version $version, add the following directory
 to the MOUDLEPATH:
 $HOME/appltest/design_$version/stack_partition_MOD/modules/SoftwareStack
 EOF
