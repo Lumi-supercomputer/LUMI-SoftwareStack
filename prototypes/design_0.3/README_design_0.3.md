@@ -6,6 +6,11 @@ Changes compared to design 0.2:
     modules by preprocessing templates. In design 0.3 we seek to avoid this by using
     the Lmod introspection functions, but this requires a different way of setting
     up the module structure to be compatible with the way Lmod handles a module hierarchy.
+  * As we ran into problems with the module ``LUMIpartition/L.lua`` where the Lmod
+    ``hierarchyA`` function got confused and provided different results than if the
+    module were called ``LUMIpartition/C.lua``, we decided to rework some of the names
+    and simply use, e.g., ``partition`` for the module name even if that may cause
+    confusion with SLURM partitions.
 
 Changes compared to design 0.1:
 
@@ -38,24 +43,35 @@ Directory hierarchy
 
     -   modules
 
+        -   generic: A directory where we store the generic implementations of some
+            of the modules below and link to. This directory should not be in the
+            MODULEPATH! Note that in the prototype we actually link to the git
+            repository to make editing easier. In the real situation this would be
+            copies to avoid accidental changes.
+
         -   SoftwareStack: A module file that enables the default Cray
             environment, and one for each of our LUMI software stacks,
             of the form ``LUMI/version.lua``.
 
-        -   LUMIpartition/LUMI/yy.mm: The next level in the hierarchy. It contains modules by
+        -   SystemPartition/LUMI/yy.mm: The next level in the hierarchy. It contains modules by
             LUMI SoftwareStack to enable the different partitions. Structure:
-            -   The modules are called ``LUMIpartition/C.lua`` etc.
+            -   The modules are called ``partition/C.lua`` etc.
+
+                *We could not use LUMIpartition as this lead to problems with the Lmod
+                ``hierachyA`` function which produced wrong results for ``LUMIpartition/L.lua``
+                but not for ``LUMIpartition/C.lua`` even though both modules had identical
+                code.*
             -   Modules for the ``LUMI/yy.mm`` software stack are in
                 ``LUMIpartition/LUMI/yy.mm``.
 
-        -   easybuild/LUMI/yy.mm/LUMIpartition/part: Directory for the EasyBuild-generated
+        -   easybuild/LUMI/yy.mm/partition/part: Directory for the EasyBuild-generated
             modules for the ``LUMI/yy.mm`` software stack for the ``LUMI-part``
             partition (``part`` actually being a single letter)
 
-        -   spack/LUMI/yy.mm/LUMIpartition/part: Similar as the above, but for
+        -   spack/LUMI/yy.mm/partition/part: Similar as the above, but for
             Spack-installed software.
 
-        -   manual/LUMI/yy.mm/LUMIpartition/part: Similar as the above, but for
+        -   manual/LUMI/yy.mm/partition/part: Similar as the above, but for
             manually installed software.
 
     -   software : This is for the actual binaries, lib directories etc.
@@ -85,13 +101,13 @@ Directory hierarchy
 
             -   LUMI-21.02
 
-                -   LUMI-L
+                -   LUMI-C
+
+                -   LUMI-G
 
                 -   LUMI-D
 
-                -   LUMI-C
-
-                -   LUMI-O
+                -   LUMI-L
 
     -   github: GitHub repository with all managed files
 
@@ -148,7 +164,7 @@ Directory hierarchy
 
 -   Since we want to use ``hierarchyA`` in a consistent manner in the modules, we only
     uses modules with a name of the form ``name/version`` so we no longer use the
-    ``LUMI-C`` etc.  modules to switch partion.
+    ``LUMI-C`` etc.  modules to switch partition.
 
 
 ## Hierarchy with the partition first, software stack second, flat otherwise - Prototype make_partition_stack
@@ -165,23 +181,29 @@ Directory hierarchy
 
     -   modules
 
-        -   LUMIpartition: Modules to adapt the module path for a
-            partition. The modules have a name in the form
-            ``LUMIpartition/part.lua``(so ``/appl/modules/LUMIpartition/LUMIpartition/part.lua``,
-            and with ``part`` a single letter denoting the partion.)
+        -   generic: A directory where we store the generic implementations of some
+            of the modules below and link to. This directory should not be in the
+            MODULEPATH! Note that in the prototype we actually link to the git
+            repository to make editing easier. In the real situation this would be
+            copies to avoid accidental changes.
 
-        -   SoftwareStack/LUMIpartition/part: The next level of the hierarchy. It contains
+        -   SystemPartition: Modules to adapt the module path for a
+            partition. The modules have a name in the form
+            ``partition/part.lua``(so ``/appl/modules/SystemPartition/partition/part.lua``,
+            and with ``part`` a single letter denoting the partition.)
+
+        -   SoftwareStack/partition/part: The next level of the hierarchy. It contains
             modules by LUMI partition for all software stacks provided. The modules
             for the LUMI software stack are called ``LUMI/yy.mm.lua``.
 
-        -   easybuild/LUMIpartition/part/LUMI/yy.mm: Directory for the EasyBuild-generated
+        -   easybuild/partition/part/LUMI/yy.mm: Directory for the EasyBuild-generated
             modules for the ``LUMI/yy.mm`` software stack for the ``LUMI-part``
             partition (``part`` actually being a single letter)
 
-        -   spack/LUMIpartition/part/LUMI/yy.mm: Similar as the above, but for
+        -   spack/partition/part/LUMI/yy.mm: Similar as the above, but for
             Spack-installed software.
 
-        -   manual/LUMIpartition/part/LUMI/yy.mm: Similar as the above, but for
+        -   manual/partition/part/LUMI/yy.mm: Similar as the above, but for
             manually installed software.
 
     -   software
@@ -251,5 +273,5 @@ Directory hierarchy
 
 -   Since we want to use ``hierarchyA`` in a consistent manner in the modules, we only
     uses modules with a name of the form ``name/version`` so we no longer use the
-    ``LUMI-C`` etc.  modules to switch partion.
+    ``LUMI-C`` etc.  modules to switch partition.
 
