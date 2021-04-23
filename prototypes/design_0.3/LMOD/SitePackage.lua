@@ -42,7 +42,7 @@ local mapT =
         ['cray/pe/.*/comnet']              = 'HPE-Cray PE MPI libraries',
         ['cray/pe/.*/mpi']                 = 'HPE-Cray PE MPI-dependent libraries',
         -- The next one doesn't seem to be implemented on the Grenoble nodes
-        ['cray/pe/craype']                 = 'HPE-Cray PE compiler drivers',
+        ['cray/pe/craype']                 = 'HPE-Cray PE compiler wrappers',
         -- Likely only on the Grenoble system?
         ['/usr/share/Modules/modulefiles'] = 'Non-PE HPE-Cray modules',
         ['/usr/share/modulefiles']         = 'Non-PE HPE-Cray modules',
@@ -64,7 +64,7 @@ local mapT =
         ['cray/pe/.*/comnet']              = 'HPE-Cray PE MPI libraries',
         ['cray/pe/.*/mpi']                 = 'HPE-Cray PE MPI-dependent libraries',
         -- The next one doesn't seem to be implemented on the Grenoble nodes
-        ['cray/pe/craype']                 = 'HPE-Cray PE compiler drivers',
+        ['cray/pe/craype']                 = 'HPE-Cray PE compiler wrappers',
         -- Likely only on the Grenoble system?
         ['/usr/share/Modules/modulefiles'] = 'Non-PE HPE-Cray modules',
         ['/usr/share/modulefiles']         = 'Non-PE HPE-Cray modules',
