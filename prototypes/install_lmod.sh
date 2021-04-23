@@ -2,7 +2,7 @@
 
 lua_version=5.1.4.9
 tcl_version=8.4.20
-lmod_version=8.4.30
+lmod_version=8.4.31
 
 # Just to be sure, add the binary directory to the PATH.
 PATH=$HOME/appl/bin:$PATH
