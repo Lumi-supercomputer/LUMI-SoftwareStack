@@ -118,6 +118,8 @@ create_link     "$modsrc/CrayEnv.lua"                       "$moddest/SoftwareSt
 #
 # Now build some demo modules
 #
+# - First modules that mimic EasyBuild
+#
 # Both functions take two arguments: The software stack version and LUMI partition letter (in that order)
 #
 function software_root () {
@@ -149,6 +151,25 @@ empty_module_EB.sh GSL 2.5 "cpeGNU-$stack" "" $(software_root $stack D) $(module
 empty_module_EB.sh GSL 2.5 "cpeCCE-$stack" "" $(software_root $stack D) $(module_root $stack D)
 empty_module_EB.sh GSL 2.5 "cpeGNU-$stack" "" $(software_root $stack L) $(module_root $stack L)
 empty_module_EB.sh GSL 2.5 "cpeCCE-$stack" "" $(software_root $stack L) $(module_root $stack L)
+
+#
+# - Next modules that mimic Spack
+#
+function software_root () {
+    echo "$testroot/software/LUMI-$1/LUMI-$2/spack"
+}
+
+function module_root () {
+    echo "$testroot/modules/spack/LUMI/$1/partition/$2"
+}
+
+stack="21.02"
+empty_module_Spack.sh lammps 3Mar2020 "" ""    $(software_root $stack C) $(module_root $stack C)
+empty_module_Spack.sh lammps 3Mar2020 "" "GPU" $(software_root $stack G) $(module_root $stack G)
+
+stack="21.03"
+empty_module_Spack.sh cp2k   7.1      "" ""    $(software_root $stack C) $(module_root $stack C)
+empty_module_Spack.sh cp2k   7.1      "" "GPU" $(software_root $stack G) $(module_root $stack G)
 
 #
 # Instructions for the MODULEPATH etc

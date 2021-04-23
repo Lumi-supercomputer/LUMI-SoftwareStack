@@ -24,8 +24,10 @@ module_name=$1
 if [ "$4" = "" ]
 then
 	module_version="$2-$3"
+	module_short_version="$2"
 else
 	module_version="$2-$3-$4"
+	module_short_version="$2-$4"
 fi
 
 #
@@ -36,7 +38,7 @@ mkdir -p "$software_dir/bin"
 cat >"$software_dir/bin/hello_$module_name" <<EOF
 #! /bin/bash
 
-echo "Hello from the EasyBuild $module_name/$module_version"
+echo "Hello from the Spack $module_name/$module_version"
 EOF
 chmod a+x "$software_dir/bin/hello_$module_name"
 
@@ -44,37 +46,25 @@ chmod a+x "$software_dir/bin/hello_$module_name"
 # Create a sample module file
 #
 module_dir="$module_root/$module_name"
-module_file="$module_dir/$module_version.lua"
+module_file="$module_dir/$module_short_version.lua"
 mkdir -p "$module_dir"
 cat >"$module_file" <<EOF
-whatis("Description: $module_name/$module_version is an EasyBuild demo module for the LUMI prototype.")
-help([==[
+whatis([[Name : $module_name]])
+whatis([[Version : $module_short_version]])
+whatis([[Sort description : $module_name/$module_version is a Spack demo module for the LUMI prototype.]])
 
-Description
-===========
+help([[
 This is really just an empty demo module to demonstrate what the module tree on
 LUMI could be like and how software could be found.
 
-This module mimics the internal structure of an EasyBuild-generated module file.
-
-
-Usage
-=====
-This module does provide the hello_$module_name command and sets a number of
-variables that EasyBuild would also set.
-
-
-More information
-================
- - Homepage: https://www.lumi-supercomputer.eu/
-]==])
+This module mimics the internal structure of a Spack-generated module file.
+]])
 
 local root = "$software_dir"
 
 conflict("$module_name")
 
 prepend_path("PATH", pathJoin(root, "bin"))
-setenv("EBROOT${module_name^^}", "root")
-setenv("EBVERSION${module_name^^}", $2)
--- Not built with EasyBuild
+
+setenv("${module_name^^}_INSTALL_ROOT", root)
 EOF

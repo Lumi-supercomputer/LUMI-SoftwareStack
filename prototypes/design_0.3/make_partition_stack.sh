@@ -144,6 +144,25 @@ empty_module_EB.sh GSL 2.5 "cpeGNU-$stack" "" $(software_root $stack L) $(module
 empty_module_EB.sh GSL 2.5 "cpeCCE-$stack" "" $(software_root $stack L) $(module_root $stack L)
 
 #
+# - Next modules that mimic Spack
+#
+function software_root () {
+    echo "$testroot/software/LUMI-$2/LUMI-$1/spack"
+}
+
+function module_root () {
+    echo "$testroot/modules/spack/partition/$2/LUMI/$1"
+}
+
+stack="21.02"
+empty_module_Spack.sh lammps 3Mar2020 "" ""    $(software_root $stack C) $(module_root $stack C)
+empty_module_Spack.sh lammps 3Mar2020 "" "GPU" $(software_root $stack G) $(module_root $stack G)
+
+stack="21.03"
+empty_module_Spack.sh cp2k   7.1      "" ""    $(software_root $stack C) $(module_root $stack C)
+empty_module_Spack.sh cp2k   7.1      "" "GPU" $(software_root $stack G) $(module_root $stack G)
+
+#
 # Instructions for the MODULEPATH etc
 #
 cat <<EOF
