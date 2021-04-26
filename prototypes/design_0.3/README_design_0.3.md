@@ -30,6 +30,9 @@ Changes compared to design 0.2:
     of searching for certain software, and providing more human-readable labels to
     the blocks in the output of ``module avail``.
 
+  * Also experimented with a modulerc.lua file for the partitions to show version aliases with
+    more meaningful but longer names.
+
 Changes compared to design 0.1:
 
   * We rely on the Cray LMOD modules for the programming environment

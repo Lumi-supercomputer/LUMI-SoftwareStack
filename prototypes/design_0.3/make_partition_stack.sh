@@ -84,6 +84,7 @@ modsrc="$testroot/github/prototypes/design_$version/modules/partition_stack"
 moddest="$testroot/modules/generic"
 create_link $modsrc/LUMIstack/version.lua             $moddest/LUMIstack/version.lua
 create_link $modsrc/LUMIpartition/partitionletter.lua $moddest/LUMIpartition/partitionletter.lua
+create_link $modsrc/LUMIpartition/modulerc.lua        $moddest/LUMIpartition/modulerc.lua
 create_link $modsrc/CrayEnv.lua                       $moddest/CrayEnv.lua
 
 #
@@ -91,6 +92,7 @@ create_link $modsrc/CrayEnv.lua                       $moddest/CrayEnv.lua
 #
 modsrc="$testroot/modules/generic"
 moddest="$testroot/modules"
+create_link     "$modsrc/LUMIpartition/modulerc.lua"        "$moddest/SystemPartition/partition/.modulerc.lua"
 for partition in C G D L
 do
 

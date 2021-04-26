@@ -5,6 +5,13 @@ end
 family( 'LUMI_partition' )
 add_property("lmod","sticky")
 
+local node_description = {
+    C = 'CPU compute',
+    G = 'GPU compute',
+    D = 'data and visualisation',
+    L = 'login',
+}
+
 local module_root = os.getenv( 'LMOD_MODULE_ROOT')
 if module_root == nil then
   LmodError( 'The environment variable LMOD_MODULE_ROOT is not found but needed to find the components of the LUMI prototype.' )
@@ -18,13 +25,13 @@ local stack_name_version = hierarchy[1]
 
 local partition = myModuleVersion()
 
-whatis( 'Description: Enables the software stacks for the LUMI-' .. partition .. ' partition.' )
+whatis( 'Description: ' .. myModuleFullName() .. ' enables the ' .. stack_name_version .. ' software stack for the LUMI-' .. partition .. ' (' .. node_description[partition] .. ') partition.' )
 
 help( [[
 
 Description
 ===========
-Enables the software stacks for the LUMI-]] .. partition .. [[ partition.
+Enables the ]] .. stack_name_version .. [[ software stack for the LUMI-]] .. partition .. [[ (]] .. node_description[partition] .. [[) partition.
 
 This module will be loaded automatically when logging in to the node based
 on the hardware of the node. Replace with a different version at your own
