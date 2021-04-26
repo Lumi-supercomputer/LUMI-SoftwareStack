@@ -3,7 +3,7 @@ if os.getenv( '_LUMI_LMOD_DEBUG' ) ~= nil then
 end
 
 family( 'LUMI_partition' )
--- add_property("lmod","sticky")
+add_property("lmod","sticky")
 
 local module_root = os.getenv( 'LMOD_MODULE_ROOT' )
 if module_root == nil then
@@ -31,3 +31,7 @@ setenv( 'LUMI_OVERWRITE_PARTITION', 'LUMI-' .. partition )
 
 prepend_path( 'MODULEPATH', pathJoin( module_root, 'modules', 'SoftwareStack', 'partition', partition ) )
 
+if os.getenv( '_LUMI_LMOD_DEBUG' ) ~= nil then
+  local modulepath = os.getenv( 'MODULEPATH' ):gsub( ':', '\n' )
+  LmodMessage( 'DEBUG: The MODULEPATH before exiting ' .. myModuleFullName() .. ' (mode ' .. mode() .. ') is:\n' .. modulepath .. '\n' )
+end

@@ -122,6 +122,8 @@ create_link     "$modsrc/CrayEnv.lua"                       "$moddest/SoftwareSt
 #
 # Both functions take two arguments: The software stack version and LUMI partition letter (in that order)
 #
+# - First modules that mimic EasyBuild
+#
 function software_root () {
     echo "$testroot/software/LUMI-$1/LUMI-$2/easybuild"
 }
@@ -170,6 +172,46 @@ empty_module_Spack.sh lammps 3Mar2020 "" "GPU" $(software_root $stack G) $(modul
 stack="21.03"
 empty_module_Spack.sh cp2k   7.1      "" ""    $(software_root $stack C) $(module_root $stack C)
 empty_module_Spack.sh cp2k   7.1      "" "GPU" $(software_root $stack G) $(module_root $stack G)
+
+#
+# - Next modules that mimic manual installs
+#
+function software_root () {
+    echo "$testroot/software/LUMI-$1/LUMI-$2/manual"
+}
+
+function module_root () {
+    echo "$testroot/modules/manual/LUMI/$1/partition/$2"
+}
+
+stack="21.02"
+empty_module_MN.sh Gaussian  g16_a03-avx2 $(software_root $stack C) $(module_root $stack C)
+
+stack="21.03"
+empty_module_MN.sh Gaussian  g16_c01-avx2 $(software_root $stack C) $(module_root $stack C)
+
+#
+# - Install some dummy Python3 modules to demonstrate the use of extensions in LMOD
+#
+function software_root () {
+    echo "$testroot/software/LUMI-$1/LUMI-$2/easybuild"
+}
+
+function module_root () {
+    echo "$testroot/modules/easybuild/LUMI/$1/partition/$2"
+}
+
+stack="21.02"
+Python3_module_EB.sh "3.8.2" "cpeCCE-$stack" "1.19.3" "1.5.4" $(software_root $stack C) $(module_root $stack C)
+Python3_module_EB.sh "3.8.2" "cpeCCE-$stack" "1.19.3" "1.5.4" $(software_root $stack G) $(module_root $stack G)
+Python3_module_EB.sh "3.8.2" "cpeCCE-$stack" "1.19.3" "1.5.4" $(software_root $stack D) $(module_root $stack D)
+Python3_module_EB.sh "3.8.2" "cpeCCE-$stack" "1.19.3" "1.5.4" $(software_root $stack L) $(module_root $stack L)
+
+stack="21.03"
+Python3_module_EB.sh "3.9.4" "cpeCCE-$stack" "1.20.2" "1.6.3" $(software_root $stack C) $(module_root $stack C)
+Python3_module_EB.sh "3.9.4" "cpeCCE-$stack" "1.20.2" "1.6.3" $(software_root $stack G) $(module_root $stack G)
+Python3_module_EB.sh "3.9.4" "cpeCCE-$stack" "1.20.2" "1.6.3" $(software_root $stack D) $(module_root $stack D)
+Python3_module_EB.sh "3.9.4" "cpeCCE-$stack" "1.20.2" "1.6.3" $(software_root $stack L) $(module_root $stack L)
 
 #
 # Instructions for the MODULEPATH etc

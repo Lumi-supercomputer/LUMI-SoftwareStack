@@ -3,7 +3,7 @@ if os.getenv( '_LUMI_LMOD_DEBUG' ) ~= nil then
 end
 
 family( 'LUMI_SoftwareStack' )
--- add_property("lmod","sticky")
+add_property("lmod","sticky")
 
 local module_root = os.getenv( 'LMOD_MODULE_ROOT' )
 if module_root == nil then
