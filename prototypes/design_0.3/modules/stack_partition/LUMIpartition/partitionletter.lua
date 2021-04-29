@@ -40,7 +40,7 @@ this module may work on this partition.
 This module is loaded automatically when loading a software stack based on the
 ]] )
 
-setenv( 'LUMI_OVERWRITE_PARTITION', 'LUMI-' .. partition )
+setenv( 'LUMI_OVERWRITE_PARTITION', partition )
 
 -- The Cray modules, may be possible to only activate them once PrgEnv-* is loaded
 prepend_path( 'MODULEPATH', '/opt/cray/pe/lmod/modulefiles/core' )

@@ -33,6 +33,10 @@ Changes compared to design 0.2:
   * Also experimented with a modulerc.lua file for the partitions to show version aliases with
     more meaningful but longer names.
 
+  * Added an admin.list file to demo how a user could be warned of deprecated modules.
+
+  * Moved from LUMI-C etc. to C, G, D or L for the LUMI_PARTITION environment variable.
+
 Changes compared to design 0.1:
 
   * We rely on the Cray LMOD modules for the programming environment
@@ -145,7 +149,8 @@ Directory hierarchy
 ### Assumptions
 
   * The system sets an environment variable LUMI_PARTITION with value
-    LUMI-C, LUMI-G, LUMI-D or LUMI-L depending on the node type.
+    C, G, D or L depending on the node type (CPU compute, GPU compute,
+    data and visualisation, login).
     This is used by the SoftwareStack module to then auto-load the
     module for the current partition when it is loaded.
 
@@ -261,7 +266,8 @@ Directory hierarchy
 ### Assumptions
 
   * The system sets an environment variable LUMI_PARTITION with value
-    LUMI-C, LUMI-G, LUMI-D or LUMI-L depending on the node type.
+    C, G, D or L depending on the node type (CPU compute, GPU compute,
+    data and visualisation, login).
     The system also loads the matching partition module by default.
 
 

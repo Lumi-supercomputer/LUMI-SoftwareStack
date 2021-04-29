@@ -1,5 +1,5 @@
 if os.getenv( '_LUMI_LMOD_DEBUG' ) ~= nil then
-  LmodMessage( 'DEBUG: ' .. myModuleFullName() .. ', mode ' .. mode() )
+    LmodMessage( 'DEBUG: ' .. myModuleFullName() .. ', mode ' .. mode() )
 end
 
 family( 'LUMI_SoftwareStack' )
@@ -7,7 +7,7 @@ add_property("lmod","sticky")
 
 local module_root = os.getenv( 'LMOD_MODULE_ROOT')
 if module_root == nil then
-  LmodError( 'The environment variable LMOD_MODULE_ROOT is not found but needed to find the components of the LUMI prototype.' )
+    LmodError( 'The environment variable LMOD_MODULE_ROOT is not found but needed to find the components of the LUMI prototype.' )
 end
 
 local stack_name    = myModuleName()
@@ -15,9 +15,8 @@ local stack_version = myModuleVersion()
 
 local partition     = os.getenv( 'LUMI_PARTITION' )
 if partition == nil then
-  LmodError( 'The environment variable LUMI_PARTITION which should be set by the default login environment is not found.' )
+    LmodError( 'The environment variable LUMI_PARTITION which should be set by the default login environment is not found.' )
 end
-partition = partition:gsub( 'LUMI%-', '')
 
 whatis( 'Enables the LUMI-' .. stack_version .. ' software stack for the current partition.' )
 
@@ -42,6 +41,6 @@ setenv( 'LUMI_STACK_NAME_VERSION', stack_name .. '/' .. stack_version )
 load( 'partition/' .. partition )
 
 if os.getenv( '_LUMI_LMOD_DEBUG' ) ~= nil then
-  local modulepath = os.getenv( 'MODULEPATH' ):gsub( ':', '\n' )
-  LmodMessage( 'DEBUG: The MODULEPATH before exiting ' .. myModuleFullName() .. ' (mode ' .. mode() .. ') is:\n' .. modulepath .. '\n' )
+    local modulepath = os.getenv( 'MODULEPATH' ):gsub( ':', '\n' )
+    LmodMessage( 'DEBUG: The MODULEPATH before exiting ' .. myModuleFullName() .. ' (mode ' .. mode() .. ') is:\n' .. modulepath .. '\n' )
 end
