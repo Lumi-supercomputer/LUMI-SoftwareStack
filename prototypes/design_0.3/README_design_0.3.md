@@ -30,12 +30,24 @@ Changes compared to design 0.2:
     of searching for certain software, and providing more human-readable labels to
     the blocks in the output of ``module avail``.
 
+  * We also added the detect_LUMI_partition function to SitePackage.lua to take the
+    code to detect on which LUMI partition we are running out of the module files so
+    that we can change it more easily to something more robust.
+
   * Also experimented with a modulerc.lua file for the partitions to show version aliases with
     more meaningful but longer names.
 
   * Added an admin.list file to demo how a user could be warned of deprecated modules.
 
   * Moved from LUMI-C etc. to C, G, D or L for the LUMI_PARTITION environment variable.
+
+  * We ensure that ``module reload`` works correctly in both variants, with this special
+    property:
+      * In the stack-partition version, the reload will cause a switch to the partition
+        module for the node on which the module reload is executed.
+      * In the partition-stack variant with partition/auto loaded, a ``module reload``
+        will reload with the software stacks activated for the partition on which the
+        ``module reload`` was executed.
 
 Changes compared to design 0.1:
 
@@ -162,7 +174,8 @@ Directory hierarchy
       * For those software stack modules that further split up according
         to partition (the LUMI/yy.mm modules), the relevant partition
         module will be loaded automatically when loading the software
-        stack.
+        stack. This is based on the partition detected by the
+        detect_LUMI_partition function defined in SitePackage.lua.
 
   *  In this variant of the desing, we made the SoftwareStack and LUMIpartition
      modules sticky so that once loaded a user can use ``module purge`` if they
@@ -191,6 +204,13 @@ Directory hierarchy
   * Since we want to use ``hierarchyA`` in a consistent manner in the modules, we only
     uses modules with a name of the form ``name/version`` so we no longer use the
     ``LUMI-C`` etc.  modules to switch partition.
+
+  * The module tree should work correctly with "module reload". However, if the partition has
+    changed, the result will actually be that the right partition module will be loaded
+    during the reload. This is probably the preferred behaviour to protect the user
+    from mistakes. This makes ``module reload`` at the start of a job script a usable
+    option to ensure that all paths and variables that are set by module files are
+    also set correctly.
 
 
 ## Hierarchy with the partition first, software stack second, flat otherwise - Prototype make_partition_stack
