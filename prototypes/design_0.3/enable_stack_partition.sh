@@ -5,6 +5,7 @@ testroot="$HOME/appltest/design_$version/stack_partition"
 
 partition='L'
 
+echo "module --force purge ; "
 echo "export MODULEPATH=$testroot/modules/SoftwareStack ; "
 echo "export LMOD_MODULE_ROOT=$testroot ; "
 echo "export LMOD_PACKAGE_PATH=$testroot/github/prototypes/design_$version/LMOD ; "
