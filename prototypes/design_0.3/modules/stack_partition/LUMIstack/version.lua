@@ -13,9 +13,9 @@ end
 local stack_name    = myModuleName()
 local stack_version = myModuleVersion()
 
-local partition     = os.getenv( 'LUMI_PARTITION' )
+local partition     = detect_LUMI_partition()
 if partition == nil then
-    LmodError( 'The environment variable LUMI_PARTITION which should be set by the default login environment is not found.' )
+    LmodError( 'Failed to detect the LUMI partition, something must be messed up pretty badly.' )
 end
 
 whatis( 'Enables the LUMI-' .. stack_version .. ' software stack for the current partition.' )

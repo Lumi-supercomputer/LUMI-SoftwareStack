@@ -2,10 +2,11 @@
 -- available for the current partition.
 --
 -- Note that for this to work also with, e.g., module reload at the start of a
--- Slurm job, where LUMI_PARTITION may have changed, we need to be very careful
+-- Slurm job, where we may be in a different partition, we need to be very careful
 -- when unloading the module to ensure that the right paths get removed as we
 -- cannot rely on the position of this module in the hierarchy nor on the
--- value of LUMI_PARTITION. We know however that the module when loading will
+-- value of LUMI_PARTITION or any other way to detect in which partition the module
+-- command was executed. We know however that the module when loading will
 -- add a subdirectory of moduleroot ..'/modules/SoftwareStack/partition to the
 -- MODULEPATH so we look for that string instead to detect the partition that was
 -- used when loading the module.
@@ -58,12 +59,12 @@ if mode() == "unload" then
 elseif mode() == "load" then
 
     if os.getenv( '_LUMI_LMOD_DEBUG' ) ~= nil then
-        LmodMessage( 'DEBUG: ' .. myModuleFullName() .. ', loading and detecting partition from LUMI_PARTITION' )
+        LmodMessage( 'DEBUG: ' .. myModuleFullName() .. ', loading and detecting partition from dtect_LUMI_partition' )
     end
 
-    partition = os.getenv( 'LUMI_PARTITION' )
+    partition = detect_LUMI_partition()
     if partition == nil then
-        LmodError( 'The environment variable LUMI_PARTITION which should be set by the default login environment is not found.' )
+        LmodError( 'Failed to detect the correct LUMI partition.' )
     end
 
 else

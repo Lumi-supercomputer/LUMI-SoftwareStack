@@ -1,8 +1,18 @@
 -- LUMI Lmod customizations
 
 require("strict")
+local os = require("os")
 local dbg  = require("Dbg"):dbg()
 local hook = require("Hook")
+require("sandbox")
+
+-- -----------------------------------------------------------------------------
+-- -----------------------------------------------------------------------------
+--
+-- LMOD hooks
+--
+-- -----------------------------------------------------------------------------
+-- -----------------------------------------------------------------------------
 
 --
 -- SiteName hook, used by Lmod in variable names.
@@ -28,10 +38,10 @@ local mapT =
     sp_labeled = {
         ['/testview$']                     = 'Activate environments',
         ['modules/SoftwareStack$']         = 'Software stacks',
-        ['modules/SystemPartition/']       = 'LUMI partitions for the loaded stack',
-        ['modules/easybuild/']             = 'EasyBuild managed software for the loaded stack/partition',
-        ['modules/spack/']                 = 'Spack managed software for the loaded stack/partition',
-        ['modules/manual/']                = 'Manually installed software for the loaded stack/partition',
+        ['modules/SystemPartition/']       = 'LUMI partitions for the software stack _STACK_',
+        ['modules/easybuild/']             = 'EasyBuild managed software for software stack _STACK_ on _PARTITION_',
+        ['modules/spack/']                 = 'Spack managed software for software stack _STACK_ on _PARTITION_',
+        ['modules/manual/']                = 'Manually installed software for software stack _STACK_ on _PARTITION_',
         ['cray/pe/.*/core']                = 'HPE-Cray PE core modules',
         ['cray/pe/.*/craype-targets']      = 'HPE-Cray PE target modules',
         ['cray/pe/.*/perftools']           = 'HPE-Cray PE performance analysis tools',
@@ -50,10 +60,10 @@ local mapT =
     ps_labeled = {
         ['/testview$']                     = 'Activate environments',
         ['modules/SystemPartition$']       = 'LUMI partitions',
-        ['modules/SoftwareStack/']         = 'Software stacks or the loaded partition',
-        ['modules/easybuild/']             = 'EasyBuild managed software for the loaded partition/stack',
-        ['modules/spack/']                 = 'Spack managed software for the loaded partition/stack',
-        ['modules/manual/']                = 'Manually installed software for the loaded partition/stack',
+        ['modules/SoftwareStack/']         = 'Software stacks for the partition _PARTITION_',
+        ['modules/easybuild/']             = 'EasyBuild managed software for software stack _STACK_ on _PARTITION_',
+        ['modules/spack/']                 = 'Spack managed software for software stack _STACK_ on _PARTITION_',
+        ['modules/manual/']                = 'Manually installed software for software stack _STACK_ on _PARTITION_',
         ['cray/pe/.*/core']                = 'HPE-Cray PE core modules',
         ['cray/pe/.*/craype-targets']      = 'HPE-Cray PE target modules',
         ['cray/pe/.*/perftools']           = 'HPE-Cray PE performance analysis tools',
@@ -82,10 +92,16 @@ local function avail_hook(t)
         return
     end
 
+    local stack = os.getenv( 'LUMI_STACK_NAME_VERSION' )
+    if stack == nil then stack = 'unknown' end
+    local partition = os.getenv( 'LUMI_OVERWRITE_PARTITION' )
+    if partition == nil then partition = 'X' end
+    partition = 'LUMI-' .. partition
+
     for k,v in pairs(t) do
         for pat,label in pairs(styleT) do
             if (k:find(pat)) then
-                t[k] = label
+                t[k] = label:gsub( '_PARTITION_', partition ):gsub( '_STACK_', stack )
                 break
             end
         end
@@ -132,3 +148,31 @@ hook.register( "SiteName", site_name_hook )
 hook.register( "avail",    avail_hook )
 hook.register( "msgHook",  msg_hook )
 
+-- -----------------------------------------------------------------------------
+-- -----------------------------------------------------------------------------
+--
+-- LMOD additional functions
+--
+-- -----------------------------------------------------------------------------
+-- -----------------------------------------------------------------------------
+
+--
+-- Code to detect on which partition of LUMI we are.
+-- Currently this is done through the LUMI_PARTITION environment variable
+-- but this function makes it easy to adapt that code and use a different
+-- detection technique, e.g., based on the hostname, and implement the
+-- change in all module files that use this function.
+--
+-- Returns nil if it fails to detect the partition.
+--
+function detect_LUMI_partition()
+
+    local partition = os.getenv( 'LUMI_PARTITION' )
+
+    return partition
+
+end
+
+sandbox_registration{
+    ['detect_LUMI_partition']    = detect_LUMI_partition,
+}
