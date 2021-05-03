@@ -1,5 +1,5 @@
 if os.getenv( '_LUMI_LMOD_DEBUG' ) ~= nil then
-  LmodMessage( 'DEBUG: ' .. myModuleFullName() .. ', mode ' .. mode() )
+    LmodMessage( 'DEBUG: ' .. myModuleFullName() .. ', mode ' .. mode() )
 end
 
 family( 'LUMI_SoftwareStack' )
@@ -7,7 +7,7 @@ add_property("lmod","sticky")
 
 local module_root = os.getenv( 'LMOD_MODULE_ROOT' )
 if module_root == nil then
-  LmodError( 'The environment variable LMOD_MODULE_ROOT is not found but needed to find the components of the LUMI prototype.' )
+    LmodError( 'The environment variable LMOD_MODULE_ROOT is not found but needed to find the components of the LUMI prototype.' )
 end
 
 local stack_name    = myModuleName()
@@ -16,11 +16,17 @@ local stack_version = myModuleVersion()
 -- Detect the partition from the hierarchy.
 local hierarchy = hierarchyA( myModuleFullName(), 1 )
 if os.getenv( '_LUMI_LMOD_DEBUG' ) ~= nil then
-  LmodMessage( 'DEBUG: hierarchy[1]: ' .. hierarchy[1] )
+    LmodMessage( 'DEBUG: hierarchy[1]: ' .. hierarchy[1] )
 end
 local partition = hierarchy[1]:gsub( 'partition%/', '' )
 if os.getenv( '_LUMI_LMOD_DEBUG' ) ~= nil then
-  LmodMessage( 'DEBUG: Running in partition LUMI-' .. partition )
+    LmodMessage( 'DEBUG: Running in partition LUMI-' .. partition )
+end
+
+if stack_version:find( '%.dev$' ) then
+    add_property( 'state', 'development_stack' )
+else
+    add_property( 'state', 'LTS_stack' )
 end
 
 whatis( 'Enables the LUMI/' .. stack_version .. ' software stack for the LUMI-' .. partition .. ' partition.' )
@@ -47,6 +53,6 @@ prepend_path( 'MODULEPATH', pathJoin( module_root, 'modules', 'spack',     'part
 prepend_path( 'MODULEPATH', pathJoin( module_root, 'modules', 'manual',    'partition', partition, stack_name, stack_version ) )
 
 if os.getenv( '_LUMI_LMOD_DEBUG' ) ~= nil then
-  local modulepath = os.getenv( 'MODULEPATH' ):gsub( ':', '\n' )
-  LmodMessage( 'DEBUG: The MODULEPATH before exiting ' .. myModuleFullName() .. ' (mode ' .. mode() .. ') is:\n' .. modulepath .. '\n' )
+    local modulepath = os.getenv( 'MODULEPATH' ):gsub( ':', '\n' )
+    LmodMessage( 'DEBUG: The MODULEPATH before exiting ' .. myModuleFullName() .. ' (mode ' .. mode() .. ') is:\n' .. modulepath .. '\n' )
 end

@@ -36,6 +36,11 @@ Changes compared to design 0.2:
     which is based on the environment variable LUMI_PARTITION that should be set by
     the system.
 
+  * Added an lmodrc.lua file to assign a state to the software stack: Lont-Term Support
+    or development. This is done via a property in the module file, a modulerc file
+    to ensure that the default is a LTS stack and an lmodrc.lua file to assign labels
+    to each state and print a line of information below the table.
+
   * Also experimented with a modulerc.lua file for the partitions to show version aliases with
     more meaningful but longer names.
 

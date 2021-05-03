@@ -3,7 +3,7 @@ if os.getenv( '_LUMI_LMOD_DEBUG' ) ~= nil then
 end
 
 family( 'LUMI_SoftwareStack' )
-add_property("lmod","sticky")
+add_property( 'lmod', 'sticky' )
 
 local module_root = os.getenv( 'LMOD_MODULE_ROOT')
 if module_root == nil then
@@ -16,6 +16,12 @@ local stack_version = myModuleVersion()
 local partition     = detect_LUMI_partition()
 if partition == nil then
     LmodError( 'Failed to detect the LUMI partition, something must be messed up pretty badly.' )
+end
+
+if stack_version:find( '%.dev$' ) then
+    add_property( 'state', 'development_stack' )
+else
+    add_property( 'state', 'LTS_stack' )
 end
 
 whatis( 'Enables the LUMI-' .. stack_version .. ' software stack for the current partition.' )
