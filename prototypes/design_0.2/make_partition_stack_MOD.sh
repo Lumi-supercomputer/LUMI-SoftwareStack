@@ -2,8 +2,9 @@
 
 version="0.2"
 testroot="$HOME/appltest/design_$version/partition_stack_MOD"
+sourceroot="$HOME/LUMI-easybuild-prototype"
 
-PATH=$HOME/LUMI-easybuild/prototypes:$HOME/LUMI-easybuild/prototypes/design_$version:$PATH
+PATH=$sourceroot/prototypes:$sourceroot/prototypes/design_$version:$PATH
 
 create_link () {
 
@@ -21,7 +22,7 @@ generate_mod () {
 # Make the support directories
 #
 mkdir -p $testroot
-test -s $testroot/github || ln -s $HOME/LUMI-easybuild $testroot/github
+test -s $testroot/github || ln -s $sourceroot $testroot/github
 
 #
 # Create the root modules with the partitions

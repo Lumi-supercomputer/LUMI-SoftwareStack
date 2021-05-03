@@ -2,8 +2,9 @@
 
 version="0.3"
 testroot="$HOME/appltest/design_$version/stack_partition"
+sourceroot="$HOME/LUMI-easybuild-prototype"
 
-PATH=$HOME/LUMI-easybuild/prototypes:$HOME/LUMI-easybuild/prototypes/design_$version:$PATH
+PATH=$sourceroot/prototypes:$sourceroot/prototypes/design_$version:$PATH
 
 create_link () {
 
@@ -19,7 +20,7 @@ create_link () {
 # Make the support directories
 #
 mkdir -p $testroot
-test -s $testroot/github || ln -s $HOME/LUMI-easybuild $testroot/github
+test -s $testroot/github || ln -s $sourceroot $testroot/github
 
 #
 # Create the root modules with the software stacks

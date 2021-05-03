@@ -1,4 +1,4 @@
-# LUMI-easybuild
+# LUMI-easybuild-prototype
 
 Repository for the setup of the software stack on LUMI. It covers
   * Software stack modules
