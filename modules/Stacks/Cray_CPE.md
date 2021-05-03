@@ -46,3 +46,45 @@
 | **Things not in the release notes*                  ||
 | libfabric       |            | 1.10.2pre1 |           |           |
 
+## On the Grenoble nodes
+
+| Release         | 21.G2       |
+|:----------------|:------------|
+| **Cray Compiling Environment – CCE**                ||
+| CCE             | 11.0.2      |
+| **Cray Message Passing Toolkit – CMPT**             ||
+| MPICH           | 8.1.2       |
+| DSMML           | 0.1.1       |
+| PMI             | 6.0.9       |
+| OpenSHMEMX      | 11.1.0.beta |
+| **Cray Cray Debugging Support Tools – CDST**        ||
+| ATP             | 3.11.6      |
+| CCDB            | 4.10.4      |
+| CTI             | 2.11.6      |
+| gdb4hpc         | 4.10.6      |
+| STAT            | 4.7.1       |
+| valgrind4hpc    | 2.10.3      |
+| **Cray Performance Measurement & Analysis Tools – CPMAT** ||
+| Perftools       | 21.02.0     |
+| PAPI            | 6.0.0.6     |
+| **Cray Scientific and Math Libraries – CSML **      ||
+| LibSci          | 20.12.1.2   |
+| LibSci_acc      | 21.02.9.1   |
+| FFTW            | 3.3.8.8     |
+| **Cray Environment Setup and Compiling support – CENV** ||
+| craypkg-gen     | 1.3.12      |
+| craype          | 2.7.5       |
+| cpe-prgenv      | 7.0.0       |
+| Cray-lmod       | 8.3.1.0     |
+| Cray-modules    |             |
+| **Third party products**                            ||
+| HDF5            | 1.12.0.2    |
+| NetCDF          | 4.7.4.2     |
+| parallel-netCDF | 1.12.1.1    |
+| iobuf           | 2.0.10      |
+| GCC             | 10.2.0      |
+|                 | 9.3.0       |
+|                 | 8.1.0       |
+| cray-python     | 3.8.5.0     |
+| cray-R          | 4.0.3.0     |
+
