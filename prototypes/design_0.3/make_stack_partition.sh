@@ -6,6 +6,10 @@ sourceroot="$HOME/LUMI-easybuild-prototype"
 
 PATH=$sourceroot/prototypes:$sourceroot/prototypes/design_$version:$PATH
 
+stacks=( '21.02.dev' '21.03' '21.04.dev' )
+partitions=( 'C' 'G' 'D' 'L' )
+default_stack='21.03'
+
 create_link () {
 
 #  echo "Linking from: $1"
@@ -48,7 +52,7 @@ mkdir -p $testroot/mgmt/ebrepo_files
 #
 # Make the directories with the software stacks
 #
-for stack in 21.02 21.03
+for stack in "${stacks[@]}"
 do
 
   mkdir -p $testroot/modules/SystemPartition/LUMI/$stack
@@ -64,7 +68,7 @@ do
 
   mkdir -p $testroot/mgmt/ebrepo_files/LUMI-$stack
 
-  for partition in C G D L
+  for partition in "${partitions[@]}"
   do
 
 	mkdir -p $testroot/modules/easybuild/LUMI/$stack/partition/$partition
@@ -97,7 +101,7 @@ create_link $modsrc/CrayEnv.lua                       $moddest/CrayEnv.lua
 #
 modsrc="$testroot/modules/generic"
 moddest="$testroot/modules"
-for stack in 21.02 21.03
+for stack in "${stacks[@]}"
 do
 
   # LUMI software stack. The only OS environment variables used are variables that are
@@ -107,7 +111,7 @@ do
 
   # Populate the LUMIpartition directory for this version of the LUMI software stack
   create_link   "$modsrc/LUMIpartition/modulerc.lua"        "$moddest/SystemPartition/LUMI/$stack/partition/.modulerc.lua"
-  for partition in C G D L
+  for partition in "${partitions[@]}"
   do
   	create_link "$modsrc/LUMIpartition/partitionletter.lua" "$moddest/SystemPartition/LUMI/$stack/partition/$partition.lua"
   done
@@ -117,6 +121,13 @@ done
 # Provide the CrayEnv stack. This module does not depend on variables set by modules so
 # we can use a link for now.
 create_link     "$modsrc/CrayEnv.lua"                       "$moddest/SoftwareStack/CrayEnv.lua"
+
+#
+# Create a modulerc file in the SoftwareStack subdirectory to mark the default software stack.
+#
+cat >$testroot/modules/SoftwareStack/LUMI/.modulerc.lua <<EOF
+module_version( "LUMI/$default_stack", "default" )
+EOF
 
 #
 # Now build some demo modules
@@ -135,13 +146,13 @@ function module_root () {
     echo "$testroot/modules/easybuild/LUMI/$1/partition/$2"
 }
 
-stack="21.02"
+stack=${stacks[0]}
 empty_module_EB.sh GROMACS 20.3 "cpeGNU-$stack" ""    $(software_root $stack C) $(module_root $stack C)
 empty_module_EB.sh GROMACS 20.3 "cpeGNU-$stack" "GPU" $(software_root $stack G) $(module_root $stack G)
 empty_module_EB.sh GROMACS 21.1 "cpeGNU-$stack" ""    $(software_root $stack C) $(module_root $stack C)
 empty_module_EB.sh GROMACS 21.1 "cpeGNU-$stack" "GPU" $(software_root $stack G) $(module_root $stack G)
 
-stack="21.03"
+stack=${stacks[1]}
 empty_module_EB.sh GROMACS 21.1 "cpeGNU-$stack" ""    $(software_root $stack C) $(module_root $stack C)
 empty_module_EB.sh GROMACS 21.1 "cpeGNU-$stack" "GPU" $(software_root $stack G) $(module_root $stack G)
 empty_module_EB.sh GROMACS 21.2 "cpeGNU-$stack" ""    $(software_root $stack C) $(module_root $stack C)
@@ -170,11 +181,11 @@ function module_root () {
     echo "$testroot/modules/spack/LUMI/$1/partition/$2"
 }
 
-stack="21.02"
+stack=${stacks[0]}
 empty_module_Spack.sh lammps 3Mar2020 "" ""    $(software_root $stack C) $(module_root $stack C)
 empty_module_Spack.sh lammps 3Mar2020 "" "GPU" $(software_root $stack G) $(module_root $stack G)
 
-stack="21.03"
+stack=${stacks[1]}
 empty_module_Spack.sh cp2k   7.1      "" ""    $(software_root $stack C) $(module_root $stack C)
 empty_module_Spack.sh cp2k   7.1      "" "GPU" $(software_root $stack G) $(module_root $stack G)
 
@@ -189,10 +200,10 @@ function module_root () {
     echo "$testroot/modules/manual/LUMI/$1/partition/$2"
 }
 
-stack="21.02"
+stack=${stacks[0]}
 empty_module_MN.sh Gaussian  g16_a03-avx2 $(software_root $stack C) $(module_root $stack C)
 
-stack="21.03"
+stack=${stacks[1]}
 empty_module_MN.sh Gaussian  g16_c01-avx2 $(software_root $stack C) $(module_root $stack C)
 
 #
@@ -206,13 +217,17 @@ function module_root () {
     echo "$testroot/modules/easybuild/LUMI/$1/partition/$2"
 }
 
-stack="21.02"
+stack=${stacks[0]}
 Python3_module_EB.sh "3.8.2" "cpeCCE-$stack" "1.19.3" "1.5.4" $(software_root $stack C) $(module_root $stack C)
 Python3_module_EB.sh "3.8.2" "cpeCCE-$stack" "1.19.3" "1.5.4" $(software_root $stack G) $(module_root $stack G)
 Python3_module_EB.sh "3.8.2" "cpeCCE-$stack" "1.19.3" "1.5.4" $(software_root $stack D) $(module_root $stack D)
 Python3_module_EB.sh "3.8.2" "cpeCCE-$stack" "1.19.3" "1.5.4" $(software_root $stack L) $(module_root $stack L)
 
-stack="21.03"
+stack=${stacks[1]}
+Python3_module_EB.sh "3.8.5" "cpeCCE-$stack" "1.19.3" "1.5.4" $(software_root $stack C) $(module_root $stack C)
+Python3_module_EB.sh "3.8.5" "cpeCCE-$stack" "1.19.3" "1.5.4" $(software_root $stack G) $(module_root $stack G)
+Python3_module_EB.sh "3.8.5" "cpeCCE-$stack" "1.19.3" "1.5.4" $(software_root $stack D) $(module_root $stack D)
+Python3_module_EB.sh "3.8.5" "cpeCCE-$stack" "1.19.3" "1.5.4" $(software_root $stack L) $(module_root $stack L)
 Python3_module_EB.sh "3.9.4" "cpeCCE-$stack" "1.20.2" "1.6.3" $(software_root $stack C) $(module_root $stack C)
 Python3_module_EB.sh "3.9.4" "cpeCCE-$stack" "1.20.2" "1.6.3" $(software_root $stack G) $(module_root $stack G)
 Python3_module_EB.sh "3.9.4" "cpeCCE-$stack" "1.20.2" "1.6.3" $(software_root $stack D) $(module_root $stack D)
