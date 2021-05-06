@@ -46,6 +46,7 @@ setenv( 'LUMI_STACK_NAME',         stack_name )
 setenv( 'LUMI_STACK_VERSION',      stack_version )
 setenv( 'LUMI_STACK_NAME_VERSION', stack_name .. '/' .. stack_version )
 
+prepend_path( 'MODULEPATH', '/opt/cray/pe/lmod/modulefiles/craype-targets/default' )
 prepend_path( 'MODULEPATH', '/opt/cray/pe/lmod/modulefiles/core' )
 
 prepend_path( 'MODULEPATH', pathJoin( module_root, 'modules', 'easybuild', 'partition', partition, stack_name, stack_version ) )

@@ -24,6 +24,7 @@ to load a particular PrgEnv and Lmod does not support the format used by
 the TCL Environment Modules implementation to store those environments.
 ]==] )
 
-prepend_path( 'MODULEPATH', '/opt/cray/pe/lmod/modulefiles/core' )
 prepend_path( 'MODULEPATH', '/usr/share/modulefiles' )
 prepend_path( 'MODULEPATH', '/usr/share/Modules/modulefiles' )
+prepend_path( 'MODULEPATH', '/opt/cray/pe/lmod/modulefiles/craype-targets/default' )
+prepend_path( 'MODULEPATH', '/opt/cray/pe/lmod/modulefiles/core' )

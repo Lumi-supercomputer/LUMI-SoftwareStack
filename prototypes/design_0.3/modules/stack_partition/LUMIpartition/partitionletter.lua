@@ -43,6 +43,7 @@ This module is loaded automatically when loading a software stack based on the
 setenv( 'LUMI_OVERWRITE_PARTITION', partition )
 
 -- The Cray modules, may be possible to only activate them once PrgEnv-* is loaded
+prepend_path( 'MODULEPATH', '/opt/cray/pe/lmod/modulefiles/craype-targets/default' )
 prepend_path( 'MODULEPATH', '/opt/cray/pe/lmod/modulefiles/core' )
 -- The modules of application software
 prepend_path( 'MODULEPATH', pathJoin( module_root, 'modules', 'manual',    stack_name_version, 'partition', partition ) )
