@@ -236,7 +236,7 @@ Python3_module_EB.sh "3.9.4" "cpeCCE-$stack" "1.20.2" "1.6.3" $(software_root $s
 # Instructions for the MODULEPATH etc
 #
 cat <<EOF
-To enable prototype partion_stack_MOD version $version, add the following directory
-to the MOUDLEPATH:
-$HOME/appltest/design_$version/partition_stack/modules/SystemPartition
+To enable prototype stack_partition version $version, make sure LMOD is the
+active module system and then run
+eval \$(\$HOME/LUMI-easybuild-prototype/prototypes/design_$version/enable_partition_stack.sh)
 EOF
