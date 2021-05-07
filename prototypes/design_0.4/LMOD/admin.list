@@ -1,0 +1,6 @@
+LUMI/21.02.dev: The LUMI/21.02.dev software stack is deprecated and will be removed on July 1 2021.
+ Please use the LUMI/21.04 software stack instead.
+
+/.*/LUMI/21.03.dev.*GROMACS/21.1.*: The GROMACS/21.1 modules are deprecated and will be removed on July 1 2021.
+ Please switch to a more recent release of GROMACS/21.X. Use module spider GROMACS to see
+ a list of all GROMACS versions on the system.
