@@ -18,6 +18,12 @@ if partition == nil then
     LmodError( 'Failed to detect the LUMI partition, something must be messed up pretty badly.' )
 end
 
+if stack_version:find( '%.dev$' ) then
+    add_property( 'state', 'development_stack' )
+else
+    add_property( 'state', 'LTS_stack' )
+end
+
 whatis( 'Enables the LUMI-' .. stack_version .. ' software stack for the current partition.' )
 
 help( [[
