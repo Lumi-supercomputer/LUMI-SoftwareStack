@@ -8,6 +8,20 @@ Changes compared to design 0.3:
 
   * Added a directory with LUA modules to change the presentation of the module tree.
 
+  * Added a partition/common to be able to install software that is suitable for all
+    partitions. That module is hidden however. It is there to be able to install
+    software in that partition but it will not show up, e.g., in the output of
+    "module spider" as a way to reach software.
+
+    Elements of the implementation:
+      * Hidden by a line in .modulerc.lua
+      * Made sure it does not show up as a path to reach software in "module spider"
+        by ensuring that the prepend_path statements of partition/common are not seen
+        if mode() == "spider".
+      * Add the common software to the path of the other partition modules.
+      * Make sure it does not show up in the labeled view but that its software is
+        added to the actual partition.
+
   * Scripts to generate the external modules configuration file for EasyBuild based
     on a Python script that defines the Cray PE compoments and then some more so that
     it should be possible to extend to other configuration files that need the same
@@ -145,3 +159,12 @@ in releases of the Cray PE:
     toolchain could also use that information.
 
 
+## Implementation difficulties
+
+  * A hidden partition module did show up into the output of ``module spider`` as a way to
+    reach certain other modules. This was the case even when it was hidden by using a name
+    starting with a dot rather than a modulerc.lua file. This "feature" is also mentioned
+    in [Lmod issue #289](https://github.com/TACC/Lmod/issues/289).
+      * Our solution was to modify the module file itself to not include the paths when the
+        mode is "spider" so that Lmod cannot see that it is a partition module that makes
+        other modules available.

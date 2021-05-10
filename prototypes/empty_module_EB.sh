@@ -23,9 +23,19 @@ module_root="$6"
 module_name=$1
 if [ "$4" = "" ]
 then
-	module_version="$2-$3"
+	if [ "$3" = "" ]
+	then
+        module_version="$2"
+	else
+	    module_version="$2-$3"
+	fi
 else
-	module_version="$2-$3-$4"
+	if [ "$3" = "" ]
+	then
+        module_version="$2-$4"
+	else
+	    module_version="$2-$3-$4"
+	fi
 fi
 
 #
