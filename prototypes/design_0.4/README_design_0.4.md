@@ -105,22 +105,6 @@ Changes compared to design 0.1:
     "EasyBuild first" strategy.
 
 
-## Running and installing the prototypes
-
-  * LMOD must be installed and correctly initialised before trying out the prototypes.
-    ``gpp`` is not needed for this version.
-
-  * ``prototypes/design_0.3`` contains two ``make_*`` scripts to build both variants
-    of the prototype (in subdirectories of $HOME/appltest/design_0.3).
-
-  * That directory also contains two ``enable_*`` scripts to initialise the environment
-    to test the respective prototype. Source the scripts in the shell or use
-    ```bash
-    eval $(./enable_stack_partition.sh)
-    ```
-    in that directory. Then try ``module avail`` and ``module help`` to get started.
-
-
 ## Difficulties that we need to deal with or experiment with
 
   * The CSCS approach is to go for fully separated toolchains, rebuilding everything
@@ -144,14 +128,177 @@ Changes compared to design 0.1:
         cpe environments, and quid Spack in this case?
 
 
+## Running and installing the prototypes
+
+  * LMOD must be installed and correctly initialised before trying out the prototypes.
+    ``gpp`` is not needed for this version.
+
+  * ``prototypes/design_0.3`` contains two ``make_*`` scripts to build both variants
+    of the prototype (in subdirectories of $HOME/appltest/design_0.3).
+
+  * That directory also contains two ``enable_*`` scripts to initialise the environment
+    to test the respective prototype. Source the scripts in the shell or use
+    ```bash
+    eval $(./enable_stack_partition.sh)
+    ```
+    in that directory. Then try ``module avail`` and ``module help`` to get started.
 
 
-## Transforming information about the Cray PE to other tools
+## Hierarchy with software stack first, partition/architecture second, flat otherwise - Prototype module_stack_partition
+
+Here we mount the same file system with applications and modules
+everywhere, but within that file system we have binaries for each
+architecture in separate directories
+
+Directory hierarchy
+
+  * Cray modules in their own hierarchy.
+
+  * appl
+
+      * modules
+
+          * generic: A directory where we store the generic implementations of some
+            of the modules below and link to. This directory should not be in the
+            MODULEPATH! Note that in the prototype we actually link to the git
+            repository to make editing easier. In the real situation this would be
+            copies to avoid accidental changes.
+
+          * SoftwareStack: A module file that enables the default Cray
+            environment, and one for each of our LUMI software stacks,
+            of the form ``LUMI/version.lua``.
+
+          * SystemPartition/LUMI/yy.mm: The next level in the hierarchy. It contains modules by
+            LUMI SoftwareStack to enable the different partitions. Structure:
+              * The modules are called ``partition/C.lua`` etc.
+
+                *We could not use LUMIpartition as this lead to problems with the Lmod
+                ``hierachyA`` function which produced wrong results for ``LUMIpartition/L.lua``
+                but not for ``LUMIpartition/C.lua`` even though both modules had identical
+                code.*
+              * Modules for the ``LUMI/yy.mm`` software stack are in
+                ``LUMIpartition/LUMI/yy.mm``.
+
+          * easybuild/LUMI/yy.mm/partition/part: Directory for the EasyBuild-generated
+            modules for the ``LUMI/yy.mm`` software stack for the ``LUMI-part``
+            partition (``part`` actually being a single letter, except for the software
+            that is common to all partitions, where ``part`` is ``common``)
+
+          * spack/LUMI/yy.mm/partition/part: Similar as the above, but for
+            Spack-installed software.
+
+          * manual/LUMI/yy.mm/partition/part: Similar as the above, but for
+            manually installed software.
+
+      * software : This is for the actual binaries, lib directories etc.
+
+          * LUMI-21.02
+
+              * LUMI-C
+
+                  * easybuild
+
+                  * spack
+
+                  * manual
+
+              * LUMI-G
+
+              * LUMI-D
+
+              * LUMI-L
+
+              * LUMI-common
+
+      * mgmt: Files that are not stored in our GitHub, but are generated
+        on the fly and are only useful to those users who want to
+        build upon our software stack or for those who install
+        software in our stacks. 
+
+          * ebrepo_files
+
+              * LUMI-21.02
+
+                  * LUMI-C
+
+                  * LUMI-G
+
+                  * LUMI-D
+
+                  * LUMI-L
+
+                  * LUMI-common
+
+      * sources
+
+          * easybuild : Sources directory for EasyBuild, organised the EasyBuild way.
+
+      * github: GitHub repository with all managed files
+
+          * easybuild
+
+              * easyconfig
+
+              * config: Configuration of EasyBuild
+
+              * Structure for hooks and easyblocks to be decided.
+
+
+
+### Assumptions
+
+  * The system sets an environment variable LUMI_PARTITION with value
+    C, G, D or L depending on the node type (CPU compute, GPU compute,
+    data and visualisation, login).
+    This is used by the SoftwareStack module to then auto-load the
+    module for the current partition when it is loaded.
+
+
+### Default behaviour when loading modules
+
+  * A user will always need to load a software stack module first.
+
+      * For those software stack modules that further split up according
+        to partition (the LUMI/yy.mm modules), the relevant partition
+        module will be loaded automatically when loading the software
+        stack. This is based on the partition detected by the
+        detect_LUMI_partition function defined in SitePackage.lua.
+
+  *  In this variant of the desing, we made the SoftwareStack and LUMIpartition
+     modules sticky so that once loaded a user can use ``module purge`` if they
+     want to continue working in the same software stack but load other packages.
+
+
+### Advantages
+
+  * Having the software stack as the highest level in the hierarchy
+    makes it easy to also make other software stacks available through
+    software stack modules that can then each have their own internal
+    organisation, e.g., EESSI should it mature enough during the life of
+    LUMI and become suitable for LUMI and should we find a distribution
+    mechanism that would integrate with LUMI.
+
+  * \...
+
+
+### Disadvantages
+
+  * \...
+
+
+
+## Implementation details
+
+
+### Transforming information about the Cray PE to other tools
 
 There are three points where we could use information about versions of specific packages
 in releases of the Cray PE:
 
   * We need to define external modules to EasyBuild.
+
+      * We currently have a Python script to do that starting from a Python data structure
+        that describes versions of the Cray PE.
 
   * We need to define Cray PE components to Spack
 
@@ -159,7 +306,115 @@ in releases of the Cray PE:
     toolchain could also use that information.
 
 
-## Implementation difficulties
+### Module Naming Scheme
+
+  * Options
+
+      * A flat naming scheme, even without the module classes as they are of little
+        use. May packages belong to more than one class, it is impossible to come up
+        with a consistent categorization. Fully omitting the categorization requires
+        a slightly customized naming scheme that can be copied from UAntwerpen. When
+        combining with --suffix-modules-path='' one can also drop the 'all' subdirectory
+        level which is completely unnecessary in that case.
+
+      * A hierarchical naming scheme as used at CSCS and CSC. Note that CSCS has an
+        open bug report at the time of writing (May 12) on the standard implementation
+        in EasyBuild ([Issue #3626](https://github.com/easybuilders/easybuild-framework/issues/3626)
+        and the related [issue 3575](https://github.com/easybuilders/easybuild-framework/issues/3575)).
+        The solution might be to develop our own naming scheme module.
+
+  * Current implementation in the prototype:
+
+      * A flat naming scheme that is a slight customization of the default EasyBuildMNS
+        without the categories, combined with an empty ``suffix-modules-path`` to avoid
+        adding the unnecessary ``all`` subdirectory level in the module tree.
+
+      * As we need to point to our own module naming scheme implementation which is
+        hard to do in a configuration file (as the path needs to be hardcoded), the
+        settings for the module scheme are done via ``EASYBUILD_*`` environment variables,
+        specifically:
+          * ``EASYBUILD_INCLUDE_MODULE_NAMING_SCHEMES`` to add out own module naming schemes
+          * ``EASYBUILD_MODULE_NAMING_SCHEME=LUMI_FlatMNS``
+          * ``EASYBUILD_SUFFIX_MODULES_PATH=''``
+
+
+### Starting a new software stack and bootstrapping EasyBuild
+
+  * Create a ``LUMI/yy.mm`` module for the software stack (through linking to
+    the generic implementation) and create the necessary partition modules at
+    the next level in the software stack hierarchy (again using symbolic links
+    to the generic implemenation). Do not forget to adapt (for the LUMI-module)
+    or install (for the partition modules) the necessary .modulerc.lua files.
+
+      * The one in the directory with the ``LUMI/yy.mm``-modules is used to
+        set the default module so you may want to wait to adapt the default.
+
+      * The one in the partition module directory sets a number of aliases to
+        provide more user-readable names for the partitions and hides the common
+        partition module.
+
+  * Create the definition file for the external modules for EasyBuild
+
+      * Procedure should be worked out further depending on the information we get
+        from Cray. Currently it is a set of Python scripts that define the versions
+        of the PE components and generate the file.
+
+  * Add an EasyConfig file for the desired version of EasyBuild to the LUMI EasyConfig
+    repository.
+
+  * Check if a software stack-specific configuration file for EasyBuild is needed.
+
+  * Install the EasyBuild-production and EasyBuild-user modules that take care of the
+    setup of EasyBuild.
+
+    TODO: Procedure? Symlinking to a generic implemenation in each of the partitions,
+    including the ``common`` one.
+
+    If one prefers to install EasyBuild-production and EasyBuild-user with EasyBuild
+    instead, one can opt for symlinking a simplified bootstrap module in the common
+    partition module tree to configure EasyBuild only for installing EasyBuild.
+
+  * Load the new LUMI module and then ``partition/common``and then ``EasyBuild-production``
+    or the bootstrap configuration module installed in the previous step.
+
+  * Installing EasyBuild using EasyBuild: there are two options:
+
+      * Ensure PYTHONPATH refers to the EasyBuild Python files from another software
+        stack and call the corresponding binary using the full path to the ``eb`` script.
+
+      * Install a version of EasyBuild by hand in a temporary directory (it is enough
+        to only install the framework and EasyBlocks), point PYTHONPATH to the Python
+        files and call the ``eb`` script using the full path. This temporary installation
+        can be removed again once EasyBuild is installed.
+
+        This is the procedure that we used in the script that generates the prototype
+        (though defining the environment variables in the script rather than through
+        a bootstrap module).
+
+  * If not done yet previously, install the EasyBuild-production and EasyBuild-user
+    modules for each of the partitions.
+
+      * For EasyBuild-production this again requires playing with environment variables
+        if the modules are installed through EasyBuild as it is precisely that module
+        that should point EasyBuild to the right paths.
+
+  * Create the Cray PE toolchain modules
+
+    TODO: Use a script that uses the same data as used for the external module definition.
+
+  * And now one should be ready to install other software...
+
+      * Ensure the software stack module is loaded and the partition module for the
+        location where you want to install the software is loaded (so the hidden module
+        partition/common to install software in the location common to all regular
+        partitions)
+
+      * Load EasyBuild-production for an install in the production directories or
+        EasyBuild-user for an install in the user or project directories (and you'll
+        need to set some environment variables beforehand to point to that location).
+
+
+### Implementation difficulties
 
   * A hidden partition module did show up into the output of ``module spider`` as a way to
     reach certain other modules. This was the case even when it was hidden by using a name

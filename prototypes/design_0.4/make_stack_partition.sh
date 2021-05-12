@@ -2,9 +2,14 @@
 
 version="0.4"
 testroot="$HOME/appltest/design_$version/stack_partition"
-sourceroot="$HOME/LUMI-easybuild-prototype"
+sourceroot="$HOME/LUMI-easybuild-prototype/prototypes/design_$version"
 
-PATH=$sourceroot/prototypes/design_$version:$sourceroot/prototypes/design_$version/scripts:$PATH
+workdir=$HOME/Work
+
+eb_bootstrap_version='4.3.4'
+eb_version='4.3.4'
+
+PATH=$sourceroot/..:$sourceroot:$sourceroot/scripts:$PATH
 
 if [[ "$(hostname)" =~ ^o[0-9]{3}i[0-9]{3}$ ]]
 then
@@ -19,8 +24,6 @@ else
 	echo "Could not identify the system, quitting."
 	exit
 fi
-
-PATH=$sourceroot/prototypes:$sourceroot/prototypes/design_$version:$PATH
 
 case $system in
 	Grenoble)
@@ -53,7 +56,7 @@ mkdir -p $testroot/github
 # in there are generated from other files. However, to ease editing in the prototype
 # and since we're running this on two clusters, we're selectively linking to some
 # parts of the GitHub repository.
-modsrc=$sourceroot/prototypes/design_$version
+modsrc=$sourceroot
 moddest=$testroot/github
 create_link $modsrc/modules $moddest/modules
 create_link $modsrc/LMOD    $moddest/LMOD
@@ -61,6 +64,9 @@ create_link $modsrc/scripts $moddest/scripts
 
 mkdir -p mkdir -p $testroot/github/easybuild
 mkdir -p mkdir -p $testroot/github/easybuild/config
+
+create_link $modsrc/easybuild/easyconfigs $moddest/easybuild/easyconfigs
+create_link $modsrc/easybuild/tools       $moddest/easybuild/tools
 
 #
 # Create the root modules with the software stacks
@@ -84,6 +90,9 @@ mkdir -p $testroot/software
 
 mkdir -p $testroot/mgmt
 mkdir -p $testroot/mgmt/ebrepo_files
+
+mkdir -p $testroot/sources
+mkdir -p $testroot/sources/easybuild
 
 #
 # Make the directories with the software stacks
@@ -306,7 +315,102 @@ Python3_module_EB.sh "3.9.4" "cpeCCE-$stack" "1.20.2" "1.6.3" $(software_root $s
 #
 # EasyBuild preparation
 #
+# - External module file
+#
 make_CPE_defs.py $testroot/github/easybuild/config $EBstack
+#
+# - EasyBuild config file
+#
+create_link "$sourceroot/easybuild/config/easybuild-production.cfg" "$testroot/github/easybuild/config/easybuild-production.cfg"
+
+
+###############################################################################
+#
+# EasyBuild bootstrapping
+#
+# A slight compilication is that the system Python of Eiger doesn't have pip
+# installed.
+#
+# Test: As we use our own EasyConfig file for EasyBuild, bootstrapping may work
+# using just the EasyBuild framework and EasyBlocks?
+#
+# - First download
+#
+mkdir -p $testroot/sources/easybuild/e
+mkdir -p $testroot/sources/easybuild/e/EasyBuild
+EB_tardir=$testroot/sources/easybuild/e/EasyBuild
+pushd $EB_tardir
+
+EBF_file="easybuild-framework-${eb_bootstrap_version}.tar.gz"
+EBF_url="https://pypi.python.org/packages/source/e/easybuild-framework"
+[[ -f $EBF_file ]] || curl -L -O $EBF_url/$EBF_file
+
+EBB_file="easybuild-easyblocks-${eb_bootstrap_version}.tar.gz"
+EBB_url="https://pypi.python.org/packages/source/e/easybuild-easyblocks"
+[[ -f $EBB_file ]] || curl -L -O $EBB_url/$EBB_file
+
+#EBC_file="easybuild-easyconfigs-${eb_bootstrap_version}.tar.gz"
+#EBC_url="https://pypi.python.org/packages/source/e/easybuild-easyconfigs"
+#[[ -f $EBC_file ]] || curl -L -O $EBC_url/$EBC_file
+
+popd
+
+#
+# - Now do a temporary install of the framework and EasyBlocks
+#
+mkdir -p $workdir
+pushd $workdir
+
+tar -xf $EB_tardir/$EBF_file
+tar -xf $EB_tardir/$EBB_file
+
+mkdir -p $workdir/easybuild
+
+pushd easybuild-framework-$eb_bootstrap_version
+python3 setup.py install --prefix=$workdir/easybuild
+cd ../easybuild-easyblocks-$eb_bootstrap_version
+python3 setup.py install --prefix=$workdir/easybuild
+popd
+
+#
+# - Clean up files that are not needed anymore
+#
+rm -rf easybuild-framework-$eb_bootstrap_version
+rm -rf easybuild-easyblocks-$eb_bootstrap_version
+
+#
+# - Activate that install
+#
+export EB_PYTHON='python3'
+export PYTHONPATH=$(find $workdir/easybuild -name site-packages)
+
+#
+# - Install EasyBuild in the common directory of the $EBstack software stack
+#
+EBroot=$testroot/github/easybuild
+export EASYBUILD_CONFIGFILES="$EBroot/config/easybuild-production.cfg"
+export EASYBUILD_BUILDPATH=$XDG_RUNTIME_DIR/easybuild/build
+export EASYBUILD_TMPDIR=$XDG_RUNTIME_DIR/easybuild/tmp
+export EASYBUILD_SOURCEPATH=$testroot/sources/easybuild
+export EASYBUILD_INCLUDE_MODULE_NAMING_SCHEMES="$EBroot/tools/module_naming_scheme/*.py"
+export EASYBUILD_MODULE_NAMING_SCHEME=LUMI_FlatMNS
+export EASYBUILD_SUFFIX_MODULES_PATH=''
+#export EASYBUILD_MODULE_NAMING_SCHEME=CategorizedHMNS
+#export EASYBUILD_MODULE_NAMING_SCHEME=EasyBuildMNS
+#export EASYBUILD_MODULE_NAMING_SCHEME=CategorizedModuleNamingScheme
+export EASYBUILD_INSTALLPATH_SOFTWARE=$testroot/software/LUMI-$EBstack/LUMI-common/easybuild
+export EASYBUILD_INSTALLPATH_MODULES=$testroot/modules/easybuild/LUMI/$EBstack/partition/common
+export EASYBUILD_REPOSITORYPATH=$testroot/mgmt/ebrepo_files/LUMI-$EBstack/LUMI-common
+$workdir/easybuild/bin/eb $testroot/github/easybuild/easyconfigs/e/EasyBuild/EasyBuild-${eb_version}.eb
+
+#
+# - Clean up
+#
+rm -rf easybuild
+unset PYTHONPATH
+
+popd
+
 
 ###############################################################################
 #

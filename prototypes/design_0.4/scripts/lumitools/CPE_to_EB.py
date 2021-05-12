@@ -40,7 +40,7 @@ def CPE_to_EB( EBconfigdir, version, package_versions ):
     #
     # Open the external module definition file
     #
-    extdeffile = 'LUMI-external_modules_metadata-%s.cfg' % version
+    extdeffile = 'external_modules_metadata-LUMI-%s.cfg' % version
     extdeffileanddir = os.path.join( EBconfigdir, extdeffile )
     print( 'Generating %s...' % extdeffileanddir )
     fileH = open( extdeffileanddir, 'w' )
