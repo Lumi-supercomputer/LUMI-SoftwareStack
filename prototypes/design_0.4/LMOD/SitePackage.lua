@@ -164,6 +164,9 @@ hook.register( "msgHook",  msg_hook )
 -- detection technique, e.g., based on the hostname, and implement the
 -- change in all module files that use this function.
 --
+-- This code is meant to be used to detect the partition before it can be
+-- derived from the position of the module in the module hierarchy.
+--
 -- Returns nil if it fails to detect the partition.
 --
 function detect_LUMI_partition()

@@ -19,19 +19,14 @@ that may be defined elsewhere.
 This hook is used to replace directories with labels in the output of ``module avail``.
 
 To work for the prototypes, one needs to set:
-*   For the ``stack_partition`` prototype:
-    ```bash
-    export LMOD_AVAIL_STYLE=sp_labeled:system
-    ```
-    which will make the labeled view the default but will still allow to see the directory
-    view using
-    ```bash
-    module -s system avail
-    ```
-*   For the ``partition_stack`` prototype:
-    ```bash
-    export LMOD_AVAIL_STYLE=ps_labeled:system
-    ```
+```bash
+export LMOD_AVAIL_STYLE=labeled:system
+```
+which will make the labeled view the default but will still allow to see the directory
+view using
+```bash
+module -s system avail
+```
 
 
 ## msgHook
