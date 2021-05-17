@@ -1,3 +1,5 @@
+add_property( 'lmod', 'sticky' )
+
 whatis( 'Show module extensions in the output of module avail.' )
 
 help( [[

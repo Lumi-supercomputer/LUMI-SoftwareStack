@@ -1,3 +1,5 @@
+add_property( 'lmod', 'sticky' )
+
 whatis( 'Disables the use of colour in the display of modules.' )
 
 help( [[

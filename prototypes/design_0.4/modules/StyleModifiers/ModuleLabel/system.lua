@@ -1,3 +1,5 @@
+add_property( 'lmod', 'sticky' )
+
 whatis( 'Enforces showing module directories in the output of module avail rather than descriptitve labels.' )
 
 help( [[
