@@ -14,11 +14,15 @@ Changes compared to design 0.3:
     "module spider" as a way to reach software.
 
     Elements of the implementation:
+
       * Hidden by a line in .modulerc.lua
+
       * Made sure it does not show up as a path to reach software in "module spider"
         by ensuring that the prepend_path statements of partition/common are not seen
         if mode() == "spider".
+
       * Add the common software to the path of the other partition modules.
+
       * Make sure it does not show up in the labeled view but that its software is
         added to the actual partition.
 
@@ -144,7 +148,7 @@ Changes compared to design 0.1:
     in that directory. Then try ``module avail`` and ``module help`` to get started.
 
 
-## Hierarchy with software stack first, partition/architecture second, flat otherwise - Prototype module_stack_partition
+## Directory structure: Hierarchy with software stack first, partition/architecture second, flat otherwise - Prototype module_stack_partition
 
 Here we mount the same file system with applications and modules
 everywhere, but within that file system we have binaries for each
@@ -264,7 +268,7 @@ Directory hierarchy
         stack. This is based on the partition detected by the
         detect_LUMI_partition function defined in SitePackage.lua.
 
-  *  In this variant of the desing, we made the SoftwareStack and LUMIpartition
+  *  In this variant of the design, we made the SoftwareStack and LUMIpartition
      modules sticky so that once loaded a user can use ``module purge`` if they
      want to continue working in the same software stack but load other packages.
 
@@ -290,6 +294,36 @@ Directory hierarchy
 ## Implementation details
 
 
+### Module presentation
+
+  * The LUMI module system supports two ways of presenting the module to the users
+
+     1. The default way users user-friendly labels rather than subdirectories to present
+        the modules. Sometimes several subdirectories may map to the same label when
+        our feeling is that those modules belong together for the regular user.
+
+     2. But of course the view with subdirectories is also supported for the power
+        user.
+
+    The implementation of the labeled view is done in the ``avail_hook`` hook in the
+    ``SitePackage.lua`` file and is derived from an example in the Lmod manual.
+
+  * To not confront the user directly with all Lmod environment variables that influence
+    the presentation of the modules, we also have a set of modules that can be used
+    to change the presentation, including
+
+      * Switching between the labeled and subdirectory view
+
+      * Showing extensions in module avail
+
+      * Turn on and off colour in the presentation of the modules as the colour selection
+        can never be good for both white background and black background (though of
+        course a power user can change the colour defintions in their terminal emulation
+        software to ensure that both bright and dark colours are displayed properly).
+
+    The presentation modules are sticky so that ``module purge`` doesn't change the
+    presentation of the modules.
+
 ### Transforming information about the Cray PE to other tools
 
 There are three points where we could use information about versions of specific packages
@@ -297,16 +331,50 @@ in releases of the Cray PE:
 
   * We need to define external modules to EasyBuild.
 
-      * We currently have a Python script to do that starting from a Python data structure
-        that describes versions of the Cray PE.
-
   * We need to define Cray PE components to Spack
 
   * A module avail hook to hide those modules that are irrelevant to a particular LUMI/yy.mm
     toolchain could also use that information.
 
+There is currently a set of Python scripts that define the components of the PE and
+generate the EasyBuild external modules definition file for a particular release of
+the PE.
 
-### Module Naming Scheme
+  * ``make_CPE_defs.py`` defines the PE component version numbers and calls the script
+    that generates the EasyBuild external modules file.
+
+    If HPE-Cray would deliver the information on the PE components in a different way,
+    e.g., a YAML file, it would make sense to rewrite that part.
+
+  * ``lumitools/CPE_to_EB.py`` then generates the EasyBuild external modules file.
+
+
+### The common software subdirectories
+
+  * We use a hidden partition module (``partition/common``) which can then be recognized
+    by the EasyBuild configuration modules to install software in that partition.
+
+      * Hiding is done via a .modulerc.lua file
+
+      * The path to the common software modules is added in the other partition module
+        files, always in such a way that the partition-specific directory comes before
+        the equivalent common directory to ensure that partition-specific software
+        has a higher priority.
+
+      * Morover, the labeling in SitePackage.lua is such that in the labeled view one
+        sees the common and partition-specific software is put together.
+
+  * A hidden partition module did show up into the output of ``module spider`` as a way to
+    reach certain other modules. This was the case even when it was hidden by using a name
+    starting with a dot rather than a modulerc.lua file. This "feature" is also mentioned
+    in [Lmod issue #289](https://github.com/TACC/Lmod/issues/289).
+
+      * Our solution was to modify the module file itself to not include the paths when the
+        mode is "spider" so that Lmod cannot see that it is a partition module that makes
+        other modules available.
+
+
+### EasyBuild Module Naming Scheme
 
   * Options
 
@@ -336,6 +404,29 @@ in releases of the Cray PE:
           * ``EASYBUILD_INCLUDE_MODULE_NAMING_SCHEMES`` to add out own module naming schemes
           * ``EASYBUILD_MODULE_NAMING_SCHEME=LUMI_FlatMNS``
           * ``EASYBUILD_SUFFIX_MODULES_PATH=''``
+
+
+### Running EasyBuild
+
+EasyBuild for LUMI is configured through a set of EasyBuild configuration files and
+environment variables. The basic idea is to never load the EasyBuild module directly
+without using one of the EasyBuild configuration modules. There are two such modules
+
+  * EasyBuild-production to do the installations in the production directories.
+
+    TODO: By setting an environment variable before loading the module, it is possible
+    to do a test build instead. BUT THIS WILL REQUIRE COMPATIBLE CHANGES TO THE MODULES
+    THAT LOAD THE SOFTWARE STACKS!
+
+  * EasyBuild-user is meant to do software installations in the home directory of a
+    user or in their project directory. This module will configure EasyBuild such that
+    it builds on top of the software already installed on the system, with a compatible
+    directory structure.
+
+    This module is not only useful to regular users, but also to LUST to develop EasyConfig
+    files for installation on the system. We aim to develop the module in such a way
+    that being able to install the module in a home or project subdirectory would also
+    practically guarantee that the installation will also work in the system directories.
 
 
 ### Starting a new software stack and bootstrapping EasyBuild
@@ -416,10 +507,4 @@ in releases of the Cray PE:
 
 ### Implementation difficulties
 
-  * A hidden partition module did show up into the output of ``module spider`` as a way to
-    reach certain other modules. This was the case even when it was hidden by using a name
-    starting with a dot rather than a modulerc.lua file. This "feature" is also mentioned
-    in [Lmod issue #289](https://github.com/TACC/Lmod/issues/289).
-      * Our solution was to modify the module file itself to not include the paths when the
-        mode is "spider" so that Lmod cannot see that it is a partition module that makes
-        other modules available.
+  * All discussed above.
