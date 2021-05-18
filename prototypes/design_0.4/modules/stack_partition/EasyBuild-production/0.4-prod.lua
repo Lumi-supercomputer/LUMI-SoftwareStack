@@ -107,7 +107,7 @@ local system_repositorypath =       pathJoin( install_prefix, 'mgmt', 'ebrepo_fi
 local system_configfile_generic = pathJoin( system_configdir, 'easybuild-production.cfg' )
 local system_configfile_stack =   pathJoin( system_configdir, 'easybuild-production-' .. stack .. '.cfg' )
 
-local system_external_modules =   pathJoin( system_configdir, 'external_modules_metdata-' .. stack .. '.cfg' )
+local system_external_modules =   pathJoin( system_configdir, 'external_modules_metadata-' .. stack .. '.cfg' )
 
 -- - ROBOT_PATHS
 
