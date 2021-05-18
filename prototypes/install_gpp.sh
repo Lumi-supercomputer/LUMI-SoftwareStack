@@ -8,11 +8,12 @@ mkdir -p work
 cd work
 
 version='2.27'
-wget https://github.com/logological/gpp/releases/download/$version/gpp-$version.tar.bz2
+[[ -f gpp-$version.tar.bz2 ]] || wget https://github.com/logological/gpp/releases/download/$version/gpp-$version.tar.bz2
 tar -xf gpp-$version.tar.bz2
-cd gpp-$version
+cd $HOME/work/gpp-$version
 ./configure --prefix=$HOME/appl
 make ; make install
 
-
+cd $HOME/work
+rm -rf gpp-$version
 
