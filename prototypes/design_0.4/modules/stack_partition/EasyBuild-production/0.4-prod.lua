@@ -83,7 +83,7 @@ local common_partition = 'LUMI-common'
 --   Some of those should align with the EasyBuild-production module!
 
 --    + Some easy ones that do not depend the software stack itself
-local system_sourcepath =               pathJoin( install_prefix, 'sources' )
+local system_sourcepath =               pathJoin( install_prefix, 'sources/easybuild' )
 local system_containerpath =            pathJoin( install_prefix, 'containers' )
 local system_packagepath =              pathJoin( install_prefix, 'packages' )
 local system_configdir =                pathJoin( system_prefix,  'config' )
