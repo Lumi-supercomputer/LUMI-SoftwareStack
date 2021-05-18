@@ -10,7 +10,7 @@ end
 -- System software and module install root
 local install_prefix = myFileName():match( '(.*)/modules/easybuild..*' )
 -- System configuration
-local system_prefix = pathJoin( default_install_prefix, 'github/easybuild' )
+local system_prefix = pathJoin( install_prefix, 'github/easybuild' )
 
 -- -----------------------------------------------------------------------------
 --
@@ -83,12 +83,20 @@ local common_partition = 'LUMI-common'
 --   Some of those should align with the EasyBuild-production module!
 
 --    + Some easy ones that do not depend the software stack itself
-local system_sourcepath =           pathJoin( install_prefix, 'sources' )
-local system_configdir =            pathJoin( system_prefix,  'config' )
-local system_easyconfigdir =        pathJoin( system_prefix,  'easyconfigs' )
-local system_buildpath =            pathJoin( os.getenv( 'XDG_RUNTIME_DIR' ), 'easybuild', 'build' )
-local system_tmpdir =               pathJoin( os.getenv( 'XDG_RUNTIME_DIR' ), 'easybuild', 'tmp' )
-local system_installpath =          install_prefix
+local system_sourcepath =               pathJoin( install_prefix, 'sources' )
+local system_containerpath =            pathJoin( install_prefix, 'containers' )
+local system_packagepath =              pathJoin( install_prefix, 'packages' )
+local system_configdir =                pathJoin( system_prefix,  'config' )
+local system_easyconfigdir =            pathJoin( system_prefix,  'easyconfigs' )
+local system_buildpath =                pathJoin( os.getenv( 'XDG_RUNTIME_DIR' ), 'easybuild', 'build' )
+local system_tmpdir =                   pathJoin( os.getenv( 'XDG_RUNTIME_DIR' ), 'easybuild', 'tmp' )
+local system_installpath =              install_prefix
+
+local system_module_naming_scheme_dir = pathJoin( system_prefix, 'tools/module_naming_scheme/*.py' )
+local system_module_naming_scheme =     'LUMI_FlatMNS'
+local system_suffix_modules_path =       ''
+
+local system_easyblocks =               pathJoin( system_prefix, 'easyblocks/*/*.py' )
 
 --    + Directories that depend on the software stack
 local system_installpath_software = pathJoin( install_prefix, 'software',             stack,                 partition,                 'easybuild' )
@@ -96,8 +104,10 @@ local system_installpath_modules =  pathJoin( install_prefix, 'modules', 'easybu
 local system_repositorypath =       pathJoin( install_prefix, 'mgmt', 'ebrepo_files',  stack,                partition )
 
 -- - The relevant config files
-local system_configfile_generic = pathJoin( system_configdir, 'production.cfg' )
-local systen_configfile_stack =   pathJoin( system_configdir, 'production-' .. stack .. '.cfg' )
+local system_configfile_generic = pathJoin( system_configdir, 'easybuild-production.cfg' )
+local system_configfile_stack =   pathJoin( system_configdir, 'easybuild-production-' .. stack .. '.cfg' )
+
+local system_external_modules =   pathJoin( system_configdir, 'external_modules_metdata-' .. stack .. '.cfg' )
 
 -- - ROBOT_PATHS
 
@@ -113,11 +123,28 @@ end
 --   + And at the end, we include the system easyconfig directory.
 table.insert( robot_paths, system_easyconfigdir )
 
+-- - List of directories for eb -S
+
+--   + Our own EasyConfig repository
+
+local search_paths = { system_easyconfigdir }
+
+--   + Possible future option: Include the CSCS repository
+
+--   + EasyBuild default config files if EasyBuild is loaded
+if isloaded( 'EasyBuild' ) then
+    local ebroot_easybuild = os.getenv( 'EBROOTEASYBUILD' )
+    if ebroot_easybuild == nil then
+        LmodError( 'Error: Detected that EasyBuild is loaded but failed to locate it. This points to an error in the modules.' )
+    end
+    table.insert( search_paths, pathJoin( ebroot_easybuild, 'easybuild/easyconfigs' ) )
+end
+
 -- - List of config files
 local configfiles = {}
 
 if isFile( system_configfile_generic )  then table.insert( configfiles, system_configfile_generic ) end
-if isFile( systen_configfile_stack )    then table.insert( configfiles, systen_configfile_stack )   end
+if isFile( system_configfile_stack )    then table.insert( configfiles, system_configfile_stack )   end
 
 --
 -- Set the EasyBuild variables that point to paths or files
@@ -125,23 +152,35 @@ if isFile( systen_configfile_stack )    then table.insert( configfiles, systen_c
 
 -- - Single component paths
 
-setenv( 'EASYBUILD_PREFIX',               system_prefix )
-setenv( 'EASYBUILD_SOURCEPATH',           system_sourcepath )
-setenv( 'EASYBUILD_BUILDPATH',            system_buildpath )
-setenv( 'EASYBUILD_TMPDIR',               system_tmpdir )
-setenv( 'EASYBUILD_INSTALLPATH',          system_installpath )
-setenv( 'EASYBUILD_INSTALLPATH_SOFTWARE', system_installpath_software )
-setenv( 'EASYBUILD_INSTALLPATH_MODULES',  system_installpath_modules )
-setenv( 'EASYBUILD_REPOSITORY',           'FileRepository' )
-setenv( 'EASYBUILD_REPOSITORYPATH',       system_repositorypath )
+setenv( 'EASYBUILD_PREFIX',                        system_prefix )
+setenv( 'EASYBUILD_SOURCEPATH',                    system_sourcepath )
+setenv( 'EASYBUILD_CONTAINERPATH',                 system_containerpath )
+setenv( 'EASYBUILD_PACKAGEPATH',                   system_packagepath )
+setenv( 'EASYBUILD_BUILDPATH',                     system_buildpath )
+setenv( 'EASYBUILD_TMPDIR',                        system_tmpdir )
+setenv( 'EASYBUILD_INSTALLPATH',                   system_installpath )
+setenv( 'EASYBUILD_INSTALLPATH_SOFTWARE',          system_installpath_software )
+setenv( 'EASYBUILD_INSTALLPATH_MODULES',           system_installpath_modules )
+setenv( 'EASYBUILD_REPOSITORY',                    'FileRepository' )
+setenv( 'EASYBUILD_REPOSITORYPATH',                system_repositorypath )
 
 -- - Path variables
-setenv( 'EASYBUILD_ROBOT_PATHS', table.concat( robot_paths, ':' ) )
+setenv( 'EASYBUILD_ROBOT_PATHS',                   table.concat( robot_paths, ':' ) )
+setenv( 'EASYBUILD_SEARCH_PATHS',                  table.concat( search_paths, ':' ) )
 
 -- - List of configfiles
 if #configfiles > 0 then
-    setenv( 'EASYBUILD_CONFIGFILES', table.concat( configfiles, ',' ) )
+    setenv( 'EASYBUILD_CONFIGFILES',               table.concat( configfiles, ',' ) )
 end
+setenv ( 'EASYBUILD_EXTERNAL_MODULES_METADATA',    system_external_modules )
+
+-- - Custom EasyBlocks
+setenv( 'EASYBUILD_INCLUDE_EASYBLOCKS',            system_easyblocks )
+
+-- - Naming scheme
+setenv( 'EASYBUILD_INCLUDE_MODULE_NAMING_SCHEMES', system_module_naming_scheme_dir )
+setenv( 'EASYBUILD_MODULE_NAMING_SCHEME',          system_module_naming_scheme )
+setenv( 'EASYBUILD_SUFFIX_MODULES_PATH',           system_suffix_modules_path )
 
 --
 -- Other EasyBuild settings that do not depend on paths
@@ -179,17 +218,22 @@ The following directories and files are used by this module:
   * Directory for EasyConfig files:           ]] .. system_easyconfigdir .. '\n' .. [[
   * Software installation:                    ]] .. system_installpath_software .. '\n' .. [[
   * Module files:                             ]] .. system_installpath_modules .. '\n' .. [[
+  * Custom EasyBlocks:                        ]] .. system_easyblocks .. '\n' .. [[
+  * Custom module naming schemes:             ]] .. system_module_naming_scheme_dir .. '\n' .. [[
+    Using module naming scheme:               ]] .. system_module_naming_scheme .. '\n' .. [[
+    with suffix-module-path:                  ]] .. '\'' .. system_suffix_modules_path .. '\'\n' .. [[
   * EasyBuild configuration files:            ]] .. system_configdir .. '\n' .. [[
      - Generic config file:                   ]] .. system_configfile_generic .. '\n' .. [[
-     - Software stack-specific config file:   ]] .. systen_configfile_stack .. '\n' .. [[
+     - Software stack-specific config file:   ]] .. system_configfile_stack .. '\n' .. [[
+     - external modules definition:           ]] .. system_external_modules .. '\n' .. [[
   * Sources of installed packages:            ]] .. system_sourcepath .. '\n' .. [[
-  * Repository of installed EasyConfigs       ]] .. system_repositorypath .. '\n' .. [[
+  * Repository of installed EasyConfigs:      ]] .. system_repositorypath .. '\n' .. [[
+  * Robot search path:                        ]] .. table.concat( robot_paths, ':' ) .. '\n' .. [[
+  * Search path for eb -S/--search:           ]] .. table.concat( search_paths, ':' ) .. '\n' .. [[
   * Builds are performed in:                  ]] .. system_buildpath .. '\n' .. [[
   * EasyBuild temporary files in:             ]] .. system_buildpath .. '\n' .. [[
-
-The following system directories and files are used (if present):
-  * Generic config file:                      ]] .. system_configfile_generic .. '\n' .. [[
-  * Software stack-specific config file:      ]] .. systen_configfile_stack .. '\n' .. [[
+  * Path for containers:                      ]] .. system_containerpath .. '\n' .. [[
+  * Path for packages:                        ]] .. system_packagepath .. '\n' .. [[
 
 If multiple configuration files are given, they are read in the following order:
   1. System generic configuration file
