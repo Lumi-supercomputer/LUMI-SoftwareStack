@@ -66,6 +66,7 @@ mkdir -p mkdir -p $testroot/github/easybuild
 mkdir -p mkdir -p $testroot/github/easybuild/config
 
 create_link $modsrc/easybuild/easyconfigs $moddest/easybuild/easyconfigs
+create_link $modsrc/easybuild/easyblocks  $moddest/easybuild/easyblocks
 create_link $modsrc/easybuild/tools       $moddest/easybuild/tools
 
 #
@@ -334,7 +335,31 @@ create_link "$sourceroot/easybuild/config/easybuild-production.cfg" "$testroot/g
 # Test: As we use our own EasyConfig file for EasyBuild, bootstrapping may work
 # using just the EasyBuild framework and EasyBlocks?
 #
-# - First download
+# - Link the EasyBuild-production and EasyBuild-user modules in the module structure
+#
+modsrc="$testroot/github/modules/stack_partition"
+moddest="$testroot/modules/generic"
+mkdir -p $moddest/EasyBuild-production
+mkdir -p $moddest/EasyBuild-user
+create_link $modsrc/EasyBuild-production/$version-prod.lua $moddest/EasyBuild-production/default.lua
+create_link $modsrc/EasyBuild-user/$version-user.lua       $moddest/EasyBuild-user/default.lua
+
+stack=$EBstack
+modsrc="$testroot/modules/generic"
+function module_root () {
+    echo "$testroot/modules/easybuild/LUMI/$1/partition/$2"
+}
+for partition in ${partitions[@]} common
+do
+	mkdir -p $(module_root $stack $partition)/EasyBuild-production
+	mkdir -p $(module_root $stack $partition)/EasyBuild-user
+
+    create_link $modsrc/EasyBuild-production/default.lua $(module_root $stack $partition)/EasyBuild-production/$partition.lua
+    create_link $modsrc/EasyBuild-user/default.lua       $(module_root $stack $partition)/EasyBuild-user/$partition.lua
+done
+
+#
+# - Download EasyBuild from PyPi (only framework and easyblocks are needed for bootstrapping)
 #
 mkdir -p $testroot/sources/easybuild/e
 mkdir -p $testroot/sources/easybuild/e/EasyBuild
@@ -387,20 +412,19 @@ export PYTHONPATH=$(find $workdir/easybuild -name site-packages)
 #
 # - Install EasyBuild in the common directory of the $EBstack software stack
 #
-EBroot=$testroot/github/easybuild
-export EASYBUILD_CONFIGFILES="$EBroot/config/easybuild-production.cfg"
-export EASYBUILD_BUILDPATH=$XDG_RUNTIME_DIR/easybuild/build
-export EASYBUILD_TMPDIR=$XDG_RUNTIME_DIR/easybuild/tmp
-export EASYBUILD_SOURCEPATH=$testroot/sources/easybuild
-export EASYBUILD_INCLUDE_MODULE_NAMING_SCHEMES="$EBroot/tools/module_naming_scheme/*.py"
-export EASYBUILD_MODULE_NAMING_SCHEME=LUMI_FlatMNS
-export EASYBUILD_SUFFIX_MODULES_PATH=''
-#export EASYBUILD_MODULE_NAMING_SCHEME=CategorizedHMNS
-#export EASYBUILD_MODULE_NAMING_SCHEME=EasyBuildMNS
-#export EASYBUILD_MODULE_NAMING_SCHEME=CategorizedModuleNamingScheme
-export EASYBUILD_INSTALLPATH_SOFTWARE=$testroot/software/LUMI-$EBstack/LUMI-common/easybuild
-export EASYBUILD_INSTALLPATH_MODULES=$testroot/modules/easybuild/LUMI/$EBstack/partition/common
-export EASYBUILD_REPOSITORYPATH=$testroot/mgmt/ebrepo_files/LUMI-$EBstack/LUMI-common
+module --force purge
+export MODULEPATH=$testroot/modules/SoftwareStack:$testroot/modules/StyleModifiers
+export LMOD_MODULE_ROOT=$testroot
+export LMOD_MODULE_ROOT=$testroot
+export LMOD_PACKAGE_PATH=$testroot/github/LMOD
+export LMOD_RC=$testroot/github/LMOD/lmodrc.lua
+export LMOD_ADMIN_FILE=$testroot/github/LMOD/admin.list
+export LMOD_AVAIL_STYLE=label:system
+export LUMI_PARTITION='common'
+module load LUMI/$EBstack
+module load partition/common
+module load EasyBuild-production/common
+$workdir/easybuild/bin/eb --show-config
 $workdir/easybuild/bin/eb $testroot/github/easybuild/easyconfigs/e/EasyBuild/EasyBuild-${eb_version}.eb
 
 #
