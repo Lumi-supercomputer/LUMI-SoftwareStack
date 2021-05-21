@@ -8,8 +8,8 @@ end
 --
 
 -- System software and module install root
-local install_prefix = myFileName():match( '(.*)/modules/easybuild..*' )
--- System configuration
+local install_prefix = myFileName():match( '(.*)/modules/easybuild/.*' )
+-- System configuration: Derive from the path of the module
 local system_prefix = pathJoin( install_prefix, 'github/easybuild' )
 
 -- -----------------------------------------------------------------------------
@@ -80,7 +80,6 @@ local partition =        'LUMI-' .. partition_name
 local common_partition = 'LUMI-common'
 
 -- - Compute a number of system-related paths and file names.
---   Some of those should align with the EasyBuild-production module!
 
 --    + Some easy ones that do not depend the software stack itself
 local system_sourcepath =               pathJoin( install_prefix, 'sources/easybuild' )
