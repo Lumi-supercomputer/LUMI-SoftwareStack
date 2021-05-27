@@ -85,11 +85,12 @@ local common_partition =      'LUMI-' .. common_partition_name
 
 --    + Some easy ones that do not depend the software stack itself
 
-local system_sourcepath =               pathJoin( system_prefix, 'sources/easybuild' )
-local system_containerpath =            pathJoin( system_prefix, 'containers' )
-local system_packagepath =              pathJoin( system_prefix, 'packages' )
-local system_configdir =                pathJoin( EB_SystemRepo_prefix,  'config' )
-local system_easyconfigdir =            pathJoin( EB_SystemRepo_prefix,  'easyconfigs' )
+local system_sourcepath =               pathJoin( system_prefix,        'sources/easybuild' )
+local system_containerpath =            pathJoin( system_prefix,        'containers' )
+local system_packagepath =              pathJoin( system_prefix,        'packages' )
+local system_configdir =                pathJoin( EB_SystemRepo_prefix, 'config' )
+local system_easyconfigdir =            pathJoin( EB_SystemRepo_prefix, 'easyconfigs' )
+local system_easyblockdir =             pathJoin( EB_SystemRepo_prefix, 'easyblocks' )
 local system_buildpath =                pathJoin( os.getenv( 'XDG_RUNTIME_DIR' ), 'easybuild', 'build' )
 local system_tmpdir =                   pathJoin( os.getenv( 'XDG_RUNTIME_DIR' ), 'easybuild', 'tmp' )
 local system_installpath =              system_prefix
@@ -98,7 +99,7 @@ local system_module_naming_scheme_dir = pathJoin( EB_SystemRepo_prefix, 'tools/m
 local system_module_naming_scheme =     'LUMI_FlatMNS'
 local system_suffix_modules_path =       ''
 
-local system_easyblocks =               pathJoin( EB_SystemRepo_prefix, 'easyblocks/*/*.py' )
+local system_easyblocks =               pathJoin( system_easyblockdir, '*/*.py' )
 
 --    + Directories that depend on the software stack
 --                                                           Root                      Stack                   Partition                    Suffix
@@ -135,14 +136,9 @@ local search_paths = { system_easyconfigdir }
 
 --   + Possible future option: Include the CSCS repository
 
---   + EasyBuild default config files if EasyBuild is loaded
-if isloaded( 'EasyBuild' ) then
-    local ebroot_easybuild = os.getenv( 'EBROOTEASYBUILD' )
-    if ebroot_easybuild == nil then
-        LmodError( 'Error: Detected that EasyBuild is loaded but failed to locate it. This points to an error in the modules.' )
-    end
-    table.insert( search_paths, pathJoin( ebroot_easybuild, 'easybuild/easyconfigs' ) )
-end
+--   + EasyBuild default config files if we can find it (through EBROOTEASYBUILD that is)
+local ebroot_easybuild = os.getenv( 'EBROOTEASYBUILD' )
+table.insert( search_paths, pathJoin( ebroot_easybuild, 'easybuild/easyconfigs' ) )
 
 -- - List of config files
 local configfiles = {}
@@ -215,7 +211,7 @@ load an appropriate software stack and only then load EasyBuild-production. Afte
 the software stack it is needed to re-load this module (if it is not done automatically).
 
 After loading the module, it is possible to simply use the eb command without further
-need for aliases.
+need for long command line arguments to specify the configuration.
 
 The following directories and files are used by this module:
 
