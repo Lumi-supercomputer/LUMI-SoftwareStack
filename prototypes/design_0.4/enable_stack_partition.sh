@@ -7,7 +7,7 @@ partition='L'
 
 echo "module --force purge ; "
 echo "export MODULEPATH=$testroot/modules/SoftwareStack:$testroot/modules/StyleModifiers ; "
-echo "export LMOD_MODULE_ROOT=$testroot ; "
+#echo "export LMOD_MODULE_ROOT=$testroot ; "
 echo "export LMOD_PACKAGE_PATH=$testroot/SystemRepo/LMOD ; "
 echo "export LMOD_RC=$testroot/SystemRepo/LMOD/lmodrc.lua ; "
 echo "export LMOD_ADMIN_FILE=$testroot/SystemRepo/LMOD/admin.list ; "

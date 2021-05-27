@@ -414,8 +414,6 @@ export PYTHONPATH=$(find $workdir/easybuild -name site-packages)
 #
 module --force purge
 export MODULEPATH=$testroot/modules/SoftwareStack:$testroot/modules/StyleModifiers
-export LMOD_MODULE_ROOT=$testroot
-export LMOD_MODULE_ROOT=$testroot
 export LMOD_PACKAGE_PATH=$testroot/SystemRepo/LMOD
 export LMOD_RC=$testroot/SystemRepo/LMOD/lmodrc.lua
 export LMOD_ADMIN_FILE=$testroot/SystemRepo/LMOD/admin.list

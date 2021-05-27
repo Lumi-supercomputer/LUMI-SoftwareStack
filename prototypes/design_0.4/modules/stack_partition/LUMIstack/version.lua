@@ -5,11 +5,6 @@ end
 family( 'LUMI_SoftwareStack' )
 add_property("lmod","sticky")
 
-local module_root = os.getenv( 'LMOD_MODULE_ROOT')
-if module_root == nil then
-    LmodError( 'The environment variable LMOD_MODULE_ROOT is not found but needed to find the components of the LUMI prototype.' )
-end
-
 local stack_name    = myModuleName()
 local stack_version = myModuleVersion()
 
