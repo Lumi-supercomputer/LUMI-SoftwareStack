@@ -86,6 +86,8 @@ mkdir -p $testroot/modules/spack
 mkdir -p $testroot/modules/spack/LUMI
 mkdir -p $testroot/modules/manual
 mkdir -p $testroot/modules/manual/LUMI
+mkdir -p $testroot/modules/InstallConfig
+mkdir -p $testroot/modules/InstallConfig/LUMI
 
 mkdir -p $testroot/SW
 
@@ -109,6 +111,8 @@ do
   mkdir -p $testroot/modules/spack/LUMI/$stack/partition
   mkdir -p $testroot/modules/manual/LUMI/$stack
   mkdir -p $testroot/modules/manual/LUMI/$stack/partition
+  mkdir -p $testroot/modules/InstallConfig/LUMI/$stack
+  mkdir -p $testroot/modules/InstallConfig/LUMI/$stack/partition
 
   mkdir -p $testroot/SW/LUMI-$stack
 
@@ -120,6 +124,7 @@ do
 	mkdir -p $testroot/modules/easybuild/LUMI/$stack/partition/$partition
    	mkdir -p $testroot/modules/spack/LUMI/$stack/partition/$partition
    	mkdir -p $testroot/modules/manual/LUMI/$stack/partition/$partition
+   	mkdir -p $testroot/modules/InstallConfig/LUMI/$stack/partition/$partition
 
    	mkdir -p $testroot/SW/LUMI-$stack/$partition
    	mkdir -p $testroot/SW/LUMI-$stack/$partition/EB
@@ -347,24 +352,24 @@ create_link $modsrc/EasyBuild-user/$version-user.lua       $moddest/EasyBuild-us
 stack=$EBstack
 modsrc="$testroot/modules/generic"
 function module_root () {
-    echo "$testroot/modules/easybuild/LUMI/$1/partition/$2"
+    echo "$testroot/modules/InstallConfig/LUMI/$1/partition/$2"
 }
 for partition in ${partitions[@]} common
 do
 	mkdir -p $(module_root $stack $partition)/EasyBuild-production
 	mkdir -p $(module_root $stack $partition)/EasyBuild-user
 
-    create_link $modsrc/EasyBuild-production/default.lua $(module_root $stack $partition)/EasyBuild-production/$partition.lua
-    create_link $modsrc/EasyBuild-user/default.lua       $(module_root $stack $partition)/EasyBuild-user/$partition.lua
+    create_link $modsrc/EasyBuild-production/default.lua $(module_root $stack $partition)/EasyBuild-production/LUMI.lua
+    create_link $modsrc/EasyBuild-user/default.lua       $(module_root $stack $partition)/EasyBuild-user/LUMI.lua
 done
 
 #
 # - Download EasyBuild from PyPi (only framework and easyblocks are needed for bootstrapping)
+#   We'll download them to a location that we don't clear when clearing the prototype to
+#   ensure that we don't need to reload them every time we rebuild the prototype.
 #
-mkdir -p $testroot/sources/easybuild/e
-mkdir -p $testroot/sources/easybuild/e/EasyBuild
-EB_tardir=$testroot/sources/easybuild/e/EasyBuild
-pushd $EB_tardir
+mkdir -p $testroot/../../sources
+pushd $testroot/../../sources
 
 EBF_file="easybuild-framework-${eb_bootstrap_version}.tar.gz"
 EBF_url="https://pypi.python.org/packages/source/e/easybuild-framework"
@@ -374,9 +379,20 @@ EBB_file="easybuild-easyblocks-${eb_bootstrap_version}.tar.gz"
 EBB_url="https://pypi.python.org/packages/source/e/easybuild-easyblocks"
 [[ -f $EBB_file ]] || curl -L -O $EBB_url/$EBB_file
 
-#EBC_file="easybuild-easyconfigs-${eb_bootstrap_version}.tar.gz"
-#EBC_url="https://pypi.python.org/packages/source/e/easybuild-easyconfigs"
-#[[ -f $EBC_file ]] || curl -L -O $EBC_url/$EBC_file
+EBC_file="easybuild-easyconfigs-${eb_bootstrap_version}.tar.gz"
+EBC_url="https://pypi.python.org/packages/source/e/easybuild-easyconfigs"
+[[ -f $EBC_file ]] || curl -L -O $EBC_url/$EBC_file
+
+popd
+
+mkdir -p $testroot/sources/easybuild/e
+mkdir -p $testroot/sources/easybuild/e/EasyBuild
+EB_tardir=$testroot/sources/easybuild/e/EasyBuild
+pushd $EB_tardir
+
+cp $testroot/../../sources/$EBF_file .
+cp $testroot/../../sources/$EBB_file .
+cp $testroot/../../sources/$EBC_file .
 
 popd
 
@@ -421,7 +437,7 @@ export LMOD_AVAIL_STYLE=label:system
 export LUMI_PARTITION='common'
 module load LUMI/$EBstack
 module load partition/common
-module load EasyBuild-production/common
+module load EasyBuild-production
 $workdir/easybuild/bin/eb --show-config
 $workdir/easybuild/bin/eb $testroot/SystemRepo/easybuild/easyconfigs/e/EasyBuild/EasyBuild-${eb_version}.eb
 

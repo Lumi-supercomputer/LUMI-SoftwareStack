@@ -10,7 +10,7 @@ end
 -- User configuration
 local default_user_prefix = pathJoin( os.getenv( 'HOME' ), '/EasyBuild' )
 -- System software and module install root
-local system_prefix = myFileName():match( '(.*)/modules/easybuild/.*' )
+local system_prefix = myFileName():match( '(.*)/modules/InstallConfig/.*' )
 -- System configuration: Derive from the path of the module
 local EB_SystemRepo_prefix = pathJoin( system_prefix, 'SystemRepo/easybuild' )
 

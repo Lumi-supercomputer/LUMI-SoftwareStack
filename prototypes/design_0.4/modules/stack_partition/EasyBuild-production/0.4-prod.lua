@@ -8,7 +8,7 @@ end
 --
 
 -- System software and module install root
-local system_prefix = myFileName():match( '(.*)/modules/easybuild/.*' )
+local system_prefix = myFileName():match( '(.*)/modules/InstallConfig/.*' )
 -- System configuration: Derive from the path of the module
 local EB_SystemRepo_prefix = pathJoin( system_prefix, 'SystemRepo/easybuild' )
 
@@ -45,9 +45,6 @@ family( 'EasyBuildConfig' )
 -- We don't care which version is loaded but will load the default one ourselves.
 if not isloaded( 'EasyBuild' ) then
     try_load( 'EasyBuild' )
-    if not isloaded( 'EasyBuild' ) then
-        LmodMessage( 'Warning: No EasyBuild module loaded, but this module will produce a valid configuration for an eb command provided in another way.' )
-    end
 end
 
 --
@@ -256,6 +253,24 @@ installed in the directory where this module is found and as directories are cre
 by EasyBuild as needed.
 
 ]] )
+
+-- -----------------------------------------------------------------------------
+--
+-- Print an informative message so that the user knows that EasyBuild is
+-- configured properly.
+--
+
+if mode() == 'load' then
+    if partition_name == common then
+        LmodMessage( '\nEasyBuild configured to install software from the ' ..
+            stack_name .. '/'.. stack_version ..
+            ' software stack in the system directories common to all partitions.\n' )
+    else
+        LmodMessage( '\nEasyBuild configured to install software from the ' ..
+            stack_name .. '/'.. stack_version ..
+            ' software stack in the system directories for the LUMI/' .. partition_name .. ' partition.\n' )
+    end
+end
 
 -- Some information for debugging
 

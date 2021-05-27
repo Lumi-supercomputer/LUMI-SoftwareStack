@@ -56,9 +56,17 @@ expected.
 local stack = 'LUMI-' .. stack_version
 prepend_path( 'MODULEPATH', pathJoin( module_root, 'SystemPartition', stack_name, stack_version ) )
 
+-- The following variables may be used by various modules and LUA configuration files.
+-- However, take care as those variables may not be defined anymore when your module
+-- gets unloaded.
+setenv( 'LUMI_MODULEPATH_ROOT',    module_root )
 setenv( 'LUMI_STACK_NAME',         stack_name )
 setenv( 'LUMI_STACK_VERSION',      stack_version )
 setenv( 'LUMI_STACK_NAME_VERSION', stack_name .. '/' .. stack_version )
+
+-- We can even consider to use a specific modulerc file which is only read if one of the LUMI modules is
+-- loaded.
+-- prepend_path( 'LMOD_MODULERCFILE', pathJoin( module_root, '..', 'SystemRepo/LMOD', 'LUMIstack_modulerc.lua' ) )
 
 load( 'partition/' .. partition )
 

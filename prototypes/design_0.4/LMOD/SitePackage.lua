@@ -40,6 +40,7 @@ local mapT =
         ['modules/StyleModifiers']         = 'Modify the module display style',
         ['modules/SoftwareStack$']         = 'Software stacks',
         ['modules/SystemPartition/']       = 'LUMI partitions for the software stack _STACK_',
+        ['modules/InstallConfig/']         = 'Configuring software build management tools for the software stack _STACK_ on _PARTITION_',
         ['modules/easybuild/']             = 'EasyBuild managed software for software stack _STACK_ on _PARTITION_',
         ['modules/spack/']                 = 'Spack managed software for software stack _STACK_ on _PARTITION_',
         ['modules/manual/']                = 'Manually installed software for software stack _STACK_ on _PARTITION_',
@@ -99,7 +100,7 @@ local function avail_hook(t)
     end
 
     local stack = os.getenv( 'LUMI_STACK_NAME_VERSION' ) or 'unknown'
-    local partition = 'LUMI' .. ( os.getenv( 'LUMI_OVERWRITE_PARTITION' ) or 'X' )
+    local partition = 'LUMI-' .. ( os.getenv( 'LUMI_OVERWRITE_PARTITION' ) or 'X' )
 
     for k,v in pairs(t) do
         for pat,label in pairs(styleT) do
