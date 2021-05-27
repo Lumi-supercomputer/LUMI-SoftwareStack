@@ -8,9 +8,9 @@ end
 --
 
 -- System software and module install root
-local install_prefix = myFileName():match( '(.*)/modules/easybuild/.*' )
+local system_prefix = myFileName():match( '(.*)/modules/easybuild/.*' )
 -- System configuration: Derive from the path of the module
-local system_prefix = pathJoin( install_prefix, 'github/easybuild' )
+local EB_SystemRepo_prefix = pathJoin( system_prefix, 'SystemRepo/easybuild' )
 
 -- -----------------------------------------------------------------------------
 --
@@ -75,32 +75,37 @@ if optarch[partition_name] == nil then
 end
 
 -- - Prepare some additional variables to reduce the length of some lines
-local stack =            stack_name  .. '-' .. stack_version
-local partition =        'LUMI-' .. partition_name
-local common_partition = 'LUMI-common'
+
+local stack =                 stack_name  .. '-' .. stack_version
+local partition =             'LUMI-' .. partition_name
+local common_partition_name = 'common'
+local common_partition =      'LUMI-' .. common_partition_name
 
 -- - Compute a number of system-related paths and file names.
 
 --    + Some easy ones that do not depend the software stack itself
-local system_sourcepath =               pathJoin( install_prefix, 'sources/easybuild' )
-local system_containerpath =            pathJoin( install_prefix, 'containers' )
-local system_packagepath =              pathJoin( install_prefix, 'packages' )
-local system_configdir =                pathJoin( system_prefix,  'config' )
-local system_easyconfigdir =            pathJoin( system_prefix,  'easyconfigs' )
+
+local system_sourcepath =               pathJoin( system_prefix, 'sources/easybuild' )
+local system_containerpath =            pathJoin( system_prefix, 'containers' )
+local system_packagepath =              pathJoin( system_prefix, 'packages' )
+local system_configdir =                pathJoin( EB_SystemRepo_prefix,  'config' )
+local system_easyconfigdir =            pathJoin( EB_SystemRepo_prefix,  'easyconfigs' )
 local system_buildpath =                pathJoin( os.getenv( 'XDG_RUNTIME_DIR' ), 'easybuild', 'build' )
 local system_tmpdir =                   pathJoin( os.getenv( 'XDG_RUNTIME_DIR' ), 'easybuild', 'tmp' )
-local system_installpath =              install_prefix
+local system_installpath =              system_prefix
 
-local system_module_naming_scheme_dir = pathJoin( system_prefix, 'tools/module_naming_scheme/*.py' )
+local system_module_naming_scheme_dir = pathJoin( EB_SystemRepo_prefix, 'tools/module_naming_scheme/*.py' )
 local system_module_naming_scheme =     'LUMI_FlatMNS'
 local system_suffix_modules_path =       ''
 
-local system_easyblocks =               pathJoin( system_prefix, 'easyblocks/*/*.py' )
+local system_easyblocks =               pathJoin( EB_SystemRepo_prefix, 'easyblocks/*/*.py' )
 
 --    + Directories that depend on the software stack
-local system_installpath_software = pathJoin( install_prefix, 'software',             stack,                 partition,                 'easybuild' )
-local system_installpath_modules =  pathJoin( install_prefix, 'modules', 'easybuild', 'LUMI', stack_version, 'partition', partition_name )
-local system_repositorypath =       pathJoin( install_prefix, 'mgmt', 'ebrepo_files',  stack,                partition )
+--                                                           Root                      Stack                   Partition                    Suffix
+
+local system_installpath_software = pathJoin( system_prefix, 'SW',                      stack,                 partition_name,              'EB' )
+local system_installpath_modules =  pathJoin( system_prefix, 'modules', 'easybuild',    'LUMI', stack_version, 'partition', partition_name )
+local system_repositorypath =       pathJoin( system_prefix, 'mgmt',    'ebrepo_files', stack,                 partition )
 
 -- - The relevant config files
 local system_configfile_generic = pathJoin( system_configdir, 'easybuild-production.cfg' )
@@ -116,7 +121,7 @@ local robot_paths = {system_repositorypath}
 --   + If the partition is not the common one, we need to add that repository
 --     directory also.
 if partition_name ~=  'common' then
-    table.insert( robot_paths, pathJoin( install_prefix, 'mgmt', 'ebrepo_files', stack, common_partition ) )
+    table.insert( robot_paths, pathJoin( system_prefix, 'mgmt', 'ebrepo_files', stack, common_partition ) )
 end
 
 --   + And at the end, we include the system easyconfig directory.

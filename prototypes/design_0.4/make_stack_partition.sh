@@ -51,19 +51,19 @@ create_link () {
 # Make the support directories
 #
 mkdir -p $testroot
-mkdir -p $testroot/github
-# Normally $testroot/github would just be our github repoistory, even though some files
+mkdir -p $testroot/SystemRepo
+# Normally $testroot/SystemRepo would just be our github repository, even though some files
 # in there are generated from other files. However, to ease editing in the prototype
 # and since we're running this on two clusters, we're selectively linking to some
 # parts of the GitHub repository.
 modsrc=$sourceroot
-moddest=$testroot/github
+moddest=$testroot/SystemRepo
 create_link $modsrc/modules $moddest/modules
 create_link $modsrc/LMOD    $moddest/LMOD
 create_link $modsrc/scripts $moddest/scripts
 
-mkdir -p mkdir -p $testroot/github/easybuild
-mkdir -p mkdir -p $testroot/github/easybuild/config
+mkdir -p mkdir -p $testroot/SystemRepo/easybuild
+mkdir -p mkdir -p $testroot/SystemRepo/easybuild/config
 
 create_link $modsrc/easybuild/easyconfigs $moddest/easybuild/easyconfigs
 create_link $modsrc/easybuild/easyblocks  $moddest/easybuild/easyblocks
@@ -87,7 +87,7 @@ mkdir -p $testroot/modules/spack/LUMI
 mkdir -p $testroot/modules/manual
 mkdir -p $testroot/modules/manual/LUMI
 
-mkdir -p $testroot/software
+mkdir -p $testroot/SW
 
 mkdir -p $testroot/mgmt
 mkdir -p $testroot/mgmt/ebrepo_files
@@ -110,7 +110,7 @@ do
   mkdir -p $testroot/modules/manual/LUMI/$stack
   mkdir -p $testroot/modules/manual/LUMI/$stack/partition
 
-  mkdir -p $testroot/software/LUMI-$stack
+  mkdir -p $testroot/SW/LUMI-$stack
 
   mkdir -p $testroot/mgmt/ebrepo_files/LUMI-$stack
 
@@ -121,10 +121,10 @@ do
    	mkdir -p $testroot/modules/spack/LUMI/$stack/partition/$partition
    	mkdir -p $testroot/modules/manual/LUMI/$stack/partition/$partition
 
-   	mkdir -p $testroot/software/LUMI-$stack/LUMI-$partition
-   	mkdir -p $testroot/software/LUMI-$stack/LUMI-$partition/easybuild
-   	mkdir -p $testroot/software/LUMI-$stack/LUMI-$partition/spack
-   	mkdir -p $testroot/software/LUMI-$stack/LUMI-$partition/manual
+   	mkdir -p $testroot/SW/LUMI-$stack/$partition
+   	mkdir -p $testroot/SW/LUMI-$stack/$partition/EB
+   	mkdir -p $testroot/SW/LUMI-$stack/$partition/SP
+   	mkdir -p $testroot/SW/LUMI-$stack/$partition/MNL
 
    	mkdir -p $testroot/mgmt/ebrepo_files/LUMI-$stack/LUMI-$partition
 
@@ -135,7 +135,7 @@ done
 #
 # First populate modules/generic
 #
-modsrc="$testroot/github/modules/stack_partition"
+modsrc="$testroot/SystemRepo/modules/stack_partition"
 moddest="$testroot/modules/generic"
 create_link $modsrc/LUMIstack/version.lua             $moddest/LUMIstack/version.lua
 create_link $modsrc/LUMIpartition/partitionletter.lua $moddest/LUMIpartition/partitionletter.lua
@@ -179,7 +179,7 @@ mkdir -p $testroot/modules/StyleModifiers
 mkdir -p $testroot/modules/StyleModifiers/ModuleLabel
 mkdir -p $testroot/modules/StyleModifiers/ModuleColour
 mkdir -p $testroot/modules/StyleModifiers/ModuleExtensions
-modsrc=$testroot/github/modules/StyleModifiers
+modsrc=$testroot/SystemRepo/modules/StyleModifiers
 moddest=$testroot/modules/StyleModifiers
 create_link "$modsrc/ModuleLabel/label.lua"         "$moddest/ModuleLabel/label.lua"
 create_link "$modsrc/ModuleLabel/system.lua"        "$moddest/ModuleLabel/system.lua"
@@ -213,7 +213,7 @@ EOF
 # - First modules that mimic EasyBuild
 #
 function software_root () {
-    echo "$testroot/software/LUMI-$1/LUMI-$2/easybuild"
+    echo "$testroot/SW/LUMI-$1/$2/EB"
 }
 
 function module_root () {
@@ -252,7 +252,7 @@ empty_module_EB.sh CMake 3.20.2 "" "" $(software_root $stack common) $(module_ro
 # - Next modules that mimic Spack
 #
 function software_root () {
-    echo "$testroot/software/LUMI-$1/LUMI-$2/spack"
+    echo "$testroot/SW/LUMI-$1/$2/SP"
 }
 
 function module_root () {
@@ -271,7 +271,7 @@ empty_module_Spack.sh cp2k   7.1      "" "GPU" $(software_root $stack G) $(modul
 # - Next modules that mimic manual installs
 #
 function software_root () {
-    echo "$testroot/software/LUMI-$1/LUMI-$2/manual"
+    echo "$testroot/SW/LUMI-$1/$2/MNL"
 }
 
 function module_root () {
@@ -288,7 +288,7 @@ empty_module_MN.sh Gaussian  g16_c01-avx2 $(software_root $stack C) $(module_roo
 # - Install some dummy Python3 modules to demonstrate the use of extensions in LMOD
 #
 function software_root () {
-    echo "$testroot/software/LUMI-$1/LUMI-$2/easybuild"
+    echo "$testroot/SW/LUMI-$1/$2/EB"
 }
 
 function module_root () {
@@ -318,11 +318,11 @@ Python3_module_EB.sh "3.9.4" "cpeCCE-$stack" "1.20.2" "1.6.3" $(software_root $s
 #
 # - External module file
 #
-make_CPE_defs.py $testroot/github/easybuild/config $EBstack
+make_CPE_defs.py $testroot/SystemRepo/easybuild/config $EBstack
 #
 # - EasyBuild config file
 #
-create_link "$sourceroot/easybuild/config/easybuild-production.cfg" "$testroot/github/easybuild/config/easybuild-production.cfg"
+create_link "$sourceroot/easybuild/config/easybuild-production.cfg" "$testroot/SystemRepo/easybuild/config/easybuild-production.cfg"
 
 
 ###############################################################################
@@ -337,7 +337,7 @@ create_link "$sourceroot/easybuild/config/easybuild-production.cfg" "$testroot/g
 #
 # - Link the EasyBuild-production and EasyBuild-user modules in the module structure
 #
-modsrc="$testroot/github/modules/stack_partition"
+modsrc="$testroot/SystemRepo/modules/stack_partition"
 moddest="$testroot/modules/generic"
 mkdir -p $moddest/EasyBuild-production
 mkdir -p $moddest/EasyBuild-user
@@ -416,16 +416,16 @@ module --force purge
 export MODULEPATH=$testroot/modules/SoftwareStack:$testroot/modules/StyleModifiers
 export LMOD_MODULE_ROOT=$testroot
 export LMOD_MODULE_ROOT=$testroot
-export LMOD_PACKAGE_PATH=$testroot/github/LMOD
-export LMOD_RC=$testroot/github/LMOD/lmodrc.lua
-export LMOD_ADMIN_FILE=$testroot/github/LMOD/admin.list
+export LMOD_PACKAGE_PATH=$testroot/SystemRepo/LMOD
+export LMOD_RC=$testroot/SystemRepo/LMOD/lmodrc.lua
+export LMOD_ADMIN_FILE=$testroot/SystemRepo/LMOD/admin.list
 export LMOD_AVAIL_STYLE=label:system
 export LUMI_PARTITION='common'
 module load LUMI/$EBstack
 module load partition/common
 module load EasyBuild-production/common
 $workdir/easybuild/bin/eb --show-config
-$workdir/easybuild/bin/eb $testroot/github/easybuild/easyconfigs/e/EasyBuild/EasyBuild-${eb_version}.eb
+$workdir/easybuild/bin/eb $testroot/SystemRepo/easybuild/easyconfigs/e/EasyBuild/EasyBuild-${eb_version}.eb
 
 #
 # - Clean up
