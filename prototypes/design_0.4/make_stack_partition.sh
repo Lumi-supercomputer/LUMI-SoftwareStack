@@ -444,4 +444,9 @@ cat <<EOF
 To enable prototype stack_partition version $version, make sure LMOD is the
 active module system and then run
 eval \$(\$HOME/LUMI-easybuild-prototype/prototypes/design_$version/enable_stack_partition.sh)
+
+Dummy demo modules are installed in ${stacks[0]} and ${stacks[1]}
+
+EasyBuild works in $EBstack
+
 EOF

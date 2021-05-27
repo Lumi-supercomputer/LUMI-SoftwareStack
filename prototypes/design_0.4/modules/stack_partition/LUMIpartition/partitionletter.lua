@@ -13,20 +13,33 @@ local node_description = {
     common = 'common binaries for all partitions'
 }
 
-local module_root = os.getenv( 'LMOD_MODULE_ROOT')
-if module_root == nil then
-    LmodError( 'The environment variable LMOD_MODULE_ROOT is not found but needed to find the components of the LUMI prototype.' )
-end
+-- Detect the root of the module tree from the position of this module
+local module_root = myFileName():match( '(.*/modules)/SystemPartition/.*' )
 
+-- Determine the software stack from the position of this module in the hierarchy
 local hierarchy = hierarchyA( myModuleFullName(), 1 )
 if os.getenv( '_LUMI_LMOD_DEBUG' ) ~= nil then
     LmodMessage( 'DEBUG: ' .. mode() .. ' ' .. myModuleFullName() .. ': Detected the ' .. hierarchy[1] .. ' Software stack' )
 end
 local stack_name_version = hierarchy[1]
 
+-- Determine the partition that we want to load software for from the version of the module
 local partition = myModuleVersion()
 if os.getenv( '_LUMI_LMOD_DEBUG' ) ~= nil then
     LmodMessage( 'DEBUG: ' .. mode() .. ' ' .. myModuleFullName() .. ': Detected partition ' .. partition )
+end
+
+-- Detect if there is a user installation that we need to take into account.
+local user_easybuild_modules = os.getenv( 'EBU_USER_PREFIX' )
+if user_easybuild_modules == nil then
+    user_easybuild_modules = pathJoin( os.getenv( 'HOME'), 'EasyBuild' )
+end
+user_easybuild_modules = pathJoin( user_easybuild_modules, 'modules')
+if not isDir( user_easybuild_modules ) then
+    user_easybuild_modules = nil
+end
+if os.getenv( '_LUMI_LMOD_DEBUG' ) ~= nil and user_easybuild_modules ~= nil then
+    LmodMessage( 'DEBUG: ' .. mode() .. ' ' .. myModuleFullName() .. ': Detected user module tree at ' .. user_easybuild_modules )
 end
 
 whatis( 'Description: ' .. myModuleFullName() .. ' enables the ' .. stack_name_version .. ' software stack for the LUMI-' .. partition .. ' (' .. node_description[partition] .. ') partition.' )
@@ -52,19 +65,30 @@ if ( partition ~= 'common' ) or ( mode() ~= 'spider' ) then
     -- The Cray modules, may be possible to only activate them once PrgEnv-* is loaded
     prepend_path( 'MODULEPATH', '/opt/cray/pe/lmod/modulefiles/craype-targets/default' )
     prepend_path( 'MODULEPATH', '/opt/cray/pe/lmod/modulefiles/core' )
-    -- The modules of application software. Make sure to also add the common ones.
+    -- The modules of application software installed in the system. Make sure to also add the common ones.
     if partition ~= 'common' then
-        prepend_path( 'MODULEPATH', pathJoin( module_root, 'modules', 'manual',    stack_name_version, 'partition', 'common' ) )
+        prepend_path( 'MODULEPATH', pathJoin( module_root, 'manual',    stack_name_version, 'partition', 'common' ) )
     end
-    prepend_path(     'MODULEPATH', pathJoin( module_root, 'modules', 'manual',    stack_name_version, 'partition', partition ) )
+    prepend_path(     'MODULEPATH', pathJoin( module_root, 'manual',    stack_name_version, 'partition', partition ) )
     if partition ~= 'common' then
-        prepend_path( 'MODULEPATH', pathJoin( module_root, 'modules', 'spack',     stack_name_version, 'partition', 'common' ) )
+        prepend_path( 'MODULEPATH', pathJoin( module_root, 'spack',     stack_name_version, 'partition', 'common' ) )
     end
-    prepend_path(     'MODULEPATH', pathJoin( module_root, 'modules', 'spack',     stack_name_version, 'partition', partition ) )
+    prepend_path(     'MODULEPATH', pathJoin( module_root, 'spack',     stack_name_version, 'partition', partition ) )
     if partition ~= 'common' then
-        prepend_path( 'MODULEPATH', pathJoin( module_root, 'modules', 'easybuild', stack_name_version, 'partition', 'common' ) )
+        prepend_path( 'MODULEPATH', pathJoin( module_root, 'easybuild', stack_name_version, 'partition', 'common' ) )
     end
-    prepend_path(     'MODULEPATH', pathJoin( module_root, 'modules', 'easybuild', stack_name_version, 'partition', partition ) )
+    prepend_path(     'MODULEPATH', pathJoin( module_root, 'easybuild', stack_name_version, 'partition', partition ) )
+    -- Software installed by the user using EasyBuild.
+    if user_easybuild_modules ~= nil then
+        local user_common_dir = pathJoin( user_easybuild_modules, stack_name_version, 'partition', 'common' )
+        if partition ~= common and isDir( user_common_dir ) then
+            prepend_path( 'MODULEPATH', user_common_dir )
+        end
+        local user_partition_dir = pathJoin( user_easybuild_modules, stack_name_version, 'partition', partition )
+        if isDir( user_partition_dir) then
+            prepend_path( 'MODULEPATH', user_partition_dir )
+        end
+    end
 end
 
 if os.getenv( '_LUMI_LMOD_DEBUG' ) ~= nil then

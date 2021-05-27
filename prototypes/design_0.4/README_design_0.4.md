@@ -2,6 +2,23 @@
 
 This prototype focuses on the EasyBuild setup.
 
+TODO to finish this prototype:
+
+  * Hide the common partition in the results of ``module spider`` since we don't want
+    regular users to be confronted with that partition.
+
+  * Hide EasyBuild-production/common and EasyBuild-user/common unless the common
+    partition is loaded?
+
+  * cpe modules, and a script that generates them automatically?
+
+    Challenge in case we switch to a hierarchical MNS
+
+      * Ensure that when loading a cpe* module, the MODULEPATH for the modules
+        installed by the user is also adapted.
+
+
+
 Changes compared to design 0.3:
 
   * We implemented only the stack_partition variant to reduce the amount of work.
@@ -25,6 +42,11 @@ Changes compared to design 0.3:
 
       * Make sure it does not show up in the labeled view but that its software is
         added to the actual partition.
+
+  * ``partitionletter.lua``, the generic implementation of the partition module for
+    the LUMI software stack, does no longer use ``LMOD_MODIULE_ROOT``, but detects
+    the root of the module installation from its own position using Lmod instrospection
+    functions.
 
   * Scripts to generate the external modules configuration file for EasyBuild based
     on a Python script that defines the Cray PE compoments and then some more so that
@@ -694,7 +716,7 @@ rather than a setup that first loads that module to then overwrite certain varia
 
       * Changes to the root of the module directory
 
-          * All software stack modules may need changes
+          * All software stack modules may need changes, and certainly ``partitionletter.lua``.
 
           * ``EasyBuild-production`` module and if we want to reflect the changes in the structure
             of the user directory, also ``EasyBuild-user``.
@@ -729,3 +751,4 @@ rather than a setup that first loads that module to then overwrite certain varia
         naming scheme.
 
       * It may have impact on the label generation in ``SitePAckage.lua``.
+
