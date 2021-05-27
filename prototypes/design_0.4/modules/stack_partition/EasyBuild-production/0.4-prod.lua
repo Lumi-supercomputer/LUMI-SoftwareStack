@@ -256,3 +256,9 @@ installed in the directory where this module is found and as directories are cre
 by EasyBuild as needed.
 
 ]] )
+
+-- Some information for debugging
+
+if os.getenv( '_LUMI_LMOD_DEBUG' ) ~= nil then
+    LmodMessage( 'DEBUG: ' .. mode() .. ' ' .. myFileName() .. ': Exiting' )
+end
