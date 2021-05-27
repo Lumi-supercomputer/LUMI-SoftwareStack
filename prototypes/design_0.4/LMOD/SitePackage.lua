@@ -84,7 +84,12 @@ local mapT =
 
 
 local function avail_hook(t)
+
     dbg.start( 'avail_hook' )
+
+    --
+    -- Use labels instead of directories (if selected)
+    --
 
     local availStyle = masterTbl().availStyle
     local styleT     = mapT[availStyle]
@@ -93,11 +98,8 @@ local function avail_hook(t)
         return
     end
 
-    local stack = os.getenv( 'LUMI_STACK_NAME_VERSION' )
-    if stack == nil then stack = 'unknown' end
-    local partition = os.getenv( 'LUMI_OVERWRITE_PARTITION' )
-    if partition == nil then partition = 'X' end
-    partition = 'LUMI-' .. partition
+    local stack = os.getenv( 'LUMI_STACK_NAME_VERSION' ) or 'unknown'
+    local partition = 'LUMI' .. ( os.getenv( 'LUMI_OVERWRITE_PARTITION' ) or 'X' )
 
     for k,v in pairs(t) do
         for pat,label in pairs(styleT) do
