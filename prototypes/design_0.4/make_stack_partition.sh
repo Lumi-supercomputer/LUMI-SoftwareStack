@@ -344,10 +344,8 @@ create_link "$sourceroot/easybuild/config/easybuild-production.cfg" "$testroot/S
 #
 modsrc="$testroot/SystemRepo/modules/stack_partition"
 moddest="$testroot/modules/generic"
-mkdir -p $moddest/EasyBuild-production
-mkdir -p $moddest/EasyBuild-user
-create_link $modsrc/EasyBuild-production/$version-prod.lua $moddest/EasyBuild-production/default.lua
-create_link $modsrc/EasyBuild-user/$version-user.lua       $moddest/EasyBuild-user/default.lua
+mkdir -p $moddest/EasyBuild-config
+create_link $modsrc/EasyBuild-config/$version.lua $moddest/EasyBuild-config/default.lua
 
 stack=$EBstack
 modsrc="$testroot/modules/generic"
@@ -357,10 +355,12 @@ function module_root () {
 for partition in ${partitions[@]} common
 do
 	mkdir -p $(module_root $stack $partition)/EasyBuild-production
+	mkdir -p $(module_root $stack $partition)/EasyBuild-infrastructure
 	mkdir -p $(module_root $stack $partition)/EasyBuild-user
 
-    create_link $modsrc/EasyBuild-production/default.lua $(module_root $stack $partition)/EasyBuild-production/LUMI.lua
-    create_link $modsrc/EasyBuild-user/default.lua       $(module_root $stack $partition)/EasyBuild-user/LUMI.lua
+    create_link $modsrc/EasyBuild-config/default.lua $(module_root $stack $partition)/EasyBuild-production/LUMI.lua
+    create_link $modsrc/EasyBuild-config/default.lua $(module_root $stack $partition)/EasyBuild-infrastructure/LUMI.lua
+    create_link $modsrc/EasyBuild-config/default.lua $(module_root $stack $partition)/EasyBuild-user/LUMI.lua
 done
 
 #
@@ -455,6 +455,8 @@ popd
 # Instructions for the MODULEPATH etc
 #
 cat <<EOF
+
+
 To enable prototype stack_partition version $version, make sure LMOD is the
 active module system and then run
 eval \$(\$HOME/LUMI-easybuild-prototype/prototypes/design_$version/enable_stack_partition.sh)
