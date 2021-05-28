@@ -144,7 +144,6 @@ modsrc="$testroot/SystemRepo/modules/stack_partition"
 moddest="$testroot/modules/generic"
 create_link $modsrc/LUMIstack/version.lua             $moddest/LUMIstack/version.lua
 create_link $modsrc/LUMIpartition/partitionletter.lua $moddest/LUMIpartition/partitionletter.lua
-create_link $modsrc/LUMIpartition/modulerc.lua        $moddest/LUMIpartition/modulerc.lua
 create_link $modsrc/CrayEnv.lua                       $moddest/CrayEnv.lua
 
 #
@@ -161,7 +160,6 @@ do
 
 
   # Populate the LUMIpartition directory for this version of the LUMI software stack
-  create_link   "$modsrc/LUMIpartition/modulerc.lua"        "$moddest/SystemPartition/LUMI/$stack/partition/.modulerc.lua"
   for partition in "${partitions[@]}"
   do
   	create_link "$modsrc/LUMIpartition/partitionletter.lua" "$moddest/SystemPartition/LUMI/$stack/partition/$partition.lua"
@@ -180,21 +178,7 @@ create_link     "$modsrc/CrayEnv.lua"                       "$moddest/SoftwareSt
 # We prefer to link the modules one by one to be able to set defaults without having
 # hidden files in our repository.
 #
-mkdir -p $testroot/modules/StyleModifiers
-mkdir -p $testroot/modules/StyleModifiers/ModuleLabel
-mkdir -p $testroot/modules/StyleModifiers/ModuleColour
-mkdir -p $testroot/modules/StyleModifiers/ModuleExtensions
-modsrc=$testroot/SystemRepo/modules/StyleModifiers
-moddest=$testroot/modules/StyleModifiers
-create_link "$modsrc/ModuleLabel/label.lua"         "$moddest/ModuleLabel/label.lua"
-create_link "$modsrc/ModuleLabel/system.lua"        "$moddest/ModuleLabel/system.lua"
-create_link "$modsrc/ModuleLabel/modulerc.lua"      "$moddest/ModuleLabel/.modulerc.lua"
-create_link "$modsrc/ModuleColour/on.lua"           "$moddest/ModuleColour/on.lua"
-create_link "$modsrc/ModuleColour/off.lua"          "$moddest/ModuleColour/off.lua"
-create_link "$modsrc/ModuleColour/modulerc.lua"     "$moddest/ModuleColour/.modulerc.lua"
-create_link "$modsrc/ModuleExtensions/show.lua"     "$moddest/ModuleExtensions/show.lua"
-create_link "$modsrc/ModuleExtensions/hide.lua"     "$moddest/ModuleExtensions/hide.lua"
-create_link "$modsrc/ModuleExtensions/modulerc.lua" "$moddest/ModuleExtensions/.modulerc.lua"
+create_link $testroot/SystemRepo/modules/StyleModifiers $testroot/modules/StyleModifiers
 
 #
 # Create a modulerc file in the SoftwareStack subdirectory to mark the default software stack.

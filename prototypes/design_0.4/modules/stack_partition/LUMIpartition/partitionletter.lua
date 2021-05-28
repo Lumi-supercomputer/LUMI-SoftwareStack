@@ -14,7 +14,8 @@ local node_description = {
 }
 
 -- Detect the root of the module tree from the position of this module
-local module_root = myFileName():match( '(.*/modules)/SystemPartition/.*' )
+local install_root = myFileName():match( '(.*)/modules/SystemPartition/.*' )
+local module_root = pathJoin( install_root, 'modules' )
 
 -- Determine the software stack from the position of this module in the hierarchy
 local hierarchy = hierarchyA( myModuleFullName(), 1 )
@@ -57,6 +58,11 @@ a partition module may work on other on other partitions.
 ]] )
 
 setenv( 'LUMI_OVERWRITE_PARTITION', partition )
+
+--
+-- Enable LUMIstack_modulerc.lua
+--
+prepend_path( 'LMOD_MODULERCFILE', pathJoin( install_root, 'SystemRepo/LMOD', 'LUMIstack_modulerc.lua' ) )
 
 if ( partition ~= 'common' ) or ( mode() ~= 'spider' ) then
     -- This is a block of code that we do not want to be visible in partition/common
