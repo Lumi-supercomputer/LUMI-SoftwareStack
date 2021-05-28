@@ -8,7 +8,7 @@ end
 --
 
 -- System software and module install root
-local system_prefix = myFileName():match( '(.*)/modules/InstallConfig/.*' )
+local system_prefix = myFileName():match( '(.*)/modules/Infrastructure/.*' )
 -- System configuration: Derive from the path of the module
 local EB_SystemRepo_prefix = pathJoin( system_prefix, 'SystemRepo/easybuild' )
 

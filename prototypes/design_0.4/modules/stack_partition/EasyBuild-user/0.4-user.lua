@@ -10,7 +10,7 @@ end
 -- User configuration
 local default_user_prefix = pathJoin( os.getenv( 'HOME' ), '/EasyBuild' )
 -- System software and module install root
-local system_prefix = myFileName():match( '(.*)/modules/InstallConfig/.*' )
+local system_prefix = myFileName():match( '(.*)/modules/Infrastructure/.*' )
 -- System configuration: Derive from the path of the module
 local EB_SystemRepo_prefix = pathJoin( system_prefix, 'SystemRepo/easybuild' )
 
@@ -339,6 +339,24 @@ give you a clear picture of the directory structure just after loading the
 module, and it also ensures that the software stack modules can add your user
 modules to the front of the module search path.
 ]] )
+
+-- -----------------------------------------------------------------------------
+--
+-- Print an informative message so that the user knows that EasyBuild is
+-- configured properly.
+--
+
+if mode() == 'load' then
+    if partition_name == common then
+        LmodMessage( '\nEasyBuild configured to install software from the ' ..
+            stack_name .. '/'.. stack_version ..
+            ' software stack in the user directoriy ' .. user_prefix .. ' common to all partitions.\n' )
+    else
+        LmodMessage( '\nEasyBuild configured to install software from the ' ..
+            stack_name .. '/'.. stack_version ..
+            ' software stack in the user directory ' .. user_prefix .. ' for the LUMI/' .. partition_name .. ' partition.\n' )
+    end
+end
 
 -- Some information for debugging
 

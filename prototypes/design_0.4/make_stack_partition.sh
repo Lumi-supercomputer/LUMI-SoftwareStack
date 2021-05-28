@@ -86,8 +86,8 @@ mkdir -p $testroot/modules/spack
 mkdir -p $testroot/modules/spack/LUMI
 mkdir -p $testroot/modules/manual
 mkdir -p $testroot/modules/manual/LUMI
-mkdir -p $testroot/modules/InstallConfig
-mkdir -p $testroot/modules/InstallConfig/LUMI
+mkdir -p $testroot/modules/Infrastructure
+mkdir -p $testroot/modules/Infrastructure/LUMI
 
 mkdir -p $testroot/SW
 
@@ -111,8 +111,8 @@ do
   mkdir -p $testroot/modules/spack/LUMI/$stack/partition
   mkdir -p $testroot/modules/manual/LUMI/$stack
   mkdir -p $testroot/modules/manual/LUMI/$stack/partition
-  mkdir -p $testroot/modules/InstallConfig/LUMI/$stack
-  mkdir -p $testroot/modules/InstallConfig/LUMI/$stack/partition
+  mkdir -p $testroot/modules/Infrastructure/LUMI/$stack
+  mkdir -p $testroot/modules/Infrastructure/LUMI/$stack/partition
 
   mkdir -p $testroot/SW/LUMI-$stack
 
@@ -124,7 +124,7 @@ do
 	mkdir -p $testroot/modules/easybuild/LUMI/$stack/partition/$partition
    	mkdir -p $testroot/modules/spack/LUMI/$stack/partition/$partition
    	mkdir -p $testroot/modules/manual/LUMI/$stack/partition/$partition
-   	mkdir -p $testroot/modules/InstallConfig/LUMI/$stack/partition/$partition
+   	mkdir -p $testroot/modules/Infrastructure/LUMI/$stack/partition/$partition
 
    	mkdir -p $testroot/SW/LUMI-$stack/$partition
    	mkdir -p $testroot/SW/LUMI-$stack/$partition/EB
@@ -352,7 +352,7 @@ create_link $modsrc/EasyBuild-user/$version-user.lua       $moddest/EasyBuild-us
 stack=$EBstack
 modsrc="$testroot/modules/generic"
 function module_root () {
-    echo "$testroot/modules/InstallConfig/LUMI/$1/partition/$2"
+    echo "$testroot/modules/Infrastructure/LUMI/$1/partition/$2"
 }
 for partition in ${partitions[@]} common
 do

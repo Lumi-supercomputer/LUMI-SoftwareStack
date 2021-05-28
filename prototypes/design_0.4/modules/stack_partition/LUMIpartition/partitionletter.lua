@@ -66,7 +66,7 @@ if ( partition ~= 'common' ) or ( mode() ~= 'spider' ) then
     prepend_path(     'MODULEPATH', '/opt/cray/pe/lmod/modulefiles/craype-targets/default' )
     prepend_path(     'MODULEPATH', '/opt/cray/pe/lmod/modulefiles/core' )
     -- Configuration for EasyBuild to install in the requested partition (and maybe later for Spack)
-    prepend_path(     'MODULEPATH', pathJoin( module_root, 'InstallConfig', stack_name_version, 'partition', partition ) )
+    prepend_path(     'MODULEPATH', pathJoin( module_root, 'Infrastructure', stack_name_version, 'partition', partition ) )
     -- The modules of application software installed in the system. Make sure to also add the common ones.
     if partition ~= 'common' then
         prepend_path( 'MODULEPATH', pathJoin( module_root, 'manual',        stack_name_version, 'partition', 'common' ) )
