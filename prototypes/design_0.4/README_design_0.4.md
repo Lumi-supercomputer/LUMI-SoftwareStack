@@ -4,9 +4,6 @@ This prototype focuses on the EasyBuild setup.
 
 TODO to finish this prototype:
 
-  * Hide EasyBuild-production and EasyBuild-infrastructure for
-    regular users.
-
   * cpe modules, and a script that generates them automatically?
 
     Challenge in case we switch to a hierarchical MNS
@@ -14,8 +11,6 @@ TODO to finish this prototype:
       * Ensure that when loading a cpe* module, the MODULEPATH for the modules
         installed by the user is also adapted.
 
-  * TODO: Implemented a system-wide modulerc.lua file to play with the visibility of
-    certain modules.
 
 
 Changes compared to design 0.3:
@@ -74,6 +69,12 @@ Changes compared to design 0.3:
       * This is one module for which the Infrastructure subdirectory was needed
         as we want each variant of the module to be shown only once, and as we
         want reloads to work properly when switching partitions.
+
+  * modulerc information is now in a central location rather than split over directories.
+    There are two files: A general one, and one that is enabled when a LUMI software
+    stack is loaded.
+
+  * Added several modules to customize the module display
 
 
 Changes compared to design 0.2:
@@ -433,7 +434,7 @@ Directory hierarchy
     The presentation modules are sticky so that ``module purge`` doesn't change the
     presentation of the modules.
 
-  * TODO: There is a "power user" view that will reveal a number of modules that are
+  * There is a "power user" view that will reveal a number of modules that are
     otherwise hidden. This is at their own risk. Use of this module is not documented
     on the regular LUMI-documentation.
 
