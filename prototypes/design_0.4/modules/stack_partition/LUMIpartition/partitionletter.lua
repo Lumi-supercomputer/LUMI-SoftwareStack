@@ -57,7 +57,7 @@ risk as not all software that may be enabled directly or indirectly through
 a partition module may work on other on other partitions.
 ]] )
 
-setenv( 'LUMI_OVERWRITE_PARTITION', partition )
+setenv( 'LUMI_STACK_PARTITION', partition )
 
 --
 -- Enable LUMIstack_modulerc.lua

@@ -100,7 +100,7 @@ local function avail_hook(t)
     end
 
     local stack = os.getenv( 'LUMI_STACK_NAME_VERSION' ) or 'unknown'
-    local partition = 'LUMI-' .. ( os.getenv( 'LUMI_OVERWRITE_PARTITION' ) or 'X' )
+    local partition = 'LUMI-' .. ( os.getenv( 'LUMI_STACK_PARTITION' ) or 'X' )
 
     for k,v in pairs(t) do
         for pat,label in pairs(styleT) do
