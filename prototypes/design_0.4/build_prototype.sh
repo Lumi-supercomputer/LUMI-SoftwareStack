@@ -1,7 +1,7 @@
 #! /bin/bash
 
 version="0.4"
-testroot="$HOME/appltest/design_$version/stack_partition"
+testroot="$HOME/appltest/design_$version"
 sourceroot="$HOME/LUMI-easybuild-prototype/prototypes/design_$version"
 
 workdir=$HOME/Work
@@ -140,7 +140,7 @@ done
 #
 # First populate modules/generic
 #
-modsrc="$testroot/SystemRepo/modules/stack_partition"
+modsrc="$testroot/SystemRepo/modules"
 moddest="$testroot/modules/generic"
 create_link $modsrc/LUMIstack/version.lua             $moddest/LUMIstack/version.lua
 create_link $modsrc/LUMIpartition/partitionletter.lua $moddest/LUMIpartition/partitionletter.lua
@@ -326,7 +326,7 @@ create_link "$sourceroot/easybuild/config/easybuild-production.cfg" "$testroot/S
 #
 # - Link the EasyBuild-production and EasyBuild-user modules in the module structure
 #
-modsrc="$testroot/SystemRepo/modules/stack_partition"
+modsrc="$testroot/SystemRepo/modules"
 moddest="$testroot/modules/generic"
 mkdir -p $moddest/EasyBuild-config
 create_link $modsrc/EasyBuild-config/$version.lua $moddest/EasyBuild-config/default.lua
@@ -352,8 +352,8 @@ done
 #   We'll download them to a location that we don't clear when clearing the prototype to
 #   ensure that we don't need to reload them every time we rebuild the prototype.
 #
-mkdir -p $testroot/../../sources
-pushd $testroot/../../sources
+mkdir -p $testroot/../sources
+pushd $testroot/../sources
 
 EBF_file="easybuild-framework-${eb_bootstrap_version}.tar.gz"
 EBF_url="https://pypi.python.org/packages/source/e/easybuild-framework"
@@ -374,9 +374,9 @@ mkdir -p $testroot/sources/easybuild/e/EasyBuild
 EB_tardir=$testroot/sources/easybuild/e/EasyBuild
 pushd $EB_tardir
 
-cp $testroot/../../sources/$EBF_file .
-cp $testroot/../../sources/$EBB_file .
-cp $testroot/../../sources/$EBC_file .
+cp $testroot/../sources/$EBF_file .
+cp $testroot/../sources/$EBB_file .
+cp $testroot/../sources/$EBC_file .
 
 popd
 
@@ -421,7 +421,8 @@ export LMOD_AVAIL_STYLE=label:system
 export LUMI_PARTITION='common'
 module load LUMI/$EBstack
 module load partition/common
-module load EasyBuild-production
+# Need to use the full module name as the module is hidden in the default view!
+module load EasyBuild-production/LUMI
 $workdir/easybuild/bin/eb --show-config
 $workdir/easybuild/bin/eb $testroot/SystemRepo/easybuild/easyconfigs/e/EasyBuild/EasyBuild-${eb_version}.eb
 
@@ -441,9 +442,9 @@ popd
 cat <<EOF
 
 
-To enable prototype stack_partition version $version, make sure LMOD is the
+To enable LUMI prototype version $version, make sure LMOD is the
 active module system and then run
-eval \$(\$HOME/LUMI-easybuild-prototype/prototypes/design_$version/enable_stack_partition.sh)
+eval \$(\$HOME/LUMI-easybuild-prototype/prototypes/design_$version/enable_prototype.sh)
 
 Dummy demo modules are installed in ${stacks[0]} and ${stacks[1]}
 

@@ -183,18 +183,18 @@ Changes compared to design 0.1:
   * LMOD must be installed and correctly initialised before trying out the prototypes.
     ``gpp`` is not needed for this version.
 
-  * ``prototypes/design_0.4`` contains the ``make_stack_partition.sh`` script to build
-    the prototype (in a subdirector7 of $HOME/appltest/design_0.4).
+  * ``prototypes/design_0.4`` contains the ``build_prototype.sh`` script to build
+    the prototype (in $HOME/appltest/design_0.4).
 
-  * That directory also contains a `enable_stack_partition.sh`` scriptsto initialise the environment
+  * That directory also contains a `enable_prototype.sh`` script to initialise the environment
     to test the prototype. Source the script in the shell or use
     ```bash
-    eval $(./enable_stack_partition.sh)
+    eval $(./enable_prototype.sh)
     ```
     in that directory. Then try ``module avail`` and ``module help`` to get started.
 
 
-## Directory layout for modules and software: Hierarchy with software stack first, partition/architecture second, flat otherwise - Prototype module_stack_partition
+## Directory layout for modules and software: Hierarchy with software stack first, partition/architecture second, flat otherwise
 
 Here we mount the same file system with applications and modules
 everywhere, but within that file system we have binaries for each
@@ -317,6 +317,13 @@ Directory hierarchy
 
 
 ### Advantages
+
+  * This model fits better with the scenario where you chose your
+    software stack but then may want to load a version for a different
+    partition, e.g., because you really want to run a tool for LUMI-C
+    on LUMI-G to not have to start a dependent job, or when using
+    ``salloc``, where you would want to run on a different node type
+    than the one on which you used ``salloc``.
 
   * Having the software stack as the highest level in the hierarchy
     makes it easy to also make other software stacks available through
