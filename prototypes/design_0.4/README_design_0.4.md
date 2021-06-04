@@ -11,6 +11,10 @@ TODO to finish this prototype:
       * Ensure that when loading a cpe* module, the MODULEPATH for the modules
         installed by the user is also adapted.
 
+  * Need to clarify how we will use .dev. Do we want both a 21.04 and 21.04.dev
+    while building the stack? In that case, 21.04.dev should be used as the name
+    of the toolchain everywhere. But it also means we cannot change it back to
+    21.04 but need to re-install then.
 
 
 Changes compared to design 0.3:
@@ -69,6 +73,9 @@ Changes compared to design 0.3:
       * This is one module for which the Infrastructure subdirectory was needed
         as we want each variant of the module to be shown only once, and as we
         want reloads to work properly when switching partitions.
+
+  * We do support multiple stacks with EasyBuild installations to also be able to test
+    this aspect of the LUMI setup.
 
   * modulerc information is now in a central location rather than split over directories.
     There are two files: A general one, and one that is enabled when a LUMI software
@@ -478,6 +485,17 @@ Directory hierarchy
     to ensure that ``module reload`` and changing partitions works well for modules
     that have to be present in all four regular paritions and the common meta-partition,
     e.g., cpe* modules needed by EasyBuild and EasyBuild configuration modules.
+
+
+### Where do we set the default modules?
+
+  * Style modifiers: LMOD/modulerc.lua (central moduler.lua file)
+
+  * Software stack: Currently by a hidden ``.modulerc.lua`` file in the ``SoftwareStacks``
+    subdirectory since we use different defaults on different test systems.
+
+  * Partition: No assigned default, the software stack module determines the optimal
+    partition based on the node where that module is loaded.
 
 
 ## EasyBuild setup

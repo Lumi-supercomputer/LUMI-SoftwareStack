@@ -6,10 +6,6 @@ sourceroot="$HOME/LUMI-easybuild-prototype/prototypes/design_$version"
 
 workdir=$HOME/Work
 
-eb_bootstrap_version='4.4.0'
-eb_version='4.4.0'
-#EBchecksums='--ignore-checksums'
-
 PATH=$sourceroot/..:$sourceroot:$sourceroot/scripts:$PATH
 
 if [[ "$(hostname)" =~ ^o[0-9]{3}i[0-9]{3}$ ]]
@@ -26,14 +22,20 @@ else
 	exit
 fi
 
+declare -A EB_version
 case $system in
-	Grenoble)
-	stacks=( '21.02.dev' '21.03.dev' '21.04' '21.G.02' )
-	EBstack='21.G.02'
-	;;
+    Grenoble)
+        stacks=( '21.02.dev' '21.03.dev' '21.04' '21.G.02.dev' '21.G.04' )
+        EB_stacks=( '21.G.02.dev' '21.G.04' )
+        EB_version['21.G.02.dev']='4.3.4'
+        EB_version['21.G.04']='4.4.0'
+        default_stack='21.G.04'
+    ;;
 	CSCS)
-	stacks=( '21.02.dev' '21.03.dev' '21.04' )
-    EBstack='21.04'
+        stacks=( '21.02.dev' '21.03.dev' '21.04' )
+        EB_stacks=( '21.04' )
+        EB_version['21.04']='4.4.0'
+        default_stack='21.04'
 	;;
 esac
 partitions=( 'C' 'G' 'D' 'L' )
@@ -184,8 +186,7 @@ create_link     "$modsrc/CrayEnv.lua"                       "$moddest/SoftwareSt
 #
 # Link the style modules
 #
-# We prefer to link the modules one by one to be able to set defaults without having
-# hidden files in our repository.
+# We simply link the directory. The defaults are set in LMOD/modulerc.lua
 #
 create_link $testroot/SystemRepo/modules/StyleModifiers $testroot/modules/StyleModifiers
 
@@ -193,7 +194,7 @@ create_link $testroot/SystemRepo/modules/StyleModifiers $testroot/modules/StyleM
 # Create a modulerc file in the SoftwareStack subdirectory to mark the default software stack.
 #
 cat >$testroot/modules/SoftwareStack/LUMI/.modulerc.lua <<EOF
-module_version( "LUMI/$EBstack", "default" )
+module_version( "LUMI/$default_stack", "default" )
 EOF
 
 ###############################################################################
@@ -314,9 +315,12 @@ Python3_module_EB.sh "3.9.4" "cpeCCE-$stack" "1.20.2" "1.6.3" $(software_root $s
 #
 # EasyBuild preparation
 #
-# - External module file
+# - External module files
 #
-make_CPE_defs.py $testroot/SystemRepo/easybuild/config $EBstack
+for stack in "${EB_stacks[@]}"
+do
+    make_CPE_defs.py $testroot/SystemRepo/easybuild/config ${stack%.dev}
+done
 #
 # - EasyBuild config file
 #
@@ -340,109 +344,139 @@ moddest="$testroot/modules/generic"
 mkdir -p $moddest/EasyBuild-config
 create_link $modsrc/EasyBuild-config/$version.lua $moddest/EasyBuild-config/default.lua
 
-stack=$EBstack
 modsrc="$testroot/modules/generic"
 function module_root () {
     echo "$testroot/modules/Infrastructure/LUMI/$1/partition/$2"
 }
-for partition in ${partitions[@]} common
+for stack in "${EB_stacks[@]}"
 do
-	mkdir -p $(module_root $stack $partition)/EasyBuild-production
-	mkdir -p $(module_root $stack $partition)/EasyBuild-infrastructure
-	mkdir -p $(module_root $stack $partition)/EasyBuild-user
+    for partition in ${partitions[@]} common
+    do
+        mkdir -p $(module_root $stack $partition)/EasyBuild-production
+        mkdir -p $(module_root $stack $partition)/EasyBuild-infrastructure
+        mkdir -p $(module_root $stack $partition)/EasyBuild-user
 
-    create_link $modsrc/EasyBuild-config/default.lua $(module_root $stack $partition)/EasyBuild-production/LUMI.lua
-    create_link $modsrc/EasyBuild-config/default.lua $(module_root $stack $partition)/EasyBuild-infrastructure/LUMI.lua
-    create_link $modsrc/EasyBuild-config/default.lua $(module_root $stack $partition)/EasyBuild-user/LUMI.lua
+        create_link $modsrc/EasyBuild-config/default.lua $(module_root $stack $partition)/EasyBuild-production/LUMI.lua
+        create_link $modsrc/EasyBuild-config/default.lua $(module_root $stack $partition)/EasyBuild-infrastructure/LUMI.lua
+        create_link $modsrc/EasyBuild-config/default.lua $(module_root $stack $partition)/EasyBuild-user/LUMI.lua
+    done
 done
 
 #
-# - Download EasyBuild from PyPi (only framework and easyblocks are needed for bootstrapping)
-#   We'll download them to a location that we don't clear when clearing the prototype to
-#   ensure that we don't need to reload them every time we rebuild the prototype.
+# Function to install EasyBuild
 #
-mkdir -p $testroot/../sources
-pushd $testroot/../sources
+# Arguments:
+#   * First argument:  The testroot directory
+#   * Second argument: Name of the LUMI stack
+#   * Third argument:  Version of EasyBuild
+#   * Fourth argument: Work directory
+#
 
-EBF_file="easybuild-framework-${eb_bootstrap_version}.tar.gz"
-EBF_url="https://pypi.python.org/packages/source/e/easybuild-framework"
-[[ -f $EBF_file ]] || curl -L -O $EBF_url/$EBF_file
+function install_EasyBuild() {
 
-EBB_file="easybuild-easyblocks-${eb_bootstrap_version}.tar.gz"
-EBB_url="https://pypi.python.org/packages/source/e/easybuild-easyblocks"
-[[ -f $EBB_file ]] || curl -L -O $EBB_url/$EBB_file
+	testroot="$1"
+	EBstack="$2"
+	EBversion="$3"
+	workdir="$4"
 
-EBC_file="easybuild-easyconfigs-${eb_bootstrap_version}.tar.gz"
-EBC_url="https://pypi.python.org/packages/source/e/easybuild-easyconfigs"
-[[ -f $EBC_file ]] || curl -L -O $EBC_url/$EBC_file
+	#EBchecksums='--ignore-checksums'
 
-popd
+    #
+    # - Download EasyBuild from PyPi (only framework and easyblocks are needed for bootstrapping)
+    #   We'll download them to a location that we don't clear when clearing the prototype to
+    #   ensure that we don't need to reload them every time we rebuild the prototype.
+    #
+    mkdir -p $testroot/../sources
+    pushd $testroot/../sources
 
-mkdir -p $testroot/sources/easybuild/e
-mkdir -p $testroot/sources/easybuild/e/EasyBuild
-EB_tardir=$testroot/sources/easybuild/e/EasyBuild
-pushd $EB_tardir
+    EBF_file="easybuild-framework-${EBversion}.tar.gz"
+    EBF_url="https://pypi.python.org/packages/source/e/easybuild-framework"
+    [[ -f $EBF_file ]] || curl -L -O $EBF_url/$EBF_file
 
-cp $testroot/../sources/$EBF_file .
-cp $testroot/../sources/$EBB_file .
-cp $testroot/../sources/$EBC_file .
+    EBB_file="easybuild-easyblocks-${EBversion}.tar.gz"
+    EBB_url="https://pypi.python.org/packages/source/e/easybuild-easyblocks"
+    [[ -f $EBB_file ]] || curl -L -O $EBB_url/$EBB_file
 
-popd
+    EBC_file="easybuild-easyconfigs-${EBversion}.tar.gz"
+    EBC_url="https://pypi.python.org/packages/source/e/easybuild-easyconfigs"
+    [[ -f $EBC_file ]] || curl -L -O $EBC_url/$EBC_file
+
+    popd
+
+    mkdir -p $testroot/sources/easybuild/e
+    mkdir -p $testroot/sources/easybuild/e/EasyBuild
+    EB_tardir=$testroot/sources/easybuild/e/EasyBuild
+    pushd $EB_tardir
+
+    [[ -f $EBF_file ]] || cp $testroot/../sources/$EBF_file .
+    [[ -f $EBB_file ]] || cp $testroot/../sources/$EBB_file .
+    [[ -f $EBC_file ]] || cp $testroot/../sources/$EBC_file .
+
+    popd
+
+    #
+    # - Now do a temporary install of the framework and EasyBlocks
+    #
+    mkdir -p $workdir
+    pushd $workdir
+
+    tar -xf $EB_tardir/$EBF_file
+    tar -xf $EB_tardir/$EBB_file
+
+    mkdir -p $workdir/easybuild
+
+    pushd easybuild-framework-$EBversion
+    python3 setup.py install --prefix=$workdir/easybuild
+    cd ../easybuild-easyblocks-$EBversion
+    python3 setup.py install --prefix=$workdir/easybuild
+    popd
+
+    #
+    # - Clean up files that are not needed anymore
+    #
+    rm -rf easybuild-framework-$EBversion
+    rm -rf easybuild-easyblocks-$EBversion
+
+    #
+    # - Activate that install
+    #
+    export EB_PYTHON='python3'
+    export PYTHONPATH=$(find $workdir/easybuild -name site-packages)
+
+    #
+    # - Install EasyBuild in the common directory of the $EBstack software stack
+    #
+    module --force purge
+    export MODULEPATH=$testroot/modules/SoftwareStack:$testroot/modules/StyleModifiers
+    export LMOD_PACKAGE_PATH=$testroot/SystemRepo/LMOD
+    export LMOD_RC=$testroot/SystemRepo/LMOD/lmodrc.lua
+    export LMOD_ADMIN_FILE=$testroot/SystemRepo/LMOD/admin.list
+    export LMOD_AVAIL_STYLE=label:system
+    export LUMI_PARTITION='common'
+    module load LUMI/$EBstack
+    module load partition/common
+    # Need to use the full module name as the module is hidden in the default view!
+    module load EasyBuild-production/LUMI
+    $workdir/easybuild/bin/eb --show-config
+    $workdir/easybuild/bin/eb $EBchecksums $testroot/SystemRepo/easybuild/easyconfigs/e/EasyBuild/EasyBuild-${eb_version}.eb
+
+    #
+    # - Clean up
+    #
+    rm -rf easybuild
+    unset PYTHONPATH
+
+    popd
+
+}  # End of the install_EasyBuild function
 
 #
-# - Now do a temporary install of the framework and EasyBlocks
+# Now install a version of EasyBuild in all EasyBuild stacks
 #
-mkdir -p $workdir
-pushd $workdir
-
-tar -xf $EB_tardir/$EBF_file
-tar -xf $EB_tardir/$EBB_file
-
-mkdir -p $workdir/easybuild
-
-pushd easybuild-framework-$eb_bootstrap_version
-python3 setup.py install --prefix=$workdir/easybuild
-cd ../easybuild-easyblocks-$eb_bootstrap_version
-python3 setup.py install --prefix=$workdir/easybuild
-popd
-
-#
-# - Clean up files that are not needed anymore
-#
-rm -rf easybuild-framework-$eb_bootstrap_version
-rm -rf easybuild-easyblocks-$eb_bootstrap_version
-
-#
-# - Activate that install
-#
-export EB_PYTHON='python3'
-export PYTHONPATH=$(find $workdir/easybuild -name site-packages)
-
-#
-# - Install EasyBuild in the common directory of the $EBstack software stack
-#
-module --force purge
-export MODULEPATH=$testroot/modules/SoftwareStack:$testroot/modules/StyleModifiers
-export LMOD_PACKAGE_PATH=$testroot/SystemRepo/LMOD
-export LMOD_RC=$testroot/SystemRepo/LMOD/lmodrc.lua
-export LMOD_ADMIN_FILE=$testroot/SystemRepo/LMOD/admin.list
-export LMOD_AVAIL_STYLE=label:system
-export LUMI_PARTITION='common'
-module load LUMI/$EBstack
-module load partition/common
-# Need to use the full module name as the module is hidden in the default view!
-module load EasyBuild-production/LUMI
-$workdir/easybuild/bin/eb --show-config
-$workdir/easybuild/bin/eb $EBchecksums $testroot/SystemRepo/easybuild/easyconfigs/e/EasyBuild/EasyBuild-${eb_version}.eb
-
-#
-# - Clean up
-#
-rm -rf easybuild
-unset PYTHONPATH
-
-popd
-
+for stack in "${EB_stacks[@]}"
+do
+    install_EasyBuild "$testroot" "$stack" "${EB_version[$stack]}" "$workdir"
+done
 
 ###############################################################################
 #
