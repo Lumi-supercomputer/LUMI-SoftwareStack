@@ -17,4 +17,4 @@ With no ]] .. myModuleName() .. [[ module loaded, you get the defailt behaviour 
 module tool as configured in the system.
 ]] )
 
-pushenv( 'LMOD_AVAIL_STYLE', 'system,label' )
+pushenv( 'LMOD_AVAIL_STYLE', 'label:<system>' )
