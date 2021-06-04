@@ -1,7 +1,7 @@
 easyblock = 'EB_EasyBuildMeta'
 
 name =    'EasyBuild'
-version = '4.4.0'
+version = '4.3.4'
 
 homepage = 'https://easybuilders.github.io/easybuild'
 
@@ -53,9 +53,9 @@ sources = [
     'easybuild-easyconfigs-%(version)s.tar.gz',
 ]
 checksums = [
-    '3d3339df5a74e60639beb6cfe9f21f822f497738d5eab4d265fd5fa6af3c3c2f',  # easybuild-framework-4.4.0.tar.gz
-    'd35b63bfa5fe2b877ae82295fbadbd9b49ada3720c16d12cb0daa7da5d3d405b',  # easybuild-easyblocks-4.4.0.tar.gz
-    '4a0b384e9eac19e61c60114e008c23da04d4aa1d52416e75c184f710292c41d0',  # easybuild-easyconfigs-4.4.0.tar.gz
+    'c59579ba91c6788d24bb63d4e763cd57e0fb5464226dbe17d53f4a863272b414',  # easybuild-framework-4.3.4.tar.gz
+    'c8d31d09d5db1b67ee9656392649bc5accc34b2d288fa7c3223bdba1a2b993ac',  # easybuild-easyblocks-4.3.4.tar.gz
+    '7100963753b4a316ab39b84c32fc5fa4b192e893f8414068d10d30060697a61f',  # easybuild-easyconfigs-4.3.4.tar.gz
 ]
 
 # order matters a lot, to avoid having dependencies auto-resolved (--no-deps easy_install option doesn't work?)

@@ -71,6 +71,10 @@ if ( partition ~= 'common' ) or ( mode() ~= 'spider' ) then
     -- The Cray modules, may be possible to only activate them once PrgEnv-* is loaded
     prepend_path(     'MODULEPATH', '/opt/cray/pe/lmod/modulefiles/craype-targets/default' )
     prepend_path(     'MODULEPATH', '/opt/cray/pe/lmod/modulefiles/core' )
+    local missing_core = pathJoin( module_root, 'missing', 'core' )
+    if isDir( missing_core ) then
+        prepend_path( 'MODULEPATH', missing_core )
+    end
     -- Configuration for EasyBuild to install in the requested partition (and maybe later for Spack)
     prepend_path(     'MODULEPATH', pathJoin( module_root, 'Infrastructure', stack_name_version, 'partition', partition ) )
     -- The modules of application software installed in the system. Make sure to also add the common ones.

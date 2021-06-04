@@ -45,6 +45,7 @@ local mapT =
         ['modules/spack/']                 = 'Spack managed software for software stack _STACK_ on _PARTITION_',
         ['modules/manual/']                = 'Manually installed software for software stack _STACK_ on _PARTITION_',
         ['cray/pe/.*/core']                = 'HPE-Cray PE core modules',
+        ['modules/missing/core']           = 'HPE-Cray PE core modules',
         ['cray/pe/.*/craype%-targets']     = 'HPE-Cray PE target modules',
         ['cray/pe/.*/perftools']           = 'HPE-Cray PE performance analysis tools',
         ['cray/pe/.*/compiler/crayclang']  = 'HPE-Cray PE libraries for Cray clang (cce)',

@@ -6,8 +6,9 @@ sourceroot="$HOME/LUMI-easybuild-prototype/prototypes/design_$version"
 
 workdir=$HOME/Work
 
-eb_bootstrap_version='4.3.4'
-eb_version='4.3.4'
+eb_bootstrap_version='4.4.0'
+eb_version='4.4.0'
+#EBchecksums='--ignore-checksums'
 
 PATH=$sourceroot/..:$sourceroot:$sourceroot/scripts:$PATH
 
@@ -96,6 +97,14 @@ mkdir -p $testroot/mgmt/ebrepo_files
 
 mkdir -p $testroot/sources
 mkdir -p $testroot/sources/easybuild
+
+#
+# Add missing modules (if any)
+#
+if [ $system == "Grenoble" ]
+then
+	create_link $testroot/SystemRepo/modules/missing/$system $testroot/modules/missing
+fi
 
 #
 # Make the directories with the software stacks
@@ -424,7 +433,7 @@ module load partition/common
 # Need to use the full module name as the module is hidden in the default view!
 module load EasyBuild-production/LUMI
 $workdir/easybuild/bin/eb --show-config
-$workdir/easybuild/bin/eb $testroot/SystemRepo/easybuild/easyconfigs/e/EasyBuild/EasyBuild-${eb_version}.eb
+$workdir/easybuild/bin/eb $EBchecksums $testroot/SystemRepo/easybuild/easyconfigs/e/EasyBuild/EasyBuild-${eb_version}.eb
 
 #
 # - Clean up
