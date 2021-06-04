@@ -68,7 +68,15 @@ if ( partition ~= 'common' ) or ( mode() ~= 'spider' ) then
     -- This is a block of code that we do not want to be visible in partition/common
     -- when the mode is "spider" to avoid showing partition/common as a mode to reach
     -- software activated by the lines below.
-    -- The Cray modules, may be possible to only activate them once PrgEnv-* is loaded
+    -- The Cray modules, may be possible to only activate them once cpe* is loaded
+    if isDir( '/usr/share/modulefiles' ) then
+        prepend_path( 'MODULEPATH', '/usr/share/modulefiles' )
+    end
+    if isDir( '/usr/share/Modules/modulefiles' ) then
+        prepend_path( 'MODULEPATH', '/usr/share/Modules/modulefiles' )
+    end
+    prepend_path(     'MODULEPATH', '/opt/modulefiles' )
+    prepend_path(     'MODULEPATH', '/opt/cray/modulefiles' )
     prepend_path(     'MODULEPATH', '/opt/cray/pe/lmod/modulefiles/craype-targets/default' )
     prepend_path(     'MODULEPATH', '/opt/cray/pe/lmod/modulefiles/core' )
     local missing_core = pathJoin( module_root, 'missing', 'core' )
