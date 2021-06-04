@@ -64,6 +64,7 @@ moddest=$testroot/SystemRepo
 create_link $modsrc/modules $moddest/modules
 create_link $modsrc/LMOD    $moddest/LMOD
 create_link $modsrc/scripts $moddest/scripts
+create_link $modsrc/CrayPE  $moddest/CrayPE
 
 mkdir -p mkdir -p $testroot/SystemRepo/easybuild
 mkdir -p mkdir -p $testroot/SystemRepo/easybuild/config

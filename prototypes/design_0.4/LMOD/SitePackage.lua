@@ -192,6 +192,39 @@ function detect_LUMI_partition()
 
 end
 
+
+function get_CPE_component( install_root, package, CPE_version )
+
+    -- Compute the name of the file containing the CPE information.
+    local CPE_file = install_root .. '/SystemRepo/CrayPE/' .. CPE_version .. '.csv'
+    CPE_file =  CPE_file:gsub( '//+', '/' )
+
+    -- Read the CPE file
+    local fp = io.open( CPE_file, 'r' )
+    if fp == nil then
+        return nil;
+    end
+    local CPE_components = fp:read('*a')
+    fp:close()
+
+    -- Search for the line containing the name of the package
+    --  -  First treat the dashes in the package name as they have a special meaning in a LUA regexp
+    local search_string = package:gsub(  '%-', '%%-' )
+    --  - And now do the search until the first control character (so any kind of newline should do)
+    local start, finish = CPE_components:find( search_string .. ',[^%c]*' )
+
+    -- If we have found a line, extract the result
+    if start ~= nil then
+        local package_version = CPE_components:sub( start, finish ):gsub( '%s', ''):gsub( search_string .. ',', '')
+        return package_version
+    else
+        return nil
+    end
+
+end
+
+
 sandbox_registration{
     ['detect_LUMI_partition']    = detect_LUMI_partition,
+    ['get_CPE_component']   = get_CPE_component,
 }

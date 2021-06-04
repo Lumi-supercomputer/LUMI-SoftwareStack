@@ -6,6 +6,21 @@ TODO to finish this prototype:
 
   * cpe modules, and a script that generates them automatically?
 
+    Some steps
+
+     1. Hand-generated EasyConfigs in the Swiss style
+
+     2. How to deal with different targets for different partitions, or do we
+        fully rely on optarch which would mean that by default we only load
+        that set of modules that works for all of LUMI and then rely on the
+        OPTARCH processing to load the architecture-specific ones?
+
+     3. Automatically generate the EasyConfigs from a database of toolchain
+        component versions and templates for the EasyConfig?
+
+     4. Rework the EasyBlock so that we can avoid having all that LMOD code
+        in the EasyConfig file.
+
     Challenge in case we switch to a hierarchical MNS
 
       * Ensure that when loading a cpe* module, the MODULEPATH for the modules
@@ -82,6 +97,12 @@ Changes compared to design 0.3:
     stack is loaded.
 
   * Added several modules to customize the module display
+
+  * We now define the versions of Cray PE components in a .csv file for reference in
+    various scripts and module files.
+
+      * This includes a new function in SitePackage.lua to extract the version of a
+        Cray PE compoment for a given version of the PE from a .csv file.
 
 
 Changes compared to design 0.2:
@@ -909,4 +930,11 @@ these files to start using it.
         naming scheme.
 
       * It may have impact on the label generation in ``SitePAckage.lua``.
+
+  * Cray toolchain component definition files
+
+      * Currently defined in SystemRepo/CrayPE, file name is the release of the PE
+        with the extension .csv.
+
+      * This file is used by a function in SitePackage.lua
 

@@ -1,5 +1,6 @@
 if os.getenv( '_LUMI_LMOD_DEBUG' ) ~= nil then
     LmodMessage( 'DEBUG: ' .. mode() .. ' ' .. myModuleFullName() .. ': Entering' )
+    LmodMessage( 'DEBUG: ' .. mode() .. ' ' .. myFileName() .. ': Entering' )
 end
 
 family( 'LUMI_partition' )
@@ -23,6 +24,12 @@ if os.getenv( '_LUMI_LMOD_DEBUG' ) ~= nil then
     LmodMessage( 'DEBUG: ' .. mode() .. ' ' .. myModuleFullName() .. ': Detected the ' .. hierarchy[1] .. ' Software stack' )
 end
 local stack_name_version = hierarchy[1]
+local stack_name =    stack_name_version:match('([^/]+)/.*')
+local stack_version = stack_name_version:match('.*/([^/]+)')
+local cpe_version =   stack_version:gsub( '.dev', '')
+if os.getenv( '_LUMI_LMOD_DEBUG' ) ~= nil then
+    LmodMessage( 'DEBUG: ' .. mode() .. ' ' .. myModuleFullName() .. ': stack name: ' .. stack_name .. ', stack version: '.. stack_version, ', CPE version: '.. cpe_version )
+end
 
 -- Determine the partition that we want to load software for from the version of the module
 local partition = myModuleVersion()
@@ -42,6 +49,13 @@ end
 if os.getenv( '_LUMI_LMOD_DEBUG' ) ~= nil and user_easybuild_modules ~= nil then
     LmodMessage( 'DEBUG: ' .. mode() .. ' ' .. myModuleFullName() .. ': Detected user module tree at ' .. user_easybuild_modules )
 end
+
+-- Find the version of crape-targets matching the current PE version
+local targets_version = get_CPE_component( install_root, 'craype-targets', cpe_version )
+if os.getenv( '_LUMI_LMOD_DEBUG' ) ~= nil then
+    LmodMessage( 'DEBUG: ' .. mode() .. ' ' .. myModuleFullName() .. ': Found craype-targets version ' .. targets_version )
+end
+
 
 whatis( 'Description: ' .. myModuleFullName() .. ' enables the ' .. stack_name_version .. ' software stack for the LUMI-' .. partition .. ' (' .. node_description[partition] .. ') partition.' )
 
@@ -77,7 +91,11 @@ if ( partition ~= 'common' ) or ( mode() ~= 'spider' ) then
     end
     prepend_path(     'MODULEPATH', '/opt/modulefiles' )
     prepend_path(     'MODULEPATH', '/opt/cray/modulefiles' )
-    prepend_path(     'MODULEPATH', '/opt/cray/pe/lmod/modulefiles/craype-targets/default' )
+    if targets_version == nil then
+        prepend_path(     'MODULEPATH', '/opt/cray/pe/lmod/modulefiles/craype-targets/default' )
+    else
+        prepend_path(     'MODULEPATH', pathJoin( '/opt/cray/pe/lmod/modulefiles/craype-targets', targets_version ) )
+    end
     prepend_path(     'MODULEPATH', '/opt/cray/pe/lmod/modulefiles/core' )
     local missing_core = pathJoin( module_root, 'missing', 'core' )
     if isDir( missing_core ) then
