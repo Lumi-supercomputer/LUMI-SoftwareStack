@@ -212,7 +212,7 @@ end
 function get_CPE_component( install_root, package, CPE_version )
 
     -- Compute the name of the file containing the CPE information.
-    local CPE_file = install_root .. '/SystemRepo/CrayPE/' .. CPE_version .. '.csv'
+    local CPE_file = install_root .. '/SystemRepo/CrayPE/CPEpackages_' .. CPE_version .. '.csv'
     CPE_file =  CPE_file:gsub( '//+', '/' )
 
     -- Read the CPE file
