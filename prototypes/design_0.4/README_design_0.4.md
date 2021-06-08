@@ -519,6 +519,29 @@ Directory hierarchy
     partition based on the node where that module is loaded.
 
 
+### Helper functions in SitePackage.lua
+
+  * ``detect_LUMI_partition`` : Returns the current LUMI-partition. The current
+    implementation uses the ``LUMI_PARTITION`` environment variable but the goal is
+    to replace this with something more robust to ensure that it also works in SLURM
+    job scripts where that environment variable may have the wrong value as SLURM by
+    default copies its environment from the node where the job was submitted.
+
+    The function is currently essential in the LUMI software stack modules as it is
+    used to load the proper partition module for the current hardware and to ensure
+    that ``module reload`` in a job script would enable the software stack for the
+    partition that the batch script is running on.
+
+  * ``get_CPE_component``: Returns the version of a CPE package for a particular release
+    of the CPE, or nil if the version cannot be determined. See the SitePackage.lua
+    file for the arguments of the function.
+
+    It is currently used in the partition module files to set the MODULEPATH to the
+    particular release of the targetting modules for the particular CPE release, rather
+    than using the default, to avoid any compatibility problem that might occur with
+    newer versions of the targetting modules.
+
+
 ## EasyBuild setup
 
 

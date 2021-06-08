@@ -173,6 +173,8 @@ hook.register( "msgHook",  msg_hook )
 -- -----------------------------------------------------------------------------
 
 --
+-- function detect_LUMI_partition
+--
 -- Code to detect on which partition of LUMI we are.
 -- Currently this is done through the LUMI_PARTITION environment variable
 -- but this function makes it easy to adapt that code and use a different
@@ -182,7 +184,10 @@ hook.register( "msgHook",  msg_hook )
 -- This code is meant to be used to detect the partition before it can be
 -- derived from the position of the module in the module hierarchy.
 --
--- Returns nil if it fails to detect the partition.
+-- Input arguments: none
+--
+-- Returns the partition (as a single letter) or nil if it fails to detect
+-- the partition.
 --
 function detect_LUMI_partition()
 
@@ -192,7 +197,18 @@ function detect_LUMI_partition()
 
 end
 
-
+--
+-- function get_CPE_component
+--
+-- Get the version of a CPE component for a particular CPE release based on
+-- information kept in a .csv file.
+--
+-- Input arguments
+--   * install_root: Root of the LUMI software installation.
+--     The .csv files are kept in installroot/SystemnRepo/CrayPE
+--   * package: Name of the package
+--   * CPE_version: Release of the Cray Programming Environment
+--
 function get_CPE_component( install_root, package, CPE_version )
 
     -- Compute the name of the file containing the CPE information.
