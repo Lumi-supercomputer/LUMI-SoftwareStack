@@ -1,4 +1,14 @@
-def CPE_to_EB( EBconfigdir, version, package_versions ):
+#
+# gen_EB_external_modules_from_CPEdef( CPEpackages_dir, EBconfig_dir, version )
+#
+# Input arguments
+#   * CPEpackages_dir : Directory with the CPE definitinon files (in .csv format)
+#   * EBconfig_diur : Directory with the EasyBuild configuration and external modules
+#     files
+#   * version : Release of the CPE to generate the file for.
+#
+
+def gen_EB_external_modules_from_CPEdef( CPEpackages_dir, EBconfig_dir, version ):
 
     def write_package( fileH, PEpackage, module, EBnames, prefix, package_versions ):
 
@@ -23,25 +33,55 @@ def CPE_to_EB( EBconfigdir, version, package_versions ):
 
 
     #
-    # Core of the make_CPE function
+    # Core of the gen_EB_external_modules_from_CPEdef function
     #
 
     import os
+    import csv
 
-    print( 'Installing in: %s' % EBconfigdir )
-
+    #
+    # Read the .csv file with toolchain data.
+    #
+    CPEpackages_file = os.path.join( CPEpackages_dir, 'CPEpackages_' + version + '.csv' )
+    print( 'Reading the toolchain composition from %s.' % CPEpackages_file )
     try:
-        if not os.path.isdir( EBconfigdir ):
-            os.makedirs( EBconfigdir )
+        fileH = open( CPEpackages_file, 'r' )
+    except OSerror:
+        print( 'Failed to open the toolchain packages file %s.' % CPEpackages_file )
+        exit()
+
+    package_versions = {}
+
+    package_reader = csv.reader( fileH )
+    # Skip the header line
+    next( package_reader )
+    # Read the data and build the package_versions dictionary
+    for row in package_reader :
+        package_versions[row[0]] = row[1]
+
+    fileH.close()
+
+    #
+    # Add some that are not part of the CPE packages file
+    #
+    package_versions['Slurm'] = '.default'
+
+    #
+    # Make sure the output directory exists
+    #
+    print( 'Installing in: %s' % EBconfig_dir )
+    try:
+        if not os.path.isdir( EBconfig_dir ):
+            os.makedirs( EBconfig_dir )
     except OSError:
-        print( 'Failed to create the EasyBuild config directory %s, giving up.' % EBconfigdir )
+        print( 'Failed to create the EasyBuild config directory %s, giving up.' % EBconfig_dir )
         exit()
 
     #
     # Open the external module definition file
     #
     extdeffile = 'external_modules_metadata-LUMI-%s.cfg' % version
-    extdeffileanddir = os.path.join( EBconfigdir, extdeffile )
+    extdeffileanddir = os.path.join( EBconfig_dir, extdeffile )
     print( 'Generating %s...' % extdeffileanddir )
     fileH = open( extdeffileanddir, 'w' )
 
@@ -59,12 +99,12 @@ def CPE_to_EB( EBconfigdir, version, package_versions ):
     write_package( fileH, 'LibSci',      'cray-libsci',              'LibSci',                 'CRAY_LIBSCI_PREFIX_DIR',          package_versions )
     write_package( fileH, 'NetCDF',      'cray-netcdf',              'netCDF, netCDF-Fortran', 'CRAY_NETCDF_PREFIX',              package_versions )
     write_package( fileH, 'NetCDF',      'cray-netcdf-hdf5parallel', 'netCDF, netCDF-Fortran', 'CRAY_NETCDF_HDF5PARALLEL_PREFIX', package_versions )
-    write_package( fileH, 'cray-python', 'cray-python',              'Python',                 'CRA?Y_PYTHON_PREFIX',             package_versions )
+    write_package( fileH, 'cray-python', 'cray-python',              'Python',                 'CRAY_PYTHON_PREFIX',             package_versions )
     write_package( fileH, 'cray-R',      'cray-R',                   'R',                      'CRAY_R_PREFIX',                   package_versions )
     # TODO: GCC still different from CSCS
-    write_package( fileH, 'GCC9',        'GCC',                      'GCC',                    'GCC_PREFIX',                      package_versions )
+    write_package( fileH, 'GCC',         'GCC',                      'GCC',                    'GCC_PREFIX',                      package_versions )
     write_package( fileH, 'PAPI',        'papi',                     'PAPI',                   'CRAY_PAPI_PREFIX',                package_versions )
-    write_package( fileH, 'pmi',         'pmi',                      'pmi',                    'CRAY_PMI_PREFIX',                 package_versions )
+    write_package( fileH, 'PMI',         'pmi',                      'pmi',                    'CRAY_PMI_PREFIX',                 package_versions )
     write_package( fileH, 'Slurm',       'slurm/.default',           'slurm',                  'SLURMDIR',                        package_versions )
 
     #

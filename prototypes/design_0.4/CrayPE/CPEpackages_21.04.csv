@@ -12,9 +12,9 @@ STAT,4.10.1
 valgrind4hpc,2.11.1
 perftools,21.02.0
 PAPI,6.0.0.6
-LibSCi,21.04.1
+LibSci,21.04.1.1
 FFTW,3.3.8.9
-craypkg-gen ,  1.3.14
+craypkg-gen,1.3.14
 craype,2.7.6
 craype-targets,1.4.0
 cpe-prgenv,8.0.0
@@ -29,3 +29,4 @@ GCC9,9.3.0
 GCC10,10.2.0
 cray-python,3.8.5.0
 cray-R,4.0.3.0
+AOCC,2.2.0.1

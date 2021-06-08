@@ -320,7 +320,7 @@ Python3_module_EB.sh "3.9.4" "cpeCCE-$stack" "1.20.2" "1.6.3" $(software_root $s
 #
 for stack in "${EB_stacks[@]}"
 do
-    make_CPE_defs.py $testroot/SystemRepo/easybuild/config ${stack%.dev}
+	make_EB_external_modules.py $testroot/SystemRepo/CrayPE $testroot/SystemRepo/easybuild/config ${stack%.dev}
 done
 #
 # - EasyBuild config file
