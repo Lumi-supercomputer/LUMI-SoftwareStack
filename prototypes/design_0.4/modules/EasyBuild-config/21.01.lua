@@ -117,6 +117,7 @@ local stack =                 stack_name  .. '-' .. stack_version
 local partition =             'LUMI-' .. partition_name
 local common_partition_name = 'common'
 local common_partition =      'LUMI-' .. common_partition_name
+local CPE_version =stack_version:gsub( '.dev', '' )  -- Drop .dev from the stack version to get the version of the CPE.
 
 -- - Compute the location of certain directories and files
 
@@ -177,7 +178,7 @@ local system_configfile_stack =   pathJoin( system_configdir, 'easybuild-product
 local user_configfile_generic =   pathJoin( user_configdir,   'easybuild-user.cfg' )
 local user_configfile_stack =     pathJoin( user_configdir,   'easybuild-user-' .. stack .. '.cfg' )
 
-local system_external_modules =   pathJoin( system_configdir, 'external_modules_metadata-' .. stack .. '.cfg' )
+local system_external_modules =   pathJoin( system_configdir, 'external_modules_metadata-CPE-' .. CPE_version .. '.cfg' )
 
 -- - Settings for the module naming scheme
 

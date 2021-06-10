@@ -80,7 +80,7 @@ def gen_EB_external_modules_from_CPEdef( CPEpackages_dir, EBconfig_dir, version 
     #
     # Open the external module definition file
     #
-    extdeffile = 'external_modules_metadata-LUMI-%s.cfg' % version
+    extdeffile = 'external_modules_metadata-CPE-%s.cfg' % version
     extdeffileanddir = os.path.join( EBconfig_dir, extdeffile )
     print( 'Generating %s...' % extdeffileanddir )
     fileH = open( extdeffileanddir, 'w' )
