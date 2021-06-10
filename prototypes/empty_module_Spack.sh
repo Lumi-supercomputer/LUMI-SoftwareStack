@@ -1,6 +1,6 @@
 #! /bin/bash
 #
-# This script creates an empty demo module in EasyBuild-style.
+# This script creates an empty demo module in Spack-style.
 #
 # Arguments:
 # - $1: Name of the module

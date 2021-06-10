@@ -1,6 +1,6 @@
 #! /bin/bash
 #
-# This script creates an empty demo module in EasyBuild-style.
+# This script creates an empty demo module in EasyBuild-style but for a manual installation
 #
 # Arguments:
 # - $1: Name of the module
