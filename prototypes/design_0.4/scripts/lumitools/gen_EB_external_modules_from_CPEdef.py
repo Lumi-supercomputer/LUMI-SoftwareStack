@@ -3,7 +3,7 @@
 #
 # Input arguments
 #   * CPEpackages_dir : Directory with the CPE definitinon files (in .csv format)
-#   * EBconfig_diur : Directory with the EasyBuild configuration and external modules
+#   * EBconfig_dir : Directory with the EasyBuild configuration and external modules
 #     files
 #   * version : Release of the CPE to generate the file for.
 #
@@ -99,7 +99,7 @@ def gen_EB_external_modules_from_CPEdef( CPEpackages_dir, EBconfig_dir, version 
     write_package( fileH, 'LibSci',      'cray-libsci',              'LibSci',                 'CRAY_LIBSCI_PREFIX_DIR',          package_versions )
     write_package( fileH, 'NetCDF',      'cray-netcdf',              'netCDF, netCDF-Fortran', 'CRAY_NETCDF_PREFIX',              package_versions )
     write_package( fileH, 'NetCDF',      'cray-netcdf-hdf5parallel', 'netCDF, netCDF-Fortran', 'CRAY_NETCDF_HDF5PARALLEL_PREFIX', package_versions )
-    write_package( fileH, 'cray-python', 'cray-python',              'Python',                 'CRAY_PYTHON_PREFIX',             package_versions )
+    write_package( fileH, 'cray-python', 'cray-python',              'Python',                 'CRAY_PYTHON_PREFIX',              package_versions )
     write_package( fileH, 'cray-R',      'cray-R',                   'R',                      'CRAY_R_PREFIX',                   package_versions )
     # TODO: GCC still different from CSCS
     write_package( fileH, 'GCC',         'GCC',                      'GCC',                    'GCC_PREFIX',                      package_versions )
