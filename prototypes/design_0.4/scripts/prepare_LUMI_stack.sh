@@ -248,8 +248,7 @@ done
 #
 # - Create the external modules file
 #
-$installroot/SystemRepo/scripts/make_EB_external_modules.py \
-    $installroot/SystemRepo/CrayPE $installroot/SystemRepo/easybuild/config ${stack_version%.dev}
+$installroot/SystemRepo/scripts/make_EB_external_modules.sh ${stack_version%.dev}
 
 #
 # - Link the EasyBuild-production and EasyBuild-user modules in the module structure
