@@ -20,7 +20,7 @@ the TCL Environment Modules implementation to store those environments.
 ]==] )
 
 if isDir( '/usr/share/modulefiles' ) then prepend_path( 'MODULEPATH', '/usr/share/modulefiles' ) end
-if isDir( '/usr/share/Modules/modulefiles' ) then repend_path( 'MODULEPATH', '/usr/share/Modules/modulefiles' ) end
+if isDir( '/usr/share/Modules/modulefiles' ) then prepend_path( 'MODULEPATH', '/usr/share/Modules/modulefiles' ) end
 prepend_path( 'MODULEPATH', '/opt/modulefiles' )
 prepend_path( 'MODULEPATH', '/opt/cray/modulefiles' )
 prepend_path( 'MODULEPATH', '/opt/cray/pe/lmod/modulefiles/craype-targets/default' )
