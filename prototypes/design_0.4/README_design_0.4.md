@@ -36,6 +36,10 @@ Changes compared to design 0.3:
 
   * We implemented only the stack_partition variant to reduce the amount of work.
 
+  * The build process of the prototype is broken up in several scripts of which
+    some are close to those that will be needed in production to, e.g., start a
+    new software stack.
+
   * Added a directory with LUA modules to change the presentation of the module tree.
 
   * Added a partition/common to be able to install software that is suitable for all
@@ -102,7 +106,12 @@ Changes compared to design 0.3:
     various scripts and module files.
 
       * This includes a new function in SitePackage.lua to extract the version of a
-        Cray PE compoment for a given version of the PE from a .csv file.
+        Cray PE compoment for a given version of the PE from a .csv file which is used
+        to load the right version of the Cray PE targeting modules in the LUMIpartition
+        module.
+
+      * The file is used to generate the external module definition file for each CPE
+        version (make_EB_external_modules.py)
 
 
 Changes compared to design 0.2:
@@ -561,13 +570,20 @@ There is currently a set of Python scripts that define the components of the PE 
 generate the EasyBuild external modules definition file for a particular release of
 the PE.
 
-  * ``make_CPE_defs.py`` defines the PE component version numbers and calls the script
-    that generates the EasyBuild external modules file.
+  * ``make_EB_external_modules.py`` is a wrapper that call ``lumitools/gen_EB_external_modules_from_CPEdef.py``
+    to generate the EasyBuild external modules file for a particular version of the
+    CPE. The external module definition file is stored in the easybuild configuration
+    directory and is called ``external_modules_metadata-CPE-<CPE version>.cfg``. Hence
+    in the current design it is named after the version of the CPE and not the name
+    of the software stack, so the developer and release versions of a software stack
+    would share the same file.
+
+    That information is currently read from a .csv-file stored in the CrayPE
+    subdirectory that is used by various components in our setup.
 
     If HPE-Cray would deliver the information on the PE components in a different way,
     e.g., a YAML file, it would make sense to rewrite that part.
 
-  * ``lumitools/CPE_to_EB.py`` then generates the EasyBuild external modules file.
 
 
 ### EasyBuild Module Naming Scheme
@@ -836,67 +852,103 @@ these files to start using it.
 
 ## Starting a new software stack and bootstrapping EasyBuild
 
-  * Create a ``LUMI/yy.mm`` module for the software stack (through linking to
-    the generic implementation) and create the necessary partition modules at
-    the next level in the software stack hierarchy (again using symbolic links
-    to the generic implemenation). Do not forget to adapt (for the LUMI-module)
-    or install (for the partition modules) the necessary .modulerc.lua files.
+This process is largely automated through the ``prepare_LUMI_stack.sh``-script.
 
-      * The one in the directory with the ``LUMI/yy.mm``-modules is used to
-        set the default module so you may want to wait to adapt the default.
+Before running the script, the following elements are needed:
 
-      * The one in the partition module directory sets a number of aliases to
-        provide more user-readable names for the partitions and hides the common
-        partition module.
+  * A suitable ``CPEpakcages_<CPE version>.csv`` file in the ``CrayPE`` subdirectory
+    of the repository.
 
-  * Create the definition file for the external modules for EasyBuild
-
-      * Procedure should be worked out further depending on the information we get
-        from Cray. Currently it is a set of Python scripts that define the versions
-        of the PE components and generate the file.
-
-  * Add an EasyConfig file for the desired version of EasyBuild to the LUMI EasyConfig
+  * An EasyConfig file for the selected version of EasyBuild in the EasyConfig
     repository.
 
-  * Check if a software stack-specific configuration file for EasyBuild is needed.
+    Note that it is always possible to run ``prepare_LUMI_stack.sh``-script
+    with ``EASYBUILD_IGNORE_CHECKSUMS=1`` set if the checksums in the module
+    file are not yet OK. (TODO CHECK is this the correct variable?)
 
-  * Install the EasyBuild-production and EasyBuild-user modules that take care of the
-    setup of EasyBuild. This can be done by symlinking to the generic implemenation in
-    each of the partitions, including the ``common`` one. Note that the version should
-    be the name of the partition.
+  * Make sure proper versions of the EasyBuild-config, LUMIstack and LUMIpartition
+    modules are available in the repository.
 
-  * Load the new LUMI module and then ``partition/common``and then ``EasyBuild-production``.
-    The latter will produce a warning that no EasyBuild module is found yet, but it
-    will produce the correct setup for EasyBuild.
+    The software stack initialisation script will take the most recent one
+    (based on the yy.mm version number) that is not newer than the release
+    of the CPE for the software stack.
 
-  * Installing EasyBuild using EasyBuild: there are two options:
+    *The software stacks and CPEs on the Grenoble test system use
+    yy.G.mm version numbers, but the ``.G`` is dropped when determining
+    the correct version of the modules mentioned above.*
 
-      * Ensure PYTHONPATH refers to the EasyBuild Python files from another software
-        stack and call the corresponding binary using the full path to the ``eb`` script.
+  * Add a software stack-specific configuration file for EasyBuild if
+    needed.
 
-      * Install a version of EasyBuild by hand in a temporary directory (it is enough
-        to only install the framework and EasyBlocks), point PYTHONPATH to the Python
-        files and call the ``eb`` script using the full path. This temporary installation
-        can be removed again once EasyBuild is installed.
+The ``prepare_LUMI_stack.sh``-script takes 3 input arguments:
 
-        This is the procedure that we used in the script that generates the prototype
-        (though defining the environment variables in the script rather than through
-        a bootstrap module).
+  * Version of the software stack
+
+  * Version of EasyBuild to use
+
+  * Work directory for temporary files, used to install a bootstrapping copy
+    of EasyBuild. Rather than trying to use an EasyBuild installation from an
+    older software stack if present to bootstrap the new one, we simply chose
+    to do a bootstrap every time the script is run as this is a procedure
+    that simply always works, though it is more time consuming.
+
+    The advantage however is that one can just clone the production repository
+    anywhere, run an initialisation script to initialise the structure around
+    the repository, then initialise a software stack and start working.
+
+Note that the install root is not an argument of the ``prepare_LUMI_stack.sh``-script.
+The root of the installation is determined from the location of the script,
+so one should make sure to run the correct version of the script (i.e., to
+run from the clone of the repository in the installation root).
+
+Steps that the ``LUMI_prepare_stack.sh`` script takes:
+
+  * Creates the LUMI software stack module (by soft linking to the generic one
+    in the ``SystemRepo``) and the partition modules for that stack (again by
+    softlinking).
+
+  * Creates the full directory structure for the software stack for the modules,
+    the binary installations and the EasyBuild repo.
+
+  * Creates the EasyBuild external modules definition file from the data in the
+    corresponding ``CPEpakcages_<CPE version>.csv`` file.
+
+  * Creates the EasyBuild-production, EasyBuild-infrastructure and EasyBuild-user
+    modules for each partition by softlinking to the matching generic file in
+    the ``SystemRepo``.
+
+  * Downloads the selected version of EasyBuild to the EasyBuild sources directory
+    if the files are not yet present.
+
+  * Installs a bootstrapping version of EasyBuild in the work directory. As that
+    version will only be used to install EasyBuild from our own EasyConfig file,
+    there is no need to also install the EasyConfig files.
+
+  * Loads the software stack module for the common partition and the EasyBuild-production
+    module to install EasyBuild in the software stack.
+
+Things to do afterwards:
+
+  * If you want to change the default version of the LUMI software stack module,
+    you can do this by editing ``.modulerc.lua`` in
+    ``modules/SoftwareStack/LUMI``.
+
+TODO
 
   * Create the Cray PE toolchain modules
 
     TODO: Use a script that uses the same data as used for the external module definition.
 
-  * And now one should be ready to install other software...
+And now one should be ready to install other software...
 
-      * Ensure the software stack module is loaded and the partition module for the
-        location where you want to install the software is loaded (so the hidden module
-        partition/common to install software in the location common to all regular
-        partitions)
+  * Ensure the software stack module is loaded and the partition module for the
+    location where you want to install the software is loaded (so the hidden module
+    partition/common to install software in the location common to all regular
+    partitions)
 
-      * Load EasyBuild-production for an install in the production directories or
-        EasyBuild-user for an install in the user or project directories (and you'll
-        need to set some environment variables beforehand to point to that location).
+  * Load EasyBuild-production for an install in the production directories or
+    EasyBuild-user for an install in the user or project directories (and you'll
+    need to set some environment variables beforehand to point to that location).
 
 
 ## Impact of changes
