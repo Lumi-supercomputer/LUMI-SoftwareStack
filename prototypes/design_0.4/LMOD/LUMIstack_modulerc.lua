@@ -16,3 +16,15 @@ if os.getenv( 'LUMI_LMOD_POWERUSER' ) == nil then
     hide_version( 'EasyBuild-production/LUMI' )
     hide_version( 'EasyBuild-infrastructure/LUMI' )
 end
+
+--
+--  Cray PE modules
+--
+if os.getenv( 'LUMI_LMOD_POWERUSER' ) == nil then
+    hide_version( 'craype-accel-nvidia70' )
+    hide_version( 'craype-accel-nvidia80' )
+    hide_version( 'craype-broadwell' )
+    hide_version( 'craype-x86-skylake' )
+    hide_version( 'craype-x86-cascadelake' )
+    hide_version( 'craype-x86-icelake' )
+end

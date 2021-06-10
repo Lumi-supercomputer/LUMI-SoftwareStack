@@ -11,11 +11,13 @@ family( 'LUMI_SoftwareStack' )
 add_property("lmod","sticky")
 
 -- Detect the module root from the position of this module in the module tree
-local module_root = myFileName():match( '(.*/modules)/SoftwareStack/.*' )
+local install_root = myFileName():match( '(.*)/modules/SoftwareStack/.*' )
 
 -- Detect the software stack from the name and version of the module
 local stack_name    = myModuleName()
 local stack_version = myModuleVersion()
+local CPE_version   = stack_version:gsub( '.dev', '')
+
 
 -- Detect the partition that we are on using the function defined in SitePackage.lua
 local partition     = detect_LUMI_partition()
@@ -53,20 +55,24 @@ expected.
 -- Main module logic
 --
 
-local stack = 'LUMI-' .. stack_version
-prepend_path( 'MODULEPATH', pathJoin( module_root, 'SystemPartition', stack_name, stack_version ) )
+prepend_path( 'MODULEPATH', pathJoin( install_root, 'modules/SystemPartition', stack_name, stack_version ) )
 
 -- The following variables may be used by various modules and LUA configuration files.
 -- However, take care as those variables may not be defined anymore when your module
 -- gets unloaded.
-setenv( 'LUMI_MODULEPATH_ROOT',    module_root )
+setenv( 'LUMI_MODULEPATH_ROOT',    pathJoin( install_root, modules ) )
 setenv( 'LUMI_STACK_NAME',         stack_name )
 setenv( 'LUMI_STACK_VERSION',      stack_version )
 setenv( 'LUMI_STACK_NAME_VERSION', stack_name .. '/' .. stack_version )
 
--- We can even consider to use a specific modulerc file which is only read if one of the LUMI modules is
--- loaded.
--- prepend_path( 'LMOD_MODULERCFILE', pathJoin( module_root, '..', 'SystemRepo/LMOD', 'LUMIstack_modulerc.lua' ) )
+--
+-- Enable LUMIstack_modulerc.lua and a (CPE) version-specific one (if present)
+--
+prepend_path( 'LMOD_MODULERCFILE', pathJoin( install_root, 'SystemRepo/LMOD', 'LUMIstack_modulerc.lua' ) )
+local modulerc_stack = pathJoin( install_root, 'SystemRepo/LMOD', 'LUMIstack_' .. CPE_version .. '_modulerc.lua' )
+if isFile( modulerc_stack ) then
+    prepend_path( 'LMOD_MODULERCFILE', modulerc_stack )
+end
 
 load( 'partition/' .. partition )
 

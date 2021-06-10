@@ -26,9 +26,9 @@ end
 local stack_name_version = hierarchy[1]
 local stack_name =    stack_name_version:match('([^/]+)/.*')
 local stack_version = stack_name_version:match('.*/([^/]+)')
-local cpe_version =   stack_version:gsub( '.dev', '')
+local CPE_version =   stack_version:gsub( '.dev', '')
 if os.getenv( '_LUMI_LMOD_DEBUG' ) ~= nil then
-    LmodMessage( 'DEBUG: ' .. mode() .. ' ' .. myModuleFullName() .. ': stack name: ' .. stack_name .. ', stack version: '.. stack_version, ', CPE version: '.. cpe_version )
+    LmodMessage( 'DEBUG: ' .. mode() .. ' ' .. myModuleFullName() .. ': stack name: ' .. stack_name .. ', stack version: '.. stack_version, ', CPE version: '.. CPE_version )
 end
 
 -- Determine the partition that we want to load software for from the version of the module
@@ -51,7 +51,7 @@ if os.getenv( '_LUMI_LMOD_DEBUG' ) ~= nil and user_easybuild_modules ~= nil then
 end
 
 -- Find the version of crape-targets matching the current PE version
-local targets_version = get_CPE_component( install_root, 'craype-targets', cpe_version )
+local targets_version = get_CPE_component( install_root, 'craype-targets', CPE_version )
 if os.getenv( '_LUMI_LMOD_DEBUG' ) ~= nil then
     LmodMessage( 'DEBUG: ' .. mode() .. ' ' .. myModuleFullName() .. ': Found craype-targets version ' .. targets_version )
 end
@@ -72,11 +72,6 @@ a partition module may work on other on other partitions.
 ]] )
 
 setenv( 'LUMI_STACK_PARTITION', partition )
-
---
--- Enable LUMIstack_modulerc.lua
---
-prepend_path( 'LMOD_MODULERCFILE', pathJoin( install_root, 'SystemRepo/LMOD', 'LUMIstack_modulerc.lua' ) )
 
 if ( partition ~= 'common' ) or ( mode() ~= 'spider' ) then
     -- This is a block of code that we do not want to be visible in partition/common

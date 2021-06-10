@@ -110,6 +110,9 @@ Changes compared to design 0.3:
         to load the right version of the Cray PE targeting modules in the LUMIpartition
         module.
 
+      * The file is used to generate a modulerc.lua file for a specific LUMI stack
+        to make the proper versions of CPE components the default version.
+
       * The file is used to generate the external module definition file for each CPE
         version (make_EB_external_modules.py)
 
@@ -526,6 +529,12 @@ Directory hierarchy
 
   * Partition: No assigned default, the software stack module determines the optimal
     partition based on the node where that module is loaded.
+
+  * Cray PE compoments: Depending on the version of the LUMI stack loaded, different
+    versions of the modules in the Cray PE will be the default ones, corresponding
+    to the release of the PE used for that stack. These defaults are set in
+    ``LMOD/LUMIstack_<version>_modulerc.lua``, which can be generated with the
+    ``make_CPE_modulerc.sh`` script.
 
 
 ### Helper functions in SitePackage.lua

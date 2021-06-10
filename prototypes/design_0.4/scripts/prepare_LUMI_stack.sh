@@ -208,6 +208,12 @@ done
 create_link     "$installroot/SystemRepo/modules/LUMIpartition/$match_file" "$installroot/modules/SystemPartition/LUMI/$stack_version/partition/common.lua"
 
 #
+# - Create the LUMIstack_..._modulerc.lua file with the default versions of Cray
+#   modules for this stack
+#
+$installroot/SystemRepo/scripts/make_CPE_modulerc.sh ${stack_version%.dev}
+
+#
 # - Create the other directories for modules, and other toolchain-specific directories
 #
 mkdir -p $installroot/modules/easybuild/LUMI/$stack_version
