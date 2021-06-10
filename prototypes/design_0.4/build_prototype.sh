@@ -120,54 +120,7 @@ cp $testroot/../sources/easybuild* $testroot/sources/easybuild/e/EasyBuild/
 ################################################################################
 ################################################################################
 
-#
-# Create some of the directory structure
-# We use more commands than strictly necessary, which can give more precise
-# error messages.
-#
-mkdir -p $testroot/modules
-mkdir -p $testroot/modules/SoftwareStack
-mkdir -p $testroot/modules/SoftwareStack/LUMI     # For the LUMI/yy.mm module files
-mkdir -p $testroot/modules/SystemPartition
-mkdir -p $testroot/modules/SystemPartition/LUMI   # For LUMI/yy.mm subdirectories
-mkdir -p $testroot/modules/easybuild
-mkdir -p $testroot/modules/easybuild/LUMI
-mkdir -p $testroot/modules/spack
-mkdir -p $testroot/modules/spack/LUMI
-mkdir -p $testroot/modules/manual
-mkdir -p $testroot/modules/manual/LUMI
-mkdir -p $testroot/modules/Infrastructure
-mkdir -p $testroot/modules/Infrastructure/LUMI
-
-mkdir -p $testroot/SW
-
-mkdir -p $testroot/mgmt
-mkdir -p $testroot/mgmt/ebrepo_files
-
-mkdir -p $testroot/sources
-mkdir -p $testroot/sources/easybuild
-mkdir -p $testroot/sources/easybuild/e
-mkdir -p $testroot/sources/easybuild/e/EasyBuild
-
-#
-# Link the CrayEnv module
-#
-create_link $testroot/SystemRepo/modules/CrayEnv.lua  $testroot/modules/SoftwareStack/CrayEnv.lua
-
-#
-# Link the style modules
-#
-# We simply link the directory. The defaults are set in LMOD/modulerc.lua
-#
-create_link $testroot/SystemRepo/modules/StyleModifiers $testroot/modules/StyleModifiers
-
-#
-# Create a modulerc file in the SoftwareStack subdirectory to mark the default software stack.
-# Initialy the default is set to a non-existing module, but we want to create the file.
-#
-cat >$testroot/modules/SoftwareStack/LUMI/.modulerc.lua <<EOF
-module_version( "LUMI/00.00", "default" )
-EOF
+$testroot/SystemRepo/scripts/prepare_LUMI.sh
 
 
 ################################################################################
@@ -179,11 +132,10 @@ EOF
 ################################################################################
 ################################################################################
 
-cd $testroot/SystemRepo/scripts
 for stack in "${EB_stacks[@]}"
 do
     echo "Preparing software stack $stack..."
-    ./prepare_LUMI_stack.sh "$stack" "${EB_version[$stack]}" "$workdir"
+    $testroot/SystemRepo/scripts/prepare_LUMI_stack.sh "$stack" "${EB_version[$stack]}" "$workdir"
 done
 
 

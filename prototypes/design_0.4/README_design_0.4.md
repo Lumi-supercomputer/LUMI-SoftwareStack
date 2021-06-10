@@ -38,7 +38,20 @@ Changes compared to design 0.3:
 
   * The build process of the prototype is broken up in several scripts of which
     some are close to those that will be needed in production to, e.g., start a
-    new software stack.
+    new software stack:
+
+        * The build script still builds a shadow repository rather than working
+          in the final repository because the structure is different.
+
+        * ``prepare_LUMI.sh`` then further initializes the module tree and some other
+          directories.
+
+        * Next ``prepare_LUMI_stack.sh`` is called for each LUMI stack that should
+          be initialised.
+
+        * Finally the prototype build script still calls a script to make some demo
+          LUMI stacks separate from those where we experiment with EasyBuild, and
+          sets the default software stack.
 
   * Added a directory with LUA modules to change the presentation of the module tree.
 
