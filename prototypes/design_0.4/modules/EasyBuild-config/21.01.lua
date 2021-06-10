@@ -15,8 +15,13 @@ local ebu =  'EBU'  -- Site-specific prefix for the environment variable names t
 local user_prefix = ( os.getenv( ebu .. '_USER_PREFIX' ) or pathJoin( os.getenv( 'HOME' ), '/EasyBuild' ) )
 -- System software and module install root, extract from the module path.
 local system_prefix = myFileName():match( '(.*)/modules/Infrastructure/.*' )
--- System configuration: Derive from the path of the module
-local EB_SystemRepo_prefix = pathJoin( system_prefix, 'SystemRepo/easybuild' )
+-- System configuration: Derive from LMOD_PACKAGE_PATH
+-- The gsub that we use works with and without end trailing slash in the value of LMOD_PACKAGE_PATH.
+local LMOD_root = os.getenv( 'LMOD_PACKAGE_PATH' )
+if LMOD_root == nil then
+    LmodError( 'Failed to get the value of LMOD_PACKAGE_PATH' )
+end
+local EB_SystemRepo_prefix = pathJoin( LMOD_root:gsub( '/LMOD/*', '' ), 'easybuild' )
 
 -- -----------------------------------------------------------------------------
 --

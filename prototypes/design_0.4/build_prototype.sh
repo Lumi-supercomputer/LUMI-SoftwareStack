@@ -4,6 +4,8 @@ version="0.4"
 testroot="$HOME/appltest/design_$version"
 sourceroot="$HOME/LUMI-easybuild-prototype/prototypes/design_$version"
 
+repo='SystemRepo'
+
 workdir=$HOME/Work
 
 #PATH=$sourceroot/..:$sourceroot:$PATH
@@ -58,7 +60,7 @@ mkdir -p $testroot
 ################################################################################
 ################################################################################
 ##
-## FIRST PART: Shadow SystemRepo directory
+## FIRST PART: Shadow ${repo} directory
 ## For now, in the prototype we avoid to work directly in the repo as we
 ## do not want to set up a new repo for each prototype.
 ##
@@ -68,15 +70,15 @@ mkdir -p $testroot
 ################################################################################
 ################################################################################
 
-mkdir -p $testroot/SystemRepo
+mkdir -p $testroot/${repo}
 
-mkdir -p $testroot/SystemRepo
-# Normally $testroot/SystemRepo would just be our github repository, even though some files
+mkdir -p $testroot/${repo}
+# Normally $testroot/${repo} would just be our github repository, even though some files
 # in there are generated from other files. However, to ease editing in the prototype
 # and since we're running this on two clusters, we're selectively linking to some
 # parts of the GitHub repository.
 modsrc=$sourceroot
-moddest=$testroot/SystemRepo
+moddest=$testroot/${repo}
 create_link $modsrc/modules $moddest/modules
 create_link $modsrc/LMOD    $moddest/LMOD
 create_link $modsrc/scripts $moddest/scripts
@@ -84,9 +86,9 @@ create_link $modsrc/CrayPE  $moddest/CrayPE
 
 PATH=$modsrc/scripts:$PATH
 
-mkdir -p mkdir -p $testroot/SystemRepo/easybuild
-mkdir -p mkdir -p $testroot/SystemRepo/easybuild/config
-create_link $sourceroot/easybuild/config/easybuild-production.cfg $testroot/SystemRepo/easybuild/config/easybuild-production.cfg
+mkdir -p mkdir -p $testroot/${repo}/easybuild
+mkdir -p mkdir -p $testroot/${repo}/easybuild/config
+create_link $sourceroot/easybuild/config/easybuild-production.cfg $testroot/${repo}/easybuild/config/easybuild-production.cfg
 
 create_link $modsrc/easybuild/easyconfigs $moddest/easybuild/easyconfigs
 create_link $modsrc/easybuild/easyblocks  $moddest/easybuild/easyblocks
@@ -98,7 +100,7 @@ create_link $modsrc/easybuild/tools       $moddest/easybuild/tools
 if [ $system == "Grenoble" ]
 then
 	mkdir -p $testroot/modules # Make sure that the directory exists
-	create_link $testroot/SystemRepo/modules/missing/$system $testroot/modules/missing
+	create_link $testroot/${repo}/modules/missing/$system $testroot/modules/missing
 fi
 
 #
@@ -120,7 +122,7 @@ cp $testroot/../sources/easybuild* $testroot/sources/easybuild/e/EasyBuild/
 ################################################################################
 ################################################################################
 
-$testroot/SystemRepo/scripts/prepare_LUMI.sh
+$testroot/${repo}/scripts/prepare_LUMI.sh
 
 
 ################################################################################
@@ -135,7 +137,7 @@ $testroot/SystemRepo/scripts/prepare_LUMI.sh
 for stack in "${EB_stacks[@]}"
 do
     echo "Preparing software stack $stack..."
-    $testroot/SystemRepo/scripts/prepare_LUMI_stack.sh "$stack" "${EB_version[$stack]}" "$workdir"
+    $testroot/${repo}/scripts/prepare_LUMI_stack.sh "$stack" "${EB_version[$stack]}" "$workdir"
 done
 
 
@@ -150,7 +152,7 @@ done
 ################################################################################
 ################################################################################
 
-$sourceroot/build_demo_modules.sh "$testroot" ${demo_stacks[@]}
+$sourceroot/build_demo_modules.sh "$testroot" "$repo" ${demo_stacks[@]}
 
 
 ################################################################################

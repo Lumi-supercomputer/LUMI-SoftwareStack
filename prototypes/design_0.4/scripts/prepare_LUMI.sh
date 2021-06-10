@@ -5,14 +5,16 @@
 # The script takes no arguments.
 #
 # The root of the installation is derived from the place where the script is found.
-# The script should be in <installroot>/SystemRepo/scripts with <installroot> the
+# The script should be in <installroot>/${repo}/scripts with <installroot> the
 # root for the installation.
 #
 
 # That cd will work if the script is called by specifying the path or is simply
 # found on PATH. It will not expand symbolic links.
 cd $(dirname $0)
-cd ../..
+cd ..
+repo=${PWD##*/}
+cd ..
 installroot=$(pwd)
 
 #
@@ -61,14 +63,14 @@ mkdir -p $installroot/sources/easybuild/e/EasyBuild
 #
 # Link the CrayEnv module
 #
-create_link $installroot/SystemRepo/modules/CrayEnv.lua  $installroot/modules/SoftwareStack/CrayEnv.lua
+create_link $installroot/$repo/modules/CrayEnv.lua  $installroot/modules/SoftwareStack/CrayEnv.lua
 
 #
 # Link the style modules
 #
 # We simply link the directory. The defaults are set in LMOD/modulerc.lua
 #
-create_link $installroot/SystemRepo/modules/StyleModifiers $installroot/modules/StyleModifiers
+create_link $installroot/$repo/modules/StyleModifiers $installroot/modules/StyleModifiers
 
 #
 # Create a modulerc file in the SoftwareStack subdirectory to mark the default software stack.

@@ -31,6 +31,9 @@ TODO to finish this prototype:
     of the toolchain everywhere. But it also means we cannot change it back to
     21.04 but need to re-install then.
 
+  * Can we make the whole system independent of the name of the system repository
+    so that we can change that with as little trouble as possible?
+
 
 Changes compared to design 0.3:
 

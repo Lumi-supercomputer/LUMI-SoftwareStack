@@ -13,11 +13,20 @@ add_property("lmod","sticky")
 -- Detect the module root from the position of this module in the module tree
 local install_root = myFileName():match( '(.*)/modules/SoftwareStack/.*' )
 
+-- Detect the directory of LMOD configuration files from LMOD_PACKAGE_PATH
+-- as that variable has to be set anyway for the LUMI module system to work
+-- as we rely on SitePackage.lua, and this file does rely on the
+-- detect_LUMI_partition function defined in SitePackage.lua.
+-- NOTE: Change this code if the LMOD configuration would be stored elsewhere!
+local LMOD_root = os.getenv( 'LMOD_PACKAGE_PATH' )
+if LMOD_root == nil then
+    LmodError( 'Failed to get the value of LMOD_PACKAGE_PATH' )
+end
+
 -- Detect the software stack from the name and version of the module
 local stack_name    = myModuleName()
 local stack_version = myModuleVersion()
 local CPE_version   = stack_version:gsub( '.dev', '')
-
 
 -- Detect the partition that we are on using the function defined in SitePackage.lua
 local partition     = detect_LUMI_partition()
@@ -68,8 +77,8 @@ setenv( 'LUMI_STACK_NAME_VERSION', stack_name .. '/' .. stack_version )
 --
 -- Enable LUMIstack_modulerc.lua and a (CPE) version-specific one (if present)
 --
-prepend_path( 'LMOD_MODULERCFILE', pathJoin( install_root, 'SystemRepo/LMOD', 'LUMIstack_modulerc.lua' ) )
-local modulerc_stack = pathJoin( install_root, 'SystemRepo/LMOD', 'LUMIstack_' .. CPE_version .. '_modulerc.lua' )
+prepend_path( 'LMOD_MODULERCFILE', pathJoin( LMOD_root, 'LUMIstack_modulerc.lua' ) )
+local modulerc_stack = pathJoin( LMOD_root, 'LUMIstack_' .. CPE_version .. '_modulerc.lua' )
 if isFile( modulerc_stack ) then
     prepend_path( 'LMOD_MODULERCFILE', modulerc_stack )
 end

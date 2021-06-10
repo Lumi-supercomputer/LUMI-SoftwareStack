@@ -4,6 +4,7 @@
 #
 # The script takes three or more
 #   * The root of the installation
+#   * The name used for the repository
 #   * the other ones are the stack versions for which we build the demo
 #     structure. The first two are currently used for actual dummy modules.
 #
@@ -12,6 +13,8 @@
 # Process the input arguments
 #
 installroot="$1"
+shift
+repo="$1"
 shift
 demo_stacks=( $@ )
 
@@ -423,7 +426,7 @@ done
 #
 # Populate modules/SoftwareStack and modules/LUMIpartition/LUMI-yy.mm
 #
-modsrc="$installroot/SystemRepo/modules"
+modsrc="$installroot/${repo}/modules"
 moddest="$installroot/modules"
 for stack in "${demo_stacks[@]}"
 do

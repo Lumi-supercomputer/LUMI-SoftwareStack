@@ -51,7 +51,7 @@ if os.getenv( '_LUMI_LMOD_DEBUG' ) ~= nil and user_easybuild_modules ~= nil then
 end
 
 -- Find the version of crape-targets matching the current PE version
-local targets_version = get_CPE_component( install_root, 'craype-targets', CPE_version )
+local targets_version = get_CPE_component( 'craype-targets', CPE_version )
 if os.getenv( '_LUMI_LMOD_DEBUG' ) ~= nil then
     LmodMessage( 'DEBUG: ' .. mode() .. ' ' .. myModuleFullName() .. ': Found craype-targets version ' .. targets_version )
 end

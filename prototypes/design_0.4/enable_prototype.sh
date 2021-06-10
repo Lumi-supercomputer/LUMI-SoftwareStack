@@ -2,8 +2,9 @@
 
 version="0.4"
 testroot="$HOME/appltest/design_$version"
+repo='SystemRepo'
 
 partition='L'
 
-$testroot/SystemRepo/scripts/enable_LUMI.sh
+$testroot/$repo/scripts/enable_LUMI.sh
 echo "export LUMI_PARTITION=$partition ; "

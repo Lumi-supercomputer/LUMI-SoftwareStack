@@ -10,8 +10,9 @@
 #  * Work directory for temporary files
 #
 # The root of the installation is derived from the place where the script is found.
-# The script should be in <installroot>/SystemRepo/scripts with <installroot> the
-# root for the installation.
+# The script should be in <installroot>/<repo>/scripts with <installroot> the
+# root for the installation and <repo> the name of the repository (which is
+# hard-coded in some files so cannot be changed completely at will).
 #
 
 ###############################################################################
@@ -37,7 +38,9 @@ fi
 # That cd will work if the script is called by specifying the path or is simply
 # found on PATH. It will not expand symbolic links.
 cd $(dirname $0)
-cd ../..
+cd ..
+repo=${PWD##*/}
+cd ..
 installroot=$(pwd)
 
 stack_version="$1"
@@ -57,7 +60,7 @@ EOF
 #
 # Check: Does the EasyConfig exist?
 #
-EBconfig_file="$installroot/SystemRepo/easybuild/easyconfigs/e/EasyBuild/EasyBuild-$EBversion.eb"
+EBconfig_file="$installroot/$repo/easybuild/easyconfigs/e/EasyBuild/EasyBuild-$EBversion.eb"
 
 if [ ! -f "$EBconfig_file" ]
 then
@@ -67,7 +70,7 @@ then
 
 Failed to find the EasyConfig file EasyBuild-$EBversion.eb for the requested
 version of EasyBuild. The file should be in
-$installroot/SystemRepo/easybuild/easyconfigs/e/EasyBuild
+$installroot/$repo/easybuild/easyconfigs/e/EasyBuild
 before running this script.
 
 EOF
@@ -77,7 +80,7 @@ fi
 #
 # Check: Does the CPE_packages-*.csv file exist?
 #
-CPEpackages_file="$installroot/SystemRepo/CrayPE/CPEpackages_$CPEversion.csv"
+CPEpackages_file="$installroot/$repo/CrayPE/CPEpackages_$CPEversion.csv"
 if [ ! -f "$CPEpackages_file" ]
 then
 	# Here document, but avoid using <<- as indentation breaks when tabs would
@@ -86,7 +89,7 @@ then
 
 Failed to find the CPE package file CPEpackages_$CPEversion.csv for the requested
 software stack. The file should be in
-$installroot/SystemRepo/CrayPE
+$installroot/$repo/CrayPE
 before running this script.
 
 EOF
@@ -193,25 +196,25 @@ partitions=( 'C' 'G' 'D' 'L' )
 #   more robust.
 #
 mkdir -p "$installroot/modules/SoftwareStack/LUMI"
-match_file=$(match_module_version $stack_version $installroot/SystemRepo/modules/LUMIstack)
-create_link "$installroot/SystemRepo/modules/LUMIstack/$match_file" "$installroot/modules/SoftwareStack/LUMI/$stack_version.lua"
+match_file=$(match_module_version $stack_version $installroot/$repo/modules/LUMIstack)
+create_link "$installroot/$repo/modules/LUMIstack/$match_file" "$installroot/modules/SoftwareStack/LUMI/$stack_version.lua"
 
 #
 # - Create the partition modules
 #
 mkdir -p "$installroot/modules/SystemPartition/LUMI/$stack_version/partition"
-match_file=$(match_module_version $stack_version $installroot/SystemRepo/modules/LUMIpartition)
+match_file=$(match_module_version $stack_version $installroot/$repo/modules/LUMIpartition)
 for partition in "${partitions[@]}"
 do
-  	create_link "$installroot/SystemRepo/modules/LUMIpartition/$match_file" "$installroot/modules/SystemPartition/LUMI/$stack_version/partition/$partition.lua"
+  	create_link "$installroot/$repo/modules/LUMIpartition/$match_file" "$installroot/modules/SystemPartition/LUMI/$stack_version/partition/$partition.lua"
 done
-create_link     "$installroot/SystemRepo/modules/LUMIpartition/$match_file" "$installroot/modules/SystemPartition/LUMI/$stack_version/partition/common.lua"
+create_link     "$installroot/$repo/modules/LUMIpartition/$match_file" "$installroot/modules/SystemPartition/LUMI/$stack_version/partition/common.lua"
 
 #
 # - Create the LUMIstack_..._modulerc.lua file with the default versions of Cray
 #   modules for this stack
 #
-$installroot/SystemRepo/scripts/make_CPE_modulerc.sh ${stack_version%.dev}
+$installroot/$repo/scripts/make_CPE_modulerc.sh ${stack_version%.dev}
 
 #
 # - Create the other directories for modules, and other toolchain-specific directories
@@ -254,17 +257,17 @@ done
 #
 # - Create the external modules file
 #
-$installroot/SystemRepo/scripts/make_EB_external_modules.sh ${stack_version%.dev}
+$installroot/$repo/scripts/make_EB_external_modules.sh ${stack_version%.dev}
 
 #
 # - Link the EasyBuild-production and EasyBuild-user modules in the module structure
 #
-modsrc="$installroot/SystemRepo/modules"
+modsrc="$installroot/$repo/modules"
 function module_root () {
     echo "$installroot/modules/Infrastructure/LUMI/$1/partition/$2"
 }
 
-module_file=$(match_module_version $stack_version $installroot/SystemRepo/modules/EasyBuild-config)
+module_file=$(match_module_version $stack_version $installroot/$repo/modules/EasyBuild-config)
 for partition in ${partitions[@]} common
 do
     mkdir -p $(module_root $stack_version $partition)/EasyBuild-production
@@ -336,15 +339,15 @@ export PYTHONPATH=$(find $workdir/easybuild -name site-packages)
 #
 module --force purge
 export MODULEPATH=$installroot/modules/SoftwareStack
-export LMOD_PACKAGE_PATH=$installroot/SystemRepo/LMOD
-export LMOD_RC=$installroot/SystemRepo/LMOD/lmodrc.lua
+export LMOD_PACKAGE_PATH=$installroot/$repo/LMOD
+export LMOD_RC=$installroot/$repo/LMOD/lmodrc.lua
 export LUMI_PARTITION='common'
 module load LUMI/$stack_version
 module load partition/common
 # Need to use the full module name as the module is hidden in the default view!
 module load EasyBuild-production/LUMI
 $workdir/easybuild/bin/eb --show-config
-$workdir/easybuild/bin/eb $installroot/SystemRepo/easybuild/easyconfigs/e/EasyBuild/EasyBuild-${EBversion}.eb
+$workdir/easybuild/bin/eb $installroot/$repo/easybuild/easyconfigs/e/EasyBuild/EasyBuild-${EBversion}.eb
 
 #
 # - Clean up

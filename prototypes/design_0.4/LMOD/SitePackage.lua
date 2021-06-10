@@ -204,15 +204,17 @@ end
 -- information kept in a .csv file.
 --
 -- Input arguments
---   * install_root: Root of the LUMI software installation.
---     The .csv files are kept in installroot/SystemnRepo/CrayPE
 --   * package: Name of the package
 --   * CPE_version: Release of the Cray Programming Environment
 --
-function get_CPE_component( install_root, package, CPE_version )
+function get_CPE_component( package, CPE_version )
+
+    -- Get the location of the SitePackage.lua file; we assume that it is in the
+    -- LUMI repository.
+    local LMOD_root = os.getenv( 'LMOD_PACKAGE_PATH' )
 
     -- Compute the name of the file containing the CPE information.
-    local CPE_file = install_root .. '/SystemRepo/CrayPE/CPEpackages_' .. CPE_version .. '.csv'
+    local CPE_file = LMOD_root .. '/../CrayPE/CPEpackages_' .. CPE_version .. '.csv'
     CPE_file =  CPE_file:gsub( '//+', '/' )
 
     -- Read the CPE file
