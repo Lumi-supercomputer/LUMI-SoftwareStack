@@ -1,0 +1,41 @@
+# Compiler toolchain for Cray EX Programming Environment Cray compiler (cpe-cray)
+easyblock = 'CrayPEToolchain'
+
+name = 'cpeCray'
+version = "21.04"
+
+homepage = 'https://pubs.cray.com'
+
+whatis = [
+    "Desription: EasyBuild toolchain using the Cray compiler wrapper with cce module (CPE release %(version)s)"
+]
+
+description = """
+This module is the EasyBuild toolchain that uses the Cray compiler wrapper with
+the cce compiler activated. The components loaded are those of the Cray Programming
+Environment (CPE) version %(version)s.
+
+The toolchain works mostly the way a regular user would work with the CPE and will load
+the PrgEnv-gnu module, targetting modules, cce compiler module and ensure that some
+other necessary modules are also loaded, then also loads the cpe/%(version)s to fix the
+versions.
+
+"""
+
+toolchain = SYSTEM
+
+cray_targets = [
+    'craype-x86-rome',
+    'craype-accel-host',
+    'craype-network-ofi'
+]
+
+dependencies = [
+   ('cray-mpich',     EXTERNAL_MODULE),
+   ('cray-libsci',    EXTERNAL_MODULE),
+   ('cray-dsmml',     EXTERNAL_MODULE),
+   ('perftools-base', EXTERNAL_MODULE),
+   ('xpmem',          EXTERNAL_MODULE),
+]
+
+moduleclass = 'toolchain'
