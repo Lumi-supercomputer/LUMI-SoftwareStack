@@ -96,10 +96,6 @@ class CrayPEToolchain(Bundle):
 
         self.log.debug("Detected PrgEnv-module: %s", prgenv_mod)
 
-        if prgenv_mod is None:
-            raise EasyBuildError("Could not find a PrgEnv-* module listed as dependency: %s",
-                                 self.toolchain.dependencies)
-
         # unload statements for other PrgEnv modules
         prgenv_unloads = ['']
         for prgenv in [prgenv for prgenv in KNOWN_PRGENVS if not prgenv_mod.startswith(prgenv)]:
