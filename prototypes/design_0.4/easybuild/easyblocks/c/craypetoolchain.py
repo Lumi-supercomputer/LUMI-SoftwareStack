@@ -28,11 +28,13 @@ EasyBuild support for installing Cray cpe toolchains, implemented as an easybloc
 @author: Kenneth Hoste (Ghent University)
 @author: Guilherme Peretti Pezzi (CSCS)
 @author: Petar Forai (IMP/IMBA)
+#author: Kurt Lust (University of Antwerp and LUMI)
 """
 
 from easybuild.easyblocks.generic.bundle import Bundle
 from easybuild.tools.build_log import EasyBuildError
 from easybuild.framework.easyconfig import CUSTOM, MANDATORY
+from easybuild.tools.build_log import print_error, print_msg, print_warning
 
 # Supported programming environments
 KNOWN_PRGENVS = ['PrgEnv-aocc', 'PrgEnv-cray', 'PrgEnv-gnu', 'PrgEnv-intel']
@@ -82,9 +84,15 @@ class CrayPEToolchain(Bundle):
 
         # Determine the PrgEnv module
         if self.cfg['PrgEnv'] is None:
-            prgenv_mod = 'PrgEnv-' + MAP_TOOLCHAIN_PRGENV[self.cfg['name']]
+            try:
+                prgenv_mod = 'PrgEnv-' + MAP_TOOLCHAIN_PRGENV[self.cfg['name']]
+            except:
+                raise EasyBuildError('%s is not a supported toolchain, you\'ll need to specify both PrgEnv and CPE_compiler.',
+                                     self.cfg['name'])
         else:
             prgenv_mod = 'PrgEnv-' + self.cfg['PrgEnv']
+            if not prgenv_mod in KNOWN_PRGENVS:
+                print_warning('PrgEnv-%s is not a supported PrgEnv module. Are you sure it is not a typo?', prgenv_mod)
 
         self.log.debug("Detected PrgEnv-module: %s", prgenv_mod)
 
@@ -109,7 +117,11 @@ class CrayPEToolchain(Bundle):
 
         # Determine the compiler module
         if self.cfg['CPE_compiler'] in [ None, 'auto']:
-            compiler_mod = MAP_TOOLCHAIN_COMPILER[self.cfg['name']]
+            try:
+                compiler_mod = MAP_TOOLCHAIN_COMPILER[self.cfg['name']]
+            except:
+                raise EasyBuildError('%s is not a supported toolchain, you\'ll need to specify both PrgEnv and CPE_compiler.',
+                                     self.cfg['name'])
         else:
             compiler_mod = self.cfg['CPE_compiler']
 
