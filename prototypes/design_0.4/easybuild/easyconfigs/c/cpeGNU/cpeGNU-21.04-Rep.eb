@@ -1,5 +1,5 @@
 # Compiler toolchain for Cray EX Programming Environment GNU compiler (cpe-gnu)
-easyblock = 'CrayPEToolchain'
+easyblock = 'CrayPEToolchainRep'
 
 name = 'cpeGNU'
 version = "21.04"
@@ -15,18 +15,18 @@ This module is the EasyBuild toolchain that uses the Cray compiler wrapper with
 the gcc compiler activated. The components loaded are those of the Cray Programming
 Environment (CPE) version %(version)s.
 
-The toolchain works mostly the way a regular user would work with the CPE and will load
-the PrgEnv-gnu module, targetting modules, gcc compiler module and ensure that some
-other necessary modules are also loaded, then also loads the cpe/%(version)s to fix the
-versions.
+The toolchain works differently from the way the Cray PE usually works. Rather than
+loading PrgEnv-gnu and cpe/%(version)s, it loads concrete versions of all modules
+instead that would be loaded by these variants. This ensures better reproducibility
+as which modules are loaded by PrgEnv-gnu depends on a single configuration file
+on the system that may change over time. The net effect of the module is the same
+though.
 
 """
 
 toolchain = SYSTEM
 
-#PrgEnv = 'gnu'
-#CPE_compiler = 'gcc'
-#CPE_version = version
+PrgEnv = 'gnu'
 
 cray_targets = [
     'craype-x86-rome',
@@ -35,11 +35,13 @@ cray_targets = [
 ]
 
 dependencies = [
-   ('cray-mpich',     EXTERNAL_MODULE),
-   ('cray-libsci',    EXTERNAL_MODULE),
-   ('cray-dsmml',     EXTERNAL_MODULE),
-   ('perftools-base', EXTERNAL_MODULE),
-   ('xpmem',          EXTERNAL_MODULE),
+   ('gcc/9.3.0',              EXTERNAL_MODULE),
+   ('craype/2.7.6',           EXTERNAL_MODULE),
+   ('cray-mpich/8.1.4',       EXTERNAL_MODULE),
+   ('cray-libsci/21.04.1.1',  EXTERNAL_MODULE),
+   ('cray-dsmml/0.1.4',       EXTERNAL_MODULE),
+   ('perftools-base/21.02.0', EXTERNAL_MODULE),
+   ('xpmem',                  EXTERNAL_MODULE),
 ]
 
 moduleclass = 'toolchain'
