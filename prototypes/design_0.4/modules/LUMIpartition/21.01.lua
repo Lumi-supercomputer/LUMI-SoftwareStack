@@ -92,9 +92,9 @@ if ( partition ~= 'common' ) or ( mode() ~= 'spider' ) then
         prepend_path(     'MODULEPATH', pathJoin( '/opt/cray/pe/lmod/modulefiles/craype-targets', targets_version ) )
     end
     prepend_path(     'MODULEPATH', '/opt/cray/pe/lmod/modulefiles/core' )
-    local missing_core = pathJoin( module_root, 'missing', 'core' )
-    if isDir( missing_core ) then
-        prepend_path( 'MODULEPATH', missing_core )
+    local cray_overwrite_core = pathJoin( module_root, 'CrayOverwrite', 'core' )
+    if isDir( cray_overwrite_core ) then
+        prepend_path( 'MODULEPATH', cray_overwrite_core )
     end
     -- Configuration for EasyBuild to install in the requested partition (and maybe later for Spack)
     prepend_path(     'MODULEPATH', pathJoin( module_root, 'Infrastructure', stack_name_version, 'partition', partition ) )

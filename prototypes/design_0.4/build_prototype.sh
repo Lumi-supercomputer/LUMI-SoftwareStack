@@ -97,11 +97,8 @@ create_link $modsrc/easybuild/tools       $moddest/easybuild/tools
 #
 # Add missing modules (if any)
 #
-if [ $system == "Grenoble" ]
-then
-	mkdir -p $testroot/modules # Make sure that the directory exists
-	create_link $testroot/${repo}/modules/missing/$system $testroot/modules/missing
-fi
+mkdir -p $testroot/modules # Make sure that the directory exists
+create_link $testroot/${repo}/modules/CrayOverwrite/$system $testroot/modules/CrayOverwrite
 
 #
 # Create and populate the directory with EasyBuild sources simply to avoid
