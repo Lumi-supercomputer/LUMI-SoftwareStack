@@ -237,7 +237,7 @@ Changes compared to design 0.1:
 ## Running and installing the prototype
 
   * LMOD must be installed and correctly initialised before trying out the prototypes.
-    ``gpp`` is not needed for this version.
+    ``gpp`` is not needed for this version of the prototype.
 
   * ``prototypes/design_0.4`` contains the ``build_prototype.sh`` script to build
     the prototype (in $HOME/appltest/design_0.4).
@@ -1037,4 +1037,62 @@ And now one should be ready to install other software...
         with the extension .csv.
 
       * This file is used by a function in SitePackage.lua
+
+
+## Issues
+
+### Cray cpe module and /opt/cray/cpe/yy.mm/restore_lmod_system_defaults.sh script
+
+The Cray CPE system hijacks the ``LMOD_MODULERCFILE`` environment variable. This is
+a PATH-style variable and several modulerc files can be used concurrently. In that
+case they are specified as a column-separated list just as in, e.g., PATH. Hence
+the variable can be managed through the LMOD ``prepend_path`` and ``append_path`` functions
+and a site can add its own modulerc files too. Unfortunately this is not how the Cray
+PE works. There are two problems:
+
+  * The cpe module file contains
+
+    ```
+    setenv("LMOD_MODULERCFILE","/opt/cray/pe/cpe/21.04/modulerc.lua")
+    ```
+
+    which overwrites the current value of ``LMOD_MODULERC`` and hence deactivates any
+    modulerc file that might already be active.
+
+  * The script ``/opt/cray/pe/cpe/21.04/restore_lmod_system_defaults.sh`` is even worse.
+    It is supposed to only run after unloading the ``cpe`` module. As ``LMOD_MODULERC``
+    has already been unset at that time, it makes no sense to unset it at the start of
+    the script. In fact, as the script does not unload ``cpe`` itself, it can now lead
+    to an inconsistent situation: As ``LMOD_MODULERC`` is unset, the default versions of
+    modules will no longer be determined by the modulerc file corresponding to the still
+    loaded ``cpe`` module, so the ``restore_lmod_defaults`` switch will reload loaded
+    modules with the version that LMOD considers the default (the one with the highest
+    version number). This can sometimes even be observed on a system with just a single
+    version of the programming environment. E.g., in the 21.04 release both the 9.3.0
+    and 10.2.0 release of GCC are provided but the ``cpe/21.04`` module loads the 9.3.0
+    module as default (at least on the Swiss Eiger system on which I tested). Now as
+    running the ``restore_lmod_system_defaults`` script will unset ``LMOD_MODULERC``
+    and then run over the loaded modules from the PE, it will reset the version of
+    gcc (if loaded) to 10.2.0 instead of 9.3.0.
+
+Proposed solution:
+
+  * Be kind in ``cpe/yy.mm.lua`` and use ``prepend_path`` or ``append_path`` rather
+    than ``setenv`` so that already loaded modulerc files remain active.
+
+  * In the ``/opt/cray/pe/cpe/21.04/restore_lmod_system_defaults.[sh|csh]`` scripts,
+    ensure that the ``cpe`` module is unloaded and if not unload it at the beginning
+    of the module. This will also take care of ``LMOD_MODULERC`` and should ensure
+    that the cpe-specific modulerc file is no longer in ``LMOD_MODULERC`` so that the
+    following ``module switch`` commands will indeed restore the defaults.
+
+To me it seems that the ``restore_lmod_system_defaults.[sh|csh]`` are even independent
+of the version of the CPE as long as only versions 21.04 or more recent are installed
+(I'm not sure about older versions) and that the script could be easily replaced by
+a module file that when loaded reloads unversioned modules for all loaded modules in
+exactly the same way as the current ``cpe/yy.mm`` modules reload versioned modules
+for all loaded modules.
+
+
+
 
