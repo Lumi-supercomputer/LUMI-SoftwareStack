@@ -24,7 +24,7 @@ HDF5,1.12.0.2
 NetCDF,4.7.4.2
 parallel-netcdf,1.12.1.1
 iobuf,2.0.10
-GCC,9.3.0
+GCC,10.2.0
 GCC8,8.1.0
 GCC9,9.3.0
 GCC10,10.2.0
