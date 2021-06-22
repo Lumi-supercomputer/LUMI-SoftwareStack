@@ -6,7 +6,7 @@
 lua_version=5.4.3
 luarocks_version=3.7.0
 tcl_version=8.6.11
-lmod_version=8.5.3
+lmod_version=8.5.6
 
 # Just to be sure, add the binary directory to the PATH.
 PATH=$HOME/appl/bin:$PATH
@@ -66,7 +66,8 @@ cd $HOME/work
 [[ -f lmod-$lmod_version.tar.gz ]] || eval "wget https://github.com/TACC/Lmod/archive/refs/tags/$lmod_version.tar.gz ; mv $lmod_version.tar.gz lmod-$lmod_version.tar.gz"
 tar -xf lmod-$lmod_version.tar.gz
 cd $HOME/work/Lmod-$lmod_version
-TCL_INCLUDE=$HOME/appl/include \
+TCL_INCLUDE=-I$HOME/appl/include \
+PATH_TO_TCLSH=$HOME/appl/bin/tclsh8.6 \
 ./configure --prefix=$HOME/appl/share \
             --with-lua_include=/$HOME/appl/include \
             --with-lua=$HOME/appl/bin/lua \
