@@ -98,7 +98,7 @@
     is set as default in the original CPE subdirectory, one should make sure that that
     is overruled in the ``CrayOverwrite`` subdirectory for that module.
 
-  * [``StyleModifiers`](../modules/StyleModifiers): A set of small modules that change
+  * [``StyleModifiers``](../modules/StyleModifiers): A set of small modules that change
     the presentation of the module display by ``module avail``. These modules simply
     set one or more environment variables, one LUMI-specific one and the other LMOD
     configuration variables.
