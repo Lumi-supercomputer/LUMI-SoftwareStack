@@ -2,6 +2,8 @@
 
 *As GitHub markdown has pretty poor tables we currently use a list layout.*
 
+[TOC]
+
 ## CrayPE subdirectory
 
   * ``CPEpackages_yy.mm.csv`` files: Two-column .csv files defining the components
@@ -16,13 +18,13 @@
   * The ``LMOD`` subdirectory itself is set as the value of the environment variable
     ``LMOD_PACKAGE_PATH`` in the system setup.
 
-  *  ``admin.lst``: Set as the value of the environment variable ``LMOD_ADMIN_FILE``
-     in the system setup.
+  *  [``admin.lst``](../LMOD/admin.lst): Set as the value of the environment variable
+     ``LMOD_ADMIN_FILE``      in the system setup.
 
-  * ``lmodrc.lua``: Set as the value of the environment variable ``LMOD_RC``
-     in the system setup.
+  * [``lmodrc.lua``](../LMOD/lmodrc.ua): Set as the value of the environment variable
+    ``LMOD_RC`` in the system setup.
 
-  * ``LUMIstack_yy.mm_modulerc.lua`` files: Added to the list of modulerc files in
+  * [``LUMIstack_yy.mm_modulerc.lua``](../LMOD/) files: Added to the list of modulerc files in
     the ``LMOD_MODULERCFILE`` environment variable by the
     [``modules/LUMIstack``](../modules/LUMIstack) generic
     module files for the ``LUMI/yy.mm`` modules.
@@ -31,16 +33,17 @@
     of everything the ``cpe/yy.mm`` modules might do (unless they really overwrite
     ``LMOD_MODULERCFILE``).
 
-  * ``LUMIstack_modulerc.lua`` files: Added to the list of modulerc files in
-    the ``LMOD_MODULERCFILE`` environment variable by the ``modules/LUMIstack`` generic
+  * [``LUMIstack_modulerc.lua``](../LNMOD/LUMIstack_modulerc.lua) files: Added to the
+    list of modulerc files in the ``LMOD_MODULERCFILE`` environment variable by the
+    [``modules/LUMIstack``](../modules/LUMIstack) generic
     module files for the ``LUMI/yy.mm`` modules.
 
     Used to hide a number of modules that are of no use to ordinary users when using
     the LUMI software stacks, and provide some user-friendly aliases for the partition
     modules.
 
-  * ``SitePackage.lua``: Referred to indirectly by the ``LMOD_PACKAGE_PATH`` system
-    environment variable.
+  * [``SitePackage.lua``](../LMOD/SitePackage.lua): Referred to indirectly by the
+    ``LMOD_PACKAGE_PATH`` system environment variable.
 
     Used for various purposes
 
