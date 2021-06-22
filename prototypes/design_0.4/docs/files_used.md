@@ -2,7 +2,6 @@
 
 *As GitHub markdown has pretty poor tables we currently use a list layout.*
 
-[TOC]
 
 ## CrayPE subdirectory
 
@@ -18,10 +17,10 @@
   * The ``LMOD`` subdirectory itself is set as the value of the environment variable
     ``LMOD_PACKAGE_PATH`` in the system setup.
 
-  *  [``admin.lst``](../LMOD/admin.lst): Set as the value of the environment variable
+  *  [``admin.list``](../LMOD/admin.list): Set as the value of the environment variable
      ``LMOD_ADMIN_FILE``      in the system setup.
 
-  * [``lmodrc.lua``](../LMOD/lmodrc.ua): Set as the value of the environment variable
+  * [``lmodrc.lua``](../LMOD/lmodrc.lua): Set as the value of the environment variable
     ``LMOD_RC`` in the system setup.
 
   * [``LUMIstack_yy.mm_modulerc.lua``](../LMOD/) files: Added to the list of modulerc files in
@@ -33,7 +32,7 @@
     of everything the ``cpe/yy.mm`` modules might do (unless they really overwrite
     ``LMOD_MODULERCFILE``).
 
-  * [``LUMIstack_modulerc.lua``](../LNMOD/LUMIstack_modulerc.lua) files: Added to the
+  * [``LUMIstack_modulerc.lua``](../LMOD/LUMIstack_modulerc.lua) files: Added to the
     list of modulerc files in the ``LMOD_MODULERCFILE`` environment variable by the
     [``modules/LUMIstack``](../modules/LUMIstack) generic
     module files for the ``LUMI/yy.mm`` modules.
