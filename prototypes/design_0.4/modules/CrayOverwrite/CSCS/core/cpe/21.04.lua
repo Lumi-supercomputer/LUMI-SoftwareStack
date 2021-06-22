@@ -1,10 +1,8 @@
 if os.getenv( '_LUMI_LMOD_DEBUG' ) ~= nil then
     LmodMessage( 'DEBUG: ' .. mode() .. ' ' .. myModuleFullName() .. ': Entering' )
     local lmod_modulercfile = os.getenv( 'LMOD_MODULERCFILE' ) or ''
-    LmodMessage( 'DEBUG: Found LMOD_MODULERC = ' .. lmod_modulercfile )
+    LmodMessage( 'DEBUG: Found LMOD_MODULERCFILE = ' .. lmod_modulercfile )
 end
-
-local data_root = myFileName():match( '(.*/modules_version/CrayOverwrite)/.*' )
 
 whatis( "Description: Enables the " .. myModuleVersion() .. " version of the CPE" )
 
@@ -19,7 +17,7 @@ version will be loaded in the version from the ]] .. myModuleVersion() .. [[ rel
 ]] )
 
 
-append_path( 'LMOD_MODULERCFILE', pathJoin( data_root, 'data-cpe', myModuleVersion(), 'modulerc.lua' ) )
+append_path("LMOD_MODULERCFILE","/opt/cray/pe/cpe/21.04/modulerc.lua")
 
 --
 -- Array: Order in which the modules should be loaded
@@ -29,11 +27,11 @@ modules = {
     "PrgEnv-cray",
     "PrgEnv-gnu",
     "PrgEnv-intel",
---    "PrgEnv-nvidia",
+    "PrgEnv-nvidia",
     "cce",
     "gcc",
---    "aocc",
---    "nvidia",
+    "aocc",
+    "nvidia",
     "craype",
     "cray-fftw",
     "cray-hdf5",
@@ -48,16 +46,16 @@ modules = {
     "cray-ccdb",
     "cray-cti",
     "cray-dsmml",
---    "cray-jemalloc",
+    "cray-jemalloc",
     "cray-libsci",
     "cray-pmi",
     "cray-pmi-lib",
     "cray-python",
     "cray-stat",
---    "craype-dl-plugin-py3",
+    "craype-dl-plugin-py3",
     "craypkg-gen",
     "gdb4hpc",
---    "iobuf",
+    "iobuf",
     "modules",
     "papi",
     "perftools-base",
@@ -66,42 +64,41 @@ modules = {
 --
 -- Table: Version of each module
 --
--- Out-commented modules_version are not on the Grenoble system
 modules_version = {}
--- modules_version["PrgEnv-aocc"] = "8.0.0"
+modules_version["PrgEnv-aocc"] = "8.0.0"
 modules_version["PrgEnv-cray"] = "8.0.0"
 modules_version["PrgEnv-gnu"] = "8.0.0"
 modules_version["PrgEnv-intel"] = "8.0.0"
--- modules_version["PrgEnv-nvidia"] = "8.0.0"
+modules_version["PrgEnv-nvidia"] = "8.0.0"
 modules_version["aocc"] = "2.2.0.1"
 modules_version["atp"] = "3.13.1"
 modules_version["cce"] = "11.0.4"
 modules_version["cray-R"] = "4.0.3.0"
 modules_version["cray-ccdb"] = "4.11.1"
-modules_version["cray-cti"] = "2.13.5"
-modules_version["cray-dsmml"] = "0.1.1"
-modules_version["cray-fftw"] = "3.3.8.8"
-modules_version["cray-hdf5"] = "1.12.0.2"
-modules_version["cray-hdf5-parallel"] = "1.12.0.2"
--- modules_version["cray-jemalloc"] = "5.1.0.4"
+modules_version["cray-cti"] = "2.13.6"
+modules_version["cray-dsmml"] = "0.1.4"
+modules_version["cray-fftw"] = "3.3.8.9"
+modules_version["cray-hdf5"] = "1.12.0.3"
+modules_version["cray-hdf5-parallel"] = "1.12.0.3"
+modules_version["cray-jemalloc"] = "5.1.0.4"
 modules_version["cray-libsci"] = "21.04.1.1"
 modules_version["cray-mpich"] = "8.1.4"
-modules_version["cray-netcdf"] = "4.7.4.2"
-modules_version["cray-netcdf-hdf5parallel"] = "4.7.4.2"
-modules_version["cray-openshmemx"] = "11.1.0.beta"
-modules_version["cray-parallel-netcdf"] = "1.12.1.1"
+modules_version["cray-netcdf"] = "4.7.4.3"
+modules_version["cray-netcdf-hdf5parallel"] = "4.7.4.3"
+modules_version["cray-openshmemx"] = "11.2.0"
+modules_version["cray-parallel-netcdf"] = "1.12.1.3"
 modules_version["cray-pmi"] = "6.0.10"
 modules_version["cray-pmi-lib"] = "6.0.10"
--- modules_version["cray-python"] = "3.8.5.0"
-modules_version["cray-stat"] = "4.7.1"
+modules_version["cray-python"] = "3.8.5.0"
+modules_version["cray-stat"] = "4.10.1"
 modules_version["craype"] = "2.7.6"
--- modules_version["craype-dl-plugin-py3"] = "21.04.1"
+modules_version["craype-dl-plugin-py3"] = "21.04.1"
 modules_version["craypkg-gen"] = "1.3.14"
-modules_version["gcc"] = "10.2.0"
-modules_version["gdb4hpc"] = "4.11.5"
--- modules_version["iobuf"] = "2.0.10"
+modules_version["gcc"] = "9.3.0"
+modules_version["gdb4hpc"] = "4.12.5"
+modules_version["iobuf"] = "2.0.10"
 modules_version["modules_version"] = "3.2.11.4"
--- modules_version["nvidia"] = "20.9"
+modules_version["nvidia"] = "20.9"
 modules_version["papi"] = "6.0.0.6"
 modules_version["perftools-base"] = "21.02.0"
 

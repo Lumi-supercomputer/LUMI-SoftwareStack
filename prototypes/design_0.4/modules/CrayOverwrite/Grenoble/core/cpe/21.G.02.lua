@@ -1,52 +1,137 @@
-setenv("LMOD_MODULERCFILE","/opt/cray/pe/cpe/21.04/modulerc.lua")
--- Out-commented modules are not on the Grenoble system
-modules = {}
--- modules["PrgEnv-aocc"] = "8.0.0"
-modules["PrgEnv-cray"] = "8.0.0"
-modules["PrgEnv-gnu"] = "8.0.0"
-modules["PrgEnv-intel"] = "8.0.0"
--- modules["PrgEnv-nvidia"] = "8.0.0"
--- modules["aocc"] = "2.2.0.1"
-modules["atp"] = "3.11.6"
-modules["cce"] = "11.0.2"
-modules["cray-R"] = "4.0.3.0"
-modules["cray-ccdb"] = "4.10.4"
-modules["cray-cti"] = "2.11.6"
-modules["cray-dsmml"] = "0.1.1"
-modules["cray-fftw"] = "3.3.8.8"
-modules["cray-hdf5"] = "1.12.0.2"
-modules["cray-hdf5-parallel"] = "1.12.0.2"
--- modules["cray-jemalloc"] = "5.1.0.4"
-modules["cray-libsci"] = "20.12.1.2"
-modules["cray-libsci_acc"] = "21.02.9.1"
-modules["cray-mpich"] = "8.1.2"
-modules["cray-netcdf"] = "4.7.4.2"
-modules["cray-netcdf-hdf5parallel"] = "4.7.4.2"
-modules["cray-openshmemx"] = "11.1.0.beta"
-modules["cray-parallel-netcdf"] = "1.12.1.1"
-modules["cray-pmi"] = "6.0.9"
-modules["cray-pmi-lib"] = "6.0.9"
--- modules["cray-python"] = "3.8.5.0"
-modules["cray-stat"] = "4.7.1"
-modules["craype"] = "2.7.5"
--- modules["craype-dl-plugin-py3"] = "21.04.1"
-modules["craypkg-gen"] = "1.3.13"
-modules["gcc"] = "9.3.0"
-modules["gdb4hpc"] = "4.10.6"
--- modules["iobuf"] = "2.0.10"
-modules["modules"] = "3.2.11.4"
--- modules["nvidia"] = "20.9"
-modules["papi"] = "6.0.0.6"
-modules["perftools-base"] = "21.02.0"
+if os.getenv( '_LUMI_LMOD_DEBUG' ) ~= nil then
+    LmodMessage( 'DEBUG: ' .. mode() .. ' ' .. myModuleFullName() .. ': Entering' )
+    local lmod_modulercfile = os.getenv( 'LMOD_MODULERCFILE' ) or ''
+    LmodMessage( 'DEBUG: Found LMOD_MODULERC = ' .. lmod_modulercfile )
+end
+
+local data_root = myFileName():match( '(.*/modules_version/CrayOverwrite)/.*' )
+
+whatis( "Description: Enables the " .. myModuleVersion() .. " version of the CPE" )
+
+help( [[
+Description
+===========
+Loading this module enables the ]] .. myModuleVersion() .. [[ version of the CPE. It will
+switch all already loaded CPE modules_version to the version from the ]]  .. myModuleVersion() .. [[ release
+and ensure that all further CPE modules_version that are loaded without specifying a
+version will be loaded in the version from the ]] .. myModuleVersion() .. [[ release.
+
+]] )
+
+
+append_path( 'LMOD_MODULERCFILE', pathJoin( data_root, 'data-cpe', myModuleVersion(), 'modulerc.lua' ) )
+
+--
+-- Array: Order in which the modules should be loaded
+--
+modules = {
+    "PrgEnv-aocc",
+    "PrgEnv-cray",
+    "PrgEnv-gnu",
+    "PrgEnv-intel",
+--    "PrgEnv-nvidia",
+    "cce",
+    "gcc",
+--    "aocc",
+--    "nvidia",
+    "craype",
+    "cray-fftw",
+    "cray-hdf5",
+    "cray-netcdf",
+    "cray-mpich",
+    "cray-parallel-netcdf",
+    "cray-hdf5-parallel",
+    "cray-netcdf-hdf5parallel",
+    "cray-openshmemx",
+    "atp",
+    "cray-R",
+    "cray-ccdb",
+    "cray-cti",
+    "cray-dsmml",
+--    "cray-jemalloc",
+    "cray-libsci",
+    "cray-pmi",
+    "cray-pmi-lib",
+    "cray-python",
+    "cray-stat",
+--    "craype-dl-plugin-py3",
+    "craypkg-gen",
+    "gdb4hpc",
+--    "iobuf",
+    "modules",
+    "papi",
+    "perftools-base",
+}
+
+--
+-- Table: Version of each module
+--
+-- Out-commented modules_version are not on the Grenoble system
+modules_version = {}
+-- modules_version["PrgEnv-aocc"] = "8.0.0"
+modules_version["PrgEnv-cray"] = "8.0.0"
+modules_version["PrgEnv-gnu"] = "8.0.0"
+modules_version["PrgEnv-intel"] = "8.0.0"
+-- modules_version["PrgEnv-nvidia"] = "8.0.0"
+-- modules_version["aocc"] = "2.2.0.1"
+modules_version["atp"] = "3.11.6"
+modules_version["cce"] = "11.0.2"
+modules_version["cray-R"] = "4.0.3.0"
+modules_version["cray-ccdb"] = "4.10.4"
+modules_version["cray-cti"] = "2.11.6"
+modules_version["cray-dsmml"] = "0.1.1"
+modules_version["cray-fftw"] = "3.3.8.8"
+modules_version["cray-hdf5"] = "1.12.0.2"
+modules_version["cray-hdf5-parallel"] = "1.12.0.2"
+-- modules_version["cray-jemalloc"] = "5.1.0.4"
+modules_version["cray-libsci"] = "20.12.1.2"
+modules_version["cray-libsci_acc"] = "21.02.9.1"
+modules_version["cray-mpich"] = "8.1.2"
+modules_version["cray-netcdf"] = "4.7.4.2"
+modules_version["cray-netcdf-hdf5parallel"] = "4.7.4.2"
+modules_version["cray-openshmemx"] = "11.1.0.beta"
+modules_version["cray-parallel-netcdf"] = "1.12.1.1"
+modules_version["cray-pmi"] = "6.0.9"
+modules_version["cray-pmi-lib"] = "6.0.9"
+-- modules_version["cray-python"] = "3.8.5.0"
+modules_version["cray-stat"] = "4.7.1"
+modules_version["craype"] = "2.7.5"
+-- modules_version["craype-dl-plugin-py3"] = "21.04.1"
+modules_version["craypkg-gen"] = "1.3.13"
+modules_version["gcc"] = "10.2.0"
+modules_version["gdb4hpc"] = "4.10.6"
+-- modules_version["iobuf"] = "2.0.10"
+modules_version["modules_version"] = "3.2.11.4"
+-- modules_version["nvidia"] = "20.9"
+modules_version["papi"] = "6.0.0.6"
+modules_version["perftools-base"] = "21.02.0"
+
+local warning = [[
+Unloading the cpe module is insufficient to restore the system defaults.
+Please load the cpe/restore-defaults module after unloading this module
+to complete the restoration of the system defaults.
+If you arrived at this message by loading cpe/restore-defaults, you'll need
+to execute load cpe/restore-defaults a second time. This is the result of
+some design decisions in the LMOD software.
+]]
+
 if (mode() == "unload") then
-    LmodMessage("Unloading the cpe module is insufficient to restore the system defaults.")
-    LmodMessage("Please run 'source /opt/cray/pe/cpe/21.04/restore_lmod_system_defaults.[csh|sh]'.")
+    LmodMessage( warning )
 elseif (mode() == "load" or mode() == "show") then
-    for mod,ver in pairs(modules)
+    for _,mod in pairs(modules)
     do
         if (isloaded(mod)) then
+            if os.getenv( '_LUMI_LMOD_DEBUG' ) ~= nil then
+                LmodMessage( 'DEBUG: ' .. mode() .. ' ' .. myFileName() .. ': Swtiching ' .. mod .. ' to ' .. mod .. '/' .. modules_version[mod] )
+            end
             unload(mod)
-            load(mod .. "/" .. ver)
+            load(mod .. "/" .. modules_version[mod])
         end
     end
+end
+
+-- Some information for debugging
+
+if os.getenv( '_LUMI_LMOD_DEBUG' ) ~= nil then
+    LmodMessage( 'DEBUG: ' .. mode() .. ' ' .. myFileName() .. ': Exiting' )
 end
