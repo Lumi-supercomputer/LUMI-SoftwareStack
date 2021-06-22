@@ -14,7 +14,7 @@
 
 ## LMOD subdirectory
 
-  * The ``LMOD`` subdirectory itself is set as the value of the environment variable
+  * The [``LMOD``](../LMOD) subdirectory itself is set as the value of the environment variable
     ``LMOD_PACKAGE_PATH`` in the system setup.
 
   *  [``admin.list``](../LMOD/admin.list): Set as the value of the environment variable
@@ -69,12 +69,116 @@
         Cray targeting modules to add that directory to the MODULEPATH.
 
 
+## modules subdirectory
+
+  * [``CraEnv.lua``](../modules/CrayEnv.lua): Module providing the plain nearly unmodified
+    Cray Programming Environment.
+
+    We do overwrite a number of CPE files in the [``modules/CrayOverwrite``](../modules/CrayOverwrite)
+    subdirectory to work around problems in some of the Cray module files.
+
+  * [``EasyBuild-config``](../modules/EasyBuild-config): A generic EasyBuild
+    configuration module that instantiates into the ``EasyBuild-production``,
+    ``EasyBuild-infrastructure`` and ``EasyBuild-user`` modules in each partition
+    of the LUMI software stacks.
+
+  * [``LUMIstack``](../modules/LUMIstack): Generic implementation(s) of the LUMI software
+    stack modules. The actual modules can simply link to the right version of the generic
+    module file.
+
+  * [``LUMIpartition``](../modules/LUMIpartition): Generic implementation(s) of the
+    LUMI partition modules. The actual modules can simply link to the right version
+    of the generic module file.
+
+  * [``CrayOverwrite``](../modules/CrayOverwrite): A directory with modulefiles that
+    should overwrite standard CPE module files that have behaviour that conflicts with
+    our setup.
+
+    The process of overruling a Cray module may not be easy: If one of those modules
+    is set as default in the original CPE subdirectory, one should make sure that that
+    is overruled in the ``CrayOverwrite`` subdirectory for that module.
+
+  * [``StyleModifiers`](../modules/StyleModifiers): A set of small modules that change
+    the presentation of the module display by ``module avail``. These modules simply
+    set one or more environment variables, one LUMI-specific one and the other LMOD
+    configuration variables.
+
+    These modules include:
+
+      * [``ModuleColour``](../modules/StyleModifiers/ModuleColour): Switch between
+        colour and black-and-white display of the modules
+
+      * [``ModuleExtensions``](../modules/StyleModifiers/ModuleExtensions): Show or
+        hide the display of extensions in the output of ``module avail``.
+
+      * [``ModuleLabel``](../modules/StyleModifiers/ModuleLabel): Switch between three
+        ways of displaying the module subdirectories:
+
+          * ``label``: Give the module subdirectories meaningful names and collapses
+            all directories in the CPE module hierarchy.
+
+          * ``PEhierarcy``: Give the module subdirectories meaningful names but do
+            not collapse the directories in the CPE module hierarchy
+
+          * ``system``: Show the directory names of all modules subdirectories
+
+      * [``ModulePowerUser``](../modules/StyleModifiers/ModulePowerUser): Enables the power
+        user view of the module system: Less modules are hidden, but using those modules
+        that are otherwise hidden is not supported by the LUMI User Support Team. These
+        modules may not work under a regular user account or are their use is not documented
+        in the regular LUMI documentation as they are only meant for support staff.
+
+      * [``ModuleStyle``](../modules/StyleModifiers/ModuleStyle): Used to return to
+        the situation at login or the default for the system.
+
+For the [``EasyBuild-config``](../modules/EasyBuild-config), [``LUMIstack``](../modules/LUMIstack)
+and [``LUMIpartition``](../modules/LUMIpartition) modules we adopted a special version
+numbering: They are numbered in the same way as CPE releases and a particular module
+for any LUMI stack we use the most recent version that is not younger than the correpsonding
+CPE/LUMI stack.
+
+
+## easybuild/config subdirectory
+
+The files are referred to by the [``EasyBuild-config``](../modules/EasyBuild-config)
+generic module file.
+
+
+## easybuild/easyblocks subdirectory
+
+This is the subdirectory for the LUMI custom EasyBlocks. We use a scheme with subdirectories
+as in the main EasyBlock repository.
+
+
+## easybuild/easyconfigs subdirectory
+
+EasyConfig repository for LUMI.
+
+
+## easybuild/tools subdirectory
+
+TODO. Various customizations to the EasyBuild framework.
+
+  * [``module_naming_scheme``](../easybuild/tools/module_naming_scheme) subdirectory:
+    LUMI uses a customised flat EasyBuild naming scheme. The links by moduleclass are
+    omitted as they are not used in our module system.
+
+    Note that the [``EasyBuild-config``](../modules/EasyBuild-config) generic module
+    also sets the environment variable ``EASYBUILD_SUFFIX_MODULES_PATH`` to the empty
+    string to omit the ``all`` level in the EasyBuild modules directory structure.
+
+
 ## Note: Files and directories referred to from outside the LUMI software structure
 
-  * ``LMOD`` subdirectory itself as the value of the environment variable
+  * [``LMOD``](../LMOD) subdirectory itself as the value of the environment variable
     ``LMOD_PACKAGE_PATH``
 
-  * ``LMOD/admin.lst`` as the value of the environment variable ``LMOD_ADMIN_FILE``
+  * [``LMOD/admin.list``](../LMOD/admin.list) as the value of the environment variable
+     ``LMOD_ADMIN_FILE``
 
-  * ``LMOD/lmodrc.lua`` as the value of the environment variable ``LMOD_RC``
+  * [``LMOD/lmodrc.lua``](../LMOD/lmodrc.lua) as the value of the environment variable
+    ``LMOD_RC``
+
+  * Not a reference to a file, but the system should set ``LMOD_AVAIL_STYLE`` to
+    ``<label>:PEhierarchy:system``.
 
