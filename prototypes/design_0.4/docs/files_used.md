@@ -23,7 +23,8 @@
      in the system setup.
 
   * ``LUMIstack_yy.mm_modulerc.lua`` files: Added to the list of modulerc files in
-    the ``LMOD_MODULERCFILE`` environment variable by the ``modules/LUMIstack`` generic
+    the ``LMOD_MODULERCFILE`` environment variable by the
+    [``modules/LUMIstack``](../modules/LUMIstack) generic
     module files for the ``LUMI/yy.mm`` modules.
 
     Sets the default versions for the CPE release yy.mm in a way that is independent
