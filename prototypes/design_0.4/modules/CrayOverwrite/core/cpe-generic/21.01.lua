@@ -4,7 +4,7 @@ if os.getenv( '_LUMI_LMOD_DEBUG' ) ~= nil then
     LmodMessage( 'DEBUG: Found LMOD_MODULERC = ' .. lmod_modulercfile )
 end
 
-local data_root = myFileName():match( '(.*/modules_version/CrayOverwrite)/.*' )
+local data_root = myFileName():match( '(.*/modules/CrayOverwrite)/.*' )
 
 whatis( "Description: Enables the " .. myModuleVersion() .. " version of the CPE" )
 
@@ -18,8 +18,13 @@ version will be loaded in the version from the ]] .. myModuleVersion() .. [[ rel
 
 ]] )
 
-
-append_path( 'LMOD_MODULERCFILE', pathJoin( data_root, 'data-cpe', myModuleVersion(), 'modulerc.lua' ) )
+local native_modulerc = pathJoin( '/opt/cray/pe/cpe', myModuleVersion(), 'modulerc.lua' )
+local shadow_modulerc = pathJoin( data_root, 'data-cpe', myModuleVersion(), 'modulerc.lua' )
+if isFile( native_modulerc ) then
+    append_path( 'LMOD_MODULERCFILE', native_modulerc )
+else
+    append_path( 'LMOD_MODULERCFILE', shadow_modulerc )
+end
 
 --
 -- Get the package versions

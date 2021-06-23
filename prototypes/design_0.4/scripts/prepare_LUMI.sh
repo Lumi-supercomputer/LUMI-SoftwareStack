@@ -11,11 +11,11 @@
 
 # That cd will work if the script is called by specifying the path or is simply
 # found on PATH. It will not expand symbolic links.
-cd $(dirname $0)
+cd "$(dirname $0)"
 cd ..
-repo=${PWD##*/}
+repo="${PWD##*/}"
 cd ..
-installroot=$(pwd)
+installroot="$(pwd)"
 
 #
 # Functions used in this script
@@ -36,46 +36,62 @@ create_link () {
 # We use more commands than strictly necessary, which can give more precise
 # error messages.
 #
-mkdir -p $installroot/modules
-mkdir -p $installroot/modules/SoftwareStack
-mkdir -p $installroot/modules/SoftwareStack/LUMI     # For the LUMI/yy.mm module files
-mkdir -p $installroot/modules/SystemPartition
-mkdir -p $installroot/modules/SystemPartition/LUMI   # For LUMI/yy.mm subdirectories
-mkdir -p $installroot/modules/easybuild
-mkdir -p $installroot/modules/easybuild/LUMI
-mkdir -p $installroot/modules/spack
-mkdir -p $installroot/modules/spack/LUMI
-mkdir -p $installroot/modules/manual
-mkdir -p $installroot/modules/manual/LUMI
-mkdir -p $installroot/modules/Infrastructure
-mkdir -p $installroot/modules/Infrastructure/LUMI
+mkdir -p "$installroot/modules"
+mkdir -p "$installroot/modules/CrayOverwrite"
+mkdir -p "$installroot/modules/CrayOverwrite/core"
+mkdir -p "$installroot/modules/CrayOverwrite/core/cpe"
+mkdir -p "$installroot/modules/SoftwareStack"
+mkdir -p "$installroot/modules/SoftwareStack/LUMI"     # For the LUMI/yy.mm module files
+mkdir -p "$installroot/modules/SystemPartition"
+mkdir -p "$installroot/modules/SystemPartition/LUMI"   # For LUMI/yy.mm subdirectories
+mkdir -p "$installroot/modules/easybuild"
+mkdir -p "$installroot/modules/easybuild/LUMI"
+mkdir -p "$installroot/modules/spack"
+mkdir -p "$installroot/modules/spack/LUMI"
+mkdir -p "$installroot/modules/manual"
+mkdir -p "$installroot/modules/manual/LUMI"
+mkdir -p "$installroot/modules/Infrastructure"
+mkdir -p "$installroot/modules/Infrastructure/LUMI"
 
-mkdir -p $installroot/SW
+mkdir -p "$installroot/SW"
 
-mkdir -p $installroot/mgmt
-mkdir -p $installroot/mgmt/ebrepo_files
+mkdir -p "$installroot/mgmt"
+mkdir -p "$installroot/mgmt/ebrepo_files"
 
-mkdir -p $installroot/sources
-mkdir -p $installroot/sources/easybuild
-mkdir -p $installroot/sources/easybuild/e
-mkdir -p $installroot/sources/easybuild/e/EasyBuild
+mkdir -p "$installroot/sources"
+mkdir -p "$installroot/sources/easybuild"
+mkdir -p "$installroot/sources/easybuild/e"
+mkdir -p "$installroot/sources/easybuild/e/EasyBuild"
+
+#
+# Link the cpe/restore-defaults module
+#
+create_link "$installroot/$repo/modules/CrayOverwrite/core/cpe/restore-defaults.lua" \
+            "$installroot/modules/CrayOverwrite/core/cpe/restore-defaults.lua"
+#
+# We set the default cpe module to cpe/restore-defaults to take it away from the Cray PE
+# directories.
+#
+cat >"$installroot/modules/CrayOverwrite/core/cpe/.modulerc.lua" <<EOF
+module_version( "restore-defaults", "default" )
+EOF
 
 #
 # Link the CrayEnv module
 #
-create_link $installroot/$repo/modules/CrayEnv.lua  $installroot/modules/SoftwareStack/CrayEnv.lua
+create_link "$installroot/$repo/modules/CrayEnv.lua"  "$installroot/modules/SoftwareStack/CrayEnv.lua"
 
 #
 # Link the style modules
 #
 # We simply link the directory. The defaults are set in LMOD/modulerc.lua
 #
-create_link $installroot/$repo/modules/StyleModifiers $installroot/modules/StyleModifiers
+create_link "$installroot/$repo/modules/StyleModifiers" "$installroot/modules/StyleModifiers"
 
 #
 # Create a modulerc file in the SoftwareStack subdirectory to mark the default software stack.
 # Initialy the default is set to a non-existing module, but we want to create the file.
 #
-cat >$installroot/modules/SoftwareStack/LUMI/.modulerc.lua <<EOF
-module_version( "LUMI/00.00", "default" )
+cat >"$installroot/modules/SoftwareStack/LUMI/.modulerc.lua" <<EOF
+module_version( "00.00", "default" )
 EOF

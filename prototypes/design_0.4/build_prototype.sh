@@ -70,46 +70,11 @@ mkdir -p $testroot
 ################################################################################
 ################################################################################
 
-mkdir -p $testroot/${repo}
+mkdir -p "$testroot/$repo"
 
-mkdir -p $testroot/${repo}
-# Normally $testroot/${repo} would just be our github repository, even though some files
-# in there are generated from other files. However, to ease editing in the prototype
-# and since we're running this on two clusters, we're selectively linking to some
-# parts of the GitHub repository.
-modsrc=$sourceroot
-moddest=$testroot/${repo}
-create_link $modsrc/modules $moddest/modules
-create_link $modsrc/LMOD    $moddest/LMOD
-create_link $modsrc/scripts $moddest/scripts
-create_link $modsrc/CrayPE  $moddest/CrayPE
+"$sourceroot/scripts/create_shadow.sh" "$testroot" "$repo"
 
-PATH=$modsrc/scripts:$PATH
-
-mkdir -p mkdir -p $testroot/${repo}/easybuild
-mkdir -p mkdir -p $testroot/${repo}/easybuild/config
-create_link $sourceroot/easybuild/config/easybuild-production.cfg $testroot/${repo}/easybuild/config/easybuild-production.cfg
-
-create_link $modsrc/easybuild/easyconfigs $moddest/easybuild/easyconfigs
-create_link $modsrc/easybuild/easyblocks  $moddest/easybuild/easyblocks
-create_link $modsrc/easybuild/tools       $moddest/easybuild/tools
-
-#
-# Add missing modules (if any)
-#
-mkdir -p $testroot/modules # Make sure that the directory exists
-create_link $testroot/${repo}/modules/CrayOverwrite/$system $testroot/modules/CrayOverwrite
-
-#
-# Create and populate the directory with EasyBuild sources simply to avoid
-# excess downloading while we can still erase the whole directory structure.
-#
-mkdir -p $testroot/sources
-mkdir -p $testroot/sources/easybuild
-mkdir -p $testroot/sources/easybuild/e
-mkdir -p $testroot/sources/easybuild/e/EasyBuild
-cp $testroot/../sources/easybuild* $testroot/sources/easybuild/e/EasyBuild/
-
+PATH="$testroot/$repo/scripts:$PATH"
 
 ################################################################################
 ################################################################################
@@ -120,6 +85,14 @@ cp $testroot/../sources/easybuild* $testroot/sources/easybuild/e/EasyBuild/
 ################################################################################
 
 $testroot/${repo}/scripts/prepare_LUMI.sh
+
+#
+# Create and populate the directory with EasyBuild sources simply to avoid
+# excess downloading while we can still erase the whole directory structure.
+#
+mkdir -p $testroot/sources/easybuild/e
+mkdir -p $testroot/sources/easybuild/e/EasyBuild
+cp $testroot/../sources/easybuild* $testroot/sources/easybuild/e/EasyBuild/
 
 
 ################################################################################

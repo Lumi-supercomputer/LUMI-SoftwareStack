@@ -26,9 +26,9 @@ prepend_path( 'MODULEPATH', '/opt/cray/modulefiles' )
 prepend_path( 'MODULEPATH', '/opt/cray/pe/lmod/modulefiles/craype-targets/default' )
 prepend_path( 'MODULEPATH', '/opt/cray/pe/lmod/modulefiles/core' )
 
--- Temporary code only needed because the Grenoble system has an incomplete
--- HPE-Cray programming environment
-
+--
+-- Code needed to fix problems with the Cray PE
+--
 -- Detect the module root from the position of this module in the module tree
 local module_root = myFileName():match( '(.*/modules)/SoftwareStack/.*' )
 local cray_overwrite_core = pathJoin( module_root, 'CrayOverwrite', 'core' )

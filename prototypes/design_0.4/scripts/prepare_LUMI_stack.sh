@@ -191,12 +191,29 @@ function match_module_version () {
 partitions=( 'C' 'G' 'D' 'L' )
 
 #
+# - Create the cpe module in CrayOverwrite for the new stack
+#
+match_file=$(match_module_version "$stack_version" "$installroot/$repo/modules/CrayOverwrite/core/cpe-generic")
+create_link "$installroot/$repo/modules/CrayOverwrite/core/cpe-generic/$match_file" \
+            "$installroot/modules/CrayOverwrite/core/cpe/$CPEversion.lua"
+
+#
+# Check if we need to link to a modulerc.lua file from the repository.
+#
+if [ ! -f "/opt/cray/pe/cpe/$CPEversion/modulerc.lua" ]
+then
+    mkdir -p "$installroot/modules/CrayOverwrite/data-cpe/$CPEversion"
+    create_link "$installroot/$repo/modules/CrayOverwrite/data-cpe/$CPEversion/modulerc.lua" \
+                "$installroot/modules/CrayOverwrite/data-cpe/$CPEversion/modulerc.lua"
+fi
+
+#
 # - Create the software stack module
 #   The directory likely already exists, but it doesn't hurt to use mkdir -p and it makes the script
 #   more robust.
 #
 mkdir -p "$installroot/modules/SoftwareStack/LUMI"
-match_file=$(match_module_version $stack_version $installroot/$repo/modules/LUMIstack)
+match_file=$(match_module_version "$stack_version" "$installroot/$repo/modules/LUMIstack")
 create_link "$installroot/$repo/modules/LUMIstack/$match_file" "$installroot/modules/SoftwareStack/LUMI/$stack_version.lua"
 
 #
@@ -338,9 +355,9 @@ export PYTHONPATH=$(find $workdir/easybuild -name site-packages)
 # - Install EasyBuild in the common directory of the $EBstack software stack
 #
 module --force purge
-export MODULEPATH=$installroot/modules/SoftwareStack
-export LMOD_PACKAGE_PATH=$installroot/$repo/LMOD
-export LMOD_RC=$installroot/$repo/LMOD/lmodrc.lua
+export MODULEPATH="$installroot/modules/SoftwareStack"
+export LMOD_PACKAGE_PATH="$installroot/$repo/LMOD"
+export LMOD_RC="$installroot/$repo/LMOD/lmodrc.lua"
 export LUMI_PARTITION='common'
 module load LUMI/$stack_version
 module load partition/common

@@ -60,6 +60,15 @@
         The alternative would be to use a trick that is also used in some CPE module
         files to read in and execute code from an external file.
 
+        The current implementation is a stub that relies on the environment variable
+        ``LUMI_PARTITION`` but the goal is to replace this with something more robust
+        to ensure that it also works in SLURM job scripts where that environment variable
+        may have the wrong value as SLURM by default copies its environment from the
+        node where the job was submitted.
+
+        The idea is to ensure that a ``module reload`` would reload the loaded software
+        stack for the partition on which the ``module reload`` command is run.
+
       * ``get_CPE_component``: A function that can be used in modulefiles to request
         the version of a CPE component. The data is read from the CPE definition files
         in the ``CrayPE`` subdirectory of the repository.
