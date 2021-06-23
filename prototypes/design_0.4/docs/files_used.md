@@ -68,6 +68,14 @@
         of the partition modules for the LUMI stacks to determine the version of the
         Cray targeting modules to add that directory to the MODULEPATH.
 
+      * ``get_CPE_versions``: A function that can be used in module files to request
+        a table with the version for each package in a CPE release. The data is read
+        from the CPE definition files in the ``CrayPE`` subdirectory of the repository.
+
+        The function is used in the prototype in the ``cpe`` modules for the Grenoble
+        system as a proof-of-concept for a generic ``cpe`` module to reduce the number
+        of places where the version info of the Cray packages in a CPE release is kept.
+
 
 ## modules subdirectory
 

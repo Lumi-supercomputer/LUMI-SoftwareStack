@@ -242,7 +242,59 @@ function get_CPE_component( package, CPE_version )
 end
 
 
+--
+-- function get_CPE_versions
+--
+-- Get the version of all CPE component for a particular CPE release based on
+-- information kept in a .csv file.
+--
+-- Input arguments
+--   * CPE_version: Release of the Cray Programming Environment
+--   * table_package_version: Table to which the results will be added, i.e.,
+--     table_package_version[package] = version
+--
+-- Return value: Tne number of packages read.
+--
+function get_CPE_versions( CPE_version, table_package_version )
+
+    -- Get the location of the SitePackage.lua file; we assume that it is in the
+    -- LUMI repository.
+    local LMOD_root = os.getenv( 'LMOD_PACKAGE_PATH' )
+
+    -- Compute the name of the file containing the CPE information.
+    local CPE_file = LMOD_root .. '/../CrayPE/CPEpackages_' .. CPE_version .. '.csv'
+    CPE_file =  CPE_file:gsub( '//+', '/' )
+
+    -- Read the CPE file
+    local fp = io.open( CPE_file, 'r' )
+    if fp == nil then
+        return nil;
+    end
+    local first = true
+    local n_read = 0
+    for line in fp:lines() do
+        if first then
+            first = false
+        else
+            -- Clean the line
+            local cleaned_line = line:gsub( '"', '' ):gsub( '\'', '' ):gsub( '%s', '' )
+            -- Split in module and version
+            local module, version = cleaned_line:match( '([^,]*),(.*)' )
+            -- Add to the table
+            table_package_version[module] = version
+            n_read = n_read + 1
+        end
+    end
+    fp:close()
+
+    -- Return the number of items read
+    return n_read
+
+end
+
+
 sandbox_registration{
-    ['detect_LUMI_partition']    = detect_LUMI_partition,
-    ['get_CPE_component']   = get_CPE_component,
+    ['detect_LUMI_partition'] = detect_LUMI_partition,
+    ['get_CPE_component']     = get_CPE_component,
+    ['get_CPE_versions']      = get_CPE_versions,
 }

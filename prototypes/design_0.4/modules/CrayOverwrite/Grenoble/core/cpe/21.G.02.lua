@@ -22,6 +22,13 @@ version will be loaded in the version from the ]] .. myModuleVersion() .. [[ rel
 append_path( 'LMOD_MODULERCFILE', pathJoin( data_root, 'data-cpe', myModuleVersion(), 'modulerc.lua' ) )
 
 --
+-- Get the package versions
+--
+
+local table_package_version = {}
+get_CPE_versions( myModuleVersion(), table_package_version )
+
+--
 -- Array: Order in which the modules should be loaded
 --
 modules = {
@@ -68,43 +75,42 @@ modules = {
 --
 -- Out-commented modules_version are not on the Grenoble system
 modules_version = {}
--- modules_version["PrgEnv-aocc"] = "8.0.0"
-modules_version["PrgEnv-cray"] = "8.0.0"
-modules_version["PrgEnv-gnu"] = "8.0.0"
-modules_version["PrgEnv-intel"] = "8.0.0"
--- modules_version["PrgEnv-nvidia"] = "8.0.0"
--- modules_version["aocc"] = "2.2.0.1"
-modules_version["atp"] = "3.11.6"
-modules_version["cce"] = "11.0.2"
-modules_version["cray-R"] = "4.0.3.0"
-modules_version["cray-ccdb"] = "4.10.4"
-modules_version["cray-cti"] = "2.11.6"
-modules_version["cray-dsmml"] = "0.1.1"
-modules_version["cray-fftw"] = "3.3.8.8"
-modules_version["cray-hdf5"] = "1.12.0.2"
-modules_version["cray-hdf5-parallel"] = "1.12.0.2"
--- modules_version["cray-jemalloc"] = "5.1.0.4"
-modules_version["cray-libsci"] = "20.12.1.2"
-modules_version["cray-libsci_acc"] = "21.02.9.1"
-modules_version["cray-mpich"] = "8.1.2"
-modules_version["cray-netcdf"] = "4.7.4.2"
-modules_version["cray-netcdf-hdf5parallel"] = "4.7.4.2"
-modules_version["cray-openshmemx"] = "11.1.0.beta"
-modules_version["cray-parallel-netcdf"] = "1.12.1.1"
-modules_version["cray-pmi"] = "6.0.9"
-modules_version["cray-pmi-lib"] = "6.0.9"
--- modules_version["cray-python"] = "3.8.5.0"
-modules_version["cray-stat"] = "4.7.1"
-modules_version["craype"] = "2.7.5"
--- modules_version["craype-dl-plugin-py3"] = "21.04.1"
-modules_version["craypkg-gen"] = "1.3.13"
-modules_version["gcc"] = "10.2.0"
-modules_version["gdb4hpc"] = "4.10.6"
--- modules_version["iobuf"] = "2.0.10"
-modules_version["modules_version"] = "3.2.11.4"
--- modules_version["nvidia"] = "20.9"
-modules_version["papi"] = "6.0.0.6"
-modules_version["perftools-base"] = "21.02.0"
+-- modules_version["PrgEnv-aocc"] =           table_package_version['cpe-prgenv']
+modules_version["PrgEnv-cray"] =              table_package_version['cpe-prgenv']
+modules_version["PrgEnv-gnu"] =               table_package_version['cpe-prgenv']
+modules_version["PrgEnv-intel"] =             table_package_version['cpe-prgenv']
+-- modules_version["PrgEnv-nvidia"] =            table_package_version['cpe-prgenv']
+-- modules_version["aocc"] =                     table_package_version['AOCC']
+modules_version["atp"] =                      table_package_version['ATP']
+modules_version["cce"] =                      table_package_version['CCE']
+modules_version["cray-R"] =                   table_package_version['cray-R']
+modules_version["cray-ccdb"] =                table_package_version['CCDB']
+modules_version["cray-cti"] =                 table_package_version['CTI']
+modules_version["cray-dsmml"] =               table_package_version['DSMML']
+modules_version["cray-fftw"] =                table_package_version['FFTW']
+modules_version["cray-hdf5"] =                table_package_version['HDF5']
+modules_version["cray-hdf5-parallel"] =       table_package_version['HDF5']
+-- modules_version["cray-jemalloc"] =            table_package_version['jemalloc']
+modules_version["cray-libsci"] =              table_package_version['LibSci']
+modules_version["cray-libsci_acc"] =          table_package_version['LibSci_acc']
+modules_version["cray-mpich"] =               table_package_version['MPICH']
+modules_version["cray-netcdf"] =              table_package_version['NetCDF']
+modules_version["cray-netcdf-hdf5parallel"] = table_package_version['NetCDF']
+modules_version["cray-openshmemx"] =          table_package_version['OpenSMEMX']
+modules_version["cray-parallel-netcdf"] =     table_package_version['parallel-netcdf']
+modules_version["cray-pmi"] =                 table_package_version['PMI']
+modules_version["cray-pmi-lib"] =             table_package_version['PMI']
+-- modules_version["cray-python"] =              table_package_version['cray-python']
+modules_version["cray-stat"] =                table_package_version['STAT']
+modules_version["craype"] =                   table_package_version['craype']
+-- modules_version["craype-dl-plugin-py3"] =     table_package_version['craype-dl-plugin-py3']
+modules_version["craypkg-gen"] =              table_package_version['craypkg-gen']
+modules_version["gcc"] =                      table_package_version['GCC']
+modules_version["gdb4hpc"] =                  table_package_version['gdb4hpc']
+-- modules_version["iobuf"] =                    table_package_version['iobuf']
+-- modules_version["nvidia"] =                   table_package_version['NVIDIA']
+modules_version["papi"] =                     table_package_version['PAPI']
+modules_version["perftools-base"] =           table_package_version['perftools']
 
 local warning = [[
 Unloading the cpe module is insufficient to restore the system defaults.
