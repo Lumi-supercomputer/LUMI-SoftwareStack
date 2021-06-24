@@ -8,7 +8,8 @@ TODO to finish this prototype:
 
     Some steps
 
-     1. Hand-generated EasyConfigs in the Swiss style
+     1. Hand-generated EasyConfigs in the Swiss style: Better to work with
+        hard versions instead due to the problems with the cpe modules.
 
      2. How to deal with different targets for different partitions, or do we
         fully rely on optarch which would mean that by default we only load
