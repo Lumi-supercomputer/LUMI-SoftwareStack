@@ -134,7 +134,7 @@ elseif (mode() == "load" or mode() == "show") then
         if modules_version[mod] ~= nil then
             if (isloaded(mod)) then
                 if os.getenv( '_LUMI_LMOD_DEBUG' ) ~= nil then
-                    LmodMessage( 'DEBUG: ' .. mode() .. ' ' .. myFileName() .. ': Swtiching ' .. mod .. ' to ' .. mod .. '/' .. modules_version[mod] )
+                    LmodMessage( 'DEBUG: ' .. mode() .. ' ' .. myFileName() .. ': Switching ' .. mod .. ' to ' .. mod .. '/' .. modules_version[mod] )
                 end
                 unload(mod)
                 load(mod .. "/" .. modules_version[mod])
