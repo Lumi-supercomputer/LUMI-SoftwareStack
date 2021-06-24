@@ -69,12 +69,15 @@ mkdir -p "$installroot/sources/easybuild/e/EasyBuild"
 create_link "$installroot/$repo/modules/CrayOverwrite/core/cpe/restore-defaults.lua" \
             "$installroot/modules/CrayOverwrite/core/cpe/restore-defaults.lua"
 #
-# We set the default cpe module to cpe/restore-defaults to take it away from the Cray PE
-# directories.
+# If the system has a cpe module directory, we must ensure we use the same default
+# version or LMOD may still load from the wrong directory. So we simply link to the
+# Cray .version file but name it .modulerc (it is Tcl) to have a higher priority.
 #
-cat >"$installroot/modules/CrayOverwrite/core/cpe/.modulerc.lua" <<EOF
-module_version( "restore-defaults", "default" )
-EOF
+cpe_version_file='/opt/cray/pe/lmod/modulefiles/core/cpe/.version'
+if [ -f "$cpe_version_file" ]
+then
+    create_link "$cpe_version_file" "$installroot/modules/CrayOverwrite/core/cpe/.modulerc"
+fi
 
 #
 # Link the CrayEnv module
