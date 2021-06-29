@@ -53,7 +53,11 @@ end
 -- Find the version of crape-targets matching the current PE version
 local targets_version = get_CPE_component( 'craype-targets', CPE_version )
 if os.getenv( '_LUMI_LMOD_DEBUG' ) ~= nil then
-    LmodMessage( 'DEBUG: ' .. mode() .. ' ' .. myModuleFullName() .. ': Found craype-targets version ' .. targets_version )
+    if targets_version == nil then
+        LmodMessage( 'DEBUG: ' .. mode() .. ' ' .. myModuleFullName() .. ': Failed to determine craype-targets version, using default.' )
+    else
+        LmodMessage( 'DEBUG: ' .. mode() .. ' ' .. myModuleFullName() .. ': Found craype-targets version ' .. targets_version )
+    end
 end
 
 
@@ -73,10 +77,9 @@ a partition module may work on other on other partitions.
 
 setenv( 'LUMI_STACK_PARTITION', partition )
 
+-- Do not execute the following code if parrtition == 'common' and mode() == 'load'
+-- as we doe not want partition/common to show up in the output of ``module spider``.
 if ( partition ~= 'common' ) or ( mode() ~= 'spider' ) then
-    -- This is a block of code that we do not want to be visible in partition/common
-    -- when the mode is "spider" to avoid showing partition/common as a mode to reach
-    -- software activated by the lines below.
     -- The Cray modules, may be possible to only activate them once cpe* is loaded
     if isDir( '/usr/share/modulefiles' ) then
         prepend_path( 'MODULEPATH', '/usr/share/modulefiles' )
