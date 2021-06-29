@@ -46,7 +46,6 @@ in releases of the Cray PE:
 
 
 
-
 ## EasyBuild Module Naming Scheme
 
   * Options
@@ -64,7 +63,7 @@ in releases of the Cray PE:
         and the related [issue 3575](https://github.com/easybuilders/easybuild-framework/issues/3575)).
         The solution might be to develop our own naming scheme module.
 
-  * Current implementation in the prototype:
+  * Choice implemented for the current software stacks:
 
       * A flat naming scheme that is a slight customization of the default EasyBuildMNS
         without the categories, combined with an empty ``suffix-modules-path`` to avoid
@@ -128,10 +127,17 @@ its place in the module hierarchy to ensure maximum robustness.
     EASYBUILD_SUFFIX_MODULES_PATH as that together with the module naming scheme determines
     the location of the modules with respect to the module install path.
 
-  * ``EASYBUILD_OPTARCH``, TODO: More information needed on how to set this on Cray.
+  * ``EASYBUILD_OPTARCH``, TODO: Check the code in EasyBuild, we need two extensions:
+
+      * Multiple targeting modules as we want to select both a CPU and accelerator
+        target
+
+      * Try to make it possible to still set options for other, non-PE compilers.
 
   * Should we ever have custom toolchains then this will also be the place to indicate
     where they can be found.
+
+      * TODO: We actually need them...
 
 
 ### The EasyBuild-production and EasyBuild-infrastructure mode
@@ -175,7 +181,7 @@ The following settings are made through environment variables:
   * The repo directories where EasyBuild stores EasyConfig files for the modules that
     are build, as indicated in the directory structure overview.
 
-  * Easybuild robot paths: we use EASYBUILD_ROBOT_PATHS and not EASYBUILD_ROBOT so
+  * EasyBuild robot paths: we use EASYBUILD_ROBOT_PATHS and not EASYBUILD_ROBOT so
     searching the robot path is not enabled by default but can be controlled through
     the ``-r`` flag of the ``eb`` command. The search order is:
 
@@ -237,6 +243,9 @@ The following settings are made through environment variables:
     environment variable ``EBU_USER_PREFIX``. The default value if the variable
     is not defined is ``$HOME/EasyBuild``.
 
+    Note that this environment variable is also used in the ``LUMI/yy.mm`` modules
+    as these modules try to include the user modules in the MODULEPATH.
+
   * The directory structure in that directory largely reflects the system
     directory structure. This may be a bit more complicated than really needed
     for the user who does an occasional install, but is great for user communities
@@ -244,7 +253,8 @@ The following settings are made through environment variables:
 
     Changes:
 
-       * ``SystemRepo`` is named ``UserRepo`` instead but we do keep it
+       * ``SystemRepo`` is named ``UserRepo`` instead and that name is fixed,
+         contrary to the ``SytemREpo`` name. We do keep it
          as a separate level so that the user can also easily do version
          tracking via a versioning system such as GitHub.
 
@@ -310,103 +320,3 @@ detected when the module is loaded. Reload the module after creating one of
 these files to start using it.
 
 
-
-## Starting a new software stack and bootstrapping EasyBuild
-
-This process is largely automated through the ``prepare_LUMI_stack.sh``-script.
-
-Before running the script, the following elements are needed:
-
-  * A suitable ``CPEpakcages_<CPE version>.csv`` file in the ``CrayPE`` subdirectory
-    of the repository.
-
-  * An EasyConfig file for the selected version of EasyBuild in the EasyConfig
-    repository.
-
-    Note that it is always possible to run ``prepare_LUMI_stack.sh``-script
-    with ``EASYBUILD_IGNORE_CHECKSUMS=1`` set if the checksums in the module
-    file are not yet OK. (TODO CHECK is this the correct variable?)
-
-  * Make sure proper versions of the EasyBuild-config, LUMIstack and LUMIpartition
-    modules are available in the repository.
-
-    The software stack initialisation script will take the most recent one
-    (based on the yy.mm version number) that is not newer than the release
-    of the CPE for the software stack.
-
-    *The software stacks and CPEs on the Grenoble test system use
-    yy.G.mm version numbers, but the ``.G`` is dropped when determining
-    the correct version of the modules mentioned above.*
-
-  * Add a software stack-specific configuration file for EasyBuild if
-    needed in the ``easybuild/confgi`` subdirectory of the repository.
-
-The ``prepare_LUMI_stack.sh``-script takes 3 input arguments:
-
-  * Version of the software stack
-
-  * Version of EasyBuild to use
-
-  * Work directory for temporary files, used to install a bootstrapping copy
-    of EasyBuild. Rather than trying to use an EasyBuild installation from an
-    older software stack if present to bootstrap the new one, we simply chose
-    to do a bootstrap every time the script is run as this is a procedure
-    that simply always works, though it is more time consuming.
-
-    The advantage however is that one can just clone the production repository
-    anywhere, run an initialisation script to initialise the structure around
-    the repository, then initialise a software stack and start working.
-
-Note that the install root is not an argument of the ``prepare_LUMI_stack.sh``-script.
-The root of the installation is determined from the location of the script,
-so one should make sure to run the correct version of the script (i.e., to
-run from the clone of the repository in the installation root).
-
-Steps that the ``LUMI_prepare_stack.sh`` script takes:
-
-  * Creates the LUMI software stack module (by soft linking to the generic one
-    in the ``SystemRepo``) and the partition modules for that stack (again by
-    softlinking).
-
-  * Creates the full directory structure for the software stack for the modules,
-    the binary installations and the EasyBuild repo.
-
-  * Creates the EasyBuild external modules definition file from the data in the
-    corresponding ``CPEpakcages_<CPE version>.csv`` file.
-
-  * Creates the EasyBuild-production, EasyBuild-infrastructure and EasyBuild-user
-    modules for each partition by softlinking to the matching generic file in
-    the ``SystemRepo``.
-
-  * Downloads the selected version of EasyBuild to the EasyBuild sources directory
-    if the files are not yet present.
-
-  * Installs a bootstrapping version of EasyBuild in the work directory. As that
-    version will only be used to install EasyBuild from our own EasyConfig file,
-    there is no need to also install the EasyConfig files.
-
-  * Loads the software stack module for the common partition and the EasyBuild-production
-    module to install EasyBuild in the software stack.
-
-Things to do afterwards:
-
-  * If you want to change the default version of the LUMI software stack module,
-    you can do this by editing ``.modulerc.lua`` in
-    ``modules/SoftwareStack/LUMI``.
-
-TODO
-
-  * Create the Cray PE toolchain modules
-
-    TODO: Use a script that uses the same data as used for the external module definition.
-
-And now one should be ready to install other software...
-
-  * Ensure the software stack module is loaded and the partition module for the
-    location where you want to install the software is loaded (so the hidden module
-    partition/common to install software in the location common to all regular
-    partitions)
-
-  * Load EasyBuild-production for an install in the production directories or
-    EasyBuild-user for an install in the user or project directories (and you'll
-    need to set some environment variables beforehand to point to that location).
