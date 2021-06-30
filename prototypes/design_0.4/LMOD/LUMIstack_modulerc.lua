@@ -14,7 +14,9 @@ module_version( 'partition/L', 'login' )
 if os.getenv( 'LUMI_LMOD_POWERUSER' ) == nil then
     hide_version( 'partition/common' )
     hide_version( 'EasyBuild-production/LUMI' )
+    module_version( 'EasyBuild-production/LUMI', 'default' )
     hide_version( 'EasyBuild-infrastructure/LUMI' )
+    module_version( 'EasyBuild-infrastructure/LUMI', 'default' )
 end
 
 --
