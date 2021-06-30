@@ -1,8 +1,9 @@
 # Compiler toolchain for Cray EX Programming Environment GNU compiler (cpe-gnu)
-easyblock = 'CrayPEToolchainRep'
+easyblock = 'CrayPEToolchain'
 
 name = 'cpeGNU'
-version = "21.04"
+version = '21.04'
+versionsuffix = '-hardcodedVersions'
 
 homepage = 'https://pubs.cray.com'
 
@@ -15,18 +16,27 @@ This module is the EasyBuild toolchain that uses the Cray compiler wrapper with
 the gcc compiler activated. The components loaded are those of the Cray Programming
 Environment (CPE) version %(version)s.
 
-The toolchain works differently from the way the Cray PE usually works. Rather than
-loading PrgEnv-gnu and cpe/%(version)s, it loads concrete versions of all modules
-instead that would be loaded by these variants. This ensures better reproducibility
-as which modules are loaded by PrgEnv-gnu depends on a single configuration file
-on the system that may change over time. The net effect of the module is the same
-though.
+The result of this example is a modulefile which:
+  * Unloads all PrgEnv modules except PrgEnv-gnu
+  * Loads the PrgEnv-gnu/8.0.0 module
+  * Loads the targeting modules craype-x86-, craype-accel-host and craype-network-ofi
+  * Loads the gcc/9.3.0 module, even though PrgEnv-gnu is already loaded, because it is
+    part of the dependencies
+  * Loads the craype/2.7.6 module, even though PRgEnv-gnu is already loaded, because it is
+    part of the dependencies
+  * Loads the dependencies in the order specified except for those three modules that
+    have already been loaded:
+      * cray-mpich/8.1.4
+      * cray-libsci/21.04.1.1
+      * cray-dsmml/0.1.4
+      * perftools-base/21.02.0
+      * xpmem
+    The cpe line is simply ignored but no warning is printed
+  * Loads the cpe/21.04 module
 
 """
 
 toolchain = SYSTEM
-
-PrgEnv = 'gnu'
 
 cray_targets = [
     'craype-x86-rome',
@@ -35,6 +45,7 @@ cray_targets = [
 ]
 
 dependencies = [
+   ('PrgEnv-gnu/8.0.0',       EXTERNAL_MODULE),
    ('gcc/9.3.0',              EXTERNAL_MODULE),
    ('craype/2.7.6',           EXTERNAL_MODULE),
    ('cray-mpich/8.1.4',       EXTERNAL_MODULE),
@@ -42,6 +53,7 @@ dependencies = [
    ('cray-dsmml/0.1.4',       EXTERNAL_MODULE),
    ('perftools-base/21.02.0', EXTERNAL_MODULE),
    ('xpmem',                  EXTERNAL_MODULE),
+   ('cpe/22.13',              EXTERNAL_MODULE), # Should be ignored.
 ]
 
 moduleclass = 'toolchain'

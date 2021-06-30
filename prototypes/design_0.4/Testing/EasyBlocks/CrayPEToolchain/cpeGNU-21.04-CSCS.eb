@@ -1,52 +1,54 @@
 # Compiler toolchain for Cray EX Programming Environment GNU compiler (cpe-gnu)
-easyblock = 'cpeToolchainCSCS'
+easyblock = 'CrayPEToolchain'
 
 name = 'cpeGNU'
-version = "21.04"
+version = '21.04'
+versionsuffix = '-CSCS'
 
 homepage = 'https://pubs.cray.com'
-description = """Toolchain using Cray compiler wrapper with gcc module (CPE release: %s).\n""" % version
+whatis = [
+    "Desription: EasyBuild toolchain using the Cray compiler wrapper with gcc module (CPE release %(version)s)"
+]
+
+description = """
+This module is the EasyBuild toolchain that uses the Cray compiler wrapper with
+the gcc compiler activated. The components loaded are those of the Cray Programming
+Environment (CPE) version %(version)s.
+
+The result of this example is a modulefile which:
+  * Unloads all PrgEnv modules except PrgEnv-gnu
+  * Loads the PrgEnv-gnu module
+  * Loads the targeting modules craype-x86-rome and craype-network-ofi
+  * Loads the gcc module, even though PRgEnv-gnu is already loaded, because it is
+    part of the dependencies
+  * Loads the craype module, even though PRgEnv-gnu is already loaded, because it is
+    part of the dependencies
+  * Loads the dependencies in the order specified except for those three modules that
+    have already been loaded.
+  * Loads the cpe/21.04 module
+
+"""
 
 toolchain = SYSTEM
 
+cray_targets = [
+    'craype-x86-rome',
+    'craype-network-ofi',
+]
+
 dependencies = [
-   ('PrgEnv-gnu', EXTERNAL_MODULE)
+   ('PrgEnv-gnu', EXTERNAL_MODULE),
+   ('cray-dsmml', EXTERNAL_MODULE),
+   ('cray-libsci', EXTERNAL_MODULE),
+   ('cray-mpich', EXTERNAL_MODULE),
+   ('craype', EXTERNAL_MODULE),
+   ('gcc', EXTERNAL_MODULE),
+   ('libfabric', EXTERNAL_MODULE),
+   ('perftools-base', EXTERNAL_MODULE),
+   ('xpmem', EXTERNAL_MODULE),
 ]
 
 modluafooter = '''
-if not ( isloaded("cray-dsmml") ) then
-    load("cray-dsmml")
-end
-if not ( isloaded("cray-libsci") ) then
-    load("cray-libsci")
-end
-if not ( isloaded("cray-mpich") ) then
-    load("cray-mpich")
-end
-if not ( isloaded("craype") ) then
-    load("craype")
-end
-if not ( isloaded("craype-x86-rome") ) then
-    load("craype-x86-rome")
-end
-if not ( isloaded("craype-network-ofi") ) then
-    load("craype-network-ofi")
-end
-if not ( isloaded("gcc") ) then
-    load("gcc")
-end
-if not ( isloaded("libfabric") ) then
-    load("libfabric")
-end
-if not ( isloaded("perftools-base") ) then
-    load("perftools-base")
-end
-if not ( isloaded("xpmem") ) then
-    load("xpmem")
-end
-if not ( isloaded("cpe/%(version)s") ) then
-    load("cpe/%(version)s")
-end
 prepend_path("MODULEPATH",root:gsub("software","modules/all/Toolchain"))
 '''
 

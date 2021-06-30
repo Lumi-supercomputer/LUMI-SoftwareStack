@@ -35,22 +35,25 @@ from easybuild.easyblocks.generic.bundle import Bundle
 from easybuild.tools.build_log import EasyBuildError
 from easybuild.framework.easyconfig import CUSTOM, MANDATORY
 from easybuild.tools.build_log import print_error, print_msg, print_warning
+import re
 
 # Supported programming environments
-KNOWN_PRGENVS = ['PrgEnv-aocc', 'PrgEnv-cray', 'PrgEnv-gnu', 'PrgEnv-intel']
+KNOWN_PRGENVS = ['PrgEnv-aocc', 'PrgEnv-cray', 'PrgEnv-gnu', 'PrgEnv-intel', 'PrgEnv-pgi']
 # Mapping from supported toolchain modules to PrgEnv-* modules
 MAP_TOOLCHAIN_PRGENV = {
-    'cpeCray':  'cray',
-    'cpeGNU':   'gnu',
-    'cpeAMD':   'aocc',
-    'cpeIntel': 'intel',
+    'cpeCray':   'cray',
+    'cpeGNU':    'gnu',
+    'cpeAMD':    'aocc',
+    'cpeIntel':  'intel',
+    'cpeNVIDIA': 'pgi',
 }
 # Mapping from supported toolchain modules to compiler modules.
 MAP_TOOLCHAIN_COMPILER = {
-    'cpeCray':  'cce',
-    'cpeGNU':   'gcc',
-    'cpeAMD':   'aocc',
-    'cpeIntel': 'intel',
+    'cpeCray':   'cce',
+    'cpeGNU':    'gcc',
+    'cpeAMD':    'aocc',
+    'cpeIntel':  'intel',
+    'cpeNVIDIA': 'pgi',
 }
 
 
@@ -62,10 +65,13 @@ class CrayPEToolchain(Bundle):
     def extra_options():
         """Custom easyconfig parameters for CrayPEToolchain"""
         extra_vars = {
-            'PrgEnv': [None, "PrgEnv module to load, e.g., cray to load PrgEnv-cray, or None for automatic determination", CUSTOM],
-            'CPE_compiler': [None, "Compiler module to load, or None for automatic determination", CUSTOM],
-            'CPE_version': [None, "Version of the CPE, if different from the version of the module", CUSTOM],
-            'cray_targets': [[], "Targetting modules to load", CUSTOM],
+            'PrgEnv': [None, 'PrgEnv module to load, e.g., cray to load PrgEnv-cray, or None for automatic determination', CUSTOM],
+            'PrgEnv_load': [True, 'Load the PRgEnv module (if True) or just set the corresponding environment variable (if False)', CUSTOM],
+            'PrgEnv_family': [False, 'Declare to be a member of the PrgEnv family (if True) or force unload all known PRgEnv modules (oif False)', CUSTOM],
+            'CPE_compiler': [None, 'Versionless compiler module to load, or None for automatic determination', CUSTOM],
+            'CPE_version': [None, 'Version of the CPE, if different from the version of the module', CUSTOM],
+            'CPE_load': [ 'last', 'First load the cpe module (if \'first\'), load it at the end (if \'last\'), or do not load the cpe module (if None)', CUSTOM],
+            'cray_targets': [[], 'Targetting modules to load', CUSTOM],
             #'optional_example_param': [None, "Example optional custom parameter", CUSTOM],
         }
         return Bundle.extra_options(extra_vars)
@@ -82,34 +88,29 @@ class CrayPEToolchain(Bundle):
         Generate load/swap statements for the module file
         """
 
+        #
+        # First do some processing of and checks on the parameters
+        #
+
+        # Illegal parameter combination: PrgEnv_family True and PrgEnv_load True.
+        if self.cfg['PrgEnv_family']  and self.cfg['PrgEnv_load']:
+            raise EasyBuildError('Setting both PrgEnv_family and PrgEnv_load to true is not a valid combination.')
+
         # Determine the PrgEnv module
         if self.cfg['PrgEnv'] is None:
             try:
-                prgenv_mod = 'PrgEnv-' + MAP_TOOLCHAIN_PRGENV[self.cfg['name']]
+                prgenv_name = MAP_TOOLCHAIN_PRGENV[self.cfg['name']]
             except:
                 raise EasyBuildError('%s is not a supported toolchain, you\'ll need to specify both PrgEnv and CPE_compiler.',
                                      self.cfg['name'])
         else:
-            prgenv_mod = 'PrgEnv-' + self.cfg['PrgEnv']
-            if not prgenv_mod in KNOWN_PRGENVS:
+            prgenv_name = self.cfg['PrgEnv']
+            if not 'PrgEnv-' + prgenv_name in KNOWN_PRGENVS:
                 print_warning('PrgEnv-%s is not a supported PrgEnv module. Are you sure it is not a typo?', prgenv_mod)
 
-        self.log.debug("Detected PrgEnv-module: %s", prgenv_mod)
+        prgenv_mod = 'PrgEnv-' + prgenv_name
 
-        # unload statements for other PrgEnv modules
-        prgenv_unloads = ['']
-        for prgenv in [prgenv for prgenv in KNOWN_PRGENVS if not prgenv_mod.startswith(prgenv)]:
-            prgenv_unloads.append(self.module_generator.unload_module(prgenv).strip())
-
-        # load statement for selected PrgEnv module (only when not loaded yet)
-        prgenv_load = self.module_generator.load_module(prgenv_mod, recursive_unload=False)
-
-        # Prepare the load statements for the targeting modules
-        targets_load = []
-        for dep in self.cfg['cray_targets']:
-            targets_load.append(self.module_generator.load_module(dep, recursive_unload=False).lstrip())
-
-        self.log.debug("Load statements for targeting modules:%s", targets_load)
+        self.log.debug("Detected PrgEnv-module: %s (version may be added through dependencies)", prgenv_mod)
 
         # Determine the compiler module
         if self.cfg['CPE_compiler'] in [ None, 'auto']:
@@ -121,32 +122,94 @@ class CrayPEToolchain(Bundle):
         else:
             compiler_mod = self.cfg['CPE_compiler']
 
-        self.log.debug("Loading compiler module: %s", compiler_mod)
+        self.log.debug("Detected compiler module: %s (version may be added through dependencies", compiler_mod)
 
-        # load statement for the selected compiler module
-        compiler_load = self.module_generator.load_module(compiler_mod, recursive_unload=False).lstrip()
+        # Cray wrappers module
+        craype_mod = 'craype'
 
-        # Load the Cray compiler wrapper module
-        wrapper_load = self.module_generator.load_module('craype', recursive_unload=False).lstrip()
+        # Determine the cpe module (if needed)
+        if self.cfg['CPE_load'] != None:
+            if self.cfg['CPE_version'] is None:
+                cpe_load_version = self.cfg['version']
+            else:
+                cpe_load_version = self.cfg['CPE_version']
 
-        # collect 'load' statements for dependencies
-        deps_load = []
+            self.log.debug("Loading CPE version: %s (may be overwritten by dependencies)", cpe_load_version)
+
+            cpe_mod = 'cpe/' + cpe_load_version
+
+        # Build a list of dependencies without version
+        collect_deps = []
+        force_compiler = False
+        force_craype = False
         for dep in self.toolchain.dependencies:
             mod_name = dep['full_mod_name']
-            deps_load.append(self.module_generator.load_module(mod_name).lstrip())
+            if mod_name.startswith(prgenv_mod):
+                prgenv_mod = mod_name
+            elif mod_name.startswith(compiler_mod):
+                compiler_mod = mod_name
+                force_compiler = True
+            elif mod_name.startswith(craype_mod):
+                craype_mod = mod_name
+                force_craype = True
+            elif not (mod_name == 'cpe' or mod_name.startswith('cpe/')):
+                collect_deps.append(mod_name)
+#            elif not (mod_name == 'cpe' or mod_name.startswith('cpe/')):
+#                components = mod_name.split('/')
+#                if re.match(components[-1], '\d.*'):
+#                    collect_deps.append('/'.join(components[:-1]))
+#                else:
+#                    collect_deps.append(mod_name)
 
-        self.log.debug("Swap statements for dependencies of %s: %s", self.full_mod_name, deps_load)
+        #
+        # Now start generating the load commands and other stuff.
+        #
 
-        # Finally load the cpe module
-        if self.cfg['CPE_version'] is None:
-            cpe_load_version = self.cfg['version']
+        collect_statements = []
+
+        # Do we need a family directive or do we do hard unloads?
+        if self.cfg['PrgEnv_family']:
+            collect_statements = collect_statements + [ 'family(\'PrgEnv\')', '' ]
         else:
-            cpe_load_version = self.cfg['CPE_version']
+            # Note that we also unload the PrgEnv that will be loaded again. In any case,
+            # the load of that one would trigger an unload anyway so it does no harm.
+            collect_statements.append('')
+            for prgenv in [prgenv for prgenv in KNOWN_PRGENVS if not prgenv_mod.startswith(prgenv)]:
+                collect_statements.append(self.module_generator.unload_module(prgenv).strip())
+            collect_statements.append('')
 
-        self.log.debug("Loading CPE version: %s", cpe_load_version)
+        # Set PE_ENV if no PrgEnv-* module is loaded.
+        if not self.cfg['PrgEnv_load']:
+            collect_statements.append(self.module_generator.set_environment('PE_ENV', prgenv_name.upper(), False).lstrip())
 
-        cpe_load = self.module_generator.load_module('cpe/' + cpe_load_version, recursive_unload=False).lstrip()
+        # Load the cpe module (if CPE_load is first)
+        if self.cfg['CPE_load'] != None and self.cfg['CPE_load'].lower() == 'first':
+            collect_statements.append(self.module_generator.load_module(cpe_mod, recursive_unload=False).lstrip())
+
+        # load statement for selected PrgEnv module (only when not loaded yet)
+        if self.cfg['PrgEnv_load']:
+            collect_statements.append(self.module_generator.load_module(prgenv_mod, recursive_unload=False).lstrip())
+
+        # Prepare the load statements for the targeting modules
+        for dep in self.cfg['cray_targets']:
+            collect_statements.append(self.module_generator.load_module(dep, recursive_unload=False).lstrip())
+
+        # Load the selected compiler module, if not done through the dependencies or PRgEnv
+        if (not self.cfg['PrgEnv_load']) or force_compiler:
+            collect_statements.append(self.module_generator.load_module(compiler_mod, recursive_unload=False).lstrip())
+
+        # Load the Cray compiler wrapper module, if not done through the dependencies
+        if (not self.cfg['PrgEnv_load']) or force_craype:
+            collect_statements.append(self.module_generator.load_module(craype_mod, recursive_unload=False).lstrip())
+
+        # Now load the dependencies, using the full name and version if they are specified that way.
+        for dep in collect_deps:
+            collect_statements.append(self.module_generator.load_module(dep).lstrip())
+
+        # Load the cpe module (if CPE_load is last)
+        if self.cfg['CPE_load'] != None and self.cfg['CPE_load'].lower() == 'last':
+            collect_statements.append(self.module_generator.load_module(cpe_mod, recursive_unload=False).lstrip())
 
         # Assemble all module unload/load statements.
-        txt = '\n'.join(prgenv_unloads + [prgenv_load] + targets_load + [compiler_load] + [wrapper_load] + deps_load + [cpe_load])
+        txt = '\n'.join(collect_statements)
         return txt
