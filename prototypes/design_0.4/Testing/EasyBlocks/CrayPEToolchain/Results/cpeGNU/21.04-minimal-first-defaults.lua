@@ -7,7 +7,7 @@ the gcc compiler activated. The components loaded are those of the Cray Programm
 Environment (CPE) version 21.04.
 
 Expected outcome: a LUA module that
-  * unloads the other PrgEnv-* modules
+  * Unloads the other PrgEnv-* and cpe* modules
   * Loads cpe/21.04
   * Loads PrgEnv-gnu
 
@@ -30,6 +30,11 @@ unload("PrgEnv-aocc")
 unload("PrgEnv-cray")
 unload("PrgEnv-intel")
 unload("PrgEnv-pgi")
+
+unload("cpeAMD")
+unload("cpeCray")
+unload("cpeIntel")
+unload("cpeNVIDIA")
 
 if not ( isloaded("cpe/21.04") ) then
     load("cpe/21.04")

@@ -7,7 +7,7 @@ the gcc compiler activated. The components loaded are those of the Cray Programm
 Environment (CPE) version 21.04.
 
 Expected outcome: a LUA module that
-  * Unloads the other cpe* and the other PrgEnv-* modules
+  * Declares itself a member of the cpeToolchain family
   * Loads cpe/21.04
   * Loads PrgEnv-gnu
 
@@ -22,19 +22,11 @@ More information
 
 whatis([==[Desription: EasyBuild toolchain using the Cray compiler wrapper with gcc module (CPE release 21.04)]==])
 
-local root = "/users/klust/appltest/design_0.4/SW/LUMI-21.04/L/EB/cpeGNU/21.04-minimal-first-fullpar"
+local root = "/users/klust/appltest/design_0.4/SW/LUMI-21.04/L/EB/cpeGNU/21.04-minimal-first-cpeToolchain"
 
 conflict("cpeGNU")
 
-unload("PrgEnv-aocc")
-unload("PrgEnv-cray")
-unload("PrgEnv-intel")
-unload("PrgEnv-pgi")
-
-unload("cpeAMD")
-unload("cpeCray")
-unload("cpeIntel")
-unload("cpeNVIDIA")
+family('cpeToolchain')
 
 if not ( isloaded("cpe/21.04") ) then
     load("cpe/21.04")
@@ -46,6 +38,6 @@ end
 
 setenv("EBROOTCPEGNU", root)
 setenv("EBVERSIONCPEGNU", "21.04")
-setenv("EBDEVELCPEGNU", pathJoin(root, "easybuild/cpeGNU-21.04-minimal-first-fullpar-easybuild-devel"))
+setenv("EBDEVELCPEGNU", pathJoin(root, "easybuild/cpeGNU-21.04-minimal-first-cpeToolchain-easybuild-devel"))
 
 -- Built with EasyBuild version 4.4.0

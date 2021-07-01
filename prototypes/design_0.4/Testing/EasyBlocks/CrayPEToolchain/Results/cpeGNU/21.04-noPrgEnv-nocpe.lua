@@ -42,6 +42,7 @@ whatis([==[Desription: EasyBuild toolchain using the Cray compiler wrapper with 
 local root = "/users/klust/appltest/design_0.4/SW/LUMI-21.04/L/EB/cpeGNU/21.04-noPrgEnv-nocpe"
 
 conflict("cpeGNU")
+
 family('PrgEnv')
 
 setenv("PE_ENV", "GNU")

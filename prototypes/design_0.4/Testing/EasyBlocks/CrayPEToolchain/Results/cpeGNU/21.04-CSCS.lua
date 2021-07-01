@@ -7,16 +7,17 @@ the gcc compiler activated. The components loaded are those of the Cray Programm
 Environment (CPE) version 21.04.
 
 The result of this example is a modulefile which:
-  * Unloads all PrgEnv modules except PrgEnv-gnu
+  * Unloads all PrgEnv modules except PrgEnv-gnu, and all cpe* modules except cpeGNU
   * Loads the PrgEnv-gnu module
   * Loads the targeting modules craype-x86-rome and craype-network-ofi
-  * Loads the gcc module, even though PRgEnv-gnu is already loaded, because it is
+  * Loads the gcc module, even though PrgEnv-gnu is already loaded, because it is
     part of the dependencies
-  * Loads the craype module, even though PRgEnv-gnu is already loaded, because it is
+  * Loads the craype module, even though PrgEnv-gnu is already loaded, because it is
     part of the dependencies
   * Loads the dependencies in the order specified except for those three modules that
     have already been loaded.
   * Loads the cpe/21.04 module
+  * Adds a line at the end of the module file (for implementing a hierarchy)
 
 
 More information
@@ -26,7 +27,7 @@ More information
 
 whatis([==[Desription: EasyBuild toolchain using the Cray compiler wrapper with gcc module (CPE release 21.04)]==])
 
-local root = "/run/user/27155/EBtesting/software/cpeGNU/21.04-CSCS"
+local root = "/users/klust/appltest/design_0.4/SW/LUMI-21.04/L/EB/cpeGNU/21.04-CSCS"
 
 conflict("cpeGNU")
 
@@ -34,6 +35,11 @@ unload("PrgEnv-aocc")
 unload("PrgEnv-cray")
 unload("PrgEnv-intel")
 unload("PrgEnv-pgi")
+
+unload("cpeAMD")
+unload("cpeCray")
+unload("cpeIntel")
+unload("cpeNVIDIA")
 
 if not ( isloaded("PrgEnv-gnu") ) then
     load("PrgEnv-gnu")

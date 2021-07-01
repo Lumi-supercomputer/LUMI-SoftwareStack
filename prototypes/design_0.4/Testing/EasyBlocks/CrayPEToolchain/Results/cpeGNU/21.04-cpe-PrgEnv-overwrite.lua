@@ -7,9 +7,13 @@ the gcc compiler activated. The components loaded are those of the Cray Programm
 Environment (CPE) version 21.04.
 
 The result of this example is a modulefile which:
-  * Unloads all PrgEnv modules except PrgEnv-gnu and all cpe* modules except cpeGNU
-  * Loads the PrgEnv-gnu/8.0.0 module
-  * Loads the targeting modules craype-x86-rome, craype-accel-host and craype-network-ofi
+  * Declares itself a member of the cpeToolchain family
+    (but doesn't do any explicit unloads)
+  * Loads the cpe/21.04 module
+  * Loads the PRgEnv-gnu module
+  * Loads the targeting modules craype-x86-rome, craype-accel-host and craype-network-ofi,
+    which may trigger the reload of already loaded modules if it replaces a different target
+    module.
   * Loads the gcc/9.3.0 module, even though PrgEnv-gnu is already loaded, because it is
     part of the dependencies
   * Loads the craype/2.7.6 module, even though PrgEnv-gnu is already loaded, because it is
@@ -22,7 +26,6 @@ The result of this example is a modulefile which:
       * perftools-base/21.02.0
       * xpmem
     The cpe line is simply ignored but no warning is printed
-  * Loads the cpe/21.04 module
 
 
 More information
@@ -32,19 +35,15 @@ More information
 
 whatis([==[Desription: EasyBuild toolchain using the Cray compiler wrapper with gcc module (CPE release 21.04)]==])
 
-local root = "/users/klust/appltest/design_0.4/SW/LUMI-21.04/L/EB/cpeGNU/21.04-hardcodedVersions"
+local root = "/users/klust/appltest/design_0.4/SW/LUMI-21.04/L/EB/cpeGNU/21.04-cpe-PrgEnv-overwrite"
 
 conflict("cpeGNU")
 
-unload("PrgEnv-aocc")
-unload("PrgEnv-cray")
-unload("PrgEnv-intel")
-unload("PrgEnv-pgi")
+family('cpeToolchain')
 
-unload("cpeAMD")
-unload("cpeCray")
-unload("cpeIntel")
-unload("cpeNVIDIA")
+if not ( isloaded("cpe/21.04") ) then
+    load("cpe/21.04")
+end
 
 if not ( isloaded("PrgEnv-gnu/8.0.0") ) then
     load("PrgEnv-gnu/8.0.0")
@@ -90,12 +89,8 @@ if not ( isloaded("xpmem") ) then
     load("xpmem")
 end
 
-if not ( isloaded("cpe/21.04") ) then
-    load("cpe/21.04")
-end
-
 setenv("EBROOTCPEGNU", root)
 setenv("EBVERSIONCPEGNU", "21.04")
-setenv("EBDEVELCPEGNU", pathJoin(root, "easybuild/cpeGNU-21.04-hardcodedVersions-easybuild-devel"))
+setenv("EBDEVELCPEGNU", pathJoin(root, "easybuild/cpeGNU-21.04-cpe-PrgEnv-overwrite-easybuild-devel"))
 
 -- Built with EasyBuild version 4.4.0
