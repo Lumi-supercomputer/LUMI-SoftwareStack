@@ -17,12 +17,12 @@ the gcc compiler activated. The components loaded are those of the Cray Programm
 Environment (CPE) version %(version)s.
 
 The result of this example is a modulefile which:
-  * Unloads all PrgEnv modules except PrgEnv-gnu
+  * Unloads all PrgEnv modules except PrgEnv-gnu and all cpe* modules except cpeGNU
   * Loads the PrgEnv-gnu/8.0.0 module
-  * Loads the targeting modules craype-x86-, craype-accel-host and craype-network-ofi
+  * Loads the targeting modules craype-x86-rome, craype-accel-host and craype-network-ofi
   * Loads the gcc/9.3.0 module, even though PrgEnv-gnu is already loaded, because it is
     part of the dependencies
-  * Loads the craype/2.7.6 module, even though PRgEnv-gnu is already loaded, because it is
+  * Loads the craype/2.7.6 module, even though PrgEnv-gnu is already loaded, because it is
     part of the dependencies
   * Loads the dependencies in the order specified except for those three modules that
     have already been loaded:
@@ -37,6 +37,8 @@ The result of this example is a modulefile which:
 """
 
 toolchain = SYSTEM
+
+CPE_load = 'last'
 
 cray_targets = [
     'craype-x86-rome',

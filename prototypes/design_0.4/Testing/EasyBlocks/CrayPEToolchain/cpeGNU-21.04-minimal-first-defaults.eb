@@ -17,7 +17,7 @@ the gcc compiler activated. The components loaded are those of the Cray Programm
 Environment (CPE) version %(version)s.
 
 Expected outcome: a LUA module that
-  * unloads the other PrgEnv-* modules
+  * Unloads the other PrgEnv-* and cpe* modules
   * Loads cpe/21.04
   * Loads PrgEnv-gnu
 
@@ -26,7 +26,5 @@ LMOD_MODULERCFILE.
 """
 
 toolchain = SYSTEM
-
-CPE_load = 'first'
 
 moduleclass = 'toolchain'

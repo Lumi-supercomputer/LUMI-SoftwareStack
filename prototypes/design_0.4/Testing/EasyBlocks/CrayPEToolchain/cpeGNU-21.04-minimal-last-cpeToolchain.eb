@@ -3,7 +3,7 @@ easyblock = 'CrayPEToolchain'
 
 name = 'cpeGNU'
 version = "21.04"
-versionsuffix = '-minimal-first-fullpar'
+versionsuffix = '-minimal-last-cpeToolchain'
 
 homepage = 'https://pubs.cray.com'
 
@@ -17,25 +17,17 @@ the gcc compiler activated. The components loaded are those of the Cray Programm
 Environment (CPE) version %(version)s.
 
 Expected outcome: a LUA module that
-  * Unloads the other cpe* and the other PrgEnv-* modules
-  * Loads cpe/21.04
+  * Declares itself a member of the cpeToolchain family
   * Loads PrgEnv-gnu
+  * Loads cpe/21.04
 
-This module will only work correctly once LMOD immediately honours changes to
-LMOD_MODULERCFILE.
+This module will only work correctly once the ordering problem in the cpe module that
+exists in version 21.04 is solved.
 """
 
 toolchain = SYSTEM
 
-PrgEnv = 'gnu'
-PrgEnv_load = True
-PrgEnv_family = None
-CPE_compiler = None  # Let it determine from the module name.
-CPE_version = version
-CPE_load = 'first'
-
-cray_targets = []
-
-dependencies = []
+PrgEnv_family = 'cpeToolchain'
+CPE_load = 'last'
 
 moduleclass = 'toolchain'
