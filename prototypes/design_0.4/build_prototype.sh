@@ -34,9 +34,11 @@ case $system in
         default_stack='21.G.04'
     ;;
 	CSCS)
-        demo_stacks=( '21.D.02.dev' '21.D.03.dev' )
-        EB_stacks=( '21.04' )
+        #demo_stacks=( '21.D.02.dev' '21.D.03.dev' )
+        demo_stacks=()
+        EB_stacks=( '21.04' '21.05' )
         EB_version['21.04']='4.4.0'
+        EB_version['21.05']='4.4.0'
         default_stack='21.04'
 	;;
 esac
@@ -122,8 +124,10 @@ done
 ################################################################################
 ################################################################################
 
-$sourceroot/build_demo_modules.sh "$testroot" "$repo" ${demo_stacks[@]}
-
+if [ ${#demo_stacks[@]} -ge 2 ]
+then
+	$sourceroot/build_demo_modules.sh "$testroot" "$repo" ${demo_stacks[@]}
+fi
 
 ################################################################################
 ################################################################################
