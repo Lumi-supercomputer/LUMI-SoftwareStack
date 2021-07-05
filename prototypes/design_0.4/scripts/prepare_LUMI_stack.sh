@@ -395,7 +395,6 @@ do
 	for partition in ${extended_partitions[@]}
 	do
 
-        echo "Yummy $cpe-$CPEversion in $partition"
         module load "partition/$partition"
 
         eb "$cpe/$cpe-$CPEversion.eb" -f
