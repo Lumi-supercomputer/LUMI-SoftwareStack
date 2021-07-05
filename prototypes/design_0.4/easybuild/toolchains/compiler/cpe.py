@@ -100,7 +100,7 @@ class cpeCompiler(Compiler):
         self.COMPILER_FLAGS.extend(['dynamic', 'mpich-mt'])
 
         # use name of PrgEnv module as name of module that provides compiler
-        self.COMPILER_MODULE_NAME = ['PrgEnv-%s' % self.PRGENV_MODULE_NAME_SUFFIX]
+        self.COMPILER_MODULE_NAME = ['cpe%s' % self.CPE_MODULE_NAME_SUFFIX]
 
         # copy unique option map, since we fiddle with it later
         self.COMPILER_UNIQUE_OPTION_MAP = copy.deepcopy(self.COMPILER_UNIQUE_OPTION_MAP)
@@ -133,6 +133,7 @@ class cpeCompiler(Compiler):
 class cpeAOCC(cpeCompiler):
     """Support for using the Cray AOCC compiler wrappers."""
     PRGENV_MODULE_NAME_SUFFIX = 'aocc'  # PrgEnv-aocc
+    CPE_MODULE_NAME_SUFFIX =    'AMD'   # cpeAMD
     COMPILER_FAMILY = TC_CONSTANT_AOCC
 
     def __init__(self, *args, **kwargs):
@@ -145,6 +146,7 @@ class cpeAOCC(cpeCompiler):
 class cpeCCE(cpeCompiler):
     """Support for using the Cray CCE compiler wrappers."""
     PRGENV_MODULE_NAME_SUFFIX = 'cray'  # PrgEnv-cray
+    CPE_MODULE_NAME_SUFFIX =    'Cray'  # cpeCray
     COMPILER_FAMILY = TC_CONSTANT_CCE
 
     def __init__(self, *args, **kwargs):
@@ -158,6 +160,7 @@ class cpeCCE(cpeCompiler):
 class cpeGCC(cpeCompiler):
     """Support for using the Cray GNU compiler wrappers."""
     PRGENV_MODULE_NAME_SUFFIX = 'gnu'  # PrgEnv-gnu
+    CPE_MODULE_NAME_SUFFIX =    'GNU'  # cpeGNU
     COMPILER_FAMILY = TC_CONSTANT_GCC
 
     def __init__(self, *args, **kwargs):
@@ -170,6 +173,7 @@ class cpeGCC(cpeCompiler):
 class cpeICC(cpeCompiler):
     """Support for using the Cray Intel compiler wrappers."""
     PRGENV_MODULE_NAME_SUFFIX = 'intel'  # PrgEnv-intel
+    CPE_MODULE_NAME_SUFFIX =    'Intel'  # cpeIntel
     COMPILER_FAMILY = TC_CONSTANT_INTELCOMP
 
     def __init__(self, *args, **kwargs):
