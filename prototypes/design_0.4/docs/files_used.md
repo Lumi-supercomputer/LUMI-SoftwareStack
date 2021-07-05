@@ -172,6 +172,22 @@ as in the main EasyBlock repository.
 EasyConfig repository for LUMI.
 
 
+## easybuild/hooks subdirectoruy
+
+This directory contains the custom hooks for EasyBuild on LUMI.
+
+The file names end on the first version of the software stack that they support. As
+such we can drop old code from hooks while still being able to regenerate old configirations.
+
+TODO: The EasyBuild-* modules do not yet contain the necessary code to load the right
+version of the hooks.
+
+
+## easybuild/toolchains subdirectoruy
+
+This directory contains the custom Cray toolchain code for EasyBuild.
+
+
 ## easybuild/tools subdirectory
 
 TODO. Various customizations to the EasyBuild framework.
@@ -183,6 +199,13 @@ TODO. Various customizations to the EasyBuild framework.
     Note that the [``EasyBuild-config``](../modules/EasyBuild-config) generic module
     also sets the environment variable ``EASYBUILD_SUFFIX_MODULES_PATH`` to the empty
     string to omit the ``all`` level in the EasyBuild modules directory structure.
+
+
+## The scripts and scripts/lumitools subdirectories
+
+The scripts subdirectory contains a number of shell scripts to initialise a new installation,
+new software stack in the installation, or various substeps of this. Several of those
+scripts are just wrapper scripts that call a Python routine to do the work.
 
 
 ## Note: Files and directories referred to from outside the LUMI software structure

@@ -32,6 +32,21 @@ TODO to finish this prototype:
     of the toolchain everywhere. But it also means we cannot change it back to
     21.04 but need to re-install then.
 
+  * Implementation of the custom toolchains:
+
+      * Ensure that OPTARCH can be specified for multiple compilers
+
+      * Add support for multiple targeting modules for the CPE toolchains, so that
+        we can specify both CPU and accelerator.
+
+  * Implementation of hookds:
+
+      * Should hooks also be enabled for EasyBuild-user?
+
+      * Versioning of the hooks file: Automatically select the right file with hooks
+        as that may be a more scalable approach than keep adding tests to the EasyBuild
+        module.
+
 
 Changes compared to design 0.3:
 
@@ -107,6 +122,8 @@ Changes compared to design 0.3:
         as we want each variant of the module to be shown only once, and as we
         want reloads to work properly when switching partitions.
 
+      * There is support for centrally installed custom toolchains and hooks.
+
   * We do support multiple stacks with EasyBuild installations to also be able to test
     this aspect of the LUMI setup.
 
@@ -143,6 +160,23 @@ Changes compared to design 0.3:
     but as part of the problem comes from LMOD we could not work around it completely.
     Hopefully this will only be a temporary solution and we can work around the problems
     with Cray and the LMOD developer.
+
+  * Implementation of the cpe toolchains in EasyBuild:
+
+      * A script that generates the EasyConfigs (``make_CPE_EBfile.sh`` and
+        ``lumitools/gen_CPE_EBfile.py`)
+
+      * There is a hook that will fill in empty cray_targets (developed due to a problem
+        in EasyBuild) but once that problem got solved we reverted to the approach
+        of using os.environ in the EasyConfig and put the logic there. The hook is
+        left in for now as a means of testing the hook functionality.
+
+      * The toolchains itself are for now the standard CSCS toolchains.
+
+      * Made a custom EasyBlock, CrayPEToolchain, to generate the modulefiles for the
+        toolchains. It results in far cleaner EasyConfigs and has much wider applicability
+        than just LUMI.
+
 
 
 
