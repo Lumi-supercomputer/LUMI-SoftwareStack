@@ -162,7 +162,7 @@ def gen_CPE_EBfile( CPEmodule, PEversion, CPEpackages_dir, EBfile_dir ):
     dependency_list.append( generate_dependency( compilermodule,   compilerpackage, package_versions ) )
     dependency_list.append( generate_dependency( 'craype',         'craype',        package_versions ) )
     dependency_list.append( generate_dependency( 'cray-mpich',     'MPICH',         package_versions ) )
-    dependency_list.append( generate_dependency( 'cray_libsci',    'LibSci',        package_versions ) )
+    dependency_list.append( generate_dependency( 'cray-libsci',    'LibSci',        package_versions ) )
     dependency_list.append( generate_dependency( 'cray-dsmml',     'DSMML',         package_versions ) )
     dependency_list.append( generate_dependency( 'perftools-base', 'perftools',     package_versions ) )
     dependency_list.append( generate_dependency( 'xpmem',          'NONE',          package_versions ) )
