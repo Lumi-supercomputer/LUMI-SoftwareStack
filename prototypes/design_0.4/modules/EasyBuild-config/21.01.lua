@@ -131,6 +131,7 @@ local CPE_version =stack_version:gsub( '.dev', '' )  -- Drop .dev from the stack
 local system_configdir =           pathJoin( EB_SystemRepo_prefix, 'config' )
 local system_easyconfigdir =       pathJoin( EB_SystemRepo_prefix, 'easyconfigs' )
 local system_easyblockdir =        pathJoin( EB_SystemRepo_prefix, 'easyblocks' )
+local system_toolchaindir =        pathJoin( EB_SystemRepo_prefix, 'toolchains' )
 local system_installpath =         system_prefix
 
 local user_configdir =             pathJoin( user_prefix, 'UserRepo', 'easybuild/config' )
@@ -196,6 +197,13 @@ local easyblocks = { pathJoin( system_easyblockdir, '*/*.py' ) }
 if mod_mode == 'user' then
     table.insert( easyblocks, pathJoin( user_easyblockdir, '*/*.py' ) )
 end
+
+-- - Settings for the custom toolchains
+
+local toolchains = {
+    pathJoin( system_toolchaindir, '*.py' ),
+    pathJoin( system_toolchaindir, 'compiler', '*.py' )
+}
 
 -- - Build the robot path ROBOT_PATHS
 
@@ -290,7 +298,10 @@ end
 setenv ( 'EASYBUILD_EXTERNAL_MODULES_METADATA',    system_external_modules )
 
 -- - Custom EasyBlocks
-setenv( 'EASYBUILD_INCLUDE_EASYBLOCKS',            table.concat( easyblocks, ',' )  )
+setenv( 'EASYBUILD_INCLUDE_EASYBLOCKS',            table.concat( easyblocks, ',' ) )
+
+-- - Custom toolchains
+setenv( 'EASYBUILD_INCLUDE_TOOLCHAINS',            table.concat( toolchains, ',' ) )
 
 -- - Naming scheme
 setenv( 'EASYBUILD_INCLUDE_MODULE_NAMING_SCHEMES', module_naming_scheme_dir )
