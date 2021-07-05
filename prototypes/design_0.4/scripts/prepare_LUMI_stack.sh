@@ -373,3 +373,39 @@ rm -rf easybuild
 
 popd
 
+###############################################################################
+#
+# Initialise the main toolchains
+#
+
+pushd $installroot/$repo/easybuild/easyconfigs/c
+
+extended_partitions=( 'common' 'C' 'G' 'D' 'L' )
+toolchains=( 'cpeCray' 'cpeGNU' 'cpeAMD' )
+
+module load LUMI/$stack_version
+module load EasyBuild-infrastructure/LUMI
+
+for cpe in ${toolchains[@]}
+do
+
+	mkdir -p $installroot/$repo/easybuild/easyconfigs/c/$cpe
+	[[ -f "$cpe/$cpe-$CPEversion.eb" ]] || $installroot/$repo/scripts/make_CPE_EBfile.sh "$cpe/$CPEversion"
+
+	for partition in ${extended_partitions[@]}
+	do
+
+        echo "Yummy $cpe-$CPEversion in $partition"
+        module load "partition/$partition"
+
+        eb "$cpe/$cpe-$CPEversion.eb" -f
+
+	done
+
+done
+
+popd
+
+
+
+
