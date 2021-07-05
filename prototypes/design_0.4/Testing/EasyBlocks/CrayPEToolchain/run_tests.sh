@@ -9,6 +9,7 @@ mkdir -p "$tmpdir/repo"
 export EASYBUILD_INSTALLPATH_MODULES=$tmpdir/modules
 export EASYBUILD_INSTALLPATH_SOFTWARE="$tmpdir/software"
 export EASYBUILD_REPOSITORYPATH="$tmpdir/repo"
+unset EASYBUILD_HOOKS
 
 echo -e "\n##\n##\n## EasyBuild config\n##\n##\n"
 eb --show-config
