@@ -9,10 +9,17 @@
 
 import os
 
+LUMI_SUPPORT = 'LUMI User Support @ https://lumi-supercomputer.eu/support'
+
 def parse_hook(ec, *args, **kwargs):
     """LUMI parse hooks
          - cpeCray, cpeGNU, cpeAMD, cpeIntel, cpeNVIDIA: Add correct cray_targets list.
     """
+
+    easybuild_mode = os.environ['LUMI_EASYBUILD_MODE']
+
+    if easybuild_mode == 'production' and ec['site_contacts'] == None:
+        ec['site_contacts'] = LUMI_SUPPORT
 
     if ec.name == 'cpeCray' or ec.name == 'cpeGNU' or ec.name == 'cpeAMD' or ec.name == 'cpeIntel' or ec.name == 'cpeNVIDIA':
         # Fill in cray_targets if it is left empty.
