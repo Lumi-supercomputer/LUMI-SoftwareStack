@@ -132,6 +132,7 @@ local system_configdir =           pathJoin( EB_SystemRepo_prefix, 'config' )
 local system_easyconfigdir =       pathJoin( EB_SystemRepo_prefix, 'easyconfigs' )
 local system_easyblockdir =        pathJoin( EB_SystemRepo_prefix, 'easyblocks' )
 local system_toolchaindir =        pathJoin( EB_SystemRepo_prefix, 'toolchains' )
+local system_hookdir =             pathJoin( EB_SystemRepo_prefix, 'hooks' )
 local system_installpath =         system_prefix
 
 local user_configdir =             pathJoin( user_prefix, 'UserRepo', 'easybuild/config' )
@@ -204,6 +205,10 @@ local toolchains = {
     pathJoin( system_toolchaindir, '*.py' ),
     pathJoin( system_toolchaindir, 'compiler', '*.py' )
 }
+
+-- - Settings for the hooks
+
+local hooks = pathJoin( system_hookdir, 'LUMI_site_hooks-21.04.py' )
 
 -- - Build the robot path ROBOT_PATHS
 
@@ -302,6 +307,9 @@ setenv( 'EASYBUILD_INCLUDE_EASYBLOCKS',            table.concat( easyblocks, ','
 
 -- - Custom toolchains
 setenv( 'EASYBUILD_INCLUDE_TOOLCHAINS',            table.concat( toolchains, ',' ) )
+
+-- - Hooks
+setenv( 'EASYBUILD_HOOKS',                         hooks )
 
 -- - Naming scheme
 setenv( 'EASYBUILD_INCLUDE_MODULE_NAMING_SCHEMES', module_naming_scheme_dir )
