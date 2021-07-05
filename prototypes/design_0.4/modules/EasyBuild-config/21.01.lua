@@ -326,6 +326,9 @@ setenv( 'EB_PYTHON', 'python3' )
 -- Set optarch.
 setenv( 'EASYBUILD_OPTARCH', optarch[partition_name] )
 
+-- Set LUMI_EASYBUILD_MODE to be used in hooks to only execute certain hooks in production mode.
+setenv( 'LUMI_EASYBUILD_MODE', myModuleName():gsub( 'EasyBuild%-', '' ) )
+
 
 -- -----------------------------------------------------------------------------
 --
