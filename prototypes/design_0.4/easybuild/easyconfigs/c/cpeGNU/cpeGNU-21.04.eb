@@ -1,26 +1,26 @@
 
 easyblock = 'CrayPEToolchain'
 
-name =    'cpeAMD'
+name =    'cpeGNU'
 version = "21.04"
 
 homepage = 'https://pubs.cray.com'
 
 whatis = [
-    "Desription: EasyBuild toolchain using the Cray compiler wrapper with aocc module (CPE release 21.04)"
+    "Desription: EasyBuild toolchain using the Cray compiler wrapper with gcc module (CPE release 21.04)"
 ]
 
 description = """
 This module is the EasyBuild toolchain that uses the Cray compiler wrapper with
-the aocc compiler activated. The components loaded are those of the Cray Programming
+the gcc compiler activated. The components loaded are those of the Cray Programming
 Environment (CPE) version 21.04.
 
-The module has the same effect as loading PrgEnv-aocc and cpe/21.04 should have, but
-does not use either of those modules. The use of PrgEnv-aocc is avoided since the
+The module has the same effect as loading PrgEnv-gnu and cpe/21.04 should have, but
+does not use either of those modules. The use of PrgEnv-gnu is avoided since the
 modules that it loads may change over time, reducing reproducibility, while loading
 cpe/21.04 is avoided as this module is buggy and conflicts with the way the LUMI
 software stack currently works. Instead, the module declares itself a member of
-the PrgEnv family and sets an PE_ENV which would otherwise be set by PrgEnv-aocc,
+the PrgEnv family and sets an PE_ENV which would otherwise be set by PrgEnv-gnu,
 ensuring that the Cray PE will work as if those modules are loaded.
 """
 
@@ -59,7 +59,7 @@ elif local_partition == 'D':
     ]
 
 dependencies = [
-    ('aocc/2.2.0.1', EXTERNAL_MODULE),
+    ('gcc/9.3.0', EXTERNAL_MODULE),
     ('craype/2.7.6', EXTERNAL_MODULE),
     ('cray-mpich/8.1.4', EXTERNAL_MODULE),
     ('cray_libsci/21.04.1.1', EXTERNAL_MODULE),

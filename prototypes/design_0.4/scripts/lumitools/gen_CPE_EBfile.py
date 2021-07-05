@@ -65,7 +65,7 @@ PrgEnv_load   = False
 PrgEnv_family = 'PrgEnv'
 CPE_load      = None
 
-import os as local_os
+import os
 local_partition = os.getenv('LUMI_STACK_PARTITION')
 
 if local_partition == 'common' or local_partition == 'L':
@@ -89,7 +89,7 @@ elif local_partition == 'G':
 elif local_partition == 'D':
     cray_targets = [
         'craype-x86-rome',
-        'craype-accel-nvidia80',
+        'craype-accel-host',
         'craype-network-ofi'
     ]
 

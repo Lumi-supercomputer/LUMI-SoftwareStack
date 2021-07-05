@@ -1,41 +1,71 @@
-# Compiler toolchain for Cray EX Programming Environment Cray compiler (cpe-cray)
+
 easyblock = 'CrayPEToolchain'
 
-name = 'cpeCray'
+name =    'cpeCray'
 version = "21.04"
 
 homepage = 'https://pubs.cray.com'
 
 whatis = [
-    "Desription: EasyBuild toolchain using the Cray compiler wrapper with cce module (CPE release %(version)s)"
+    "Desription: EasyBuild toolchain using the Cray compiler wrapper with cce module (CPE release 21.04)"
 ]
 
 description = """
 This module is the EasyBuild toolchain that uses the Cray compiler wrapper with
 the cce compiler activated. The components loaded are those of the Cray Programming
-Environment (CPE) version %(version)s.
+Environment (CPE) version 21.04.
 
-The toolchain works mostly the way a regular user would work with the CPE and will load
-the PrgEnv-gnu module, targetting modules, cce compiler module and ensure that some
-other necessary modules are also loaded, then also loads the cpe/%(version)s to fix the
-versions.
-
+The module has the same effect as loading PrgEnv-cray and cpe/21.04 should have, but
+does not use either of those modules. The use of PrgEnv-cray is avoided since the
+modules that it loads may change over time, reducing reproducibility, while loading
+cpe/21.04 is avoided as this module is buggy and conflicts with the way the LUMI
+software stack currently works. Instead, the module declares itself a member of
+the PrgEnv family and sets an PE_ENV which would otherwise be set by PrgEnv-cray,
+ensuring that the Cray PE will work as if those modules are loaded.
 """
 
 toolchain = SYSTEM
 
-cray_targets = [
-    'craype-x86-rome',
-    'craype-accel-host',
-    'craype-network-ofi'
-]
+PrgEnv_load   = False
+PrgEnv_family = 'PrgEnv'
+CPE_load      = None
+
+import os
+local_partition = os.getenv('LUMI_STACK_PARTITION')
+
+if local_partition == 'common' or local_partition == 'L':
+    cray_targets = [
+        'craype-x86-rome',
+        'craype-accel-host',
+        'craype-network-ofi'
+    ]
+elif local_partition == 'C':
+    cray_targets = [
+        'craype-x86-milan',
+        'craype-accel-host',
+        'craype-network-ofi'
+    ]
+elif local_partition == 'G':
+    cray_targets = [
+        'craype-x86-milan',
+        'craype-accel-amd-gfx908',
+        'craype-network-ofi'
+    ]
+elif local_partition == 'D':
+    cray_targets = [
+        'craype-x86-rome',
+        'craype-accel-host',
+        'craype-network-ofi'
+    ]
 
 dependencies = [
-   ('cray-mpich',     EXTERNAL_MODULE),
-   ('cray-libsci',    EXTERNAL_MODULE),
-   ('cray-dsmml',     EXTERNAL_MODULE),
-   ('perftools-base', EXTERNAL_MODULE),
-   ('xpmem',          EXTERNAL_MODULE),
+    ('cce/11.0.4', EXTERNAL_MODULE),
+    ('craype/2.7.6', EXTERNAL_MODULE),
+    ('cray-mpich/8.1.4', EXTERNAL_MODULE),
+    ('cray_libsci/21.04.1.1', EXTERNAL_MODULE),
+    ('cray-dsmml/0.1.4', EXTERNAL_MODULE),
+    ('perftools-base/21.02.0', EXTERNAL_MODULE),
+    ('xpmem', EXTERNAL_MODULE),
 ]
 
 moduleclass = 'toolchain'
