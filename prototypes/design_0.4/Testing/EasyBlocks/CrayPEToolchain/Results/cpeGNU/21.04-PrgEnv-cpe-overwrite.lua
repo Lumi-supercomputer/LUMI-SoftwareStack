@@ -32,7 +32,7 @@ More information
 
 whatis([==[Desription: EasyBuild toolchain using the Cray compiler wrapper with gcc module (CPE release 21.04)]==])
 
-local root = "/run/user/27155/EBtesting/software/cpeGNU/21.04-hardcodedVersions"
+local root = "/run/user/27155/EBtesting/software/cpeGNU/21.04-PrgEnv-cpe-overwrite"
 
 conflict("cpeGNU")
 
@@ -48,6 +48,10 @@ unload("cpeNVIDIA")
 
 if not ( isloaded("PrgEnv-gnu/8.0.0") ) then
     load("PrgEnv-gnu/8.0.0")
+end
+
+if not ( isloaded("cpe/21.04") ) then
+    load("cpe/21.04")
 end
 
 if not ( isloaded("craype-x86-rome") ) then
@@ -90,12 +94,8 @@ if not ( isloaded("xpmem") ) then
     load("xpmem")
 end
 
-if not ( isloaded("cpe/21.04") ) then
-    load("cpe/21.04")
-end
-
 setenv("EBROOTCPEGNU", root)
 setenv("EBVERSIONCPEGNU", "21.04")
-setenv("EBDEVELCPEGNU", pathJoin(root, "easybuild/cpeGNU-21.04-hardcodedVersions-easybuild-devel"))
+setenv("EBDEVELCPEGNU", pathJoin(root, "easybuild/cpeGNU-21.04-PrgEnv-cpe-overwrite-easybuild-devel"))
 
 -- Built with EasyBuild version 4.4.1

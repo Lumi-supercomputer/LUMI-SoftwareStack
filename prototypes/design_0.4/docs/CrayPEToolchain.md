@@ -1,5 +1,14 @@
 # The CrayPEToolchain EasyBlock and cpeCray/cpeGNU/cpeAMD modules
 
+TODO: Scenarios for cpe* modules:
+
+* Cray way module load cpe/* PrgEnv-* and then correct
+* Cray way reversed module load PrgEnv-* cpe/* and then correct
+* Mimic PrgEnv-* but do load cpe/*.
+    * First: Use set versions for all modules to avoid the problems of the cpe module
+    * Last: Makes sense when loading versionless modules and relying on cpe to correct
+      (which does not work in 21.06)
+
 ## Introduction
 
 Our CrayPEToolchain EasyBlock allows for many different scenarios to generate the
@@ -88,8 +97,8 @@ The ``CrayPEToolchain`` EasyBlock supports the following parameters:
           * ``PrgEnv = 'gnu'`` for ``cpeGNU``
           * ``PrgEnv = 'aocc'`` for ``cpeAMD``
           * ``PrgEnv = 'intel'`` for ``cpeIntel``
-          * ``PrgEnv = 'pgi'`` for ``cpeNVIDIA`` (not tested as we have no access to
-            a machine with this environment)
+          * ``PrgEnv = 'nvidia'`` for ``cpeNVIDIA`` (not tested as we have no access to
+            a machine with a fully working version of this environment)
       * It is also possible to specify any of these values, or even a different value for a
         ``PrgEnv-*`` module that is not yet recognized by the EasyBlock.
 
@@ -170,6 +179,14 @@ The ``CrayPEToolchain`` EasyBlock supports the following parameters:
       * ``first`` (default): Load as the very first module. This does not make sense until the LMOD
         problems with ``LMOD_MODULERCFILE`` are fixed.
 
+      * ``after``: Load immediately after loading ``PrgEnv-*`` but before loading any
+        other module. This does not make too much sense until the LMOD problems with
+        ``LMOD_MODULERCFILE`` are fixed, but it could be a way to first load modules
+        the Cray way and then correct by manually loading correct versions via the
+        ``cray_targets`` and ``dependencies`` parameters.
+
+        This value will produce an error message when ``PrgEnv_load`` is set to ``False``.
+
       * ``last``: Load as the last module. Currently this does not make sense until
         the problems with the ``cpe`` module are fully fixed, and on LUMI, until the problem
         with overwriting ``LMOD_MODIULERCFILE`` is fixed.
@@ -198,7 +215,7 @@ The ``CrayPEToolchain`` EasyBlock supports the following parameters:
 
  3. The targeting modules specified by ``cray_targets``. Hence they can overwrite the
     targets set by the ``PrgEnv-*`` module which may be usefull on a heterogeneous
-    system should there only be a single configuration for the ``PRgEnv-*`` modules
+    system should there only be a single configuration for the ``PrgEnv-*`` modules
     for all hardware partitions in the system, or to build a ``cpe*`` module for cross-compiling.
 
     Note that changes to the targeting modules may trigger reloads of other modules
@@ -231,6 +248,7 @@ The ``CrayPEToolchain`` EasyBlock supports the following parameters:
 
 ### Non-working: Load cpe and PrgEnv-gnu
 
+This is the default configuration for this EasyBlock.
 A minimal EasyConfig (omitting some mandatory parts such the ``homepage`` and ``description``
 parameters) is
 
@@ -247,8 +265,8 @@ moduleclass = 'toolchain'
 ```
 This generates a module file that activates the toolchain by only loading the
 ``cpe/21.04`` and ``PrgEnv-gnu``-modules (in that order). Unfortunately, this scheme
-does not work with LMOD 8.3.x as is part of the Cray PE stack when the 21.04 release
-was made, nor with version from the 8.4 and 8.5 branches, as LMOD_MODULERCFILE is only
+does not work with LMOD 8.3.x as is part of the Cray PE stack when the 21.04-21.06 releases
+were made, nor with version from the 8.4 and 8.5 branches, as LMOD_MODULERCFILE is only
 honoured at the next ``module`` call. If the effect of ``LMOD_MODULERCFILE`` would
 be immediate, this would probably be the most efficient way of activating a particular
 release of a particular PrgEnv. The module does not belong to any family. Instead it
@@ -256,10 +274,8 @@ explicitly unloads other ``cpe*`` modules.
 
 ### Non-working: Load PrgEnv-gnu and then cpe
 
-This is actually the most minimal EasyConfig that can be build with this EasyBlock
-as it is the default configuration (though it would make sense to change the default
-configuration to the previous example should the necessary modification to LMOD be
-made).
+Now we first load a ``PrgEnv-*`` module and only subsequently the ``cpe/yy.mm`` module
+that fixes versions for the modules.
 ```python
 easyblock = 'CrayPEToolchain'
 
@@ -269,7 +285,7 @@ version = "21.04"
 toolchain = SYSTEM
 
 PrgEnv_family = 'cpeToolchain'
-CPE_load = 'last'
+CPE_load = 'after'
 
 moduleclass = 'toolchain'
 
@@ -336,7 +352,9 @@ it is a full replacement of the Cray ``PrgEnv-gnu`` module.
 
 A compromise solution that will work around the problems with LMOD and the ``cpe``
 modules yet retain much of the spirit of the Cray PE, and that also can correct the
-targeting modules should the ``PrgEnv-*`` module not take the ones that you want, is
+targeting modules should the ``PrgEnv-*`` module not take the ones that you want
+(or ensure that at least certain other modules are loaded, even if they would be
+removed from the list of modules loaded by ``PrgEnv-gnu`` in an update of the system), is
 the following setup:
 ```python
 easyblock = 'CrayPEToolchain'
@@ -388,4 +406,6 @@ the ``cpe`` and ``PrgEnv-gnu`` modules, yet works around some problems, namely:
     In this case, you can always be sure that at least the modules mentioned in the
     dependency list and ``cray_targets`` parameter will be loaded.
 
-
+A variant of this would set ``CPE_load = 'after'`` which would load the ``cpe/21.04``
+module immediately after loading ``PrgEnv-gnu`` rather than just before, but with the
+current flaws of the ``cpe/21.04`` module this still does not solve all problems.

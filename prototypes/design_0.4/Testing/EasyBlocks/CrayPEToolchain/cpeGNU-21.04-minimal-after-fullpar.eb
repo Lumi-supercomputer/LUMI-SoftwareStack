@@ -1,0 +1,41 @@
+# Compiler toolchain for Cray EX Programming Environment GNU compiler (cpe-gnu)
+easyblock = 'CrayPEToolchain'
+
+name = 'cpeGNU'
+version = "21.04"
+versionsuffix = '-minimal-after-fullpar'
+
+homepage = 'https://pubs.cray.com'
+
+whatis = [
+    "Desription: EasyBuild toolchain using the Cray compiler wrapper with gcc module (CPE release %(version)s)"
+]
+
+description = """
+This module is the EasyBuild toolchain that uses the Cray compiler wrapper with
+the gcc compiler activated. The components loaded are those of the Cray Programming
+Environment (CPE) version %(version)s.
+
+Expected outcome: a LUA module that
+  * Unloads the other PrgEnv-* modules
+  * Loads PrgEnv-gnu
+  * Loads cpe/21.04
+
+This module will only work correctly once the ordering problem in the cpe module that
+exists in version 21.04 is solved.
+"""
+
+toolchain = SYSTEM
+
+PrgEnv = 'gnu'
+PrgEnv_load = True
+PrgEnv_family = None
+CPE_compiler = 'gcc'
+CPE_version = version
+CPE_load = 'after'
+
+cray_targets = []
+
+dependencies = []
+
+moduleclass = 'toolchain'

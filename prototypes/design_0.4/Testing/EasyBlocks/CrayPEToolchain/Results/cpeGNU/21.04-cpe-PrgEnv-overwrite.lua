@@ -35,7 +35,7 @@ More information
 
 whatis([==[Desription: EasyBuild toolchain using the Cray compiler wrapper with gcc module (CPE release 21.04)]==])
 
-local root = "/users/klust/appltest/design_0.4/SW/LUMI-21.04/L/EB/cpeGNU/21.04-cpe-PrgEnv-overwrite"
+local root = "/run/user/27155/EBtesting/software/cpeGNU/21.04-cpe-PrgEnv-overwrite"
 
 conflict("cpeGNU")
 
@@ -93,4 +93,4 @@ setenv("EBROOTCPEGNU", root)
 setenv("EBVERSIONCPEGNU", "21.04")
 setenv("EBDEVELCPEGNU", pathJoin(root, "easybuild/cpeGNU-21.04-cpe-PrgEnv-overwrite-easybuild-devel"))
 
--- Built with EasyBuild version 4.4.0
+-- Built with EasyBuild version 4.4.1

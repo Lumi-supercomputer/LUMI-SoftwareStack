@@ -38,7 +38,7 @@ from easybuild.tools.build_log import print_error, print_msg, print_warning
 import re
 
 # Supported programming environments
-KNOWN_PRGENVS = ['PrgEnv-aocc', 'PrgEnv-cray', 'PrgEnv-gnu', 'PrgEnv-intel', 'PrgEnv-pgi']
+KNOWN_PRGENVS = ['PrgEnv-aocc', 'PrgEnv-cray', 'PrgEnv-gnu', 'PrgEnv-intel', 'PrgEnv-nvidia']
 KNOWN_CPEMODS = ['cpeAMD', 'cpeCray', 'cpeGNU', 'cpeIntel', 'cpeNVIDIA']
 # Mapping from supported toolchain modules to PrgEnv-* modules
 MAP_TOOLCHAIN_PRGENV = {
@@ -46,7 +46,7 @@ MAP_TOOLCHAIN_PRGENV = {
     'cpeGNU':    'gnu',
     'cpeAMD':    'aocc',
     'cpeIntel':  'intel',
-    'cpeNVIDIA': 'pgi',
+    'cpeNVIDIA': 'nvidia',
 }
 # Mapping from supported toolchain modules to compiler modules.
 MAP_TOOLCHAIN_COMPILER = {
@@ -54,7 +54,7 @@ MAP_TOOLCHAIN_COMPILER = {
     'cpeGNU':    'gcc',
     'cpeAMD':    'aocc',
     'cpeIntel':  'intel',
-    'cpeNVIDIA': 'pgi',
+    'cpeNVIDIA': 'NVIDIA',
 }
 
 
@@ -67,11 +67,11 @@ class CrayPEToolchain(Bundle):
         """Custom easyconfig parameters for CrayPEToolchain"""
         extra_vars = {
             'PrgEnv': [None, 'PrgEnv module to load, e.g., cray to load PrgEnv-cray, or None for automatic determination', CUSTOM],
-            'PrgEnv_load': [True, 'Load the PRgEnv module (if True) or just set the corresponding environment variable (if False)', CUSTOM],
+            'PrgEnv_load': [True, 'Load the PrgEnv module (if True) or just set the corresponding environment variable (if False)', CUSTOM],
             'PrgEnv_family': [None, 'Declare to be a member of the PrgEnv family (if \'PrgEnv\), of the cpeToolchain family (if \'cpeToolchain\') or manually unload all known PrgEnv and cpe* modules (if None, needed when LMOD is not used)', CUSTOM],
             'CPE_compiler': [None, 'Versionless compiler module to load, or None for automatic determination', CUSTOM],
             'CPE_version': [None, 'Version of the CPE, if different from the version of the module', CUSTOM],
-            'CPE_load': [ 'first', 'First load the cpe module (if \'first\'), load it at the end (if \'last\'), or do not load the cpe module (if None)', CUSTOM],
+            'CPE_load': [ 'first', 'First load the cpe module (if \'first\'), after the PrgEnv module (if \'after\'), load it at the end (if \'last\'), or do not load the cpe module (if None)', CUSTOM],
             'cray_targets': [[], 'Targetting modules to load', CUSTOM],
             #'optional_example_param': [None, "Example optional custom parameter", CUSTOM],
         }
@@ -101,7 +101,11 @@ class CrayPEToolchain(Bundle):
 
         # Illegal parameter combination: PrgEnv_family True and PrgEnv_load True.
         if PrgEnv_family == 'prgenv' and self.cfg['PrgEnv_load']:
-            raise EasyBuildError('Setting PrgEnv_family to \'PrgEnv\' and PrgEnv_load to true is not a valid combination.')
+            raise EasyBuildError('Setting PrgEnv_family to \'PrgEnv\' and PrgEnv_load to True is not a valid combination.')
+
+        # Illegal parameter combination: PrgEnv_load False and CPE_load == 'after'
+        if self.cfg['CPE_load'] == 'after' and not self.cfg['PrgEnv_load']:
+            raise EasyBuildError('Setting CPE_load to \'after\' and PrgEnv_load to False is not a valid combination.')
 
         # Determine the PrgEnv module
         if self.cfg['PrgEnv'] is None:
@@ -204,6 +208,10 @@ class CrayPEToolchain(Bundle):
         # load statement for selected PrgEnv module (only when not loaded yet)
         if self.cfg['PrgEnv_load']:
             collect_statements.append(self.module_generator.load_module(prgenv_mod, recursive_unload=False).lstrip())
+
+        # Load the cpe module (if CPE_load is after)
+        if self.cfg['CPE_load'] != None and self.cfg['CPE_load'].lower() == 'after':
+            collect_statements.append(self.module_generator.load_module(cpe_mod, recursive_unload=False).lstrip())
 
         # Prepare the load statements for the targeting modules
         for dep in self.cfg['cray_targets']:

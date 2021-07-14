@@ -1,4 +1,9 @@
 #! /bin/bash
+#
+# Note: When testing on CSCS, make sure that there is already a suitable
+# network target module loaded as at the moment of testing, there was
+# none load the by PRgEnv-gnu module in time to load cray-mpich.
+#
 
 tmpdir="$XDG_RUNTIME_DIR/EBtesting"
 

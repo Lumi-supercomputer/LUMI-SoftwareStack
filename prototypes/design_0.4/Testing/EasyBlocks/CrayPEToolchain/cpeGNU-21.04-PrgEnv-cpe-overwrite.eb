@@ -1,0 +1,61 @@
+# Compiler toolchain for Cray EX Programming Environment GNU compiler (cpe-gnu)
+easyblock = 'CrayPEToolchain'
+
+name = 'cpeGNU'
+version = '21.04'
+versionsuffix = '-PrgEnv-cpe-overwrite'
+
+homepage = 'https://pubs.cray.com'
+
+whatis = [
+    "Desription: EasyBuild toolchain using the Cray compiler wrapper with gcc module (CPE release %(version)s)"
+]
+
+description = """
+This module is the EasyBuild toolchain that uses the Cray compiler wrapper with
+the gcc compiler activated. The components loaded are those of the Cray Programming
+Environment (CPE) version %(version)s.
+
+The result of this example is a modulefile which:
+  * Unloads all PrgEnv modules except PrgEnv-gnu and all cpe* modules except cpeGNU
+  * Loads the PrgEnv-gnu/8.0.0 module
+  * Loads the targeting modules craype-x86-rome, craype-accel-host and craype-network-ofi
+  * Loads the gcc/9.3.0 module, even though PrgEnv-gnu is already loaded, because it is
+    part of the dependencies
+  * Loads the craype/2.7.6 module, even though PrgEnv-gnu is already loaded, because it is
+    part of the dependencies
+  * Loads the dependencies in the order specified except for those three modules that
+    have already been loaded:
+      * cray-mpich/8.1.4
+      * cray-libsci/21.04.1.1
+      * cray-dsmml/0.1.4
+      * perftools-base/21.02.0
+      * xpmem
+    The cpe line is simply ignored but no warning is printed
+  * Loads the cpe/21.04 module
+
+"""
+
+toolchain = SYSTEM
+
+CPE_load = 'after'
+
+cray_targets = [
+    'craype-x86-rome',
+    'craype-accel-host',
+    'craype-network-ofi'
+]
+
+dependencies = [
+   ('PrgEnv-gnu/8.0.0',       EXTERNAL_MODULE),
+   ('gcc/9.3.0',              EXTERNAL_MODULE),
+   ('craype/2.7.6',           EXTERNAL_MODULE),
+   ('cray-mpich/8.1.4',       EXTERNAL_MODULE),
+   ('cray-libsci/21.04.1.1',  EXTERNAL_MODULE),
+   ('cray-dsmml/0.1.4',       EXTERNAL_MODULE),
+   ('perftools-base/21.02.0', EXTERNAL_MODULE),
+   ('xpmem',                  EXTERNAL_MODULE),
+   ('cpe/22.13',              EXTERNAL_MODULE), # Should be ignored.
+]
+
+moduleclass = 'toolchain'

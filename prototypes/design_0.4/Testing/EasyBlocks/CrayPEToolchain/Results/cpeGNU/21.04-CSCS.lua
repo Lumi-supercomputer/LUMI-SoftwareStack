@@ -27,14 +27,14 @@ More information
 
 whatis([==[Desription: EasyBuild toolchain using the Cray compiler wrapper with gcc module (CPE release 21.04)]==])
 
-local root = "/users/klust/appltest/design_0.4/SW/LUMI-21.04/L/EB/cpeGNU/21.04-CSCS"
+local root = "/run/user/27155/EBtesting/software/cpeGNU/21.04-CSCS"
 
 conflict("cpeGNU")
 
 unload("PrgEnv-aocc")
 unload("PrgEnv-cray")
 unload("PrgEnv-intel")
-unload("PrgEnv-pgi")
+unload("PrgEnv-nvidia")
 
 unload("cpeAMD")
 unload("cpeCray")
@@ -93,7 +93,7 @@ setenv("EBROOTCPEGNU", root)
 setenv("EBVERSIONCPEGNU", "21.04")
 setenv("EBDEVELCPEGNU", pathJoin(root, "easybuild/cpeGNU-21.04-CSCS-easybuild-devel"))
 
--- Built with EasyBuild version 4.4.0
+-- Built with EasyBuild version 4.4.1
 
 prepend_path("MODULEPATH",root:gsub("software","modules/all/Toolchain"))
 
