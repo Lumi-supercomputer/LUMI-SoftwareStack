@@ -302,8 +302,9 @@ done
 
 mkdir -p $installroot
 mkdir -p $installroot/sources
-mkdir -p $installroot/sources/e
-mkdir -p $installroot/sources/e/EasyBuild
+mkdir -p $installroot/sources/easybuild
+mkdir -p $installroot/sources/easybuild/e
+mkdir -p $installroot/sources/easybuild/e/EasyBuild
 EB_tardir=$installroot/sources/easybuild/e/EasyBuild
 
 pushd $EB_tardir
