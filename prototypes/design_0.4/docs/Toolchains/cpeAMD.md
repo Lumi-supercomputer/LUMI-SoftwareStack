@@ -1,20 +1,37 @@
-# cpeGNU toolchain
+# cpeAMD toolchain
+
+**TODO: The options are those from the GNU compilers instead of typical Clang options???**
+
+Note: The options are for the ``aocc.py`` file included in this repository and are
+not the same as those for the repository at CSCS.
+
+## Note about the compilers
+
+  * AOCC 2.1 is based on LLVM 9.0 release (llvm.org, 19th Sep 2019) with improved
+    Flang Fortran frond-end added with F2008 features and bug fixes.
+  * AOCC 2.2 is based on LLVM 10.0 release (llvm.org, 24th Mar 2020) with improved
+    Flang Fortran front-end added with F2008 features and bug fixes.
+  * AOCC 3.0 is based on LLVM 12 trunk (llvm.org, 22nd Oct 2020) with Flang as a Fortran front-end
+    added with F2008, Real 128 features. AOCC 3.0 also includes the support for OpenMP Debugging
+    Interface (OMPD) APIs.
+
 
 ## Available options
 
-The cpeGNU toolchain supports the [common toolchain options](toolchain_common.md),
-the additional GCC flags and some additional Cray-specific flags, two of which are
+The cpeAMD toolchain supports the [common toolchain options](toolchain_common.md),
+the additional AOCC flags and some additional Cray-specific flags, two of which are
 really just redefinitions of standard compiler flags.
 
 
-### GCC-specific flags
+### AOCC-specific flags
 
-| Option | Categorie       | What?                                     |
-|:-------|:----------------|:------------------------------------------|
-| loop   | parallelism     | Automatic loop parallellisation           |
-| f2c    | source          | Generate code compatible with f2c and f77 |
-| lto    | code generation | Enable Link Time Optimization             |
+AOCC supports a number of extensions that are similar to those of the GNU compiler.
 
+| Option                | Categorie       | What?                                               |
+|:----------------------|:----------------|:----------------------------------------------------|
+| lto                   | code generation | Enable Link Time Optimization                       |
+| loop-vectorize        | parallelism     | Explicitly enable/disable loop vectorization        |
+| basic-block-vectorize | parallelism     | Explicitly enable/disable basic block vectorization |
 
 ### cpeGNU-specific flags
 
@@ -37,12 +54,12 @@ and ``optarch`` but have otherwise the same meaning.
 
 The [common options](toolchain_common.md) translate into:
 
-| Option     | Flag                 |
-|:-----------|:---------------------|
-| noopt      | -O0                  |
-| lowopt     | -O1                  |
-| defaultopt | -O2 -ftree-vectorize |
-| opt        | -O3                  |
+| Option     | Flag                            |
+|:-----------|:--------------------------------|
+| noopt      | -O0                             |
+| lowopt     | -O1                             |
+| defaultopt | -O2 -fvectorize -fslp-vectorize |
+| opt        | -O3                             |
 
 Other optimization-related options (and see also parallelism below):
 
@@ -66,15 +83,15 @@ Other floating-point optimisation and accuracy-related flags:
 
 | Option | What?                        |
 |:-------|:-----------------------------|
-| ieee   | -mieee-fp -fno-trapping-math |
+| ieee   | Not supported in clang/flang |
 
 
 ## Common parallelism-related options
 
 | Option    | Flag                                                                       |
 |:----------|:---------------------------------------------------------------------------|
-| vectorize | False: -fno-tree-vectorize                                                 |
-|           | True: -ftree-vectorize                                                     |
+| vectorize | False: -fno-vectorize -fno-slp-vectorize                                                 |
+|           | True: -fvectorize -fslp-vectorize                                                     |
 | loop      | -ftree-switch-conversion -floop-interchange -floop-strip-mine -floop-block |
 | openmp    | -fopenmp                                                                   |
 | usempi    | No compiler flags                                                          |
@@ -86,6 +103,7 @@ Other floating-point optimisation and accuracy-related flags:
 | Option                | Flag                                                                                  |
 |:----------------------|:--------------------------------------------------------------------------------------|
 | dynamic               | No flag as this is currently the only mode supported                                  |
+| lto                   | -flto
 | 32bit                 | -m32                                                                                  |
 | debug                 | -g                                                                                    |
 | pic                   | -fPIC                                                                                 |

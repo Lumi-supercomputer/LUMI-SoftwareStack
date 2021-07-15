@@ -1,22 +1,15 @@
 # cpeGNU toolchain
 
+**NOTE: Stuff in italics has to be checked: Do these options really work?**
+
 ## Available options
 
-The cpeGNU toolchain supports the [common toolchain options](toolchain_common.md),
-the additional GCC flags and some additional Cray-specific flags, two of which are
+The cpeCray toolchain supports the [common toolchain options](toolchain_common.md),
+and some additional Cray-specific flags, two of which are
 really just redefinitions of standard compiler flags.
 
 
-### GCC-specific flags
-
-| Option | Categorie       | What?                                     |
-|:-------|:----------------|:------------------------------------------|
-| loop   | parallelism     | Automatic loop parallellisation           |
-| f2c    | source          | Generate code compatible with f2c and f77 |
-| lto    | code generation | Enable Link Time Optimization             |
-
-
-### cpeGNU-specific flags
+### cpeCray-specific flags
 
 | Option   | Categorie       | What?                                                        |
 |:---------|:----------------|:-------------------------------------------------------------|
@@ -37,48 +30,48 @@ and ``optarch`` but have otherwise the same meaning.
 
 The [common options](toolchain_common.md) translate into:
 
-| Option     | Flag                 |
-|:-----------|:---------------------|
-| noopt      | -O0                  |
-| lowopt     | -O1                  |
-| defaultopt | -O2 -ftree-vectorize |
-| opt        | -O3                  |
+| Option     | Flag |
+|:-----------|:-----|
+| noopt      | -O0  |
+| lowopt     | -O1  |
+| defaultopt | -O2  |
+| opt        | -O3  |
 
 Other optimization-related options (and see also parallelism below):
 
-| Option  | Flag           |
-|:--------|:---------------|
-| unroll  | -funroll-loops |
-| optarch | TODO           |
+| Option   | Flag       |
+|:---------|:-----------|
+| *unroll* | *-funroll* |
+| optarch  | TODO       |
 
 
 ### Floating point precision
 
-| Option      | Flag                                     |
-|:------------|:-----------------------------------------|
-| strict      | -mieee-fp -mno-recip                     |
-| precise     | -mno-recip                               |
-| defaultprec | -fno-math-errno                          |
-| loose       | -fno-math-errno -mrecip -mno-ieee-fp     |
-| veryloose   | -fno-math-errno -mrecip=all -mno-ieee-fp |
+**These flags are currently not correctly honoured.**
+
+| Option        | Flag |
+|:--------------|:-----|
+| *strict *     | /    |
+| *precise*     | /    |
+| *defaultprec* | /    |
+| *loose*       | /    |
+| *veryloose*   | /    |
 
 Other floating-point optimisation and accuracy-related flags:
 
-| Option | What?                        |
-|:-------|:-----------------------------|
-| ieee   | -mieee-fp -fno-trapping-math |
+| Option   | What? |
+|:---------|:------|
+| *ieee*   | /     |
 
 
 ## Common parallelism-related options
 
-| Option    | Flag                                                                       |
-|:----------|:---------------------------------------------------------------------------|
-| vectorize | False: -fno-tree-vectorize                                                 |
-|           | True: -ftree-vectorize                                                     |
-| loop      | -ftree-switch-conversion -floop-interchange -floop-strip-mine -floop-block |
-| openmp    | -fopenmp                                                                   |
-| usempi    | No compiler flags                                                          |
-| mpich-mt  | -craympich-mt                                                              |
+| Option      | Flag              |
+|:------------|:------------------|
+| *vectorize* | /                 |
+| openmp      | -homp             |
+| usempi      | No compiler flags |
+| mpich-mt    | -craympich-mt     |
 
 
 ## Code generation and linking options
@@ -97,12 +90,11 @@ Other floating-point optimisation and accuracy-related flags:
 
 ## Source-related options
 
-| Option | Flag                |
-|:-------|:--------------------|
-| cstd   | -std=%(value)s      |
-| i8     | -fdefault-integer-8 |
-| r8     | -fdefault-real-8    |
-| f2c    | -ff2c               |
+| Option | Flag           |
+|:-------|:---------------|
+| cstd   | -std=%(value)s |
+| *i8*   | /              |
+| *r8*   | /              |
 
 
 ## Miscellaneous options

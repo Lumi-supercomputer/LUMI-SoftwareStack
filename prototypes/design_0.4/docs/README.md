@@ -1,5 +1,7 @@
 # Docs for the LUMI software stack
 
+  * [What's new?](whats_new.md)
+
   * [Some procedures](procedures.md)
   * [Setup of the module system](module_setup.md)
   * [EasyBuild setup](easybuild_setup.md)
