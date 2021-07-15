@@ -7,7 +7,7 @@
     as the GCC-based options that were in there really make no sense.
   * TODO: Implement an EasyBlock for the CCE compilers (even though we cannot fully
     test it).
-  * Several modifications to the CPE toolchain file ``cpe.py``:
+  * Several modifications to the CPE compiler file ``cpe.py``:
       * The Cray compiler wrappers provide ``-openmp`` and ``-noopenmp`` flags to
         turn OpenMP on or off, and these should work with all supported compilers.
         These were implemented to solve the problem that for the CCE compilers

@@ -36,6 +36,7 @@ Cray's LibSci (BLAS/LAPACK et al), FFT library, etc.
 
 :author: Petar Forai (IMP/IMBA, Austria)
 :author: Kenneth Hoste (Ghent University)
+:author: Kurt Lust (University of Antwerpen)
 """
 import copy
 
@@ -77,6 +78,7 @@ class cpeCompiler(Compiler):
         'dynamic': '',
         'verbose': 'craype-verbose',
         'mpich-mt': 'craympich-mt',
+        'openmp': {True: 'openmp', False: 'noopenmp'},  # Cray compiler wrapper option to ensure it works with all compilers.
     }
 
     COMPILER_CC = 'cc'
@@ -152,7 +154,6 @@ class cpeCCE(cpeCompiler):
     def __init__(self, *args, **kwargs):
         """cpeCray constructor."""
         super(cpeCCE, self).__init__(*args, **kwargs)
-        self.COMPILER_UNIQUE_OPTION_MAP['openmp'] = 'homp'
         for precflag in self.COMPILER_PREC_FLAGS:
             self.COMPILER_UNIQUE_OPTION_MAP[precflag] = []
 
