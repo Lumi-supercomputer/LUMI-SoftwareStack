@@ -10,7 +10,7 @@ really just redefinitions of standard compiler flags.
 ### GCC-specific flags
 
 | Option | Categorie       | What?                                     |
-|--------|-----------------|-------------------------------------------|
+|:-------|:----------------|:------------------------------------------|
 | loop   | parallelism     | Automatic loop parallellisation           |
 | f2c    | source          | Generate code compatible with f2c and f77 |
 | lto    | code generation | Enable Link Time Optimization             |
