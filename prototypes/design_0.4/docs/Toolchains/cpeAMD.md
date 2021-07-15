@@ -71,13 +71,30 @@ Other optimization-related options (and see also parallelism below):
 
 ### Floating point precision
 
-| Option      | Flag                                     |
-|:------------|:-----------------------------------------|
-| strict      | -mieee-fp -mno-recip                     |
-| precise     | -mno-recip                               |
-| defaultprec | -fno-math-errno                          |
-| loose       | -fno-math-errno -mrecip -mno-ieee-fp     |
-| veryloose   | -fno-math-errno -mrecip=all -mno-ieee-fp |
+The decision of our mapping is based partly on information from Cray and partly on
+looking through various manuals on Clang.
+
+  * Level ``strict``: We simply stick to ``-ffp-model=strict``. This automatically disables
+    all of the ``-ffast-math`` enablements so there is no need to add ``-fno-fast-math``.
+    Note that at this level, fused multiply adds are disabled.
+  * Level ``precise``: We stick to ``-ffp-model=precise`` and add ``-ffp-contract=fast-honor-pragmas``.
+  * Default level: Currently the same as ``strict``.
+  * Level ``loose``: Set to ``-ffp-model=fast`` but try to turn on again a few safeguards:
+    ``-ffp-contract=fast-honor-pragmas``, ``-fhonor-infinities``, ``-fhonor-nans``,
+    ``-fsigned-zeros``.
+  * Level ``veryloose``: Set to ``-ffp-model=fast``
+
+Note: Very recnet versions of clang add ``-ffp-contract=fast-honor-pragmas`` which
+may be interesting to add to ``precise``, ``defaultprec`` and ``loose`` but is not
+yet supported by AOCC 2.2.
+
+| Option      | Flag                                                           |
+|:------------|:---------------------------------------------------------------|
+| strict      | -ffp-model=strict                                              |
+| precise     | -ffp-model=precise                                             |
+| defaultprec | -ffp-model=precise                                             |
+| loose       | -ffp-model=fast -fhonor-infinities -fhonor-nans -fsigned-zeros |
+| veryloose   | -ffp-model=fast                                                |
 
 Other floating-point optimisation and accuracy-related flags:
 

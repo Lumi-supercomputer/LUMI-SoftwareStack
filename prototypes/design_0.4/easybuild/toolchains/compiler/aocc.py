@@ -27,6 +27,7 @@ Support for AOCC (AMD Optimizing C/C++ Compiler) as toolchain compiler.
 
 :author: Stijn De Weirdt (Ghent University)
 :author: Kenneth Hoste (Ghent University)
+:author: Kurt Lust (University of Antwerpen)
 """
 
 import re
@@ -48,54 +49,68 @@ class Aocc(Compiler):
 
     COMPILER_FAMILY = TC_CONSTANT_AOCC
     COMPILER_UNIQUE_OPTS = {
-        'loop': (False, "Automatic loop parallellisation"),
-        'f2c': (False, "Generate code compatible with f2c and f77"),
+        'loop-vectorize': (False, "Explicitly enable/disable loop vectorization"),
+        'basic-block-vectorize': (False, "Explicitly enable/disable basic block vectorization"),
         'lto': (False, "Enable Link Time Optimization"),
     }
     COMPILER_UNIQUE_OPTION_MAP = {
         'i8': 'fdefault-integer-8',
         'r8': 'fdefault-real-8',
-        'unroll': 'funroll-loops',
-        'f2c': 'ff2c',
-        'loop': ['ftree-switch-conversion', 'floop-interchange', 'floop-strip-mine', 'floop-block'],
         'lto': 'flto',
-        'ieee': ['mieee-fp', 'fno-trapping-math'],
-        'strict': ['mieee-fp', 'mno-recip'],
-        'precise': ['mno-recip'],
-        'defaultprec': ['fno-math-errno'],
-        'loose': ['fno-math-errno', 'mrecip', 'mno-ieee-fp'],
-        'veryloose': ['fno-math-errno', 'mrecip=all', 'mno-ieee-fp'],
-        'vectorize': {False: 'fno-tree-vectorize', True: 'ftree-vectorize'},
-        DEFAULT_OPT_LEVEL: ['O2', 'ftree-vectorize'],
+        'unroll': 'funroll-loops',
+        'loop-vectorize': {False: 'fno-vectorize', True: 'f-vectorize' },
+        'basic-block-vectorize': {False: 'no-slp-vectorize', True: 'fslp-vectorize' },
+        'vectorize': {False: ['fno-vectorize', 'no-slp-vectorize'], True: ['f-vectorize', 'fslp-vectorize'] },
+        # Clang's options do not map well onto these precision modes.  The flags enable and disable certain classes of
+        # optimizations.
+        #
+        # -fassociative-math: allow re-association of operands in series of floating-point operations, violates the
+        # ISO C and C++ language standard by possibly changing computation result.
+        # -freciprocal-math: allow optimizations to use the reciprocal of an argument rather than perform division.
+        # -fsigned-zeros: do not allow optimizations to treat the sign of a zero argument or result as insignificant.
+        # -fhonor-infinities: disallow optimizations to assume that arguments and results are not +/- Infs.
+        # -fhonor-nans: disallow optimizations to assume that arguments and results are not +/- NaNs.
+        # -ffinite-math-only: allow optimizations for floating-point arithmetic that assume that arguments and results
+        # are not NaNs or +-Infs (equivalent to -fno-honor-nans -fno-honor-infinities)
+        # -funsafe-math-optimizations: allow unsafe math optimizations (implies -fassociative-math, -fno-signed-zeros,
+        # -freciprocal-math).
+        # -ffast-math: an umbrella flag that enables all optimizations listed above, provides preprocessor macro
+        # __FAST_MATH__.
+        #
+        # Using -fno-fast-math is equivalent to disabling all individual optimizations, see
+        # http://llvm.org/viewvc/llvm-project/cfe/trunk/lib/Driver/Tools.cpp?view=markup (lines 2100 and following)
+        #
+        # 'strict', 'precise' and 'defaultprec' are all ISO C++ and IEEE complaint, but we explicitly specify details
+        # flags for strict and precise for robustness against future changes.
+        'strict': ['ffp-model=strict'],
+        'precise': ['ffp-model=precise'],
+        'defaultprec': ['ffp-model=precise'],
+        'loose': ['ffp-model=fast', 'fhonor-infinities', 'fhonor-nans', 'fsigned-zeros'],
+        'veryloose': ['ffp-model=fast', 'funsafe-math-optimizations'],
+        'ieee': '',
+        # At optimzation level -O2 or above vectorisation is turned on by default so no need to turn it on
+        # for DEFAULT_OPT_LEVEL as in the GCC compiler defintion.
     }
 
     # used when 'optarch' toolchain option is enabled (and --optarch is not specified)
     COMPILER_OPTIMAL_ARCHITECTURE_OPTION = {
-        (systemtools.AARCH32, systemtools.ARM): 'mcpu=native',
-        (systemtools.AARCH64, systemtools.ARM): 'mcpu=native',
-        (systemtools.POWER, systemtools.POWER): 'mcpu=native',
-        (systemtools.POWER, systemtools.POWER_LE): 'mcpu=native',
-        (systemtools.X86_64, systemtools.AMD): 'march=native', 
+        (systemtools.X86_64, systemtools.AMD): 'march=native',
         (systemtools.X86_64, systemtools.INTEL): 'march=native'
     }
     # used with --optarch=GENERIC
     COMPILER_GENERIC_OPTION = {
-        (systemtools.AARCH32, systemtools.ARM): 'mcpu=generic-armv7',  # implies -march=armv7 and -mtune=generic-armv7
-        (systemtools.AARCH64, systemtools.ARM): 'mcpu=generic',       # implies -march=armv8-a and -mtune=generic
-        (systemtools.POWER, systemtools.POWER): 'mcpu=powerpc64',    # no support for -march on POWER
-        (systemtools.POWER, systemtools.POWER_LE): 'mcpu=powerpc64le',    # no support for -march on POWER
         (systemtools.X86_64, systemtools.AMD): 'march=x86-64 -mtune=generic',
         (systemtools.X86_64, systemtools.INTEL): 'march=x86-64 -mtune=generic',
     }
 
     COMPILER_CC = 'clang'
-    COMPILER_CXX = 'clang'
+    COMPILER_CXX = 'clang++'
     COMPILER_C_UNIQUE_FLAGS = []
 
     COMPILER_F77 = 'flang'
     COMPILER_F90 = 'flang'
     COMPILER_FC = 'flang'
-    COMPILER_F_UNIQUE_FLAGS = ['f2c']
+    COMPILER_F_UNIQUE_FLAGS = []
 
     LIB_MULTITHREAD = ['pthread']
     LIB_MATH = ['m']
