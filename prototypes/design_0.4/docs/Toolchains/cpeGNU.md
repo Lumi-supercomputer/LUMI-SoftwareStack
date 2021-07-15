@@ -19,7 +19,7 @@ really just redefinitions of standard compiler flags.
 ### cpeGNU-specific flags
 
 | Option   | Categorie       | What?                                                        |
-|----------|-----------------|--------------------------------------------------------------|
+|:---------|:----------------|:-------------------------------------------------------------|
 | dynamic  | code generation | Generate dynamically linked executable (default: True)       |
 | mpich-mt | parallelism     | Alternate Cray-MPICH library for MT support (default: False) |
 
@@ -38,7 +38,7 @@ and ``optarch`` but have otherwise the same meaning.
 The [common options](toolchain_common.md) translate into:
 
 | Option     | Flag |
-|------------|------|
+|:-----------|:-----|
 | noopt      | -O0  |
 | lowopt     | -O1  |
 | defaultopt | -O2  |
@@ -47,7 +47,7 @@ The [common options](toolchain_common.md) translate into:
 Other optimization-related options (and see also parallelism below):
 
 | Option  | Flag           |
-|---------|----------------|
+|:--------|:---------------|
 | unroll  | -funroll-loops |
 | optarch | TODO           |
 
@@ -55,7 +55,7 @@ Other optimization-related options (and see also parallelism below):
 ### Floating point precision
 
 | Option      | Flag                                     |
-|-------------|------------------------------------------|
+|:------------|:-----------------------------------------|
 | strict      | -mieee-fp -mno-recip                     |
 | precise     | -mno-recip                               |
 | defaultprec | -fno-math-errno                          |
@@ -65,14 +65,14 @@ Other optimization-related options (and see also parallelism below):
 Other floating-point optimisation and accuracy-related flags:
 
 | Option | What?                        |
-|--------|------------------------------|
+|:-------|:-----------------------------|
 | ieee   | -mieee-fp -fno-trapping-math |
 
 
 ## Common parallelism-related options
 
 | Option    | Flag                                                                       |
-|-----------|----------------------------------------------------------------------------|
+|:----------|:---------------------------------------------------------------------------|
 | vectorize | False: -fno-tree-vectorize                                                 |
 |           | True: -ftree-vectorize                                                     |
 | loop      | -ftree-switch-conversion -floop-interchange -floop-strip-mine -floop-block |
@@ -84,7 +84,7 @@ Other floating-point optimisation and accuracy-related flags:
 ## Code generation and linking options
 
 | Option                | Flag                                                                                 |
-|-----------------------|---------------------------------------------------------------------------------------|
+|:----------------------|:--------------------------------------------------------------------------------------|
 | 32bit                 | -m32                                         |
 | debug                 | -g               |
 | pic                   | -fPIC                  |
@@ -97,7 +97,7 @@ Other floating-point optimisation and accuracy-related flags:
 ## Source-related options
 
 | Option | Flag                |
-|--------|---------------------|
+|:-------|:--------------------|
 | cstd   | -std=%(value)s      |
 | i8     | -fdefault-integer-8 |
 | r8     | -fdefault-real-8    |
@@ -107,7 +107,7 @@ Other floating-point optimisation and accuracy-related flags:
 ## Miscellaneous options
 
 | Option         | Flag            |
-|----------------|-----------------|
+|:---------------|:----------------|
 | verbose        | -craype-verbose |
 
 

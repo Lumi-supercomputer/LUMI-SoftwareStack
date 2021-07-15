@@ -9,7 +9,7 @@ over higher optimization. All have as default value ``False`` yet ``defaultopt``
 the one that will be used if nothing is specified.
 
 | Option     | What?                          |
-|------------|--------------------------------|
+|:-----------|:-------------------------------|
 | noopt      | Disable compiler optimizations |
 | lowopt     | Low compiler optimizations     |
 | defaultopt | Default compiler optimizations |
@@ -18,7 +18,7 @@ the one that will be used if nothing is specified.
 Other optimization-related options (and see also parallelism below):
 
 | Option  | What?                                              |
-|---------|----------------------------------------------------|
+|:--------|:---------------------------------------------------|
 | unroll  | Unroll loops (default: False)                      |
 | optarch | Enable architecture optimizations (default: False) |
 
@@ -30,7 +30,7 @@ but ``defaultprec`` is taken if none of the options is set to ``True``. Again, t
 first one that is set to ``True`` in the table below is used:
 
 | Option      | What?                      |
-|-------------|----------------------------|
+|:------------|:---------------------------|
 | strict      | Strict (highest) precision |
 | precise     | High precision             |
 | defaultprec | Default precision          |
@@ -40,14 +40,14 @@ first one that is set to ``True`` in the table below is used:
 Other floating-point optimisation and accuracy-related flags:
 
 | Option | What?                                     |
-|--------|-------------------------------------------|
+|:-------|:------------------------------------------|
 | ieee   | Adhere to IEEE-754 rules (default: False) |
 
 
 ## Common parallelism-related options
 
 | Option    | What?                                                                   |
-|-----------|-------------------------------------------------------------------------|
+|:----------|:------------------------------------------------------------------------|
 | vectorize | Enable compiler auto-vectorization, default except for noopt and lowopt |
 | openmp    | Enable OpenMP (default: False)                                          |
 | usempi    | Use MPI compiler as default compiler (default: False)                   |
@@ -57,7 +57,7 @@ The ``usempi`` option is only supported by toolchains that also include an MPI c
 ## Code generation and linking options
 
 | Option                | What?                                 |
-|-----------------------|---------------------------------------|
+|:----------------------|:--------------------------------------|
 | 32bit                 | Compile 32bit target (default: False) |
 | debug                 | Enable debug (default: False)         |
 | pic                   | Use PIC (default: False)              |
@@ -70,7 +70,7 @@ The ``usempi`` option is only supported by toolchains that also include an MPI c
 ## Source-related options
 
 | Option | What?                                                        |
-|--------|--------------------------------------------------------------|
+|:-------|:-------------------------------------------------------------|
 | cstd   | Specify C standard (C/C++ only - default: None)              |
 | i8     | Integers are 8 byte integers (Fortran only - default: False) |
 | r8     | Real is 8 byte real (Fortran only - default: False)          |
@@ -79,7 +79,7 @@ The ``usempi`` option is only supported by toolchains that also include an MPI c
 ## Miscellaneous options
 
 | Option         | What?                                           |
-|----------------|-------------------------------------------------|
+|:---------------|:------------------------------------------------|
 | verbose        | Verbose output (default: False)                 |
 | cciscxx        | Use CC as CXX (default: False)                  |
 | extra_cflags   | Specify extra CFLAGS options. (default: None)   |
