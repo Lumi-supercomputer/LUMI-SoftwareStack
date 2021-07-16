@@ -94,17 +94,46 @@ class cpeCCE(Compiler):
     COMPILER_FC  = 'ftn'
     COMPILER_F_UNIQUE_FLAGS = ['dynamic', 'mpich-mt']
 
+    # template for craype module (determines code generator backend of Cray compiler wrappers)
+    CRAYPE_MODULE_NAME_TEMPLATE = 'craype-%(craype_mod)s'
+
     def _set_optimal_architecture(self):
-        """Load craype module specified via 'optarch' build option."""
+        """
+        Load craype module specified via 'optarch' build option.
+
+        Several forms of optarch are recognized:
+          * --optarch=<CPE options>
+          * --optarch=CPE:<CPE options>;<other compilers>
+          * --optarch=GENERIC is recognized but unsupported as it is not clear which targets
+            are safe to chose. There doesn't seem to be an equivalent of a generic target on
+            most systems.
+
+        <CPE options> is one or more Cray targetting module names, omitting craype- from the
+        name, and separated by a +. E.g., x86-rome+accel-amd-gfx908+network-ofi. These will
+        overload those from the toolchain module.
+        """
         optarch = build_option('optarch')
-        if optarch is None:
-            raise EasyBuildError("Don't know which 'craype' module to load, 'optarch' build option is unspecified.")
-        else:
-            if self.modules_tool.exist(self.CRAYPE_MODULE_NAME, skip_avail=True)[0]:
-                self.modules_tool.load(self.CRAYPE_MODULE_NAME)
+        if optarch is not None and isinstance(optarch, dict ):
+            if TC_CONSTANT_CPE in optarch:
+                optarch = optarch[TC_CONSTANT_CPE]
             else:
-                raise EasyBuildError("Necessary craype module with name '%s' is not available (optarch: '%s')",
-                                     self.CRAYPE_MODULE_NAME[0], optarch)
+                optarch = None
+                self.log.info("_set_optimal_architecture: no optarch found for compiler %s. Ignoring option.",
+                              TC_CONSTANT_CPE)
+
+        if optarch is None:
+            self.log.info("The 'optarch' build option is unspecified so I am assuming the right targeting modules are loaded by the %s module."
+                          % self.CRAYPE_MODULE_NAME[0])
+        elif optarch == 'GENERIC':
+            raise EasyBuildError("GENERIC is not yet supported as an 'optarch'.")
+        else:
+            for craype_mod in optarch.split('+'):
+                craype_mod_name = self.CRAYPE_MODULE_NAME_TEMPLATE % {'craype_mod': craype_mod}
+                if self.modules_tool.exist([craype_mod_name], skip_avail=True)[0]:
+                    self.modules_tool.load([craype_mod_name])
+                else:
+                    raise EasyBuildError("Necessary craype module with name '%s' is not available (optarch: '%s')",
+                                         craype_mod_name, optarch)
 
         # no compiler flag when optarch toolchain option is enabled
         self.options.options_map['optarch'] = ''
