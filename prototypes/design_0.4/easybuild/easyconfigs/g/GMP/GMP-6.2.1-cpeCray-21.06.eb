@@ -37,14 +37,18 @@ docurls = [
 ]
 
 
-toolchain = {'name': 'cpeGNU', 'version': '21.04'}
+toolchain = {'name': 'cpeCray', 'version': '21.06'}
 #toolchainopts = {'lowopt': True}               # CSCS settings
-toolchainopts = {'precise': True, 'pic': True}  # EasyBuilders settings
+#toolchainopts = {'precise': True, 'pic': True} # EasyBuilders settings
+toolchainopts = {
+    'verbose': True,
+    'precise': True,
+    'pic': True,
+    'extra_cflags': '-mcmodel=large',
+}
 
 source_urls = [GNU_SOURCE]
 sources = [SOURCELOWER_TAR_BZ2]
-
-preconfigopts = 'export CFLAGS="$CFLAGS -mcmodel=large" && '
 
 # enable C++ interface
 configopts = '--enable-cxx'
