@@ -28,7 +28,7 @@ cpeAMD toolchain: AOCC, Cray MPI compiler drivers, Cray LibSci and Cray FFTW (ao
 :author: Petar Forai (IMP/IMBA, Austria)
 :author: Kenneth Hoste (Ghent University)
 """
-from easybuild.toolchains.compiler.cpe import cpeAOCC
+from easybuild.toolchains.compiler.cpeaocc import cpeAOCC
 from easybuild.toolchains.linalg.libsci import LibSci
 from easybuild.toolchains.mpi.craympich import CrayMPICH
 from easybuild.tools.toolchain.toolchain import SYSTEM_TOOLCHAIN_NAME

@@ -23,12 +23,24 @@
 # along with EasyBuild.  If not, see <http://www.gnu.org/licenses/>.
 ##
 """
-Support for AOCC (AMD Optimizing C/C++ Compiler) as toolchain compiler.
+Support for AOCC (AMD Optimizing C/C++ Compiler) as toolchain compiler used
+via the Cray Programming Environment compiler drivers (aka cc, CC, ftn).
+
+The basic concept is that the compiler driver knows how to invoke the true underlying
+compiler with the compiler's specific options tuned to Cray systems.
+
+That means that certain defaults are set that are specific to Cray's computers.
+
+The compiler drivers are quite similar to EB toolchains as they include
+linker and compiler directives to use the Cray libraries for their MPI (and network drivers)
+Cray's LibSci (BLAS/LAPACK et al), FFT library, etc.
 
 :author: Stijn De Weirdt (Ghent University)
 :author: Kenneth Hoste (Ghent University)
+:author: Petar Forai (IMP/IMBA, Austria)
 :author: Kurt Lust (University of Antwerpen)
 """
+
 
 import re
 from distutils.version import LooseVersion
@@ -38,20 +50,34 @@ from easybuild.tools.build_log import EasyBuildError
 from easybuild.tools.modules import get_software_root, get_software_version
 from easybuild.tools.toolchain.compiler import Compiler, DEFAULT_OPT_LEVEL
 
+import easybuild.tools.environment as env
+from easybuild.tools.config import build_option
 
+
+TC_CONSTANT_CPE = "CPE"
 TC_CONSTANT_AOCC = "AOCC"
 
 
-class Aocc(Compiler):
-    """AOCC compiler class"""
+class cpeAOCC(Compiler):
+    """AOCC support for using Cray compiler drivers"""
+    TOOLCHAIN_FAMILY = TC_CONSTANT_CPE
+    COMPILER_FAMILY = TC_CONSTANT_AOCC
 
-    COMPILER_MODULE_NAME = ['AOCC']
+    COMPILER_MODULE_NAME = ['cpeAMD']
+    CRAYPE_MODULE_NAME = ['cpeAMD']
 
     COMPILER_FAMILY = TC_CONSTANT_AOCC
+
     COMPILER_UNIQUE_OPTS = {
+        # AOCC-specific ones
         'loop-vectorize': (False, "Explicitly enable/disable loop vectorization"),
         'basic-block-vectorize': (False, "Explicitly enable/disable basic block vectorization"),
         'lto': (False, "Enable Link Time Optimization"),
+        # Generic Cray options
+        'dynamic': (True, "Generate dynamically linked executable"),
+        'mpich-mt': (False, "Directs the driver to link in an alternate version of the Cray-MPICH library which \
+                             provides fine-grained multi-threading support to applications that perform \
+                             MPI operations within threaded regions."),
     }
     COMPILER_UNIQUE_OPTION_MAP = {
         'i8': 'fdefault-integer-8',
@@ -90,6 +116,12 @@ class Aocc(Compiler):
         'ieee': '',
         # At optimzation level -O2 or above vectorisation is turned on by default so no need to turn it on
         # for DEFAULT_OPT_LEVEL as in the GCC compiler defintion.
+        #
+        # Generic Cray PE options
+        'shared': '',
+        'dynamic': '',
+        'verbose': 'craype-verbose',
+        'mpich-mt': 'craympich-mt',
     }
 
     # used when 'optarch' toolchain option is enabled (and --optarch is not specified)
@@ -103,42 +135,38 @@ class Aocc(Compiler):
         (systemtools.X86_64, systemtools.INTEL): 'march=x86-64 -mtune=generic',
     }
 
-    COMPILER_CC = 'clang'
-    COMPILER_CXX = 'clang++'
-    COMPILER_C_UNIQUE_FLAGS = []
+    COMPILER_CC = 'cc'
+    COMPILER_CXX = 'CC'
+    COMPILER_C_UNIQUE_FLAGS = ['dynamic', 'mpich-mt', 'loop-vectorize', 'basic-block-vectorize', 'lto']
 
-    COMPILER_F77 = 'flang'
-    COMPILER_F90 = 'flang'
-    COMPILER_FC = 'flang'
-    COMPILER_F_UNIQUE_FLAGS = []
+    COMPILER_F77 = 'ftn'
+    COMPILER_F90 = 'ftn'
+    COMPILER_FC = 'ftn'
+    COMPILER_F_UNIQUE_FLAGS = ['dynamic', 'mpich-mt', 'loop-vectorize', 'basic-block-vectorize', 'lto']
 
-    LIB_MULTITHREAD = ['pthread']
+#    LIB_MULTITHREAD = ['pthread']
     LIB_MATH = ['m']
 
-    def _set_compiler_vars(self):
-        super(Aocc, self)._set_compiler_vars()
+    def _set_optimal_architecture(self):
+        """Load craype module specified via 'optarch' build option."""
+        optarch = build_option('optarch')
+        if optarch is None:
+            raise EasyBuildError("Don't know which 'craype' module to load, 'optarch' build option is unspecified.")
+        else:
+            if self.modules_tool.exist(self.CRAYPE_MODULE_NAME, skip_avail=True)[0]:
+                self.modules_tool.load(self.CRAYPE_MODULE_NAME)
+            else:
+                raise EasyBuildError("Necessary craype module with name '%s' is not available (optarch: '%s')",
+                                     self.CRAYPE_MODULE_NAME[0], optarch)
 
-        if not ('aocc' in self.COMPILER_MODULE_NAME):
-            raise EasyBuildError("_set_compiler_vars: missing aocc from COMPILER_MODULE_NAME %s",
-                                 self.COMPILER_MODULE_NAME)
+        # no compiler flag when optarch toolchain option is enabled
+        self.options.options_map['optarch'] = ''
 
-        aocc_root = get_software_root('AOCC')
-        if gcc_root is None:
-            raise EasyBuildError("Failed to determine software root for AOCC")
+    def prepare(self, *args, **kwargs):
+        """Prepare to use this toolchain; define $CRAYPE_LINK_TYPE if 'dynamic' toolchain option is enabled."""
+        super(cpeAOCC, self).prepare(*args, **kwargs)
 
-        # append lib dir paths to LDFLAGS (only if the paths are actually there)
-        self.variables.append_subdirs("LDFLAGS", aocc_root, subdirs=["lib64", "lib"])
+        if self.options['dynamic'] or self.options['shared']:
+            self.log.debug("Enabling building of shared libs/dynamically linked executables via $CRAYPE_LINK_TYPE")
+            env.setvar('CRAYPE_LINK_TYPE', 'dynamic')
 
-    def _set_optimal_architecture(self, default_optarch=None):
-        """
-        AOCC-specific adjustments for optimal architecture flags.
-
-        :param default_optarch: default value to use for optarch, rather than using default value based on architecture
-                                (--optarch and --optarch=GENERIC still override this value)
-        """
-        if default_optarch is None and self.arch == systemtools.AARCH64:
-            aocc_version = get_software_version('AOCC')
-            if aocc_version is None:
-                raise EasyBuildError("Failed to determine software version for AOCC")
-
-        super(Aocc, self)._set_optimal_architecture(default_optarch=default_optarch)
