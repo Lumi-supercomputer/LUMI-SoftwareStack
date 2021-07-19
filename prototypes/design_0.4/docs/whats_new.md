@@ -2,11 +2,12 @@
 
 ## Toolchain setup compared to the CSCS setup of June 2021
 
+**TODO** Outdated!
+
+
   * The AOCC compiler definition file ``aocc.py`` has been re-implemented based
     on the compiler flags of the clang compiler from which the compiler is derived
     as the GCC-based options that were in there really make no sense.
-  * TODO: Implement an EasyBlock for the CCE compilers (even though we cannot fully
-    test it).
   * Several modifications to the CPE compiler file ``cpe.py``:
       * The Cray compiler wrappers provide ``-openmp`` and ``-noopenmp`` flags to
         turn OpenMP on or off, and these should work with all supported compilers.

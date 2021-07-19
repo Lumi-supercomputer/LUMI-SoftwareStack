@@ -21,3 +21,5 @@
 
   * [A number of failed experiments during the development, to avoid making the
     same mistake twice](failed_experiments.md)
+
+**TODO**: Describe the directory structure

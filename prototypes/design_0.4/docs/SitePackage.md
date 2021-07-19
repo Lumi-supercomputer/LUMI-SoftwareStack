@@ -51,6 +51,24 @@ This hook is used to adapt the following messages:
     and to contact LUMI User Support.
 
 
+### Visibility hook
+
+The visibility hook is currently used to hide the Cray modules of other CPE versions
+in a particular version of the CPE software stack. As the hook function is called many
+times during a single call to ``module avail`` some effort was done to make it efficient
+at the cost of readability.
+
+  * The data about the modules that should not be hidden is contained in a LUA script
+    in ``mgmt/LMOD/VisibilityHookData``. This script is read via ``require`` so that
+    it is cached and really processed only once. Furthermore, to make locating the
+    script easy, the LUMI stack module stores the path and name in two environment
+    variables that are ready-to-use without further substitutions.
+
+    The file is auto-generated during the initialisation of a software stack.
+
+  * Note that the feature is turned of for power users.
+
+
 ## Custom LMOD functions
 
 ### detect_LUMI_partition
