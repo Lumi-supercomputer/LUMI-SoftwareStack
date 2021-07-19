@@ -20,8 +20,6 @@
 #
 if [ "$#" -ne 1 ]
 then
-	# Here document, but avoid using <<- as indentation breaks when tabs would
-	# get replaced with spaces.
 	>&2 echo -e "\nThis script expects 1 and only 1 command line arguments: The version of the Cray PE.\n"
     exit 1
 fi

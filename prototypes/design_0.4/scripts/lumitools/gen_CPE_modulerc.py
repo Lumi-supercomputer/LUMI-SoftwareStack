@@ -92,8 +92,8 @@ def gen_CPE_modulerc( CPEpackages_dir, LMOD_dir, version ):
 
     write_package( fileH, 'MPICH',                'cray-mpich',               package_versions )
     write_package( fileH, 'MPICH',                'cray-mpich-abi',           package_versions )
-    write_package( fileH, 'PMI',                  'pmi',                      package_versions )
-    write_package( fileH, 'PMI',                  'pmi-lib',                  package_versions )
+    write_package( fileH, 'PMI',                  'cray-pmi',                 package_versions )
+    write_package( fileH, 'PMI',                  'cray-pmi-lib',             package_versions )
     write_package( fileH, 'OpenSHMEMX',           'cray-openshmemx',          package_versions )
 
     write_package( fileH, 'FFTW',                 'cray-fftw',                package_versions )
@@ -111,7 +111,7 @@ def gen_CPE_modulerc( CPEpackages_dir, LMOD_dir, version ):
     write_package( fileH, 'DSMML',                'cray-dsmml',               package_versions )
     write_package( fileH, 'jemalloc',             'cray-jemalloc',            package_versions )
     write_package( fileH, 'STAT',                 'cray-stat',                package_versions )
-    write_package( fileH, 'craypkg-gen',          'cray-craypkg-gen',         package_versions )
+    write_package( fileH, 'craypkg-gen',          'craypkg-gen',              package_versions )
     write_package( fileH, 'iobuf',                'iobuf',                    package_versions )
     write_package( fileH, 'PAPI',                 'papi',                     package_versions )
 
