@@ -210,7 +210,7 @@ local toolchains = {
 
 local hooks = get_versionedfile( stack_version, system_hookdir, 'LUMI_site_hooks-', '.py' )
 if hooks == nil then
-    LmodMessage( 'Warning: Failed to determine the hooks file, so running EasyBuild without using hooks.' )
+    LmodWarning( 'Failed to determine the hooks file, so running EasyBuild without using hooks.' )
 end
 
 -- - Build the robot path ROBOT_PATHS

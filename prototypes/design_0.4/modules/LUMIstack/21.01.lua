@@ -83,6 +83,21 @@ if isFile( modulerc_stack ) then
     prepend_path( 'LMOD_MODULERCFILE', modulerc_stack )
 end
 
+--
+-- Set the LUA file with a table defining the toolchain modules for quick reading by
+-- SitePackage.lua
+--
+local CPEmodules_dir = pathJoin( install_root, 'mgmt/LMOD/VisibilityHookData' )
+local CPEmodules_file = 'CPEmodules_' .. CPE_version:gsub( '%.', '_') -- Omit the .lua extension so that we do not have to remove it in SitePackage.lua
+if isFile( pathJoin( CPEmodules_dir, CPEmodules_file .. '.lua' ) ) then
+    setenv( 'LUMI_VISIBILITYHOOKDATAPATH', pathJoin( CPEmodules_dir, '?.lua' ) )
+    setenv( 'LUMI_VISIBILITYHOOKDATAFILE', CPEmodules_file )
+end
+
+--
+-- Load the partition module
+--
+
 load( 'partition/' .. partition )
 
 if os.getenv( '_LUMI_LMOD_DEBUG' ) ~= nil then

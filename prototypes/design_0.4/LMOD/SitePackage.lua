@@ -157,12 +157,48 @@ end
 
 
 --
+-- Visibility hook
+-- - Used to hide some Cray modules in the LUMI software stacks
+--
+
+local function is_visible_hook( modT )
+
+    -- modT is a table with: fullName, sn, fn and isVisible
+    -- The latter is a boolean to determine if a module is visible or not
+
+    local CPEmodules_path = os.getenv( 'LUMI_VISIBILITYHOOKDATAPATH' )
+    local CPEmodules_file = os.getenv( 'LUMI_VISIBILITYHOOKDATAFILE' )
+    if CPEmodules_path == nil or CPEmodules_file == nil then return end
+
+    local CPEmodules
+    local saved_path = package.path
+    package.path = CPEmodules_path .. ';' .. package.path
+    CPEmodules = require( CPEmodules_file )
+    package.path = saved_path
+
+    if os.getenv( 'LUMI_LMOD_POWERUSER' ) ==  nil then
+        if modT.fn:find( 'cray/pe/lmod/modulefiles' ) then
+            if CPEmodules[modT.sn] ~= nil then
+                local module_version = modT.sn .. '/' .. CPEmodules[modT.sn]
+                if modT.fullName ~= module_version then
+                    modT.isVisible = false
+                end
+            end
+        end
+    end
+
+end
+
+
+--
 -- Register the hooks
 --
 
-hook.register( "SiteName", site_name_hook )
-hook.register( "avail",    avail_hook )
-hook.register( "msgHook",  msg_hook )
+hook.register( "SiteName",     site_name_hook )
+hook.register( "avail",        avail_hook )
+hook.register( "msgHook",      msg_hook )
+hook.register("isVisibleHook", is_visible_hook)
+
 
 -- -----------------------------------------------------------------------------
 -- -----------------------------------------------------------------------------
