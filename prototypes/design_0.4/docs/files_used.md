@@ -44,46 +44,8 @@
   * [``SitePackage.lua``](../LMOD/SitePackage.lua): Referred to indirectly by the
     ``LMOD_PACKAGE_PATH`` system environment variable.
 
-    Used for various purposes
+    [Additional information on this file](SitePackage.md)
 
-      * Site name hook to provide a base for some LMOD variable names.
-
-      * Implementation of the module directory labeling in the avail hook.
-
-      * A message hook that adds a reference to the LUMI support and some more information
-        about the module display.
-
-      * ``detect_LUMI_partition``: A function that can be used to request the current LUMI
-        partition. This is used by the generic ``modules/LUMIstack`` modules files but put
-        in ``SitePackage.lua`` to have a single point where this is implemented.
-
-        The alternative would be to use a trick that is also used in some CPE module
-        files to read in and execute code from an external file.
-
-        The current implementation is a stub that relies on the environment variable
-        ``LUMI_PARTITION`` but the goal is to replace this with something more robust
-        to ensure that it also works in SLURM job scripts where that environment variable
-        may have the wrong value as SLURM by default copies its environment from the
-        node where the job was submitted.
-
-        The idea is to ensure that a ``module reload`` would reload the loaded software
-        stack for the partition on which the ``module reload`` command is run.
-
-      * ``get_CPE_component``: A function that can be used in modulefiles to request
-        the version of a CPE component. The data is read from the CPE definition files
-        in the ``CrayPE`` subdirectory of the repository.
-
-        The function is currently used in the ``modules/LUMIpartition`` generic implementation
-        of the partition modules for the LUMI stacks to determine the version of the
-        Cray targeting modules to add that directory to the MODULEPATH.
-
-      * ``get_CPE_versions``: A function that can be used in module files to request
-        a table with the version for each package in a CPE release. The data is read
-        from the CPE definition files in the ``CrayPE`` subdirectory of the repository.
-
-        The function is used in the prototype in the ``cpe`` modules for the Grenoble
-        system as a proof-of-concept for a generic ``cpe`` module to reduce the number
-        of places where the version info of the Cray packages in a CPE release is kept.
 
 
 ## modules subdirectory

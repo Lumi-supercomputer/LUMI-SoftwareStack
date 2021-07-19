@@ -355,5 +355,5 @@ sandbox_registration{
     ['detect_LUMI_partition'] = detect_LUMI_partition,
     ['get_CPE_component']     = get_CPE_component,
     ['get_CPE_versions']      = get_CPE_versions,
-    ['get_versionedfile']    = get_versionedfile,
+    ['get_versionedfile']     = get_versionedfile,
 }

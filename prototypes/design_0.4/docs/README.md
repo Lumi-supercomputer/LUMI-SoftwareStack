@@ -7,6 +7,7 @@
   * [EasyBuild setup](easybuild_setup.md)
   * [An overview of files in several of the repository directories and where they
     are used](files_used.md)
+  * [The contents of the SitePackage.lua file](SitePackage.md)
 
   * Toolchain documentation
       * [EasyBuild toolchains common options](Toolchains/toolchain_common.md)
