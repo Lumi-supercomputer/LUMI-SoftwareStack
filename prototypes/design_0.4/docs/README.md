@@ -9,7 +9,8 @@
     are used](files_used.md)
 
   * Toolchain documentation
-      * [Common information to all cpe* toolchains](Toolchains/toolchain_common.md)
+      * [EasyBuild toolchains common options](Toolchains/toolchain_common.md)
+      * [Common information to all cpe* toolchains](Toolchains/toolchain_cpe_common.md)
       * [cpeCray toolchain](Toolchains/cpeCray.md)
       * [cpeGNU toolchain](Toolchains/cpeGNU.md)
       * [cpeAMD toolchain](Toolchains/cpeAMD.md)

@@ -32,14 +32,7 @@ TODO to finish this prototype:
     of the toolchain everywhere. But it also means we cannot change it back to
     21.04 but need to re-install then.
 
-  * Implementation of the custom toolchains:
-
-      * Ensure that OPTARCH can be specified for multiple compilers
-
-      * Add support for multiple targeting modules for the CPE toolchains, so that
-        we can specify both CPU and accelerator.
-
-  * Implementation of hookds:
+  * Implementation of hooks:
 
       * Should hooks also be enabled for EasyBuild-user?
 
@@ -176,6 +169,16 @@ Changes compared to design 0.3:
       * Made a custom EasyBlock, CrayPEToolchain, to generate the modulefiles for the
         toolchains. It results in far cleaner EasyConfigs and has much wider applicability
         than just LUMI.
+
+  * Implementation of Cray toolchains that are an extension of those of CSCS
+
+      * Several problems solved with toolchain options for specific compilers.
+
+      * Support for loading multiple targeting modules via ``EASYSUILD_OPTARCH``.
+
+      * Support for specifying architecture options for multiple compilers simultaneously
+        through ``EASYBUILD_OPTARCH`` so that we can also support the regular EasyBuild
+        toolchains should this be needed.
 
 
 

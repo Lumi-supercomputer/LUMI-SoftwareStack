@@ -179,13 +179,33 @@ This directory contains the custom hooks for EasyBuild on LUMI.
 The file names end on the first version of the software stack that they support. As
 such we can drop old code from hooks while still being able to regenerate old configirations.
 
-TODO: The EasyBuild-* modules do not yet contain the necessary code to load the right
+**TODO**: The EasyBuild-* modules do not yet contain the necessary code to load the right
 version of the hooks.
 
 
 ## easybuild/toolchains subdirectoruy
 
 This directory contains the custom Cray toolchain code for EasyBuild.
+
+For LUMI:
+
+  * Custom toolchain definition files:
+
+      * ``cpecray.py``: Toolchain based on the Cray compiler
+
+      * ``cpegnu.py``: Toolchain based on the GNU compilers provided by Cray
+
+      * ``cpeamd.py``:  Toolchain based on the AMD AOCC compiler provided by Cray.
+
+  * Compiler definitions to use compilers through the Cray wrappers:
+
+      * ``compiler/cpecce.py``: Definitions for the Cray CCE compiler with the Cray
+        wrappers.
+
+      * ``compiler/cpegcc.py``: Definitions for the GNU compilers with the Cray wrappers.
+
+      * ``compiler/cpeaocc.py``: Definitions for the AMD AOCC compilers with the Cray
+        wrappers.
 
 
 ## easybuild/tools subdirectory
