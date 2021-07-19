@@ -4,41 +4,10 @@ This prototype focuses on the EasyBuild setup.
 
 TODO to finish this prototype:
 
-  * cpe modules, and a script that generates them automatically?
-
-    Some steps
-
-     1. Hand-generated EasyConfigs in the Swiss style: Better to work with
-        hard versions instead due to the problems with the cpe modules.
-
-     2. How to deal with different targets for different partitions, or do we
-        fully rely on optarch which would mean that by default we only load
-        that set of modules that works for all of LUMI and then rely on the
-        OPTARCH processing to load the architecture-specific ones?
-
-     3. Automatically generate the EasyConfigs from a database of toolchain
-        component versions and templates for the EasyConfig?
-
-     4. Rework the EasyBlock so that we can avoid having all that LMOD code
-        in the EasyConfig file.
-
-    Challenge in case we switch to a hierarchical MNS
-
-      * Ensure that when loading a cpe* module, the MODULEPATH for the modules
-        installed by the user is also adapted.
-
   * Need to clarify how we will use .dev. Do we want both a 21.04 and 21.04.dev
     while building the stack? In that case, 21.04.dev should be used as the name
     of the toolchain everywhere. But it also means we cannot change it back to
     21.04 but need to re-install then.
-
-  * Implementation of hooks:
-
-      * Should hooks also be enabled for EasyBuild-user?
-
-      * Versioning of the hooks file: Automatically select the right file with hooks
-        as that may be a more scalable approach than keep adding tests to the EasyBuild
-        module.
 
 
 Changes compared to design 0.3:
@@ -170,6 +139,10 @@ Changes compared to design 0.3:
         toolchains. It results in far cleaner EasyConfigs and has much wider applicability
         than just LUMI.
 
+      * Note: Challenge in case we switch to a hierarchical MNS: Ensure that when loading
+        a cpe* module, the MODULEPATH for the modules installed by the user is also adapted.
+        This has not been done!
+
   * Implementation of Cray toolchains that are an extension of those of CSCS
 
       * Several problems solved with toolchain options for specific compilers.
@@ -180,7 +153,14 @@ Changes compared to design 0.3:
         through ``EASYBUILD_OPTARCH`` so that we can also support the regular EasyBuild
         toolchains should this be needed.
 
+  * Implemented hooks for EasyBuild.
 
+      * The hooks file is always activated, but is written
+        in a way that some hooks are only executed in production and/or infrastructure
+        mode of the EasyBuild-config module.\
+
+      * Hooks files do contain a version number, and the module will always load the
+        most recent version which is not newer than the software stack module.
 
 
 Changes compared to design 0.2:

@@ -208,7 +208,10 @@ local toolchains = {
 
 -- - Settings for the hooks
 
-local hooks = pathJoin( system_hookdir, 'LUMI_site_hooks-21.04.py' )
+local hooks = get_versionedfile( stack_version, system_hookdir, 'LUMI_site_hooks-', '.py' )
+if hooks == nil then
+    LmodMessage( 'Warning: Failed to determine the hooks file, so running EasyBuild without using hooks.' )
+end
 
 -- - Build the robot path ROBOT_PATHS
 
@@ -309,7 +312,9 @@ setenv( 'EASYBUILD_INCLUDE_EASYBLOCKS',            table.concat( easyblocks, ','
 setenv( 'EASYBUILD_INCLUDE_TOOLCHAINS',            table.concat( toolchains, ',' ) )
 
 -- - Hooks
-setenv( 'EASYBUILD_HOOKS',                         hooks )
+if hooks ~= nil then
+    setenv( 'EASYBUILD_HOOKS',                     hooks )
+end
 
 -- - Naming scheme
 setenv( 'EASYBUILD_INCLUDE_MODULE_NAMING_SCHEMES', module_naming_scheme_dir )

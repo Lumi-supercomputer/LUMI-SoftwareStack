@@ -18,7 +18,7 @@ def parse_hook(ec, *args, **kwargs):
 
     easybuild_mode = os.environ['LUMI_EASYBUILD_MODE']
 
-    if easybuild_mode == 'production' and ec['site_contacts'] == None:
+    if easybuild_mode in ['production', 'infrastructure'] and ec['site_contacts'] == None:
         ec['site_contacts'] = LUMI_SUPPORT
 
     if ec.name == 'cpeCray' or ec.name == 'cpeGNU' or ec.name == 'cpeAMD' or ec.name == 'cpeIntel' or ec.name == 'cpeNVIDIA':

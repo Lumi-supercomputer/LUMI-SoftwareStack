@@ -233,7 +233,7 @@ function get_CPE_component( package, CPE_version )
 
     -- If we have found a line, extract the result
     if start ~= nil then
-        local package_version = CPE_components:sub( start, finish ):gsub( '%s', ''):gsub( search_string .. ',', '')
+        local package_version = CPE_components:sub( start, finish ):gsub( '%s', '' ):gsub( search_string .. ',', '' )
         return package_version
     else
         return nil
@@ -293,8 +293,67 @@ function get_CPE_versions( CPE_version, table_package_version )
 end
 
 
+--
+-- function get_versionedfile
+--
+-- Find the package with the most recent version not newer than the given LUMI stack
+-- version.
+--
+-- Input arguments:
+--  * matching: The LUMI stack version to match (e.g., 21.06, 21.05.dev, ...)
+--  * directory: Directory in which the matching package/file should be found.
+--  * filenameprefix: The part of the file name before the version.
+--  * filennamesuffix: The part of the file name after the suffix,
+--
+--  Return value: The full name of the file, or nil if no file is found.
+--
+function get_versionedfile( matching, directory, filenameprefix, filenamesuffix )
+
+    matching = matching:gsub( '%.dev', '' ):gsub( '%..%.', '.' )
+
+    local versions = {}
+    local pattern_prefix = filenameprefix:gsub( '%-', '%%-'):gsub( '%.', '%%.' )
+    local pattern_suffix = filenamesuffix:gsub( '%-', '%%-'):gsub( '%.', '%%.' )
+    local pattern = pattern_prefix .. '.+' .. pattern_suffix
+
+    local status = pcall( lfs.dir, directory )
+    if not status then
+        return nil
+    end
+
+    for file in lfs.dir( directory ) do
+        if file:match( pattern ) ~= nil then
+            local versionstring = file:gsub( pattern_prefix, '' ):gsub( pattern_suffix, '' )
+            table.insert( versions, versionstring )
+        end
+    end
+
+    versions[#versions+1] = '00.00'
+    table.sort( versions )
+
+    local index = #versions
+    while versions[index] > matching
+    do
+        index = index - 1
+    end
+
+    local returnvalue
+    if index == 1 then
+        returnvalue = nil
+    else
+        returnvalue = string.gsub( directory .. '/' .. filenameprefix .. versions[index] .. filenamesuffix, '//', '/' )
+    end
+
+    return returnvalue
+
+end
+
+
+
+
 sandbox_registration{
     ['detect_LUMI_partition'] = detect_LUMI_partition,
     ['get_CPE_component']     = get_CPE_component,
     ['get_CPE_versions']      = get_CPE_versions,
+    ['get_versionedfile']    = get_versionedfile,
 }
