@@ -1,0 +1,68 @@
+# Compiler toolchain for Cray EX Programming Environment GNU compiler (cpe-gnu)
+easyblock = 'CrayPEToolchain'
+
+name = 'cpeGNU'
+version = "21.04"
+versionsuffix = '-noPrgEnv-versionless-cpe'
+
+homepage = 'https://pubs.cray.com'
+
+whatis = [
+    "Desription: EasyBuild toolchain using the Cray compiler wrapper with gcc module (CPE release %(version)s)"
+]
+
+description = """
+This module is the EasyBuild toolchain that uses the Cray compiler wrapper with
+the gcc compiler activated. The components loaded are those of the Cray Programming
+Environment (CPE) version %(version)s.
+
+The module has the same effect as loading PrgEnv-gnu and cpe/21.04 should have, but
+does not use either of those modules. The use of PrgEnv-gnu is avoided since the
+modules that it loads may change over time, reducing reproducibilty, while loading
+cpe/21.04 is avoided as this module is buggy and conflicts with the way the LUMI
+software stack currently works. Instead, the module declares itself a member of
+the PrgEnv family and sets an PE_ENV which would otherwise be set by PrgEnv-gnu,
+ensuring that the Cray PE will work as if those modules are loaded.
+
+The effect of loading this module is:
+  * All PrgEnv or other cpe* modules will be unloaded as they are part of
+    the PrgEnv family (at least if they are generated in a consistent way).
+  * PE_ENV is set to GNU
+  * The three targeting modules are loaded:
+      * craype-x86-rome
+      * craype-accel-host
+      * craype-network-ofi
+  * The other modules are loaded in the order and version specified:
+      * gcc/9.3.0
+      * craype/2.7.6
+      * cray-mpich/8.1.4
+      * cray-libsci/21.04.1.1
+      * cray-dsmml/0.1.4
+      * perftools-base/21.02.0
+      * xpmem
+  * cpe/21.04 is loaded
+"""
+
+toolchain = SYSTEM
+
+PrgEnv_load = False
+PrgEnv_family = 'PrgEnv'
+CPE_load = 'last'
+
+cray_targets = [
+    'craype-x86-rome',
+    'craype-accel-host',
+    'craype-network-ofi'
+]
+
+dependencies = [
+   ('gcc',            EXTERNAL_MODULE),
+   ('craype',         EXTERNAL_MODULE),
+   ('cray-mpich',     EXTERNAL_MODULE),
+   ('cray-libsci',    EXTERNAL_MODULE),
+   ('cray-dsmml',     EXTERNAL_MODULE),
+   ('perftools-base', EXTERNAL_MODULE),
+   ('xpmem',          EXTERNAL_MODULE),
+]
+
+moduleclass = 'toolchain'
