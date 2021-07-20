@@ -127,17 +127,19 @@ its place in the module hierarchy to ensure maximum robustness.
     EASYBUILD_SUFFIX_MODULES_PATH as that together with the module naming scheme determines
     the location of the modules with respect to the module install path.
 
-  * ``EASYBUILD_OPTARCH``, TODO: Check the code in EasyBuild, we need two extensions:
+  * ``EASYBUILD_OPTARCH`` has been extended compared to the CSCS setup:
 
-      * Multiple targeting modules as we want to select both a CPU and accelerator
-        target
+      * We support multiple target modules so that it is possible to select both the
+        CPU and accelerator via ``EASYBUILD_OPTARCH``. See the
+        [EasyBuild CPE toolchains common options](Toolchains/toolchain_cpe_common.md)
 
-      * Try to make it possible to still set options for other, non-PE compilers.
+      * It is now also possible to specify arguments for multiple compilers. Use ``CPE:``
+        to mark the options for the CPE toolchains. See also
+        [EasyBuild CPE toolchains common options](Toolchains/toolchain_cpe_common.md)
 
-  * Should we ever have custom toolchains then this will also be the place to indicate
-    where they can be found.
-
-      * TODO: We actually need them...
+  * As the CPE toolchains are not included with the standard EasyBuild distribution
+    and as we have also extended them (if those from CSCS would ever be included),
+    we set ``EASYBUILD_INCLUDE_TOOLCHAINS`` to tell EasyBuild where to find the toolchains.
 
 
 ### The EasyBuild-production and EasyBuild-infrastructure mode
@@ -164,7 +166,9 @@ Settings made in the configuration files:
 
   * Modules that may be loaded when EasyBuild runs
 
-  * Modules that should be hidden. Starting point is currently the list of CSCS. TODO
+  * Modules that should be hidden. Starting point is currently the list of CSCS.
+    **TODO: Not yet enabled as this makes development more difficult and as we do not
+    yet understand which mechanism EasyBuild uses to hide the modules.**
 
   * Ignore EBROOT variables without matching module as we use this to implement Bundles
     that are detected by certain EasyBlocks as if each package included in the Bundle

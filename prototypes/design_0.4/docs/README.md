@@ -1,10 +1,11 @@
 # Docs for the LUMI software stack
 
-  * [What's new?](whats_new.md)
+  * [What's new or different?](whats_new.md)
 
   * [Some procedures](procedures.md)
   * [Setup of the module system](module_setup.md)
   * [EasyBuild setup](easybuild_setup.md)
+  * [The directpry structure in the installation directory](directory_structure.md)
   * [An overview of files in several of the repository directories and where they
     are used](files_used.md)
   * [The contents of the SitePackage.lua file](SitePackage.md)
@@ -22,4 +23,3 @@
   * [A number of failed experiments during the development, to avoid making the
     same mistake twice](failed_experiments.md)
 
-**TODO**: Describe the directory structure

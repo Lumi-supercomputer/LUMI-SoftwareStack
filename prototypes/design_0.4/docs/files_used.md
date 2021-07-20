@@ -1,4 +1,4 @@
-# An overview of files and where they are being used
+# An overview of files in the repository and where they are being used
 
 *As GitHub markdown has pretty poor tables we currently use a list layout.*
 
@@ -141,9 +141,6 @@ This directory contains the custom hooks for EasyBuild on LUMI.
 The file names end on the first version of the software stack that they support. As
 such we can drop old code from hooks while still being able to regenerate old configirations.
 
-**TODO**: The EasyBuild-* modules do not yet contain the necessary code to load the right
-version of the hooks.
-
 
 ## easybuild/toolchains subdirectoruy
 
@@ -171,8 +168,6 @@ For LUMI:
 
 
 ## easybuild/tools subdirectory
-
-TODO. Various customizations to the EasyBuild framework.
 
   * [``module_naming_scheme``](../easybuild/tools/module_naming_scheme) subdirectory:
     LUMI uses a customised flat EasyBuild naming scheme. The links by moduleclass are

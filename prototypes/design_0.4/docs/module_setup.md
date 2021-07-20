@@ -169,7 +169,8 @@
         mode is "spider" so that Lmod cannot see that it is a partition module that makes
         other modules available.
 
-        **TODO: Do show for power users????**
+        **We currently do not show this for power users either which may be the
+        best choice to avoid conflicts with caches.**
 
   * We needed an additional module tree, ``Infrastructure``, which works a pure hierarchy
     (i.e., the common subdirectory is not loaded in the MODULEPATH of any other partition)

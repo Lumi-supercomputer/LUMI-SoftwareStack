@@ -1,14 +1,5 @@
 # The CrayPEToolchain EasyBlock and cpeCray/cpeGNU/cpeAMD modules
 
-TODO: Scenarios for cpe* modules:
-
-* Cray way module load cpe/* PrgEnv-* and then correct
-* Cray way reversed module load PrgEnv-* cpe/* and then correct
-* Mimic PrgEnv-* but do load cpe/*.
-    * First: Use set versions for all modules to avoid the problems of the cpe module
-    * Last: Makes sense when loading versionless modules and relying on cpe to correct
-      (which does not work in 21.06)
-
 ## Introduction
 
 Our CrayPEToolchain EasyBlock allows for many different scenarios to generate the
@@ -408,4 +399,127 @@ the ``cpe`` and ``PrgEnv-gnu`` modules, yet works around some problems, namely:
 
 A variant of this would set ``CPE_load = 'after'`` which would load the ``cpe/21.04``
 module immediately after loading ``PrgEnv-gnu`` rather than just before, but with the
-current flaws of the ``cpe/21.04`` module this still does not solve all problems.
+current flaws of the ``cpe/21.04`` module this still does not solve all problems:
+
+```python
+easyblock = 'CrayPEToolchain'
+
+name = 'cpeGNU'
+version = '21.04'
+
+toolchain = SYSTEM
+
+CPE_load = 'after'
+PrgEnv_load = True
+PrgEnv_family = 'cpeToolchain'
+
+cray_targets = [
+    'craype-x86-rome',
+    'craype-accel-host',
+    'craype-network-ofi'
+]
+
+dependencies = [
+   ('PrgEnv-gnu/8.0.0',       EXTERNAL_MODULE),
+   ('gcc/9.3.0',              EXTERNAL_MODULE),
+   ('craype/2.7.6',           EXTERNAL_MODULE),
+   ('cray-mpich/8.1.4',       EXTERNAL_MODULE),
+   ('cray-libsci/21.04.1.1',  EXTERNAL_MODULE),
+   ('cray-dsmml/0.1.4',       EXTERNAL_MODULE),
+   ('perftools-base/21.02.0', EXTERNAL_MODULE),
+   ('xpmem',                  EXTERNAL_MODULE),
+]
+
+moduleclass = 'toolchain'
+```
+
+
+### Mimic PrgEnv, load hardcoded versions but load cpe/yy.mm first
+
+This is yet another compromise scenario:
+  * Loading ``cpe/yy.mm`` first ensures that further modules a user might load after
+    loading the ``cpe*`` module will load in the proper versions if a user does a versionless
+    load.
+  * Mimicing ``PrgEnv-*`` and loading modules explicitly ensures reproducibility over
+    time as the list of modules loaded does not depend on a single file elsewhere in
+    the system configuration which is not specific to a particular release of the PE.
+  * Hard-coding the versions ensures that we avoid the problems caused by the implementation
+    of the ``cpe/yy.mm`` modules (certainly in releases up to and including 21.06)
+
+```python
+easyblock = 'CrayPEToolchain'
+
+name = 'cpeGNU'
+version = '21.04'
+
+toolchain = SYSTEM
+
+PrgEnv_load = False
+PrgEnv_family = 'PrgEnv'
+CPE_load = 'first'
+
+cray_targets = [
+    'craype-x86-rome',
+    'craype-accel-host',
+    'craype-network-ofi'
+]
+
+dependencies = [
+   ('PrgEnv-gnu/8.0.0',       EXTERNAL_MODULE),
+   ('gcc/9.3.0',              EXTERNAL_MODULE),
+   ('craype/2.7.6',           EXTERNAL_MODULE),
+   ('cray-mpich/8.1.4',       EXTERNAL_MODULE),
+   ('cray-libsci/21.04.1.1',  EXTERNAL_MODULE),
+   ('cray-dsmml/0.1.4',       EXTERNAL_MODULE),
+   ('perftools-base/21.02.0', EXTERNAL_MODULE),
+   ('xpmem',                  EXTERNAL_MODULE),
+]
+
+moduleclass = 'toolchain'
+```
+
+
+### Mimic PrgEnv and load cpe/yy.mm at the end
+
+This would be a valid scenario once the ``cpe/yy.mm`` modules have been corrected and
+work as they should. In this scenario,
+
+  * We mimic ``PrgEnv-*`` by setting the necessary environment variables and then loading
+    a list of versionless modules. This avoids a problem with the actual PrgEnv modules
+    as the list of modules they load depends on a single system file which is the same
+    for all releases of the PE and hence may change over time.
+
+  * At the end the relevant ``cpe/yy.mm`` module is loaded to fix the versions of all
+    already loaded modules.
+
+The corresponding EasyConfig file (minus help etc.) is:
+```python
+easyblock = 'CrayPEToolchain'
+
+name = 'cpeGNU'
+version = '21.04'
+
+toolchain = SYSTEM
+
+PrgEnv_load = False
+PrgEnv_family = 'PrgEnv'
+CPE_load = 'last'
+
+cray_targets = [
+    'craype-x86-rome',
+    'craype-accel-host',
+    'craype-network-ofi'
+]
+
+dependencies = [
+   ('gcc',            EXTERNAL_MODULE),
+   ('craype',         EXTERNAL_MODULE),
+   ('cray-mpich',     EXTERNAL_MODULE),
+   ('cray-libsci',    EXTERNAL_MODULE),
+   ('cray-dsmml',     EXTERNAL_MODULE),
+   ('perftools-base', EXTERNAL_MODULE),
+   ('xpmem',          EXTERNAL_MODULE),
+]
+
+moduleclass = 'toolchain'
+```

@@ -1,7 +1,5 @@
 # cpeAMD toolchain
 
-**TODO: The options are those from the GNU compilers instead of typical Clang options???**
-
 Note: The options are for the ``aocc.py`` file included in this repository and are
 not the same as those for the repository at CSCS.
 

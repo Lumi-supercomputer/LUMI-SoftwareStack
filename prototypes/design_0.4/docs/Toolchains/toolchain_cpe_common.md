@@ -1,4 +1,4 @@
-# EasyBuild CPE toolchains
+# EasyBuild CPE toolchains common options
 
 ## General principles
 
