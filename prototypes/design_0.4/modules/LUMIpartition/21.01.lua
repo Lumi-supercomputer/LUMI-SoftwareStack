@@ -77,7 +77,7 @@ a partition module may work on other on other partitions.
 
 setenv( 'LUMI_STACK_PARTITION', partition )
 
--- Do not execute the following code if partition == 'common' and mode() == 'load'
+-- Do not execute the following code if partition == 'common' and mode() == 'spider'
 -- as we doe not want partition/common to show up in the output of ``module spider``.
 if ( partition ~= 'common' ) or ( mode() ~= 'spider' ) then
     -- The Cray modules, may be possible to only activate them once cpe* is loaded
