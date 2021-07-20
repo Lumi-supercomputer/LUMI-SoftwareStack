@@ -27,7 +27,7 @@ then
     cat <<EOF 1>&2
 
 This script expects 3 and only 3 command line arguments:
-   * The version of the software stack / CPE (the latter dropping the .dev)
+   * The version of the software stack (CPE version, with the extension .dev for a development stack)
    * The version of EasyBuild to install in the software stack
    * A work directory for temporary files
 
@@ -232,6 +232,13 @@ create_link     "$installroot/$repo/modules/LUMIpartition/$match_file" "$install
 #   modules for this stack
 #
 $installroot/$repo/scripts/make_CPE_modulerc.sh ${stack_version%.dev}
+
+#
+# - Create the VisibilityHoodData/CPE_modules_*.lua file with the default versions of
+#   Cray modules for this stack
+#
+$installroot/$repo/scripts/make_CPE_VisibilityHookData.sh ${stack_version%.dev}
+
 
 #
 # - Create the other directories for modules, and other toolchain-specific directories

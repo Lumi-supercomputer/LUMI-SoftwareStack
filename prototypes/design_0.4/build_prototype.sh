@@ -37,9 +37,9 @@ case $system in
         #demo_stacks=( '21.D.02.dev' '21.D.03.dev' )
         demo_stacks=()
         #EB_stacks=( '21.04''21.05' '21.06' )
-        EB_stacks=( '21.05' '21.06' )
+        EB_stacks=( '21.05.dev' '21.06' )
         EB_version['21.04']='4.4.1'
-        EB_version['21.05']='4.4.1'
+        EB_version['21.05.dev']='4.4.1'
         EB_version['21.06']='4.4.1'
         default_stack='21.06'
 	;;
