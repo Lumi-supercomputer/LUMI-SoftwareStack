@@ -30,25 +30,28 @@ export PARAMETER_CPE=$1
 # found on PATH. It will not expand symbolic links.
 cd $(dirname $0)
 cd ..
-export PARAMETER_REPO_DIR=$(pwd)
+export PARAMETER_REPO_DIR="$(pwd)"
+cd ..
+export PARAMETER_INSTALL_DIR="$(pwd)"
 
-cd scripts
+cd "$PARAMETER_REPO_DIR/scripts"
 
 python3 -- <<END
 
 from lumitools.gen_CPE_modulerc import gen_CPE_modulerc
 import os
 
-PEversion = os.environ['PARAMETER_CPE']
-repo_dir =  os.environ['PARAMETER_REPO_DIR']
+PEversion =   os.environ['PARAMETER_CPE']
+repo_dir =    os.environ['PARAMETER_REPO_DIR']
+install_dir = os.environ['PARAMETER_INSTALL_DIR']
 
 #
 # Compute the directory where the PE componenet defintion file can be found, and
 # the directory where the external modules file should be stored.
 #
 
-CPEpackages_dir = os.path.join( repo_dir, 'CrayPE' )
-LMOD_dir =        os.path.join( repo_dir, 'LMOD' )
+CPEpackages_dir = os.path.join( repo_dir,    'CrayPE' )
+LMOD_dir =        os.path.join( install_dir, 'mgmt/LMOD/ModuleRC' )
 
 #
 # Execute the command

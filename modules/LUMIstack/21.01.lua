@@ -78,7 +78,7 @@ setenv( 'LUMI_STACK_NAME_VERSION', stack_name .. '/' .. stack_version )
 -- Enable LUMIstack_modulerc.lua and a (CPE) version-specific one (if present)
 --
 prepend_path( 'LMOD_MODULERCFILE', pathJoin( LMOD_root, 'LUMIstack_modulerc.lua' ) )
-local modulerc_stack = pathJoin( LMOD_root, 'LUMIstack_' .. CPE_version .. '_modulerc.lua' )
+local modulerc_stack = pathJoin( install_root, 'mgmt/LMOD/ModuleRC', 'LUMIstack_' .. CPE_version .. '_modulerc.lua' )
 if isFile( modulerc_stack ) then
     prepend_path( 'LMOD_MODULERCFILE', modulerc_stack )
 end
