@@ -161,6 +161,14 @@ end
 -- - Used to hide some Cray modules in the LUMI software stacks
 --
 
+--
+-- List the modules that should always be visibile even though they
+-- have the name of a Cray PE component.
+--
+local visibility_exceptions = {
+    ['cpe/restore-defaults'] = true,
+}
+
 local function is_visible_hook( modT )
 
     -- modT is a table with: fullName, sn, fn and isVisible
@@ -177,10 +185,10 @@ local function is_visible_hook( modT )
     package.path = saved_path
 
     if os.getenv( 'LUMI_LMOD_POWERUSER' ) ==  nil then
-        if modT.fn:find( 'cray/pe/lmod/modulefiles' ) then
+        if modT.fn:find( 'cray/pe/lmod/modulefiles' ) or modT.fn:find( 'modules/CrayOverwrite' ) then
             if CPEmodules[modT.sn] ~= nil then
                 local module_version = modT.sn .. '/' .. CPEmodules[modT.sn]
-                if modT.fullName ~= module_version then
+                if modT.fullName ~= module_version and not visibility_exceptions[ modT.fullName] then
                     modT.isVisible = false
                 end
             end
