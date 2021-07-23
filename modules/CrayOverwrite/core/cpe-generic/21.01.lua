@@ -18,6 +18,13 @@ version will be loaded in the version from the ]] .. myModuleVersion() .. [[ rel
 
 ]] )
 
+-- Note that this construction with the shadow modulerc files is a leftover needed
+-- to be able to test on the Grenoble test system. We only need the native one on
+-- properly installed Cray systems.
+--
+-- Just as the regular cpe/yuy.mm modules, we do put the modulerc.lua file in the
+-- path but we use append_path so that when used with the LUMI software stacks, the
+-- one corresponding to the LUMI software stack takes precedence.
 local native_modulerc = pathJoin( '/opt/cray/pe/cpe', myModuleVersion(), 'modulerc.lua' )
 local shadow_modulerc = pathJoin( data_root, 'data-cpe', myModuleVersion(), 'modulerc.lua' )
 if isFile( native_modulerc ) then
