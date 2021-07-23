@@ -1,6 +1,8 @@
 --
 -- Synonyms for the partion modules that explain better what they do.
 --
+-- This is a manually maintained file.
+--
 
 module_version( 'partition/C', 'CPUcompute' )
 module_version( 'partition/G', 'GPUcompute' )
