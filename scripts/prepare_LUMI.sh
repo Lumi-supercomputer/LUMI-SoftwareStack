@@ -59,6 +59,7 @@ mkdir -p "$installroot/mgmt"
 mkdir -p "$installroot/mgmt/ebrepo_files"
 mkdir -p "$installroot/mgmt/LMOD"
 mkdir -p "$installroot/mgmt/LMOD/VisibilityHookData"
+mkdir -p "$installroot/mgmt/LMOD/ModuleRC"
 
 mkdir -p "$installroot/sources"
 mkdir -p "$installroot/sources/easybuild"

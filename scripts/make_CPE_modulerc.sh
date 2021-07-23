@@ -34,6 +34,15 @@ export PARAMETER_REPO_DIR="$(pwd)"
 cd ..
 export PARAMETER_INSTALL_DIR="$(pwd)"
 
+#
+# Ensure that the directory where the file will be written exists
+#
+mkdir -p "$PARAMETER_INSTALL_DIR/mgmt/LMOD/ModuleRC"
+
+#
+# Now run the Python script.
+#
+
 cd "$PARAMETER_REPO_DIR/scripts"
 
 python3 -- <<END
