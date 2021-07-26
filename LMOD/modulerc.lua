@@ -3,7 +3,7 @@
 --
 -- This is a manually maintained file
 --
-module_version( 'ModuleColor/on', 'default' )
+module_version( 'ModuleColour/on', 'default' )
 module_version( 'ModuleExtensions/show', 'default' )
 module_version( 'ModuleLabel/label', 'default' )
 
