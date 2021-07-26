@@ -10,24 +10,6 @@ but do not yet include instructions for EasyBuild
 
   * Install the CPE components using the instructions of HPE
 
-  * Add a corrected cpe/yy.mm.lua file to the appropriate ``modules/CrayOverwrite``
-    subdirectory. Take the existing files as an example.
-
-      * Check if there are any new components that need to be added to either that file or
-        to the ``cpe/restore-defaults`` module.
-
-      * Consider switching the default cpe version in ``modules/CrayOVerwrite/.../cpe/.modulerc.lua``.
-
-      * If you would be using a generic ``cpe`` module that reads its data from the
-        CPE definition, first do the first step of part 2 of this procedure.
-
-  * Hide the new cpe module installed in the Cray PE subdirectory by adding a line to
-    ``LMOD/modulerc.lua`` in the repository.
-
-### Part 2: Adding support as a LUMI/yy.mm(.dev) software stack
-
-First make sure a number of files are present:
-
   * Create the components file in the ``CrayPE`` subdirectory of the repository.
     This is currently a simple .csv-file but may be replaced by a different one if
     HPE would provide that information in machine-readable format in a future version
@@ -39,45 +21,88 @@ First make sure a number of files are present:
     which is actually used in the LUMIpartition module file is the version of the
     craype-targets packages (essentially the CPE targeting modules).
 
-  * Create in the repository a matching ``LMOD/LUMIstack_yy.mm_modulerc.lua`` file. The
-    contents of this file is the same as the HPE-Cray provided file
-    ``/opt/cray/pe/cpe/yy.mm/modulerc.lua`` in the current interpretation. The only reason
-    why we use our own copy rather than referring to the Cray-provided file is to ensure
-    that the file remains part of the the ``LMOD_MODULERCFILE`` series of files independent
-    of load and unload operations of the ``cpe`` modules.
+  * **This step is only needed if you don't do part 2 as the installation script used
+    in part 2 of this procedure will also do this.**
+
+    Add a ``cpe/yy.mm.lua`` link for the just installed programming environment to
+    the ``modules/CrayOverwrite/core`` subdirectory of the modules tree (NOT in the
+    ``modules`` directory of the repository). This file does need the .csv file
+    generated in the previous step to function properly.
+
+    Note that this directory also contains a link named ``.modulerc`` to the
+    ``.version``file of `/opt/cray/pe/lmod/modulefiles/core/cpe''. It is essential
+    that the default version of the ``cpe`` module is the same in the original module
+    directory and in ``CrayOVerwrite`` as otherwise the original one may get loaded
+    in some circumstances. By using the symbolic link and the new name with higher
+    priority we assure that the modules from ``CrayOVerwrite`` are used. One still
+    needs to ensure that the overwrite modules also are more to the front of the
+    ``MODULEPATH`` or things still go wrong.
+
+  * **This step is only needed if you don't do part 2 as the installation script used
+    in part 2 of this procedure will also do this.**
+
+    If ``/opt/cray/pe/cpe/yy.mm/modulerc.lua`` is missing on the system, an alternative
+    needs to be generated and stored in ``modules/CrayOverwrite/data-cpe/yy.mm`` as
+    it is used by the generic cpe module installed in the previous step.
+
+    This can be done by running ``./make_CPE_modulerc yy.mm`` in the ``scripts`` subdirectory
+    of ``SystemRepo``.
+
+  * Hide the new cpe module installed in the Cray PE subdirectory by adding a line to
+    ``LMOD/modulerc.lua`` in the repository.
 
   * If there are new Cray targeting modules that are irrelevant for LUMI you may want to
     hide them in the respective code block in ``LMOD/LUMIstack_modulerc.lua``.
 
-  * Add an EasyConfig file for the selected version of EasyBuild in the EasyConfig
-    repository.
+
+### Part 2: Adding support as a LUMI/yy.mm(.dev) software stack
+
+From here on the setup is largely automated by the ``prepare_LUMI_stack.sh`` script
+in the ``scripts`` subdirectory of the repository. A few things need to be in place
+though before running this script:
+
+  * The component definition of the Cray PE software stack in the .csv file in the
+    ``CrayPE`` subdirectory.
+
+  * An EasyConfig file for the right version of EasyBuild in the
+    ``easybuild/easyconfigs/e/EasyBuild`` subdirectory of the repository.
 
     Note that it is always possible to run ``prepare_LUMI_stack.sh``-script
     with ``EASYBUILD_IGNORE_CHECKSUMS=1`` set if the checksums in the module
-    file are not yet OK. (TODO CHECK is this the correct variable?)
+    file are not yet OK.
 
-  * Make sure proper versions of the EasyBuild-config, LUMIstack and LUMIpartition
-    modules are available in the repository.
+  * Add a software stack-specific configuration file
+    ``easybuild-production-LUMI-yy.mm.cfg`` for EasyBuild if
+    needed in the ``easybuild/config`` subdirectory of the repository.
 
-    The software stack initialisation script will take the most recent one
-    (based on the yy.mm version number) that is not newer than the release
-    of the CPE for the software stack.
+    We currently don't include the ``.dev`` extension, i.e., if there is a development
+    and an LTS software stack for the same version of the CPE, they share the EasyBuild
+    configuration file. This makes sense because the development stack is meant to
+    prepare for a production stack.
 
-    *The software stacks and CPEs on the Grenoble test system use
-    yy.G.mm version numbers, but the ``.G`` is dropped when determining
-    the correct version of the modules mentioned above.*
+Furthermore you may want to make sure that the proper versions of the following files
+are available in the repository should you want to make changes compared to versions
+installed before:
 
-  * Add a software stack-specific configuration file for EasyBuild if
-    needed in the ``easybuild/confif`` subdirectory of the repository.
+  * The generic ``EasyBuild-config`` module should you want to make changes to, e.g.,
+    the environment variables et by that module.
 
-Next the ``prepare_LUMI_stack.sh``-script can be used to finish the initialization
-of the software stack. It takes 3 input arguments:
+  * The generic ``LUMIstacck`` aand ```LUUUMIpartition`` module.
 
-  * Version of the software stack
+  * The generic cpe module ``cpe-generic``.
 
-  * Version of EasyBuild to use
+The software stack initialisation script will take the most recent one
+(based on the yy.mm version number) that is not newer than the release
+of the CPE for the software stack.
 
-  * Work directory for temporary files, used to install a bootstrapping copy
+The ``prepare_LUMI_stack.sh`` script takes three arguments, and the order is important:
+
+ 1. The version of the software stack: the Cray PE version, with the extension ``.dev``
+    for a development stack (e.g., 21.05.dev or 21.06).
+
+ 2. The version of EasyBuild to install in the software stack
+
+ 3. A work directory for temporary files, used to install a bootstrapping copy
     of EasyBuild. Rather than trying to use an EasyBuild installation from an
     older software stack if present to bootstrap the new one, we simply chose
     to do a bootstrap every time the script is run as this is a procedure
@@ -87,25 +112,45 @@ of the software stack. It takes 3 input arguments:
     anywhere, run an initialisation script to initialise the structure around
     the repository, then initialise a software stack and start working.
 
-Note that the install root is not an argument of the ``prepare_LUMI_stack.sh``-script.
-The root of the installation is determined from the location of the script,
-so one should make sure to run the correct version of the script (i.e., to
-run from the clone of the repository in the installation root).
+The script then does the following steps:
 
-Steps that the ``LUMI_prepare_stack.sh`` script takes:
+  * Generate our own ``cpe/yy.mm`` module in ``modules/CrayOverwrite/core`` by creating
+    a symbolic link to the right version of the generic modules in ``SystemRepo``.
 
-  * Creates the LUMI software stack module (by soft linking to the generic one
-    in the ``SystemRepo``) and the partition modules for that stack (again by
-    softlinking).
+  * Check if the Cray PE comes with its own ``modulerc.lua`` file with the default components
+    (if so, that file can be found in ``/opt/cray/pe/cpe/yy.mm``). If not an alternative
+    file is generated from the data in the compoments .csv file and stored in
+    ``modules/CrayOverwrite/data-cpe/yy.mm``.
 
-    (The name ``SytemRepo`` is actually not hardcoded but the true name of the
-    repository directory is derived from the directory of the script.)
+    The file is used by the generic ``cpe/yy.mm`` module in ``modules/CrayOVerwrite/core``.
+
+  * Create the software stack module files by symlinking to the generic implementations
+    in ``SystemRepo``.
+
+  * Create the partition modules (second level in the hierarchy) by symlinking to the
+    generic implementations in ``SystemRepo``.
+
+  * Create the ``LUMIstack_yy.mm_modulerc.lua`` file in ``mgmt/LMOD/ModuleRC``.
+    Currently this file only contain references to Cray PE modules and as such correspond
+    to the ``modulerc.lua`` file in ``/opt/cray/pe/cpe/yy.mm`` but his may change in
+    a future version. Whereas the aforementioned ``modulerc.lua`` files are meant to
+    be activated by the ``cpe.yy.mm`` modules and hence to be used by any software
+    stack that uses the Cray PE, the ``LUMIstack_yy.mm_modulerc.lua`` are really meant
+    exclusively for the LUMI software stack.
+
+    This is done by running the ``make_LUMIstack_modulerc.sh`` script.
+
+  * Creates the ``CPE_modules_*.lua`` file in ``mgmt/LMOD/VisibilityHookData`` for
+    ``module avail`` visibility hook in ``SitePackage.lua``. This is done by running
+    the ``make_CPE_VisibilityHookData.sh`` script.
 
   * Creates the full directory structure for the software stack for the modules,
     the binary installations and the EasyBuild repo.
 
   * Creates the EasyBuild external modules definition file from the data in the
-    corresponding ``CPEpakcages_<CPE version>.csv`` file.
+    corresponding ``CPEpakcages_<CPE version>.csv`` file (if the file does not yet
+    exist). This file is stored in the repo as it may be useful for other people
+    who check out the repository to know what is going on.
 
   * Creates the EasyBuild-production, EasyBuild-infrastructure and EasyBuild-user
     modules for each partition by softlinking to the matching generic file in
@@ -121,17 +166,19 @@ Steps that the ``LUMI_prepare_stack.sh`` script takes:
   * Loads the software stack module for the common partition and the EasyBuild-production
     module to install EasyBuild in the software stack.
 
+  * Create EasyConfig files in the repository for the ``cpeCray``, ``cpeGNU`` and ``cpeAMD``
+    toolchains (if those files do not yet exist) and use the just installed EasyBuild
+    to install them in the ``Infrastructure`` module subdirectory for all 4 regular
+    and the common partition.
+
+    The toolchain definition EasyConfig files are generated by the ``make_CPE_EBfile.sh``
+    script.
+
 Things to do afterwards:
 
   * If you want to change the default version of the LUMI software stack module,
     you can do this by editing ``.modulerc.lua`` in
     ``modules/SoftwareStack/LUMI``.
-
-TODO
-
-  * Create the Cray PE toolchain modules
-
-    TODO: Use a script that uses the same data as used for the external module definition.
 
 And now one should be ready to install other software...
 
@@ -145,23 +192,20 @@ And now one should be ready to install other software...
     need to set some environment variables beforehand to point to that location).
 
 
-## Making a master installation of the module system
+## Making a master installation of the software stack
 
 A master version is an installation of the full system that can run independently from
 another installation. This is made easy so that it is possible to install a master
 version under a personal account or on a test system for testing and development independent
 from the central installation on the system.
 
-**This procedure is not for the prototype repository. That repository still uses a
-different directory structure but contains a script to mimic the true repository by
-linking to the prototype repository.**
-
  1. Create an empty directory which will be the root of the software installation.
 
- 2. Clone the ``LUMI-software-setup`` repository in that directory. You can change
+ 2. Clone the ``LUMI-SoftwareStack`` repository in that directory. You can change
     the name of the repository directory to anything as the whole installation is independent
     of that name provided that ``LMOD_PACKAGE_PATH`` refers to the LMOD installation in that
-    repository. In the documentation, we call the directory ``SystemRepo``.
+    repository. In the documentation, we call the directory ``SystemRepo`` (as opposed
+    to ``UserRepo`` for a user installation that depends on a master installation).
 
  3. Run the ``prepare_LUMI.sh`` script from ``SystemRepo/scripts`` to initialise the
     directory structure. The script takes no arguments but it is important to run the
@@ -177,28 +221,5 @@ linking to the prototype repository.**
 Now use the procedure "Installing a new version of the Cray PE on the system" to start
 a new version of the LUMI software stack, skipping the creation of those files that
 may already be in the repository because someone else has done them already.
-
-
-### Variant: Making a master installation with a shadow repository
-
-This variant of the procedure is needed for the prototype where the we do not yet
-have the true LUMI repository but a subdirectory in the prototypes directory of the
-prototype repository.
-
- 1. Clone the ``LUMI-software-setup`` repository of the software installation.
-
- 2. Create an empty directory elsewhere that will be the root of the software installation
-    and location of the shadow repository which links into the actual repository.
-    (This can be skipped as the script in the next step will create the directory
-    if it does not exist.)
-
- 3. Run the ``create_shadow.sh`` script from the ``scripts`` directory of the repo
-    that you cloned in the first step. Specify the directory that you created in the
-    previous step as the first argument, and if the site has a subdirectory in the
-    ``shadow`` directory in the repository, specify that name as the second argument.
-
- 4. Now go to the shadow repository that has been created in the previous step and
-    use it as if it is the actual repository, proceeding with step 3 of that procedure
-    to initialise the directory structure.
 
 
