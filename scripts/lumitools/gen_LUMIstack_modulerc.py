@@ -1,13 +1,13 @@
 #
-# gen_CPE_modulerc( CPEpackages_dir, LMOD_dir, version )
+# gen_LUMIstack_modulerc( CPEpackages_dir, LMOD_dir, version )
 #
 # Input arguments
 #   * CPEpackages_dir : Directory with the CPE definitinon files (in .csv format)
-#   * LMOD_dir : Directory with the LMOD modulerc files
+#   * LMOD_dir : Directory where the LMOD modulerc file will be stored.
 #   * version : Release of the CPE to generate the file for.
 #
 
-def gen_CPE_modulerc( CPEpackages_dir, LMOD_dir, version ):
+def gen_LUMIstack_modulerc( CPEpackages_dir, LMOD_dir, version ):
 
     def write_package( fileH, PEpackage, module, package_versions ):
 
@@ -22,7 +22,7 @@ def gen_CPE_modulerc( CPEpackages_dir, LMOD_dir, version ):
 
 
     #
-    # Core of the gen_EB_external_modules_from_CPEdef function
+    # Core of the gen_LUMIstack_modulerc function
     #
 
     import os

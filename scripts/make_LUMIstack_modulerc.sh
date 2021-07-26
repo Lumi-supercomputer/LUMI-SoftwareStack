@@ -1,6 +1,6 @@
 #! /bin/bash
 #
-# This is a wrapper script to call the gen_CPE_modulerc
+# This is a wrapper script to call the gen_LUMIstack_modulerc
 #
 # Currently there is only one version of that script. However, as the version of the
 # CPE is one of the arguments, it is possible to add additional logic to select between
@@ -47,7 +47,7 @@ cd "$PARAMETER_REPO_DIR/scripts"
 
 python3 -- <<END
 
-from lumitools.gen_CPE_modulerc import gen_CPE_modulerc
+from lumitools.gen_LUMIstack_modulerc import gen_LUMIstack_modulerc
 import os
 
 PEversion =   os.environ['PARAMETER_CPE']
@@ -65,6 +65,6 @@ LMOD_dir =        os.path.join( install_dir, 'mgmt/LMOD/ModuleRC' )
 #
 # Execute the command
 #
-gen_CPE_modulerc( CPEpackages_dir, LMOD_dir, PEversion )
+gen_LUMIstack_modulerc( CPEpackages_dir, LMOD_dir, PEversion )
 END
 
