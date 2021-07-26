@@ -198,13 +198,17 @@ create_link "$installroot/$repo/modules/CrayOverwrite/core/cpe-generic/$match_fi
             "$installroot/modules/CrayOverwrite/core/cpe/$CPEversion.lua"
 
 #
-# Check if we need to link to a modulerc.lua file from the repository.
+# Check if we can find the Cray PE modulerc file that sets the defaults for the
+# requested PE. If not, we generate our own in modules/CrayOverwrite/data-cpe.
+# The file is used by the generic cpe/yy.mm alternative.
+#
+# This is currently definitely needed on our Grenoble test system as that one has
+# an incomplete Cray PE.
 #
 if [ ! -f "/opt/cray/pe/cpe/$CPEversion/modulerc.lua" ]
 then
     mkdir -p "$installroot/modules/CrayOverwrite/data-cpe/$CPEversion"
-    create_link "$installroot/$repo/modules/CrayOverwrite/data-cpe/$CPEversion/modulerc.lua" \
-                "$installroot/modules/CrayOverwrite/data-cpe/$CPEversion/modulerc.lua"
+    $installroot/$repo/scripts/make_CPE_modulerc.sh ${stack_version%.dev}
 fi
 
 #
@@ -231,7 +235,7 @@ create_link     "$installroot/$repo/modules/LUMIpartition/$match_file" "$install
 # - Create the LUMIstack_..._modulerc.lua file with the default versions of Cray
 #   modules for this stack
 #
-$installroot/$repo/scripts/make_CPE_modulerc.sh ${stack_version%.dev}
+$installroot/$repo/scripts/make_LUMIstack_modulerc.sh ${stack_version%.dev}
 
 #
 # - Create the VisibilityHoodData/CPE_modules_*.lua file with the default versions of
