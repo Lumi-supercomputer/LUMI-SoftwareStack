@@ -1,0 +1,5 @@
+software:
+  buildtools:
+    toolchains:
+      SYSTEM:
+        versions: [21.06]
