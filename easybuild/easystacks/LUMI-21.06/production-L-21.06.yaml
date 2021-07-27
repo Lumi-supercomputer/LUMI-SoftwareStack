@@ -53,6 +53,14 @@ software:
         versions: [69.1]
       cpeAMD-21.06:
         versions: [69.1]
+  libunistring:
+    toolchains:
+      cpeCray-21.06:
+        versions: [0.9.10]
+      cpeGNU-21.06:
+        versions: [0.9.10]
+      cpeAMD-21.06:
+        versions: [0.9.10]
   GMP:
     toolchains:
       cpeCray-21.06:
