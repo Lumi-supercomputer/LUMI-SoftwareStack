@@ -175,7 +175,7 @@ local user_repositorypath =         pathJoin( user_prefix,   'ebrepo_files',    
 
 local installpath_software = mod_mode == 'user' and user_installpath_software or system_installpath_software
 local installpath_modules =  mod_mode == 'user' and user_installpath_modules  or system_installpath_modules
-local repositorypath =       mod_mode == 'user' and user_crepositorypath      or system_repositorypath
+local repositorypath =       mod_mode == 'user' and user_repositorypath       or system_repositorypath
 
 --    + The relevant config files
 
@@ -217,9 +217,9 @@ end
 
 local robot_paths = {}
 
---   + Always included in user rmode: the user repository for the software stack
+--   + Always included in usermode: the user repository for the software stack
 if mod_mode == 'user' then
-    table.insert( robot_paths, local_repositorypath )
+    table.insert( robot_paths, user_repositorypath )
 end
 
 --   + If the partition is not the common one, we need to add that user repository
