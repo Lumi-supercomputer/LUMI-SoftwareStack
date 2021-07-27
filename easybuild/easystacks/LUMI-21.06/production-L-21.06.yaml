@@ -37,7 +37,15 @@ software:
         versions: [1.16]
       cpeAMD-21.06:
         versions: [1.16]
- GMP:
+  FriBidi:
+    toolchains:
+      cpeCray-21.06:
+        versions: [1.0.10]
+      cpeGNU-21.06:
+        versions: [1.0.10]
+      cpeAMD-21.06:
+        versions: [1.0.10]
+  GMP:
     toolchains:
       cpeCray-21.06:
         versions: [6.2.1]
