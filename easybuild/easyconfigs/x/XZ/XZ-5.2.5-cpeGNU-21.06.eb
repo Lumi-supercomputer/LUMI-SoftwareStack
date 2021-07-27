@@ -1,0 +1,93 @@
+# Contributed by Kurt Lust, LUMI project & UAntwerpen
+easyblock = 'ConfigureMake'
+
+local_gettext_version =      '0.21'          # https://ftp.gnu.org/pub/gnu/gettext/
+local_XZ_version =           '5.2.5'         # https://tukaani.org/xz/
+
+name =    'XZ'
+version = local_XZ_version
+
+homepage = 'http://tukaani.org/xz/'
+
+whatis = [
+    'Description: XZ data compression libraries and utilities',
+    'This module provides the XZ command line utilities and static and shared libraries',
+]
+
+description = """
+XZ Utils is free general-purpose data compression software with a high
+compression ratio. XZ Utils were written for POSIX-like systems, but also work
+on some not-so-POSIX systems. XZ Utils are the successor to LZMA Utils.
+
+The core of the XZ Utils compression code is based on LZMA SDK, but it has been
+modified quite a lot to be suitable for XZ Utils. The primary compression
+algorithm is currently LZMA2, which is used inside the .xz container format.
+With typical files, XZ Utils create 30 % smaller output than gzip and 15 %
+smaller output than bzip2.
+
+XZ Utils consist of several components:
+* liblzma is a compression library with an API similar to that of zlib.
+* xz is a command line tool with syntax similar to that of gzip.
+* xzdec is a decompression-only tool smaller than the full-featured xz tool.
+* A set of shell scripts (xzgrep, xzdiff, etc.) have been adapted from gzip to
+  ease viewing, grepping, and comparing compressed files.
+* Emulation of command line tools of LZMA Utils eases transition from LZMA Utils
+  to XZ Utils.
+
+While liblzma has a zlib-like API, liblzma doesn't include any file I/O
+functions. A separate I/O library is planned, which would abstract handling of
+.gz, .bz2, and .xz files with an easy to use API.
+
+This module provides both the command line utilities and static and shared
+libraries.
+"""
+
+usage = """
+The main command line tools are:
+* Compression/decompression tools for .xz and .lzma: xz, unxz, xzcat, lzma,
+  unlzma and lzcat
+* A smaller decompression-only tool for .xz and .lzma: xzdec and lzmadec
+* Comparison of compressed files: xzcmp, xzdiff, lzcmp and lzdiff
+* Grep-like searching in compressed files: xzgrep, xzegrep, xzfgrep,
+  lzgrep, lzegrep, lzfgrep
+* Viewing compressed text files: xzless, xzmore, lzless and lzmore.
+
+The API is poorly documented. One should check the include files for more
+information on the API.
+"""
+
+docurls = [
+    'Man pages for the command line tools',
+]
+
+docpaths = [
+    'share/doc/xz'
+]
+
+toolchain =     {'name': 'cpeGNU', 'version': '21.06'}
+toolchainopts = {'pic': True}
+
+sources =     [SOURCELOWER_TAR_XZ]
+source_urls = ['http://tukaani.org/xz/']
+patches = ['XZ-%(version)s_compat-libs.patch']
+checksums = [
+    '3e1e518ffc912f86608a8cb35e4bd41ad1aec210df2a47aaa1f95e7f5576ef56',  # xz-5.2.5.tar.xz
+    '3853ba1d022afe0330bf9df0c30556b2b101f53dbb46c97aa18c579e15bd7276',  # XZ-5.2.5_compat-libs.patch
+]
+
+builddependencies = [ # Create a reproducible build environment.
+    ('buildtools', '%(toolchain_version)s', '', True),
+]
+
+dependencies = [
+    ('gettext',  local_gettext_version,  '-minimal'),
+]
+
+#configopts = '--disable-nls --disable-xz --disable-xzdec' # Use this if there is no gettext. xz and xzdec are two executables the require gettext.
+
+sanity_check_paths = {
+    'files': ["bin/xz", "bin/lzmainfo"],
+    'dirs':  []
+}
+
+moduleclass = 'tools'
