@@ -3,9 +3,8 @@ easyblock = 'ConfigureMake'
 local_libiconv_version =     '1.16'          # https://ftp.gnu.org/pub/gnu/libiconv/
 local_gettext_version =      '0.21'          # https://ftp.gnu.org/pub/gnu/gettext/
 
-name =          'libiconv'
-version =       local_libiconv_version
-versionsuffix = '-baselibsDevel'
+name =    'libiconv'
+version = local_libiconv_version
 
 homepage = 'https://www.gnu.org/software/libiconv'
 
