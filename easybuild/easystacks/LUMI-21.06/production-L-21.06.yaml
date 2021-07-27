@@ -15,7 +15,29 @@ software:
         versions: [8.1]
       cpeAMD-21.06:
         versions: [8.1]
-  GMP:
+  gettext:
+    toolchains:
+      cpeCray-21.06:
+        versions:
+          0.21:
+            versionsuffix: '-minimal'
+      cpeGNU-21.06:
+        versions:
+          0.21:
+            versionsuffix: '-minimal'
+      cpeAMD-21.06:
+        versions:
+          0.21:
+            versionsuffix: '-minimal'
+  libiconv:
+    toolchains:
+      cpeCray-21.06:
+        versions: [1.16]
+      cpeGNU-21.06:
+        versions: [1.16]
+      cpeAMD-21.06:
+        versions: [1.16]
+ GMP:
     toolchains:
       cpeCray-21.06:
         versions: [6.2.1]
