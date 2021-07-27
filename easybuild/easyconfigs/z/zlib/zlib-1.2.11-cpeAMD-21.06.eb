@@ -1,0 +1,49 @@
+# Contributed by Kurt Lust, LUMI project & UAntwerpen
+easyblock = 'ConfigureMake'
+
+local_zlib_version =             '1.2.11'        # https://zlib.net/
+
+name =    'zlib'
+version = local_zlib_version
+
+homepage = 'http://www.zlib.net/'
+
+whatis = [
+    'Description: Free lossless data-compression library, not covered by any patents.',
+    'This package provides istatic and shared libraries compiled with the Intel compilers'
+]
+
+description = """
+zlib is designed to be a free, general-purpose, legally unencumbered -- that is,
+not covered by any patents -- lossless data-compression library for use on
+virtually any computer hardware and operating system. The zlib data format is
+itself portable across platforms. Unlike the LZW compression method used in Unix
+compress(1) and in the GIF image format, the compression method currently used
+in zlib essentially never expands the data. (LZW can double or triple the file
+size in extreme cases.) zlib's memory footprint is also independent of the input
+data and can be reduced, if necessary, at some cost in compression.
+"""
+
+docurls = [
+    'Web-based manual: http://www.zlib.net/manual.html',
+    'Manual page zlib (section 3)',
+]
+
+toolchain =     {'name': 'cpeAMD', 'version': '21.06'}
+toolchainopts = {'pic': True}
+
+# http://www.zlib.net/zlib-1.2.11.tar.xz
+source_urls = ['http://www.zlib.net/']
+sources =     [SOURCELOWER_TAR_XZ]
+checksums =   ['4ff941449631ace0d4d203e3483be9dbc9da454084111f97ea0a2114e19bf066']
+
+builddependencies = [ # Create a reproducible build environment.
+    ('buildtools', '%(toolchain_version)s', '', True),
+]
+
+sanity_check_paths = {
+    'files': ['include/zconf.h', 'include/zlib.h', 'lib/libz.a', 'lib/libz.%s' % SHLIB_EXT],
+    'dirs':  [],
+}
+
+moduleclass = 'lib'
