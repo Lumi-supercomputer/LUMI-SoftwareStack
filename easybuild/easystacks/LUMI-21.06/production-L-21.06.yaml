@@ -45,6 +45,14 @@ software:
         versions: [1.0.10]
       cpeAMD-21.06:
         versions: [1.0.10]
+  ICU:
+    toolchains:
+      cpeCray-21.06:
+        versions: [69.1]
+      cpeGNU-21.06:
+        versions: [69.1]
+      cpeAMD-21.06:
+        versions: [69.1]
   GMP:
     toolchains:
       cpeCray-21.06:
