@@ -58,9 +58,23 @@
   * The SoftwareStack module relies on the ``detect_LUMI_partition`` function in
     ``SitePackage.lua`` to determine on which partition it is running.
 
-    The current implementation of that function assumes that the  system sets an environment
-    variable LUMI_PARTITION with value C, G, D or L depending on the node type (CPU compute,
-    GPU compute, data and visualisation, login).
+    The current implementation first checks if the environment variable
+    LUMI_OVERWRITE_PARTITION is defined and if so, the value of that variable is used.
+    It is assumed to be C, G, D or L depending on the node type (CPU compute, GPU compute,
+    data and visualisation or login), or can be common to install software in the
+    hidden common partition.
+
+    If that environment variable is not defined, we currently emply the following algorithm
+    as a demo of what can be done on the final LUMI installation:
+
+      * On eiger uan01 and uan02 the partition is set to L
+
+      * On eiger uan03 the partition is set to common
+
+      * On all other hosts we first check for the environment variable
+        LUMI_PARTITION and use that one and otherwise we set the partition
+        to L.
+
     This is used by the SoftwareStack module to then auto-load the
     module for the current partition when it is loaded. That function can be implemented
     differently also so that the environment variable is no longer needed.

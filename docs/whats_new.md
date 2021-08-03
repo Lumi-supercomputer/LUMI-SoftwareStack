@@ -1,5 +1,26 @@
 # What's new or different?
 
+  * 2021-08-03: Changed the SitePackage.lua function that detects the LUMI partition,
+    and this has influence on how the repository should be used for testing.
+
+      * The environment variable LUMI_OVERWRITE_PARTITION is now used to overwrite
+        any automatic selection of the partition.
+
+      * A demo selection process based on the hostname was implemented:
+
+          * On eiger uan01 and uan02 the partition is set to L
+
+          * On eiger uan03 the partition is set to common
+
+          * On all other hosts we first check for the environment variable
+            LUMI_PARTITION and use that one and otherwise we set the partition
+            to L.
+
+    The ``enable_LUMI.sh`` script now sets ``LUMI_OVERWRITE_PARTITION`` rather than
+    ``LUMI_PARTITION`` so if you use that script to set the environment, you shouldn't
+    note anything.
+
+
 ## Toolchain setup compared to the CSCS setup of June 2021
 
   * The CSCS definition for ``cpeAMD`` relied on a definition of the

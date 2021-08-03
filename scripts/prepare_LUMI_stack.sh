@@ -370,7 +370,7 @@ module --force purge
 export MODULEPATH="$installroot/modules/SoftwareStack"
 export LMOD_PACKAGE_PATH="$installroot/$repo/LMOD"
 export LMOD_RC="$installroot/$repo/LMOD/lmodrc.lua"
-export LUMI_PARTITION='common'
+export LUMI_OVERWRITE_PARTITION='common'
 module load LUMI/$stack_version
 module load partition/common
 # Need to use the full module name as the module is hidden in the default view!

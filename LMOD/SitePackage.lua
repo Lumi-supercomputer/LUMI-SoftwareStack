@@ -217,13 +217,43 @@ hook.register("isVisibleHook", is_visible_hook)
 -- -----------------------------------------------------------------------------
 
 --
+-- function get_hostname
+--
+-- Gets the hostname from the system.
+--
+-- In the implementation, we call /bin/hostname rather than relying on environment
+-- variables so that this is guaranteed to work, also on systems with the default
+-- SLURM setup that copies the environment from the node where the job was
+-- submitted and may not reset the HOSTNAME variable if no login shell is
+-- used.
+--
+function get_hostname()
+
+    local f = io.popen ("/bin/hostname")
+    local hostname = f:read("*a") or ""
+    f:close()
+
+    -- Clean up: Remove new line at the end
+    hostname =string.gsub(hostname, "\n$", "")
+
+    return hostname
+
+end
+
+--
 -- function detect_LUMI_partition
 --
 -- Code to detect on which partition of LUMI we are.
--- Currently this is done through the LUMI_PARTITION environment variable
--- but this function makes it easy to adapt that code and use a different
--- detection technique, e.g., based on the hostname, and implement the
--- change in all module files that use this function.
+--
+-- Current algorithm:
+--  * The environment variable LUMI_OVERWRITE_PARTITION overwrites any
+--    setting the algorithm may chose.
+--  * As an example, the following algorithm was implemented:
+--    + On eiger uan01 and uan02 the partition is set to L
+--    + On eiger uan03 the partition is set to common
+--    + On all other hosts we first check for the environment variable
+--      LUMI_PARTITION and use that one and otherwise we set the partition
+--      to L.
 --
 -- This code is meant to be used to detect the partition before it can be
 -- derived from the position of the module in the module hierarchy.
@@ -235,7 +265,49 @@ hook.register("isVisibleHook", is_visible_hook)
 --
 function detect_LUMI_partition()
 
-    local partition = os.getenv( 'LUMI_PARTITION' )
+    local partition
+    local overwrite_partition = os.getenv( 'LUMI_OVERWRITE_PARTITION' )
+
+    if overwrite_partition ~= nil then
+
+        -- Overwrite the default detection of the LUMI partition
+        partition = overwrite_partition
+
+    else
+
+        -- We'll try matching hostnames to decided on the partition
+        local hostname = get_hostname()
+
+        -- We're breaking compatibility with the description as given
+        -- in the first internal EasyBuild on the LUMI software stack
+        -- workshop as we now first match hostnames so on eiger the
+        -- first two login nodes will map onto the login partion and
+        -- the third login node will map onto the common partition if
+        -- LUMI_OVERWRITE_PARTITION is not set. On all other nodes
+        -- LUMI_PARTITION will still function but this should be a temporary
+        -- measure and everybody should switch to LUMI_OVERWRITE_PARTITION
+        -- to overwrite the partition.
+        local lumi_partition = os.getenv( 'LUMI_PARTITION' )
+
+        if hostname:find( 'uan0[12]' ) then
+
+            partition = 'L'
+
+        elseif hostname:find( 'uan03' ) then
+
+            partition = 'common'
+
+        elseif lumi_partition ~= nil then
+
+            partition = lumi_partition
+
+        else
+
+            partition = 'L'
+
+        end
+
+    end
 
     return partition
 
@@ -400,4 +472,5 @@ sandbox_registration{
     ['get_CPE_component']     = get_CPE_component,
     ['get_CPE_versions']      = get_CPE_versions,
     ['get_versionedfile']     = get_versionedfile,
+    ['get_hostname']          = get_hostname,
 }

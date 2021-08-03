@@ -80,14 +80,24 @@ in ``SitePackage.lua`` to have a single point where this is implemented.
 The alternative would be to use a trick that is also used in some CPE module
 files to read in and execute code from an external file.
 
-The current implementation is a stub that relies on the environment variable
-``LUMI_PARTITION`` but the goal is to replace this with something more robust
-to ensure that it also works in SLURM job scripts where that environment variable
-may have the wrong value as SLURM by default copies its environment from the
-node where the job was submitted.
+LUMI_OVERWRITE_PARTITION is defined and if so, the value of that variable is used.
+It is assumed to be C, G, D or L depending on the node type (CPU compute, GPU compute,
+data and visualisation or login), or can be common to install software in the
+hidden common partition.
 
-The idea is to ensure that a ``module reload`` would reload the loaded software
-stack for the partition on which the ``module reload`` command is run.
+If that environment variable is not defined, we currently emply the following algorithm
+as a demo of what can be done on the final LUMI installation:
+
+  * On eiger uan01 and uan02 the partition is set to L
+
+  * On eiger uan03 the partition is set to common
+
+  * On all other hosts we first check for the environment variable
+    LUMI_PARTITION and use that one and otherwise we set the partition
+    to L.
+
+The idea is to ensure that a ``module update`` would reload the loaded software
+stack for the partition on which the ``module update`` command is run.
 
 
 ### get_CPE_component
@@ -118,3 +128,9 @@ of places where the version info of the Cray packages in a CPE release is kept.
 file for a given version of the LUMI software stack, i.e., the file which according
 to the version number is the most recent one not newer than the software stack.
 
+
+### get_hostname
+
+``get_hostname`` gets the hostname from the output of the ``hostname`` command.
+It is meant to be used by detect_LUMI_partition but is also exported so that other
+module files can use it if needed.

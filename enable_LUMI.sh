@@ -8,4 +8,4 @@ reporoot="$(pwd)"
 partition='L'
 
 $reporoot/scripts/enable_LUMI.sh
-echo "export LUMI_PARTITION=$partition ; "
+echo "export LUMI_OVERWRITE_PARTITION=$partition ; "
