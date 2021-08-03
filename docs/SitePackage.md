@@ -134,3 +134,14 @@ to the version number is the most recent one not newer than the software stack.
 ``get_hostname`` gets the hostname from the output of the ``hostname`` command.
 It is meant to be used by detect_LUMI_partition but is also exported so that other
 module files can use it if needed.
+
+
+### get_user_prefix_EasyBuild
+
+``get_user_prefix_EasyBuild`` computes the root of the user EasyBuild installation
+from the environment variable ``EBU_USER_PREFIX`` and the default name in the home
+directory.
+
+It is used in the ``EasyBuild-config`` module, the ``LUMIpartition`` module (to include
+the user module directory in the ``MODULEPATH`) and in the ``avail_hook`` LMOD hook.
+

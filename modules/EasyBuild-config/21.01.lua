@@ -12,7 +12,8 @@ local site = 'LUMI' -- Site-specific prefix for the environment variable names s
 local ebu =  'EBU'  -- Site-specific prefix for the environment variable names that are likely set either in the system profile or user profile.
 
 -- User configuration
-local user_prefix = ( os.getenv( ebu .. '_USER_PREFIX' ) or pathJoin( os.getenv( 'HOME' ), '/EasyBuild' ) )
+-- local user_prefix = ( os.getenv( ebu .. '_USER_PREFIX' ) or pathJoin( os.getenv( 'HOME' ), '/EasyBuild' ) )
+local user_prefix = get_user_prefix_EasyBuild()
 -- System software and module install root, extract from the module path.
 local system_prefix = myFileName():match( '(.*)/modules/Infrastructure/.*' )
 -- System configuration: Derive from LMOD_PACKAGE_PATH

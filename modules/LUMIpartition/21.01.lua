@@ -38,10 +38,7 @@ if os.getenv( '_LUMI_LMOD_DEBUG' ) ~= nil then
 end
 
 -- Detect if there is a user installation that we need to take into account.
-local user_easybuild_modules = os.getenv( 'EBU_USER_PREFIX' )
-if user_easybuild_modules == nil then
-    user_easybuild_modules = pathJoin( os.getenv( 'HOME'), 'EasyBuild' )
-end
+local user_easybuild_modules = get_user_prefix_EasyBuild()
 user_easybuild_modules = pathJoin( user_easybuild_modules, 'modules')
 if not isDir( user_easybuild_modules ) then
     user_easybuild_modules = nil
