@@ -173,6 +173,46 @@ software:
         versions: [1.8]
       cpeAMD-21.06:
         versions: [1.8]
+  libarchive:
+    toolchains:
+      cpeCray-21.06:
+        versions: [3.5.1]
+      cpeGNU-21.06:
+        versions: [3.5.1]
+      cpeAMD-21.06:
+        versions: [3.5.1]
+  giflib:
+    toolchains:
+      cpeCray-21.06:
+        versions: [5.2.1]
+      cpeGNU-21.06:
+        versions: [5.2.1]
+      cpeAMD-21.06:
+        versions: [5.2.1]
+  libjpeg-turbo:
+    toolchains:
+      cpeCray-21.06:
+        versions: [2.1.0]
+      cpeGNU-21.06:
+        versions: [2.1.0]
+      cpeAMD-21.06:
+        versions: [2.1.0]
+  JasPer:
+    toolchains:
+      cpeCray-21.06:
+        versions: [2.0.33]
+      cpeGNU-21.06:
+        versions: [2.0.33]
+      cpeAMD-21.06:
+        versions: [2.0.33]
+  libpng:
+    toolchains:
+      cpeCray-21.06:
+        versions: [1.6.37]
+      cpeGNU-21.06:
+        versions: [1.6.37]
+      cpeAMD-21.06:
+        versions: [1.6.37]
   GMP:
     toolchains:
       cpeCray-21.06:
