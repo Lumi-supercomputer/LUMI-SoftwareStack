@@ -24,8 +24,8 @@ local_system_pyshortver = '3.6'
 # Version info:
 local_autoconf_version =         '2.71'        # Autoconf   20210128 - Check on https://ftp.gnu.org/gnu/autoconf/
 local_autoconf_archive_version = '2021.02.19'  # Autoconf-Archive 202102196 - check on https://ftp.gnu.org/gnu/autoconf-archive/
-local_automake_version =         '1.16.3'      # Automake   20201118 - Check on https://ftp.gnu.org/gnu/automake/
-local_cmake_version =            '3.21.0'      # CMake      20210714 - Check on https://cmake.org/download/
+local_automake_version =         '1.16.4'      # Automake   20210726 - Check on https://ftp.gnu.org/gnu/automake/
+local_cmake_version =            '3.21.1'      # CMake      20210721 - Check on https://cmake.org/download/
 local_ninja_version =            '1.10.2'      # Ninja      20201128 - Check on https://ninja-build.org/
 local_meson_version =            '0.59.0'      # Meson      20210718 - Check on https://pypi.org/project/meson/#history
 local_doxygen_version =          '1.9.1'       # Doxygen    20210108 - Check on https://www.doxygen.nl/download.html
@@ -188,7 +188,7 @@ components = [
     ('Automake', local_automake_version, {
         'sources':     [SOURCELOWER_TAR_XZ],
         'source_urls': [GNU_SOURCE],
-        'checksums':   ['ff2bf7656c4d1c6fdda3b8bebb21f09153a736bcba169aaf65eab25fa113bf3a'],
+        'checksums':   ['80facc09885a57e6d49d06972c0ae1089c5fa8f4d4c7cfe5baea58e5085f136d'],
         'start_dir':   '%(namelower)s-%(version)s'
         }),
     ('help2man', local_help2man_version, {
@@ -223,7 +223,7 @@ components = [
     ('CMake', local_cmake_version, {
         'sources':     [SOURCELOWER_TAR_GZ],
         'source_urls': ['https://cmake.org/files/v%(version_major_minor)s'],
-        'checksums':   ['4a42d56449a51f4d3809ab4d3b61fd4a96a469e56266e896ce1009b5768bd2ab'],
+        'checksums':   ['fac3915171d4dff25913975d712f76e69aef44bf738ba7b976793a458b4cfed4'],
         'start_dir':   '%(namelower)s-%(version)s',
         'configopts':  '-- -DCMAKE_USE_OPENSSL=1'
         }),
