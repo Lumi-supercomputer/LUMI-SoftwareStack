@@ -1,0 +1,15 @@
+# giflib
+
+  * [giflib home page](http://giflib.sourceforge.net/)
+
+  * [giflib on SourceForge](https://sourceforge.net/projects/giflib/)
+
+## EasyBuild
+
+  * [ giflib support in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/main/easybuild/easyconfigs/g/giflib)
+
+  * There is no support for giflib in the CSCS repository
+
+### Version 5.2.1 from CPE 21.06 on
+
+  * The EasyConfig is derived from the default EasyBuilders EasyConfig file.
