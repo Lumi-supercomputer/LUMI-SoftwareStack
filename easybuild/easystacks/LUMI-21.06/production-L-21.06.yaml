@@ -61,6 +61,118 @@ software:
         versions: [0.9.10]
       cpeAMD-21.06:
         versions: [0.9.10]
+  bzip2:
+    toolchains:
+      cpeCray-21.06:
+        versions: [1.0.8]
+      cpeGNU-21.06:
+        versions: [1.0.8]
+      cpeAMD-21.06:
+        versions: [1.0.8]
+  Brotli:
+    toolchains:
+      cpeCray-21.06:
+        versions: [1.0.9]
+      cpeGNU-21.06:
+        versions: [1.0.9]
+      cpeAMD-21.06:
+        versions: [1.0.9]
+  lz4:
+    toolchains:
+      cpeCray-21.06:
+        versions: [1.9.3]
+      cpeGNU-21.06:
+        versions: [1.9.3]
+      cpeAMD-21.06:
+        versions: [1.9.3]
+  Szip:
+    toolchains:
+      cpeCray-21.06:
+        versions: [2.1.1]
+      cpeGNU-21.06:
+        versions: [2.1.1]
+      cpeAMD-21.06:
+        versions: [2.1.1]
+  zlib:
+    toolchains:
+      cpeCray-21.06:
+        versions: [1.2.11]
+      cpeGNU-21.06:
+        versions: [1.2.11]
+      cpeAMD-21.06:
+        versions: [1.2.11]
+  gzip:
+    toolchains:
+      cpeCray-21.06:
+        versions: [1.10]
+      cpeGNU-21.06:
+        versions: [1.10]
+      cpeAMD-21.06:
+        versions: [1.10]
+  XZ:
+    toolchains:
+      cpeCray-21.06:
+        versions: [5.2.5]
+      cpeGNU-21.06:
+        versions: [5.2.5]
+      cpeAMD-21.06:
+        versions: [5.2.5]
+  Lzip:
+    toolchains:
+      cpeCray-21.06:
+        versions: [1.22]
+      cpeGNU-21.06:
+        versions: [1.22]
+      cpeAMD-21.06:
+        versions: [1.22]
+  zstd:
+    toolchains:
+      cpeCray-21.06:
+        versions: [1.5.0]
+      cpeGNU-21.06:
+        versions: [1.5.0]
+      cpeAMD-21.06:
+        versions: [1.5.0]
+  libb2:
+    toolchains:
+      cpeCray-21.06:
+        versions: [0.98.1]
+      cpeGNU-21.06:
+        versions: [0.98.1]
+      cpeAMD-21.06:
+        versions: [0.98.1]
+  LZO:
+    toolchains:
+      cpeCray-21.06:
+        versions: [2.10]
+      cpeGNU-21.06:
+        versions: [2.10]
+      cpeAMD-21.06:
+        versions: [2.10]
+  snappy:
+    toolchains:
+      cpeCray-21.06:
+        versions: [1.1.8]
+      cpeGNU-21.06:
+        versions: [1.1.8]
+      cpeAMD-21.06:
+        versions: [1.1.8]
+  Blosc:
+    toolchains:
+      cpeCray-21.06:
+        versions: [1.21.0]
+      cpeGNU-21.06:
+        versions: [1.21.0]
+      cpeAMD-21.06:
+        versions: [1.21.0]
+  libdeflate:
+    toolchains:
+      cpeCray-21.06:
+        versions: [1.8]
+      cpeGNU-21.06:
+        versions: [1.8]
+      cpeAMD-21.06:
+        versions: [1.8]
   GMP:
     toolchains:
       cpeCray-21.06:
