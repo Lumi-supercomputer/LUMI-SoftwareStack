@@ -20,7 +20,17 @@
   * [LibTIFF in the CSCS repository](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/l/LibTIFF)
 
 
+### Special issues
+
+  * Note that there is a circular dependency between LibTIFF and libwebp as both
+    can use the other for their command line tools. In the 21.06 version of the LUMI
+    stack, we let libwebp use LibTIFF but not the other way around.
+
+
 ### Version 4.3.0 from CPE 21.06 on
 
   * Our EasyConfig is derived from the University of Antwerpen one which has more
     dependencies (that are used by some of the command line tools it seems).
+
+
+
