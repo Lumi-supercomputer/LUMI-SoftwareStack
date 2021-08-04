@@ -349,6 +349,22 @@ software:
         versions: [2.3.2]
       cpeAMD-21.06:
         versions: [2.3.2]
+  GSL:
+    toolchains:
+      cpeCray-21.06:
+        versions: [2.7]
+      cpeGNU-21.06:
+        versions: [2.7]
+      cpeAMD-21.06:
+        versions: [2.7]
+  libcerf:
+    toolchains:
+      cpeCray-21.06:
+        versions: [1.17]
+      cpeGNU-21.06:
+        versions: [1.17]
+      cpeAMD-21.06:
+        versions: [1.17]
   GMP:
     toolchains:
       cpeCray-21.06:
