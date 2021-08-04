@@ -15,3 +15,6 @@
     build of ncurses to also build a version of the library with more/different
     options. We made this choice to ensure maximal compatibility with EasyConfigs
     from the main EasyBuild repository.
+
+  * We also generate files for pkg-config, something that the orginal EasyConfig
+    files didn't do.
