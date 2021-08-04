@@ -11,6 +11,6 @@
   * There is no libidn support in the CSCS repository
 
 
-### VErsion 1.38 from CPE 21.06 on
+### Version 1.38 from CPE 21.06 on
 
   * The EasyConfig is a mix of the EasyBuilders and University of Antwerpen ones.
