@@ -301,6 +301,54 @@ software:
         versions: [1.1.1]
       cpeAMD-21.06:
         versions: [1.1.1]
+  cURL:
+    toolchains:
+      cpeCray-21.06:
+        versions: [7.78.0]
+      cpeGNU-21.06:
+        versions: [7.78.0]
+      cpeAMD-21.06:
+        versions: [7.78.0]
+  expat:
+    toolchains:
+      cpeCray-21.06:
+        versions: [2.4.1]
+      cpeGNU-21.06:
+        versions: [2.4.1]
+      cpeAMD-21.06:
+        versions: [2.4.1]
+  libxml2:
+    toolchains:
+      cpeCray-21.06:
+        versions: [2.9.12]
+      cpeGNU-21.06:
+        versions: [2.9.12]
+      cpeAMD-21.06:
+        versions: [2.9.12]
+  libxslt:
+    toolchains:
+      cpeCray-21.06:
+        versions: [1.1.34]
+      cpeGNU-21.06:
+        versions: [1.1.34]
+      cpeAMD-21.06:
+        versions: [1.1.34]
+  libidn:
+    toolchains:
+      cpeCray-21.06:
+        versions: [1.38]
+      cpeGNU-21.06:
+        versions: [1.38]
+      cpeAMD-21.06:
+        versions: [1.38]
+  libidn2:
+    toolchains:
+      cpeCray-21.06:
+        versions: [2.3.2]
+      cpeGNU-21.06:
+        versions: [2.3.2]
+      cpeAMD-21.06:
+        versions: [2.3.2]
   GMP:
     toolchains:
       cpeCray-21.06:
