@@ -213,6 +213,94 @@ software:
         versions: [1.6.37]
       cpeAMD-21.06:
         versions: [1.6.37]
+  LibTIFF:
+    toolchains:
+      cpeCray-21.06:
+        versions: [4.3.0]
+      cpeGNU-21.06:
+        versions: [4.3.0]
+      cpeAMD-21.06:
+        versions: [4.3.0]
+  libwebp:
+    toolchains:
+      cpeCray-21.06:
+        versions: [1.2.0]
+      cpeGNU-21.06:
+        versions: [1.2.0]
+      cpeAMD-21.06:
+        versions: [1.2.0]
+  x264:
+    toolchains:
+      cpeCray-21.06:
+        versions: [20210414]
+      cpeGNU-21.06:
+        versions: [20210414]
+      cpeAMD-21.06:
+        versions: [20210414]
+  x265:
+    toolchains:
+      cpeCray-21.06:
+        versions: [3.5]
+      cpeGNU-21.06:
+        versions: [3.5]
+      cpeAMD-21.06:
+        versions: [3.5]
+  libopus:
+    toolchains:
+      cpeCray-21.06:
+        versions: [1.3.1]
+      cpeGNU-21.06:
+        versions: [1.3.1]
+      cpeAMD-21.06:
+        versions: [1.3.1]
+  LAME:
+    toolchains:
+      cpeCray-21.06:
+        versions: [3.100]
+      cpeGNU-21.06:
+        versions: [3.100]
+      cpeAMD-21.06:
+        versions: [3.100]
+  libogg:
+    toolchains:
+      cpeCray-21.06:
+        versions: [1.3.5]
+      cpeGNU-21.06:
+        versions: [1.3.5]
+      cpeAMD-21.06:
+        versions: [1.3.5]
+  libvorbis:
+    toolchains:
+      cpeCray-21.06:
+        versions: [1.3.7]
+      cpeGNU-21.06:
+        versions: [1.3.7]
+      cpeAMD-21.06:
+        versions: [1.3.7]
+  FLAC:
+    toolchains:
+      cpeCray-21.06:
+        versions: [1.3.3]
+      cpeGNU-21.06:
+        versions: [1.3.3]
+      cpeAMD-21.06:
+        versions: [1.3.3]
+  libsndfile:
+    toolchains:
+      cpeCray-21.06:
+        versions: [1.0.31]
+      cpeGNU-21.06:
+        versions: [1.0.31]
+      cpeAMD-21.06:
+        versions: [1.0.31]
+  libtheora:
+    toolchains:
+      cpeCray-21.06:
+        versions: [1.1.1]
+      cpeGNU-21.06:
+        versions: [1.1.1]
+      cpeAMD-21.06:
+        versions: [1.1.1]
   GMP:
     toolchains:
       cpeCray-21.06:
