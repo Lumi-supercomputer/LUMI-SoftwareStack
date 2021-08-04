@@ -72,4 +72,10 @@ sanity_check_paths = {
     'dirs':  ['lib/pkgconfig'],
 }
 
+sanity_check_commands = [
+    '%(namelower)s --version',
+    'curl-config --version',
+    'pkg-config --libs libcurl',
+]
+
 moduleclass = 'tools'

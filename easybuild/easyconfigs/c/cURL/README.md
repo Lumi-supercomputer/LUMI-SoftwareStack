@@ -19,3 +19,5 @@
 
   * There was a new configure option for 7.78.0: a range of options to select the right
     TLS backend, so this has been added to the EasyConfig file.
+
+  * Added additional sanity check commands to the file.
