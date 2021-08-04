@@ -25,9 +25,3 @@
 
   * The EasyConfig is a mix of the one from the EasyBuilders repository and the
     one developed before there was official support at the University of Antwerpen.
-
-      * One particular change taken from the University of Antwerpen one:
-        Some compiler options are coded in the configure script. There is one which
-        we expected might cause warnings even with gcc and removed that one (-O20)
-        using sed, but we did not touch the other flags. The ones specified
-        by EasyBuild are added to them at the end.
