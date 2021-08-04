@@ -4,9 +4,8 @@ easyblock = 'ConfigureMake'
 
 local_fribidi_version =      '1.0.10'         # https://github.com/fribidi/fribidi/releases
 
-name =          'FriBidi'
-version =       local_fribidi_version
-versionsuffix = '-baselibsDevel'
+name =    'FriBidi'
+version = local_fribidi_version
 
 homepage = 'https://github.com/fribidi/fribidi'
 
