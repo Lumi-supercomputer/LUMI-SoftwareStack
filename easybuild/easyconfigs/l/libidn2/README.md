@@ -6,6 +6,8 @@
 
       * [libidn downlaods at GNU](https://ftp.gnu.org/gnu/libidn/)
 
+  * [libidn2 development on GitLab](https://gitlab.com/libidn/libidn2)
+
 ## EasyBuild
 
   * [libidn2 support in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/main/easybuild/easyconfigs/l/libidn2)
