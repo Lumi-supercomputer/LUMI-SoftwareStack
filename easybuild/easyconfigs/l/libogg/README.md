@@ -1,0 +1,33 @@
+# libogg instructions
+
+  * [libogg web site](https://www.xiph.org/ogg/)
+
+      * [downloads via the web site](https://www.xiph.org/downloads/)
+
+  * [libogg on GitHub](https://github.com/xiph/ogg)
+
+      * [libogg releases on GitHub](https://github.com/xiph/ogg/releases)
+
+
+## General information
+
+  * libogg has a configure - make - make install build process.
+
+
+## EasyConfig
+
+  * [libogg in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/main/easybuild/easyconfigs/l/libogg)
+
+  * There is no support for libogg in the CSCS repository
+
+
+### 1.3.4 from CPE 21.06 on
+
+  * The EasyConfig is a mix of the one from the EasyBuilders repository and the
+    one developed before there was official support at the University of Antwerpen.
+
+      * One particular change taken from the University of Antwerpen one:
+        Some compiler options are coded in the configure script. There is one which
+        we expected might cause warnings even with gcc and removed that one (-O20)
+        using sed, but we did not touch the other flags. The ones specified
+        by EasyBuild are added to them at the end.
