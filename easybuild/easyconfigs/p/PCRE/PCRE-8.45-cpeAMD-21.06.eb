@@ -66,8 +66,8 @@ local_lib_variants = ['', 'posix', '16', '32']
 sanity_check_paths = {
     'files': ['bin/%s' %x for x in local_executables] +
              ['share/man/man1/%s.1' % x for x in local_executables] +
-             ['lib/libpcre%s.%s' % (x,y) for x in ['', 'posix', '16', '32'] for y in ['a', 'la', SHLIB_EXT]] +
-             [ 'lib/pkgconfig/libpcre%s.pc' % x for x in ['', 'posix', '16', '32']] +
+             ['lib/libpcre%s.%s' % (x,y) for x in local_lib_variants for y in ['a', 'la', SHLIB_EXT]] +
+             [ 'lib/pkgconfig/libpcre%s.pc' % x for x in local_lib_variants] +
              [ 'include/pcre.h', 'include/pcreposix.h'],
     'dirs': ['share/doc/pcre/html', 'share/man/man3'],
 }
@@ -76,6 +76,6 @@ sanity_check_commands = [
     'pcre-config --version',
     'pcregrep --version',
     'pcretest -help',
-] + ['pkg-config --libs libpcre%s' % x for x in ['', 'posix', '16', '32']]
+] + ['pkg-config --libs libpcre%s' % x for x in local_lib_variants]
 
 moduleclass = 'devel'
