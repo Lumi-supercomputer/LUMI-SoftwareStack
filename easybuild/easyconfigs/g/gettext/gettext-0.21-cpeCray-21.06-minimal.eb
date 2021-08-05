@@ -1,8 +1,11 @@
 # contributed by Luca Marsella (CSCS)
 easyblock = 'ConfigureMake'
 
+local_ncurses_version =      '6.2'           # https://ftp.gnu.org/pub/gnu/ncurses/
+local_gettext_version =      '0.21'          # https://ftp.gnu.org/pub/gnu/gettext/
+
 name =          'gettext'
-version =       '0.21'
+version =       local_gettext_version
 versionsuffix = '-minimal'
 
 homepage = 'http://www.gnu.org/software/gettext/'
@@ -59,7 +62,7 @@ builddependencies = [ # Create a reproducible build environment.
 ]
 
 dependencies = [
-    ('ncurses', '6.2'),
+    ('ncurses', local_ncurses_version),
 ]
 
 configopts = '--without-emacs --with-libncurses-prefix=$EBROOTNCURSES --with-included-libunistring --with-included-libxml'

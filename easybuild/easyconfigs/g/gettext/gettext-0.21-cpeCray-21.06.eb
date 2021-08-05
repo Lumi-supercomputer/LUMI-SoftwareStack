@@ -3,10 +3,10 @@ easyblock = 'ConfigureMake'
 
 local_ncurses_version =      '6.2'           # https://ftp.gnu.org/pub/gnu/ncurses/
 local_gettext_version =      '0.21'          # https://ftp.gnu.org/pub/gnu/gettext/
+local_libxml2_version =      '2.9.12'        # http://xmlsoft.org/sources/
 
-name =          'gettext'
-version =       local_gettext_version
-versionsuffix = '-minimal'
+name =    'gettext'
+version = local_gettext_version
 
 homepage = 'http://www.gnu.org/software/gettext/'
 
@@ -40,10 +40,7 @@ Emacs mode also helps interested parties in preparing these sets, or bringing
 them up to date.
 
 This module contains a range of command line tools and static and shared
-libraries. It is however gettext compiled in a minimal configuration with
-a minimal number of dependencies to be used as a build dependency for those
-packages that need gettext to compile but themselves are also needed to build
-a more full-featured gettext.
+libraries.
 """
 
 docurls = [
@@ -51,20 +48,17 @@ docurls = [
     'Man pages for all command line tools (man section 1) and for the API (man section 3)',
 ]
 
-toolchain = {'name': 'cpeGNU', 'version': '21.06'}
+toolchain = {'name': 'cpeCray', 'version': '21.06'}
 
 source_urls = [GNU_SOURCE]
-sources =     [SOURCE_TAR_XZ]
-checksums =   ['d20fcbb537e02dcf1383197ba05bd0734ef7bf5db06bdb241eb69b7d16b73192']
-
-builddependencies = [ # Create a reproducible build environment.
-    ('buildtools', '%(toolchain_version)s', '', True),
-]
+sources = [SOURCE_TAR_GZ]
 
 dependencies = [
+    ('libxml2', local_libxml2_version),
     ('ncurses', local_ncurses_version),
 ]
 
-configopts = '--without-emacs --with-libncurses-prefix=$EBROOTNCURSES --with-included-libunistring --with-included-libxml'
+configopts = "--without-emacs --with-libxml2-prefix=$EBROOTLIBXML2"
+
 
 moduleclass = 'vis'
