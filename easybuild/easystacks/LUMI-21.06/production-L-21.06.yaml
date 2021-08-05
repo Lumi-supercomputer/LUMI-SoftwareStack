@@ -373,3 +373,27 @@ software:
         versions: [6.2.1]
       cpeAMD-21.06:
         versions: [6.2.1]
+  MPFR:
+    toolchains:
+      cpeCray-21.06:
+        versions: [4.1.0]
+      cpeGNU-21.06:
+        versions: [4.1.0]
+      cpeAMD-21.06:
+        versions: [4.1.0]
+  MPC:
+    toolchains:
+      cpeCray-21.06:
+        versions: [1.2.1]
+      cpeGNU-21.06:
+        versions: [1.2.1]
+      cpeAMD-21.06:
+        versions: [1.2.1]
+  mpdecimal:
+    toolchains:
+      cpeCray-21.06:
+        versions: [2.5.1]
+      cpeGNU-21.06:
+        versions: [2.5.1]
+      cpeAMD-21.06:
+        versions: [2.5.1]
