@@ -73,7 +73,9 @@ sanity_check_paths = {
 }
 
 sanity_check_commands = [
-    '%s --version' % x for x in local_executables] + [
-    'pkg-config --libs libpcre%s' % x for x in local_lib_variants]
+    'pcre-config --version',
+    'pcregrep --version',
+    'pcretest -help',
+] + ['pkg-config --libs libpcre%s' % x for x in local_lib_variants]
 
 moduleclass = 'devel'
