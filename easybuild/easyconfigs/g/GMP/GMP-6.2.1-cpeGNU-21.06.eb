@@ -28,7 +28,7 @@ arithmetic type, by using fast algorithms, with highly optimised assembly code
 for the most common inner loops for a lot of CPUs, and by a general emphasis on
 speed.
 
-This module provides static and shared liberaries.
+This module provides static and shared libraries.
 """
 
 docurls = [
@@ -53,11 +53,25 @@ sources = [SOURCELOWER_TAR_BZ2]
 # enable C++ interface
 configopts = '--enable-cxx'
 
+runtest = 'check'
+
 # the output of config.guess is used by default and can be changed with --build
 # E.g.: configopts = ' --build=haswell-pc-linux-gnu'
 sanity_check_paths = {
-    'files': ['lib/libgmp.so', 'include/%(namelower)s.h'],
-    'dirs': [],
+    'files': ['include/%s.h' % x for x in ['gmp', 'gmpxx']] +
+             ['lib/lib%s.%s' % (x, y) for x in ['gmp', 'gmpxx'] for y in [ 'a', 'la', SHLIB_EXT]] +
+             ['lib/pkgconfig/%s.pc' % x for x in ['gmp', 'gmpxx']],
+    'dirs':  ['share/info'],
+}
+
+# No binaries to easily check, but we do check if pkg-config can read the .pc files.
+sanity_check_commands = [
+    'pkg-config --libs gmp',
+    'pkg-config --libs gmpxx',
+]
+
+modextrapaths = {
+    'INFOPATH' : 'share/info',
 }
 
 moduleclass = 'math'
