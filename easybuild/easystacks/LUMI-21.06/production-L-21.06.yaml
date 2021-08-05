@@ -397,3 +397,83 @@ software:
         versions: [2.5.1]
       cpeAMD-21.06:
         versions: [2.5.1]
+  double-conversion:
+    toolchains:
+      cpeCray-21.06:
+        versions: [3.1.5]
+      cpeGNU-21.06:
+        versions: [3.1.5]
+      cpeAMD-21.06:
+        versions: [3.1.5]
+  file:
+    toolchains:
+      cpeCray-21.06:
+        versions: [5.40]
+      cpeGNU-21.06:
+        versions: [5.40]
+      cpeAMD-21.06:
+        versions: [5.40]
+  gc:
+    toolchains:
+      cpeCray-21.06:
+        versions: [8.04]
+      cpeGNU-21.06:
+        versions: [8.04]
+      cpeAMD-21.06:
+        versions: [8.04]
+  gdbm:
+    toolchains:
+      cpeCray-21.06:
+        versions: [1.20]
+      cpeGNU-21.06:
+        versions: [1.20]
+      cpeAMD-21.06:
+        versions: [1.20]
+  libevent:
+    toolchains:
+      cpeCray-21.06:
+        versions: [2.1.12]
+      cpeGNU-21.06:
+        versions: [2.1.12]
+      cpeAMD-21.06:
+        versions: [2.1.12]
+  libffi:
+    toolchains:
+      cpeCray-21.06:
+        versions: [3.4.2]
+      cpeGNU-21.06:
+        versions: [3.4.2]
+      cpeAMD-21.06:
+        versions: [3.4.2]
+  libyaml:
+    toolchains:
+      cpeCray-21.06:
+        versions: [0.2.5]
+      cpeGNU-21.06:
+        versions: [0.2.5]
+      cpeAMD-21.06:
+        versions: [0.2.5]
+  LMDB:
+    toolchains:
+      cpeCray-21.06:
+        versions: [0.9.29]
+      cpeGNU-21.06:
+        versions: [0.9.29]
+      cpeAMD-21.06:
+        versions: [0.9.29]
+  PCRE:
+    toolchains:
+      cpeCray-21.06:
+        versions: [8.45]
+      cpeGNU-21.06:
+        versions: [8.45]
+      cpeAMD-21.06:
+        versions: [8.45]
+  PCRE2:
+    toolchains:
+      cpeCray-21.06:
+        versions: [10.37]
+      cpeGNU-21.06:
+        versions: [10.37]
+      cpeAMD-21.06:
+        versions: [10.37]
