@@ -260,6 +260,26 @@ end
 
 table.insert( search_paths, system_easyconfigdir )
 
+--   + Include LUMI-EasyBuild-contrib if we can find and are in user mode
+--     These EasyConfigs are not meant to be used in production mode, but this
+--     is only a search and they may be the starting basis for new production
+--     recipes.
+
+local system_easybuild_contrib = pathJoin( system_prefix, 'LUMI-EasyBuild-contrib/easybuild/easyconfigs' )
+local user_easybuild_contrib =   pathJoin( user_prefix,   'LUMI-EasyBuild-contrib/easybuild/easyconfigs' )
+
+--     - First look in the user directory if we are in user mode
+if mod_mode == 'user' and isDir( user_easybuild_contrib ) then
+
+    table.insert( search_paths, user_easybuild_contrib )
+
+--     - Then look in the system directory.
+elseif isDir( system_easybuild_contrib ) then
+
+    table.insert( search_paths, system_easybuild_contrib )
+
+end
+
 --   + Possible future option: Include the CSCS repository
 
 --   + EasyBuild default config files if we can find it (through EBROOTEASYBUILD that is)

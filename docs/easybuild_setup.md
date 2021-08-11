@@ -226,13 +226,16 @@ The following settings are made through environment variables:
 
      1. Our own system repository
 
-     2. Not yet done, but we could maintain a local copy of the CSCS repository and
+     2. The [LUMI-EasyBuild-contrib repository](https://github.com/Lumi-supercomputer/LUMI-EasyBuild-contrib),
+        if that one is installed next to the production repository
+
+     3. Not yet done, but we could maintain a local copy of the CSCS repository and
         enable search in that also.
 
-     3. Default EasyConfig files that come with EasyBuild (if we can find EasyBuild,
+     4. Default EasyConfig files that come with EasyBuild (if we can find EasyBuild,
         which is if an EasyBuild-build EasyBuild module is loaded)
 
-     4. Deliberately not included: Our ebrepo_files repositories. Everything in there
+     5. Deliberately not included: Our ebrepo_files repositories. Everything in there
         should be in our own EasyConfig repository if the installations are managed
         properly.
 
@@ -291,12 +294,17 @@ The following settings are made through environment variables:
 
      2. Our own system repository
 
-     3. Not yet done, but we could maintain a local copy of the CSCS repository and
+     3. The [LUMI-EasyBuild-contrib repository](https://github.com/Lumi-supercomputer/LUMI-EasyBuild-contrib),
+        if that one is installed either next to the user EasyConfig repository
+        or next to the system EasyConfig repository. If it is installed in both
+        locations, the one next to the user EasyConfig repository is used.
+
+     4. Not yet done, but we could maintain a local copy of the CSCS repository and
         enable search in that also.
 
-     4. Default EasyConfig files that come with EasyBuild
+     5. Default EasyConfig files that come with EasyBuild
 
-     5. Deliberately not included: Our ebrepo_files repositories. Everything in there
+     6. Deliberately not included: Our ebrepo_files repositories. Everything in there
         should be in our own EasyConfig repository if the installations are managed
         properly.
 
