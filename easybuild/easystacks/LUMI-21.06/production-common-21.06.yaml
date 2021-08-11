@@ -3,3 +3,7 @@ software:
     toolchains:
       SYSTEM:
         versions: [21.06]
+  Rust:
+    toolchains:
+      SYSTEM:
+        versions: [1.54.0]
