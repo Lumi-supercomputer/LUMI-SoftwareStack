@@ -1,6 +1,8 @@
 # The directory structure
 
-This hierarchy is created with the prototype_partition_stack script.
+## System directory
+
+Most of this hierarchy is created with the ``prepare_LUMI.sh`` script.
 
 The Cray PE modules are left in their own hierarchy.
 
@@ -102,3 +104,47 @@ In the LUMI software stack installation directory, one can find the following su
 
     For the structure inside the repository, see
     [the "overview of files in the repository and where they are being used](files_used.md).
+
+  * LUMI-EasyBuild-contrib (optional and not created by the script): A clone of the
+    [LUMI-EasyBuild-contrib repository](https://github.com/Lumi-supercomputer/LUMI-EasyBuild-contrib)
+    only used for search in EasyBuild.
+
+
+## User EasyBuild setup
+
+This is a very simplified version of the system directory structure with levels in
+the directory structure omitted when they don't make sense as this structure is for
+EasyBuild installations only.
+
+  * ``modules/LUMI/yy.mm/partition/part``: Directory for the EasyBuild-generated modules
+    for the LUMI/yy.mm software stack for the LUMI-part partition (part actually being
+    a single letter, except for the software that is common to all partitions, where
+    part is common)
+
+  * ``SW/LUMI-yy.mm/part`` : This is for the actual binaries, lib directories etc.
+    Names are deliberately kept short to avoid problems with too long shebang lines.
+    As shebang lines do not undergoe variable expansion, we cannot use the EBROOT
+    variables and so on in those lines to save space.
+
+    As for the modules directory, ``part`` is ``C``, ``G``, ``D``, ``L``or ``common``.
+
+  * ``ebrepo_files/LUMI-yy.mm/LUMI-part`` for the EasyBuild repository of installed
+    EasyConfigs in the user directory.
+
+
+    As for the modules directory, ``part`` is ``C``, ``G``, ``D``, ``L``or ``common``.
+
+  * ``UserRepo``: The user EasyBuild repo. Contrary to the repository in the system
+    directories, the name ``UserRepo`` is mandatory here.
+
+    Subdirectories are
+
+      * ``easybuild/config`` to add to the system config files (the ``easybuild-user.cfg``
+        and ``easybuild-user-LUMI-yy.mm.cfg`` files, see the
+        [Setup of a LUMI software stack and EasyBuild](easybuild_Setup.md) page)
+
+      * ``easybuild/easyblkocks`` for additional custom EasyBlocks. We currently assume
+        an organisation in two levels (first letter and then the python file).
+
+      * ``easybuild/easyconfigs`` for the EasyConfigs.
+
