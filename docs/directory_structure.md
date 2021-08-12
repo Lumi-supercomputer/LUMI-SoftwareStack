@@ -97,6 +97,17 @@ In the LUMI software stack installation directory, one can find the following su
             file to hide Cray modules that are irrelevant for a particular software
             stack.
 
+  * ``sources``: Directory structure to store sources of installed programs so that they
+    can be reinstalled even if sources would no longer be downloadable
+
+      * ``easybuild``: Sources downloaded by EasyBuild. The inbternal structure of
+        this directory is determined by EasyBuild.
+
+      * Further subdirectories are not fixed yet, but the suggestion is to also provide
+        a ``manual`` subdirectory for the sources of those packages that are installed
+        manually and a ``spack`` subdirectory for spack-installed software when we
+        proceed with the Spack integration.
+
   * SystemRepo: GitHub repository with all managed files. The name is not fixed, any
     name can be used and will be picked up if the scripts from the ``scripts`` subdirectory
     inside the repository are used to initialise a new software stack or to determine
@@ -105,7 +116,7 @@ In the LUMI software stack installation directory, one can find the following su
     For the structure inside the repository, see
     [the "overview of files in the repository and where they are being used](files_used.md).
 
-  * LUMI-EasyBuild-contrib (optional and not created by the script): A clone of the
+  * ``LUMI-EasyBuild-contrib`` (optional and not created by the script): A clone of the
     [LUMI-EasyBuild-contrib repository](https://github.com/Lumi-supercomputer/LUMI-EasyBuild-contrib)
     only used for search in EasyBuild.
 
@@ -133,6 +144,9 @@ EasyBuild installations only.
 
 
     As for the modules directory, ``part`` is ``C``, ``G``, ``D``, ``L``or ``common``.
+
+  * ``sources``: Subdirectory where EasyBuild stores sources of isntalled packages.
+    The internal structure is fully determined by EasyBuild.
 
   * ``UserRepo``: The user EasyBuild repo. Contrary to the repository in the system
     directories, the name ``UserRepo`` is mandatory here.

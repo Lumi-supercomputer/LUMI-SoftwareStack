@@ -2,7 +2,7 @@
 
   * [What's new or different?](whats_new.md)
 
-  * [Setup of the module system](module_setup.md)
+  * [Setup of the LUMI module system](module_setup.md)
   * [EasyBuild setup](easybuild_setup.md)
   * [Cray PE integration](CrayPE_integration.md)
   * [Some procedures](procedures.md)

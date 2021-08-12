@@ -1,4 +1,4 @@
-# Setup of a LUMI software stack and EasyBuild
+# Setup of EasyBuild
 
 ## External modules for interation with the Cray PE
 

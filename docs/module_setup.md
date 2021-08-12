@@ -9,6 +9,18 @@
     the LUMI software stacks, based on the corresponding yy.mm version of the Cray
     programming environment.
 
+    To distinguish between versions of the software stack that are fairly complete
+    and that we try to support for a longer period and those versions that are only
+    meant to install a few applications that run into compiler bugs on the main
+    versions, the latter versions of the software stack have a name of the form
+    ``LUMI/yy.mm.dev``. It is possible to at some point having both a ``LUMI/yy.mm.dev``
+    and ``LUMI/yy.mm`` software stack for the same release of the Cray PE so that
+    if we figure out that a particular Cray PE release is good enough to build a new
+    version of the software stack, we can do so without interupting users using the
+    development version while still being able to update some components that are already
+    installed in the .dev stack. However, they have to use the same components of
+    the Cray PE and same cpeCray/cpeGNU/cpeAMD EasyBuild toolchain modules.
+
   * When it matters, the module system will automatically select the software for
     the partition on which the software stack was loaded (and change to the correct
     partition in Slurm batch scripts if you reload the LUMI module). It is always possible
