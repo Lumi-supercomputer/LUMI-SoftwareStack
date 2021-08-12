@@ -2,9 +2,10 @@
 
   * [What's new or different?](whats_new.md)
 
-  * [Some procedures](procedures.md)
   * [Setup of the module system](module_setup.md)
   * [EasyBuild setup](easybuild_setup.md)
+  * [Cray PE integration](CrayPE_integration.md)
+  * [Some procedures](procedures.md)
   * [The directpry structure in the installation directory](directory_structure.md)
   * [An overview of files in several of the repository directories and where they
     are used](files_used.md)

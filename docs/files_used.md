@@ -12,6 +12,7 @@
     ``/opt/cray/pe/cpe/yy.mm/modulerc.lua`` file. See the [procedure to install a new
     version of the Cray PE on the system](procedures.md#-installing-a-new-version-of-the-Cray-PE-on-the-system).
 
+
 ## LMOD subdirectory
 
   * The [``LMOD``](../LMOD) subdirectory itself is set as the value of the environment variable
@@ -45,7 +46,6 @@
     ``LMOD_PACKAGE_PATH`` system environment variable.
 
     [Additional information on this file](SitePackage.md)
-
 
 
 ## modules subdirectory

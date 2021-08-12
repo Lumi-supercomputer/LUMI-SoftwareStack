@@ -1,50 +1,8 @@
 # Setup of a LUMI software stack and EasyBuild
 
-## Transforming information about the Cray PE to other tools
+## External modules for interation with the Cray PE
 
-For now, information (and in particular version numbers) of CPE components is provided
-through a a .csv-file which is edited by hand and stored in the CrayPE subdirectory.
-It would be possible to extract some of the information in that file from parsing \
-``/opt/cray/pe/cpe/yy.mm/modulerc.lua``. In the future, HPE-Cray
-may deliver that information in a more easily machiine-readable format.
-
-There are several points where we need information about versions of specific packages
-in releases of the Cray PE:
-
-  * **We need to define external modules to EasyBuild.**
-
-    That file is currently generate by ``make_EB_external_modules.py``
-    which is a wrapper that calls ``lumitools/gen_EB_external_modules_from_CPEdef.py``
-    to generate the EasyBuild external modules file for a particular version of the
-    CPE. The external module definition file is stored in the easybuild configuration
-    directory and is called ``external_modules_metadata-CPE-<CPE version>.cfg``. Hence
-    in the current design it is named after the version of the CPE and not the name
-    of the software stack, so the developer and release versions of a software stack
-    would share the same file.
-
-  * **For now we need to overwrite the Cray PE cpe module for the release of the CPE.**
-
-    We use a generic implemenation of the module file that simply reads the .csv file
-    to find out component versions.
-
-  * For now, as the cpe module cannot work correctly due to restrictions in LMOD,
-    we need to specify the exact versions of packages in the various cpe* toolchain
-    easyconfigs.
-
-  * **We need to define Cray PE components to Spack**
-
-    Not developed yet.
-
-  * **A module avail hook to hide those modules that are irrelevant to a particular LUMI/yy.mm
-    toolchain could also use that information.**
-
-    Not developed yet.
-
-    Note that such a module only unclutters the display for users. A hidden module
-    can still be loaded, and if that module is marked as default it would actually
-    be loaded instead of another module with the same name and version.
-
-
+See the [Cray PE integation page](CrayPE_integration.md).
 
 ## EasyBuild Module Naming Scheme
 

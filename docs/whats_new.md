@@ -1,5 +1,9 @@
 # What's new or different?
 
+  * 2021-08-11: Added the [LUMI-EasyBuild-contrib](https://github.com/Lumi-supercomputer/LUMI-EasyBuild-contrib)
+    repository and made it part of the search path (but not of the robot path)
+    of the EasyBuild-* modules.
+
   * 2021-08-03: Changed the SitePackage.lua function that detects the LUMI partition,
     and this has influence on how the repository should be used for testing.
 
