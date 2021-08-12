@@ -38,7 +38,7 @@ utility.
 """
 
 docurls = [
-    "The package supports the info command (info udunits)"
+    "The package supports the info command (info udunits2, info udunits2prog, info udunits2lib)"
 ]
 
 toolchain =     {'name': 'cpeGNU', 'version': '21.06'}
@@ -70,5 +70,9 @@ sanity_check_paths = {
 sanity_check_commands = [
     'udunits2 -h',
 ]
+
+modextrapaths = {
+    'INFOPATH' : 'share/info',
+}
 
 moduleclass = 'phys'
