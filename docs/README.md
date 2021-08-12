@@ -19,7 +19,7 @@
       * [cpeAMD toolchain](Toolchains/cpeAMD.md)
 
   * Documentation on our EasyBlocks:
-      * [The CrayPEToolchain EasyBlock](CraPEToolchain.md)
+      * [The CrayPEToolchain EasyBlock](CrayPEToolchain.md)
 
   * [A number of failed experiments during the development, to avoid making the
     same mistake twice](failed_experiments.md)

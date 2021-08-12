@@ -84,7 +84,7 @@ Other optimization-related options (and see also parallelism below):
 
 | Option        | Flag |
 |:--------------|:-----|
-| *strict *     | /    |
+| *strict*      | /    |
 | *precise*     | /    |
 | *defaultprec* | /    |
 | *loose*       | /    |

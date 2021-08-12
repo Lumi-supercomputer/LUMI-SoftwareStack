@@ -1,10 +1,8 @@
-# Setup of EasyBuild
+# EasyBuild setup
 
-## External modules for interation with the Cray PE
+## Configuration decisions
 
-See the [Cray PE integation page](CrayPE_integration.md).
-
-## EasyBuild Module Naming Scheme
+### EasyBuild Module Naming Scheme
 
   * Options
 
@@ -36,11 +34,16 @@ See the [Cray PE integation page](CrayPE_integration.md).
           * ``EASYBUILD_SUFFIX_MODULES_PATH=''``
 
 
-## Other configuration decisions
+### Other configuration decisions
 
   * TODO: rpath or not?
 
   * TODO: Hiding many basic libraries
+
+
+## External modules for integration with the Cray PE
+
+See the [Cray PE integration page](CrayPE_integration.md).
 
 
 ## Running EasyBuild
@@ -49,12 +52,12 @@ EasyBuild for LUMI is configured through a set of EasyBuild configuration files 
 environment variables. The basic idea is to never load the EasyBuild module directly
 without using one of the EasyBuild configuration modules. There are three such modules
 
-  * EasyBuild-production to do the installations in the production directories.
+  * ``EasyBuild-production`` to do the installations in the production directories.
 
-  * EasyBuild-infrastructure is similar to EasyBuild-production but places the module
+  * ``EasyBuild-infrastructure`` is similar to ``EasyBuild-production`` but places the module
     in the Infrastructure tree rather than the easybuild tree.
 
-  * EasyBuild-user is meant to do software installations in the home directory of a
+  * ``EasyBuild-user`` is meant to do software installations in the home directory of a
     user or in their project directory. This module will configure EasyBuild such that
     it builds on top of the software already installed on the system, with a compatible
     directory structure.
@@ -125,8 +128,13 @@ Settings made in the configuration files:
   * Modules that may be loaded when EasyBuild runs
 
   * Modules that should be hidden. Starting point is currently the list of CSCS.
-    **TODO: Not yet enabled as this makes development more difficult and as we do not
-    yet understand which mechanism EasyBuild uses to hide the modules.**
+    **TODO: Not yet enabled as this makes development more difficult.**
+
+    In fact, another (untested) option is to hide the modules via a modulerc file in
+    the module system rather than via EasyBuild which would have the advantage that
+    they maintain regular version numbers rather than version numbers that start with
+    a dot (as it seems that that version number with the dot should then also be used
+    consistently).
 
   * Ignore EBROOT variables without matching module as we use this to implement Bundles
     that are detected by certain EasyBlocks as if each package included in the Bundle
@@ -147,9 +155,11 @@ The following settings are made through environment variables:
     searching the robot path is not enabled by default but can be controlled through
     the ``-r`` flag of the ``eb`` command. The search order is:
 
-     1. The repository for the currently active partition
+     1. The repository for the currently active partition build by EasyBuild for
+        installed packages (``ebrepo_files``)
 
-     2. The repository for the common partition
+     2. The repository for the common partition build by EasyBuild for
+        installed packages (``ebrepo_files``)
 
      3. The LUMI-specific EasyConfig directory.
 
@@ -223,7 +233,7 @@ The following settings are made through environment variables:
          as a separate level so that the user can also easily do version
          tracking via a versioning system such as GitHub.
 
-       * The 'mgmt' level is missing as we do not take into account
+       * The ``mgmt`` level is missing as we do not take into account
          subdirectories that might be related to other software management
          tools.
 

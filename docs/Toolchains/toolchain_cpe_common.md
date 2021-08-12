@@ -73,12 +73,12 @@ Cray systems.
 
 Some examples are
 
-  * ''EASYBUILD_OPTARCH=x86-rome``: Defines only an architecture for the Cray compilers,
+  * ``EASYBUILD_OPTARCH="x86-rome"``: Defines only an architecture for the Cray compilers,
     in this case it tells EasyBuild to optimize for the AMD Rome processor.
-  * ``EASYBUILD_OPTARCH=x86-milan+accel-AMD-gfx90A+network-ofi``: Tells EasyBuild to
+  * ``EASYBUILD_OPTARCH="x86-milan+accel-AMD-gfx90A+network-ofi"``: Tells EasyBuild to
     target for the AMD Milan CPU, AMD gfx90A GPU (which is the likely module name for
     the MI 200) and OFI network stack.
-  * ``EASYBULD_OPTARCH=CPE:x86-rome;Intel:march=core-avx2 -mtune=core-avx2;GCC:march=znver2 -mtune=znver2"``
+  * ``EASYBULD_OPTARCH="CPE:x86-rome;Intel:march=core-avx2 -mtune=core-avx2;GCC:march=znver2 -mtune=znver2"``
     would set a compiler target for the Cray toolchains, the Intel compilers used through the
     regular EasyBuild common toolchains and the GNU compilers, again used through
     the regular EasyBuild common toolchains, in each case specifying options suitable
