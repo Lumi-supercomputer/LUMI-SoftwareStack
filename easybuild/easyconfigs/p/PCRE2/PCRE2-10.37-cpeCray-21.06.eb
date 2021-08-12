@@ -5,9 +5,8 @@ local_zlib_version =         '1.2.11'        # https://zlib.net/
 local_bzip2_version =        '1.0.8'         # http://www.bzip.org/downloads.html
 local_PCRE2_version =        '10.37'         # https://ftp.pcre.org/pub/pcre/
 
-name =          'PCRE2'
-version =       local_PCRE2_version
-versionsuffix = '-baselibsDevel'
+name =    'PCRE2'
+version = local_PCRE2_version
 
 homepage = 'http://www.pcre.org/'
 
