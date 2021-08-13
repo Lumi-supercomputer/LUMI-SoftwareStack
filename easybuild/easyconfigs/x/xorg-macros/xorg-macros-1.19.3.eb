@@ -1,0 +1,39 @@
+easyblock = 'ConfigureMake'
+
+local_LUMI_version =        '21.06'
+local_xorg_macros_version = '1.19.3' # https://cgit.freedesktop.org/xorg/util/macros
+
+name =    'xorg-macros'
+version = '1.19.3'
+
+homepage = 'https://cgit.freedesktop.org/xorg/util/macros'
+
+whatis = [
+    'Description: X.org macro utilities'
+]
+
+description = """
+This is a set of autoconf macros used by the configure.ac scripts in
+other Xorg modular packages, and is needed to generate new versions
+of their configure scripts with autoconf.
+"""
+
+#toolchain = {'name': 'GCCcore', 'version': '11.2.0'}
+toolchain = SYSTEM
+
+source_urls = ['https://gitlab.freedesktop.org/xorg/util/macros/-/archive/util-macros-%(version)s']
+sources = ['macros-util-macros-%(version)s.tar.gz']
+checksums = ['8205d210a580da0938f5ce4392a96b60cf1d9a5f792eaa1474fa4c1977aef4d0']
+
+builddependencies = [ # Create a reproducible build environment.
+    ('buildtools', local_LUMI_version), # Uses autotools
+]
+
+preconfigopts = './autogen.sh && '
+
+sanity_check_paths = {
+    'files': ['share/pkgconfig/xorg-macros.pc'],
+    'dirs':  [],
+}
+
+moduleclass = 'devel'
