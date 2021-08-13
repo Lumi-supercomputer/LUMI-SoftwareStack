@@ -1,0 +1,17 @@
+# X11 bundle
+
+This is a bundle of X11 tools provided by EasyBuild.
+
+## EasyBuild
+
+  * [X11 bundle in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/main/easybuild/easyconfigs/x/X11)
+
+  * The X11 bundle is not in the CSCS repository.
+
+
+### Bundle for 21.06
+
+  * The bundle is taken from the 20210802 one from the EasyBuilders repository.
+    We did add some additional packages to save on dependencies for some other packages:
+    xprop, ldrm and DBus.
+
