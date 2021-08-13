@@ -42,14 +42,13 @@ local_bison_version =            '3.7.6'       # Bison      20210309 - Check on 
 local_flex_version =             '2.6.4'       # flex       20170506 - Check on https://github.com/westes/flex/releases
 local_byacc_version =            '20210619'    # byacc      20210619 - Check on ftp://ftp.invisible-island.net/byacc
 local_re2c_version =             '2.1.1'       # re2c       20210327 - https://github.com/skvadrik/re2c/releases
-local_git_version =              '2.32.0'      # git        20210606 - Check on https://github.com/git/git/releases
 local_SCons_version =            '4.1.0.post1' # SCons      20101217 - https://github.com/SCons/scons/releases, https://scons.org/pages/download.html
 
 homepage = 'http://www.gnu.org'
 
 whatis = [
     "Description: A bundle of often used build tools, GNU and others"
-    "Contains: autoconf, autoconf_archive, automake, libtool, M4, make, git, sed, Bison, flex, Berkeley Yacc (byacc), " +
+    "Contains: autoconf, autoconf_archive, automake, libtool, M4, make, sed, Bison, flex, Berkeley Yacc (byacc), " +
     "CMake, Ninja, Meson, SCons, NASM, Yasm, patchelf, gperf, re2c, help2man and Doxygen"
 ]
 
@@ -72,7 +71,6 @@ building software. Many of them are GNU tools.
 + GNU sed %(sed)s                     - https://www.gnu.org/software/sed/
 + GNU Bison %(bison)s                 - https://www.gnu.org/software/bison
 + GNU flex %(flex)s                  - https://www.gnu.org/software/flex/
-+ git %(git)s                      - https://git-scm.com/
 + byacc %(byacc)s                  - http://invisible-island.net/byacc/byacc.html
 + CMake %(cmake)s                    - http://www.cmake.org/
 + Ninja %(ninja)s                    - https://ninja-build.org/
@@ -98,7 +96,6 @@ build several of the %(ver)s packages.
     'sed'             : local_sed_version,
     'bison'           : local_bison_version,
     'flex'            : local_flex_version,
-    'git'             : local_git_version,
     'byacc'           : local_byacc_version,
     'cmake'           : local_cmake_version,
     'ninja'           : local_ninja_version,
@@ -371,7 +368,7 @@ moduleclass = 'devel'
 modluafooter = """
 extensions( "Autoconf/%(autoconf)s, Autoconf-archive/%(autoconfarchive)s, Automake/%(automake)s, " ..
             "libtool/%(libtool)s, M4/%(m4)s, make/%(make)s, sec/%(sed)s, Bison/%(bison)s, flex/%(flex)s, " ..
-            "git/%(git)s, byacc/%(byacc)s, CMake/%(cmake)s, Ninja/%(ninja)s, Meson/%(meson)s, " ..
+            "byacc/%(byacc)s, CMake/%(cmake)s, Ninja/%(ninja)s, Meson/%(meson)s, " ..
             "SCons/%(SCons)s, NASM/%(nasm)s, Yasm/%(yasm)s, patchelf/%(patchelf)s, " ..
             "re2c/%(re2c)s, gperf/%(gperf)s, help2man/%(help2man)s, Doxygen/%(doxygen)s"
           )
@@ -385,7 +382,6 @@ extensions( "Autoconf/%(autoconf)s, Autoconf-archive/%(autoconfarchive)s, Automa
     'sed'             : local_sed_version,
     'bison'           : local_bison_version,
     'flex'            : local_flex_version,
-    'git'             : local_git_version,
     'byacc'           : local_byacc_version,
     'cmake'           : local_cmake_version,
     'ninja'           : local_ninja_version,
