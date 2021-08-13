@@ -31,3 +31,6 @@ This README was developed starting with snappy 1.1.8 in the CPE 21.06.
 
   * The dependencies on zlib and LZO (lzo2) were added to the dependencies list to ensure
     a build with maximum potential.
+
+  * We also added an option to install in lib instead of lib64 as almost all of the other
+    packages also install in lib.
