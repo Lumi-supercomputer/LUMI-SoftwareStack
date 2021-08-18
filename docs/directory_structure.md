@@ -38,7 +38,7 @@ In the LUMI software stack installation directory, one can find the following su
         a single letter, except for the software that is common to all partitions, where
         part is common)
 
-      * ``spack/LUMI/yy.mm/partition/part`` (provisionary): Similar as the above, but for Spack-installed software.
+      * ``spack/LUMI/yy.mm/partition/part/<archstring>``: Similar as the above, but for Spack-installed software.
 
       * ``manual/LUMI/yy.mm/partition/part``: Similar as the above, but for manually installed
         software.

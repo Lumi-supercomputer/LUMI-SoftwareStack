@@ -14,6 +14,14 @@ local node_description = {
     common = 'common binaries for all partitions'
 }
 
+local node_spack_arch = {
+    C      = 'cray-sles15-zen3',
+    G      = 'cray-sles15-zen3',
+    D      = 'cray-sles15-zen2',
+    L      = 'cray-sles15-zen2',
+    common = 'cray-sles15-zen2',
+}
+
 -- Detect the root of the module tree from the position of this module
 local install_root = myFileName():match( '(.*)/modules/SystemPartition/.*' )
 local module_root = pathJoin( install_root, 'modules' )
@@ -104,9 +112,9 @@ if ( partition ~= 'common' ) or ( mode() ~= 'spider' ) then
     end
     prepend_path(     'MODULEPATH', pathJoin( module_root, 'manual',        stack_name_version, 'partition', partition ) )
     if partition ~= 'common' then
-        prepend_path( 'MODULEPATH', pathJoin( module_root, 'spack',         stack_name_version, 'partition', 'common' ) )
+        prepend_path( 'MODULEPATH', pathJoin( module_root, 'spack',         stack_name_version, 'partition', 'common',  node_spack_arch['common'] ) )
     end
-    prepend_path(     'MODULEPATH', pathJoin( module_root, 'spack',         stack_name_version, 'partition', partition ) )
+    prepend_path(     'MODULEPATH', pathJoin( module_root, 'spack',         stack_name_version, 'partition', partition, node_spack_arch[partition] ) )
     if partition ~= 'common' then
         prepend_path( 'MODULEPATH', pathJoin( module_root, 'easybuild',     stack_name_version, 'partition', 'common' ) )
     end
