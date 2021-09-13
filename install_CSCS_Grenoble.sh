@@ -38,11 +38,13 @@ case $system in
     ;;
 	CSCS)
         #EB_stacks=( '21.04''21.05' '21.06' )
-        EB_stacks=( '21.05.dev' '21.06' )
+        #EB_stacks=( '21.05.dev' '21.06' )
+        EB_stacks=( '21.08' )
         EB_version['21.04']='4.4.1'
         EB_version['21.05.dev']='4.4.1'
         EB_version['21.06']='4.4.1'
-        default_stack='21.06'
+        EB_version['21.08']='4.4.2'
+        default_stack='21.08'
 	;;
 esac
 partitions=( 'C' 'G' 'D' 'L' )
