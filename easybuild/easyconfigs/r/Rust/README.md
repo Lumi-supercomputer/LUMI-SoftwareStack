@@ -19,3 +19,7 @@
   * It is intended for installation in ``partition/common`` as processor-specific
     binaries don't make much sense for compilers and as it can then be used to
     compile software for that partition also.
+
+### Rust 1.55.0 from CPE 21.08 on
+
+  * Straightforward adaptation of the EasyConfig for version 1.54.0.

@@ -1,0 +1,76 @@
+# Contributed by Kurt Lust, University of Antwerpen and LUMI consortium, based on
+# the build recipe in the easybuilders repository.
+#
+# NOTE: This package is meant to be installed in partition/common on LUMI.
+#
+easyblock = 'ConfigureMake'
+
+local_LUMI_version =   '21.08'         # Version of the CPE and buildtools
+local_Rust_version =   '1.55.0'        # https://www.rust-lang.org
+
+name =    'Rust'
+version = local_Rust_version
+
+homepage = 'https://www.rust-lang.org'
+
+whatis = [
+    "Description: Rust is a systems programming language that runs blazingly fast, prevents segfaults, and guarantees thread safety"
+]
+
+description = """
+Rust is blazingly fast and memory-efficient: with no runtime or garbage collector,
+it can power performance-critical services, run on embedded devices, and easily
+integrate with other languages. Rust’s rich type system and ownership model
+guarantee memory-safety and thread-safety — enabling you to eliminate many
+classes of bugs at compile-time.
+"""
+
+toolchain = SYSTEM
+
+source_urls = ['https://static.rust-lang.org/dist/']
+sources =     ['rustc-%(version)s-src.tar.gz']
+checksums =   ['b2379ac710f5f876ee3c3e03122fe33098d6765d371cac6c31b1b6fc8e43821e']
+
+builddependencies = [
+    ('buildtools', local_LUMI_version),  # For CMake
+]
+
+osdependencies = [
+    ('openssl-devel', 'libssl-dev', 'libopenssl-devel'), # For CMake
+]
+
+#
+# Configure phase
+#
+
+configopts  = "--enable-extended --sysconfdir=%(installdir)s/etc "
+# avoid build dependency on Ninja, which requires Python,
+# since Rust is a build dependency for cryptography that is included with Python
+configopts += "--set=llvm.ninja=false "
+
+
+#
+# Build phase
+#
+
+# avoid failure when home directory is an NFS mount or some other file systems
+# see https://github.com/rust-lang/cargo/issues/6652
+prebuildopts = "export CARGO_HOME=%(builddir)s/cargo && "
+
+#
+# Install phase
+#
+
+preinstallopts = prebuildopts
+
+sanity_check_paths = {
+    'files': ['bin/cargo', 'bin/rustc', 'bin/rustdoc'],
+    'dirs':  ['lib/rustlib', 'share/doc', 'share/man'],
+}
+
+sanity_check_commands = [
+    "cargo --version",
+    "rustc --version",
+]
+
+moduleclass = 'lang'
