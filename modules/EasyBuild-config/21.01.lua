@@ -22,7 +22,7 @@ local LMOD_root = os.getenv( 'LMOD_PACKAGE_PATH' )
 if LMOD_root == nil then
     LmodError( 'Failed to get the value of LMOD_PACKAGE_PATH' )
 end
-local EB_SystemRepo_prefix = pathJoin( LMOD_root:gsub( '/LMOD/*', '' ), 'easybuild' )
+local SystemRepo_prefix = LMOD_root:gsub( '/LMOD/*', '' )
 
 -- -----------------------------------------------------------------------------
 --
@@ -52,8 +52,8 @@ local optarch = {
 -- first time the message will not be shown.
 --
 local show_message = true
-if myModuleName() ~= 'EasyBuild-user'           and isloaded( 'EasyBuild-user' ) then show_message = false end
-if myModuleName() ~= 'EasyBuild-production'     and isloaded( 'EasyBuild-production' ) then show_message = false end
+if myModuleName() ~= 'EasyBuild-user'           and isloaded( 'EasyBuild-user' )           then show_message = false end
+if myModuleName() ~= 'EasyBuild-production'     and isloaded( 'EasyBuild-production' )     then show_message = false end
 if myModuleName() ~= 'EasyBuild-infrastructure' and isloaded( 'EasyBuild-infrastructure' ) then show_message = false end
 
 --
@@ -129,11 +129,11 @@ local CPE_version =stack_version:gsub( '.dev', '' )  -- Drop .dev from the stack
 
 --    + Some easy ones that do not depend the software stack itself
 
-local system_configdir =           pathJoin( EB_SystemRepo_prefix, 'config' )
-local system_easyconfigdir =       pathJoin( EB_SystemRepo_prefix, 'easyconfigs' )
-local system_easyblockdir =        pathJoin( EB_SystemRepo_prefix, 'easyblocks' )
-local system_toolchaindir =        pathJoin( EB_SystemRepo_prefix, 'toolchains' )
-local system_hookdir =             pathJoin( EB_SystemRepo_prefix, 'hooks' )
+local system_configdir =           pathJoin( SystemRepo_prefix, 'easybuild/config' )
+local system_easyconfigdir =       pathJoin( SystemRepo_prefix, 'easybuild/easyconfigs' )
+local system_easyblockdir =        pathJoin( SystemRepo_prefix, 'easybuild/easyblocks' )
+local system_toolchaindir =        pathJoin( SystemRepo_prefix, 'easybuild/toolchains' )
+local system_hookdir =             pathJoin( SystemRepo_prefix, 'easybuild/hooks' )
 local system_installpath =         system_prefix
 
 local user_configdir =             pathJoin( user_prefix, 'UserRepo', 'easybuild/config' )
@@ -158,7 +158,7 @@ local sourcepath =    mod_mode == 'user' and user_sourcepath    or system_source
 local containerpath = mod_mode == 'user' and user_containerpath or system_containerpath
 local packagepath =   mod_mode == 'user' and user_packagepath   or system_packagepath
 
-local module_naming_scheme_dir =   pathJoin( EB_SystemRepo_prefix, 'tools/module_naming_scheme/*.py' )
+local module_naming_scheme_dir =   pathJoin( SystemRepo_prefix, 'easybuild/tools/module_naming_scheme/*.py' )
 
 local buildpath =                  pathJoin( os.getenv( 'XDG_RUNTIME_DIR' ), 'easybuild', 'build' )
 local tmpdir =                     pathJoin( os.getenv( 'XDG_RUNTIME_DIR' ), 'easybuild', 'tmp' )
@@ -354,6 +354,11 @@ setenv( 'EASYBUILD_OPTARCH', optarch[partition_name] )
 
 -- Set LUMI_EASYBUILD_MODE to be used in hooks to only execute certain hooks in production mode.
 setenv( 'LUMI_EASYBUILD_MODE', myModuleName():gsub( 'EasyBuild%-', '' ) )
+
+--
+-- Add the tools to the search path for executables
+--
+prepend_path( 'PATH', pathJoin( SystemRepo_prefix, 'tools' ) )
 
 
 -- -----------------------------------------------------------------------------

@@ -87,7 +87,7 @@ installed before:
   * The generic ``EasyBuild-config`` module should you want to make changes to, e.g.,
     the environment variables et by that module.
 
-  * The generic ``LUMIstacck`` aand ```LUUUMIpartition`` module.
+  * The generic ``LUMIstack`` and ```LUMIpartition`` module.
 
   * The generic cpe module ``cpe-generic``.
 
@@ -221,5 +221,11 @@ from the central installation on the system.
 Now use the procedure "Installing a new version of the Cray PE on the system" to start
 a new version of the LUMI software stack, skipping the creation of those files that
 may already be in the repository because someone else has done them already.
+
+
+## Bumping the toolchain to a newer version without changing the other dependencies
+
+For now, we use the script ``upgrade-tc.py`` developed at CSCS and kept in the ``tools``
+subdirectory. It is also available when any of our EasyBuild configuration modules is loaded.
 
 

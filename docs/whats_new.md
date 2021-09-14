@@ -1,5 +1,11 @@
 # What's new or different?
 
+  * 2021-09-14: Added the ``tools`` subdirectory with scripts that we want to make
+    available in the PATH and that are useful for any user, not just for a one-time
+    setup of the repository or adding a new software stack to the repository (the
+    latter remain in the ``scripts`` subdirectory and are not put in the PATH when
+    loading one of our EasyBuild configuration modules).
+
   * 2021-08-11: Added the [LUMI-EasyBuild-contrib](https://github.com/Lumi-supercomputer/LUMI-EasyBuild-contrib)
     repository and made it part of the search path (but not of the robot path)
     of the EasyBuild-* modules.

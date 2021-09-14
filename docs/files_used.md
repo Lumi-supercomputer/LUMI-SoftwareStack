@@ -185,6 +185,16 @@ new software stack in the installation, or various substeps of this. Several of 
 scripts are just wrapper scripts that call a Python routine to do the work.
 
 
+## The tools subdirectory
+
+This directory contains scripts that are useful to any user of EasyBuild of LUMI, e.g.,
+to bump EasyConfig files to a new release of the Cray PE.
+
+  * [``upgrade-tc.py``](../tools/upgrade-tc.py): Bump the version of the Cray PE in
+    an EasyConfig file, also adapting the name of the file. Note that the regular
+    dependencies are not updated to a new version.
+
+
 ## Note: Files and directories referred to from outside the LUMI software structure
 
   * [``LMOD``](../LMOD) subdirectory itself as the value of the environment variable
