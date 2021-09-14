@@ -2,7 +2,7 @@ software:
   buildtools:
     toolchains:
       SYSTEM:
-        versions: ['21.06']
+        versions: ['21.08']
   xorg-macros:
     toolchains:
       SYSTEM:
@@ -10,4 +10,4 @@ software:
   Rust:
     toolchains:
       SYSTEM:
-        versions: ['1.54.0']
+        versions: ['1.55.0']
