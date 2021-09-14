@@ -1,0 +1,71 @@
+
+easyblock = 'CrayPEToolchain'
+
+name =    'cpeGNU'
+version = "21.08"
+
+homepage = 'https://pubs.cray.com'
+
+whatis = [
+    "Desription: EasyBuild toolchain using the Cray compiler wrapper with gcc module (CPE release 21.08)"
+]
+
+description = """
+This module is the EasyBuild toolchain that uses the Cray compiler wrapper with
+the gcc compiler activated. The components loaded are those of the Cray Programming
+Environment (CPE) version 21.08.
+
+The module has the same effect as loading PrgEnv-gnu and cpe/21.08 should have, but
+does not use either of those modules. The use of PrgEnv-gnu is avoided since the
+modules that it loads may change over time, reducing reproducibility, while loading
+cpe/21.04 is avoided as this module is buggy and conflicts with the way the LUMI
+software stack currently works. Instead, the module declares itself a member of
+the PrgEnv family and sets an PE_ENV which would otherwise be set by PrgEnv-gnu,
+ensuring that the Cray PE will work as if those modules are loaded.
+"""
+
+toolchain = SYSTEM
+
+PrgEnv_load   = False
+PrgEnv_family = 'PrgEnv'
+CPE_load      = None
+
+import os
+local_partition = os.getenv('LUMI_STACK_PARTITION')
+
+if local_partition == 'common' or local_partition == 'L':
+    cray_targets = [
+        'craype-x86-rome',
+        'craype-accel-host',
+        'craype-network-ofi'
+    ]
+elif local_partition == 'C':
+    cray_targets = [
+        'craype-x86-milan',
+        'craype-accel-host',
+        'craype-network-ofi'
+    ]
+elif local_partition == 'G':
+    cray_targets = [
+        'craype-x86-milan',
+        'craype-accel-amd-gfx908',
+        'craype-network-ofi'
+    ]
+elif local_partition == 'D':
+    cray_targets = [
+        'craype-x86-rome',
+        'craype-accel-host',
+        'craype-network-ofi'
+    ]
+
+dependencies = [
+    ('gcc/10.3.0', EXTERNAL_MODULE),
+    ('craype/2.7.9', EXTERNAL_MODULE),
+    ('cray-mpich/8.1.8', EXTERNAL_MODULE),
+    ('cray-libsci/21.08.1.2', EXTERNAL_MODULE),
+    ('cray-dsmml/0.2.0', EXTERNAL_MODULE),
+    ('perftools-base/21.05.0', EXTERNAL_MODULE),
+    ('xpmem', EXTERNAL_MODULE),
+]
+
+moduleclass = 'toolchain'
