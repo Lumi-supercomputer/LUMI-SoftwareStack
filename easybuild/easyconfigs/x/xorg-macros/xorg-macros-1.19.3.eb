@@ -1,6 +1,12 @@
 easyblock = 'ConfigureMake'
 
-local_LUMI_version =        '21.08'
+import os as local_os
+
+# The first line below is a dirty trick not very much loved by the EasyBuild developers but
+# it helps to make this EasyConfig indpendent of the LUMI software stack version as there is
+# no other reference to that version in the file that we can use since it relies on the
+# SYSTEM toolchain.
+local_LUMI_version = local_os.environ['LUMI_STACK_CPE_VERSION']
 local_xorg_macros_version = '1.19.3' # https://cgit.freedesktop.org/xorg/util/macros
 
 name =    'xorg-macros'
@@ -24,11 +30,7 @@ source_urls = ['https://gitlab.freedesktop.org/xorg/util/macros/-/archive/util-m
 sources =     ['macros-util-macros-%(version)s.tar.gz']
 checksums =   ['8205d210a580da0938f5ce4392a96b60cf1d9a5f792eaa1474fa4c1977aef4d0']
 
-# We have a minor problem here: We may need many different EasyConfig
-# files for the same version which is not workable, simply because we need a
-# different version of buildtools... Yet, because we need autotools, it is better
-# to load one.
-builddependencies = [
+builddependencies = [ # Create a reproducible build environment
     ('buildtools', local_LUMI_version), # Uses autotools
 ]
 
