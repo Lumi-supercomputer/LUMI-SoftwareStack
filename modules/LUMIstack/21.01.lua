@@ -57,6 +57,13 @@ This module enables the LUMI/]] .. stack_version .. [[ software stack for the cu
 By swapping the partition module it is possible to load software compiled for
 a different partition instead, but be careful as that software may not run as
 expected.
+
+The module will also set a number of environment variables that can be useful
+for references in scripts:
+  * LUMI_STACK_NAME to ]] .. stack_name .. [[ (name of the software stack)
+  * LUMI_STACK_VERSION to ]] .. stack_version .. [[ (version of the software stack)
+  * LUMI_STACK_)NAME_version to ]] .. stack_name .. '/' .. stack_version .. [[ (name/version of the software stack)
+  * LUMI_STACK_CPE_VERSION to ]] .. CPE_version .. [[ (matching release of the Cray PE)
 ]] )
 
 -- -----------------------------------------------------------------------------
@@ -73,6 +80,7 @@ setenv( 'LUMI_MODULEPATH_ROOT',    pathJoin( install_root, 'modules' ) )
 setenv( 'LUMI_STACK_NAME',         stack_name )
 setenv( 'LUMI_STACK_VERSION',      stack_version )
 setenv( 'LUMI_STACK_NAME_VERSION', stack_name .. '/' .. stack_version )
+setenv( 'LUMI_STACK_CPE_VERSION',  CPE_version )
 
 --
 -- Enable LUMIstack_modulerc.lua and a (CPE) version-specific one (if present)

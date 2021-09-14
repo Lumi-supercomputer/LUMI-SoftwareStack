@@ -1,5 +1,10 @@
 # What's new or different?
 
+  * 21021-09-14: Loading a LUMI software stack module now also sets the environment
+    variable LUMI_STACK_CPE_VERSION which can be used to know which version of the
+    CPE the software stack is for (useful if stack is a development stack with
+    name ending on .dev)
+
   * 2021-09-14: Added the ``tools`` subdirectory with scripts that we want to make
     available in the PATH and that are useful for any user, not just for a one-time
     setup of the repository or adding a new software stack to the repository (the
