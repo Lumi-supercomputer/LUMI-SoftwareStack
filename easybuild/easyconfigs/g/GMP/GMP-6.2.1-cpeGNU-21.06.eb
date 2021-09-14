@@ -1,8 +1,10 @@
 # contributed by Guilherme Peretti Pezzi and Luca Marsella (CSCS)
 easyblock = 'ConfigureMake'
 
-name = 'GMP'
-version = '6.2.1'
+local_GMP_version =          '6.2.1'         # https://ftp.gnu.org/gnu/gmp/
+
+name =    'GMP'
+version = local_GMP_version
 
 homepage = 'http://gmplib.org/'
 
@@ -48,7 +50,7 @@ toolchainopts = {
 }
 
 source_urls = [GNU_SOURCE]
-sources = [SOURCELOWER_TAR_BZ2]
+sources =     [SOURCELOWER_TAR_BZ2]
 
 # enable C++ interface
 configopts = '--enable-cxx'

@@ -2,19 +2,19 @@ software:
   ncurses:
     toolchains:
       cpeCray-21.06:
-        versions: [6.2]
+        versions: ['6.2']
       cpeGNU-21.06:
-        versions: [6.2]
+        versions: ['6.2']
       cpeAMD-21.06:
-        versions: [6.2]
+        versions: ['6.2']
   libreadline:
     toolchains:
       cpeCray-21.06:
-        versions: [8.1]
+        versions: ['8.1']
       cpeGNU-21.06:
-        versions: [8.1]
+        versions: ['8.1']
       cpeAMD-21.06:
-        versions: [8.1]
+        versions: ['8.1']
   gettext:
     toolchains:
       cpeCray-21.06:
@@ -32,556 +32,556 @@ software:
   libiconv:
     toolchains:
       cpeCray-21.06:
-        versions: [1.16]
+        versions: ['1.16']
       cpeGNU-21.06:
-        versions: [1.16]
+        versions: ['1.16']
       cpeAMD-21.06:
-        versions: [1.16]
+        versions: ['1.16']
   FriBidi:
     toolchains:
       cpeCray-21.06:
-        versions: [1.0.10]
+        versions: ['1.0.10']
       cpeGNU-21.06:
-        versions: [1.0.10]
+        versions: ['1.0.10']
       cpeAMD-21.06:
-        versions: [1.0.10]
+        versions: ['1.0.10']
   ICU:
     toolchains:
       cpeCray-21.06:
-        versions: [69.1]
+        versions: ['69.1']
       cpeGNU-21.06:
-        versions: [69.1]
+        versions: ['69.1']
       cpeAMD-21.06:
-        versions: [69.1]
+        versions: ['69.1']
   libunistring:
     toolchains:
       cpeCray-21.06:
-        versions: [0.9.10]
+        versions: ['0.9.10']
       cpeGNU-21.06:
-        versions: [0.9.10]
+        versions: ['0.9.10']
       cpeAMD-21.06:
-        versions: [0.9.10]
+        versions: ['0.9.10']
   bzip2:
     toolchains:
       cpeCray-21.06:
-        versions: [1.0.8]
+        versions: ['1.0.8']
       cpeGNU-21.06:
-        versions: [1.0.8]
+        versions: ['1.0.8']
       cpeAMD-21.06:
-        versions: [1.0.8]
+        versions: ['1.0.8']
   Brotli:
     toolchains:
       cpeCray-21.06:
-        versions: [1.0.9]
+        versions: ['1.0.9']
       cpeGNU-21.06:
-        versions: [1.0.9]
+        versions: ['1.0.9']
       cpeAMD-21.06:
-        versions: [1.0.9]
+        versions: ['1.0.9']
   lz4:
     toolchains:
       cpeCray-21.06:
-        versions: [1.9.3]
+        versions: ['1.9.3']
       cpeGNU-21.06:
-        versions: [1.9.3]
+        versions: ['1.9.3']
       cpeAMD-21.06:
-        versions: [1.9.3]
+        versions: ['1.9.3']
   Szip:
     toolchains:
       cpeCray-21.06:
-        versions: [2.1.1]
+        versions: ['2.1.1']
       cpeGNU-21.06:
-        versions: [2.1.1]
+        versions: ['2.1.1']
       cpeAMD-21.06:
-        versions: [2.1.1]
+        versions: ['2.1.1']
   zlib:
     toolchains:
       cpeCray-21.06:
-        versions: [1.2.11]
+        versions: ['1.2.11']
       cpeGNU-21.06:
-        versions: [1.2.11]
+        versions: ['1.2.11']
       cpeAMD-21.06:
-        versions: [1.2.11]
+        versions: ['1.2.11']
   gzip:
     toolchains:
       cpeCray-21.06:
-        versions: [1.10]
+        versions: ['1.10']
       cpeGNU-21.06:
-        versions: [1.10]
+        versions: ['1.10']
       cpeAMD-21.06:
-        versions: [1.10]
+        versions: ['1.10']
   XZ:
     toolchains:
       cpeCray-21.06:
-        versions: [5.2.5]
+        versions: ['5.2.5']
       cpeGNU-21.06:
-        versions: [5.2.5]
+        versions: ['5.2.5']
       cpeAMD-21.06:
-        versions: [5.2.5]
+        versions: ['5.2.5']
   Lzip:
     toolchains:
       cpeCray-21.06:
-        versions: [1.22]
+        versions: ['1.22']
       cpeGNU-21.06:
-        versions: [1.22]
+        versions: ['1.22']
       cpeAMD-21.06:
-        versions: [1.22]
+        versions: ['1.22']
   zstd:
     toolchains:
       cpeCray-21.06:
-        versions: [1.5.0]
+        versions: ['1.5.0']
       cpeGNU-21.06:
-        versions: [1.5.0]
+        versions: ['1.5.0']
       cpeAMD-21.06:
-        versions: [1.5.0]
+        versions: ['1.5.0']
   libb2:
     toolchains:
       cpeCray-21.06:
-        versions: [0.98.1]
+        versions: ['0.98.1']
       cpeGNU-21.06:
-        versions: [0.98.1]
+        versions: ['0.98.1']
       cpeAMD-21.06:
-        versions: [0.98.1]
+        versions: ['0.98.1']
   LZO:
     toolchains:
       cpeCray-21.06:
-        versions: [2.10]
+        versions: ['2.10']
       cpeGNU-21.06:
-        versions: [2.10]
+        versions: ['2.10']
       cpeAMD-21.06:
-        versions: [2.10]
+        versions: ['2.10']
   snappy:
     toolchains:
       cpeCray-21.06:
-        versions: [1.1.8]
+        versions: ['1.1.8']
       cpeGNU-21.06:
-        versions: [1.1.8]
+        versions: ['1.1.8']
       cpeAMD-21.06:
-        versions: [1.1.8]
+        versions: ['1.1.8']
   Blosc:
     toolchains:
       cpeCray-21.06:
-        versions: [1.21.0]
+        versions: ['1.21.0']
       cpeGNU-21.06:
-        versions: [1.21.0]
+        versions: ['1.21.0']
       cpeAMD-21.06:
-        versions: [1.21.0]
+        versions: ['1.21.0']
   libdeflate:
     toolchains:
       cpeCray-21.06:
-        versions: [1.8]
+        versions: ['1.8']
       cpeGNU-21.06:
-        versions: [1.8]
+        versions: ['1.8']
       cpeAMD-21.06:
-        versions: [1.8]
+        versions: ['1.8']
   libarchive:
     toolchains:
       cpeCray-21.06:
-        versions: [3.5.1]
+        versions: ['3.5.1']
       cpeGNU-21.06:
-        versions: [3.5.1]
+        versions: ['3.5.1']
       cpeAMD-21.06:
-        versions: [3.5.1]
+        versions: ['3.5.1']
   giflib:
     toolchains:
       cpeCray-21.06:
-        versions: [5.2.1]
+        versions: ['5.2.1']
       cpeGNU-21.06:
-        versions: [5.2.1]
+        versions: ['5.2.1']
       cpeAMD-21.06:
-        versions: [5.2.1]
+        versions: ['5.2.1']
   libjpeg-turbo:
     toolchains:
       cpeCray-21.06:
-        versions: [2.1.0]
+        versions: ['2.1.0']
       cpeGNU-21.06:
-        versions: [2.1.0]
+        versions: ['2.1.0']
       cpeAMD-21.06:
-        versions: [2.1.0]
+        versions: ['2.1.0']
   JasPer:
     toolchains:
       cpeCray-21.06:
-        versions: [2.0.33]
+        versions: ['2.0.33']
       cpeGNU-21.06:
-        versions: [2.0.33]
+        versions: ['2.0.33']
       cpeAMD-21.06:
-        versions: [2.0.33]
+        versions: ['2.0.33']
   libpng:
     toolchains:
       cpeCray-21.06:
-        versions: [1.6.37]
+        versions: ['1.6.37']
       cpeGNU-21.06:
-        versions: [1.6.37]
+        versions: ['1.6.37']
       cpeAMD-21.06:
-        versions: [1.6.37]
+        versions: ['1.6.37']
   LibTIFF:
     toolchains:
       cpeCray-21.06:
-        versions: [4.3.0]
+        versions: ['4.3.0']
       cpeGNU-21.06:
-        versions: [4.3.0]
+        versions: ['4.3.0']
       cpeAMD-21.06:
-        versions: [4.3.0]
+        versions: ['4.3.0']
   libwebp:
     toolchains:
       cpeCray-21.06:
-        versions: [1.2.0]
+        versions: ['1.2.0']
       cpeGNU-21.06:
-        versions: [1.2.0]
+        versions: ['1.2.0']
       cpeAMD-21.06:
-        versions: [1.2.0]
+        versions: ['1.2.0']
   x264:
     toolchains:
       cpeCray-21.06:
-        versions: [20210414]
+        versions: ['20210414']
       cpeGNU-21.06:
-        versions: [20210414]
+        versions: ['20210414']
       cpeAMD-21.06:
-        versions: [20210414]
+        versions: ['20210414']
   x265:
     toolchains:
       cpeCray-21.06:
-        versions: [3.5]
+        versions: ['3.5']
       cpeGNU-21.06:
-        versions: [3.5]
+        versions: ['3.5']
       cpeAMD-21.06:
-        versions: [3.5]
+        versions: ['3.5']
   libopus:
     toolchains:
       cpeCray-21.06:
-        versions: [1.3.1]
+        versions: ['1.3.1']
       cpeGNU-21.06:
-        versions: [1.3.1]
+        versions: ['1.3.1']
       cpeAMD-21.06:
-        versions: [1.3.1]
+        versions: ['1.3.1']
   LAME:
     toolchains:
       cpeCray-21.06:
-        versions: [3.100]
+        versions: ['3.100']
       cpeGNU-21.06:
-        versions: [3.100]
+        versions: ['3.100']
       cpeAMD-21.06:
-        versions: [3.100]
+        versions: ['3.100']
   libogg:
     toolchains:
       cpeCray-21.06:
-        versions: [1.3.5]
+        versions: ['1.3.5']
       cpeGNU-21.06:
-        versions: [1.3.5]
+        versions: ['1.3.5']
       cpeAMD-21.06:
-        versions: [1.3.5]
+        versions: ['1.3.5']
   libvorbis:
     toolchains:
       cpeCray-21.06:
-        versions: [1.3.7]
+        versions: ['1.3.7']
       cpeGNU-21.06:
-        versions: [1.3.7]
+        versions: ['1.3.7']
       cpeAMD-21.06:
-        versions: [1.3.7]
+        versions: ['1.3.7']
   FLAC:
     toolchains:
       cpeCray-21.06:
-        versions: [1.3.3]
+        versions: ['1.3.3']
       cpeGNU-21.06:
-        versions: [1.3.3]
+        versions: ['1.3.3']
       cpeAMD-21.06:
-        versions: [1.3.3]
+        versions: ['1.3.3']
   libsndfile:
     toolchains:
       cpeCray-21.06:
-        versions: [1.0.31]
+        versions: ['1.0.31']
       cpeGNU-21.06:
-        versions: [1.0.31]
+        versions: ['1.0.31']
       cpeAMD-21.06:
-        versions: [1.0.31]
+        versions: ['1.0.31']
   libtheora:
     toolchains:
       cpeCray-21.06:
-        versions: [1.1.1]
+        versions: ['1.1.1']
       cpeGNU-21.06:
-        versions: [1.1.1]
+        versions: ['1.1.1']
       cpeAMD-21.06:
-        versions: [1.1.1]
+        versions: ['1.1.1']
   cURL:
     toolchains:
       cpeCray-21.06:
-        versions: [7.78.0]
+        versions: ['7.78.0']
       cpeGNU-21.06:
-        versions: [7.78.0]
+        versions: ['7.78.0']
       cpeAMD-21.06:
-        versions: [7.78.0]
+        versions: ['7.78.0']
   expat:
     toolchains:
       cpeCray-21.06:
-        versions: [2.4.1]
+        versions: ['2.4.1']
       cpeGNU-21.06:
-        versions: [2.4.1]
+        versions: ['2.4.1']
       cpeAMD-21.06:
-        versions: [2.4.1]
+        versions: ['2.4.1']
   libxml2:
     toolchains:
       cpeCray-21.06:
-        versions: [2.9.12]
+        versions: ['2.9.12']
       cpeGNU-21.06:
-        versions: [2.9.12]
+        versions: ['2.9.12']
       cpeAMD-21.06:
-        versions: [2.9.12]
+        versions: ['2.9.12']
   libxslt:
     toolchains:
       cpeCray-21.06:
-        versions: [1.1.34]
+        versions: ['1.1.34']
       cpeGNU-21.06:
-        versions: [1.1.34]
+        versions: ['1.1.34']
       cpeAMD-21.06:
-        versions: [1.1.34]
+        versions: ['1.1.34']
   libidn:
     toolchains:
       cpeCray-21.06:
-        versions: [1.38]
+        versions: ['1.38']
       cpeGNU-21.06:
-        versions: [1.38]
+        versions: ['1.38']
       cpeAMD-21.06:
-        versions: [1.38]
+        versions: ['1.38']
   libidn2:
     toolchains:
       cpeCray-21.06:
-        versions: [2.3.2]
+        versions: ['2.3.2']
       cpeGNU-21.06:
-        versions: [2.3.2]
+        versions: ['2.3.2']
       cpeAMD-21.06:
-        versions: [2.3.2]
+        versions: ['2.3.2']
   GSL:
     toolchains:
       cpeCray-21.06:
-        versions: [2.7]
+        versions: ['2.7']
       cpeGNU-21.06:
-        versions: [2.7]
+        versions: ['2.7']
       cpeAMD-21.06:
-        versions: [2.7]
+        versions: ['2.7']
   libcerf:
     toolchains:
       cpeCray-21.06:
-        versions: [1.17]
+        versions: ['1.17']
       cpeGNU-21.06:
-        versions: [1.17]
+        versions: ['1.17']
       cpeAMD-21.06:
-        versions: [1.17]
+        versions: ['1.17']
   GMP:
     toolchains:
       cpeCray-21.06:
-        versions: [6.2.1]
+        versions: ['6.2.1']
       cpeGNU-21.06:
-        versions: [6.2.1]
+        versions: ['6.2.1']
       cpeAMD-21.06:
-        versions: [6.2.1]
+        versions: ['6.2.1']
   MPFR:
     toolchains:
       cpeCray-21.06:
-        versions: [4.1.0]
+        versions: ['4.1.0']
       cpeGNU-21.06:
-        versions: [4.1.0]
+        versions: ['4.1.0']
       cpeAMD-21.06:
-        versions: [4.1.0]
+        versions: ['4.1.0']
   MPC:
     toolchains:
       cpeCray-21.06:
-        versions: [1.2.1]
+        versions: ['1.2.1']
       cpeGNU-21.06:
-        versions: [1.2.1]
+        versions: ['1.2.1']
       cpeAMD-21.06:
-        versions: [1.2.1]
+        versions: ['1.2.1']
   mpdecimal:
     toolchains:
       cpeCray-21.06:
-        versions: [2.5.1]
+        versions: ['2.5.1']
       cpeGNU-21.06:
-        versions: [2.5.1]
+        versions: ['2.5.1']
       cpeAMD-21.06:
-        versions: [2.5.1]
+        versions: ['2.5.1']
   double-conversion:
     toolchains:
       cpeCray-21.06:
-        versions: [3.1.5]
+        versions: ['3.1.5']
       cpeGNU-21.06:
-        versions: [3.1.5]
+        versions: ['3.1.5']
       cpeAMD-21.06:
-        versions: [3.1.5]
+        versions: ['3.1.5']
   file:
     toolchains:
       cpeCray-21.06:
-        versions: [5.40]
+        versions: ['5.40']
       cpeGNU-21.06:
-        versions: [5.40]
+        versions: ['5.40']
       cpeAMD-21.06:
-        versions: [5.40]
+        versions: ['5.40']
   gc:
     toolchains:
       cpeCray-21.06:
-        versions: [8.04]
+        versions: ['8.04']
       cpeGNU-21.06:
-        versions: [8.04]
+        versions: ['8.04']
       cpeAMD-21.06:
-        versions: [8.04]
+        versions: ['8.04']
   gdbm:
     toolchains:
       cpeCray-21.06:
-        versions: [1.20]
+        versions: ['1.20']
       cpeGNU-21.06:
-        versions: [1.20]
+        versions: ['1.20']
       cpeAMD-21.06:
-        versions: [1.20]
+        versions: ['1.20']
   libevent:
     toolchains:
       cpeCray-21.06:
-        versions: [2.1.12]
+        versions: ['2.1.12']
       cpeGNU-21.06:
-        versions: [2.1.12]
+        versions: ['2.1.12']
       cpeAMD-21.06:
-        versions: [2.1.12]
+        versions: ['2.1.12']
   libffi:
     toolchains:
       cpeCray-21.06:
-        versions: [3.4.2]
+        versions: ['3.4.2']
       cpeGNU-21.06:
-        versions: [3.4.2]
+        versions: ['3.4.2']
       cpeAMD-21.06:
-        versions: [3.4.2]
+        versions: ['3.4.2']
   libyaml:
     toolchains:
       cpeCray-21.06:
-        versions: [0.2.5]
+        versions: ['0.2.5']
       cpeGNU-21.06:
-        versions: [0.2.5]
+        versions: ['0.2.5']
       cpeAMD-21.06:
-        versions: [0.2.5]
+        versions: ['0.2.5']
   LMDB:
     toolchains:
       cpeCray-21.06:
-        versions: [0.9.29]
+        versions: ['0.9.29']
       cpeGNU-21.06:
-        versions: [0.9.29]
+        versions: ['0.9.29']
       cpeAMD-21.06:
-        versions: [0.9.29]
+        versions: ['0.9.29']
   PCRE:
     toolchains:
       cpeCray-21.06:
-        versions: [8.45]
+        versions: ['8.45']
       cpeGNU-21.06:
-        versions: [8.45]
+        versions: ['8.45']
       cpeAMD-21.06:
-        versions: [8.45]
+        versions: ['8.45']
   PCRE2:
     toolchains:
       cpeCray-21.06:
-        versions: [10.37]
+        versions: ['10.37']
       cpeGNU-21.06:
-        versions: [10.37]
+        versions: ['10.37']
       cpeAMD-21.06:
-        versions: [10.37]
+        versions: ['10.37']
   UDUNITS:
     toolchains:
       cpeCray-21.06:
-        versions: [2.2.28]
+        versions: ['2.2.28']
       cpeGNU-21.06:
-        versions: [2.2.28]
+        versions: ['2.2.28']
       cpeAMD-21.06:
-        versions: [2.2.28]
+        versions: ['2.2.28']
   util-linux:
     toolchains:
       cpeCray-21.06:
-        versions: [2.37.1]
+        versions: ['2.37.1']
       cpeGNU-21.06:
-        versions: [2.37.1]
+        versions: ['2.37.1']
       cpeAMD-21.06:
-        versions: [2.37.1]
+        versions: ['2.37.1']
   wget:
     toolchains:
       cpeCray-21.06:
-        versions: [1.21.1]
+        versions: ['1.21.1']
       cpeGNU-21.06:
-        versions: [1.21.1]
+        versions: ['1.21.1']
       cpeAMD-21.06:
-        versions: [1.21.1]
+        versions: ['1.21.1']
   pixman:
     toolchains:
       cpeCray-21.06:
-        versions: [0.40.0]
+        versions: ['0.40.0']
       cpeGNU-21.06:
-        versions: [0.40.0]
+        versions: ['0.40.0']
       cpeAMD-21.06:
-        versions: [0.40.0]
+        versions: ['0.40.0']
   freetype:
     toolchains:
       cpeCray-21.06:
-        versions: [2.10.4]
+        versions: ['2.10.4']
       cpeGNU-21.06:
-        versions: [2.10.4]
+        versions: ['2.10.4']
       cpeAMD-21.06:
-        versions: [2.10.4]
+        versions: ['2.10.4']
   fontconfig:
     toolchains:
       cpeCray-21.06:
-        versions: [2.13.94]
+        versions: ['2.13.94']
       cpeGNU-21.06:
-        versions: [2.13.94]
+        versions: ['2.13.94']
       cpeAMD-21.06:
-        versions: [2.13.94]
+        versions: ['2.13.94']
   DB:
     toolchains:
       cpeCray-21.06:
-        versions: [18.1.40]
+        versions: ['18.1.40']
       cpeGNU-21.06:
-        versions: [18.1.40]
+        versions: ['18.1.40']
       cpeAMD-21.06:
-        versions: [18.1.40]
+        versions: ['18.1.40']
   libpciaccess:
     toolchains:
       cpeCray-21.06:
-        versions: [0.16]
+        versions: ['0.16']
       cpeGNU-21.06:
-        versions: [0.16]
+        versions: ['0.16']
       cpeAMD-21.06:
-        versions: [0.16]
+        versions: ['0.16']
   termcap:
     toolchains:
       cpeCray-21.06:
-        versions: [1.3.1]
+        versions: ['1.3.1']
       cpeGNU-21.06:
-        versions: [1.3.1]
+        versions: ['1.3.1']
       cpeAMD-21.06:
-        versions: [1.3.1]
+        versions: ['1.3.1']
   Perl:
     toolchains:
       cpeCray-21.06:
-        versions: [5.34.0]
+        versions: ['5.34.0']
       cpeGNU-21.06:
-        versions: [5.34.0]
+        versions: ['5.34.0']
       cpeAMD-21.06:
-        versions: [5.34.0]
+        versions: ['5.34.0']
   intltool:
     toolchains:
       cpeCray-21.06:
-        versions: [0.51.0]
+        versions: ['0.51.0']
       cpeGNU-21.06:
-        versions: [0.51.0]
+        versions: ['0.51.0']
       cpeAMD-21.06:
-        versions: [0.51.0]
+        versions: ['0.51.0']
   GLib:
     toolchains:
       cpeCray-21.06:
-        versions: [2.69.1]
+        versions: ['2.69.1']
       cpeGNU-21.06:
-        versions: [2.69.1]
+        versions: ['2.69.1']
       cpeAMD-21.06:
-        versions: [2.69.1]
+        versions: ['2.69.1']
   X11:
     toolchains:
       cpeCray-21.06:
-        versions: [21.06]
+        versions: ['21.06']
       cpeGNU-21.06:
-        versions: [21.06]
+        versions: ['21.06']
       cpeAMD-21.06:
-        versions: [21.06]
+        versions: ['21.06']
   ELPA:
     toolchains:
       cpeGNU-21.06:
-        versions: [2021.05.002]
+        versions: ['2021.05.002']

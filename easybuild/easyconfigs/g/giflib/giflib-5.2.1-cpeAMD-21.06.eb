@@ -8,7 +8,7 @@ version = local_giflib_version
 homepage = 'http://giflib.sourceforge.net/'
 
 whatis = [
-    "Description: giflib is a library for reading and writing gif images compatibel with libungif",
+    "Description: giflib is a library for reading and writing gif images compatible with libungif",
 ]
 
 description = """

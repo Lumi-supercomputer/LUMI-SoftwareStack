@@ -2,8 +2,8 @@ software:
   GMP:
     toolchains:
       cpeCray-21.05:
-        versions: [6.2.1]
+        versions: ['6.2.1']
       cpeGNU-21.05:
-        versions: [6.2.1]
+        versions: ['6.2.1']
       cpeAMD-21.05:
-        versions: [6.2.1]
+        versions: ['6.2.1']
