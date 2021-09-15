@@ -15,3 +15,8 @@ This is a bundle of X11 tools provided by EasyBuild.
     We did add some additional packages to save on dependencies for some other packages:
     xprop, ldrm and DBus.
 
+
+### Bundle for 21.08
+
+  * Same software versions as for 21.06, we did not check them again.
+
