@@ -8,6 +8,12 @@ of certain X11 libraries.
 
   * [Downloads]](https://launchpad.net/intltool/+download)
 
+
+## Installation
+
+  * intltool needs the Perl package XML::Parser during installation.
+
+
 ## EasyBuild
 
   * [intltool support in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/main/easybuild/easyconfigs/i/intltool)
@@ -19,3 +25,7 @@ of certain X11 libraries.
 
   * The EasyConfig is taken from the EasyBuilders repository with documentation
     from the University of Antwerpen added to it.
+
+  * On eiger the Perl package XML::Parser is actually installed in the system Perl
+    so we may be able to build without the EasyBuild Perl as a dependency. However,
+    for now we avoid this as we do not know what the situation on LUMI will be.
