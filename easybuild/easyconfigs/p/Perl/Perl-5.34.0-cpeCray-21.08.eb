@@ -21,9 +21,6 @@ PERL 5, Larry Wall's Practical Extraction and Report Language.
 
 This module already contains a lot of packages based on the default
 EasyBuild perl configuration.
-
-Compared to the cpeGNU version of the module, Set::IntervalTree is missing due
-to compiler problems.
 """
 
 toolchain = {'name': 'cpeCray', 'version': '21.08'}
@@ -1511,7 +1508,7 @@ exts_list = [
         'checksums': ['9841be5587bfb7cd1f2fe267b5e5ac04ce25e79d5cc77e5ef9a9c5abd101d7b1'],
     }),
 #
-# The next one is problematic on Cray
+# The next one is problematic on Cray. Solved with adding our own termcap library
 #
     ('Term::ReadLine::Gnu', '1.42', {
         'source_tmpl': 'Term-ReadLine-Gnu-%(version)s.tar.gz',
@@ -1714,14 +1711,17 @@ exts_list = [
         'checksums': ['03e63ada499d2645c435a57551f041f3943970492baa3b3338246dab6f1fae0a'],
     }),
     #
-    # The next one fails with CPE 21.08
-    # Problem: #include <string>  fails to find the header file.
+    # The next one fails with cpeCray 21.08
+    # Problem: #include <string>  fails to find the header file because the C++ compiler
+    # is called as "clang++" rather than "CC"
+    # We overwrite the line in the Makefile for all compilers to maintain a uniform setup.
     #
-#    ('Set::IntervalTree', '0.12', {
-#        'source_tmpl': 'Set-IntervalTree-%(version)s.tar.gz',
-#        'source_urls': ['https://cpan.metacpan.org/authors/id/S/SL/SLOYD'],
-#        'checksums': ['6fd4000e4022968e2ce5b83c07b189219ef1925ecb72977b52a6f7d76adbc349'],
-#    }),
+    ('Set::IntervalTree', '0.12', {
+        'source_tmpl': 'Set-IntervalTree-%(version)s.tar.gz',
+        'source_urls': ['https://cpan.metacpan.org/authors/id/S/SL/SLOYD'],
+        'checksums': ['6fd4000e4022968e2ce5b83c07b189219ef1925ecb72977b52a6f7d76adbc349'],
+        'prebuildopts': 'sed -i -e "s|CC = .*|CC = CC|" Makefile && ',
+    }),
     ('MCE::Mutex', '1.874', {
         'source_tmpl': 'MCE-%(version)s.tar.gz',
         'source_urls': ['https://cpan.metacpan.org/authors/id/M/MA/MARIOROY'],

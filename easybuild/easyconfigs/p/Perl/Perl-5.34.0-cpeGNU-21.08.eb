@@ -1508,7 +1508,7 @@ exts_list = [
         'checksums': ['9841be5587bfb7cd1f2fe267b5e5ac04ce25e79d5cc77e5ef9a9c5abd101d7b1'],
     }),
 #
-# The next one is problematic on Cray
+# The next one is problematic on Cray. Solved with adding our own termcap library
 #
     ('Term::ReadLine::Gnu', '1.42', {
         'source_tmpl': 'Term-ReadLine-Gnu-%(version)s.tar.gz',
