@@ -69,14 +69,16 @@ class cpeGCC(Compiler):
 
     COMPILER_UNIQUE_OPTS = {
         # Taken from GCC.
-        'loop': (False, "Automatic loop parallellisation"),
-        'f2c': (False, "Generate code compatible with f2c and f77"),
-        'lto': (False, "Enable Link Time Optimization"),
+        'loop':             (False, "Automatic loop parallellisation"),
+        'f2c':              (False, "Generate code compatible with f2c and f77"),
+        'lto':              (False, "Enable Link Time Optimization"),
+        # GCC-specific added ourselves
+        'gfortran9-compat': (False, "Add Fortran compile flags that improve compatibility with gfortran 9 (for 10 and later)"),
         # Generic Cray options
-        'dynamic': (True, "Generate dynamically linked executable"),
-        'mpich-mt': (False, "Directs the driver to link in an alternate version of the Cray-MPICH library which \
-                             provides fine-grained multi-threading support to applications that perform \
-                             MPI operations within threaded regions."),
+        'dynamic':          (True,  "Generate dynamically linked executable"),
+        'mpich-mt':         (False, "Directs the driver to link in an alternate version of the Cray-MPICH library which \
+                                     provides fine-grained multi-threading support to applications that perform \
+                                     MPI operations within threaded regions."),
     }
     COMPILER_UNIQUE_OPTION_MAP = {
         # Taken from GCC
@@ -86,6 +88,7 @@ class cpeGCC(Compiler):
         'f2c': 'ff2c',
         'loop': ['ftree-switch-conversion', 'floop-interchange', 'floop-strip-mine', 'floop-block'],
         'lto': 'flto',
+        'gfortran9-compat': 'fallow-argument-mismatch',
         'ieee': ['mieee-fp', 'fno-trapping-math'],
         'strict': ['mieee-fp', 'mno-recip'],
         'precise': ['mno-recip'],
@@ -128,7 +131,7 @@ class cpeGCC(Compiler):
     COMPILER_F77 = 'ftn'
     COMPILER_F90 = 'ftn'
     COMPILER_FC = 'ftn'
-    COMPILER_F_UNIQUE_FLAGS = ['dynamic', 'mpich-mt', 'loop', 'lto', 'f2c']
+    COMPILER_F_UNIQUE_FLAGS = ['dynamic', 'mpich-mt', 'loop', 'lto', 'f2c', 'gfortran9-compat']
 
 #    LIB_MULTITHREAD = ['pthread']
     LIB_MATH = ['m']

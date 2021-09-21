@@ -18,10 +18,11 @@ really just redefinitions of standard compiler flags.
 
 ### cpeGNU-specific flags
 
-| Option   | Categorie       | What?                                                        |
-|:---------|:----------------|:-------------------------------------------------------------|
-| dynamic  | code generation | Generate dynamically linked executable (default: True)       |
-| mpich-mt | parallelism     | Alternate Cray-MPICH library for MT support (default: False) |
+| Option           | Categorie       | What?                                                                                   |
+|:-----------------|:----------------|:----------------------------------------------------------------------------------------|
+| dynamic          | code generation | Generate dynamically linked executable (default: True)                                  |
+| mpich-mt         | parallelism     | Alternate Cray-MPICH library for MT support (default: False)                            |
+| gfortran9-compat | source          | Add flags that improve compatibility with gfortran 9 for 10 and higher (default: False) |
 
 mpich-mt: Directs the driver to link in an alternate version of the Cray-MPICH
 library which provides fine-grained multi-threading support to applications that

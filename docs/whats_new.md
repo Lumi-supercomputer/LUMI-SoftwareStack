@@ -1,6 +1,11 @@
 # What's new or different?
 
-  * 21021-09-14: Loading a LUMI software stack module now also sets the environment
+  * 2021-09-21: Added a new toolchain option to cpeGNU: ``gfortran9-compat`` that
+    adds compatibility flags to ``FFLAGS``, ``FCFLAGS`` and ``F90FLAGS`` to improve
+    compatibility with gfortran 9. Currently this is only
+    ``-fallow-argument-mismatch``.
+
+  * 2021-09-14: Loading a LUMI software stack module now also sets the environment
     variable LUMI_STACK_CPE_VERSION which can be used to know which version of the
     CPE the software stack is for (useful if stack is a development stack with
     name ending on .dev)
