@@ -195,6 +195,15 @@ to bump EasyConfig files to a new release of the Cray PE.
     dependencies are not updated to a new version.
 
 
+## The Testing subdirectory
+
+This directory contains various files to be used in component tests.
+
+  * [``install_lmod_newest.sh``](../Testing/install_lmod_newest.sh) is a script to
+    install a very recent version of LMOD to test compatibility of the module system
+    agains more recent versions than the one that comes with a HPE-Cray system.
+
+
 ## Note: Files and directories referred to from outside the LUMI software structure
 
   * [``LMOD``](../LMOD) subdirectory itself as the value of the environment variable
