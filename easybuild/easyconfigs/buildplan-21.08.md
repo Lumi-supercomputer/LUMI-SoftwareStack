@@ -57,6 +57,8 @@ The following EasyBuild packages are replaced by OS dependencies:
 
   * ICU (cpe*) - Dependency for libxml2 and hence frequently used
 
+  * libaec (cpe*) - Compression library popular in climate applications
+
   * libb2 (cpe*) - Provides BLAKE2
 
   * libcerf (cpe*) - Complex error function library

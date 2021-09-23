@@ -77,6 +77,14 @@ software:
         versions: ['1.0.9']
       cpeAMD-21.08:
         versions: ['1.0.9']
+  libaec:
+    toolchains:
+      cpeCray-21.08:
+        versions: ['1.0.6']
+      cpeGNU-21.08:
+        versions: ['1.0.6']
+      cpeAMD-21.08:
+        versions: ['1.0.6']
   lz4:
     toolchains:
       cpeCray-21.08:

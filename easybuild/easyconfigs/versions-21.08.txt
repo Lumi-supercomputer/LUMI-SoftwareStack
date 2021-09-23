@@ -64,6 +64,7 @@ local_intltool_version =     '0.51.0'        # https://launchpad.net/intltool/+d
 local_JasPer_version =       '2.0.33'        # https://github.com/jasper-software/jasper/releases
 
 local_LAME_version =         '3.100'         # http://lame.sourceforge.net/
+local_libaec_version =       '1.0.6'         # https://gitlab.dkrz.de/k202009/libaec/-/tags
 local_libarchive_version =   '3.5.1'         # https://github.com/libarchive/libarchive/releases
 local_libatomic_version =    '7.6.10'        # https://github.com/ivmai/libatomic_ops/releases
 local_libb2_version =        '0.98.1'        # https://github.com/BLAKE2/libb2/releases
