@@ -57,10 +57,6 @@ source_urls = [
 ]
 
 dependencies = [
-    ('baselibs', version),  # for bzip2, zlib, fontconfig, freetype, gettext (the latter a build dependency)
-]
-
-dependencies = [
     ('bzip2',        local_bzip2_version),
     ('fontconfig',   local_fontconfig_version),
     ('freetype',     local_freetype_version),
