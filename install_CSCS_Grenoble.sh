@@ -30,11 +30,9 @@ fi
 declare -A EB_version
 case $system in
     Grenoble)
-        #EB_stacks=( '21.G.02.dev' '21.G.04' )
-        EB_stacks=( '21.G.04' )
-        EB_version['21.G.02.dev']='4.3.4'
-        EB_version['21.G.04']='4.4.1'
-        default_stack='21.G.04'
+        #EB_stacks=( '21.G.02.dev' '21.G.09' )
+        EB_version['21.G.09']='4.4.2'
+        default_stack='21.G.09'
     ;;
 	CSCS)
         #EB_stacks=( '21.04''21.05' '21.06' )
