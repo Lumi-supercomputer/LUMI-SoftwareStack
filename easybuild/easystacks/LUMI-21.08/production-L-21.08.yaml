@@ -605,6 +605,32 @@ software:
         versions: ['21.08']
       cpeAMD-21.08:
         versions: ['21.08']
+  Tcl:
+    toolchains:
+      cpeCray-21.08:
+        versions: ['8.6.11']
+      cpeGNU-21.08:
+        versions: ['8.6.11']
+  SQLite:
+    toolchains:
+      cpeCray-21.08:
+        versions: ['3.36.0']
+      cpeGNU-21.08:
+        versions: ['3.36.0']
+  PROJ:
+    toolchains:
+      cpeCray-21.08:
+        versions: ['8.1.1']
+      cpeGNU-21.08:
+        versions: ['8.1.1']
+  libtirpc:
+    toolchains:
+      cpeCray-21.08:
+        versions: ['1.3.2']
+      cpeGNU-21.08:
+        versions: ['1.3.2']
+      cpeAMD-21.08:
+        versions: ['1.3.2']
   ELPA:
     toolchains:
       cpeGNU-21.08:

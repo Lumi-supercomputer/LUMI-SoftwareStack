@@ -1,5 +1,13 @@
 # Some known potential issues in the 21.08 LUMI stack
 
+  * Many issues with the AMD 3.0.0 compilers:
+
+      * **Tcl**: Frontend failure
+
+          * Because of this, all packages that depend on it also cannot be
+            compiled for cpeAMD: SQLite, PROJ, and several packages in the
+            contributed repository.
+
   * **ELPA**: So far this library fails to compile with the Cray and AMD
     Fortran compilers.
 

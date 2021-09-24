@@ -75,6 +75,8 @@ The following EasyBuild packages are replaced by OS dependencies:
 
   * libjpeg-turbo (cpe*) - Library and tools for jpeg files
 
+  * libtirpc (cpe*) - A port of a sun RPC library
+
   * libogg (cpe*) - Ogg container format
 
   * libopus (cpe*) - Opus audio codec
@@ -137,6 +139,8 @@ The following EasyBuild packages are replaced by OS dependencies:
 
   * snappy (cpe*) - Compression/decompressio library, needs LZO and zlib (block 1)
 
+  * Tcl (cpe*) - Dynamic scripting language, needs zlib (block 1)
+
   * UDUNITS (cpe*) - Toolset to work with various unit systems. Needs expat (block
     1)
 
@@ -170,6 +174,8 @@ The following EasyBuild packages are replaced by OS dependencies:
     from block 2.
 
   * pixman (cpe*) - Pixel manipulation library. Needs libpng (block 2)
+
+  * SQLite (cpe*) - Database library. Needs libreadline and Tcl (block 2)
 
   * XZ (cpe*) - Depends upon the minimal version of gettext and is a dependency for
     libxml2.
@@ -213,6 +219,8 @@ The following EasyBuild packages are replaced by OS dependencies:
 
   * libwebp (cpe*) - Image library, depends on giflib, libjpeg-turbo (block 1), libpng
     (block 2) and LibTIFF (block 5)
+
+  * PROJ (cpe*) - Needs cURL (block 2), SQLite (block 3) and LibTIFF (block 5)
 
   * util-linux (cpe*) - Depends on ncurses, zlib (block 1), libreadline, file (block
     2), gettext and libxslt (block 5), libxslt (block 6)
