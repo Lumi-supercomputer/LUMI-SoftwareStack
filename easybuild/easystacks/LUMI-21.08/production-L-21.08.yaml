@@ -631,6 +631,12 @@ software:
         versions: ['1.3.2']
       cpeAMD-21.08:
         versions: ['1.3.2']
+  ESMF:
+    toolchains:
+      cpeCray-21.08:
+        versions: ['8.1.1']
+      cpeGNU-21.08:
+        versions: ['8.1.1']
   ELPA:
     toolchains:
       cpeGNU-21.08:

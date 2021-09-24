@@ -41,6 +41,7 @@ local_DB_version =           '18.1.40'       # https://www.oracle.com/database/t
 local_double_conv_version =  '3.1.5'         # https://github.com/google/double-conversion/releases
 
 local_ELPA_version =         '2021.05.002'   # Synchronized with CSCS
+local_ESMF_version =         '8.1.1'         # https://github.com/esmf-org/esmf/releases
 local_expat_version =        '2.4.1'         # https://github.com/libexpat/libexpat/releases
 
 local_file_version =         '5.40'          # ftp://ftp.astron.com/pub/file/

@@ -41,6 +41,11 @@ The following EasyBuild packages are replaced by OS dependencies:
 
   * ELPA (cpeGNU) - Large-scale eigenvalue solver
 
+  * ESMF (cpe*) - Tool for coupling climate models, only used in contributed
+    packages but as it needs adaptations to an EasyBlock we put it here as a
+    courtasy to our users. Skip for now as it turns out to be a mistake in
+    the EasyBuilders NCO EasyConfig. It is not linked into the package.
+
   * expat (cpe*) - XML parser and a popular dependency for many packages
 
   * FriBidi (cpe*) - Free Implementation of the Unicode Bidirectional Algorithm

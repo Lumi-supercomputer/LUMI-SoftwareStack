@@ -1,0 +1,37 @@
+# contributed by Luca Marsella (CSCS), Theofilos Manitaras (CSCS)
+# Adapted by Kurt Lust (kurt.lust@uantwerpen.be) for the LUMI consortium
+easyblock = 'esmfcray'
+
+local_ESMF_version =         '8.1.1'         # https://github.com/esmf-org/esmf/releases
+
+name =    'ESMF'
+version = local_ESMF_version
+
+homepage = 'http://sourceforge.net/projects/esmf'
+
+whatis = [
+    'Description: ESMF is the Earth System Modeling Framework, software for coupling weather, climate and related models'
+]
+
+description = """
+The Earth System Modeling Framework (ESMF) is software for building and coupling weather,
+climate, and related models.
+ """
+
+toolchain = {'name': 'cpeCray', 'version': '21.08'}
+toolchainopts = {'usempi': True}
+
+source_urls = ['https://github.com/esmf-org/esmf/archive/']
+sources =     ['%s_%s.tar.gz' % (name.upper(), '_'.join(version.split('.')))]
+checksums =   [
+    '58c2e739356f21a1b32673aa17a713d3c4af9d45d572f4ba9168c357d586dc75',  # ESMF_8_1_1.tar.gz
+]
+
+mpicomm = 'mpiuni'
+
+dependencies = [
+    ('cray-hdf5',   EXTERNAL_MODULE),
+    ('cray-netcdf', EXTERNAL_MODULE),
+]
+
+moduleclass = 'geo'
