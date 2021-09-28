@@ -205,6 +205,8 @@ The following EasyBuild packages are replaced by OS dependencies:
 
 ## Block 5
 
+  * Boost (cpe*) - Needs bzip2, ICU and zlib (block 1) and zstd (block 5)
+
   * libarchive (cpe*) - Multi-format archive and compression library, needs
     bzip2, libb2, lz4, zlib (block 1), XZ (block 3 ) and zstd (block 4)
 
