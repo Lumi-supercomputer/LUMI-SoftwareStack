@@ -20,7 +20,7 @@ multilevel k-way, and multi-constraint partitioning schemes.
 This module has been compiled with 32-bit indices and double precision floating
 point which is the default build for EasyBuild.
 
-It is distributed under the Apache License Version 2.0.
+METIS is distributed under the Apache License Version 2.0.
 """
 
 software_license_urls = ['http://www.apache.org/licenses/LICENSE-2.0']
