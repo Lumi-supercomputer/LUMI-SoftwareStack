@@ -1,0 +1,15 @@
+software:
+  Boost:
+    toolchains:
+      cpeCray-21.08:
+        versions:
+          '1.77.0':
+            versionsuffix: '-python3'
+      cpeGNU-21.08:
+       versions:
+          '1.77.0':
+            versionsuffix: '-python3'
+      cpeAMD-21.08:
+        versions:
+          '1.77.0':
+            versionsuffix: '-python3'
