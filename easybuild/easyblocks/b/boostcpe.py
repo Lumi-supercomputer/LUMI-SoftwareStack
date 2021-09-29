@@ -86,6 +86,7 @@ class EB_BoostCPE(EasyBlock):
             'mpi_launcher': [None, "Launcher to use when running MPI regression tests", CUSTOM],
             'only_python_bindings': [False, "Only install Boost.Python library providing Python bindings", CUSTOM],
             'use_glibcxx11_abi': [None, "Use the GLIBCXX11 ABI", CUSTOM],
+            'bjam_features': [None, "Add additional options to the bjam command line", CUSTOM]
         }
         return EasyBlock.extra_options(extra_vars)
 
@@ -306,6 +307,9 @@ class EB_BoostCPE(EasyBlock):
             # Default but avoids a warning. Building Boost.MPI is actually enabled by `using mpi` in the user-config
             # Note: Can't use both --with-* and --without-*
             self.bjamoptions += " --without-mpi"
+
+        if self.cfg['bjam_features']:
+            self.bjamoptions += " " + self.cfg['bjam_features']
 
         self.log.info("Building Boost libraries")
         # build with specified options

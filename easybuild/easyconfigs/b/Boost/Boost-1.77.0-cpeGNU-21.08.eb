@@ -37,6 +37,9 @@ This module includes static and shared libraries, compiled with MPI support.
 The library boost_python is build for the system Python.
 
 This version of the module does not include support for Cray Python.
+The module does inlude single-threaded (suffix -x86) and multithreaded (suffix
+-mt-x86) versions of the libraries. The default names (without suffix) link
+to the multithreaded versions.
 """
 
 toolchain = {'name': 'cpeGNU', 'version': '21.08'}

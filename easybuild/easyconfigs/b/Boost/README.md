@@ -29,6 +29,13 @@ HPE-Cray has a sample build script for Boost in their
 
   * Our custom EasyBlock ``EB_BoostCPE`` is needed to enable MPI builds.
 
+      * Added code for correctly generating the ``user-config.jam`` file.
+
+      * Added an additional parameter ``bjam_features`` that allows to add additional
+        features to the b2/bjam command line. It could be used when using old style
+        Cray compilers though it seems that the options that the HPE-Cray build script
+        adds are actually not all valid on recent versions of Boost.
+
   * cpeGNu: Seems to work with the CSCS EasyBlock. It is not clear if any of the Cray
     patches make sense in this case.
 
