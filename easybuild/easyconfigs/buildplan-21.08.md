@@ -98,8 +98,12 @@ The following EasyBuild packages are replaced by OS dependencies:
 
   * mpdecimal (cpe*) - Package for decimal floating point
 
+  * METIS (cpe*) - Graph partitioning software
+
   * ncurses (cpe*) - Used by many packages that offer commands with a console interactive
     interface and by libreadline
+
+  * ParMETIS (cpe*) - Parallel graph partitioning software
 
   * Szip (cpe*) - Compression algorithm used by HDF5.
 
@@ -195,6 +199,9 @@ The following EasyBuild packages are replaced by OS dependencies:
   * libunistring (cpe*) - Needs libiconv (block 3)
 
   * libxml2 (cpe*) - A often used library
+
+  * SCOTCH (cpe*) - Uses bzip2, zlib (block 1) and XZ (block 3) though it can also
+    be build without those libraries, that only provide extra file formats.
 
   * wget (cpe*) - Package for retrieving files using HTTP/HTTPS, ... Needs libidn2,
     zlib (block 1) and PCRE2 (block 3)

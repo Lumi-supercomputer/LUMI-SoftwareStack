@@ -639,6 +639,30 @@ software:
         versions: ['1.77.0']
       cpeAMD-21.08:
         versions: ['1.77.0']
+  METIS:
+    toolchains:
+      cpeCray-21.08:
+        versions: ['5.1.0']
+      cpeGNU-21.08:
+        versions: ['5.1.0']
+      cpeAMD-21.08:
+        versions: ['5.1.0']
+  ParMETIS:
+    toolchains:
+      cpeCray-21.08:
+        versions: ['4.0.3']
+      cpeGNU-21.08:
+        versions: ['4.0.3']
+      cpeAMD-21.08:
+        versions: ['4.0.3']
+  SCOTCH:
+    toolchains:
+      cpeCray-21.08:
+        versions: ['6.1.1']
+      cpeGNU-21.08:
+        versions: ['6.1.1']
+      cpeAMD-21.08:
+        versions: ['6.1.1']
   ESMF:
     toolchains:
       cpeCray-21.08:
