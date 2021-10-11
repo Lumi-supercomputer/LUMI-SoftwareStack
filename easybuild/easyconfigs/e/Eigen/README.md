@@ -36,7 +36,7 @@
   * [Eigen support in the CSCS repository](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/e/Eigen)
 
 
-### Version 3.3.7 for CPE 21.08
+### Version 3.3.9 for CPE 21.08
 
   * As this is just a template library it does not make sense to install this
     for a specific toolchain or specific partition. We recommend to simply use the
