@@ -66,7 +66,7 @@ Not included at the moment:
 * Added re2c and SCons to the bundle.
 
 
-### 21.08
+### 21.08 and 21.09 (the same)
 
  * Version update of all components to the most recent version as of 14 September
    2021.
