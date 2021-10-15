@@ -122,7 +122,7 @@ builddependencies = [
 
 osdependencies = [
     ('openssl-devel', 'libssl-dev', 'libopenssl-devel'), # For CMake
-    ('ncurses-devel'),                                   # For CMake
+##    ('ncurses-devel'),                                   # For CMake - RE-enable if installed on LUMI.
     ('libcurl-devel'),                                   # For git
 #    ('expat-devel'),                                     # For git
 #    ('gettext-devel'),                                   # For git
