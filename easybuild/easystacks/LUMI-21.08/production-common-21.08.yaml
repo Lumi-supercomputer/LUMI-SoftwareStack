@@ -3,6 +3,10 @@ software:
     toolchains:
       SYSTEM:
         versions: ['21.08']
+  Eigen:
+    toolchains:
+      SYSTEM:
+        versions: ['3.3.9']
   xorg-macros:
     toolchains:
       SYSTEM:
