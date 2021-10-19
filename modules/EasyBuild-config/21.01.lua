@@ -170,7 +170,7 @@ local system_installpath_software = pathJoin( system_prefix, 'SW',              
 local system_installpath_modules =  pathJoin( system_prefix, 'modules', mod_prefix,     'LUMI', stack_version, 'partition', partition_name )
 local system_repositorypath =       pathJoin( system_prefix, 'mgmt',    'ebrepo_files', stack,                partition )
 
-local user_installpath_software =   pathJoin( user_prefix,   'SW',                      stack,                 partition_name,              'EB' )
+local user_installpath_software =   pathJoin( user_prefix,   'SW',                      stack,                 partition_name )
 local user_installpath_modules =    pathJoin( user_prefix,   'modules',                 'LUMI', stack_version, 'partition', partition_name )
 local user_repositorypath =         pathJoin( user_prefix,   'ebrepo_files',            stack,                 partition )
 

@@ -1,5 +1,9 @@
 # What's new or different?
 
+  * 2021-10-19: Removed the ``EB`` level in the directory hierarchy for binaries
+    in the EasyBuild-user installation as the whole tree is only meant for
+    EasyBuild-installed software.
+
   * 2021-09-21: Added a new toolchain option to cpeGNU: ``gfortran9-compat`` that
     adds compatibility flags to ``FFLAGS``, ``FCFLAGS`` and ``F90FLAGS`` to improve
     compatibility with gfortran 9. Currently this is only
