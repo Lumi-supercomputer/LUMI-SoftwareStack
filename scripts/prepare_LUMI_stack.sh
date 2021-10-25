@@ -230,6 +230,7 @@ do
   	create_link "$installroot/$repo/modules/LUMIpartition/$match_file" "$installroot/modules/SystemPartition/LUMI/$stack_version/partition/$partition.lua"
 done
 create_link     "$installroot/$repo/modules/LUMIpartition/$match_file" "$installroot/modules/SystemPartition/LUMI/$stack_version/partition/common.lua"
+create_link     "$installroot/$repo/modules/LUMIpartition/$match_file" "$installroot/modules/SystemPartition/LUMI/$stack_version/partition/CrayEnv.lua"
 
 #
 # - Create the LUMIstack_..._modulerc.lua file with the default versions of Cray
@@ -277,6 +278,8 @@ do
 
 done
 
+mkdir -p $installroot/modules/Infrastructure/LUMI/$stack_version/partition/CrayEnv
+
 ###############################################################################
 #
 # Initialise the EasyBuild configuration.
@@ -291,21 +294,27 @@ $installroot/$repo/scripts/make_EB_external_modules.sh ${stack_version%.dev}
 # - Link the EasyBuild-production and EasyBuild-user modules in the module structure
 #
 modsrc="$installroot/$repo/modules"
-function module_root () {
+function module_root_infra () {
     echo "$installroot/modules/Infrastructure/LUMI/$1/partition/$2"
+}
+function module_root_eb () {
+    echo "$installroot/modules/easybuild/LUMI/$1/partition/$2"
 }
 
 module_file=$(match_module_version $stack_version $installroot/$repo/modules/EasyBuild-config)
 for partition in ${partitions[@]} common
 do
-    mkdir -p $(module_root $stack_version $partition)/EasyBuild-production
-    mkdir -p $(module_root $stack_version $partition)/EasyBuild-infrastructure
-    mkdir -p $(module_root $stack_version $partition)/EasyBuild-user
+    mkdir -p $(module_root_infra $stack_version $partition)/EasyBuild-production
+    mkdir -p $(module_root_infra $stack_version $partition)/EasyBuild-infrastructure
+    mkdir -p $(module_root_infra $stack_version $partition)/EasyBuild-user
 
-    create_link $modsrc/EasyBuild-config/$module_file $(module_root $stack_version $partition)/EasyBuild-production/LUMI.lua
-    create_link $modsrc/EasyBuild-config/$module_file $(module_root $stack_version $partition)/EasyBuild-infrastructure/LUMI.lua
-    create_link $modsrc/EasyBuild-config/$module_file $(module_root $stack_version $partition)/EasyBuild-user/LUMI.lua
+    create_link $modsrc/EasyBuild-config/$module_file $(module_root_infra $stack_version $partition)/EasyBuild-production/LUMI.lua
+    create_link $modsrc/EasyBuild-config/$module_file $(module_root_infra $stack_version $partition)/EasyBuild-infrastructure/LUMI.lua
+    create_link $modsrc/EasyBuild-config/$module_file $(module_root_infra $stack_version $partition)/EasyBuild-user/LUMI.lua
 done
+
+mkdir -p $(module_root_infra $stack_version CrayEnv)/EasyBuild-CrayEnv
+create_link $modsrc/EasyBuild-config/$module_file $(module_root_infra $stack_version CrayEnv)/EasyBuild-CrayEnv/LUMI.lua
 
 #
 # - Download EasyBuild from PyPi
@@ -384,6 +393,12 @@ $workdir/easybuild/bin/eb $installroot/$repo/easybuild/easyconfigs/e/EasyBuild/E
 rm -rf easybuild
 
 popd
+
+#
+# Enable EasyBuild also for cross-installing by linking in the module directories
+#
+create_link $(module_root_eb $stack_version common)/EasyBuild $(module_root_infra $stack_version CrayEnv)/EasyBuild
+
 
 ###############################################################################
 #

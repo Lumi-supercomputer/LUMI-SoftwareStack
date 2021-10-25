@@ -1,5 +1,9 @@
 # What's new or different?
 
+  * 2021-10-26: Implemented a dummy partition ``CrayEnv`` in the LUMI software
+    stack to cross-install to CrayEnv to offer a simple way to install additional
+    tools using the SYSTEM toolchain only.
+
   * 2021-10-19: Removed the ``EB`` level in the directory hierarchy for binaries
     in the EasyBuild-user installation as the whole tree is only meant for
     EasyBuild-installed software.

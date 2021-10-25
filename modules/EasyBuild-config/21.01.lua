@@ -33,11 +33,12 @@ local SystemRepo_prefix = LMOD_root:gsub( '/LMOD/*', '' )
 --
 
 local optarch = {
-    common = 'x86-rome',
-    L =      'x86-rome',
-    C =      'x86-milan',
-    G =      'x86-milan',
-    D =      'x86-rome',
+    common =  'x86-rome',
+    L =       'x86-rome',
+    C =       'x86-milan',
+    G =       'x86-milan',
+    D =       'x86-rome',
+    CrayEnv = 'x86-rome', -- This is really a dummy as we do not want ot use the Cray PE here.
     }
 
 -- -----------------------------------------------------------------------------
@@ -55,6 +56,7 @@ local show_message = true
 if myModuleName() ~= 'EasyBuild-user'           and isloaded( 'EasyBuild-user' )           then show_message = false end
 if myModuleName() ~= 'EasyBuild-production'     and isloaded( 'EasyBuild-production' )     then show_message = false end
 if myModuleName() ~= 'EasyBuild-infrastructure' and isloaded( 'EasyBuild-infrastructure' ) then show_message = false end
+if myModuleName() ~= 'EasyBuild-CrayEnv'        and isloaded( 'EasyBuild-CrayEnv' )        then show_message = false end
 
 --
 -- Avoid loading together with EasyBuild-production
@@ -77,6 +79,9 @@ elseif detail_mode == 'production' then
 elseif detail_mode == 'infrastructure' then
     mod_mode =   'system'
     mod_prefix = 'Infrastructure'
+elseif detail_mode == 'CrayEnv' then
+    mod_mode =   'system'
+    mod_prefix = 'easybuild'
 else
     LmodError( 'Unrecongnized module name' )
 end
@@ -104,9 +109,10 @@ end
 
 local stack_name
 local stack_version
+local lumi_stack_version
 local partition_name
 
-local stack_version, partition_name = myFileName():match( '/LUMI/([^/]+)/partition/([^/]+)/' )
+stack_version, partition_name = myFileName():match( '/LUMI/([^/]+)/partition/([^/]+)/' )
 
 if stack_version ~= nil then
     stack_name = 'LUMI'
@@ -117,13 +123,26 @@ if optarch[partition_name] == nil then
     LmodError( 'Detected partition ' .. partition_name .. ' but have no entry for it in optarch, so something is seriously wrong.' )
 end
 
+lumi_stack_version = stack_version
+
+-- For CrayEnv, we overwrite the stack_name etc. for installation,
+-- but we had to preserve the version of the LUMI stack to find the right
+-- hooks file.
+if detail_mode == 'CrayEnv' then
+
+    stack_name =     'CrayEnv'
+    stack_version =  ''
+    partition_name = 'common'
+
+end
+
 -- - Prepare some additional variables to reduce the length of some lines
 
-local stack =                 stack_name  .. '-' .. stack_version
+local stack =                 stack_version == ''  and stack_name or stack_name  .. '-' .. stack_version
 local partition =             'LUMI-' .. partition_name
 local common_partition_name = 'common'
 local common_partition =      'LUMI-' .. common_partition_name
-local CPE_version =stack_version:gsub( '.dev', '' )  -- Drop .dev from the stack version to get the version of the CPE.
+local CPE_version =           lumi_stack_version:gsub( '.dev', '' )  -- Drop .dev from the stack version to get the version of the CPE.
 
 -- - Compute the location of certain directories and files
 
@@ -164,19 +183,38 @@ local buildpath =                  pathJoin( os.getenv( 'XDG_RUNTIME_DIR' ), 'ea
 local tmpdir =                     pathJoin( os.getenv( 'XDG_RUNTIME_DIR' ), 'easybuild', 'tmp' )
 
 --    + Directories that depend on the software stack
---                                                           Root                       Stack                  Partition                    Suffix
+--                                                            Root                       Stack                  Partition                    Suffix
 
-local system_installpath_software = pathJoin( system_prefix, 'SW',                      stack,                 partition_name,              'EB' )
-local system_installpath_modules =  pathJoin( system_prefix, 'modules', mod_prefix,     'LUMI', stack_version, 'partition', partition_name )
-local system_repositorypath =       pathJoin( system_prefix, 'mgmt',    'ebrepo_files', stack,                partition )
+local system_installpath_software =  pathJoin( system_prefix, 'SW',                      stack,                 partition_name,              'EB' )
+local system_installpath_modules =   pathJoin( system_prefix, 'modules', mod_prefix,     'LUMI', stack_version, 'partition', partition_name )
+local system_repositorypath =        pathJoin( system_prefix, 'mgmt',    'ebrepo_files', stack,                partition )
 
-local user_installpath_software =   pathJoin( user_prefix,   'SW',                      stack,                 partition_name )
-local user_installpath_modules =    pathJoin( user_prefix,   'modules',                 'LUMI', stack_version, 'partition', partition_name )
-local user_repositorypath =         pathJoin( user_prefix,   'ebrepo_files',            stack,                 partition )
+local user_installpath_software =    pathJoin( user_prefix,   'SW',                      stack,                 partition_name )
+local user_installpath_modules =     pathJoin( user_prefix,   'modules',                 'LUMI', stack_version, 'partition', partition_name )
+local user_repositorypath =          pathJoin( user_prefix,   'ebrepo_files',            stack,                 partition )
+
+local CrayEnv_installpath_software = pathJoin( system_prefix, 'SW',                      stack,                                              'EB' )
+local CrayEnv_installpath_modules =  pathJoin( system_prefix, 'modules', mod_prefix,     'CrayEnv' )
+local CrayEnv_repositorypath =       pathJoin( system_prefix, 'mgmt',    'ebrepo_files', stack )
 
 local installpath_software = mod_mode == 'user' and user_installpath_software or system_installpath_software
 local installpath_modules =  mod_mode == 'user' and user_installpath_modules  or system_installpath_modules
 local repositorypath =       mod_mode == 'user' and user_repositorypath       or system_repositorypath
+
+local installpath_software, installpath_modules, repositorypath
+if mod_mode == 'user' then
+    installpath_software = user_installpath_software
+    installpath_modules  = user_installpath_modules
+    repositorypath       = user_repositorypath
+elseif detail_mode == 'CrayEnv' then
+    installpath_software = CrayEnv_installpath_software
+    installpath_modules  = CrayEnv_installpath_modules
+    repositorypath       = CrayEnv_repositorypath
+else
+    installpath_software = system_installpath_software
+    installpath_modules  = system_installpath_modules
+    repositorypath       = system_repositorypath
+end
 
 --    + The relevant config files
 
@@ -209,7 +247,7 @@ local toolchains = {
 
 -- - Settings for the hooks
 
-local hooks = get_versionedfile( stack_version, system_hookdir, 'LUMI_site_hooks-', '.py' )
+local hooks = get_versionedfile( lumi_stack_version, system_hookdir, 'LUMI_site_hooks-', '.py' )
 if hooks == nil then
     LmodWarning( 'Failed to determine the hooks file, so running EasyBuild without using hooks.' )
 end
@@ -229,8 +267,13 @@ if mod_mode == 'user' and partition_name ~=  'common' then
     table.insert( robot_paths, pathJoin( user_prefix, 'ebrepo_files', stack, common_partition ) )
 end
 
---   + Always included: the system repository for the software stack
-table.insert( robot_paths, system_repositorypath )
+--   + Always included: the system repository for the software stack, but be careful
+--     for CrayEnv as that has a different structure.
+if detail_mode == 'CrayEnv' then
+    table.insert( robot_paths, CrayEnv_repositorypath )
+else
+    table.insert( robot_paths, system_repositorypath )
+end
 
 --   + If the partition is not the common one, we need to add that repository
 --     directory also.
@@ -404,6 +447,8 @@ elseif detail_mode == 'production' then
     whatis( 'Prepares EasyBuild for production installation in the system directories. Appropriate rights required.' )
 elseif detail_mode == 'infrastructure' then
     whatis( 'Prepares EasyBuild for production installation in the system infrastructure directories. Appropriate rights required.' )
+elseif detail_mode == 'CrayEnv' then
+    whatis( 'Prepares EasyBuild for production cross-installation in the CrayEnv directories. Appropriate rights required.' )
 else
     LmodError( 'Unrecongnized module name' )
 end
@@ -604,7 +649,9 @@ end -- Of the help block
 if mode() == 'load' and show_message then
 
     local stack_message
-    if partition_name == common then
+    if detail_mode == 'CrayEnv' then
+        stack_message = '\nEasyBuild configured to install software'
+    elseif partition_name == common then
         stack_message = '\nEasyBuild configured to install software from the ' ..
             stack_name .. '/'.. stack_version ..
             ' software stack common to all partitions'
@@ -623,6 +670,9 @@ if mode() == 'load' and show_message then
     elseif detail_mode == 'infrastructure' then
         LmodMessage( stack_message ..
             ' in the system infrastructure directories.\n' )
+    elseif detail_mode == 'CrayEnv' then
+        LmodMessage( stack_message ..
+            ' in the CrayEnv directories.\n' )
     else
         LmodError( 'Unrecongnized module name' )
     end

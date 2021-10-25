@@ -212,6 +212,17 @@ The following settings are made through environment variables:
     repository.
 
 
+### The EasyBuild-CrayEnv mode
+
+This mode is for cross-installing in the ``CrayEnv`` software stack, to offer an easy
+option to install software using the SYSTEM toolchain in EasyBuild in that stack. This
+makes it easier to offer updated build tools etc.
+
+The settings are largely the same as for the EasyBuild-production and EasyBuild-infrastructure
+modes, but with different install paths for software and modules and a separate directory
+in ``ebrepo_files``.
+
+
 ### The EasyBuild-user mode
 
   * The root of the user EasyBuild directory structure is pointed to by the

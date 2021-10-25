@@ -38,6 +38,9 @@ In the LUMI software stack installation directory, one can find the following su
         a single letter, except for the software that is common to all partitions, where
         part is common)
 
+      * ``easybuild/CrayEnv``: Directory for the EasyBuild-generated modules for the
+        CrayEnv software stack.
+
       * ``spack/LUMI/yy.mm/partition/part/<archstring>``: Similar as the above, but for Spack-installed software.
 
       * ``manual/LUMI/yy.mm/partition/part``: Similar as the above, but for manually installed
@@ -73,6 +76,8 @@ In the LUMI software stack installation directory, one can find the following su
 
           * ``common``
 
+      * ``CrayEnv``
+
   * ``mgmt``: Files that are not stored in our GitHub, but are generated on the fly and are only
     useful to those users who want to build upon our software stack or for those who install
     software in our stacks.
@@ -90,6 +95,8 @@ In the LUMI software stack installation directory, one can find the following su
               * ``LUMI-L``
 
               * ``LUMI-common``
+
+          * ``CrayEnv``
 
       * ``LMOD`` : Additional files for LMOD
 

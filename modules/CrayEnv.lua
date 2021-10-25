@@ -48,6 +48,9 @@ if isDir( cray_overwrite_core ) then
     prepend_path( 'MODULEPATH', cray_overwrite_core )
 end
 
+-- Prepend path with EasyBuild cross-installed tools
+prepend_path( 'MODULEPATH', pathJoin( module_root, 'easybuild/CrayEnv' ) )
+
 -- -------------------------------------------------------------------------
 --
 -- Load a set of modules that are always needed, similarly to what the system

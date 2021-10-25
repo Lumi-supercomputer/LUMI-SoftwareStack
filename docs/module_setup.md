@@ -212,6 +212,18 @@
     based on the description of a version of the CPE.
 
 
+### The CrayEnv partition
+
+The ``CrayEnv`` partition is a hidden partition used to trigger cross-installation of software
+in the ``CrayEnv`` stack. This is done via a separate hidden partition as we need a
+way to avoid loading modules that will not be visible in that stack.
+
+This partition had only modules in the corresponding ``Infrastructure`` tree in the
+module system. To make EasyBuild available, we symlink in that directory to the
+EasyBuild subdirectory in the ``common`` partition of the same ``LUMI/yy.mm`` software
+stack.
+
+
 ### Where do we set the default modules?
 
   * Style modifiers: LMOD/modulerc.lua (central moduler.lua file)
