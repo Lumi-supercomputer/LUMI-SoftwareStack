@@ -87,7 +87,7 @@ function detect_LUMI_partition()
     local partition
     local overwrite_partition = os.getenv( 'LUMI_OVERWRITE_PARTITION' )
 
-    if overwrite_partition ~= nil then
+    if overwrite_partition ~= nil and overwrite_partition ~= '' then
 
         -- Overwrite the default detection of the LUMI partition
         partition = overwrite_partition
