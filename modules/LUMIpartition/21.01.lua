@@ -38,7 +38,7 @@ local stack_name =    stack_name_version:match('([^/]+)/.*')
 local stack_version = stack_name_version:match('.*/([^/]+)')
 local CPE_version =   stack_version:gsub( '.dev', '')
 if os.getenv( '_LUMI_LMOD_DEBUG' ) ~= nil then
-    LmodMessage( 'DEBUG: ' .. mode() .. ' ' .. myModuleFullName() .. ': stack name: ' .. stack_name .. ', stack version: '.. stack_version, ', CPE version: '.. CPE_version )
+    LmodMessage( 'DEBUG: ' .. mode() .. ' ' .. myModuleFullName() .. ': Stack name: ' .. stack_name .. ', stack version: '.. stack_version, ', CPE version: '.. CPE_version )
 end
 
 -- Determine the partition that we want to load software for from the version of the module
@@ -50,7 +50,7 @@ end
 -- Detect if there is a user installation that we need to take into account.
 local user_easybuild_modules = nil
 if partition ~= 'CrayEnv' then
-    local user_easybuild_modules = get_user_prefix_EasyBuild()
+    user_easybuild_modules = get_user_prefix_EasyBuild()
     user_easybuild_modules = pathJoin( user_easybuild_modules, 'modules')
     if not isDir( user_easybuild_modules ) then
         user_easybuild_modules = nil
