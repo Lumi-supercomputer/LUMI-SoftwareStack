@@ -15,15 +15,3 @@ software:
     toolchains:
       SYSTEM:
         versions: ['2.33.1']
-  Eigen:
-    toolchains:
-      SYSTEM:
-        versions: ['3.3.9']
-  xorg-macros:
-    toolchains:
-      SYSTEM:
-        versions: ['1.19.3']
-  Rust:
-    toolchains:
-      SYSTEM:
-        versions: ['1.55.0']

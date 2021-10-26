@@ -1,0 +1,264 @@
+easyblock = 'Bundle'
+
+name =     'syslibs'
+version =  '15.1.0'
+
+homepage = '(none)'
+
+# We list all libraries in a whatis line so that they can be found by module keyword.
+# Contrary to what the LMOD documentation makes you believe, it seems that help is
+# not searched when using module keyword.
+whatis = [
+    "Description: A number of libraries that are mostly also on the system but as static libraries to be used as build dependencies.",
+    "Contains: ncurses/ncursesw, readline, bzip2, zlib, expat, file, PCRE2",
+]
+
+local_SUSE_ncurses_version =      '6.1'           # https://ftp.gnu.org/pub/gnu/ncurses/
+local_SUSE_libreadline_version =  '7.0'           # https://ftp.gnu.org/pub/gnu/readline/
+local_SUSE_bzip2_version =        '1.0.8'         # http://www.bzip.org/downloads.html
+local_SUSE_zlib_version =         '1.2.11'        # https://zlib.net/
+local_SUSE_expat_version =        '2.4.1'         # https://github.com/libexpat/libexpat/releases
+local_SUSE_file_version =         '5.32'          # ftp://ftp.astron.com/pub/file/
+local_SUSE_PCRE2_version =        '10.31'         # https://ftp.pcre.org/pub/pcre/
+
+description = """
+This module provides a number of libraries that are mostly also found on the
+system but as static libraries meant to be used as build dependencies for a
+number of tools that should not introduce dependencies when being used so that
+their impact on other software remains minimal.
+
+Versions often correspond to those on LUMI with the OS release equal to the
+manjor and minor version number of this module.
+
+Overview of included libraries:
+
+* Terminal I/O
+  + ncurses (version %(ncurses)s): The Ncurses (new curses) library is a free software
+    emulation of curses in System V Release 4.0, and more. It uses Terminfo
+    format, supports pads and color and multiple highlights and forms characters
+    and function-key mapping, and has all the other SYSV-curses enhancements
+    over BSD Curses.
+    Documentation is available through man pages in sections 3, 5 and 7.
+  + libreadline (version %(libreadline)s): The GNU Readline library provides a set of
+    functions for use by applications that allow users to edit command lines as
+    they are typed in. Both Emacs and vi editing modes are available.
+    The Readline library includes additional functions to maintain a list of
+    previously-entered command lines, to recall and perhaps reedit those lines,
+    and perform csh-like history expansion on previous commands.
+    There are manual pages for readline and history and help via info.
+* File compression tools and libraries
+  + bzip2 (version %(bzip2)s): Patent-free high-quailty data compressor
+    with very good compression yet fast compression and decompression
+    (.bz2 files)
+  + zlib (version %(zlib)s): Free lossless data compression library, not
+    covered by any patents, for the popular .gz files.
+* Networking, security and XML
+  + expat (version %(expat)s): Expat is an XML parser library written in C.
+    It is a stream-oriented parser in which an application registers handlers
+    for things the parser might find in the XML document (like start tags).
+    It provides the command line tool xmlwf and static and shared libraries.
+* Miscellaneous
+  + file (version %(filev)s): The file command is "a file type guesser", that
+    is, a command-line tool that tells you in words what kind of data a file
+    contains. Unlike most GUI systems, command-line UNIX systems - with this
+    program leading the charge - don't rely on filename extentions to tell you
+    the type of a file, but look at the file's actual contents. This is, of
+    course, more reliable, but requires a bit of I/O.This is a
+    re-implementation of the original file command shipped with Bell Labs UNIX.
+  + PCRE2 (version %(PCRE2)s: More modern version of PCRE.
+    The package includes the command line tools pcre2grep, pcre2test and
+    pcre2-config, documented through man pages. API documentation is available
+    through man pcre2.
+""" % {
+    'ncurses':      local_SUSE_ncurses_version,
+    'libreadline':  local_SUSE_libreadline_version,
+    'bzip2':        local_SUSE_bzip2_version,
+    'zlib':         local_SUSE_zlib_version,
+    'expat':        local_SUSE_expat_version,
+    'filev':        local_SUSE_file_version,
+    'PCRE2':        local_SUSE_PCRE2_version,
+}
+
+docurls = [
+    'ncurses:       Web-based documentation on https://www.gnu.org/software/ncurses/',
+    'libreadline:   Web-based readline user interface documentation: https://tiswww.cwru.edu/php/chet/readline/rluserman.html',
+    'libreadline:   Web-based libreadline documentation: https://tiswww.cwru.edu/php/chet/readline/readline.html',
+    'libreadline:   Web-based libhistory documentation: https://tiswww.cwru.edu/php/chet/readline/history.html',
+    'bzip2:         Web-based documentation on http://www.bzip.org/docs.html',
+    'zlib:          Web-based manual on https://zlib.net/manual.html',
+    'expat:         Web-based documentation: https://libexpat.github.io/doc/',
+    'expat:         Man page for xmlwf',
+    'file:          Home page is https://www.darwinsys.com/file/',
+    'PCRE2:         Web-based documentation: http://www.pcre.org/current/doc/html/',
+    'PCRE2:         Manual pages in section 1 (pcre2grep, pcre2test) and 3 (API, start with pcre2)',
+]
+
+local_SUSE_bzip2_major_minor = '.'.join(local_SUSE_bzip2_version.split('.')[:2])
+
+toolchain = SYSTEM
+
+default_easyblock = 'ConfigureMake'
+
+components = [
+#
+# Terminal libraries
+#
+    ('ncurses', local_SUSE_ncurses_version, {
+        'sources':       [ {
+                            'filename':    SOURCE_TAR_GZ,
+                            'source_urls': [GNU_SOURCE]
+                         } ],
+        'start_dir':     '%(namelower)s-%(version)s',
+        'preconfigopts': 'CFLAGS="-O2 -march=znver1" CXXFLAGS="-O2 -march=znver1" ',
+        'configopts':    '--without-shared --with-normal --with-termlib --with-ticlib  --enable-overwrite' +
+                         '--without-ada --enable-symlinks --with-versioned-syms ' +
+                         '--enable-pc-files --with-pkg-config-libdir=%(installdir)s/lib/pkgconfig ', # First build: default build.
+    }),
+    ('ncurses', local_SUSE_ncurses_version, {
+        'sources':       [ {
+                            'filename':    SOURCE_TAR_GZ,
+                            'source_urls': [GNU_SOURCE]
+                         } ],
+        'start_dir':     '%(namelower)s-%(version)s',
+        'preconfigopts': 'make distclean && CFLAGS="-O2 -march=znver1" CXXFLAGS="-O2 -march=znver1" ',
+        'configopts':    '--without-shared --with-normal --with-termlib --with-ticlib --enable-overwrite ' +
+                         '--without-ada --enable-symlinks --with-versioned-syms ' +
+                         '--enable-pc-files --with-pkg-config-libdir=%(installdir)s/lib/pkgconfig ' +
+                         '--enable-ext-colors --enable-widec --includedir=%(installdir)s/include/ncursesw/', # Second build: the UTF-8 enabled version (ncursesw)
+        'installopts':   ' && cd %(installdir)s && /bin/rm -rf bin lib/*.so*'
+    }),
+    ('libreadline', local_SUSE_libreadline_version, {
+        'sources':       [ {
+                            'filename':    'readline-%(version)s.tar.gz',
+                            'source_urls': ['http://ftp.gnu.org/gnu/readline']
+                         }],
+        'start_dir':     'readline-%(version)s',
+        'preconfigopts': "LD_LIBRARY_PATH=%(installdir)s/lib:$LD_LIBRARY_PATH LDFLAGS='-L%(installdir)s/lib -lncurses' " +
+                         "CFLAGS='-O2 -march=znver1' CXXFLAGS='-O2 -march=znver1' ",
+        'configopts':    '--enable-static --disable-shared',
+        'buildopts':     "SHLIB_LIBS='-lncurses'",
+    }),
+    ('bzip2', local_SUSE_bzip2_version, {
+        'easyblock':   'ConfigureMake',
+        # The bzip2 EasyBlock does not work in a bundle since there is a problem with with_shared_libs
+        # https://sourceforge.net/projects/bzip2/files/bzip2-1.0.6.tar.gz/download
+        'sources':     [ {
+                          'filename':    SOURCE_TAR_GZ,
+                          'source_urls': ['https://sourceware.org/pub/%(name)s/']
+                       } ],
+        'patches':     ['bzip2-%(version)s-pkgconfig.patch'],
+        'start_dir':   '%(namelower)s-%(version)s',
+        'skipsteps':   ['configure'],
+        'buildopts':   'CC="$CC" CFLAGS="-Wall -Winline -O2 -march=znver1 -g \$(BIGFILES)"',
+        'installopts': 'PREFIX="%(installdir)s" ',
+    }),
+    ('zlib', local_SUSE_zlib_version, {
+        'sources':       [ {
+                            # https://www.zlib.net/zlib-1.2.11.tar.gz
+                            'filename':    SOURCELOWER_TAR_GZ,
+                            'source_urls': ['https://www.zlib.net/']
+                         } ],
+        'start_dir':     '%(namelower)s-%(version)s',
+        'preconfigopts': 'CFLAGS="-O2 -march=znver1" CXXFLAGS="-O2 -march=znver1" ',
+        'configopts':    '--static'
+    }),
+    ('expat', local_SUSE_expat_version, {
+        'sources':       [ {
+                            'filename':    SOURCELOWER_TAR_BZ2,
+                            'source_urls': [SOURCEFORGE_SOURCE]
+                         }],
+        'start_dir':     '%(namelower)s-%(version)s',
+        'preconfigopts': 'CFLAGS="-O2 -march=znver1" CXXFLAGS="-O2 -march=znver1" ',
+        'configopts':    '--enable-static --disable-shared'
+    }),
+    ('file', local_SUSE_file_version, {
+        'sources':       [ {
+                            'filename':    SOURCE_TAR_GZ,
+                            'source_urls': ['ftp://ftp.astron.com/pub/file/']
+                         } ],
+        'start_dir':     '%(namelower)s-%(version)s',
+        'preconfigopts': 'CFLAGS="-O2 -march=znver1" CXXFLAGS="-O2 -march=znver1" ',
+        'configopts':    '--enable-static --disable-shared'
+    }),
+    ('PCRE2', local_SUSE_PCRE2_version, {
+        'sources':       [ {
+                            'filename':    SOURCELOWER_TAR_BZ2,
+                            'source_urls': ['https://ftp.pcre.org/pub/pcre/']
+                         } ],
+        'start_dir':     '%(namelower)s-%(version)s',
+        'preconfigopts': 'CFLAGS="-O2 -march=znver1" CXXFLAGS="-O2 -march=znver1" ',
+        'configopts':    '--with-pic --disable-cpp --enable-newline-is-any ' + \
+                         '--enable-pcre2-16 --enable-pcre2-32 --enable-jit ' + \
+                         '--enable-pcre2grep-libz --enable-pcre2grep-libbz2 --enable-pcre2test-libreadline ' + \
+                         '--disable-shared --enable-static '
+    }),
+]
+
+sanity_check_paths = {
+    'files': # ncurses
+             ['lib/lib%s%s.a' % (x, y) for x in ["form", "menu", "ncurses", "panel"] for y in ['', '_g', 'w', 'w_g']] +
+             ['lib/libncurses++%s.a' % x for x in ['', 'w']] +
+             ['lib/pkgconfig/%s%s.pc' % (x, y) for x in ['form', 'menu', 'ncurses', 'ncurses++', 'panel'] for y in ['', 'w']] +
+             # libreadline
+             ['lib/libreadline.a', 'lib/libhistory.a'] +
+             ['include/readline/%s' % x
+              for x in ['chardefs.h', 'history.h', 'keymaps.h', 'readline.h',
+                        'rlconf.h', 'rlstdc.h', 'rltypedefs.h', 'tilde.h']] +
+             # bzip2 libraries
+             ['lib/libbz2.a', 'lib/pkgconfig/bzip2.pc', 'include/bzlib.h'] +
+             # zlib
+             ['include/zconf.h', 'include/zlib.h', 'lib/libz.a', 'lib/pkgconfig/zlib.pc'] +
+             # expat
+             ['bin/xmlwf', 'include/expat.h', 'lib/libexpat.a', 'lib/pkgconfig/expat.pc'] +
+             ['bin/file', 'lib/libmagic.a', 'lib/libmagic.la', 'include/magic.h'] +
+             ['share/man/man1/file.1', 'share/man/man3/libmagic.3', 'share/man/man4/magic.4'] +
+             # PCRE2
+             ['bin/%s' %x for x in ['pcre2-config', 'pcre2grep', 'pcre2test']] +
+             ['share/man/man1/%s.1' % x for x in ['pcre2-config', 'pcre2grep', 'pcre2test']] +
+             ['lib/libpcre2-%s.%s' % (x,y) for x in ['posix', '8', '16', '32'] for y in ['a', 'la']] +
+             ['lib/pkgconfig/libpcre2-%s.pc' % x for x in ['posix', '8', '16', '32']] +
+             ['include/pcre2.h', 'include/pcre2posix.h'],
+    'dirs':  # ncurses
+             ['include/ncursesw'] +
+             # expat
+             ['lib/cmake/expat-%s' % local_SUSE_expat_version]
+}
+
+sanity_check_commands = [
+    # ncurses
+    'pkg-config --libs %s%s' % (x, y) for x in ['form', 'menu', 'ncurses', 'ncurses++', 'panel'] for y in ['', 'w'] ] + [
+    # bzip2
+    'pkg-config --libs bzip2'] + [
+    # zlib
+    'pkg-config --libs zlib'] + [
+    # eexpat
+    'xmlwf -h',
+    'pkg-config --libs expat'] + [
+    # file
+    'file --version'] + [
+    # PCRE2
+    '%s --version' % x for x in ['pcre2-config', 'pcre2grep', 'pcre2test']] + [
+    'pkg-config --libs libpcre2-%s' % x for x in ['posix', '8', '16', '32']]
+
+modextravars = {
+# Bad idea to add the variables below as they confuse get_software_libdir
+# in some EasyBlocks. It will be very tricy to only add those that
+# we need for certain packages and avoid others...
+#    # For increased compatibility with standard EasyBuild recipes
+    'EBROOTNCURSES':                '%(installdir)s',
+    'EBVERSIONNCURSES':             local_SUSE_ncurses_version,
+    'EBROOTLIBREADLINE':            '%(installdir)s',
+    'EBVERSIONLIBREADLINE':         local_SUSE_libreadline_version,
+    'EBROOTBZIP2':                  '%(installdir)s',
+    'EBVERSIONBZIP2':               local_SUSE_bzip2_version,
+    'EBROOTZLIB':                   '%(installdir)s',
+    'EBVERSIONZLIB':                local_SUSE_zlib_version,
+    'EBROOTEXPAT':                  '%(installdir)s',
+    'EBVERSIONEXPAT':               local_SUSE_expat_version,
+    'EBROOTFILE':                   '%(installdir)s',
+    'EBVERSIONFILE':                local_SUSE_file_version,
+    'EBROOTPCRE2':                  '%(installdir)s',
+    'EBVERSIONPCRE2':               local_SUSE_PCRE2_version,
+}
+
+moduleclass = 'lib'
