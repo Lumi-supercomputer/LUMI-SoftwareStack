@@ -25,6 +25,9 @@ The following EasyBuild packages are replaced by OS dependencies:
 
 ## Block 1
 
+  * Eigen (SYSTEM in common) - Version of the template library installed without
+    any dependencies in the module.
+
   * xorg-macros (SYSTEM in common) - Needed for X11 and some of its dependencies
 
   * Rust (SYSTEM in common) - Needed for those users who want to install HyperQueue

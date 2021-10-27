@@ -2,7 +2,7 @@
 local_buildset = '2020a'
 
 local_LUMI_version =         '21.08'         # Version of the CPE and buildtools
-local_Eigen_version =        '3.3.7'         # https://gitlab.com/libeigen/eigen/-/releases
+local_Eigen_version =        '3.3.9'         # https://gitlab.com/libeigen/eigen/-/releases
 
 name =    'Eigen'
 version = local_Eigen_version
@@ -51,7 +51,7 @@ toolchain = SYSTEM
 
 source_urls = ['https://gitlab.com/libeigen/eigen/-/archive/%(version)s']
 sources =     [SOURCELOWER_TAR_BZ2]
-checksums =   ['685adf14bd8e9c015b78097c1dc22f2f01343756f196acdc76a678e1ae352e11']
+checksums =   ['0fa5cafe78f66d2b501b43016858070d52ba47bd9b1016b0165a7b8e04675677']
 
 configopts = '-Wno-dev' # Suppress warnings that are only for developers during the  CMake process.
 
