@@ -41,6 +41,7 @@ local_cURL_version =         '7.78.0'        # https://curl.haxx.se/download/
 local_DB_version =           '18.1.40'       # https://www.oracle.com/database/technologies/related/berkeleydb-downloads.html
 local_double_conv_version =  '3.1.5'         # https://github.com/google/double-conversion/releases
 
+local_Eigen_version =        '3.3.9'         # https://gitlab.com/libeigen/eigen/-/releases
 local_ELPA_version =         '2021.05.002'   # Synchronized with CSCS
 local_ESMF_version =         '8.1.1'         # https://github.com/esmf-org/esmf/releases
 local_expat_version =        '2.4.1'         # https://github.com/libexpat/libexpat/releases
@@ -109,6 +110,8 @@ local_ParMETIS_version =     '4.0.3'         # https:/http://glaros.dtc.umn.edu/
 local_PCRE2_version =        '10.37'         # https://ftp.pcre.org/pub/pcre/
 local_PCRE_version =         '8.45'          # https://ftp.pcre.org/pub/pcre/
 local_Perl_version =         '5.34.0'        # https://www.perl.org/get.html
+local_PLUMED2_6_version =    '2.6.4'         # https://github.com/plumed/plumed2/releases
+local_PLUMED2_7_version =    '2.7.2'         # https://github.com/plumed/plumed2/releases
 local_PROJ_version =         '8.1.1'         # https://proj.org/download.html
 local_pixman_version =       '0.40.0'        # https://www.cairographics.org/releases/
 
