@@ -36,11 +36,15 @@ multithread version or the singlethread version?
 
   * [ELPA in the CSCS repository](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/e/ELPA)
 
-## 2021.05.002 for CPE 21.06
+## 2021.05.002 for CPE 21.08
 
   * The EasyConfig is derived from the CSCS one with some elements of the
     University of Antwerpen one inserted (mostly in the documentation of the
     module)
+
+  * The download location is taken from the EasyBuilders version. It turns out
+    that downloading via the download page often fails in EasyBuild (though the link
+    did seem to work in a browser).
 
   * TODO: ELPA does not yet compile with the Cray and AMD Fortran compilers,
     and both produce different errors.

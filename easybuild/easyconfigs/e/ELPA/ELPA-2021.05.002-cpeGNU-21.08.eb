@@ -31,16 +31,19 @@ docurls = [
 toolchain = {'name': 'cpeGNU', 'version': '21.08'}
 toolchainopts = {'usempi': True, 'openmp': True}
 
-# https://elpa.mpcdf.mpg.de/software/tarball-archive/Releases/2021.05.002/
-source_urls = ['http://elpa.mpcdf.mpg.de/html/Releases/%(version)s/']
-sources =     [SOURCELOWER_TAR_GZ]
-checksums =   ['6fd39006c38a8ffe35069ebe447819187e2cd3625521109a88512d7cd739985f'] # elpa-2021.05.002.tar.gz
+# https://gitlab.mpcdf.mpg.de/elpa/elpa/-/archive/new_release_2021_05_002/elpa-new_release_2021_05_002.tar.bz2
+# https://gitlab.mpcdf.mpg.de/elpa/elpa/-/archive/new_release_2021_05_002/elpa-new_release_2021_05_002.tar.gz
+local_version_underscore = '_'.join( version.split('.') )
+source_urls = ['https://gitlab.mpcdf.mpg.de/elpa/elpa/-/archive/new_release_%s/' % local_version_underscore]
+sources =     ['elpa-new_release_%s.tar.bz2' % local_version_underscore]
+checksums =   ['6a8404c99bd1d206ea96694426ba95ae2020acf65fc4c9e7ca0afae93876ee85'] # elpa-new_release_2021_05_002.tar.bz2
 
-builddependencies = [
-    ('buildtools', '%(toolchain_version)s', '', True),
+builddependencies = [ # We use the system Python and Perl.
+    ('buildtools', '%(toolchain_version)s', '', True), # For Autotools and others.
 ]
 
-preconfigopts = " CC=cc CXX=CC FC=ftn && "
+preconfigopts  = './autogen.sh && '
+preconfigopts += " CC=cc CXX=CC FC=ftn && "
 
 # TODO: GPU support for future versions, there is an --enable-gpu/--disable-gpu switch!
 local_commonopts = ' FCFLAGS="$FCFLAGS" --disable-generic --disable-sse --disable-avx --enable-avx2  --disable-avx512 --enable-static '
@@ -66,6 +69,5 @@ modextravars = {
     'ELPA_INCLUDE_DIR': '%(installdir)s/include/elpa-%(version)s',
     'ELPA_OPENMP_INCLUDE_DIR': '%(installdir)s/include/elpa_openmp-%(version)s'
 }
-
 
 moduleclass = 'math'
