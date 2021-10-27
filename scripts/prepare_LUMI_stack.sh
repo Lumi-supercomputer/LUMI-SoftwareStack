@@ -377,6 +377,12 @@ export PYTHONPATH=$(find $workdir/easybuild -name site-packages)
 #
 module --force purge
 export MODULEPATH="$installroot/modules/SoftwareStack"
+module help |& grep -q lmod
+if [[ $? != 0 ]]
+then
+    # LMOD is not running yet in this shell
+    source /usr/share/lmod/lmod/init/bash
+fi
 export LMOD_PACKAGE_PATH="$installroot/$repo/LMOD"
 export LMOD_RC="$installroot/$repo/LMOD/lmodrc.lua"
 export LUMI_OVERWRITE_PARTITION='common'
