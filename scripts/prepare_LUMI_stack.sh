@@ -395,7 +395,7 @@ rm -rf easybuild
 popd
 
 #
-# Enable EasyBuild also for cross-installing by linking in the module directories
+# Enable EasyBuild also for cross-installing by linking in the CrayEnv module directories
 #
 create_link $(module_root_eb $stack_version common)/EasyBuild $(module_root_infra $stack_version CrayEnv)/EasyBuild
 
@@ -433,5 +433,20 @@ done
 popd
 
 
+###############################################################################
+#
+# The finishing touches:
+#
+# Print a message reminding the user of possible other work (and try to do the work)
+#  - Make sure LMOD/modulerc.lua file is OK.
+#  - Remind how to set the default software stack.
+#
+modulerc_file="$repo/LMOD/modulerc.lua"
+egrep "hide_module.*cpe/$CPEversion" $modulerc_file >& /dev/null
+if [[ $? != 0 ]]
+then
+	echo -e "\nhide_module( '/opt/cray/pe/lmod/modulefiles/core/cpe/$CPEversion' )" >>$modulerc_file
+	echo "Please check $modulerc_file for the line \"hide_module( '/opt/cray/pe/lmod/modulefiles/core/cpe/$CPEversion' )\""
+fi
 
 
