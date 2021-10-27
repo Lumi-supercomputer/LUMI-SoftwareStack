@@ -1,0 +1,114 @@
+easyblock = 'Bundle'
+
+name =     'systools'
+version =  '15.1.0'
+
+homepage = '(none)'
+
+whatis = [
+    "Description: A number of small and popular tools that just make life easier.",
+    "Contains: gpp, htop, tree",
+]
+
+local_SUSE_htop_version =         '3.1.1'
+local_SUSE_GPP_version =          '2.27'
+local_SUSE_tree_version =         '1.8.0'
+
+description = """
+This module provides a number of popular tools to view and manage Linux processes
+or files or to process files.
+
+Overview of included tools:
+
+  + gpp (version %(GPP)s): a general-purpose preprocessor with customizable syntax, suitable for a
+    wide range of preprocessing tasks. Its independence from any one programming
+    language makes it much more versatile than the C preprocessor (cpp), while its
+    syntax is lighter and more flexible than that of GNU m4. There are built-in
+    macros for use with C/C++, LaTeX, HTML, XHTML, and Prolog files.
+
+    GPP is Free Software. It is distributed under the terms of the GNU Lesser
+    General Public Licence.
+
+  + htop (version %(htop)s): an interactive process viewer for Unix/Linux.
+
+  + tree (version %(tree)s): a recursive directory listing command that produces a depth indented
+    listing of files, which is colorized ala dircolors if the LS_COLORS environment
+    variable is set and output is to tty.
+""" % {
+    'GPP':  local_SUSE_GPP_version,
+    'htop': local_SUSE_htop_version,
+    'tree': local_SUSE_tree_version,
+}
+
+docurls = [
+    'GPP:  Web-based documentation on: https://files.nothingisreal.com/software/gpp/gpp.html',
+    'GPP:  Mal page in section 1 (man 1 gpp)',
+    'htop: Man page in section 1 (man 1 htop)',
+    'tree: Man page in section 1 (man 1 tree)',
+]
+
+toolchain = SYSTEM
+
+dependencies = [
+    ('buildtools', '21.08'),
+    ('syslibs',    '15.1.0'), # for libreadline
+]
+
+
+default_easyblock = 'ConfigureMake'
+
+components = [
+    ('GPP', local_SUSE_GPP_version, {
+        'sources':       [ {
+                            'filename':    SOURCELOWER_TAR_BZ2,
+                            'source_urls': ['https://github.com/logological/gpp/releases/download/%(version)s']
+                         }],
+        'start_dir':     'gpp-%(version)s',
+        'preconfigopts': 'CFLAGS="-O2 -march=znver1" CXXFLAGS="-O2 -march=znver1" ',
+    }),
+    ('htop', local_SUSE_htop_version, {
+        'sources':       [ {
+                            'download_filename': '%(version)s.tar.gz',
+                            'filename':          SOURCE_TAR_GZ,
+                            'source_urls':       ['https://github.com/htop-dev/htop/archive/refs/tags']
+                         }],
+        'start_dir':     'htop-%(version)s',
+        'preconfigopts': './autogen.sh && LDFLAGS="-L$EBROOTSYSLIBS/lib" LIBS="$LIBS -ltinfo" CFLAGS="-O2 -march=znver1" CXXFLAGS="-O2 -march=znver1" ',
+        # Core dumps when compiled with unicode support, there must be something wrong in
+        # our ncursesw library.
+        'configopts':    '--disable-unicode'
+    }),
+    ('tree', local_SUSE_tree_version, {
+        'easyblock':     'MakeCp',
+        'sources':       [ {
+                            'filename':    '%(name)s-%(version)s.tgz',
+                            'source_urls': ['ftp://mama.indstate.edu/linux/tree']
+                         }],
+        'start_dir':     'tree-%(version)s',
+        'buildopts':     'CC="gcc" CFLAGS="-O2 -march=znver1 -ggdb -pedantic -Wall -DLINUX -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64"',
+        'files_to_copy': [(['tree'], 'bin'), (['doc/tree.1'], 'share/man/man1')]
+    }),
+]
+
+sanity_check_paths = {
+    'files': ['bin/gpp', 'share/man/man1/gpp.1'] +
+             ['bin/htop', 'share/man/man1/htop.1'] +
+             ['bin/tree', 'share/man/man1/tree.1'],
+    'dirs':  []
+}
+
+sanity_check_commands = [
+    'gpp --version',
+    'htop --version',
+    'tree --version'
+]
+
+modluafooter = """
+extensions( "GPP/%(GPP)s, htop/%(htop)s, tree/%(tree)s" )
+"""  % {
+    'GPP':  local_SUSE_GPP_version,
+    'htop': local_SUSE_htop_version,
+    'tree': local_SUSE_tree_version,
+}
+
+moduleclass = 'tools'
