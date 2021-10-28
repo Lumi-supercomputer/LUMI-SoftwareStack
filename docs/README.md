@@ -2,6 +2,8 @@
 
   * [What's new or different?](whats_new.md)
 
+  * [Installation instructions for the pilot phase](start_on_LUMI_pilot.md)
+
   * [Setup of the LUMI module system](module_setup.md)
   * [EasyBuild setup](easybuild_setup.md)
   * [Cray PE integration](CrayPE_integration.md)
