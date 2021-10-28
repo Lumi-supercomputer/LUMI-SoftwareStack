@@ -181,10 +181,6 @@ The following EasyBuild packages are replaced by OS dependencies:
   * PCRE2 (cpe*) - A popular regular expression library, uses bzip2, zlib (block 1),
     libreadline (block2)
 
-  * Perl (cpe*) - The Perl packages included in the 2021b version of Perl in the EasyBuilders
-    repository need DB, expat, ncurses, termcap and zlib from block 1 and libreadline
-    from block 2.
-
   * pixman (cpe*) - Pixel manipulation library. Needs libpng (block 2)
 
   * SQLite (cpe*) - Database library. Needs libreadline and Tcl (block 2)
@@ -194,10 +190,6 @@ The following EasyBuild packages are replaced by OS dependencies:
 
 
 ## Block 4
-
-  * intltool (cpe*) - A build dependency for the X11 bundle. The only reason why this
-    package is so far down is because it requires a specific Perl package during the
-    build so we wanted to build with our own Perl to be sure it is there.
 
   * libunistring (cpe*) - Needs libiconv (block 3)
 
@@ -221,15 +213,23 @@ The following EasyBuild packages are replaced by OS dependencies:
     bzip2, libb2, lz4, zlib (block 1), XZ (block 3 ) and zstd (block 4)
 
   * gettext (cpe*) full version - depends upon ncurses (block 1) and libxml2 (block
-    3)
+    4)
 
   * LibTIFF (cpe&) - TIFF image files tools, depends on giflib, libjpeg-turbo, zlib
     (block 1), XZ (block 3) and zstd (block 4).
 
   * libxslt (cpe*) - Depends upon libxml2 and used by util-linux
 
+  * Perl (cpe*) - The Perl packages included in the 2021b version of Perl in the EasyBuilders
+    repository need DB, expat, ncurses, termcap and zlib from block 1, libreadline
+    from block 2 and libxml2 from block 4
+
 
 ## Block 6
+
+  * intltool (cpe*) - A build dependency for the X11 bundle. The only reason why this
+    package is so far down is because it requires a specific Perl package during the
+    build so we wanted to build with our own Perl to be sure it is there.
 
   * gdbm (cpe*) - Library of database functions. Needs ncurses (block 1), libreadline
    (block 2), libiconv (block 3), gettext (block 5)

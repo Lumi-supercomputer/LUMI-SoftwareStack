@@ -6,6 +6,7 @@ local_libreadline_version =  '8.1'           # https://ftp.gnu.org/pub/gnu/readl
 local_ncurses_version =      '6.2'           # https://ftp.gnu.org/pub/gnu/ncurses/
 local_termcap_version =      '1.3.1'         # https://ftp.gnu.org/gnu/termcap/
 local_zlib_version =         '1.2.11'        # https://zlib.net/
+local_libxml2_version =      '2.9.12'        # http://xmlsoft.org/sources/
 
 name =    'Perl'
 version = local_Perl_version
@@ -41,6 +42,7 @@ dependencies = [
     ('libreadline', local_libreadline_version),  # for Term::ReadLine::Gnu
     ('DB',          local_DB_version),           # for DB_File
     ('termcap',     local_termcap_version),      # for Term::ReadLine::Gnu
+    ('libxml2',     local_libxml2_version),      # for XML::LibXML
 ]
 
 osdependencies = [
@@ -50,6 +52,7 @@ osdependencies = [
 
 # !! order of extensions is important !!
 # extensions updated on Aug 3rd 2021
+# Taken from the EasyBuilders Perl-5.34.0-GCCcore-11.2.-.eb file.
 exts_list = [
     ('Config::General', '2.63', {
         'source_tmpl': 'Config-General-%(version)s.tar.gz',
@@ -1796,6 +1799,31 @@ exts_list = [
         'source_tmpl': 'Inline-%(version)s.tar.gz',
         'source_urls': ['https://cpan.metacpan.org/authors/id/I/IN/INGY'],
         'checksums': ['510a7de2d011b0db80b0874e8c0f7390010991000ae135cff7474df1e6d51e3a'],
+    }),
+    #
+    # Packages requested by LUMI users
+    #
+    # XML::LibXML + additional dependencies
+    #
+    ('File::chdir', '0.1010', {
+        'source_tmpl': 'File-chdir-%(version)s.tar.gz',
+        'source_urls': ['https://cpan.metacpan.org/authors/id/D/DA/DAGOLDEN'],
+        'checksums': ['efc121f40bd7a0f62f8ec9b8bc70f7f5409d81cd705e37008596c8efc4452b01'],
+    }),
+    ('Alien::Base', '2.41', {
+        'source_tmpl': 'Alien-Build-%(version)s.tar.gz',
+        'source_urls': ['https://cpan.metacpan.org/authors/id/P/PL/PLICEASE/'],
+        'checksums': ['aaa738117131b016f17f103b167deae2588f03bb72aa3fe15cbb1bad344cf2a4'],
+    }),
+    ('Alien::Libxml2', '0.17', {
+        'source_tmpl': 'Alien-Libxml2-%(version)s.tar.gz',
+        'source_urls': ['https://cpan.metacpan.org/authors/id/P/PL/PLICEASE'],
+        'checksums': ['73b45244f0b5c36e5332c33569b82a1ab2c33e263f1d00785d2003bcaec68db3'],
+    }),
+    ('XML::LibXML', '2.0207', {
+        'source_tmpl': 'XML-LibXML-%(version)s.tar.gz',
+        'source_urls': ['https://cpan.metacpan.org/authors/id/S/SH/SHLOMIF/'],
+        'checksums': ['903436c9859875bef5593243aae85ced329ad0fb4b57bbf45975e32547c50c15'],
     }),
 ]
 
