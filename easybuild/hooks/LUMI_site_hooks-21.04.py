@@ -9,7 +9,7 @@
 
 import os
 
-LUMI_SUPPORT = 'LUMI User Support @ https://lumi-supercomputer.eu/support'
+LUMI_SUPPORT = 'LUMI User Support @ https://lumi-supercomputer.eu/user-support/need-help/'
 
 def parse_hook(ec, *args, **kwargs):
     """LUMI parse hooks
