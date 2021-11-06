@@ -1,0 +1,56 @@
+easyblock = 'ConfigureMake'
+
+name =    'Subversion'
+version = '1.14.1'
+
+homepage = 'http://subversion.apache.org/'
+
+whatis = [
+    'Description: Subversion is an open source version control system',
+]
+
+description = """
+Subversion is an open source version control system.
+
+Subversion is developed as a project of the Apache Software Foundation, and as
+such is part of a rich community of developers and users.
+"""
+
+docurls = [
+    'Man pages in sections 1, 5 and 8',
+    'Web-based documentation on http://subversion.apache.org/docs/',
+]
+
+toolchain = SYSTEM
+
+source_urls = ['https://downloads.apache.org/%(namelower)s']
+sources =     [SOURCELOWER_TAR_BZ2]
+
+builddependencies = [
+    ('syslibs', '15.1.1', '-static'), # zlib, lz4, expat, APT/APR-util, Serf, SQLite
+]
+
+dependencies = [
+]
+
+preconfigopts = 'LIBS="$LIBS -lcrypto -lssl -lm -ldl" '
+
+configopts  = "--with-apr=$EBROOTSYSLIBS "
+configopts += "--with-apr-util=$EBROOTSYSLIBS "
+configopts += "--with-sqlite=$EBROOTSYSLIBS "
+configopts += "--with-serf=$EBROOTSERF "
+configopts += "--with-lz4=$EBROOTSYSLIBS "
+configopts += "--with-utf8proc=internal "
+configopts += '--enable-all-static --enable-static --disable-shared '
+
+sanity_check_paths = {
+    'files': ["bin/svn", "bin/svnversion"],
+    'dirs':  [],
+}
+
+sanity_check_commands = [
+    '%s --version ' % x for x in ['svn', 'svnadmin', 'svnbench', 'svndumpfilter', 'svnfsfs',
+                                  'svnlook', 'svnmucc', 'svnrdump', 'svnserve', 'svnsync', 'svnversion']
+]
+
+moduleclass = 'tools'

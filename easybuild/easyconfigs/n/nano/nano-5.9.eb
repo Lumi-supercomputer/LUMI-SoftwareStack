@@ -43,10 +43,7 @@ checksums =   ['757db8cda4bb2873599e47783af463e3b547a627b0cabb30ea7bf71fb4c24937
 
 builddependencies = [ # Create a reproducible build environment
     ('buildtools', local_LUMI_version),
-    ('syslibs',    '15.1.0'), # for ncurses, zlib and file.
-#    ('ncurses',    '6.1',              '-libsOnly'),
-#    ('zlib',       '1.2.11',           '-static'),
-#    ('file',       '5.32',             '-static'),
+    ('syslibs',    '15.1.1',           '-static'), # for ncurses, zlib and file.
 ]
 
 osdependencies = [

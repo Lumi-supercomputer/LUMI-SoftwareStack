@@ -51,7 +51,7 @@ toolchain = SYSTEM
 
 dependencies = [
     ('buildtools', '21.08'),
-    ('syslibs',    '15.1.0'), # for libreadline
+    ('syslibs',    '15.1.1', '-static'), # for libreadline
 ]
 
 

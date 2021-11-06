@@ -3,14 +3,16 @@ software:
     toolchains:
       SYSTEM:
         versions: ['0.1']
-  syslibs:
-    toolchains:
-      SYSTEM:
-        versions: ['15.1.0']
   buildtools:
     toolchains:
       SYSTEM:
         versions: ['21.08']
+  syslibs:
+    toolchains:
+      SYSTEM:
+        versions:
+          '15.1.1':
+            versionsuffix: '-static'
   systools:
     toolchains:
       SYSTEM:
@@ -23,6 +25,10 @@ software:
     toolchains:
       SYSTEM:
         versions: ['2.33.1']
+  Subversion:
+    toolchains:
+      SYSTEM:
+        versions: ['1.14.1']
   Eigen:
     toolchains:
       SYSTEM:

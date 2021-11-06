@@ -45,7 +45,7 @@ checksums =   ['fa459f95153a2c51af149c062f614018c027caf75a8dd92b3f64defe0a78f42f
 
 builddependencies = [
     ('buildtools', '21.08'),
-    ('syslibs',    '15.1.0'), # for zlib, expat and PCRE2.
+    ('syslibs',    '15.1.1', '-static'), # for zlib, expat and PCRE2.
 ]
 
 dependencies = [
