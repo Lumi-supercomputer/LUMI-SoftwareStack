@@ -295,6 +295,10 @@ software:
     toolchains:
       cpeGNU-21.08:
         versions: ['21.08']
+  FFmpeg:
+    toolchains:
+      cpeGNU-21.08:
+        versions: ['4.3.3']
   Tcl:
     toolchains:
       cpeGNU-21.08:

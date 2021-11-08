@@ -257,6 +257,9 @@ The following EasyBuild packages are replaced by OS dependencies:
   * X11 (cpe*) - Depends on bzip2, xorg-maxros, zlib (block 1), libpciacces (block 2), freetype
     (block 3), intltool (block 4), fontconfig (block 8)
 
+## Block 9
 
+  * FFmpeg (cpe*) - Depends on FriBidi, bzip2, zlib, x264, x265 (block 1), LAME (block 2),
+    freetype (block 3), fontconfig (block 8) and X11 (block 8)
 
 

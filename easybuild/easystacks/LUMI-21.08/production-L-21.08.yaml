@@ -605,6 +605,10 @@ software:
         versions: ['21.08']
       cpeAMD-21.08:
         versions: ['21.08']
+  FFmpeg:
+    toolchains:
+      cpeGNU-21.08:
+        versions: ['4.3.3']
   Tcl:
     toolchains:
       cpeCray-21.08:
