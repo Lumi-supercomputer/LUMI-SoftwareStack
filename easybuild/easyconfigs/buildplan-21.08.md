@@ -254,12 +254,41 @@ The following EasyBuild packages are replaced by OS dependencies:
 
 ## Block 8
 
+  * libgd (cpe*) - Depends on libjpeg-turbo, zlib (block 1), libpng (block 2) and
+    fontconfig (block 7)
+
   * X11 (cpe*) - Depends on bzip2, xorg-maxros, zlib (block 1), libpciacces (block 2), freetype
     (block 3), intltool (block 4), fontconfig (block 8)
 
+
 ## Block 9
+
+  * cairo (cpe*) - A lot of dependencies, also X11 (block 8)
 
   * FFmpeg (cpe*) - Depends on FriBidi, bzip2, zlib, x264, x265 (block 1), LAME (block 2),
     freetype (block 3), fontconfig (block 8) and X11 (block 8)
 
+
+## Block 10
+
+  * GObject-Introspection (cpe*) - Depends on libffi (block 1), util-linux (block 6),
+    GLib (block 7) and cairo (block 9)
+
+
+## Block 11
+
+  * HarfBuzz (cpe*) - Deopends on ICU (block 1), freetype (block 3), GLib (block 7),
+    cairo (block 9) and GObject-Introspection (block 10)
+
+
+## Block 12
+
+  * Pango (cpe*) - Depends on FriBidi (block 1), GLib (block 7), X11 (block 8), cairo
+    (block 9) and HarfBuzz (block 11).
+
+
+## Block 13
+
+  * gnuplot without Qt5 (cpe*) - Depends on ncurses, libcerf, libjpeg-turbo (block
+    1), libpng (block 2), libgd, X11 (block 8), cairo (block 9), PAngo (block 12).
 

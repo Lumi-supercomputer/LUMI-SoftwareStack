@@ -1,0 +1,118 @@
+##
+# This file is an EasyBuild reciPY as per https://github.com/hpcugent/easybuild
+#
+# Copyright:: Copyright 2012-2013 University of Luxembourg/Luxembourg Centre for Systems Biomedicine
+# Authors::   Fotis Georgatos <fotis.georgatos@uni.lu>
+# License::   MIT/GPL
+# $Id$
+#
+# This work implements a part of the HPCBIOS project and is a component of the policy:
+# http://hpcbios.readthedocs.org/en/latest/HPCBIOS_2012-97.html
+##
+easyblock = 'ConfigureMake'
+
+local_cairo_version =        '1.17.4'        # https://www.cairographics.org/
+local_libcerf_version =      '1.17'          # https://jugit.fz-juelich.de/mlz/libcerf/-/releases
+local_libgd_version =        '2.3.3'         # http://www.libgd.org/
+local_libjpegturbo_version = '2.1.0'         # https://github.com/libjpeg-turbo/libjpeg-turbo/releases
+local_ncurses_version =      '6.2'           # https://ftp.gnu.org/pub/gnu/ncurses/
+local_Pango_version =        '1.48.10'       # http://ftp.gnome.org/pub/GNOME/sources/pango/
+local_libpng_version =       '1.6.37'        # http://www.libpng.org/pub/png/libpng.html
+
+local_gnuplot_version =      '5.4.2'         # http://gnuplot.sourceforge.net/
+
+name =    'gnuplot'
+version = local_gnuplot_version
+
+homepage = 'http://gnuplot.sourceforge.net/'
+
+whatis = [
+    'Description: Gnuplot is a portable command-line driven graphing utility',
+    'This version of GNUplot does not use Qt5 graphics'
+]
+
+description = """
+Gnuplot is a portable command-line driven graphing utility available for many
+platforms. The source code is copyrighted but freely distributed (i.e., you
+don't have to pay for it). It was originally created to allow scientists and
+students to visualize mathematical functions and data interactively, but has
+grown to support many non-interactive uses such as web scripting. It is also
+used as a plotting engine by third-party applications like Octave. Gnuplot has
+been supported and under active development since 1986.
+
+This version of GNUplot does not use Qt5 for its GUI, so the GUI is rather
+primitive.
+"""
+
+docurls = [
+    'Web-based documentation: http://gnuplot.sourceforge.net/documentation.html',
+    'Manual page for gnuplot',
+]
+
+toolchain = {'name': 'cpeGNU', 'version': '21.08'}
+
+source_urls = [('https://sourceforge.net/projects/gnuplot/files/gnuplot/%(version)s', 'download')]
+sources =     [SOURCE_TAR_GZ]
+checksums =   ['e57c75e1318133951d32a83bcdc4aff17fed28722c4e71f2305cfc2ae1cae7ba']
+
+builddependencies = [
+    ('buildtools',            '%(toolchain_version)s', '',                True), # For ninja, meson, pkg-config and for help2man to generate the man page.
+]
+
+dependencies = [
+    ('ncurses',       local_ncurses_version),
+    ('cairo',         local_cairo_version),
+    ('libjpeg-turbo', local_libjpegturbo_version),
+    ('libpng',        local_libpng_version),
+    ('libgd',         local_libgd_version),
+    ('Pango',         local_Pango_version),
+    ('libcerf',       local_libcerf_version),
+    ('X11',           '%(toolchain_version)s'),
+]
+
+preconfigopts = 'LIBS="$LIBS -liconv"'
+
+configopts = ' '
+
+configopts += '--with-gd=$EBROOTLIBGD '
+
+# Enable or disable QT support
+#dependencies.append( ('Qt', '4.8.7') )
+#configopts += '--with-qt=qt4 '
+configopts += '--with-qt=no '
+
+# Enable or disable cairo output support.
+# Cairo terminal support requires cairo >= 1.2 cairo-pdf >= 1.2 pango >= 1.10 pangocairo >= 1.10 glib-2.0
+dependencies.append( ('cairo', local_cairo_version) )
+dependencies.append( ('Pango', local_Pango_version) )
+configopts += '--with-cairo '
+#configopts += '--without-cairo '
+
+# Enable/disable the wxWidgets terminal
+# Needs wx, pango, cairo, pangocairo
+# Looks like configure will try to find wx even when turned off, but will not fail and simply not
+# include it when not found.
+#configopts += '--with-wx '
+#configopts += '--with-wx=no '
+configopts += '--disable-wxwidgets '
+
+# Enable or disable X11 support.
+# The gnuplot manual advises to use the more modern Qt4/Qt5 or Cario terminals instead.
+dependencies.append( ('X11', '%(toolchain_version)s') )  # May leave out since system X11 libraries on Hopper are sufficient.
+configopts += '--with-x '
+#configopts += '--without-x '
+
+# Enable/disable lua/TikZ support (default enabled)
+configopts += '--without-lua '
+#configopts += '--with-lua '
+
+sanity_check_paths = {
+    'files': ['bin/gnuplot'],
+    'dirs':  []
+}
+
+sanity_check_commands = [
+    'gnuplot -V',
+]
+
+moduleclass = 'vis'
