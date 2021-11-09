@@ -21,6 +21,10 @@ software:
     toolchains:
       SYSTEM:
         versions: ['5.9']
+  Vim:
+    toolchains:
+      SYSTEM:
+        versions: ['8.2.3582']
   git:
     toolchains:
       SYSTEM:
