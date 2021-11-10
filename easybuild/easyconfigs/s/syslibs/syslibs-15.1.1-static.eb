@@ -30,7 +30,7 @@ local_SUSE_lz4_version =          '1.9.3'         # https://github.com/lz4/lz4/r
 local_SUSE_expat_version =        '2.4.1'         # https://github.com/libexpat/libexpat/releases
 local_SUSE_APR_version =          '1.7.0'         # http://apr.apache.org/
 local_SUSE_APR_util_version =     '1.6.1'         # http://apr.apache.org/
-local_SUSE_file_version =         '5.32'          # ftp://ftp.astron.com/pub/file/
+local_SUSE_file_version =         '5.32'          # http://ftp.astron.com/pub/file/
 local_SUSE_PCRE2_version =        '10.31'         # https://ftp.pcre.org/pub/pcre/
 local_SUSE_Serf_version =         '1.3.9'         # http://serf.apache.org/
 local_SUSE_SQLite3_version =      '3.36.0'        # http://www.sqlite.org/
@@ -292,7 +292,7 @@ components = [
     ('file', local_SUSE_file_version, {
         'sources':       [ {
                             'filename':    SOURCE_TAR_GZ,
-                            'source_urls': ['ftp://ftp.astron.com/pub/file/']
+                            'source_urls': ['http://ftp.astron.com/pub/file/']
                          } ],
         'start_dir':     '%(namelower)s-%(version)s',
         'preconfigopts': 'CFLAGS="-O2 -march=znver1 -fPIC" CXXFLAGS="-O2 -march=znver1 -fPIC" ',

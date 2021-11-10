@@ -80,9 +80,9 @@ components = [
     }),
     ('tree', local_SUSE_tree_version, {
         'easyblock':     'MakeCp',
-        'sources':       [ {
+        'sources':       [ { # http://mama.indstate.edu/users/ice/tree/src/tree-1.8.0.tgz
                             'filename':    '%(name)s-%(version)s.tgz',
-                            'source_urls': ['ftp://mama.indstate.edu/linux/tree']
+                            'source_urls': ['http://mama.indstate.edu/users/ice/tree/src']
                          }],
         'start_dir':     'tree-%(version)s',
         'buildopts':     'CC="gcc" CFLAGS="-O2 -march=znver1 -ggdb -pedantic -Wall -DLINUX -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64"',
