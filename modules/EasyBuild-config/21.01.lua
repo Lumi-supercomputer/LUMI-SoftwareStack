@@ -94,15 +94,15 @@ end
 -- Produce an error message when loading in user mode and user_prefix == '' which implies that
 -- EBU_USER_PREFIX was set but empty. This value of EBU_USER_PREFIX can be used if we really
 -- do not want a user installation, also not the default one.
-if mode() == 'load' and mod_mode == 'user' and user_prefix == '' then
-    LmodError( 'User installation is impossible as it was explicitly turned off by means of EBU_USER_PREFIX.' )
-end
-
--- Make sure that user prefix is some kind of absolute path, starting either with a slash or with
+-- Also make sure that user prefix is some kind of absolute path, starting either with a slash or with
 -- a ~, though we don't do a full test for a valid directory. Relative directories should not be
 -- used as this may lead to installing in the wrong directories.
-if mode() == 'load' and mod_mode == 'user' and user_prefix:match('^[~/]') == nil then
-    LmodError( 'Detected an invalid user installation directory. When using EBU_PREFIX_USER, an absolute path should be used.' )
+if mode() == 'load' and mod_mode == 'user' then
+    if user_prefix == nil then
+        LmodError( 'User installation is impossible as it was explicitly turned off by means of EBU_USER_PREFIX.' )
+    elseif user_prefix:match('^[~/]') == nil then
+        LmodError( 'Detected an invalid user installation directory. When using EBU_PREFIX_USER, an absolute path should be used.' )
+    end
 end
 
 -- Make sure EasyBuild is loaded when in user mode. In any of the system modes
