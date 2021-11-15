@@ -184,15 +184,14 @@ local easyconfigdir = mod_mode == 'user' and user_easyconfigdir or system_easyco
 local easyblockdir =  mod_mode == 'user' and user_easyblockdir  or system_easyblockdir
 local installpath =   mod_mode == 'user' and user_installpath   or system_installpath
 
-local system_sourcepath =          pathJoin( system_prefix,        'sources/easybuild' )
-local system_containerpath =       pathJoin( system_prefix,        'containers' )
-local system_packagepath =         pathJoin( system_prefix,        'packages' )
+local system_sourcepath =          pathJoin( system_prefix, 'sources/easybuild' )
+local system_containerpath =       pathJoin( system_prefix, 'containers' )
+local system_packagepath =         pathJoin( system_prefix, 'packages' )
 
-local user_sourcepath =            pathJoin( user_prefix, 'sources' )
-local user_containerpath =         pathJoin( user_prefix, 'containers' )
-local user_packagepath =           pathJoin( user_prefix, 'packages' )
+local user_sourcepath =            pathJoin( user_prefix,    'sources' )
+local user_containerpath =         pathJoin( user_prefix,    'containers' )
+local user_packagepath =           pathJoin( user_prefix,    'packages' )
 
-local sourcepath =    mod_mode == 'user' and user_sourcepath    or system_sourcepath
 local containerpath = mod_mode == 'user' and user_containerpath or system_containerpath
 local packagepath =   mod_mode == 'user' and user_packagepath   or system_packagepath
 
@@ -270,6 +269,19 @@ local hooks = get_versionedfile( lumi_stack_version, system_hookdir, 'LUMI_site_
 if hooks == nil then
     LmodWarning( 'Failed to determine the hooks file, so running EasyBuild without using hooks.' )
 end
+
+-- - Build the source paths
+
+local source_paths = {}
+
+--   + In usermode: The user source path comes first as that is where we want to write.
+if mod_mode == 'user' then
+    table.insert( source_paths, user_sourcepath )
+end
+
+--   + The system source path is always included so that user installations that make small modifications
+--     to a config don't need to download again
+table.insert( source_paths, system_sourcepath )
 
 -- - Build the robot path ROBOT_PATHS
 
@@ -365,7 +377,7 @@ if mod_mode == 'user' and isFile( user_configfile_stack )   then table.insert( c
 -- - Single component paths
 
 setenv( 'EASYBUILD_PREFIX',                        ( mod_mode == 'user' and user_prefix or system_prefix ) )
-setenv( 'EASYBUILD_SOURCEPATH',                    sourcepath )
+setenv( 'EASYBUILD_SOURCEPATH',                    table.concat( source_paths, ':' ) )
 setenv( 'EASYBUILD_CONTAINERPATH',                 containerpath )
 setenv( 'EASYBUILD_PACKAGEPATH',                   packagepath )
 setenv( 'EASYBUILD_INSTALLPATH',                   installpath )
@@ -512,7 +524,7 @@ Based on this information, the following settings are used:
   * Software installation directory:          ]] .. installpath_software .. '\n' .. [[
   * Module files installation directory:      ]] .. installpath_modules .. '\n' .. [[
   * Repository of installed EasyConfigs       ]] .. repositorypath .. '\n' .. [[
-  * Sources of installed packages:            ]] .. sourcepath .. '\n' .. [[
+  * Sources of installed packages:            ]] .. table.concat( source_paths, ':' ) .. '\n' .. [[
   * Containers installed in:                  ]] .. containerpath .. '\n' .. [[
   * Packages installed in:                    ]] .. packagepath .. '\n' .. [[
   * Custom EasyBlocks:                        ]] .. table.concat( easyblocks, ',' ) .. '\n' .. [[
