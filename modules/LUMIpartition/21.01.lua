@@ -51,9 +51,11 @@ end
 local user_easybuild_modules = nil
 if partition ~= 'CrayEnv' then
     user_easybuild_modules = get_user_prefix_EasyBuild()
-    user_easybuild_modules = pathJoin( user_easybuild_modules, 'modules')
-    if not isDir( user_easybuild_modules ) then
-        user_easybuild_modules = nil
+    if user_easybuild_modules ~= nil then
+        user_easybuild_modules = pathJoin( user_easybuild_modules, 'modules')
+        if not isDir( user_easybuild_modules ) then
+            user_easybuild_modules = nil
+        end
     end
     if os.getenv( '_LUMI_LMOD_DEBUG' ) ~= nil and user_easybuild_modules ~= nil then
         LmodMessage( 'DEBUG: ' .. mode() .. ' ' .. myModuleFullName() .. ': Detected user module tree at ' .. user_easybuild_modules )
