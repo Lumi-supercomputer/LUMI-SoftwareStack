@@ -86,11 +86,30 @@ else
     LmodError( 'Unrecongnized module name' )
 end
 
+-- Make sure that when in system mode, the unlock module is loaded.
+if mode() == 'load' and mod_mode == 'system' and not isloaded( 'EasyBuild-unlock' ) then
+    LmodError( 'This module requires EasyBuild-unlock to be loaded first as an additional precaution to avoid damaging the system installation.' )
+end
+
+-- Produce an error message when loading in user mode and user_prefix == '' which implies that
+-- EBU_USER_PREFIX was set but empty. This value of EBU_USER_PREFIX can be used if we really
+-- do not want a user installation, also not the default one.
+if mode() == 'load' and mod_mode == 'user' and user_prefix == '' then
+    LmodError( 'User installation is impossible as it was explicitly turned off by means of EBU_USER_PREFIX.' )
+end
+
+-- Make sure that user prefix is some kind of absolute path, starting either with a slash or with
+-- a ~, though we don't do a full test for a valid directory. Relative directories should not be
+-- used as this may lead to installing in the wrong directories.
+if mode() == 'load' and mod_mode == 'user' and user_prefix:match('^[~/]') == nil then
+    LmodError( 'Detected an invalid user installation directory. When using EBU_PREFIX_USER, an absolute path should be used.' )
+end
+
 -- Make sure EasyBuild is loaded when in user mode. In any of the system modes
 -- we assume the user is clever enough and want to support using an eb version
 -- which is not in the module tree, e.g., to bootstrap.
 if not isloaded( 'EasyBuild' ) then
-    if detail_mode == 'production' then
+    if mod_mode == 'system' then
         try_load( 'EasyBuild' )
     else
         load( 'EasyBuild' )
@@ -662,20 +681,36 @@ if mode() == 'load' and show_message then
     end
 
     if detail_mode == 'user' then
-        LmodMessage( stack_message ..
-            ' in the user tree at ' .. user_prefix .. '.\n' )
+        stack_message = stack_message ..
+            ' in the user tree at ' .. user_prefix .. '.\n'
     elseif detail_mode == 'production' then
-        LmodMessage( stack_message ..
-            ' in the system application directories.\n' )
+        stack_message = stack_message ..
+            ' in the system application directories.\n'
     elseif detail_mode == 'infrastructure' then
-        LmodMessage( stack_message ..
-            ' in the system infrastructure directories.\n' )
+        stack_message = stack_message ..
+            ' in the system infrastructure directories.\n'
     elseif detail_mode == 'CrayEnv' then
-        LmodMessage( stack_message ..
-            ' in the CrayEnv directories.\n' )
+        stack_message = stack_message ..
+            ' in the CrayEnv directories.\n'
     else
         LmodError( 'Unrecongnized module name' )
     end
+
+    -- Unfortunately it looks like LmodMessage reformats the string and deletes the spaces?
+    stack_message = stack_message ..
+        '  * Software installation directory: ' .. installpath_software .. '\n' ..
+        '  * Modules installation directory:  ' .. installpath_modules  .. '\n' ..
+        '  * Repository:                      ' .. repositorypath       .. '\n'
+
+    LmodMessage( stack_message )
+
+    --
+    -- Check if we are installing in /appl/lumi and print an extra warning.
+    --
+    if myFileName():match('^/appl/lumi/') ~= nil then
+        LmodMessage( '*** WARNING: YOU RISK DAMAGING THE CENTRAL SOFTWARE INSTALLATION IN /appl, BE CAREFUL! ***\n\n' )
+    end
+
 
 end
 
