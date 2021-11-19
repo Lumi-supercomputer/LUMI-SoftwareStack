@@ -31,6 +31,16 @@ Overview of included tools:
 
   + htop (version %(htop)s): an interactive process viewer for Unix/Linux.
 
+    Note that by default, htop will not show the load of individual cores as you may be used from
+    many other sites. However, given that there are 256 virtual cores on most nodes, this produces
+    visual overload for may. It is still possible to change the settings in htop by going into the
+    settings screen using "SHFIT-S" and then changing the meters, e.g., adding
+    "CPUS (1-4/8): first half in 4 shorter columns" to the first half and
+    "CPUS (5-8/8): second half in 4 shorter columns" to the second.
+
+    This configuration will be stored in ~/.config/htop/htoprc, so you can also copy settings
+    from another user by exchanging that file.
+
   + tree (version %(tree)s): a recursive directory listing command that produces a depth indented
     listing of files, which is colorized ala dircolors if the LS_COLORS environment
     variable is set and output is to tty.
