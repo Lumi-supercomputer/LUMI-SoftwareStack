@@ -16,6 +16,10 @@ switch all already loaded CPE modules_version to the version from the ]]  .. myM
 and ensure that all further CPE modules_version that are loaded without specifying a
 version will be loaded in the version from the ]] .. myModuleVersion() .. [[ release.
 
+This module is a replacement for the HPE-Cray provided ones as they are buggy and
+sometimes fail to reload all software properly. Note however that in some circumstances
+the original module may be loaded instead of this one due to changes in the search
+path for modules.
 ]] )
 
 -- Note that this construction with the shadow modulerc files is a leftover needed
