@@ -14,7 +14,7 @@ logfile="$(date --iso-8601=seconds).txt"
 #
 # Ask for confirmation. We may want to remove this once we have a more final solution.
 #
-echo -e "\nCopying software installation from $from_root, are you sure?"
+echo -e "\nCopying software installation from $main_appl, are you sure?"
 select yn in "Yes" "No"; do
     case $yn in
         No ) exit  ;;
