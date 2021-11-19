@@ -20,3 +20,9 @@ This is a bundle of X11 tools provided by EasyBuild.
 
   * Same software versions as for 21.06, we did not check them again.
 
+  * However, some modules were added with a library that was needed
+    for some contributed software, and some tools to quickly check if
+    an X11 connection is functional such as xdpyinfo and x11perf.
+    xauth was also added in case this would still be useful for some
+    users.
+

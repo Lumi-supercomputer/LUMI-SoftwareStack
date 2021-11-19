@@ -16,7 +16,7 @@ homepage = 'https://www.x.org'
 whatis = [
     'Description: X Window System (X11) libraries, a windowing system for bitmap displays',
     'This module contains static and shared libraries for a lot of libraries from the X11 system',
-    'Local UAntwerp extensions: libDRM and D-Bus (DBus)',
+    'Local extensions: libXaw3D, libDRM and D-Bus (DBus), xproto, xdipyinfo, x11perf',
 ]
 
 description = """
@@ -39,10 +39,12 @@ EasyBuild X11 modules:
   coordinate process lifecycle; it makes it simple and reliable to code
   a "single instance" application or daemon, and to launch applications
   and daemons on demand when their services are needed.
+* libXaw3D: A set of simple widgets
 * xporp: The xprop utility is for displaying window and font properties in an X server.
   One window or font is selected using the command line arguments or possibly
   in the case of a window, by clicking on the desired window. A list of
   properties is then given, possibly with formatting information.
+* xdpyinfo and x11perf to quickly test if remote X is working.
 """
 
 toolchain = {'name': 'cpeCray', 'version': '21.08'}
@@ -234,6 +236,9 @@ components = [
 #
 # Local additions
 #
+    ('libXaw3d', '1.6.3', {  # 2018-06-19, https://www.x.org/releases/individual/lib/
+        'checksums': ['9f42b409e5a4a0d7a2c94595b31d17fc078e5e307d14389dbc396754c3a01fcc'],
+    }),
     ('libdrm', '2.4.107', { # 2021-07-02 http://dri.freedesktop.org/libdrm/, used by Qt5
         'easyblock':     'MesonNinja',
         'sources':       [SOURCELOWER_TAR_XZ],
@@ -253,14 +258,29 @@ components = [
         'source_urls': ['http://ftp.x.org/archive/individual/app/'],
         'checksums':   ['9b92ed0316bf2486121d8bac88bd1878f16b43bd335f18009b1f941f1eca93a1'],
     }),
+    ('xdpyinfo', '1.3.2', { # 2015-04-17 https://www.x.org/archive/individual/app/, simply to test the screen
+        'sources':     [SOURCELOWER_TAR_BZ2],
+        'source_urls': ['http://ftp.x.org/archive/individual/app/'],
+        'checksums':   ['30238ed915619e06ceb41721e5f747d67320555cc38d459e954839c189ccaf51'],
+    }),
+    ('x11perf', '1.6.1', { # 2019-03-16 https://www.x.org/archive/individual/app/, simply to test the screen
+        'sources':     [SOURCELOWER_TAR_BZ2],
+        'source_urls': ['http://ftp.x.org/archive/individual/app/'],
+        'checksums':   ['1c7e0b8ffc2794b4ccf11e04d551823abe0ea47b4f7db0637390db6fbe817c34'],
+    }),
+    ('xauth', '1.1', { # 2019-07-11 https://www.x.org/archive/individual/app/, sometimes useful
+        'sources':     [SOURCELOWER_TAR_BZ2],
+        'source_urls': ['http://ftp.x.org/archive/individual/app/'],
+        'checksums':   ['6d1dd1b79dd185107c5b0fdd22d1d791ad749ad6e288d0cdf80964c4ffa7530c'],
+    }),
 ]
 
 preconfigopts = "if [ ! -f configure ]; then ./autogen.sh; fi && "
 
 sanity_check_paths = {
     'files': ['include/X11/Xlib.h', 'include/X11/Xutil.h'],
-    'dirs': ['include/GL', 'include/X11', 'include/X11/extensions', 'lib/pkgconfig',
-             'share/pkgconfig', 'share/X11/xkb'],
+    'dirs':  ['include/GL', 'include/X11', 'include/X11/extensions', 'lib/pkgconfig',
+              'share/pkgconfig', 'share/X11/xkb'],
 }
 
 moduleclass = 'vis'
