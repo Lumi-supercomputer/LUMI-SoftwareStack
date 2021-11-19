@@ -316,6 +316,14 @@ done
 mkdir -p $(module_root_infra $stack_version CrayEnv)/EasyBuild-CrayEnv
 create_link $modsrc/EasyBuild-config/$module_file $(module_root_infra $stack_version CrayEnv)/EasyBuild-CrayEnv/LUMI.lua
 
+module_file=$(match_module_version $stack_version $installroot/$repo/modules/EasyBuild-unlock)
+for partition in ${partitions[@]} common CrayEnv
+do
+    mkdir -p $(module_root_infra $stack_version $partition)/EasyBuild-unlock
+
+    create_link $modsrc/EasyBuild-unlock/$module_file $(module_root_infra $stack_version $partition)/EasyBuild-unlock/LUMI.lua
+done
+
 #
 # - Download EasyBuild from PyPi
 #
@@ -344,36 +352,8 @@ EBC_url="https://pypi.python.org/packages/source/e/easybuild-easyconfigs"
 popd
 
 #
-# - Now do a temporary install of the framework and EasyBlocks
-#
-mkdir -p $workdir
-pushd $workdir
-
-tar -xf $EB_tardir/$EBF_file
-tar -xf $EB_tardir/$EBB_file
-
-mkdir -p $workdir/easybuild
-
-pushd easybuild-framework-$EBversion
-python3 setup.py install --prefix=$workdir/easybuild
-cd ../easybuild-easyblocks-$EBversion
-python3 setup.py install --prefix=$workdir/easybuild
-popd
-
-#
-# - Clean up files that are not needed anymore
-#
-rm -rf easybuild-framework-$EBversion
-rm -rf easybuild-easyblocks-$EBversion
-
-#
-# - Activate that install
-#
-export EB_PYTHON='python3'
-export PYTHONPATH=$(find $workdir/easybuild -name site-packages)
-
-#
-# - Install EasyBuild in the common directory of the $EBstack software stack
+# - Initialise LMOD before installing EasyBuild
+#   Load partion/common as that will be the one we need to install EasyBuild.
 #
 module --force purge
 export MODULEPATH="$installroot/modules/SoftwareStack"
@@ -388,17 +368,61 @@ export LMOD_RC="$installroot/$repo/LMOD/lmodrc.lua"
 export LUMI_OVERWRITE_PARTITION='common'
 module load LUMI/$stack_version
 module load partition/common
-# Need to use the full module name as the module is hidden in the default view!
-module load EasyBuild-production/LUMI
-$workdir/easybuild/bin/eb --show-config
-$workdir/easybuild/bin/eb $installroot/$repo/easybuild/easyconfigs/e/EasyBuild/EasyBuild-${EBversion}.eb
 
 #
-# - Clean up
+# - Now if we cannot find the requested EasyBuild module, we'll install it.
+#   We would find it if the toolchain has already been initialised and the script
+#   is only run because changes were made in the directory structure.
 #
-rm -rf easybuild
+module avail EasyBuild/$EBversion |& grep -q "EasyBuild/$EBversion"
+if [[ $? != 0 ]]
+then
+    #
+    # - Now do a temporary install of the framework and EasyBlocks
+    #
+    mkdir -p $workdir
+    pushd $workdir
 
-popd
+    tar -xf $EB_tardir/$EBF_file
+    tar -xf $EB_tardir/$EBB_file
+
+    mkdir -p $workdir/easybuild
+
+    pushd easybuild-framework-$EBversion
+    python3 setup.py install --prefix=$workdir/easybuild
+    cd ../easybuild-easyblocks-$EBversion
+    python3 setup.py install --prefix=$workdir/easybuild
+    popd
+
+    #
+    # - Clean up files that are not needed anymore
+    #
+    rm -rf easybuild-framework-$EBversion
+    rm -rf easybuild-easyblocks-$EBversion
+
+    #
+    # - Activate that install
+    #
+    export EB_PYTHON='python3'
+    export PYTHONPATH=$(find $workdir/easybuild -name site-packages)
+
+    #
+    # - Install EasyBuild in the common directory of the $EBstack software stack
+    #
+    # Need to use the full module name as the module is hidden in the default view!
+    module load EasyBuild-unlock/LUMI
+    module load EasyBuild-production/LUMI
+    $workdir/easybuild/bin/eb --show-config
+    $workdir/easybuild/bin/eb $installroot/$repo/easybuild/easyconfigs/e/EasyBuild/EasyBuild-${EBversion}.eb
+
+    #
+    # - Clean up
+    #
+    rm -rf easybuild
+
+    popd
+
+fi
 
 #
 # Enable EasyBuild also for cross-installing by linking in the CrayEnv module directories
@@ -417,6 +441,7 @@ extended_partitions=( 'common' 'C' 'G' 'D' 'L' )
 toolchains=( 'cpeCray' 'cpeGNU' 'cpeAMD' )
 
 module load LUMI/$stack_version
+module load EasyBuild-unlock/LUMI
 module load EasyBuild-infrastructure/LUMI
 
 for cpe in ${toolchains[@]}
@@ -430,7 +455,12 @@ do
 
         module load "partition/$partition"
 
-        eb "$cpe/$cpe-$CPEversion.eb" -f
+        # Install the toolchain module if it does not yet exist.
+        module avail $cpe/$CPEversion |& grep -q "$cpe/$CPEversion"
+        if [[ $? != 0 ]]
+        then
+            eb "$cpe/$cpe-$CPEversion.eb" -f
+        fi
 
 	done
 
