@@ -450,20 +450,20 @@ prepend_path( 'PATH', pathJoin( SystemRepo_prefix, 'tools' ) )
 -- land.
 --
 
-if mode() == 'load' and mod_mode == 'user' then
+if ( mode() == 'load' or mode() == 'show' ) and mod_mode == 'user' then
 
-  if not isDir( user_repositorypath )       then execute{ cmd='mkdir -p ' .. user_repositorypath,       modeA={'load'} } end
-  if not isDir( user_sourcepath )           then execute{ cmd='mkdir -p ' .. user_sourcepath,           modeA={'load'} } end
-  if not isDir( user_easyconfigdir )        then execute{ cmd='mkdir -p ' .. user_easyconfigdir,        modeA={'load'} } end
+  if not isDir( user_repositorypath )       then execute{ cmd='/usr/bin/mkdir -p ' .. user_repositorypath,       modeA={'load'} } end
+  if not isDir( user_sourcepath )           then execute{ cmd='/usr/bin/mkdir -p ' .. user_sourcepath,           modeA={'load'} } end
+  if not isDir( user_easyconfigdir )        then execute{ cmd='/usr/bin/mkdir -p ' .. user_easyconfigdir,        modeA={'load'} } end
   if not isDir( user_easyblockdir )         then
-      execute{ cmd='mkdir -p ' .. user_easyblockdir, modeA={'load'} }
+      execute{ cmd='/usr/bin/mkdir -p ' .. user_easyblockdir, modeA={'load'} }
       -- Need to copy a dummy file here or eb --show-config will complain.
-      execute{ cmd='cp -r ' .. pathJoin( system_easyblockdir, '00') .. ' ' .. user_easyblockdir, modeA={'load'} }
+      execute{ cmd='/usr/bin/cp -r ' .. pathJoin( system_easyblockdir, '00') .. ' ' .. user_easyblockdir, modeA={'load'} }
   end
-  if not isDir( user_configdir )            then execute{ cmd='mkdir -p ' .. user_configdir,            modeA={'load'} } end
-  if not isDir( user_installpath_software ) then execute{ cmd='mkdir -p ' .. user_installpath_software, modeA={'load'} } end
+  if not isDir( user_configdir )            then execute{ cmd='/usr/bin/mkdir -p ' .. user_configdir,            modeA={'load'} } end
+  if not isDir( user_installpath_software ) then execute{ cmd='/usr/bin/mkdir -p ' .. user_installpath_software, modeA={'load'} } end
   if not isDir( user_installpath_modules )  then
-    execute{ cmd='mkdir -p ' .. user_installpath_modules,  modeA={'load'} }
+    execute{ cmd='/usr/bin/mkdir -p ' .. user_installpath_modules,  modeA={'load'} }
     -- We've just created the directory so it was not yet in the MODULEPATH.
     -- Add it and leave it to the software stack module which will find it when
     -- it does an unload to remove the directory from the MODULEPATH.
