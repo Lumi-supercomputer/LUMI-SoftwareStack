@@ -287,6 +287,12 @@ table.insert( source_paths, system_sourcepath )
 
 local robot_paths = {}
 
+--   + Always included in usermode: the current directory so that we can even just give the user
+--     a couple of EasyConfig files that they put in a directory and run with eb -r.
+if mod_mode == 'user' then
+    table.insert( robot_paths, '.' )
+end
+
 --   + Always included in usermode: the user repository for the software stack
 if mod_mode == 'user' then
     table.insert( robot_paths, user_repositorypath )
