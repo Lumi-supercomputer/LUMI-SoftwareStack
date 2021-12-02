@@ -16,7 +16,7 @@ gzip (GNU zip) is a popular data compression program as a replacement for compre
 """
 
 toolchain = {'name': 'cpeCray', 'version': '21.08'}
-toolchainopts = {'pic': True}
+toolchainopts = {'pic': True, 'extra_cflags': '-Wno-unsupported-target-opt'}
 
 source_urls = [GNU_SOURCE]
 sources =     [SOURCE_TAR_XZ]
