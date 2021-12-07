@@ -1,0 +1,21 @@
+software:
+  METIS:
+    toolchains:
+      cpeCray-21.08:
+        versions: ['5.1.0']
+  ParMETIS:
+    toolchains:
+      cpeCray-21.08:
+        versions: ['4.0.3']
+  SCOTCH:
+    toolchains:
+      cpeCray-21.08:
+        versions: ['6.1.1']
+  ESMF:
+    toolchains:
+      cpeCray-21.08:
+        versions: ['8.1.1']
+  gnuplot:
+    toolchains:
+      cpeCray-21.08:
+        versions: ['5.4.2']
