@@ -55,6 +55,7 @@ docpaths = [
 ]
 
 toolchain = {'name': 'cpeCray', 'version': '21.08'}
+toolchainopts = {'extra_cflags': '-Wno-unsupported-target-opt'}
 
 source_urls = ['http://cairographics.org/snapshots/']
 sources =     [SOURCE_TAR_XZ]

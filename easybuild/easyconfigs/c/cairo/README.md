@@ -19,3 +19,6 @@
   * Started from the UAntwerpen and EasyBuilders recipes.
 
   * Currently tested with cpeGNU and cpeCray only.
+
+     * cpeCVray needs '-Wno-unsupported-target-opt' or the compilation fails in the
+       building phase.
