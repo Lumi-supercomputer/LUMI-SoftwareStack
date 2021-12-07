@@ -287,6 +287,10 @@ software:
     toolchains:
       cpeCray-21.08:
         versions: ['8.6.11']
+  Tk:
+    toolchains:
+      cpeCray-21.08:
+        versions: ['8.6.11']
   SQLite:
     toolchains:
       cpeCray-21.08:

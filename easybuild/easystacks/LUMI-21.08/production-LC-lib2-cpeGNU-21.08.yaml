@@ -291,6 +291,10 @@ software:
     toolchains:
       cpeGNU-21.08:
         versions: ['8.6.11']
+  Tk:
+    toolchains:
+      cpeGNU-21.08:
+        versions: ['8.6.11']
   SQLite:
     toolchains:
       cpeGNU-21.08:
