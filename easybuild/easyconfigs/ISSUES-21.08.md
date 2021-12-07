@@ -14,6 +14,11 @@
   * **MPFR**: Two tests are skipped when compiled with the Clang-based cpeCray and
     cpeAMD toolchains while all tests are executed and passed with cpeGNU.
 
+  * **ncurses**: When loaded it interfers with several of the system tools in `/bin`
+    etc. and causes them to fail because those tools expect a very old version.
+    The problem is that it even involves some pretty important commands such as
+    `gdb`...
+
   * **Perl**
 
       * Cray compiler: Set::IntervalTree 0.12 does not build, cannot find the header

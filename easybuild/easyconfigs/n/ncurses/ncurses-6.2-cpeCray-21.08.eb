@@ -23,6 +23,10 @@ builddependencies = [ # Create a reproducible build environment.
 
 local_common_configopts  = "--with-shared --enable-overwrite --without-ada --enable-symlinks "
 local_common_configopts += "--enable-pc-files --with-pkg-config-libdir=%(installdir)s/lib/pkgconfig "
+# More complete setup that interfers even more with system binaries:
+#local_common_configopts  = '--without-shared --with-normal --with-termlib --with-ticlib  --enable-overwrite'
+#local_common_configopts += '--without-ada --enable-symlinks --with-versioned-syms '
+#local_common_configopts += '--enable-pc-files --with-pkg-config-libdir=%(installdir)s/lib/pkgconfig '
 configopts = [
     # default build
     local_common_configopts,
