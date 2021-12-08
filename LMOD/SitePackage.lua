@@ -77,12 +77,10 @@ end
 -- Current algorithm:
 --  * The environment variable LUMI_OVERWRITE_PARTITION overwrites any
 --    setting the algorithm may chose.
---  * As an example, the following algorithm was implemented:
---    + On eiger uan01 and uan02 the partition is set to L
---    + On eiger uan03 the partition is set to common
---    + On all other hosts we first check for the environment variable
---      LUMI_PARTITION and use that one and otherwise we set the partition
---      to L.
+--  * The current algorithm checks for the hostnames on LUMI.
+--    It will currently not work on other systems except for the
+--    login nodes of eiger (and any other Cray system that uses
+--    the standard Cray names).
 --
 -- This code is meant to be used to detect the partition before it can be
 -- derived from the position of the module in the module hierarchy.
@@ -125,6 +123,12 @@ function detect_LUMI_partition()
             -- Find the partition based on the node number
             if ( nodenum >= 1000 ) and ( nodenum <= 2535 ) then
                 partition = 'C'
+            elseif ( nodenum >= 16 ) and ( nodenum <= 23 ) then
+                -- LUMI-D nodes with GPU
+                partition = 'D'
+            elseif ( nodenum >= 101 ) and ( nodenum <= 108 ) then
+                -- LUMI-D nodes without a GPU (largemem nodes)
+                partition = 'D'
             else
                 partition = 'L'
             end
@@ -140,6 +144,7 @@ function detect_LUMI_partition()
     return partition
 
 end
+
 
 --
 -- function get_CPE_component
@@ -258,7 +263,7 @@ function get_versionedfile( matching, directory, filenameprefix, filenamesuffix 
     local versions = {}
     local pattern_prefix = filenameprefix:gsub( '%-', '%%-'):gsub( '%.', '%%.' )
     local pattern_suffix = filenamesuffix:gsub( '%-', '%%-'):gsub( '%.', '%%.' )
-    local pattern = pattern_prefix .. '.+' .. pattern_suffix
+    local pattern = '^' .. pattern_prefix .. '.+' .. pattern_suffix .. '$'
 
     local status = pcall( lfs.dir, directory )
     if not status then
