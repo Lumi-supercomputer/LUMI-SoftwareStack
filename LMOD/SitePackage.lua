@@ -107,30 +107,29 @@ function detect_LUMI_partition()
         -- We'll try matching hostnames to decided on the partition
         local hostname = get_hostname()
 
-        -- We're breaking compatibility with the description as given
-        -- in the first internal EasyBuild on the LUMI software stack
-        -- workshop as we now first match hostnames so on eiger the
-        -- first two login nodes will map onto the login partion and
-        -- the third login node will map onto the common partition if
-        -- LUMI_OVERWRITE_PARTITION is not set. On all other nodes
-        -- LUMI_PARTITION will still function but this should be a temporary
-        -- measure and everybody should switch to LUMI_OVERWRITE_PARTITION
-        -- to overwrite the partition.
-        local lumi_partition = os.getenv( 'LUMI_PARTITION' )
-
-        if hostname:find( 'uan0[12]' ) then
+        if hostname:find( 'uan' ) then
+            -- This is a login node
 
             partition = 'L'
 
-        elseif hostname:find( 'uan03' ) then
+        elseif hostname:find( 'nid%d%d%d%d%d%d' ) then
+            -- This is some type of compute node
 
-            partition = 'common'
+            local tmp1, tmp2, tmp3, nodenum
 
-        elseif lumi_partition ~= nil then
+            -- Replacing unneeded variables with an underscore doesn't always seem
+            -- to work. After a module purge it produces errors when reloading the modules.
+            tmp1, tmp2, tmp3 = hostname:find( 'nid(%d%d%d%d%d%d)' )
+            nodenum = tonumber( tmp3 ) -- Convert to number
 
-            partition = lumi_partition
+            -- Find the partition based on the node number
+            if ( nodenum >= 1000 ) and ( nodenum <= 2535 ) then
+                partition = 'C'
+            else
+                partition = 'L'
+            end
 
-        else
+        else -- Don't recognize the form of the host name unfortunately.
 
             partition = 'L'
 
