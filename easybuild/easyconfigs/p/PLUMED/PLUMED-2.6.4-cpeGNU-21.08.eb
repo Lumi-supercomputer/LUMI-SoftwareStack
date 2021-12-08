@@ -15,7 +15,7 @@ version = local_PLUMED2_6_version
 homepage = 'https://www.plumed.org'
 
 whatis = [
-    'Description: PLUMED - LUgin for MolEcular Dynamics'
+    'Description: PLUMED - PLUgin for MolEcular Dynamics'
 ]
 description = """
 PLUMED is an open source library for free energy calculations in molecular
