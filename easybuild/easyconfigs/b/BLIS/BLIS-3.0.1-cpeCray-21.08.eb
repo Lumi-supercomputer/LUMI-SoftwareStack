@@ -36,7 +36,7 @@ docurls = [
     'https://github.com/amd/blis/blob/master/docs/BuildSystem.md',
 ]
 
-toolchain = {'name': 'cpeGNU', 'version': '21.08'}
+toolchain = {'name': 'cpeCray', 'version': '21.08'}
 
 source_urls = ['https://github.com/amd/blis/archive/']
 sources =     ['%(version)s.tar.gz']
