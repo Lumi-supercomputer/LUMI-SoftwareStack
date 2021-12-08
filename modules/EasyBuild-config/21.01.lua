@@ -86,11 +86,30 @@ else
     LmodError( 'Unrecongnized module name' )
 end
 
+-- Make sure that when in system mode, the unlock module is loaded.
+if mode() == 'load' and mod_mode == 'system' and not isloaded( 'EasyBuild-unlock' ) then
+    LmodError( 'This module requires EasyBuild-unlock to be loaded first as an additional precaution to avoid damaging the system installation.' )
+end
+
+-- Produce an error message when loading in user mode and user_prefix == '' which implies that
+-- EBU_USER_PREFIX was set but empty. This value of EBU_USER_PREFIX can be used if we really
+-- do not want a user installation, also not the default one.
+-- Also make sure that user prefix is some kind of absolute path, starting either with a slash or with
+-- a ~, though we don't do a full test for a valid directory. Relative directories should not be
+-- used as this may lead to installing in the wrong directories.
+if mode() == 'load' and mod_mode == 'user' then
+    if user_prefix == nil then
+        LmodError( 'User installation is impossible as it was explicitly turned off by means of EBU_USER_PREFIX.' )
+    elseif user_prefix:match('^[~/]') == nil then
+        LmodError( 'Detected an invalid user installation directory. When using EBU_PREFIX_USER, an absolute path should be used.' )
+    end
+end
+
 -- Make sure EasyBuild is loaded when in user mode. In any of the system modes
 -- we assume the user is clever enough and want to support using an eb version
 -- which is not in the module tree, e.g., to bootstrap.
 if not isloaded( 'EasyBuild' ) then
-    if detail_mode == 'production' then
+    if mod_mode == 'system' then
         try_load( 'EasyBuild' )
     else
         load( 'EasyBuild' )
@@ -165,15 +184,14 @@ local easyconfigdir = mod_mode == 'user' and user_easyconfigdir or system_easyco
 local easyblockdir =  mod_mode == 'user' and user_easyblockdir  or system_easyblockdir
 local installpath =   mod_mode == 'user' and user_installpath   or system_installpath
 
-local system_sourcepath =          pathJoin( system_prefix,        'sources/easybuild' )
-local system_containerpath =       pathJoin( system_prefix,        'containers' )
-local system_packagepath =         pathJoin( system_prefix,        'packages' )
+local system_sourcepath =          pathJoin( system_prefix, 'sources/easybuild' )
+local system_containerpath =       pathJoin( system_prefix, 'containers' )
+local system_packagepath =         pathJoin( system_prefix, 'packages' )
 
-local user_sourcepath =            pathJoin( user_prefix, 'sources' )
-local user_containerpath =         pathJoin( user_prefix, 'containers' )
-local user_packagepath =           pathJoin( user_prefix, 'packages' )
+local user_sourcepath =            pathJoin( user_prefix,    'sources' )
+local user_containerpath =         pathJoin( user_prefix,    'containers' )
+local user_packagepath =           pathJoin( user_prefix,    'packages' )
 
-local sourcepath =    mod_mode == 'user' and user_sourcepath    or system_sourcepath
 local containerpath = mod_mode == 'user' and user_containerpath or system_containerpath
 local packagepath =   mod_mode == 'user' and user_packagepath   or system_packagepath
 
@@ -252,9 +270,28 @@ if hooks == nil then
     LmodWarning( 'Failed to determine the hooks file, so running EasyBuild without using hooks.' )
 end
 
+-- - Build the source paths
+
+local source_paths = {}
+
+--   + In usermode: The user source path comes first as that is where we want to write.
+if mod_mode == 'user' then
+    table.insert( source_paths, user_sourcepath )
+end
+
+--   + The system source path is always included so that user installations that make small modifications
+--     to a config don't need to download again
+table.insert( source_paths, system_sourcepath )
+
 -- - Build the robot path ROBOT_PATHS
 
 local robot_paths = {}
+
+--   + Always included in usermode: the current directory so that we can even just give the user
+--     a couple of EasyConfig files that they put in a directory and run with eb -r.
+if mod_mode == 'user' then
+    table.insert( robot_paths, '.' )
+end
 
 --   + Always included in usermode: the user repository for the software stack
 if mod_mode == 'user' then
@@ -346,7 +383,7 @@ if mod_mode == 'user' and isFile( user_configfile_stack )   then table.insert( c
 -- - Single component paths
 
 setenv( 'EASYBUILD_PREFIX',                        ( mod_mode == 'user' and user_prefix or system_prefix ) )
-setenv( 'EASYBUILD_SOURCEPATH',                    sourcepath )
+setenv( 'EASYBUILD_SOURCEPATH',                    table.concat( source_paths, ':' ) )
 setenv( 'EASYBUILD_CONTAINERPATH',                 containerpath )
 setenv( 'EASYBUILD_PACKAGEPATH',                   packagepath )
 setenv( 'EASYBUILD_INSTALLPATH',                   installpath )
@@ -413,20 +450,20 @@ prepend_path( 'PATH', pathJoin( SystemRepo_prefix, 'tools' ) )
 -- land.
 --
 
-if mode() == 'load' and mod_mode == 'user' then
+if ( mode() == 'load' or mode() == 'show' ) and mod_mode == 'user' then
 
-  if not isDir( user_repositorypath )       then execute{ cmd='mkdir -p ' .. user_repositorypath,       modeA={'load'} } end
-  if not isDir( user_sourcepath )           then execute{ cmd='mkdir -p ' .. user_sourcepath,           modeA={'load'} } end
-  if not isDir( user_easyconfigdir )        then execute{ cmd='mkdir -p ' .. user_easyconfigdir,        modeA={'load'} } end
+  if not isDir( user_repositorypath )       then execute{ cmd='/usr/bin/mkdir -p ' .. user_repositorypath,       modeA={'load'} } end
+  if not isDir( user_sourcepath )           then execute{ cmd='/usr/bin/mkdir -p ' .. user_sourcepath,           modeA={'load'} } end
+  if not isDir( user_easyconfigdir )        then execute{ cmd='/usr/bin/mkdir -p ' .. user_easyconfigdir,        modeA={'load'} } end
   if not isDir( user_easyblockdir )         then
-      execute{ cmd='mkdir -p ' .. user_easyblockdir, modeA={'load'} }
+      execute{ cmd='/usr/bin/mkdir -p ' .. user_easyblockdir, modeA={'load'} }
       -- Need to copy a dummy file here or eb --show-config will complain.
-      execute{ cmd='cp -r ' .. pathJoin( system_easyblockdir, '00') .. ' ' .. user_easyblockdir, modeA={'load'} }
+      execute{ cmd='/usr/bin/cp -r ' .. pathJoin( system_easyblockdir, '00') .. ' ' .. user_easyblockdir, modeA={'load'} }
   end
-  if not isDir( user_configdir )            then execute{ cmd='mkdir -p ' .. user_configdir,            modeA={'load'} } end
-  if not isDir( user_installpath_software ) then execute{ cmd='mkdir -p ' .. user_installpath_software, modeA={'load'} } end
+  if not isDir( user_configdir )            then execute{ cmd='/usr/bin/mkdir -p ' .. user_configdir,            modeA={'load'} } end
+  if not isDir( user_installpath_software ) then execute{ cmd='/usr/bin/mkdir -p ' .. user_installpath_software, modeA={'load'} } end
   if not isDir( user_installpath_modules )  then
-    execute{ cmd='mkdir -p ' .. user_installpath_modules,  modeA={'load'} }
+    execute{ cmd='/usr/bin/mkdir -p ' .. user_installpath_modules,  modeA={'load'} }
     -- We've just created the directory so it was not yet in the MODULEPATH.
     -- Add it and leave it to the software stack module which will find it when
     -- it does an unload to remove the directory from the MODULEPATH.
@@ -493,7 +530,7 @@ Based on this information, the following settings are used:
   * Software installation directory:          ]] .. installpath_software .. '\n' .. [[
   * Module files installation directory:      ]] .. installpath_modules .. '\n' .. [[
   * Repository of installed EasyConfigs       ]] .. repositorypath .. '\n' .. [[
-  * Sources of installed packages:            ]] .. sourcepath .. '\n' .. [[
+  * Sources of installed packages:            ]] .. table.concat( source_paths, ':' ) .. '\n' .. [[
   * Containers installed in:                  ]] .. containerpath .. '\n' .. [[
   * Packages installed in:                    ]] .. packagepath .. '\n' .. [[
   * Custom EasyBlocks:                        ]] .. table.concat( easyblocks, ',' ) .. '\n' .. [[
@@ -662,20 +699,36 @@ if mode() == 'load' and show_message then
     end
 
     if detail_mode == 'user' then
-        LmodMessage( stack_message ..
-            ' in the user tree at ' .. user_prefix .. '.\n' )
+        stack_message = stack_message ..
+            ' in the user tree at ' .. user_prefix .. '.\n'
     elseif detail_mode == 'production' then
-        LmodMessage( stack_message ..
-            ' in the system application directories.\n' )
+        stack_message = stack_message ..
+            ' in the system application directories.\n'
     elseif detail_mode == 'infrastructure' then
-        LmodMessage( stack_message ..
-            ' in the system infrastructure directories.\n' )
+        stack_message = stack_message ..
+            ' in the system infrastructure directories.\n'
     elseif detail_mode == 'CrayEnv' then
-        LmodMessage( stack_message ..
-            ' in the CrayEnv directories.\n' )
+        stack_message = stack_message ..
+            ' in the CrayEnv directories.\n'
     else
         LmodError( 'Unrecongnized module name' )
     end
+
+    -- Unfortunately it looks like LmodMessage reformats the string and deletes the spaces?
+    stack_message = stack_message ..
+        '  * Software installation directory: ' .. installpath_software .. '\n' ..
+        '  * Modules installation directory:  ' .. installpath_modules  .. '\n' ..
+        '  * Repository:                      ' .. repositorypath       .. '\n'
+
+    LmodMessage( stack_message )
+
+    --
+    -- Check if we are installing in /appl/lumi and print an extra warning.
+    --
+    if myFileName():match('^/appl/lumi/') ~= nil then
+        LmodMessage( '*** WARNING: YOU RISK DAMAGING THE CENTRAL SOFTWARE INSTALLATION IN /appl, BE CAREFUL! ***\n\n' )
+    end
+
 
 end
 

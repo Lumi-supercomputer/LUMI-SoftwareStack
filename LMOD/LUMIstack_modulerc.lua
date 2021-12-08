@@ -16,11 +16,13 @@ module_version( 'partition/L', 'login' )
 if os.getenv( 'LUMI_LMOD_POWERUSER' ) == nil then
     hide_version( 'partition/common' )
     hide_version( 'partition/CrayEnv' )
-    hide_version( 'EasyBuild-production/LUMI' )
+    hide_version(   'EasyBuild-unlock/LUMI' )
+    module_version( 'EasyBuild-unlock/LUMI', 'default' )
+    hide_version(   'EasyBuild-production/LUMI' )
     module_version( 'EasyBuild-production/LUMI', 'default' )
-    hide_version( 'EasyBuild-infrastructure/LUMI' )
+    hide_version(   'EasyBuild-infrastructure/LUMI' )
     module_version( 'EasyBuild-infrastructure/LUMI', 'default' )
-    hide_version( 'EasyBuild-CrayEnv/LUMI' )
+    hide_version(   'EasyBuild-CrayEnv/LUMI' )
     module_version( 'EasyBuild-CrayEnv/LUMI', 'default' )
 end
 

@@ -72,6 +72,13 @@ is symlinked to those three modules. The module will derive what it should do fr
 its name and also gets all information about the software stack and partition from
 its place in the module hierarchy to ensure maximum robustness.
 
+**NOTE:** We deliberately chose to use EasyBuild-production, EasyBuild-user etc and
+not EasyBuild-config/production, EasyBuild-config/user, etc. because of the way
+EasyBuild acts when loading a different partition module. For additional safety
+we want to avoid that LMOD would reload a different version of the EasyBuild-config
+module and would rather get an error message that the EasyBuild-* partition is not
+available in the new partition.
+
 
 ### Common settings that are made through environment variables in all modes
 

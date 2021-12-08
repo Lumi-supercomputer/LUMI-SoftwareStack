@@ -55,7 +55,17 @@ function get_user_prefix_EasyBuild()
     local home_prefix = os.getenv( 'HOME' ) .. '/EasyBuild'
     home_prefix = home_prefix:gsub( '//', '/' ):gsub( '/$', '' )
 
-    return ( os.getenv( 'EBU_USER_PREFIX' ) or home_prefix )
+    local ebu_user_prefix = os.getenv( 'EBU_USER_PREFIX' )
+
+    if ebu_user_prefix == '' then
+        -- EBU_USER_PREFIX is empty which indicates that there is no user
+        -- installation, also not the default one.
+        return nil
+    else
+        -- If EBU_USER_PREFIX is set, return that one and otherwise the
+        -- default directory.
+        return ( ebu_user_prefix or home_prefix )
+    end
 
 end
 
@@ -324,7 +334,9 @@ end
 -- LMOD_AVAIL_STYLE=labeled:system to make the labeled style the default.
 --
 
-local EB_prefix = get_user_prefix_EasyBuild():gsub( '%-', '%%-' )
+-- We need to avoid that EB_prefix is nil so give it some meaningless value if it would
+-- be nil.
+local EB_prefix = string.gsub( get_user_prefix_EasyBuild() or '/NONE', '%-', '%%-' )
 
 local mapT =
 {
