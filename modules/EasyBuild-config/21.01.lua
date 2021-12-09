@@ -303,7 +303,6 @@ local hooks = get_versionedfile( lumi_stack_version, system_hookdir, 'LUMI_site_
 if hooks == nil then
     LmodWarning( 'Failed to determine the hooks file, so running EasyBuild without using hooks.' )
 end
--- LmodMessage( 'Identified hooks file ' .. hooks )
 
 -- - Build the source paths
 
