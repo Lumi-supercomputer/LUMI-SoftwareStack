@@ -163,6 +163,40 @@ local common_partition_name = 'common'
 local common_partition =      'LUMI-' .. common_partition_name
 local CPE_version =           lumi_stack_version:gsub( '.dev', '' )  -- Drop .dev from the stack version to get the version of the CPE.
 
+-- - Find a suitable directory to create some temporary build space for EasyBuild
+--   We set the work directory based on where we are running, not based on for which partition
+--   we are compiling.
+
+local workdir
+if ( get_hostname():find( 'uan' ) ) then
+
+    -- We are running on the login nodes so we can use XDG_RUNTIME_DIR
+    -- which is cleaned automatically at the end of the session
+
+    workdir = os.getenv( 'XDG_RUNTIME_DIR' )
+
+else
+
+    -- Not a login node, so it must be a compute node.
+
+    local jobid = os.getenv( 'SLURM_JOB_ID' )
+    local user =  os.getenv( 'USER' )
+
+    if jobid ~= nil then
+
+        -- Running in a Slurm job, use that to build a file name
+        workdir = pathJoin( '/dev/shm', jobid )
+
+    else
+
+        -- This may happen in the future if there would be non-jobcontrolled interactive
+        -- sessions on other parts of the system?
+        workdir = pathJoin( '/dev/shm', user )
+
+    end
+
+end
+
 -- - Compute the location of certain directories and files
 
 --    + Some easy ones that do not depend the software stack itself
@@ -197,8 +231,8 @@ local packagepath =   mod_mode == 'user' and user_packagepath   or system_packag
 
 local module_naming_scheme_dir =   pathJoin( SystemRepo_prefix, 'easybuild/tools/module_naming_scheme/*.py' )
 
-local buildpath =                  pathJoin( os.getenv( 'XDG_RUNTIME_DIR' ), 'easybuild', 'build' )
-local tmpdir =                     pathJoin( os.getenv( 'XDG_RUNTIME_DIR' ), 'easybuild', 'tmp' )
+local buildpath =                  pathJoin( workdir, 'easybuild', 'build' )
+local tmpdir =                     pathJoin( workdir, 'easybuild', 'tmp' )
 
 --    + Directories that depend on the software stack
 --                                                            Root                       Stack                  Partition                    Suffix
@@ -439,6 +473,18 @@ setenv( 'LUMI_EASYBUILD_MODE', myModuleName():gsub( 'EasyBuild%-', '' ) )
 -- Add the tools to the search path for executables
 --
 prepend_path( 'PATH', pathJoin( SystemRepo_prefix, 'tools' ) )
+
+
+-- -----------------------------------------------------------------------------
+--
+-- Define a bash function to clear temporary files.
+--
+
+local bash_clear_eb = '/bin/rm -r ' .. pathJoin( workdir, 'easybuild' ) .. '; ' ..
+                      '[ $(/bin/ls -A ' .. workdir .. ') ] || /bin/rm -r ' .. workdir
+local csh_clear_eb =  '/bin/rm -r ' .. pathJoin( workdir, 'easybuild' ) .. '; ' ..
+                      'find ' .. workdir .. ' -empty -exec \'{}\' \\; >& /dev/null'
+set_shell_function( 'clear-eb', bash_clear_eb, csh_clear_eb )
 
 
 -- -----------------------------------------------------------------------------
@@ -716,9 +762,11 @@ if mode() == 'load' and show_message then
 
     -- Unfortunately it looks like LmodMessage reformats the string and deletes the spaces?
     stack_message = stack_message ..
-        '  * Software installation directory: ' .. installpath_software .. '\n' ..
-        '  * Modules installation directory:  ' .. installpath_modules  .. '\n' ..
-        '  * Repository:                      ' .. repositorypath       .. '\n'
+        '  * Software installation directory:    ' .. installpath_software             .. '\n' ..
+        '  * Modules installation directory:     ' .. installpath_modules              .. '\n' ..
+        '  * Repository:                         ' .. repositorypath                   .. '\n' ..
+        '  * Work directory for builds and logs: ' .. pathJoin( workdir, 'easybuild' ) .. '\n' ..
+        '    Clear work directory with clear-eb\n'
 
     LmodMessage( stack_message )
 
