@@ -773,7 +773,7 @@ if mode() == 'load' and show_message then
     --
     -- Check if we are installing in /appl/lumi and print an extra warning.
     --
-    if myFileName():match('^/appl/lumi/') ~= nil then
+    if ( myFileName():match('^/appl/lumi/') ~= nil ) and ( mod_mode == 'system' ) then
         LmodMessage( '*** WARNING: YOU RISK DAMAGING THE CENTRAL SOFTWARE INSTALLATION IN /appl, BE CAREFUL! ***\n\n' )
     end
 
