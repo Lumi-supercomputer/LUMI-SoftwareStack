@@ -52,10 +52,14 @@ sources = [
     'easybuild-easyblocks-%(version)s.tar.gz',
     'easybuild-easyconfigs-%(version)s.tar.gz',
 ]
+patches = [
+    'EasyBuild-4.4.2_keyring_DBus.patch',
+]
 checksums = [
     '1e6580f210bc742ee1518d0a85389b32199b692de80548c80e93fa2a1a32dd01',  # easybuild-framework-4.4.2.tar.gz
     '4918f13ffcd97c8b9eb0a10517bdc5b28f67c3602882d4be0bee3afc401fd78c',  # easybuild-easyblocks-4.4.2.tar.gz
     '6ec2fa4d9116d45298318f31292726b6f6d1257580cff82138904c69ab38bc46',  # easybuild-easyconfigs-4.4.2.tar.gz
+    'd823213811e610fae568dbb0d010b4460f75e23902ed56dddca892f3dc0c9976',  # EasyBuild-4.4.2_keyring_DBus.patch
 ]
 
 # order matters a lot, to avoid having dependencies auto-resolved (--no-deps easy_install option doesn't work?)

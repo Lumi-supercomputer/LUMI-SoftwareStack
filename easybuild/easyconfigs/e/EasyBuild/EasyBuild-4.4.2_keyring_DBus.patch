@@ -1,0 +1,28 @@
+Patch works around the problem that importing keyring may fail with other
+other exceptions than ImportError
+By Kurt Lust, kurt.lust@uantwerpen.be for the LUMI consortium.
+diff -Nau easybuild/tools/github.py.orig easybuild/tools/github.py
+diff -Nau easybuild/tools/utilities.py.orig easybuild/tools/utilities.py
+--- easybuild/tools/github.py.orig	2021-12-10 10:59:34.000000000 +0200
++++ easybuild/tools/github.py	2021-12-09 21:31:48.000000000 +0200
+@@ -69,6 +69,9 @@
+ except ImportError as err:
+     _log.warning("Failed to import 'keyring' Python module: %s" % err)
+     HAVE_KEYRING = False
++except Exception as err:
++    _log.warning("D-Bus error during import of 'keyring' Python module: %s" % err)
++    HAVE_KEYRING = False
+ 
+ try:
+     from easybuild.base.rest import RestClient
+--- easybuild/tools/utilities.py.orig	2021-12-10 10:59:43.000000000 +0200
++++ easybuild/tools/utilities.py	2021-12-10 10:37:42.000000000 +0200
+@@ -169,7 +169,7 @@
+                     __import__(modname)
+                     imported = modname
+                     break
+-                except ImportError:
++                except Exception:
+                     pass
+ 
+             if imported is None:
