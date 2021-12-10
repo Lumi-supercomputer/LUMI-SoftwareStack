@@ -168,6 +168,7 @@ local CPE_version =           lumi_stack_version:gsub( '.dev', '' )  -- Drop .de
 --   we are compiling.
 
 local workdir
+local cleandir = nil
 if ( get_hostname():find( 'uan' ) ) then
 
     -- We are running on the login nodes so we can use XDG_RUNTIME_DIR
@@ -185,13 +186,15 @@ else
     if jobid ~= nil then
 
         -- Running in a Slurm job, use that to build a file name
-        workdir = pathJoin( '/dev/shm', jobid )
+        cleandir = pathJoin( '/dev/shm', jobid )
+        workdir = cleandir
 
     else
 
         -- This may happen in the future if there would be non-jobcontrolled interactive
         -- sessions on other parts of the system?
-        workdir = pathJoin( '/dev/shm', user )
+        cleandir = pathJoin( '/dev/shm', user )
+        workdir = cleandir
 
     end
 
@@ -478,12 +481,14 @@ prepend_path( 'PATH', pathJoin( SystemRepo_prefix, 'tools' ) )
 -- -----------------------------------------------------------------------------
 --
 -- Define a bash function to clear temporary files.
+-- The implementation of the C-shell function will likely only work on tcsh.
 --
-
-local bash_clear_eb = '/bin/rm -r ' .. pathJoin( workdir, 'easybuild' ) .. '; ' ..
-                      '[ $(/bin/ls -A ' .. workdir .. ') ] || /bin/rm -r ' .. workdir
-local csh_clear_eb =  '/bin/rm -r ' .. pathJoin( workdir, 'easybuild' ) .. '; ' ..
-                      'find ' .. workdir .. ' -empty -exec \'{}\' \\; >& /dev/null'
+local bash_clear_eb = '[ -d ' .. pathJoin( workdir, 'easybuild' ) .. ' ] && /bin/rm -r ' .. pathJoin( workdir, 'easybuild' ) .. '; '
+local csh_clear_eb =  'if ( -d ' .. pathJoin( workdir, 'easybuild' ) .. ' ) /bin/rm -r ' .. pathJoin( workdir, 'easybuild' ) .. '; '
+if cleandir ~= nil then
+    bash_clear_eb = bash_clear_eb .. 'if [ -d ' .. cleandir .. ' ] ; then [ $(/bin/ls -A ' .. cleandir .. ') ] || /bin/rm -r ' .. cleandir .. ' ; fi ; '
+    csh_clear_eb  = csh_clear_eb  .. 'find ' .. cleandir .. ' -empty -exec \'{}\' \\; >& /dev/null ; '
+end
 set_shell_function( 'clear-eb', bash_clear_eb, csh_clear_eb )
 
 
