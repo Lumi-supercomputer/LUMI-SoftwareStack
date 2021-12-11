@@ -346,6 +346,7 @@ local mapT =
 {
     label = {
 --        ['/testview$']                     = 'Activate environments',
+        ['modules/init-.*']                = 'System initialisation',
         ['modules/StyleModifiers']         = 'Modify the module display style',
         ['modules/SoftwareStack$']         = 'Software stacks',
         ['modules/SystemPartition/']       = 'LUMI partitions for the software stack _STACK_',
@@ -379,6 +380,7 @@ local mapT =
      },
     PEhierarchy = {
 --        ['/testview$']                     = 'Activate environments',
+        ['modules/init-.*']                = 'System initialisation',
         ['modules/StyleModifiers']         = 'Modify the module display style',
         ['modules/SoftwareStack$']         = 'Software stacks',
         ['modules/SystemPartition/']       = 'LUMI partitions for the software stack _STACK_',
