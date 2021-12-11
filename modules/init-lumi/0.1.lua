@@ -26,4 +26,4 @@ prepend_path( 'LMOD_MODULERCFILE', pathJoin( LUMI_root, repo, 'LMOD', 'modulerc.
 
 setenv( 'LMOD_AVAIL_STYLE', '<label>:PEhierarchy:system' )
 
-load( 'CrayEnv' )
+-- load( 'CrayEnv' )
