@@ -120,3 +120,38 @@ We could go for a two-step procedure:
     then anyway, and users will have to verify whether their job scripts still work
     anyway, so this is probably not a bad moment for this change.
 
+
+## Testing to do
+
+  * Check if the default programming environment is correctly loaded.
+
+  * Check if compiling works.
+
+  * Check what happens when launching a job from the default.
+
+  * Check what happens when CrayEnv is loaded
+
+      * There may be some problems as the default versions for Cray and
+        CrayEnv are likely different. Force a reload of some modules? This is
+        tricky unless we simply load a cpe module?
+
+      * And check what happens in a job script.
+
+        Likely: Modules loaded but with the wrong targets until CrayEnv is reloaded.
+
+  * Start from a clean environment, load LUMI
+
+      * What happens to the PrgEnv? **Currently the wrong version until a cpeGNU/cpeCray/cpeAMD
+        module is loaded, improve by loading a cpe module to force a reload?**
+
+      * What is the effect on job scripts?
+
+          * No reload of LUMI: You likely get the environment from the login nodes.
+
+          * With a reload: Right partition for the selected nodes, may suprise you!
+
+  * Try EasyBuild-user
+
+  * Check if EasyBuild-production produces the expected warnings.
+
+
