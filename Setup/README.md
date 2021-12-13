@@ -127,7 +127,8 @@ We could go for a two-step procedure:
 
   * Check if compiling works.
 
-  * Check what happens when launching a job from the default.
+  * Check what happens when launching a job from the default. (Can be done
+    only after global availability)
 
   * Check what happens when CrayEnv is loaded
 
@@ -135,7 +136,8 @@ We could go for a two-step procedure:
         CrayEnv are likely different. Force a reload of some modules? This is
         tricky unless we simply load a cpe module?
 
-      * And check what happens in a job script.
+      * And check what happens in a job script (can be done only after global
+        availability)
 
         Likely: Modules loaded but with the wrong targets until CrayEnv is reloaded.
 
@@ -144,7 +146,7 @@ We could go for a two-step procedure:
       * What happens to the PrgEnv? **Currently the wrong version until a cpeGNU/cpeCray/cpeAMD
         module is loaded, improve by loading a cpe module to force a reload?**
 
-      * What is the effect on job scripts?
+      * What is the effect on job scripts? (Can be done only after global availability)
 
           * No reload of LUMI: You likely get the environment from the login nodes.
 

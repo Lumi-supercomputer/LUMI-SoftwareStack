@@ -27,3 +27,13 @@ prepend_path( 'LMOD_MODULERCFILE', pathJoin( LUMI_root, repo, 'LMOD', 'modulerc.
 setenv( 'LMOD_AVAIL_STYLE', '<label>:PEhierarchy:system' )
 
 -- load( 'CrayEnv' )
+
+help( [[
+The init-lumi module performs most of the initialisations needed to use the
+CrayEnv and LUMI software stacks.
+
+Force-unloading this module will return you to the almost bare Cray LMOD environment
+which you can use without support from LUST at your own risk.
+]] )
+
+whatis( 'init-lumi: Initialisation module for the software stacks. Remove at your own risk.' )
