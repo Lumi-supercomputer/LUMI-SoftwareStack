@@ -46,6 +46,10 @@ The only point where there could be a conflict is with loading lumi-init.
     Moreover, I cannot set them in a module and in the same module already initialise
     the software stack.
 
+    **NOTE**: As `/etc/cray-pe.d/cray-pe-configuration.sh` is sourced before the initialisation
+    of LMOD we could add the export statements just there if that turns out to be easier
+    for maintenance.
+
 
 ## Two options for the first setup:
 
