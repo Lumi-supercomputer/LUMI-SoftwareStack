@@ -48,6 +48,14 @@ setenv( 'LMOD_AVAIL_STYLE', '<label>:PEhierarchy:system' )
 -- and LMOD_ADMIN_FILE is not needed here but already set during system
 -- initialisation
 --
+-- Note that preloading one of the stacks has side effects when a user does a
+-- module purge as module purge reloads the sticky module also, hence the
+-- environment will switch again to the default which was not meant to be the
+-- case.
+--
+-- Hence for now the module loads are outcommented (and either CrayEnv, or LUMI
+-- with cpeCray should be used, not all of them).
+--
 
 -- load( 'CrayEnv' )
 -- load( 'LUMI' )
