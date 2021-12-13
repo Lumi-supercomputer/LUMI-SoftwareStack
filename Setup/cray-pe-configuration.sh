@@ -58,3 +58,16 @@ init-lumi
 #      /opt/cray/pe/admin-pe/set_default_files/set_default_craype_2.7.4
 one_off_set_defaults=""
 
+# CSC customization: do not load modules in root shell
+if [ "`id -un`" == "root" ]; then
+    export PELOCAL_PRGENV=DONOTLOAD
+    export USER_IS_ROOT=1
+    module(){ :; }
+    readonly -f module
+else
+    # load custom module environment for users
+    export LMOD_PACKAGE_PATH=/appl/lumi/LUMI-SoftwareStack/LMOD
+    export LMOD_RC=/appl/lumi/LUMI-SoftwareStack/LMOD/lmodrc.lua
+    export LMOD_ADMIN_FILE=/appl/lumi/LUMI-SoftwareStack/LMOD/admin.list
+
+fi
