@@ -3,7 +3,7 @@ can find in the lumi-workspaces module in the LUMI and CrayEnv environments.
 
 =====
 
-The preferred way to use compilers on a Cray system is through one of the 
+The preferred way to use compilers on a Cray system is through one of the
 PrgEnv modules: PrgEnv-gnu for the GNU compilers, PRgEnv-cray for the Cray
 compilers, and PrgEnv-aocc for the AMD compilers. The compilers are then
 called through wrapper scripts: cc for the C compiler, CC for the C++
@@ -12,7 +12,7 @@ compiler and ftn for the Fortran compiler.
 =====
 
 There is no need to specify a target with the compiler wrappers as they
-determine the target from the loaded craype-x86-* module. Compiling for MPI 
+determine the target from the loaded craype-x86-* module. Compiling for MPI
 is automatically enabled when a cray-mpich module is loaded, and the Cray
 LibSci library (which contains BLAS, LAPACK and ScaLAPACK) is automatically
 linked when the cray-libsci module is loaded.
@@ -26,18 +26,18 @@ Slurm srun command.
 
 The preferred way to contact the LUMI User Support Team is using the forms on
 https://lumi-supercomputer.eu/user-support/need-help/. Please don't recycle an
-old ticket for a new request but fill in the form again. This ensures the 
-proper handling of your request. LUMI user support is active on workdays 
+old ticket for a new request but fill in the form again. This ensures the
+proper handling of your request. LUMI user support is active on workdays
 from 8am till 6 pm central-European time so covers the regular 9-to-5 business
 hours in all cournties of EuroHPC.
 
 =====
 
-LUMI is an abbreviation of Large Unified Modern Infrastructure. The LUMI 
-consortium countries are Finland, Belgium, the Czech Republic, Denmark, Estonia, 
+LUMI is an abbreviation of Large Unified Modern Infrastructure. The LUMI
+consortium countries are Finland, Belgium, the Czech Republic, Denmark, Estonia,
 Iceland, Norway, Poland, Sweden, and Switzerland.
 
-LUMI means snow in Finnish. Snow has also inspired the look of the LUMI data 
+LUMI means snow in Finnish. Snow has also inspired the look of the LUMI data
 center.
 
 =====
@@ -47,7 +47,28 @@ district heating network of the city of Kajaani, and thus replaces heat produced
 by fossil fuels.
 
 The waste heat from LUMI that can be used in Kajaani’s district heating network
-is equivalent to up to 20 per cent of the energy that Kajaani needs to use in 
-the area’s district heating. This reuse of waste heat will reduce the annual 
-carbon dioxide footprint of Kajaani by 13,500 tons – an amount that equals the 
+is equivalent to up to 20 per cent of the energy that Kajaani needs to use in
+the area’s district heating. This reuse of waste heat will reduce the annual
+carbon dioxide footprint of Kajaani by 13,500 tons – an amount that equals the
 output from 4000 passenger cars.
+
+=====
+
+The CrayEnv stack is our solution to use the Cray Programming Environment fully
+as intended by Cray. However, when using the LUMI software stack, it is better to
+use the cpeGNU or cpeCray modules to load the GNU respectively the Cray compilers
+in your environnment as that guarantees a setup that is compatible with the
+cpeGNU and cpeCray modules respectively. You're free to do otherwise if you're
+an experienced user, but you have to realise that not all combinations of
+compiler and software modules will work.
+
+=====
+
+With software built with EasyBuild (as is most software in the LUMI stack),
+it is very easy to find the location of the software binaries. After loading
+the module, an environment variable based on the name of the module will be
+defined. E.g., after loading one of the Boost modules, the location of
+Boost will be given by the EBROOTBOOST environment variable. Try
+  env | egrep ^EBROOT
+in a shell to see all EBROOT variables that are defined after loading some
+modules.

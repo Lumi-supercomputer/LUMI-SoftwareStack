@@ -1,5 +1,5 @@
 if os.getenv( '_LUMI_LMOD_DEBUG' ) ~= nil then
-    LmodMessage( 'DEBUG: ' .. mode() .. ' ' .. myModuleFullName() .. ': Entering' )
+    LmodMessage( 'DEBUG: ' .. mode() .. ' ' .. myFileName() .. ': Entering' )
 end
 
 --
@@ -134,3 +134,10 @@ More information
 ]] )
 
 whatis( 'init-lumi: Initialisation module for the software stacks. Remove at your own risk.' )
+
+-- Debug message
+if os.getenv( '_LUMI_LMOD_DEBUG' ) ~= nil then
+    LmodMessage( 'DEBUG: ' .. mode() .. ' ' .. myFileName() .. ': Exiting' )
+end
+
+
