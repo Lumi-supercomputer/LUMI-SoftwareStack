@@ -69,7 +69,7 @@ setenv( 'LMOD_AVAIL_STYLE', '<label>:PEhierarchy:system' )
 
 if mode() == 'load' or mode() == 'show' then
 
-    if os.getenv( 'LUMI_INIT_FIRST_LOAD' ) == nil then
+    if os.getenv( '_LUMI_INIT_FIRST_LOAD' ) == nil then
 
         -- Get the MOTD and print.
         --
@@ -94,8 +94,8 @@ if mode() == 'load' or mode() == 'show' then
 
         -- Make sure this block of code is not executed anymore.
         -- This statement is not reached during an unload of the module
-        -- so LUMI_INIT_FIRST_LOAD will not be unset anymore.
-        setenv( 'LUMI_INIT_FIRST_LOAD', '1' )
+        -- so _LUMI_INIT_FIRST_LOAD will not be unset anymore.
+        setenv( '_LUMI_INIT_FIRST_LOAD', '1' )
 
     end
 
