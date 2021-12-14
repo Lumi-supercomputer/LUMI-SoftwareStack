@@ -21,7 +21,7 @@ function init-lumi-pilot {
     # LMOD variables are imported into the subshell while the Tcl Modules Environment is
     # loaded again as both implementations use the LOADED_MODULES environment variable,
     # so the Tcl modules may try to unload Lmod modules which does not work.
-    eval \$($reporoot/scripts/enable_LUMI.sh)
+    eval \$($reporoot/scripts/enable_LUMI_EM.sh)
 
     # Initialise LMOD
     source /usr/share/lmod/lmod/init/bash
@@ -40,7 +40,7 @@ As an alternative, you can simply copy these 3 lines of code in the shell or you
 the stack:
 
 export LUMI_OVERWRITE_PARTITION="$partition"
-eval \$($reporoot/scripts/enable_LUMI.sh)
+eval \$($reporoot/scripts/enable_LUMI_EM.sh)
 source /usr/share/lmod/lmod/init/bash
 
 which again may cause an error message if Tcl Modules Environment is loaded in a subshell
