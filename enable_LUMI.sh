@@ -5,7 +5,7 @@
 cd $(dirname $0)
 reporoot="$(pwd)"
 
-partition='L'
+#partition='L'
 
+#echo "export LUMI_OVERWRITE_PARTITION=$partition ; "
 $reporoot/scripts/enable_LUMI.sh
-echo "export LUMI_OVERWRITE_PARTITION=$partition ; "
