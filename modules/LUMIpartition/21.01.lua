@@ -108,9 +108,9 @@ if ( ( partition ~= 'common' ) and ( partition ~= 'CrayEnv' ) ) or ( mode() ~= '
     end
     prepend_path(     'MODULEPATH', '/opt/cray/pe/lmod/modulefiles/core' )
     local cray_overwrite_core = pathJoin( module_root, 'CrayOverwrite', 'core' )
-    if isDir( cray_overwrite_core ) then
-        prepend_path( 'MODULEPATH', cray_overwrite_core )
-    end
+    -- if isDir( cray_overwrite_core ) then
+    --     prepend_path( 'MODULEPATH', cray_overwrite_core )
+    -- end
     -- Configuration for EasyBuild to install in the requested partition (and maybe later for Spack)
     prepend_path(     'MODULEPATH', pathJoin( module_root, 'Infrastructure', stack_name_version, 'partition', partition ) )
     -- The modules of application software installed in the system. Make sure to also add the common ones.

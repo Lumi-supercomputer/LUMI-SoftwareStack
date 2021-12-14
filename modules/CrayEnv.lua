@@ -44,9 +44,9 @@ prepend_path( 'MODULEPATH', '/opt/cray/pe/lmod/modulefiles/core' )
 -- Detect the module root from the position of this module in the module tree
 local module_root = myFileName():match( '(.*/modules)/SoftwareStack/.*' )
 local cray_overwrite_core = pathJoin( module_root, 'CrayOverwrite', 'core' )
-if isDir( cray_overwrite_core ) then
-    prepend_path( 'MODULEPATH', cray_overwrite_core )
-end
+-- if isDir( cray_overwrite_core ) then
+--     prepend_path( 'MODULEPATH', cray_overwrite_core )
+-- end
 
 -- Prepend path with EasyBuild cross-installed tools
 prepend_path( 'MODULEPATH', pathJoin( module_root, 'easybuild/CrayEnv' ) )

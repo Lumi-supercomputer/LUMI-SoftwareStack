@@ -1,5 +1,5 @@
 if os.getenv( '_LUMI_LMOD_DEBUG' ) ~= nil then
-    LmodMessage( 'DEBUG: ' .. mode() .. ' ' .. myModuleFullName() .. ': Entering' )
+    LmodMessage( 'DEBUG: ' .. mode() .. ' ' .. myFileName() .. ': Entering' )
     local lmod_modulercfile = os.getenv( 'LMOD_MODULERCFILE' ) or ''
     LmodMessage( 'DEBUG: Found LMOD_MODULERC = ' .. lmod_modulercfile )
 end
