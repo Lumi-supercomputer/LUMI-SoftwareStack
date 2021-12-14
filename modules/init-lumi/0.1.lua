@@ -66,41 +66,36 @@ setenv( 'LMOD_AVAIL_STYLE', '<label>:PEhierarchy:system' )
 --
 -- Enhanced message-of-the-day
 --
-local motd = [[
-
-   .Notes-----------------------------------------------------------.
-   | Make sure one of the following modules is loaded to have the   |
- * | full LUMI experience:                                          |
-   | - CrayEnv: The Cray software stack enriched with some          |
-   |   additional tools not installed by default in the OS          |
-*  | - LUMI: The extensible LUMI software stack that you can use    |
-   |   as a basis for additional software installs with EasyBuild   |
- * |   and other tools.                                             |
-   |                                                                |
-   | Please read the following documentation pages to get           |
-   | up-to-date with the changes made in December 2021:             |
- * | - https://docs.lumi-supercomputer.eu/computing/softwarestacks/ |
-   |   for the basics on LUMI software stack.                       |
-   | - https://docs.lumi-supercomputer.eu/computing/Lmod_modules/   |
-   |   for the basics on the Lmod modules in use since December 15  |
-** |   on LUMI.                                                     |
-** `--*****-------------------***-----------------------*****-------'
-
-]]
 
 if mode() == 'load' or mode() == 'show' then
 
-    if os.getenv( 'LUMI_INIT_FIRST_LOAD' ) == nil then
+    if os.getenv( '_LUMI_INIT_FIRST_LOAD' ) == nil then
 
+        -- Get the MOTD and print.
+        --
         -- The problem with LmodMessage is that it does some undesired
         -- formatting to the output string, replacing multiple spaces
         -- with single spaces after the initial non-space character.
         -- Note that LmodMessage itself also writes the result with
         -- io.stderr:write.
-        -- LmodMessage( motd )
-        if mode() == 'load' then io.stderr:write( motd ) end
+        local motd = get_motd()
+        if mode() == 'load' and motd ~= nil then
+            io.stderr:write( motd .. '\n\n' )
+        end
 
-        setenv( 'LUMI_INIT_FIRST_LOAD', '1' )
+        -- Get a fortune text.
+        local fortune = get_fortune()
+         if mode() == 'load' and fortune ~= nil then
+            io.stderr:write( 'Did you know?\n' ..
+                             '*************\n' ..
+                             fortune .. '\n' )
+        end
+
+
+        -- Make sure this block of code is not executed anymore.
+        -- This statement is not reached during an unload of the module
+        -- so _LUMI_INIT_FIRST_LOAD will not be unset anymore.
+        setenv( '_LUMI_INIT_FIRST_LOAD', '1' )
 
     end
 
