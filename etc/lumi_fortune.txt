@@ -72,3 +72,20 @@ Boost will be given by the EBROOTBOOST environment variable. Try
   env | egrep ^EBROOT
 in a shell to see all EBROOT variables that are defined after loading some
 modules.
+
+=====
+
+The behaviour of many modules of the Cray Programming Environment depends
+on the target modules that are loaded. Compilers prior to the 21.11 environment
+did not optimize specifically for zen3, the core architecture of the AMD
+Epyc Milan CPUs in the LUMI-C compute nodes and the AMD Epyc Trento CPUs
+in the LUMI-G compute nodes. However, gcc 11 and later and also the Cray
+compilers included from the 21.11 environment onwards can get a little extra
+performance by optimising for zen3 specifically. The CrayEnv environment
+will automatically load the best target CPU, network and accelerator target
+modules for each node. You can always restore them by reloading the
+CrayEnv module (and there is no need to unload first).
+
+In a job script the environment is copied from the login nodes, so you'll
+still have the Rome target modules. Here also reloading the CrayEnv module
+will set the ones for the compute node you're running on.
