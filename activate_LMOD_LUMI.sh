@@ -5,26 +5,41 @@
 cd $(dirname $0)
 reporoot="$(pwd)"
 
-partition='L'
+partition="L"
 
 cat <<EOF
+CHANGED ON 14 DECEMBER 2021!
 
-Add the following function to your bashrc.
+Some changes have been made for a roll-out to the production environment
+  - Software is now installed in partition/L and partition/C so all node
+    types available at the start of the extended beta phase are supported.
+  - There is now automatic detection of the node type based on the hostname
+    so LUMI_OVERWRITE_PARTITION is only needed if you only want to use
+    software for partition/L to keep things simple.
+    Note that since the 21.05 and 21.08 compilers do not specifically
+    optimise for the zen3 CPUs of most compute nodes, this does not yet
+    matter, but it will matter with future updates.
+  - We are rolling out LMOD. The procedure below should work for both
+    Environment Modules and for LMOD.
+    Once the system is fully transitioned you may use enable_LUMI_CPE.sh
+    instead to ensure that you keep on track with whatever the Cray
+    configuration files do, but in general the much simpler
+    enable_LUMI.sh is sufficient.
+  - LMOD initialisation is now done in the enable_LUMI scripts.
+
+To enable the LMOD software stack (if it is not there by default), add
+the following function to your bashrc.
 
 function init-lumi-pilot {
 
     # Force partition L as this is the one in which we currently install stuff
-    export LUMI_OVERWRITE_PARTITION="$partition"
+    # See above, only needed if you want to force
+    # export LUMI_OVERWRITE_PARTITION="$partition"
 
     # Initialise the software stack
-    # It will clean up the environment which may cause an error message in a subshell if
-    # LMOD variables are imported into the subshell while the Tcl Modules Environment is
-    # loaded again as both implementations use the LOADED_MODULES environment variable,
-    # so the Tcl modules may try to unload Lmod modules which does not work.
-    eval \$($reporoot/scripts/enable_LUMI_EM.sh)
-
-    # Initialise LMOD
-    source /usr/share/lmod/lmod/init/bash
+    # It will clean up the environment which may cause an error messages or
+    # other messages that usually can be ignored.
+    eval \$($reporoot/scripts/enable_LUMI.sh)
 
 }
 
@@ -32,21 +47,13 @@ You can then activate this LUMI stack at any time by calling
 init-lumi-pilot
 in the shell.
 
-Note however that since LMOD is not yet the default module system on the cluster, you'll
-need to do that in all job scripts also (and make sure the function is defined in the scripts
-as bashrc may not be read).
-
-As an alternative, you can simply copy these 3 lines of code in the shell or your script to activate
+As an alternative, you can simply copy this line of code in the shell or your script to activate
 the stack:
 
+eval \$($reporoot/scripts/enable_LUMI.sh)
+(and possible precede it with
 export LUMI_OVERWRITE_PARTITION="$partition"
-eval \$($reporoot/scripts/enable_LUMI_EM.sh)
-source /usr/share/lmod/lmod/init/bash
-
-which again may cause an error message if Tcl Modules Environment is loaded in a subshell
-again on top of Lmod variables imported from the parent shell. This is because both the Tcl
-Environment Modules and Lmod use the environment variable LOADED_MODULES, causing the Tcl
-Environment Modules package to try and unload Lmod modules.
+if you only want software for the login nodes everywhere).
 
 Once the stack is intialised and activated, you can load
 ml CrayEnv
@@ -54,3 +61,4 @@ or in the LUMI environment by using
 ml LUMI/21.08
 
 EOF
+
