@@ -1,5 +1,13 @@
 # What's new or different?
 
+  * 2021-12-14: Added init-lumi, a module to finish the initialisation that is
+    called from the Cray PE initialisation process. The module also adds to
+    the message-of-the-day and adds a fortune-like tip about using LUMI.
+
+  * 2021-12-14: Removed adding the overwrite CPE modules to the MODULEPATH in
+    CrayEnv and LUMI (actually the partition modules) as at system rollout it
+    seemed they created as much problems as they solved.
+
   * 2021-10-26: Implemented a dummy partition ``CrayEnv`` in the LUMI software
     stack to cross-install to CrayEnv to offer a simple way to install additional
     tools using the SYSTEM toolchain only.
