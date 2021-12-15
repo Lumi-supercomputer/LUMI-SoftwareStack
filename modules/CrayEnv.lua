@@ -57,7 +57,7 @@ if partition == nil then
 end
 
 if mode() == 'load' or mode() == 'show' then
-    local init_module_list = get_init_module_list( partition, true )
+    local init_module_list = get_init_module_list( partition, false )
     if init_module_list ~= nil then
         for i, module in ipairs( init_module_list ) do
             -- We do force a reload of the module even if it is loaded already
