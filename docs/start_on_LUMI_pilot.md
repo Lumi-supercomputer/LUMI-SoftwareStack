@@ -1,6 +1,26 @@
 # Setting up the stack on LUMI
 
-## Installing the stack
+There are currently two options to use the LUST LUMI software stacks
+
+ 1. There is already one installed in ``/appl/lumi`` but not yet activated
+    (as of December 14). However, it requires very little to activate.
+
+ 2. You can still follow the procedure for the initial pilot projects, when
+    nothing was installed already. Take a look at the "Installing the stack
+    from scratch" section.
+
+Augmenting the stack with software installed in ``/projappl`` follows the same
+procedure in both cases.
+
+
+## Using the pre-installed stack
+
+Simply run ``/appl/lumi/LUMI-SoftwareStack/activate_LMOD_LUMI.sh`` and it will tell
+you what to do. Note that those instructions change over time as the stack is still
+in beta and evolves, so if you run into problems it is good to check them again.
+
+
+## Installing the stack from scratch
 
   * Create the directory where you want to install the software stack and move into that directory:
 
@@ -65,7 +85,7 @@
   * Now we first need to activate LMOD and point it to the right module subdirectories.
     This is done by a script which is in the LUMI-SoftwareStack subdirectory itself
     (as it is only a temporary solution). The instructions to do this are generated
-    by running the ``activate_LUMI_pilot.sh`` script in the LUMI-SoftwareStack
+    by running the ``activate_LMOD_LUMI.sh`` script in the LUMI-SoftwareStack
     directory:
 
     ```bash

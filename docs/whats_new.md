@@ -1,5 +1,10 @@
 # What's new or different?
 
+  * 2021-12-15: Moved the list of default modules to load out of CrayEnv to
+    SitePackage.lua so and now also load target modules in the LUMIpartition
+    module so that users who want to use PrgEnv instead of cpeGNU/cpeCray/cpeAMD
+    get the right target modules.
+
   * 2021-12-14: Added init-lumi, a module to finish the initialisation that is
     called from the Cray PE initialisation process. The module also adds to
     the message-of-the-day and adds a fortune-like tip about using LUMI.

@@ -50,6 +50,9 @@ In the LUMI software stack installation directory, one can find the following su
         that are missing on our test system in Grenoble and to work around some of
         the problems in the Cray ``cpe/yy.mm`` modules.
 
+        Note that these modules seem to give other problems so though we still put
+        them on the system they are currently disabled.
+
       * ``StyleModifiers``: Links to the corresponding module in the repository. It
         contains the modules that can be used to change the presentation of the modules
         in ``module avail``.

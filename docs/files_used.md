@@ -1,4 +1,4 @@
-# An overview of files in the repository and where they are being used
+# An overview of files in the LUMI-SoftwareStack repository and where they are being used
 
 *As GitHub markdown has pretty poor tables we currently use a list layout.*
 
@@ -58,8 +58,17 @@
 
   * [``EasyBuild-config``](../modules/EasyBuild-config): A generic EasyBuild
     configuration module that instantiates into the ``EasyBuild-production``,
-    ``EasyBuild-infrastructure`` and ``EasyBuild-user`` modules in each partition
-    of the LUMI software stacks.
+    ``EasyBuild-infrastructure``, ``EasyBuild-CrayEnv`` and ``EasyBuild-user``
+    modules in the relevant partitions of the LUMI software stacks.
+
+  * [``EasyBuild-unlock``](../modules/EasyBuild-unlock): A module that has to be
+    loaded before any of the ``EasyBuild-production``, ``EasyBuild-infrastructure``
+    or ``EasyBuild-CrayEnv`` modules can be loaded as additional protection to not
+    accidentally overwrite a system installation.
+
+  * [``init-lumi``](../modules/init-lumi): The module called from the Cray PE intialisation
+    process (in ``/etc/cray-pe.d/cray-pe-configuration.sh``) to do the final steps
+    of enabling the LUST software stacks.
 
   * [``LUMIstack``](../modules/LUMIstack): Generic implementation(s) of the LUMI software
     stack modules. The actual modules can simply link to the right version of the generic
@@ -178,11 +187,25 @@ For LUMI:
     string to omit the ``all`` level in the EasyBuild modules directory structure.
 
 
+# The etc subdirectory
+
+This directory contains the [``motd.txt``](../etc/motd.txt) and
+[`lumi_fortune.txt``](../etc/lumi_fortune.txt) files that are used
+by the `init-lumi` module to augment the message of the day and to display a random
+tip about LUMI.
+
+
 ## The scripts and scripts/lumitools subdirectories
 
 The scripts subdirectory contains a number of shell scripts to initialise a new installation,
 new software stack in the installation, or various substeps of this. Several of those
 scripts are just wrapper scripts that call a Python routine to do the work.
+
+
+## The Setup subdirectory
+
+A directory where we keep our preferred setup of the system configuration files for
+the HPE Cray PE, useful to communicate with the sysadmins who maintain those files.
 
 
 ## The tools subdirectory
