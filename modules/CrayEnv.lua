@@ -19,13 +19,6 @@ to load a particular PrgEnv and Lmod does not support the format used by
 the TCL Environment Modules implementation to store those environments.
 ]==] )
 
-local init_module_list = {
-    C = { 'craype-x86-milan',  'craype-accel-host',       'craype-network-ofi', 'xpmem' },
-    D = { 'craype-x86-rome',   'craype-accel-nvidia80',   'craype-network-ofi', 'xpmem' },
-    G = { 'craype-x86-milan',  'craype-accel-amd-gfx908', 'craype-network-ofi', 'xpmem' },
-    L = { 'craype-x86-rome',   'craype-accel-host',       'craype-network-ofi', 'xpmem' },
-}
-
 -- -------------------------------------------------------------------------
 --
 -- Build the MODULEPATH
@@ -63,20 +56,18 @@ if partition == nil then
     LmodError( 'Failed to detect the LUMI partition, something must be messed up pretty badly.' )
 end
 
-if mode() == 'load' then
-    if init_module_list[partition] ~= nil then
-        for i, module in ipairs( init_module_list[partition] ) do
+if mode() == 'load' or mode() == 'show' then
+    local init_module_list = get_init_module_list( partition, true )
+    if init_module_list ~= nil then
+        for i, module in ipairs( init_module_list ) do
+            -- We do force a reload of the module even if it is loaded already
+            -- This is less efficient but may undo accidental damage done by
+            -- users. e.g., by unsetting certain variables that are used by the
+            -- HPE Cray PE.
+            if os.getenv( '_LUMI_LMOD_DEBUG' ) ~= nil then
+                LmodMessage( 'DEBUG: ' .. mode() .. ' ' .. myModuleFullName() .. ': Loading ' .. module )
+            end
             load( module )
-        end
-    end
-elseif mode() == 'unload' then
-    for partition, modulelist in pairs( init_module_list ) do
-        for i, module in pairs( modulelist ) do
-            -- Not the most efficient code but it ensures that everything that ever got loaded by this
-            -- module gets unloaded also, even if the user screwed up the partition selection scheme.
-            -- It also avoids a problem that in case of a partition change, module purge may still reload
-            -- the wrong target module.
-            unload( module )
         end
     end
 end

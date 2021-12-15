@@ -128,7 +128,7 @@ function detect_LUMI_partition()
                 partition = 'D'
             elseif ( nodenum >= 101 ) and ( nodenum <= 108 ) then
                 -- LUMI-D nodes without a GPU (largemem nodes)
-                partition = 'D'
+                partition = 'L'
             else
                 partition = 'L'
             end
@@ -145,6 +145,41 @@ function detect_LUMI_partition()
 
 end
 
+
+--
+-- function get_init_module_list( partition, PrgEnv )
+--
+-- Input argument:
+--  * partition: The partition to return the modules for (L, C, G or D)
+--  * PrgEnv: Add the default programming environment to the list.
+--
+-- Returns a list of modules to load.
+--
+local init_module_list = {
+    C = { 'craype-x86-milan',  'craype-accel-host',       'craype-network-ofi', 'xpmem' },
+    D = { 'craype-x86-rome',   'craype-accel-nvidia80',   'craype-network-ofi', 'xpmem' },
+    G = { 'craype-x86-milan',  'craype-accel-amd-gfx908', 'craype-network-ofi', 'xpmem' },
+    L = { 'craype-x86-rome',   'craype-accel-host',       'craype-network-ofi', 'xpmem' },
+}
+local init_PrgEnv = 'PrgEnv-cray'
+
+function get_init_module_list( partition, PrgEnv )
+
+    local modulelist
+
+    if init_module_list[partition] == nil then
+        -- Invalid partition, return nil
+        modulelist = nil
+    elseif PrgEnv then
+        modulelist = init_module_list[partition]
+        table.insert( modulelist, init_PrgEnv )
+    else
+        modulelist = init_module_list[partition]
+    end
+
+    return modulelist
+
+end
 
 --
 -- function get_CPE_component
@@ -367,6 +402,7 @@ sandbox_registration{
     ['get_hostname']              = get_hostname,
     ['get_user_prefix_EasyBuild'] = get_user_prefix_EasyBuild,
     ['detect_LUMI_partition']     = detect_LUMI_partition,
+    ['get_init_module_list']      = get_init_module_list,
     ['get_CPE_component']         = get_CPE_component,
     ['get_CPE_versions']          = get_CPE_versions,
     ['get_versionedfile']         = get_versionedfile,
