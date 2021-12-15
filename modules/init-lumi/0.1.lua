@@ -36,7 +36,18 @@ local repo =  myFileName():match( '.*/modules/init%-(.*)/init%-lumi/.*' )
 -- Setting defaults and visibility, note that this is a PATH-style variable
 prepend_path( 'LMOD_MODULERCFILE', pathJoin( LUMI_root, repo, 'LMOD', 'modulerc.lua' ) )
 
-setenv( 'LMOD_AVAIL_STYLE', '<label>:PEhierarchy:system' )
+-- Set the display style of the modules by loading one of the ModuleLable modules
+-- instead. The problem is that in cpe 21.05, due to a configuration error on LUMI,
+-- loading one of the PRgEnv modules triggers a reload of lumi (as the wrong list
+-- of modules is reloaded). We don't want the settings of the user to be reset.
+if not isloaded( 'ModuleLabel' ) then
+    if os.getenv( '_LUMI_LMOD_DEBUG' ) ~= nil then
+        LmodMessage( 'DEBUG: ' .. mode() .. ' ' .. myModuleFullName() .. ': Loading ModuleLabel/label' )
+    end
+    load( 'ModuleLabel/label' )
+end
+-- Once only CPE 21.08 or later is in use, we can use the next line instead:
+-- setenv( 'LMOD_AVAIL_STYLE', '<label>:PEhierarchy:system' )
 
 
 

@@ -9,8 +9,8 @@ add_property("lmod","sticky")
 local node_description = {
     C       = 'CPU compute',
     G       = 'GPU compute',
-    D       = 'data and visualisation',
-    L       = 'login',
+    D       = 'data visualisation',
+    L       = 'login and largemem (4TB)',
     common  = 'common binaries for all partitions',
     CrayEnv = 'EasyBuild cross-installation in CrayEnv',
 }
@@ -144,6 +144,27 @@ if ( ( partition ~= 'common' ) and ( partition ~= 'CrayEnv' ) ) or ( mode() ~= '
     end
 end
 
+-- For the regular partitions (not common or CrayEnv) we preload some suitable target modules
+-- for those users that would use the PrgEnv modules rather than the cpeGNU/cpeCray/cpeAMD
+-- modules to compile code.
+if mode() == 'load' or mode() == 'show' then
+    local init_module_list = get_init_module_list( partition, false )
+    if init_module_list ~= nil then
+        for i, module in ipairs( init_module_list ) do
+            -- We do force a reload of the module even if it is loaded already
+            -- This is less efficient but may undo accidental damage done by
+            -- users. e.g., by unsetting certain variables that are used by the
+            -- HPE Cray PE.
+            if os.getenv( '_LUMI_LMOD_DEBUG' ) ~= nil then
+                LmodMessage( 'DEBUG: ' .. mode() .. ' ' .. myModuleFullName() .. ': Loading ' .. module )
+            end
+            load( module )
+        end
+    end
+end
+
+
+-- Final debug information
 if os.getenv( '_LUMI_LMOD_DEBUG' ) ~= nil then
     local modulepath = os.getenv( 'MODULEPATH' ):gsub( ':', '\n' )
     LmodMessage( 'DEBUG: ' .. mode() .. ' ' .. myModuleFullName() .. ': The MODULEPATH before exiting ' .. myModuleFullName() .. ' (mode ' .. mode() .. ') is:\n' .. modulepath .. '\n' )

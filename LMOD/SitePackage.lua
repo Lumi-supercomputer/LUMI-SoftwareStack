@@ -128,7 +128,7 @@ function detect_LUMI_partition()
                 partition = 'D'
             elseif ( nodenum >= 101 ) and ( nodenum <= 108 ) then
                 -- LUMI-D nodes without a GPU (largemem nodes)
-                partition = 'D'
+                partition = 'L'
             else
                 partition = 'L'
             end
@@ -145,6 +145,41 @@ function detect_LUMI_partition()
 
 end
 
+
+--
+-- function get_init_module_list( partition, PrgEnv )
+--
+-- Input argument:
+--  * partition: The partition to return the modules for (L, C, G or D)
+--  * PrgEnv: Add the default programming environment to the list.
+--
+-- Returns a list of modules to load.
+--
+local init_module_list = {
+    C = { 'craype-x86-milan',  'craype-accel-host',       'craype-network-ofi', 'xpmem' },
+    D = { 'craype-x86-rome',   'craype-accel-nvidia80',   'craype-network-ofi', 'xpmem' },
+    G = { 'craype-x86-milan',  'craype-accel-amd-gfx908', 'craype-network-ofi', 'xpmem' },
+    L = { 'craype-x86-rome',   'craype-accel-host',       'craype-network-ofi', 'xpmem' },
+}
+local init_PrgEnv = 'PrgEnv-cray'
+
+function get_init_module_list( partition, PrgEnv )
+
+    local modulelist
+
+    if init_module_list[partition] == nil then
+        -- Invalid partition, return nil
+        modulelist = nil
+    elseif PrgEnv then
+        modulelist = init_module_list[partition]
+        table.insert( modulelist, init_PrgEnv )
+    else
+        modulelist = init_module_list[partition]
+    end
+
+    return modulelist
+
+end
 
 --
 -- function get_CPE_component
@@ -367,6 +402,7 @@ sandbox_registration{
     ['get_hostname']              = get_hostname,
     ['get_user_prefix_EasyBuild'] = get_user_prefix_EasyBuild,
     ['detect_LUMI_partition']     = detect_LUMI_partition,
+    ['get_init_module_list']      = get_init_module_list,
     ['get_CPE_component']         = get_CPE_component,
     ['get_CPE_versions']          = get_CPE_versions,
     ['get_versionedfile']         = get_versionedfile,
@@ -410,72 +446,76 @@ local EB_prefix = string.gsub( get_user_prefix_EasyBuild() or '/NONE', '%-', '%%
 local mapT =
 {
     label = {
---        ['/testview$']                     = 'Activate environments',
-        ['modules/init-.*']                = 'System initialisation',
-        ['modules/StyleModifiers']         = 'Modify the module display style',
-        ['modules/SoftwareStack$']         = 'Software stacks',
-        ['modules/SystemPartition/']       = 'LUMI partitions for the software stack _STACK_',
+--        ['/testview$']                      = 'Activate environments',
+        ['modules/init-.*']                 = 'System initialisation',
+        ['modules/StyleModifiers']          = 'Modify the module display style',
+        ['modules/SoftwareStack$']          = 'Software stacks',
+        ['modules/SystemPartition/']        = 'LUMI partitions for the software stack _STACK_',
         ['modules/Infrastructure/.*/partition/CrayEnv'] = 'Infrastructure modules for cross-installing from the software stack _STACK_ to CrayEnv',
-        ['modules/Infrastructure/']        = 'Infrastructure modules for the software stack _STACK_ on _PARTITION_',
-        ['modules/easybuild/CrayEnv']      = 'EasyBuild managed software for CrayEnv',
-        ['modules/easybuild/']             = 'EasyBuild managed software for software stack _STACK_ on _PARTITION_',
-        ['modules/spack/']                 = 'Spack managed software for software stack _STACK_ on _PARTITION_',
-        ['modules/manual/']                = 'Manually installed software for software stack _STACK_ on _PARTITION_',
-        ['cray/pe/.*/craype%-targets']     = 'HPE-Cray PE target modules',
-        ['cray/pe/.*/core']                = 'HPE-Cray PE modules',
-        ['modules/CrayOverwrite/core']     = 'HPE-Cray PE modules',
-        ['cray/pe/.*/perftools']           = 'HPE-Cray PE modules',
-        ['cray/pe/.*/cpu']                 = 'HPE-Cray PE modules',
-        ['cray/pe/.*/compiler/crayclang']  = 'HPE-Cray PE modules',
-        ['cray/pe/.*/compiler/gnu']        = 'HPE-Cray PE modules',
-        ['cray/pe/.*/hdf5/']               = 'HPE-Cray PE modules',
-        ['cray/pe/.*/hdf5%-parallel/']     = 'HPE-Cray PE modules',
-        ['cray/pe/.*/comnet']              = 'HPE-Cray PE modules',
-        ['cray/pe/.*/mpi']                 = 'HPE-Cray PE modules',
-        ['cray/pe/.*/net/ofi']             = 'HPE-Cray PE modules',
+        ['modules/Infrastructure/']         = 'Infrastructure modules for the software stack _STACK_ on _PARTITION_',
+        ['modules/easybuild/CrayEnv']       = 'EasyBuild managed software for CrayEnv',
+        ['modules/easybuild/']              = 'EasyBuild managed software for software stack _STACK_ on _PARTITION_',
+        ['modules/spack/']                  = 'Spack managed software for software stack _STACK_ on _PARTITION_',
+        ['modules/manual/']                 = 'Manually installed software for software stack _STACK_ on _PARTITION_',
+        ['cray/pe/.*/craype%-targets']      = 'HPE-Cray PE target modules',
+        ['cray/pe/.*/core']                 = 'HPE-Cray PE modules',
+        ['modules/CrayOverwrite/core']      = 'HPE-Cray PE modules',
+        ['cray/pe/.*/perftools']            = 'HPE-Cray PE modules',
+        ['cray/pe/.*/cpu']                  = 'HPE-Cray PE modules',
+        ['cray/pe/.*/compiler/crayclang']   = 'HPE-Cray PE modules',
+        ['cray/pe/.*/compiler/gnu']         = 'HPE-Cray PE modules',
+        ['cray/pe/.*/hdf5/']                = 'HPE-Cray PE modules',
+        ['cray/pe/.*/hdf5%-parallel/']      = 'HPE-Cray PE modules',
+        ['cray/pe/.*/comnet']               = 'HPE-Cray PE modules',
+        ['cray/pe/.*/mpi']                  = 'HPE-Cray PE modules',
+        ['cray/pe/.*/net/ofi']              = 'HPE-Cray PE modules',
         -- The next one doesn't seem to be implemented on the Grenoble nodes
-        ['cray/pe/craype']                 = 'HPE-Cray PE modules',
+        ['cray/pe/craype']                  = 'HPE-Cray PE modules',
+        -- One that I've only seen on LUMI
+        ['usr/share/lmod/lmod/modulefiles'] = 'HPE-Cray PE modules',
         -- Likely only on the Grenoble system?
-        ['/opt/cray/modulefiles']          = 'Non-PE HPE-Cray modules',
-        ['/opt/modulefiles']               = 'Non-PE HPE-Cray modules',
-        ['/usr/share/Modules/modulefiles'] = 'Non-PE HPE-Cray modules',
-        ['/usr/share/modulefiles']         = 'Non-PE HPE-Cray modules',
+        ['/opt/cray/modulefiles']           = 'Non-PE HPE-Cray modules',
+        ['/opt/modulefiles']                = 'Non-PE HPE-Cray modules',
+        ['/usr/share/Modules/modulefiles']  = 'Non-PE HPE-Cray modules',
+        ['/usr/share/modulefiles']          = 'Non-PE HPE-Cray modules',
         -- User-installed software
-        [ EB_prefix .. '/modules']         = 'EasyBuild managed user software for software stack _STACK_ on _PARTITION_',
+        [ EB_prefix .. '/modules']          = 'EasyBuild managed user software for software stack _STACK_ on _PARTITION_',
      },
     PEhierarchy = {
---        ['/testview$']                     = 'Activate environments',
-        ['modules/init-.*']                = 'System initialisation',
-        ['modules/StyleModifiers']         = 'Modify the module display style',
-        ['modules/SoftwareStack$']         = 'Software stacks',
-        ['modules/SystemPartition/']       = 'LUMI partitions for the software stack _STACK_',
+--        ['/testview$']                      = 'Activate environments',
+        ['modules/init-.*']                 = 'System initialisation',
+        ['modules/StyleModifiers']          = 'Modify the module display style',
+        ['modules/SoftwareStack$']          = 'Software stacks',
+        ['modules/SystemPartition/']        = 'LUMI partitions for the software stack _STACK_',
         ['modules/Infrastructure/.*/partition/CrayEnv'] = 'Infrastructure modules for cross-installing from the software stack _STACK_ to CrayEnv',
-        ['modules/Infrastructure/']        = 'Infrastructure modules for the software stack _STACK_ on _PARTITION_',
-        ['modules/easybuild/CrayEnv']      = 'EasyBuild managed software for CrayEnv',
-        ['modules/easybuild/']             = 'EasyBuild managed software for software stack _STACK_ on _PARTITION_',
-        ['modules/spack/']                 = 'Spack managed software for software stack _STACK_ on _PARTITION_',
-        ['modules/manual/']                = 'Manually installed software for software stack _STACK_ on _PARTITION_',
-        ['cray/pe/.*/craype%-targets']     = 'HPE-Cray PE target modules',
-        ['cray/pe/.*/core']                = 'HPE-Cray PE core modules',
-        ['modules/CrayOverwrite/core']     = 'HPE-Cray PE core modules',
-        ['cray/pe/.*/perftools']           = 'HPE-Cray PE performance analysis tools',
-        ['cray/pe/.*/cpu']                 = 'HPE-Cray PE compiler-independent libraries',
-        ['cray/pe/.*/compiler/crayclang']  = 'HPE-Cray PE libraries for Cray clang (cce)',
-        ['cray/pe/.*/compiler/gnu']        = 'HPE-Cray PE libraries for GNU compilers',
-        ['cray/pe/.*/hdf5/']               = 'HPE-Cray PE libraries that use cray-hdf5',
-        ['cray/pe/.*/hdf5%-parallel/']     = 'HPE-Cray PE libraries that use cray-hdf5-parallel',
-        ['cray/pe/.*/comnet']              = 'HPE-Cray PE MPI libraries',
-        ['cray/pe/.*/mpi']                 = 'HPE-Cray PE MPI-dependent libraries',
-        ['cray/pe/.*/net/ofi']             = 'HPE-Cray PE OFI-based libraries',
+        ['modules/Infrastructure/']         = 'Infrastructure modules for the software stack _STACK_ on _PARTITION_',
+        ['modules/easybuild/CrayEnv']       = 'EasyBuild managed software for CrayEnv',
+        ['modules/easybuild/']              = 'EasyBuild managed software for software stack _STACK_ on _PARTITION_',
+        ['modules/spack/']                  = 'Spack managed software for software stack _STACK_ on _PARTITION_',
+        ['modules/manual/']                 = 'Manually installed software for software stack _STACK_ on _PARTITION_',
+        ['cray/pe/.*/craype%-targets']      = 'HPE-Cray PE target modules',
+        ['cray/pe/.*/core']                 = 'HPE-Cray PE core modules',
+        ['modules/CrayOverwrite/core']      = 'HPE-Cray PE core modules',
+        ['cray/pe/.*/perftools']            = 'HPE-Cray PE performance analysis tools',
+        ['cray/pe/.*/cpu']                  = 'HPE-Cray PE compiler-independent libraries',
+        ['cray/pe/.*/compiler/crayclang']   = 'HPE-Cray PE libraries for Cray clang (cce)',
+        ['cray/pe/.*/compiler/gnu']         = 'HPE-Cray PE libraries for GNU compilers',
+        ['cray/pe/.*/hdf5/']                = 'HPE-Cray PE libraries that use cray-hdf5',
+        ['cray/pe/.*/hdf5%-parallel/']      = 'HPE-Cray PE libraries that use cray-hdf5-parallel',
+        ['cray/pe/.*/comnet']               = 'HPE-Cray PE MPI libraries',
+        ['cray/pe/.*/mpi']                  = 'HPE-Cray PE MPI-dependent libraries',
+        ['cray/pe/.*/net/ofi']              = 'HPE-Cray PE OFI-based libraries',
         -- The next one doesn't seem to be implemented on the Grenoble nodes
-        ['cray/pe/craype']                 = 'HPE-Cray PE compiler wrappers',
+        ['cray/pe/craype']                  = 'HPE-Cray PE compiler wrappers',
+        -- One that I've only seen on LUMI
+        ['usr/share/lmod/lmod/modulefiles'] = 'HPE-Cray PE core modules',
         -- Likely only on the Grenoble system?
-        ['/opt/cray/modulefiles']          = 'Non-PE HPE-Cray modules',
-        ['/opt/modulefiles']               = 'Non-PE HPE-Cray modules',
-        ['/usr/share/Modules/modulefiles'] = 'Non-PE HPE-Cray modules',
-        ['/usr/share/modulefiles']         = 'Non-PE HPE-Cray modules',
+        ['/opt/cray/modulefiles']           = 'Non-PE HPE-Cray modules',
+        ['/opt/modulefiles']                = 'Non-PE HPE-Cray modules',
+        ['/usr/share/Modules/modulefiles']  = 'Non-PE HPE-Cray modules',
+        ['/usr/share/modulefiles']          = 'Non-PE HPE-Cray modules',
         -- User-installed software
-        [ EB_prefix .. '/modules']         = 'EasyBuild managed user software for software stack _STACK_ on _PARTITION_',
+        [ EB_prefix .. '/modules']          = 'EasyBuild managed user software for software stack _STACK_ on _PARTITION_',
      },
 }
 
