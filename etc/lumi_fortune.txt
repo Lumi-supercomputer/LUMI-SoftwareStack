@@ -89,3 +89,25 @@ CrayEnv module (and there is no need to unload first).
 In a job script the environment is copied from the login nodes, so you'll
 still have the Rome target modules. Here also reloading the CrayEnv module
 will set the ones for the compute node you're running on.
+
+=====
+
+Switching versions of the Cray Programming Environment should be possible by
+loading the cpe module for the version. However, it is a fragile process and
+often produces error messages. One clean way to do it, is in the CrayEnv
+environment: Clean the environment using "module purge", load the cpe/yy.mm
+module of your choice, and then load the PrgEnv module of your choice in its
+default version. You have to use different module load statements though
+for the cpe and PrgEnv module as the cpe module only takes full effect at the
+next module load command. E.g., to load the 21.08 version of PrgEnv-cray:
+$ ml CrayEnv
+$ module purge
+$ module load cpe/21.08
+$ module load PrgEnv-cray
+
+=====
+
+The interconnect that will be used on LUMI-G and on the LUMI-C compute nodes
+after the installation of LUMI-G, does not support UCX. Even though UCX is
+currently on the system we do not support it. Use at your own risk and be
+aware that it will disappear from the system.

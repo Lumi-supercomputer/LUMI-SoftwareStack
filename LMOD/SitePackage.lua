@@ -565,8 +565,8 @@ local function msg_hook(mode, output)
     dbg.print{"Mode is ", mode, "\n"}
 
     if mode == "avail" then
-        local spiderdoc_url = 'https://docs.lumi-supercomputer.eu/LMOD_TODO'
-        local request_url   = 'https://lumi-supercomputer.eu/support'
+        local spiderdoc_url = 'https://docs.lumi-supercomputer.eu/computing/Lmod_modules/'
+        local request_url   = 'https://lumi-supercomputer.eu/user-support/need-help/'
         output[#output+1]   = '\nAdditional ways to search for software:\n'
         output[#output+1]   = '* Use "module spider" to find all possible modules and extensions.\n'
         output[#output+1]   = '* Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".\n'
