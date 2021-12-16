@@ -29,7 +29,7 @@ https://lumi-supercomputer.eu/user-support/need-help/. Please don't recycle an
 old ticket for a new request but fill in the form again. This ensures the
 proper handling of your request. LUMI user support is active on workdays
 from 8am till 6 pm central-European time so covers the regular 9-to-5 business
-hours in all cournties of EuroHPC.
+hours in all countries of EuroHPC.
 
 =====
 
@@ -57,7 +57,7 @@ output from 4000 passenger cars.
 The CrayEnv stack is our solution to use the Cray Programming Environment fully
 as intended by Cray. However, when using the LUMI software stack, it is better to
 use the cpeGNU or cpeCray modules to load the GNU respectively the Cray compilers
-in your environnment as that guarantees a setup that is compatible with the
+in your environment as that guarantees a setup that is compatible with the
 cpeGNU and cpeCray modules respectively. You're free to do otherwise if you're
 an experienced user, but you have to realise that not all combinations of
 compiler and software modules will work.
@@ -86,7 +86,7 @@ will automatically load the best target CPU, network and accelerator target
 modules for each node. You can always restore them by reloading the
 CrayEnv module (and there is no need to unload first).
 
-In a job script the environment is copied from the login nodes, so you'll
+In a job script, the environment is copied from the login nodes, so you'll
 still have the Rome target modules. Here also reloading the CrayEnv module
 will set the ones for the compute node you're running on.
 
