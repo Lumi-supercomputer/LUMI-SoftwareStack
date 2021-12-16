@@ -1,0 +1,35 @@
+# Written by Kurt Lust for the LUMI consortium
+
+easyblock = 'Bundle'
+
+name =    'cray-ucx'
+version = '2.7.0-1'
+
+homepage = 'https://developer.nvidia.com/networking/hpc-x'
+
+whatis = [
+    'Description: This module adds UCX 1.9.0 to the environment and replaces a missing module from HPC-X 2.7.0'
+]
+
+description = """
+This cray-ucx module adds UCX 1.9.0 to the environment and replaces a missing
+module from HPC-X 2.7.0.
+
+LUMI recommends using OFI-based MPI implementations instead, and there is no
+official support from HPE Cray for UCX on the Slingshot-11 adapters that will
+be used in LUMI-C and LUMI-G after the network upgrade in February 2022.
+Support may even disappear earlier.
+"""
+
+toolchain = SYSTEM
+
+local_root = '/opt/cray/pe/cray-ucx/2.7.0-1/ucx/'
+
+allow_prepend_abs_path = True
+modextrapaths = {
+    'PATH':            local_root + 'bin',
+    'LD_LIBRARY_PATH': local_root + 'lib',
+    'PKG_CONFIG_PATH': local_root + 'lib/pkgconfig',
+}
+
+moduleclass = 'lib'
