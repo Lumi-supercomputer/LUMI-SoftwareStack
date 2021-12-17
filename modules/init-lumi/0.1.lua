@@ -80,7 +80,7 @@ end
 
 if mode() == 'load' or mode() == 'show' then
 
-    if os.getenv( '_LUMI_INIT_FIRST_LOAD' ) == nil then
+    if os.getenv( '_LUMI_INIT_FIRST_LOAD' ) == nil and is_interactive() then
 
         -- Get the MOTD and print.
         --
@@ -96,12 +96,14 @@ if mode() == 'load' or mode() == 'show' then
 
         -- Get a fortune text.
         local fortune = get_fortune()
-         if mode() == 'load' and fortune ~= nil then
+        if mode() == 'load' and fortune ~= nil then
             io.stderr:write( 'Did you know?\n' ..
                              '*************\n' ..
                              fortune .. '\n' )
         end
 
+        -- Flush
+        io.stderr:flush()
 
         -- Make sure this block of code is not executed anymore.
         -- This statement is not reached during an unload of the module

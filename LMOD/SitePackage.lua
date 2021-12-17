@@ -397,6 +397,28 @@ function get_fortune()
 end
 
 
+--
+-- function is_interactive()
+--
+-- Input arguments: None
+-- Output: True for an interactive shell, otherwise false.
+--
+-- NOTE: It uses os.execute to run tty. It looks like the first return
+-- argument is true for a shell with attached tty and nil for one without
+-- one. The third output argument is 0 for a shell with tty and nonzero
+-- if no tty is attached to the shell.
+--
+function is_interactive()
+
+    if os.execute( '/usr/bin/tty -s' ) then
+        return true
+    else
+        return false
+    end
+
+end
+
+
 
 sandbox_registration{
     ['get_hostname']              = get_hostname,
@@ -408,6 +430,7 @@ sandbox_registration{
     ['get_versionedfile']         = get_versionedfile,
     ['get_motd']                  = get_motd,
     ['get_fortune']               = get_fortune,
+    ['is_interactive']            = is_interactive,
 }
 
 
