@@ -24,10 +24,26 @@ the TCL Environment Modules implementation to store those environments.
 -- Build the MODULEPATH
 --
 
-if isDir( '/usr/share/modulefiles' ) then prepend_path( 'MODULEPATH', '/usr/share/modulefiles' ) end
-if isDir( '/usr/share/Modules/modulefiles' ) then prepend_path( 'MODULEPATH', '/usr/share/Modules/modulefiles' ) end
+--
+-- Get the root of the module system
+--
+local module_root = myFileName():match( '(.*/modules)/SoftwareStack/.*' )
+
+--
+-- Usually the following modules are in the MODULEPATH already, but it helps to restore
+-- the MODULEPATH if it got damaged (and this may very well be the case for the targeting
+-- modules after unloading the LUMI stack).
+--
+if isDir( '/usr/share/lmod/lmod/modulefiles/Core' ) then prepend_path( 'MODULEPATH', '/usr/share/lmod/lmod/modulefiles/Core' ) end
+if isDir( '/usr/share/modulefiles' )                then prepend_path( 'MODULEPATH', '/usr/share/modulefiles' ) end
+if isDir( '/usr/share/Modules/modulefiles' )        then prepend_path( 'MODULEPATH', '/usr/share/Modules/modulefiles' ) end
 prepend_path( 'MODULEPATH', '/opt/modulefiles' )
 prepend_path( 'MODULEPATH', '/opt/cray/modulefiles' )
+
+prepend_path( 'MODULEPATH', pathJoin( module_root, 'init-LUMI-SoftwareStack' ) )
+prepend_path( 'MODULEPATH', pathJoin( module_root, 'StyleModifiers' ) )
+prepend_path( 'MODULEPATH', pathJoin( module_root, 'SoftwareStack' ) )
+
 prepend_path( 'MODULEPATH', '/opt/cray/pe/lmod/modulefiles/craype-targets/default' )
 prepend_path( 'MODULEPATH', '/opt/cray/pe/lmod/modulefiles/core' )
 

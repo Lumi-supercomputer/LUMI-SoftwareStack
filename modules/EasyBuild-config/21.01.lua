@@ -206,6 +206,7 @@ end
 
 local system_configdir =           pathJoin( SystemRepo_prefix, 'easybuild/config' )
 local system_easyconfigdir =       pathJoin( SystemRepo_prefix, 'easybuild/easyconfigs' )
+local system_easybuild_contrib =   pathJoin( system_prefix,     'LUMI-EasyBuild-contrib/easybuild/easyconfigs' )
 local system_easyblockdir =        pathJoin( SystemRepo_prefix, 'easybuild/easyblocks' )
 local system_toolchaindir =        pathJoin( SystemRepo_prefix, 'easybuild/toolchains' )
 local system_hookdir =             pathJoin( SystemRepo_prefix, 'easybuild/hooks' )
@@ -213,6 +214,7 @@ local system_installpath =         system_prefix
 
 local user_configdir =             pathJoin( user_prefix, 'UserRepo', 'easybuild/config' )
 local user_easyconfigdir =         pathJoin( user_prefix, 'UserRepo', 'easybuild/easyconfigs' )
+local user_easybuild_contrib =     pathJoin( user_prefix, 'LUMI-EasyBuild-contrib/easybuild/easyconfigs' )
 local user_easyblockdir =          pathJoin( user_prefix, 'UserRepo', 'easybuild/easyblocks' )
 local user_installpath =           user_prefix
 
@@ -360,8 +362,20 @@ if mod_mode == 'user' then
     table.insert( robot_paths, user_easyconfigdir )
 end
 
---   + And at the end, we include the system easyconfig directory.
+--   + Add the user copy of EasyBuild-contrib (if the directory exists)
+if mod_mode == 'user' and isDir( user_easybuild_contrib ) then
+    table.insert( robot_paths, user_easybuild_contrib )
+end
+
+--   + Now include the system easyconfig directory.
 table.insert( robot_paths, system_easyconfigdir )
+
+--   + In user mode, add the system copy of contributed EasyConfig files
+--     if there is no user copy (which would have been added earlier in the path)
+if mod_mode == 'user' and not isDir( user_easybuild_contrib ) then
+    table.insert( robot_paths, system_easybuild_contrib )
+end
+
 
 -- - List of directories for eb -S
 
@@ -381,9 +395,6 @@ table.insert( search_paths, system_easyconfigdir )
 --     These EasyConfigs are not meant to be used in production mode, but this
 --     is only a search and they may be the starting basis for new production
 --     recipes.
-
-local system_easybuild_contrib = pathJoin( system_prefix, 'LUMI-EasyBuild-contrib/easybuild/easyconfigs' )
-local user_easybuild_contrib =   pathJoin( user_prefix,   'LUMI-EasyBuild-contrib/easybuild/easyconfigs' )
 
 --     - First look in the user directory if we are in user mode
 if mod_mode == 'user' and isDir( user_easybuild_contrib ) then
