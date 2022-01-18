@@ -225,12 +225,10 @@ create_link "$installroot/$repo/modules/LUMIstack/$match_file" "$installroot/mod
 #
 mkdir -p "$installroot/modules/SystemPartition/LUMI/$stack_version/partition"
 match_file=$(match_module_version $stack_version $installroot/$repo/modules/LUMIpartition)
-for partition in "${partitions[@]}"
+for partition in "${partitions[@]}" common CrayEnv system
 do
   	create_link "$installroot/$repo/modules/LUMIpartition/$match_file" "$installroot/modules/SystemPartition/LUMI/$stack_version/partition/$partition.lua"
 done
-create_link     "$installroot/$repo/modules/LUMIpartition/$match_file" "$installroot/modules/SystemPartition/LUMI/$stack_version/partition/common.lua"
-create_link     "$installroot/$repo/modules/LUMIpartition/$match_file" "$installroot/modules/SystemPartition/LUMI/$stack_version/partition/CrayEnv.lua"
 
 #
 # - Create the LUMIstack_..._modulerc.lua file with the default versions of Cray
@@ -278,7 +276,13 @@ do
 
 done
 
-mkdir -p $installroot/modules/Infrastructure/LUMI/$stack_version/partition/CrayEnv
+for partition in CrayEnv system
+do
+
+    mkdir -p $installroot/modules/Infrastructure/LUMI/$stack_version/partition/$partition
+
+done
+
 
 ###############################################################################
 #
@@ -313,11 +317,14 @@ do
     create_link $modsrc/EasyBuild-config/$module_file $(module_root_infra $stack_version $partition)/EasyBuild-user/LUMI.lua
 done
 
-mkdir -p $(module_root_infra $stack_version CrayEnv)/EasyBuild-CrayEnv
-create_link $modsrc/EasyBuild-config/$module_file $(module_root_infra $stack_version CrayEnv)/EasyBuild-CrayEnv/LUMI.lua
+for partition in CrayEnv system
+do
+    mkdir -p $(module_root_infra $stack_version $partition)/EasyBuild-production
+    create_link $modsrc/EasyBuild-config/$module_file $(module_root_infra $stack_version $partition)/EasyBuild-production/LUMI.lua
+done
 
 module_file=$(match_module_version $stack_version $installroot/$repo/modules/EasyBuild-unlock)
-for partition in ${partitions[@]} common CrayEnv
+for partition in ${partitions[@]} common CrayEnv system
 do
     mkdir -p $(module_root_infra $stack_version $partition)/EasyBuild-unlock
 

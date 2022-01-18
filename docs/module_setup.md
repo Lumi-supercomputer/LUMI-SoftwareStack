@@ -224,6 +224,14 @@ EasyBuild subdirectory in the ``common`` partition of the same ``LUMI/yy.mm`` so
 stack.
 
 
+### The system partition
+
+The ``system`` partitions functions nearly identical to the ``CrayEnv`` partition but
+its function is to install software whose modules will be available system-wide, independent
+of any toolchain, and can be loaded as soon as the ``init-lumi`` module is loaded (which
+itself is loaded at login).
+
+
 ### Where do we set the default modules?
 
   * Style modifiers: LMOD/modulerc.lua (central moduler.lua file)
