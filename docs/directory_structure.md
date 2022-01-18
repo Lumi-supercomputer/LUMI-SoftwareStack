@@ -41,6 +41,9 @@ In the LUMI software stack installation directory, one can find the following su
       * ``easybuild/CrayEnv``: Directory for the EasyBuild-generated modules for the
         CrayEnv software stack.
 
+      * ``easybuild/system``: Directory for the EasyBuild-generated modules outside
+        any software stack
+
       * ``spack/LUMI/yy.mm/partition/part/<archstring>``: Similar as the above, but for Spack-installed software.
 
       * ``manual/LUMI/yy.mm/partition/part``: Similar as the above, but for manually installed
@@ -81,6 +84,8 @@ In the LUMI software stack installation directory, one can find the following su
 
       * ``CrayEnv``
 
+      * ``system``
+
   * ``mgmt``: Files that are not stored in our GitHub, but are generated on the fly and are only
     useful to those users who want to build upon our software stack or for those who install
     software in our stacks.
@@ -101,6 +106,8 @@ In the LUMI software stack installation directory, one can find the following su
 
           * ``CrayEnv``
 
+          * ``system``
+
       * ``LMOD`` : Additional files for LMOD
 
           * ``VisibilityHookData`` : Auto-generated files used by the LMOD ``SitePackage.lua``
@@ -110,7 +117,7 @@ In the LUMI software stack installation directory, one can find the following su
   * ``sources``: Directory structure to store sources of installed programs so that they
     can be reinstalled even if sources would no longer be downloadable
 
-      * ``easybuild``: Sources downloaded by EasyBuild. The inbternal structure of
+      * ``easybuild``: Sources downloaded by EasyBuild. The internal structure of
         this directory is determined by EasyBuild.
 
       * Further subdirectories are not fixed yet, but the suggestion is to also provide
