@@ -4,7 +4,7 @@ can find in the lumi-workspaces module in the LUMI and CrayEnv environments.
 =====
 
 The preferred way to use compilers on a Cray system is through one of the
-PrgEnv modules: PrgEnv-gnu for the GNU compilers, PRgEnv-cray for the Cray
+PrgEnv modules: PrgEnv-gnu for the GNU compilers, PrgEnv-cray for the Cray
 compilers, and PrgEnv-aocc for the AMD compilers. The compilers are then
 called through wrapper scripts: cc for the C compiler, CC for the C++
 compiler and ftn for the Fortran compiler.
