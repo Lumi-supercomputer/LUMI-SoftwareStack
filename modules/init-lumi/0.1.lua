@@ -82,15 +82,6 @@ if mode() == 'load' or mode() == 'show' then
 
     if os.getenv( '_LUMI_INIT_FIRST_LOAD' ) == nil and is_interactive() then
 
-        local short_motd = tonumber( os.getenv( 'LUMI_SHORT_MOTD' ) ) or 0
-
-        -- MOTD parts and when they are shown
-        -- * Announcements (not implemented yet) - always shown
-        -- * General info                        - not shown if short_motd >= 2
-        -- * LUMI tip                            - not shown if short_motd >= 1
-        -- TODO: Investigate if project status and/or quota can be shown, probably
-        -- this results again in a too long text that is not useful for everybody.
-
         -- Get the general info MOTD and print.
         --
         -- The problem with LmodMessage is that it does some undesired
@@ -98,21 +89,17 @@ if mode() == 'load' or mode() == 'show' then
         -- with single spaces after the initial non-space character.
         -- Note that LmodMessage itself also writes the result with
         -- io.stderr:write.
-        if short_motd < 2 then
-            local motd = get_motd()
-            if mode() == 'load' and motd ~= nil then
-                io.stderr:write( motd .. '\n\n' )
-            end
+        local motd = get_motd()
+        if mode() == 'load' and motd ~= nil then
+            io.stderr:write( motd .. '\n\n' )
         end
 
         -- Get a fortune text with LUMI tip.
-        if short_motd < 1 then
-            local fortune = get_fortune()
-            if mode() == 'load' and fortune ~= nil then
-                io.stderr:write( 'Did you know?\n' ..
-                                 '*************\n' ..
-                                 fortune .. '\n' )
-            end
+        local fortune = get_fortune()
+        if mode() == 'load' and fortune ~= nil then
+            io.stderr:write( 'Did you know?\n' ..
+                             '*************\n' ..
+                             fortune .. '\n' )
         end
 
         -- Flush

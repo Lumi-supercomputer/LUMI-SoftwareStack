@@ -112,9 +112,3 @@ after the installation of LUMI-G, does not support UCX. Even though UCX is
 currently on the system we do not support it. Use at your own risk and be
 aware that it will disappear from the system.
 
-=====
-
-If you're an experienced LUMI user you can get a shorter message-of-the-day at
-logon. All you need to do is to set the environment variable LUMI_SHORT_MOTD to
-a positive number. The higher the number, the less you will see.
-
