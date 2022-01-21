@@ -30,29 +30,10 @@ the TCL Environment Modules implementation to store those environments.
 local module_root = myFileName():match( '(.*/modules)/SoftwareStack/.*' )
 
 --
--- Usually the following modules are in the MODULEPATH already, but it helps to restore
--- the MODULEPATH if it got damaged (and this may very well be the case for the targeting
--- modules after unloading the LUMI stack).
---
-if isDir( '/usr/share/lmod/lmod/modulefiles/Core' ) then prepend_path( 'MODULEPATH', '/usr/share/lmod/lmod/modulefiles/Core' ) end
-if isDir( '/usr/share/modulefiles' )                then prepend_path( 'MODULEPATH', '/usr/share/modulefiles' ) end
-if isDir( '/usr/share/Modules/modulefiles' )        then prepend_path( 'MODULEPATH', '/usr/share/Modules/modulefiles' ) end
-prepend_path( 'MODULEPATH', '/opt/modulefiles' )
-prepend_path( 'MODULEPATH', '/opt/cray/modulefiles' )
-
-prepend_path( 'MODULEPATH', pathJoin( module_root, 'init-LUMI-SoftwareStack' ) )
-prepend_path( 'MODULEPATH', pathJoin( module_root, 'StyleModifiers' ) )
-prepend_path( 'MODULEPATH', pathJoin( module_root, 'SoftwareStack' ) )
-
-prepend_path( 'MODULEPATH', '/opt/cray/pe/lmod/modulefiles/craype-targets/default' )
-prepend_path( 'MODULEPATH', '/opt/cray/pe/lmod/modulefiles/core' )
-
---
 -- Code needed to fix problems with the Cray PE
 --
 -- Detect the module root from the position of this module in the module tree
-local module_root = myFileName():match( '(.*/modules)/SoftwareStack/.*' )
-local cray_overwrite_core = pathJoin( module_root, 'CrayOverwrite', 'core' )
+-- local cray_overwrite_core = pathJoin( module_root, 'CrayOverwrite', 'core' )
 -- if isDir( cray_overwrite_core ) then
 --     prepend_path( 'MODULEPATH', cray_overwrite_core )
 -- end
