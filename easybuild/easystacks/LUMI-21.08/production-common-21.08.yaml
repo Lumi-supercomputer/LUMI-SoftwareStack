@@ -41,7 +41,3 @@ software:
     toolchains:
       SYSTEM:
         versions: ['1.19.3']
-  Rust:
-    toolchains:
-      SYSTEM:
-        versions: ['1.55.0']
