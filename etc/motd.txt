@@ -1,17 +1,15 @@
-   .Notes-----------------------------------------------------------.
+   .Announcements---------------------------------------------------.
+   | On Monday the 7th of February at 8.00 CET (9.00 EET), we will  |
+ * | be taking down the system for a large software stack update,   |
+   | with the aim of having the system back in production on Monday |
+*  | the 21st of February at the latest. This is an essential step  |
+   | needed to proceed with the deployment of LUMI-G.               |
+*  .Notes-----------------------------------------------------------.
    | Make sure one of the following modules is loaded to have the   |
  * | full LUMI experience:                                          |
    | - CrayEnv: The Cray software stack enriched with some          |
    |   additional tools not installed by default in the OS          |
 *  | - LUMI: The extensible LUMI software stack that you can use    |
    |   as a basis for additional software installs with EasyBuild   |
- * |   and other tools.                                             |
-   |                                                                |
-   | Please read the following documentation pages to get           |
-   | up-to-date with the changes made in December 2021:             |
- * | - https://docs.lumi-supercomputer.eu/computing/softwarestacks/ |
-   |   for the basics on LUMI software stack.                       |
-   | - https://docs.lumi-supercomputer.eu/computing/Lmod_modules/   |
-   |   for the basics on the Lmod modules in use since December 15  |
-** |   on LUMI.                                                     |
+** |   and other tools.                                             |
 ** `--*****-------------------***-----------------------*****-------'
