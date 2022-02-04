@@ -3,3 +3,9 @@ software:
     toolchains:
       SYSTEM:
         versions: ['21.12']
+  syslibs:
+    toolchains:
+      SYSTEM:
+        versions:
+          '21.12':
+            versionsuffix: '-static'
