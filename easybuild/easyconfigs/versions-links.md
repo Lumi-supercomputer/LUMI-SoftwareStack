@@ -37,20 +37,20 @@ The original idea was to use the same versions as in SUSE, but as we switched to
 is not really necessary anymore and we can chose to go for the newest versions instead (which may be
 better to avoid bugs also).
 
-| Package |
-|:--------|
-| [ncurses](https://ftp.gnu.org/pub/gnu/ncurses/) |
-| [libreadline](https://ftp.gnu.org/pub/gnu/readline/) |
-| [bzip2](https://sourceware.org/git/?p=bzip2.git;a=summary) |
-| [zlib](https://zlib.net/) |
-| [lz4](https://github.com/lz4/lz4/releases) |
-| [expat](https://github.com/libexpat/libexpat/releases) |
-| [APR](https://apr.apache.org/) |
-| [APR-util](https://apr.apache.org/) |
-| [file](http://ftp.astron.com/pub/file/) | 
-| [PCRE2](https://github.com/PhilipHazel/pcre2/releases) |
-| [Serf](https://serf.apache.org/download) |
-| [SQLite3](https://www.sqlite.org/) |
+| Package | SUSE search |
+|:--------|:------------|
+| [ncurses](https://ftp.gnu.org/pub/gnu/ncurses/) | [SUSE ncurses](https://software.opensuse.org/search?utf8=%E2%9C%93&baseproject=ALL&q=ncurses) |
+| [libreadline](https://ftp.gnu.org/pub/gnu/readline/) | [SUSE libreadline](https://software.opensuse.org/search?utf8=%E2%9C%93&baseproject=ALL&q=libreadline) |
+| [bzip2](https://sourceware.org/git/?p=bzip2.git;a=summary) | [SUSE bzip2](https://software.opensuse.org/search?utf8=%E2%9C%93&baseproject=ALL&q=bzip2) |
+| [zlib](https://zlib.net/) |  ? |
+| [lz4](https://github.com/lz4/lz4/releases) | [SUSE lz4](https://software.opensuse.org/search?utf8=%E2%9C%93&baseproject=ALL&q=lz4) |
+| [expat](https://github.com/libexpat/libexpat/releases) | [SUSE expat](https://software.opensuse.org/search?utf8=%E2%9C%93&baseproject=ALL&q=expat) |
+| [APR](https://apr.apache.org/) | ? |
+| [APR-util](https://apr.apache.org/) | ? |
+| [file](http://ftp.astron.com/pub/file/) | ? |
+| [PCRE2](https://github.com/PhilipHazel/pcre2/releases) | [SUSE pcre2](https://software.opensuse.org/search?utf8=%E2%9C%93&baseproject=ALL&q=PCRE2) |
+| [Serf](https://serf.apache.org/download) | ? |
+| [SQLite3](https://www.sqlite.org/) | ? |
 
 
 ## Other packages that we try to build against the SYSTEM toolchain
