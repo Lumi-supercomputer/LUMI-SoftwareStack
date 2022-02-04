@@ -50,14 +50,24 @@ homepage = 'http://www.gnu.org'
 
 whatis = [
     "Description: A bundle of often used build tools, GNU and others"
+<<<<<<< HEAD
     "Contains: åutoconf, Autoconf_archive, Automake, makeinfo, libtool, M4, make, sed, Bison, flex, Berkeley Yacc (byacc), " +
     "CMake, Ninja, Meson, SCons, NASM, Yasm, patchelf, gperf, re2c, help2man, Doxygen and xxd"
+=======
+    "Contains: åutoconf, Autoconf_archive, Automake, libtool, M4, make, sed, Bison, flex, Berkeley Yacc (byacc), " +
+    "CMake, Ninja, Meson, SCons, NASM, Yasm, patchelf, gperf, re2c, help2man and Doxygen"
+>>>>>>> 6c9bdaf (Buildtools for 21.12, and update of the version-links file.)
 ]
 
 description = """
 A bundle of often used build tools, GNU and others: autoconf, autoconf_archive,
+<<<<<<< HEAD
 automake, makeinfo, libtool, M4, make, git, sed, Bison, flex, Berkeley Yacc (byacc),
 CMake, Ninja, Meson, SCons, NASM, Yasm, patchelf, pkg-config, gperf, re2c, help2man
+=======
+automake, libtool, M4, make, git, sed, Bison, flex, Berkeley Yacc (byacc), CMake,
+Ninja, Meson, SCons, NASM, Yasm, patchelf, pkg-config, gperf, re2c, help2man
+>>>>>>> 6c9bdaf (Buildtools for 21.12, and update of the version-links file.)
 and Doxygen.
 """
 
@@ -67,7 +77,10 @@ building software. Many of them are GNU tools.
 + GNU Autoconf %(autoconf)s               - https://www.gnu.org/software/autoconf/
 + GNU Autoconf Archive %(autoconfarchive)s - https://www.gnu.org/software/autoconf/
 + GNU Automake %(automake)s             - https://www.gnu.org/software/automake/
+<<<<<<< HEAD
 + GNU makeinfo %(makeinfo)s             -  https://www.gnu.org/software/texinfo/
+=======
+>>>>>>> 6c9bdaf (Buildtools for 21.12, and update of the version-links file.)
 + GNU libtool %(libtool)s               - https://www.gnu.org/software/libtool/
 + GNU M4 %(m4)s                   - https://www.gnu.org/software/m4/
 + GNU make %(make)s                    - https://www.gnu.org/software/make/
@@ -87,11 +100,16 @@ building software. Many of them are GNU tools.
 + GNU gperf %(gperf)s                   - https://www.gnu.org/software/gperf/
 + GNU help2man %(help2man)s            - https://www.gnu.org/software/help2man/
 + Doxygen %(doxygen)s                  - http://www.doxygen.org/
+<<<<<<< HEAD
 + xxd %(xxd)s                          - https://www.vim.org
 These tools are all build against the system libraries and have been used to
 build several of the %(ver)s packages.
 
 Note that makeinfo is not fully functional as there is no TeX on the system.
+=======
+These tools are all build against the system libraries and have been used to
+build several of the %(ver)s packages.
+>>>>>>> 6c9bdaf (Buildtools for 21.12, and update of the version-links file.)
 """ % {
     'autoconf'        : local_Autoconf_version,
     'autoconfarchive' : local_Autoconf_archive_version,
