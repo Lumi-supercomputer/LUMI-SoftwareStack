@@ -60,6 +60,13 @@ better to avoid bugs also).
 | [Go](https://go.dev/dl/) | [EB Go](https://github.com/easybuilders/easybuild-easyconfigs/blob/develop/easybuild/easyconfigs/g/Go/Go-1.17.6.eb) |  / |
 
 
+## Other packages that we try to build against the SYSTEM toolchain
+
+| Package | EasyBuild | CSCS |
+|:--------|:----------|:-----|
+| [Go](https://go.dev/dl/) | [EB Go](https://github.com/easybuilders/easybuild-easyconfigs/blob/develop/easybuild/easyconfigs/g/Go/Go-1.17.6.eb) |  / |
+
+
 ## Regular packages
 
 | Package | EasyBuild | CSCS |
