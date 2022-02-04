@@ -337,6 +337,8 @@ EB_tardir=$installroot/sources/easybuild/e/EasyBuild
 
 pushd $EB_tardir
 
+echo -e "\n## Downloading EasyBuild...\n"
+
 EBF_file="easybuild-framework-${EBversion}.tar.gz"
 EBF_url="https://pypi.python.org/packages/source/e/easybuild-framework"
 [[ -f $EBF_file ]] || curl -L -O $EBF_url/$EBF_file
@@ -355,6 +357,9 @@ popd
 # - Initialise LMOD before installing EasyBuild
 #   Load partion/common as that will be the one we need to install EasyBuild.
 #
+
+echo -e "\n## Initializing Lmod...\n"
+
 module --force purge
 export MODULEPATH="$installroot/modules/SoftwareStack"
 module help |& grep -q lmod
@@ -374,12 +379,16 @@ module load partition/common
 #   We would find it if the toolchain has already been initialised and the script
 #   is only run because changes were made in the directory structure.
 #
+
+echo -e "\n## Checking if the Easybuild/$EBversion module is already present...\n"
+
 module avail EasyBuild/$EBversion |& grep -q "EasyBuild/$EBversion"
 if [[ $? != 0 ]]
 then
     #
     # - Now do a temporary install of the framework and EasyBlocks
     #
+    echo -e "\n## Easybuild/$EBversion module not found, starting the bootstrapping process...\n"
     mkdir -p $workdir
     pushd $workdir
 
@@ -410,6 +419,7 @@ then
     # - Install EasyBuild in the common directory of the $EBstack software stack
     #
     # Need to use the full module name as the module is hidden in the default view!
+    echo -e "\n## Now properly installing Easybuild/$EBversion...\n"
     module load EasyBuild-unlock/LUMI
     module load EasyBuild-production/LUMI
     $workdir/easybuild/bin/eb --show-config
@@ -425,9 +435,10 @@ then
 fi
 
 #
-# Enable EasyBuild also for cross-installing by linking in the CrayEnv module directories
+# Enable EasyBuild also for cross-installing by linking in the CrayEnv and system module directories
 #
 create_link $(module_root_eb $stack_version common)/EasyBuild $(module_root_infra $stack_version CrayEnv)/EasyBuild
+create_link $(module_root_eb $stack_version common)/EasyBuild $(module_root_infra $stack_version system)/EasyBuild
 
 
 ###############################################################################
@@ -435,10 +446,13 @@ create_link $(module_root_eb $stack_version common)/EasyBuild $(module_root_infr
 # Initialise the main toolchains
 #
 
+echo -e "\n## Initialising the main toolchains...\n"
+
 pushd $installroot/$repo/easybuild/easyconfigs/c
 
 extended_partitions=( 'common' 'C' 'G' 'D' 'L' )
-toolchains=( 'cpeCray' 'cpeGNU' 'cpeAMD' )
+#toolchains=( 'cpeCray' 'cpeGNU' 'cpeAMD' )
+toolchains=( 'cpeCray' 'cpeGNU' )
 
 module load LUMI/$stack_version
 module load EasyBuild-unlock/LUMI
@@ -481,8 +495,8 @@ modulerc_file="$repo/LMOD/modulerc.lua"
 egrep "hide_module.*cpe/$CPEversion" $modulerc_file >& /dev/null
 if [[ $? != 0 ]]
 then
-	echo -e "\nhide_module( '/opt/cray/pe/lmod/modulefiles/core/cpe/$CPEversion' )" >>$modulerc_file
-	echo "Please check $modulerc_file for the line \"hide_module( '/opt/cray/pe/lmod/modulefiles/core/cpe/$CPEversion' )\""
+	echo -e "\nhide_modulefile( '/opt/cray/pe/lmod/modulefiles/core/cpe/$CPEversion.lua' )" >>$modulerc_file
+	echo "Please check $modulerc_file for the line \"hide_modulefile( '/opt/cray/pe/lmod/modulefiles/core/cpe/$CPEversion.lua' )\""
 fi
 
 
