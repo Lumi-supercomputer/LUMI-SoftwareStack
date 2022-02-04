@@ -48,9 +48,16 @@ better to avoid bugs also).
 | [APR](https://apr.apache.org/) |
 | [APR-util](https://apr.apache.org/) |
 | [file](http://ftp.astron.com/pub/file/) | 
-| [PCRE2](https://ftp.pcre.org/pub/pcre/) |
-| [Serf](https://serf.apache.org/) |
+| [PCRE2](https://github.com/PhilipHazel/pcre2/releases) |
+| [Serf](https://serf.apache.org/download) |
 | [SQLite3](https://www.sqlite.org/) |
+
+
+## Other packages that we try to build against the SYSTEM toolchain
+
+| Package | EasyBuild | CSCS |
+|:--------|:----------|:-----|
+| [Go](https://go.dev/dl/) | [EB Go](https://github.com/easybuilders/easybuild-easyconfigs/blob/develop/easybuild/easyconfigs/g/Go/Go-1.17.6.eb) |  / |
 
 
 ## Regular packages

@@ -42,4 +42,13 @@ use.
   * We now had to include buildtools as a build dependency since Serf needs SCons which
     is not available in the OS image.
 
+### 21.12
+
+  * As we no longer try to mirror system libraries and instead use newer versions (they are
+    statically linked anyway) the version numbering has been switched to follow those of the
+    LUMI stack for which the file was updated.
+
+  * PCRE2: Switched to download from GitHub.
+
+  * Configure didn't work for ncurses 6.3 so we stuck to 6.2 rather than to start debugging.
 
