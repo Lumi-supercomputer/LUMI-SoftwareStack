@@ -159,3 +159,4 @@ better to avoid bugs also).
 | [XZ](https://tukaani.org/xz/) | [EB XZ](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/x/XZ) | [CSCS XZ](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/x/XZ) |
 | [zlib](https://zlib.net/) | [EB zlib](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/z/zlib) | [CSCS zlib](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/z/zlib) |
 | [zstd](https://github.com/facebook/zstd/releases) | [ EB zstd](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/z/zstd) | [CSCS zstd](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/z/zstd) |
+
