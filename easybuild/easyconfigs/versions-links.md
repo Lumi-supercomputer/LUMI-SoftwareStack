@@ -7,9 +7,9 @@ for versions.
 
 | Package | EasyBuild | CSCS |
 |:--------|:----------|:-----|
-| [autoconf](https://ftp.gnu.org/gnu/autoconf/) | [EB autoconf](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/a/Autoconf) | [CSCS autoconf](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/a/Autoconf) |
-| [autoconf_archive](https://ftp.gnu.org/gnu/autoconf-archive/) | [EB autoconf_archive](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/a/Autoconf-archive) | / |
-| [automake](https://ftp.gnu.org/gnu/automake/) | [EB automake](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/a/Automake) | [CSCS automake](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/a/Automake) |
+| [Autoconf](https://ftp.gnu.org/gnu/autoconf/) | [EB Autoconf](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/a/Autoconf) | [CSCS Autoconf](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/a/Autoconf) |
+| [Autoconf_archive](https://ftp.gnu.org/gnu/autoconf-archive/) | [EB Autoconf_archive](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/a/Autoconf-archive) | / |
+| [Automake](https://ftp.gnu.org/gnu/automake/) | [EB Automake](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/a/Automake) | [CSCS Automake](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/a/Automake) |
 | [CMake](https://cmake.org/download/) | [EB CMake](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/c/CMake) | [CSCS CNMake](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/c/CMake) |
 | [Ninja](https://ninja-build.org/) | [EB Ninja](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/n/Ninja) | [CSCS Ninja](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/n/Ninja) |
 | [Meson](https://pypi.org/project/meson/#history) | [EB Meson](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/m/Meson) | [CSCS Meson](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/m/Meson) |
@@ -25,10 +25,32 @@ for versions.
 | [patchelf](https://github.com/NixOS/patchelf/releases) | [EB patchelf](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/p/patchelf) | / |
 | [Bison](https://ftp.gnu.org/gnu/bison/) | [EB Bison](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/b/Bison) | [CSCS Bison](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/b/Bison) |
 | [flex](https://github.com/westes/flex/releases) | [EB flex](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/f/flex) | [CSCS flex](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/f/flex) |
-| [byacc](ftp://ftp.invisible-island.net/byacc) | [EB byacc](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/b/byacc) | [CSCS byacc](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/b/byacc) |
+| [byacc](https://invisible-mirror.net/archives/byacc/) | [EB byacc](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/b/byacc) | [CSCS byacc](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/b/byacc) |
 | [re2c](https://github.com/skvadrik/re2c/releases) | [EB re2c](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/r/re2c) | / |
 | [SCons on GitHub](https://github.com/SCons/scons/releases) or [on download page](https://scons.org/pages/download.html) | [EB SCons](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/s/SCons) | [CSCS SCons](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/s/SCons) |
 | xxd comes with [vim](https://github.com/vim/vim/tags) | [EB xxd](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/x/xxd) | / |
+
+
+## syslibs library
+
+The original idea was to use the same versions as in SUSE, but as we switched to static linking this 
+is not really necessary anymore and we can chose to go for the newest versions instead (which may be
+better to avoid bugs also).
+
+| Package |
+|:--------|
+| [ncurses](https://ftp.gnu.org/pub/gnu/ncurses/) |
+| [libreadline](https://ftp.gnu.org/pub/gnu/readline/) |
+| [bzip2](https://sourceware.org/git/?p=bzip2.git;a=summary) |
+| [zlib](https://zlib.net/) |
+| [lz4](https://github.com/lz4/lz4/releases) |
+| [expat](https://github.com/libexpat/libexpat/releases) |
+| [APR](https://apr.apache.org/) |
+| [APR-util](https://apr.apache.org/) |
+| [file](http://ftp.astron.com/pub/file/) | 
+| [PCRE2](https://ftp.pcre.org/pub/pcre/) |
+| [Serf](https://serf.apache.org/) |
+| [SQLite3](https://www.sqlite.org/) |
 
 
 ## Regular packages

@@ -70,3 +70,12 @@ Not included at the moment:
 
  * Version update of all components to the most recent version as of 14 September
    2021.
+
+
+### 21.12
+
+  * Version update of all components to the most recent version as of 4 February 2022.
+
+  * Added `xxd`, a hexadecimal editor that comes with `vim`, as it is a build dependency
+    for recent PLUMED versions. This ensures that the command will be present even if
+    `vim` would be deleted again from the system images.
