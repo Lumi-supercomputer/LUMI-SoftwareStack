@@ -58,13 +58,13 @@ TC_CONSTANT_CPE = "CPE"
 TC_CONSTANT_AOCC = "AOCC"
 
 
-class cpeAOCC(Compiler):
+class cpeCompAOCC(Compiler):
     """AOCC support for using Cray compiler drivers"""
     TOOLCHAIN_FAMILY = TC_CONSTANT_CPE
     COMPILER_FAMILY = TC_CONSTANT_AOCC
 
-    COMPILER_MODULE_NAME = ['cpeAMD']
-    CRAYPE_MODULE_NAME = ['cpeAMD']
+    COMPILER_MODULE_NAME = ['cpeAOCC']
+    CRAYPE_MODULE_NAME = ['cpeAOCC']
 
     COMPILER_FAMILY = TC_CONSTANT_AOCC
 
@@ -152,7 +152,7 @@ class cpeAOCC(Compiler):
 
     def _set_optimal_architecture(self):
         """
-        Load craype module specified via 'optarch' build option.
+        Load craype modules specified via 'optarch' build option.
 
         Several forms of optarch are recognized:
           * --optarch=<CPE options>
@@ -193,7 +193,7 @@ class cpeAOCC(Compiler):
 
     def prepare(self, *args, **kwargs):
         """Prepare to use this toolchain; define $CRAYPE_LINK_TYPE if 'dynamic' toolchain option is enabled."""
-        super(cpeAOCC, self).prepare(*args, **kwargs)
+        super(cpeCompAOCC, self).prepare(*args, **kwargs)
 
         if self.options['dynamic'] or self.options['shared']:
             self.log.debug("Enabling building of shared libs/dynamically linked executables via $CRAYPE_LINK_TYPE")

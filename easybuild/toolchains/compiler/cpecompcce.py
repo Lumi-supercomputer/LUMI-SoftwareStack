@@ -51,7 +51,7 @@ TC_CONSTANT_CPE = "CPE"
 TC_CONSTANT_CCE = "CCE"
 
 
-class cpeCCE(Compiler):
+class cpeCompCCE(Compiler):
     """Generic support for using Cray compiler drivers."""
     TOOLCHAIN_FAMILY = TC_CONSTANT_CPE
 
@@ -99,7 +99,7 @@ class cpeCCE(Compiler):
 
     def _set_optimal_architecture(self):
         """
-        Load craype module specified via 'optarch' build option.
+        Load craype modules specified via 'optarch' build option.
 
         Several forms of optarch are recognized:
           * --optarch=<CPE options>
@@ -140,7 +140,7 @@ class cpeCCE(Compiler):
 
     def prepare(self, *args, **kwargs):
         """Prepare to use this toolchain; define $CRAYPE_LINK_TYPE if 'dynamic' toolchain option is enabled."""
-        super(cpeCCE, self).prepare(*args, **kwargs)
+        super(cpeCompCCE, self).prepare(*args, **kwargs)
 
         if self.options['dynamic'] or self.options['shared']:
             self.log.debug("Enabling building of shared libs/dynamically linked executables via $CRAYPE_LINK_TYPE")

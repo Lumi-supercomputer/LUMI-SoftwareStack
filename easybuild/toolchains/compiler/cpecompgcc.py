@@ -57,7 +57,7 @@ TC_CONSTANT_CPE = "CPE"
 TC_CONSTANT_GCC = "GCC"
 
 
-class cpeGCC(Compiler):
+class cpeCompGCC(Compiler):
     """GCC support for using Cray compiler drivers."""
     TOOLCHAIN_FAMILY = TC_CONSTANT_CPE
     COMPILER_FAMILY = TC_CONSTANT_GCC
@@ -140,7 +140,7 @@ class cpeGCC(Compiler):
     CRAYPE_MODULE_NAME_TEMPLATE = 'craype-%(craype_mod)s'
 
     def _set_compiler_vars(self):
-        super(cpeGCC, self)._set_compiler_vars()
+        super(cpeCompGCC, self)._set_compiler_vars()
 
         if self.options.get('32bit', None):
             raise EasyBuildError("_set_compiler_vars: 32bit set, but not supported by the Cray PE")
@@ -153,7 +153,7 @@ class cpeGCC(Compiler):
 
     def _set_optimal_architecture(self):
         """
-        Load craype module specified via 'optarch' build option.
+        Load craype modules specified via 'optarch' build option.
 
         Several forms of optarch are recognized:
           * --optarch=<CPE options>
@@ -194,7 +194,7 @@ class cpeGCC(Compiler):
 
     def prepare(self, *args, **kwargs):
         """Prepare to use this toolchain; define $CRAYPE_LINK_TYPE if 'dynamic' toolchain option is enabled."""
-        super(cpeGCC, self).prepare(*args, **kwargs)
+        super(cpeCompGCC, self).prepare(*args, **kwargs)
 
         if self.options['dynamic'] or self.options['shared']:
             self.log.debug("Enabling building of shared libs/dynamically linked executables via $CRAYPE_LINK_TYPE")
