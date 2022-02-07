@@ -28,13 +28,13 @@ cpeGNU toolchain: GCC, Cray MPI compiler drivers, Cray LibSci and Cray FFTW (gnu
 :author: Petar Forai (IMP/IMBA, Austria)
 :author: Kenneth Hoste (Ghent University)
 """
-from easybuild.toolchains.compiler.cpegcc import cpeGCC
+from easybuild.toolchains.compiler.cpecompgcc import cpeCompGCC
 from easybuild.toolchains.linalg.libsci import LibSci
 from easybuild.toolchains.mpi.craympich import CrayMPICH
 from easybuild.tools.toolchain.toolchain import SYSTEM_TOOLCHAIN_NAME
 
 
-class cpeGNU(cpeGCC, CrayMPICH, LibSci):
+class cpeGNU(cpeCompGCC, CrayMPICH, LibSci):
     """Compiler toolchain for Shasta Cray Programming Environment GNU compiler (gnu)."""
     NAME = 'cpeGNU'
     SUBTOOLCHAIN = SYSTEM_TOOLCHAIN_NAME
