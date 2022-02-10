@@ -53,6 +53,7 @@ mkdir -p "$installroot/modules/manual"
 mkdir -p "$installroot/modules/manual/LUMI"
 mkdir -p "$installroot/modules/Infrastructure"
 mkdir -p "$installroot/modules/Infrastructure/LUMI"
+mkdir -p "$installroot/modules/init-$repo"
 
 mkdir -p "$installroot/SW"
 mkdir -p "$installroot/SW/CrayEnv"
@@ -94,6 +95,13 @@ create_link "$installroot/$repo/modules/CrayEnv.lua"  "$installroot/modules/Soft
 #
 # Link the style modules
 #
+# We simply link the directory.
+#
+create_link "$installroot/$repo/modules/init-lumi" "$installroot/modules/init-$repo/init-lumi"
+
+#
+# Link the init-lumi module
+#
 # We simply link the directory. The defaults are set in LMOD/modulerc.lua
 #
 create_link "$installroot/$repo/modules/StyleModifiers" "$installroot/modules/StyleModifiers"
@@ -102,6 +110,9 @@ create_link "$installroot/$repo/modules/StyleModifiers" "$installroot/modules/St
 # Create a modulerc file in the SoftwareStack subdirectory to mark the default software stack.
 # Initialy the default is set to a non-existing module, but we want to create the file.
 #
+if [ ! -s "$installroot/modules/SoftwareStack/LUMI/.modulerc.lua" ]
+then
 cat >"$installroot/modules/SoftwareStack/LUMI/.modulerc.lua" <<EOF
 module_version( "00.00", "default" )
 EOF
+fi
