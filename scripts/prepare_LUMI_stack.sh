@@ -510,7 +510,10 @@ module load EasyBuild-infrastructure/LUMI
 for cpe in ${!cpeENV[@]}
 do
 
+<<<<<<< HEAD
     echo -e "\nBuilding EasyConfig file for toolchain $cpe/$CPEversion (if not present already)\n"
+=======
+>>>>>>> dc6a5ea (Made the toolchain initialization script more robust (or at least stop at the first error to ease diagnosing problems).)
 	make_dir $installroot/$repo/easybuild/easyconfigs/c/$cpe
 	[[ -f "$cpe/$cpe-$CPEversion.eb" ]] || $installroot/$repo/scripts/make_CPE_EBfile.sh "$cpe/$CPEversion"
 
@@ -524,7 +527,10 @@ do
         module avail $cpe/$CPEversion |& grep -q "$cpe/$CPEversion"
         if [[ $? != 0 ]]
         then
+<<<<<<< HEAD
             echo "Installing toolchain $cpe/$CPEversion for partition $partition."
+=======
+>>>>>>> dc6a5ea (Made the toolchain initialization script more robust (or at least stop at the first error to ease diagnosing problems).)
             eb "$cpe/$cpe-$CPEversion.eb" -f || die "Failed to install $cpe/$CPEversion for partition $partition."
         fi
 
