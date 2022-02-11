@@ -96,6 +96,30 @@ EOF
     exit 1
 fi
 
+
+###############################################################################
+#
+# Define some "constants".
+#
+
+if [[ -d '/appl/lumi' ]]
+then
+	partitions=( 'C' 'G' 'D' 'L' )
+	cpeGNU=( 'common:C:G:D:L' )
+    cpeCray=( 'common:C:G:D:L' )
+    cpeAOCC=( 'common:C:D:L' )
+    #declare -A cpeENV=( ['cpeGNU']=$cpeGNU ['cpeCray']=$cpeCray ['cpeAOCC']=$cpeAOCC )
+    declare -A cpeENV=( ['cpeGNU']=$cpeGNU ['cpeCray']=$cpeCray )
+else # We're likely on eiger, we can't test everything here.
+	partitions=( 'L' )
+	cpeGNU=( 'common:L' )
+    cpeCray=( 'common:L' )
+    cpeAOCC=( 'common:L' )
+    #declare -A cpeENV=( ['cpeGNU']=$cpeGNU ['cpeCray']=$cpeCray ['cpeAOCC']=$cpeAOCC )
+    declare -A cpeENV=( ['cpeGNU']=$cpeGNU ['cpeCray']=$cpeCray )
+fi
+
+
 ###############################################################################
 #
 # Create the module structure for the software stack.
@@ -109,6 +133,13 @@ fi
 #
 # Some functions and variables for this section
 #
+
+function die () {
+
+    echo "$*" 1>&2
+    exit 1
+
+}
 
 #
 # create_link
@@ -198,8 +229,6 @@ function match_module_version () {
     fi
 
 }
-
-partitions=( 'C' 'G' 'D' 'L' )
 
 #
 # - Create the cpe module in CrayOverwrite for the new stack
@@ -451,6 +480,10 @@ then
 
     popd
 
+else
+
+	echo -e "## EasyBuild/$EBversion already present, skipping installation...\n"
+
 fi
 
 #
@@ -469,35 +502,36 @@ echo -e "\n## Initialising the main toolchains...\n"
 
 pushd $installroot/$repo/easybuild/easyconfigs/c
 
-extended_partitions=( 'common' 'C' 'G' 'D' 'L' )
-#toolchains=( 'cpeCray' 'cpeGNU' 'cpeAMD' )
-toolchains=( 'cpeCray' 'cpeGNU' )
-
 module load LUMI/$stack_version
 module load EasyBuild-unlock/LUMI
 module load EasyBuild-infrastructure/LUMI
 
-for cpe in ${toolchains[@]}
+#IFS=':'
+for cpe in ${!cpeENV[@]}
 do
 
+    echo -e "\nBuilding EasyConfig file for toolchain $cpe/$CPEversion (if not present already)\n"
 	make_dir $installroot/$repo/easybuild/easyconfigs/c/$cpe
 	[[ -f "$cpe/$cpe-$CPEversion.eb" ]] || $installroot/$repo/scripts/make_CPE_EBfile.sh "$cpe/$CPEversion"
 
-	for partition in ${extended_partitions[@]}
+	for partition in ${cpeENV[$cpe]//:/ }
 	do
 
+      	echo "Installing toolchain $cpe/$CPEversion for partition $partition (if not present already)."
         module load "partition/$partition"
 
         # Install the toolchain module if it does not yet exist.
         module avail $cpe/$CPEversion |& grep -q "$cpe/$CPEversion"
         if [[ $? != 0 ]]
         then
+            echo "Installing toolchain $cpe/$CPEversion for partition $partition."
             eb "$cpe/$cpe-$CPEversion.eb" -f || die "Failed to install $cpe/$CPEversion for partition $partition."
         fi
 
 	done
 
 done
+#unset IFS
 
 popd
 
