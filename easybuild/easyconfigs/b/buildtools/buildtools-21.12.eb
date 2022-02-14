@@ -42,7 +42,7 @@ local_Bison_version =            '3.8.2'       # Bison      20210925 - Check on 
 local_flex_version =             '2.6.4'       # flex       20170506 - Check on https://github.com/westes/flex/releases
 local_byacc_version =            '20220128'    # byacc      20220128 - Check on https://invisible-mirror.net/archives/byacc/
 local_re2c_version =             '3.0'         # re2c       20210127 - Check on https://github.com/skvadrik/re2c/releases
-local_SCons_version =            '4.2.0'       # SCons      20210805 - Check on https://github.com/SCons/scons/releases, https://scons.org/pages/download.html
+local_SCons_version =            '4.3.0'       # SCons      20211117 - Check on https://github.com/SCons/scons/releases, https://scons.org/pages/download.html
 local_xxd_version =              '8.2.4293'    # vim        20220204 - Check on https://github.com/vim/vim/tags
 
 homepage = 'http://www.gnu.org'
@@ -50,7 +50,7 @@ homepage = 'http://www.gnu.org'
 whatis = [
     "Description: A bundle of often used build tools, GNU and others"
     "Contains: åutoconf, Autoconf_archive, Automake, libtool, M4, make, sed, Bison, flex, Berkeley Yacc (byacc), " +
-    "CMake, Ninja, Meson, SCons, NASM, Yasm, patchelf, gperf, re2c, help2man and Doxygen"
+    "CMake, Ninja, Meson, SCons, NASM, Yasm, patchelf, gperf, re2c, help2man, Doxygen and xxd"
 ]
 
 description = """
@@ -85,6 +85,7 @@ building software. Many of them are GNU tools.
 + GNU gperf %(gperf)s                   - https://www.gnu.org/software/gperf/
 + GNU help2man %(help2man)s            - https://www.gnu.org/software/help2man/
 + Doxygen %(doxygen)s                  - http://www.doxygen.org/
++ xxd %(xxd)s                          - https://www.vim.org
 These tools are all build against the system libraries and have been used to
 build several of the %(ver)s packages.
 """ % {
@@ -109,6 +110,7 @@ build several of the %(ver)s packages.
     'gperf'           : local_gperf_version,
     'help2man'        : local_help2man_version,
     'doxygen'         : local_Doxygen_version,
+    'xxd'             : local_xxd_version,
     'ver'             : version,
 }
 
@@ -248,9 +250,9 @@ components = [
     }),
     ('SCons', local_SCons_version, {
         'easyblock':   'PythonPackage',
-        'sources':          [SOURCELOWER_TAR_GZ],
-        'source_urls':      [SOURCEFORGE_SOURCE],
-        'checksums':        ['691893b63f38ad14295f5104661d55cb738ec6514421c6261323351c25432b0a'],
+        'sources':          [SOURCE_TAR_GZ],
+        'source_urls':      [PYPI_SOURCE],
+        'checksums':        ['d47081587e3675cc168f1f54f0d74a69b328a2fc90ec4feb85f728677419b879'],
         'start_dir':        '%(name)s-%(version)s',
         'req_py_majver':     3, # Used to let EasyBuild select the right system Python executable.
         'req_py_minver':     5, # Used to let EasyBuild select the right system Python executable.
@@ -373,6 +375,8 @@ modextravars = {
     'EBVERSIONHELP2MAN':           local_help2man_version,
     'EBROOTDOXYGEN':               '%(installdir)s',
     'EBVERSIONDOXYGEN':            local_Doxygen_version,
+    'EBROOTDXXD':                  '%(installdir)s',
+    'EBVERSIONXXD':                local_xxd_version,
 }
 
 moduleclass = 'devel'
@@ -381,7 +385,7 @@ extensions( "Autoconf/%(autoconf)s, Autoconf-archive/%(autoconfarchive)s, Automa
             "libtool/%(libtool)s, M4/%(m4)s, make/%(make)s, sec/%(sed)s, Bison/%(bison)s, flex/%(flex)s, " ..
             "byacc/%(byacc)s, CMake/%(cmake)s, Ninja/%(ninja)s, Meson/%(meson)s, " ..
             "SCons/%(SCons)s, NASM/%(nasm)s, Yasm/%(yasm)s, patchelf/%(patchelf)s, " ..
-            "re2c/%(re2c)s, gperf/%(gperf)s, help2man/%(help2man)s, Doxygen/%(doxygen)s"
+            "re2c/%(re2c)s, gperf/%(gperf)s, help2man/%(help2man)s, Doxygen/%(doxygen)s, xxd/%(xxd)s"
           )
 """  % {
     'autoconf'        : local_Autoconf_version,
@@ -405,4 +409,5 @@ extensions( "Autoconf/%(autoconf)s, Autoconf-archive/%(autoconfarchive)s, Automa
     'gperf'           : local_gperf_version,
     'help2man'        : local_help2man_version,
     'doxygen'         : local_Doxygen_version,
+    'xxd'             : local_xxd_version,
 }

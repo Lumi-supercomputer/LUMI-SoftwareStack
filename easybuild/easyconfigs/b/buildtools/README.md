@@ -30,7 +30,7 @@ The contents of the module evolved over time. It does contain a subset of:
 * Flex [version check](https://github.com/westes/flex/releases)
 * Ninja [version check](https://ninja-build.org/)
 * Meson [version check](https://pypi.org/project/meson/#history)
-* SCons, due to build problems with version 4.
+* SCons [version check](https://pypi.org/project/SCons/#history)
 * NASM [version check](http://www.nasm.us/)
 * Yasm [version check](http://yasm.tortall.net/)
 * patchelf [version check](https://github.com/NixOS/patchelf/releases)
@@ -75,6 +75,9 @@ Not included at the moment:
 ### 21.12
 
   * Version update of all components to the most recent version as of 4 February 2022.
+
+  * SCons 4.3 now builds without problems. (in 21.08 the 4.x branch was avoided). Downloads
+    changed to PyPi; SourceForge does no longer seem to contain the newest version.
 
   * Added `xxd`, a hexadecimal editor that comes with `vim`, as it is a build dependency
     for recent PLUMED versions. This ensures that the command will be present even if
