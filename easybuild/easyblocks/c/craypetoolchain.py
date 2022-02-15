@@ -38,13 +38,14 @@ from easybuild.tools.build_log import print_error, print_msg, print_warning
 import re
 
 # Supported programming environments
-KNOWN_PRGENVS = ['PrgEnv-aocc', 'PrgEnv-cray', 'PrgEnv-gnu', 'PrgEnv-intel', 'PrgEnv-nvidia']
-KNOWN_CPEMODS = ['cpeAMD', 'cpeCray', 'cpeGNU', 'cpeIntel', 'cpeNVIDIA']
+KNOWN_PRGENVS = ['PrgEnv-cray', 'PrgEnv-gnu', 'PrgEnv-aocc', 'PrgEnv-amd', 'PrgEnv-intel', 'PrgEnv-nvidia']
+KNOWN_CPEMODS = ['cpeCray', 'cpeGNU', 'cpeAOCC', 'cpeAMD', 'cpeIntel', 'cpeNVIDIA']
 # Mapping from supported toolchain modules to PrgEnv-* modules
 MAP_TOOLCHAIN_PRGENV = {
     'cpeCray':   'cray',
     'cpeGNU':    'gnu',
-    'cpeAMD':    'aocc',
+    'cpeAOCC':   'aocc',
+    'cpeAMD':    'amd',
     'cpeIntel':  'intel',
     'cpeNVIDIA': 'nvidia',
 }
@@ -52,7 +53,8 @@ MAP_TOOLCHAIN_PRGENV = {
 MAP_TOOLCHAIN_COMPILER = {
     'cpeCray':   'cce',
     'cpeGNU':    'gcc',
-    'cpeAMD':    'aocc',
+    'cpeAOCC':   'aocc',
+    'cpeAMD':    'rocm',
     'cpeIntel':  'intel',
     'cpeNVIDIA': 'NVIDIA',
 }
