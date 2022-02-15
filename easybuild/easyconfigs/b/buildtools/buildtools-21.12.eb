@@ -22,6 +22,7 @@ version = '21.12'
 local_system_pyshortver = '3.6'
 
 # Version info:
+local_makeinfo_version =         '6.8'         # texinfo    20210703 - Check on https://gnu.askapache.com/texinfo/
 local_Autoconf_version =         '2.71'        # Autoconf   20210128 - Check on https://ftp.gnu.org/gnu/autoconf/
 local_Autoconf_archive_version = '2021.02.19'  # Autoconf-Archive 202102196 - check on https://ftp.gnu.org/gnu/autoconf-archive/
 local_Automake_version =         '1.16.5'      # Automake   20211003 - Check on https://ftp.gnu.org/gnu/automake/
@@ -49,14 +50,14 @@ homepage = 'http://www.gnu.org'
 
 whatis = [
     "Description: A bundle of often used build tools, GNU and others"
-    "Contains: åutoconf, Autoconf_archive, Automake, libtool, M4, make, sed, Bison, flex, Berkeley Yacc (byacc), " +
+    "Contains: åutoconf, Autoconf_archive, Automake, makeinfo, libtool, M4, make, sed, Bison, flex, Berkeley Yacc (byacc), " +
     "CMake, Ninja, Meson, SCons, NASM, Yasm, patchelf, gperf, re2c, help2man, Doxygen and xxd"
 ]
 
 description = """
 A bundle of often used build tools, GNU and others: autoconf, autoconf_archive,
-automake, libtool, M4, make, git, sed, Bison, flex, Berkeley Yacc (byacc), CMake,
-Ninja, Meson, SCons, NASM, Yasm, patchelf, pkg-config, gperf, re2c, help2man
+automake, makeinfo, libtool, M4, make, git, sed, Bison, flex, Berkeley Yacc (byacc),
+CMake, Ninja, Meson, SCons, NASM, Yasm, patchelf, pkg-config, gperf, re2c, help2man
 and Doxygen.
 """
 
@@ -66,6 +67,7 @@ building software. Many of them are GNU tools.
 + GNU Autoconf %(autoconf)s               - https://www.gnu.org/software/autoconf/
 + GNU Autoconf Archive %(autoconfarchive)s - https://www.gnu.org/software/autoconf/
 + GNU Automake %(automake)s             - https://www.gnu.org/software/automake/
++ GNU makeinfo %(makeinfo)s             -  https://www.gnu.org/software/texinfo/
 + GNU libtool %(libtool)s               - https://www.gnu.org/software/libtool/
 + GNU M4 %(m4)s                   - https://www.gnu.org/software/m4/
 + GNU make %(make)s                    - https://www.gnu.org/software/make/
@@ -88,10 +90,13 @@ building software. Many of them are GNU tools.
 + xxd %(xxd)s                          - https://www.vim.org
 These tools are all build against the system libraries and have been used to
 build several of the %(ver)s packages.
+
+Note that makeinfo is not fully functional as there is no TeX on the system.
 """ % {
     'autoconf'        : local_Autoconf_version,
     'autoconfarchive' : local_Autoconf_archive_version,
     'automake'        : local_Automake_version,
+    'makeinfo'        : local_makeinfo_version,
     'libtool'         : local_libtool_version,
     'm4'              : local_M4_version,
     'make'            : local_make_version,
@@ -178,6 +183,12 @@ components = [
         'source_urls': [GNU_SOURCE],
         'checksums':   ['f14c83cfebcc9427f2c3cea7258bd90df972d92eb26752da4ddad81c87a0faa4'],
         'start_dir':   '%(namelower)s-%(version)s'
+        }),
+    ('makeinfo', local_makeinfo_version, { # Uses the system perl
+        'sources':     ['texinfo-%(version)s.tar.xz'],
+        'source_urls': ['https://ftpmirror.gnu.org/gnu/texinfo'],
+        'checksums':   ['8eb753ed28bca21f8f56c1a180362aed789229bd62fff58bf8368e9beb59fec4'],
+        'start_dir':   'texinfo-%(version)s'
         }),
     ('Autoconf-archive', local_Autoconf_archive_version, { # Uses M4
         'sources':     [SOURCELOWER_TAR_XZ],
@@ -326,6 +337,134 @@ postinstallcmds = [
     'cd %(installdir)s/bin ; ln -s make gmake', # Some programs check for gmake first and fail if that version is too old.
 ]
 
+sanity_check_paths = {
+    'files': # Make
+             ['bin/make', 'bin/gmake'] +
+             # byacc
+             ['bin/byacc'] +
+             # M4
+             ['bin/m4'] +
+             # libtool
+             ['bin/libtool', 'bin/libtoolize', 'lib/libltdl.%s' % SHLIB_EXT] +
+             # Autoconf
+             ['bin/%s' % x
+              for x in ['autoconf', 'autoheader', 'autom4te', 'autoreconf',
+                       'autoscan', 'autoupdate', 'ifnames']] +
+             # makeinfo
+             ['bin/makeinfo'] +
+             # Autoconf-archive
+             # Automake
+             ['bin/aclocal',
+              'bin/aclocal-' + '.'.join(local_Automake_version.split('.')[:2]),
+              'bin/automake',
+              'bin/automake-' + '.'.join(local_Automake_version.split('.')[:2])] +
+             # help2man
+             ['bin/help2man'] +
+             # Bison
+             ['bin/%s' % x for x in ['bison', 'yacc']] + [('lib/liby.a', 'lib64/liby.a')] +
+             # flex
+             ['bin/flex', 'bin/lex', 'bin/lex++', 'lib/libfl.a', 'lib/libfl.%s' % SHLIB_EXT] +
+             # sed
+             ['bin/sed'] +
+             # CMake
+             ['bin/ccmake', 'bin/cmake', 'bin/cpack', 'bin/ctest'] +
+             # Ninja
+             ['bin/ninja'] +
+             # Meson
+             # SCons
+             ['bin/scons', 'bin/sconsign', 'bin/scons-configure-cache'] + # scons-time is missing in SCons 4? Strange as there is a manual page for it.
+             # gperf
+             ['bin/gperf'] +
+             # NASM
+             ['bin/nasm', 'bin/ndisasm'] +
+             # Yasm
+             ['bin/yasm', 'bin/vsyasm', 'bin/ytasm'] +
+             # patchelf
+             ['bin/patchelf'] +
+             # re2c
+             ['bin/re2c', 'bin/re2go', 'share/re2c/stdlib/unicode_categories.re'] +
+             # Doxygen
+             ['bin/doxygen'] +
+             # xxd
+             ['bin/xxd'],
+    'dirs':  # libtool
+             ['include/libltdl', 'share/libtool/loaders', 'share/man/man1'] +
+             # Autoconf
+             ['share/autoconf'] +
+             # Autoconf-archive
+             ['share/aclocal', 'share/doc/autoconf-archive'] +
+             # Automake
+             ['share/aclocal',
+              'share/aclocal-' +  '.'.join(local_Automake_version.split('.')[:2]),
+              'share/automake-' + '.'.join(local_Automake_version.split('.')[:2])] +
+             # CMake
+             ['share/cmake-' + '.'.join(local_CMake_version.split('.')[:2])] +
+             ['share/info'],
+}
+
+sanity_check_commands = [
+    # Make
+    'make --version',
+    # byacc
+    'byacc -V',
+    # M4
+    'm4 --version',
+    # libtool
+    'libtool --version',
+    # Autoconf
+    'autoconf --version',
+    'autoheader --version',
+    'autom4te --version',
+    'autoreconf --version',
+    'autoscan --version',
+    'autoupdate --version',
+    'ifnames --version',
+    # makeinfo
+    'makeinfo --version',
+    # Autoconf-archive
+    # Automake
+    'aclocal --version',
+    'aclocal-' + '.'.join(local_Automake_version.split('.')[:2]) + ' --version',
+    'automake --version',
+    'automake-' + '.'.join(local_Automake_version.split('.')[:2]) + ' --version',
+    # help2man
+    'help2man --version',
+    # Bison
+    'bison --version',
+    'yacc --version',
+    # flex
+    'flex --version',
+    # sed
+    'sed --version',
+    # CMake
+    'cmake --version',
+    'ccmake --version',
+    'cpack --version',
+    'ctest --version',
+    # Ninja
+    'ninja --version',
+    # Meson
+    'meson --version',
+    # SCons
+    'scons --help',
+    # gperf
+    'gperf --version',
+    # NASM
+    'nasm --version',
+    # Yasm
+    'yasm --version',
+    'vsyasm --version',
+    # patchelf
+    'patchelf --version',
+    # re2c
+    're2c --version',
+    're2go --version',
+    # Doxygen
+    'doxygen --version',
+    # xxd
+    'xxd -v',
+]
+
 modextrapaths = {
     'PYTHONPATH': ['lib/python%s/site-packages' % local_system_pyshortver]
 }
@@ -351,6 +490,8 @@ modextravars = {
     'EBVERSIONM4':                 local_M4_version,
     'EBROOTMAKE':                  '%(installdir)s',
     'EBVERSIONMAKE':               local_make_version,
+    'EBROOTMAKEINFO':              '%(installdir)s',
+    'EBVERSIONMAKEINVO':           local_makeinfo_version,
     'EBROOTSED':                   '%(installdir)s',
     'EBVERSIONSED':                local_sed_version,
     'EBROOTCMAKE':                 '%(installdir)s',
@@ -382,7 +523,7 @@ modextravars = {
 moduleclass = 'devel'
 modluafooter = """
 extensions( "Autoconf/%(autoconf)s, Autoconf-archive/%(autoconfarchive)s, Automake/%(automake)s, " ..
-            "libtool/%(libtool)s, M4/%(m4)s, make/%(make)s, sec/%(sed)s, Bison/%(bison)s, flex/%(flex)s, " ..
+            "makeinfo/%(makeinfo)s, libtool/%(libtool)s, M4/%(m4)s, make/%(make)s, sec/%(sed)s, Bison/%(bison)s, flex/%(flex)s, " ..
             "byacc/%(byacc)s, CMake/%(cmake)s, Ninja/%(ninja)s, Meson/%(meson)s, " ..
             "SCons/%(SCons)s, NASM/%(nasm)s, Yasm/%(yasm)s, patchelf/%(patchelf)s, " ..
             "re2c/%(re2c)s, gperf/%(gperf)s, help2man/%(help2man)s, Doxygen/%(doxygen)s, xxd/%(xxd)s"
@@ -391,6 +532,7 @@ extensions( "Autoconf/%(autoconf)s, Autoconf-archive/%(autoconfarchive)s, Automa
     'autoconf'        : local_Autoconf_version,
     'autoconfarchive' : local_Autoconf_archive_version,
     'automake'        : local_Automake_version,
+    'makeinfo'        : local_makeinfo_version,
     'libtool'         : local_libtool_version,
     'm4'              : local_M4_version,
     'make'            : local_make_version,
