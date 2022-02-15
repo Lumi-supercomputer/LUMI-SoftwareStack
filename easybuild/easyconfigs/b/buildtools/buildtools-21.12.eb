@@ -52,7 +52,6 @@ whatis = [
     "Description: A bundle of often used build tools, GNU and others"
     "Contains: åutoconf, Autoconf_archive, Automake, makeinfo, libtool, M4, make, sed, Bison, flex, Berkeley Yacc (byacc), " +
     "CMake, Ninja, Meson, SCons, NASM, Yasm, patchelf, gperf, re2c, help2man, Doxygen and xxd"
-    "CMake, Ninja, Meson, SCons, NASM, Yasm, patchelf, gperf, re2c, help2man, Doxygen and xxd"
 ]
 
 description = """
