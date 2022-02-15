@@ -32,7 +32,7 @@ docurls = [
     'Man pages available for bzcmp, bzdiff, bzegrep, bzfgrep, bzgrep, bzip2, bunzip2, bzless and bzmore',
 ]
 
-toolchain = {'name': 'cpeAMD', 'version': '21.12'}
+toolchain = {'name': 'cpeAOCC', 'version': '21.12'}
 toolchainopts = {'pic': True}
 
 source_urls = ['https://sourceware.org/pub/%(name)s/']
