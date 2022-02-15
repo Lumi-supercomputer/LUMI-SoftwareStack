@@ -108,15 +108,15 @@ then
 	cpeGNU=( 'common:C:G:D:L' )
     cpeCray=( 'common:C:G:D:L' )
     cpeAOCC=( 'common:C:D:L' )
-    #declare -A cpeENV=( ['cpeGNU']=$cpeGNU ['cpeCray']=$cpeCray ['cpeAOCC']=$cpeAOCC )
-    declare -A cpeENV=( ['cpeGNU']=$cpeGNU ['cpeCray']=$cpeCray )
+    declare -A cpeENV=( ['cpeGNU']=$cpeGNU ['cpeCray']=$cpeCray ['cpeAOCC']=$cpeAOCC )
+    #declare -A cpeENV=( ['cpeGNU']=$cpeGNU ['cpeCray']=$cpeCray )
 else # We're likely on eiger, we can't test everything here.
 	partitions=( 'L' )
 	cpeGNU=( 'common:L' )
     cpeCray=( 'common:L' )
     cpeAOCC=( 'common:L' )
-    #declare -A cpeENV=( ['cpeGNU']=$cpeGNU ['cpeCray']=$cpeCray ['cpeAOCC']=$cpeAOCC )
-    declare -A cpeENV=( ['cpeGNU']=$cpeGNU ['cpeCray']=$cpeCray )
+    declare -A cpeENV=( ['cpeGNU']=$cpeGNU ['cpeCray']=$cpeCray ['cpeAOCC']=$cpeAOCC )
+    #declare -A cpeENV=( ['cpeGNU']=$cpeGNU ['cpeCray']=$cpeCray )
 fi
 
 

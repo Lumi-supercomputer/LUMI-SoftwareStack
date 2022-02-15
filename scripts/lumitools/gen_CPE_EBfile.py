@@ -14,22 +14,25 @@
 #
 # - Define the mapping between cpe* module and compiler module.
 map_cpe_compilermodule = {
-    'cpeCray':'cce',
-    'cpeGNU': 'gcc',
-    'cpeAMD': 'aocc'
+    'cpeCray': 'cce',
+    'cpeGNU':  'gcc',
+    'cpeAOCC': 'aocc',
+    'cpeAMD':  'rocm'
     }
 # - Define the mapping between cpe* module and PE compiler package (the packages s used
 #   in the CPEpackages_*.csv files)
 map_cpe_compilerpackage = {
-    'cpeCray':'CCE',
-    'cpeGNU': 'GCC',
-    'cpeAMD': 'AOCC'
+    'cpeCray': 'CCE',
+    'cpeGNU':  'GCC',
+    'cpeAOCC': 'AOCC',
+    'cpeAMD':  'ROCM'
     }
 # - Define the mapping between cpe* module and PRgEnv modules
 map_cpe_PrgEnv = {
-    'cpeCray':'PrgEnv-cray',
-    'cpeGNU': 'PrgEnv-gnu',
-    'cpeAMD': 'PrgEnv-aocc'
+    'cpeCray': 'PrgEnv-cray',
+    'cpeGNU':  'PrgEnv-gnu',
+    'cpeAOCC': 'PrgEnv-aocc',
+    'cpeAMD':  'PrgEnv-amd',
     }
 
 
@@ -82,14 +85,14 @@ elif local_partition == 'C':
     ]
 elif local_partition == 'G':
     cray_targets = [
-        'craype-x86-milan',
-        'craype-accel-amd-gfx908',
+        'craype-x86-trento',
+        'craype-accel-amd-gfx90a',
         'craype-network-ofi'
     ]
 elif local_partition == 'D':
     cray_targets = [
         'craype-x86-rome',
-        'craype-accel-host',
+        'craype-accel-nvidia80',
         'craype-network-ofi'
     ]
 
