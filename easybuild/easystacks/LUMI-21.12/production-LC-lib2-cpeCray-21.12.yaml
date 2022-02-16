@@ -55,10 +55,6 @@ software:
     toolchains:
       cpeCray-21.12:
         versions: ['1.0.6']
-  libffi:
-    toolchains:
-      cpeCray-21.12:
-        versions: ['3.4.2']
   libb2:
     toolchains:
       cpeCray-21.12:
@@ -71,6 +67,10 @@ software:
     toolchains:
       cpeCray-21.12:
         versions: ['1.8']
+  libffi:
+    toolchains:
+      cpeCray-21.12:
+        versions: ['3.4.2']
   libidn:
     toolchains:
       cpeCray-21.12:
@@ -255,7 +255,7 @@ software:
     toolchains:
       cpeCray-21.12:
         versions: ['3.5.1']
-  gettext: # Second entry for gettext, we may merge with the first and let EasyBuild figure out the dependencies.
+  gettext: # The version with -minimal should be installed right after libreadline, but it seems impossible to specify both.
     toolchains:
       cpeCray-21.12:
         versions: ['0.21']

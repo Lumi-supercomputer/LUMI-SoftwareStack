@@ -227,10 +227,6 @@ software:
     toolchains:
       cpeAOCC-21.12:
         versions: ['3.36.0']
-  SQLite:
-    toolchains:
-      cpeAOCC-21.12:
-        versions: ['3.36.0']
   XZ:
     toolchains:
       cpeAOCC-21.12:
