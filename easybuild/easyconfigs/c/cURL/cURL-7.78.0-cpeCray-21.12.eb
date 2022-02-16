@@ -38,7 +38,7 @@ docurls = [
     'Man pages for the curl and curl-config commands (section 1) and the library functions (section 3)',
 ]
 
-toolchain =     {'name': 'cpeGNU', 'version': '21.06'}
+toolchain = {'name': 'cpeCray', 'version': '21.12'}
 toolchainopts = {'pic': True}
 
 sources =     [SOURCELOWER_TAR_XZ]

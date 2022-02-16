@@ -51,7 +51,7 @@ docurls = [
     'Man pages for all command line tools (man section 1) and for the API (man section 3)',
 ]
 
-toolchain = {'name': 'cpeAMD', 'version': '21.08'}
+toolchain = {'name': 'cpeAOCC', 'version': '21.12'}
 
 source_urls = [GNU_SOURCE]
 sources =     [SOURCE_TAR_XZ]

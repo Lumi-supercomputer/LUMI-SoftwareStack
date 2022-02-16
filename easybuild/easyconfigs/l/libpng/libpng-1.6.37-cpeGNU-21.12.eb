@@ -30,7 +30,7 @@ png_get_xxx() and png_set_xxx() accessor functions, which have existed for
 almost as long as libpng itself.
 """
 
-toolchain = {'name': 'cpeAMD', 'version': '21.08'}
+toolchain = {'name': 'cpeGNU', 'version': '21.12'}
 toolchainopts = {'pic': True}
 
 source_urls = [SOURCEFORGE_SOURCE]
