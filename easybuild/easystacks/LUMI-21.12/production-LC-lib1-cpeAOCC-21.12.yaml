@@ -1,0 +1,15 @@
+software:
+  ncurses:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['6.2']
+  libreadline:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['8.1']
+  gettext:
+    toolchains:
+      cpeAOCC-21.12:
+        versions:
+          '0.21':
+            versionsuffix: '-minimal'

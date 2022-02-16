@@ -1,0 +1,339 @@
+software:
+  libiconv:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['1.16']
+  FriBidi:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['1.0.10']
+  ICU:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['69.1']
+  libunistring:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['0.9.10']
+  bzip2:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['1.0.8']
+  Brotli:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['1.0.9']
+  libaec:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['1.0.6']
+  lz4:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['1.9.3']
+  Szip:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['2.1.1']
+  zlib:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['1.2.11']
+  gzip:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['1.10']
+  XZ:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['5.2.5']
+  Lzip:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['1.22']
+  zstd:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['1.5.0']
+  libb2:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['0.98.1']
+  LZO:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['2.10']
+  snappy:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['1.1.8']
+  Blosc:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['1.21.1']
+  libdeflate:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['1.8']
+  libarchive:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['3.5.1']
+  giflib:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['5.2.1']
+  libjpeg-turbo:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['2.1.0']
+  JasPer:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['2.0.33']
+  libpng:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['1.6.37']
+  LibTIFF:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['4.3.0']
+  libwebp:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['1.2.0']
+  x264:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['20210414']
+  x265:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['3.5']
+  libopus:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['1.3.1']
+  LAME:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['3.100']
+  libogg:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['1.3.5']
+  libvorbis:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['1.3.7']
+  FLAC:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['1.3.3']
+  libsndfile:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['1.0.31']
+  libtheora:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['1.1.1']
+  cURL:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['7.78.0']
+  expat:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['2.4.1']
+  ICU:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['69.1']
+  libxml2:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['2.9.12']
+  gettext: # The version with -minimal should be installed right after libreadline, but it seems impossible to specify both.
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['0.21']
+  libxslt:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['1.1.34']
+  libidn:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['1.38']
+  libidn2:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['2.3.2']
+  GSL:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['2.7']
+  libcerf:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['1.17']
+  GMP:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['6.2.1']
+  MPFR:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['4.1.0']
+  MPC:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['1.2.1']
+  mpdecimal:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['2.5.1']
+  double-conversion:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['3.1.5']
+  file:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['5.40']
+  gc:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['8.0.4']
+  gdbm:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['1.20']
+  libevent:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['2.1.12']
+  libffi:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['3.4.2']
+  libyaml:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['0.2.5']
+  LMDB:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['0.9.29']
+  PCRE:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['8.45']
+  PCRE2:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['10.37']
+  UDUNITS:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['2.2.28']
+  util-linux:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['2.37.1']
+  wget:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['1.21.1']
+  pixman:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['0.40.0']
+  freetype:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['2.10.4']
+  fontconfig:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['2.13.94']
+  DB:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['18.1.40']
+  libpciaccess:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['0.16']
+  termcap:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['1.3.1']
+  Perl:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['5.34.0']
+  intltool:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['0.51.0']
+  X11:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['21.08']
+  FFmpeg:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['4.3.3']
+  Tcl:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['8.6.11']
+  Tk:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['8.6.11']
+  SQLite:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['3.36.0']
+  PROJ:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['8.1.1']
+  libtirpc:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['1.3.2']
+  libgd:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['2.3.3']
+  GLib:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['2.69.1']
+  cairo:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['1.17.4']
+  GObject-Introspection:
+    toolchains:
+      cpeAOCC-21.12:
+        versions:
+          '1.68.0':
+            versionsuffix: '-cray-python3.8'
+  HarfBuzz:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['2.6.4']
+  Pango:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['1.48.10']
+  Boost:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['1.77.0']
