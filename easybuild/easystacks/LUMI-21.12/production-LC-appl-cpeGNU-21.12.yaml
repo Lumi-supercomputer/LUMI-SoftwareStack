@@ -1,0 +1,25 @@
+software:
+  METIS:
+    toolchains:
+      cpeGNU-21.12:
+        versions: ['5.1.0']
+  ParMETIS:
+    toolchains:
+      cpeGNU-21.12:
+        versions: ['4.0.3']
+  SCOTCH:
+    toolchains:
+      cpeGNU-21.12:
+        versions: ['6.1.1']
+  ESMF:
+    toolchains:
+      cpeGNU-21.12:
+        versions: ['8.1.1']
+  gnuplot:
+    toolchains:
+      cpeGNU-21.12:
+        versions: ['5.4.2']
+  ELPA:
+    toolchains:
+      cpeGNU-21.12:
+        versions: ['2021.11.001']
