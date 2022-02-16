@@ -14,7 +14,7 @@ software:
   ESMF:
     toolchains:
       cpeCray-21.12:
-        versions: ['8.1.1']
+        versions: ['8.2.0']
   gnuplot:
     toolchains:
       cpeCray-21.12:
