@@ -30,7 +30,7 @@ docurls = [
     'Web-based documentation on https://xiph.org/vorbis/doc/',
 ]
 
-toolchain = {'name': 'cpeAMD', 'version': '21.08'}
+toolchain = {'name': 'cpeCray', 'version': '21.12'}
 toolchainopts = {'pic': True}
 
 # http://downloads.xiph.org/releases/vorbis/libvorbis-1.3.6.tar.xz

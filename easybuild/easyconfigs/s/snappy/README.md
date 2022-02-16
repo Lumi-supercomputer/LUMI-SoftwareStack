@@ -34,3 +34,9 @@ This README was developed starting with snappy 1.1.8 in the CPE 21.06.
 
   * We also added an option to install in lib instead of lib64 as almost all of the other
     packages also install in lib.
+
+
+### 1.1.9 from CPE 21.12 on
+
+  * Went to 1.1.9 but used the fix from the EasyBuilders EasyConfig to avoid the use
+    of the Google tools

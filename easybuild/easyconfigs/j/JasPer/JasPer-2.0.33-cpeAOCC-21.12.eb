@@ -43,7 +43,7 @@ docurls = [
     'Man pages and --help option for the command line tools imgcmp, imginfo and jasper',
 ]
 
-toolchain = {'name': 'cpeAMD', 'version': '21.08'}
+toolchain = {'name': 'cpeAOCC', 'version': '21.12'}
 toolchainopts = {'pic': True}
 
 github_account = 'jasper-software'

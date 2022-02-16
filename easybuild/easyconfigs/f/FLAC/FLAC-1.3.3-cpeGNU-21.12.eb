@@ -40,7 +40,7 @@ docurls = [
     'Man pages in section 1 for the flac and metaflac commands',
 ]
 
-toolchain = {'name': 'cpeAMD', 'version': '21.08'}
+toolchain = {'name': 'cpeGNU', 'version': '21.12'}
 toolchainopts = {'pic': True}
 
 sources =     [SOURCELOWER_TAR_XZ]

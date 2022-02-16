@@ -27,17 +27,13 @@ MPFR is free. It is distributed under the GNU Lesser General Public License
 (GNU Lesser GPL), version 3 or later.\
 
 The module provides both static and shared libraries.
-
-NOTE: When running the included tests, two tests are skipped when using
-Clang-based compilers so the library may be less complete than the
-cpeGNU-based one.
 """
 
 docurls = [
     'Support for the info command (info mpfr)'
 ]
 
-toolchain = {'name': 'cpeAMD', 'version': '21.08'}
+toolchain = {'name': 'cpeGNU', 'version': '21.12'}
 toolchainopts = {'pic': True}
 
 source_urls = ['http://www.mpfr.org/mpfr-%(version)s/']
