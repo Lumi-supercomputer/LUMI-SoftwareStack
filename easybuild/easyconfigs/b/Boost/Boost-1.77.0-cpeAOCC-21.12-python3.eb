@@ -9,8 +9,9 @@ local_zstd_version =         '1.5.0'         # https://github.com/facebook/zstd/
 
 local_Boost_version =        '1.77.0'        # https://www.boost.org/
 
-name =    'Boost'
-version = local_Boost_version
+name =          'Boost'
+version =       local_Boost_version
+versionsuffix = '-python%(pymajver)s'
 
 homepage = 'http://www.boost.org/'
 
@@ -36,13 +37,13 @@ standardization in C++17.
 This module includes static and shared libraries, compiled with MPI support.
 The library boost_python is build for the system Python.
 
-This version of the module does not include support for Cray Python.
+This version of the module includes support for Cray Python.
 The module does inlude single-threaded (suffix -x86) and multithreaded (suffix
 -mt-x86) versions of the libraries. The default names (without suffix) link
 to the multithreaded versions.
 """
 
-toolchain = {'name': 'cpeAMD', 'version': '21.08'}
+toolchain = {'name': 'cpeAOCC', 'version': '21.12'}
 toolchainopts = {'usempi': True, 'pic': True, 'verbose': False}
 
 # https://boostorg.jfrog.io/native/main/release/1.77.0/source/boost_1_77_0.tar.bz2
@@ -55,13 +56,14 @@ builddependencies = [ # Create a reproducible build environment.
 ]
 
 dependencies = [
-    ('bzip2', local_bzip2_version),
-    ('zlib',  local_zlib_version),
-    ('zstd',  local_zstd_version),
-    ('ICU',   local_ICU_version),
+    ('bzip2',       local_bzip2_version),
+    ('zlib',        local_zlib_version),
+    ('zstd',        local_zstd_version),
+    ('ICU',         local_ICU_version),
+    ('cray-python', EXTERNAL_MODULE),
 ]
 
-configopts = '--without-libraries=python'
+configopts = " --with-python=$(EBROOTPYTHON)/bin/python  --with-python-version=%(pyshortver)s --with-python-root=$(EBROOTPYTHON)/lib/python%(pyshortver)s"
 
 # Also build boost_mpi - not needed as we already set use_mpi to True
 # boost_mpi = True
@@ -69,6 +71,12 @@ configopts = '--without-libraries=python'
 # Toolsets - Not needed as the EasyBlock recognizes the toolchain.
 # toolset = 'clang'
 # build_toolset = 'clang'
+
+# for python3 the corresponding lib is libboost_python%(pymajver)s%(pyminver)s.so
+sanity_check_paths = {
+    'files': ['lib/libboost_system.so', 'lib/libboost_mpi.so', 'lib/libboost_python%(pymajver)s%(pyminver)s.so'],
+    'dirs':  ['include/%(namelower)s'],
+}
 
 modextravars = {'BOOST_ROOT': '%(installdir)s'}
 
