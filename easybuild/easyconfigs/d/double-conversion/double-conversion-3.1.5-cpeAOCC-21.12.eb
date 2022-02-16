@@ -20,7 +20,7 @@ extracted from the V8 JavaScript engine. The code has been refactored and
 improved so that it can be used more easily in other projects.
 """
 
-toolchain = {'name': 'cpeAMD', 'version': '21.08'}
+toolchain = {'name': 'cpeAOCC', 'version': '21.12'}
 
 sources = [{
     'download_filename': 'v%(version)s.tar.gz',
