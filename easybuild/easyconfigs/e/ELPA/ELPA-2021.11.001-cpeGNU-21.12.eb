@@ -1,0 +1,78 @@
+# Contributed by Luca Marsella (CSCS)
+# Some adaptations by Kurt Lust (University of Antwerpen and LUMI consortium)
+easyblock = 'ConfigureMake'
+
+local_ELPA_version =           '2021.11.001'     # Synchronized with CSCS but also the version in EB 2021b
+
+name =    'ELPA'
+version = local_ELPA_version
+
+homepage = 'http://elpa.mpcdf.mpg.de'
+
+whatis = [
+    "Description: ELPA - Eigenvalue SoLvers for Petaflop-Applications",
+]
+
+description = """
+The publicly available ELPA library provides highly efficient and highly
+scalable direct eigensolvers for symmetric matrices. Though especially designed
+for use for PetaFlop/s applications solving large problem sizes on massively
+parallel supercomputers, ELPA eigensolvers have proven to be also very efficient
+for smaller matrices. All major architectures are supported.
+
+ELPA provides static and shared libraries with and without OpenMP support
+and with and without MPI. GPU support is not included in this module.
+"""
+
+docurls = [
+    'Manual pages in section 1 and 3'
+]
+
+toolchain = {'name': 'cpeGNU', 'version': '21.12'}
+toolchainopts = {'usempi': True, 'openmp': True}
+
+# https://gitlab.mpcdf.mpg.de/elpa/elpa/-/archive/new_release_2021_05_002/elpa-new_release_2021_05_002.tar.bz2
+# https://gitlab.mpcdf.mpg.de/elpa/elpa/-/archive/new_release_2021_05_002/elpa-new_release_2021_05_002.tar.gz
+local_version_underscore = '_'.join( version.split('.') )
+source_urls = ['https://gitlab.mpcdf.mpg.de/elpa/elpa/-/archive/new_release_%s/' % local_version_underscore]
+sources =     ['elpa-new_release_%s.tar.bz2' % local_version_underscore]
+patches =     ['%(name)s-%(version)s_fix_hardcoded_perl_path.patch']
+checksums =   [
+    'e61048393a5e5f460858a11b216547fa3f434dd620c478cb20a52ebf543260f1',  # elpa-new_release_2021.11.001.tar.gz
+    # ELPA-2021.11.001_fix_hardcoded_perl_path.patch
+    '5fc40b6f3f948fd026efc688f9bafba0461d68ad007d9dc161bfd1507e2fc13b',
+]
+
+builddependencies = [ # We use the system Python and Perl.
+    ('buildtools', '%(toolchain_version)s', '', True), # For Autotools and others.
+]
+
+preconfigopts  = './autogen.sh && '
+preconfigopts += " CC=cc CXX=CC FC=ftn && "
+
+# TODO: GPU support for future versions, there is an --enable-gpu/--disable-gpu switch!
+local_commonopts = ' FCFLAGS="$FCFLAGS" --disable-generic --disable-sse --disable-avx --enable-avx2  --disable-avx512 --enable-static '
+configopts = [
+    local_commonopts + ' --disable-openmp ',
+    local_commonopts + ' --enable-openmp '
+]
+
+prebuildopts = " make clean && "
+
+sanity_check_paths = {
+    'files': ['lib/libelpa.a', 'lib/libelpa.so', 'lib/libelpa_openmp.a', 'lib/libelpa_openmp.so'],
+    'dirs':  ['bin', 'lib/pkgconfig',
+              'include/%(namelower)s-%(version)s/%(namelower)s', 'include/%(namelower)s-%(version)s/modules',
+              'include/%(namelower)s_openmp-%(version)s/%(namelower)s', 'include/%(namelower)s_openmp-%(version)s/modules']
+}
+
+modextrapaths = {
+    'CPATH': ['include/elpa_openmp-%(version)s', 'include/elpa-%(version)s']
+}
+
+modextravars = {
+    'ELPA_INCLUDE_DIR': '%(installdir)s/include/elpa-%(version)s',
+    'ELPA_OPENMP_INCLUDE_DIR': '%(installdir)s/include/elpa_openmp-%(version)s'
+}
+
+moduleclass = 'math'

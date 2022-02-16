@@ -1,7 +1,7 @@
 easyblock = 'CMakeMake'
 
 name =    'Blosc'
-version = '1.21.0'
+version = '1.21.1'
 
 homepage = 'https://www.blosc.org/'
 
@@ -26,7 +26,7 @@ multi-core processors so as to accelerate the compression/decompression
 process to a maximum.
 """
 
-toolchain = {'name': 'cpeAMD', 'version': '21.08'}
+toolchain = {'name': 'cpeAOCC', 'version': '21.12'}
 toolchainopts = {'pic': True}
 
 #source_urls = ['https://github.com/Blosc/c-blosc/archive/']
@@ -34,7 +34,7 @@ toolchainopts = {'pic': True}
 sources = [ { 'filename': SOURCELOWER_TAR_GZ,
               'download_filename': 'v%(version)s.tar.gz',
               'source_urls': ['https://github.com/Blosc/c-blosc/archive/'] } ]
-checksums =   ['b0ef4fda82a1d9cbd11e0f4b9685abf14372db51703c595ecd4d76001a8b342d']
+checksums =   ['f387149eab24efa01c308e4cba0f59f64ccae57292ec9c794002232f7903b55b']
 
 builddependencies = [
     ('buildtools', '%(toolchain_version)s', '', True),

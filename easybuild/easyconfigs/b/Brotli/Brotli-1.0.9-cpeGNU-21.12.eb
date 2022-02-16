@@ -23,7 +23,7 @@ The specification of the Brotli Compressed Data Format is defined in RFC 7932.
 Brotli is open-sourced under the MIT License, see the LICENSE file.
 """
 
-toolchain = {'name': 'cpeAMD', 'version': '21.08'}
+toolchain = {'name': 'cpeGNU', 'version': '21.12'}
 toolchainopts = {'pic': True}
 
 sources = [ {

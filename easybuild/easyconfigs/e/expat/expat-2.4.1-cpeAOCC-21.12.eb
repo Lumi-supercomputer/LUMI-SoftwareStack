@@ -33,7 +33,7 @@ docurls = [
 ]
 
 
-toolchain = {'name': 'cpeAMD', 'version': '21.08'}
+toolchain = {'name': 'cpeAOCC', 'version': '21.12'}
 toolchainopts = {'pic': True}
 
 sources =     [SOURCELOWER_TAR_BZ2]

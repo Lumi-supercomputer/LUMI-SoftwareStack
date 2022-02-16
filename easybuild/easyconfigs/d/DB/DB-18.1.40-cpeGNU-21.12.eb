@@ -28,7 +28,7 @@ device to the data center, from a local storage solution to a world-wide
 distributed one, from kilobytes to petabytes.
 """
 
-toolchain = {'name': 'cpeAMD', 'version': '21.08'}
+toolchain = {'name': 'cpeGNU', 'version': '21.12'}
 
 # use http to allow auto-downloading...
 source_urls = ['http://download.oracle.com/berkeley-db/']
