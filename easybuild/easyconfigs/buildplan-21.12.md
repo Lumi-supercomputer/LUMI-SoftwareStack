@@ -270,8 +270,6 @@ The following EasyBuild packages are replaced by OS dependencies:
   * FFmpeg (cpe*) - Depends on FriBidi, bzip2, zlib, x264, x265 (block 1), LAME (block 2),
     freetype (block 3), fontconfig (block 8) and X11 (block 8)
 
-    TODO: FFmpeg for Cray and AOCC???
-
   * Tk (cpe*) - Depends on zlib (block 1), Tcl (block 2) and X11 (block 8)
 
 
