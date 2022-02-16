@@ -17,7 +17,7 @@ description = """
 Generic PCI access library.
 """
 
-toolchain = {'name': 'cpeAMD', 'version': '21.08'}
+toolchain = {'name': 'cpeGNU', 'version': '21.12'}
 
 source_urls = ['https://www.x.org/releases/individual/lib/']
 sources =     [SOURCE_TAR_GZ]

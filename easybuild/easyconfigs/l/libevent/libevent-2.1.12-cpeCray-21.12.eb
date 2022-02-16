@@ -25,7 +25,7 @@ comes across first in the path. Hence it may fail when a Python module is
 loaded.
 """
 
-toolchain = {'name': 'cpeAMD', 'version': '21.08'}
+toolchain = {'name': 'cpeCray', 'version': '21.12'}
 toolchainopts = {'pic': True}
 
 source_urls = ['https://github.com/%(name)s/%(name)s/releases/download/release-%(version)s-stable/']
