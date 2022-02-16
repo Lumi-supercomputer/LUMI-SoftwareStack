@@ -1,0 +1,72 @@
+#- Adds a pkgconfig/bzip2.pc file
+#- Moves manual pages to share/man/man1 (Author: Kurt Lust)
+#
+# author: Jiri Furst <jiri.furst@gmail.com>
+# inspired by OpenSUSE patch by Stanislav Brabec <sbrabec@suse.cz>, see
+# http://ftp.suse.com/pub/people/sbrabec/bzip2/
+diff -Nau bzip2-1.0.8.orig/bzip2.pc.in bzip2-1.0.6/bzip2.pc.in
+--- bzip2-1.0.8.orig/bzip2.pc.in	1970-01-01 01:00:00.000000000 +0100
++++ bzip2-1.0.8/bzip2.pc.in	2019-05-01 11:47:29.795517973 +0200
+@@ -0,0 +1,11 @@
++exec_prefix=${prefix}
++bindir=${exec_prefix}/bin
++libdir=${exec_prefix}/lib
++includedir=${prefix}/include
++
++Name: bzip2
++Description: Lossless, block-sorting data compression
++Version: 1.0.8
++Libs: -L${libdir} -lbz2
++Cflags: -I${includedir}
++
+diff -Nau bzip2-1.0.8.orig/Makefile bzip2-1.0.8/Makefile
+--- bzip2-1.0.8.orig/Makefile	2022-02-16 14:56:08.433867446 +0100
++++ bzip2-1.0.8/Makefile	2022-02-16 14:54:41.938192197 +0100
+@@ -72,8 +72,8 @@
+ install: bzip2 bzip2recover
+ 	if ( test ! -d $(PREFIX)/bin ) ; then mkdir -p $(PREFIX)/bin ; fi
+ 	if ( test ! -d $(PREFIX)/lib ) ; then mkdir -p $(PREFIX)/lib ; fi
+-	if ( test ! -d $(PREFIX)/man ) ; then mkdir -p $(PREFIX)/man ; fi
+-	if ( test ! -d $(PREFIX)/man/man1 ) ; then mkdir -p $(PREFIX)/man/man1 ; fi
++	if ( test ! -d $(PREFIX)/share/man ) ; then mkdir -p $(PREFIX)/share/man ; fi
++	if ( test ! -d $(PREFIX)/share/man/man1 ) ; then mkdir -p $(PREFIX)/share/man/man1 ; fi
+ 	if ( test ! -d $(PREFIX)/include ) ; then mkdir -p $(PREFIX)/include ; fi
+ 	cp -f bzip2 $(PREFIX)/bin/bzip2
+ 	cp -f bzip2 $(PREFIX)/bin/bunzip2
+@@ -83,8 +83,8 @@
+ 	chmod a+x $(PREFIX)/bin/bunzip2
+ 	chmod a+x $(PREFIX)/bin/bzcat
+ 	chmod a+x $(PREFIX)/bin/bzip2recover
+-	cp -f bzip2.1 $(PREFIX)/man/man1
+-	chmod a+r $(PREFIX)/man/man1/bzip2.1
++	cp -f bzip2.1 $(PREFIX)/share/man/man1
++	chmod a+r $(PREFIX)/share/man/man1/bzip2.1
+ 	cp -f bzlib.h $(PREFIX)/include
+ 	chmod a+r $(PREFIX)/include/bzlib.h
+ 	cp -f libbz2.a $(PREFIX)/lib
+@@ -99,14 +99,17 @@
+ 	cp -f bzdiff $(PREFIX)/bin/bzdiff
+ 	ln -s -f $(PREFIX)/bin/bzdiff $(PREFIX)/bin/bzcmp
+ 	chmod a+x $(PREFIX)/bin/bzdiff
+-	cp -f bzgrep.1 bzmore.1 bzdiff.1 $(PREFIX)/man/man1
+-	chmod a+r $(PREFIX)/man/man1/bzgrep.1
+-	chmod a+r $(PREFIX)/man/man1/bzmore.1
+-	chmod a+r $(PREFIX)/man/man1/bzdiff.1
+-	echo ".so man1/bzgrep.1" > $(PREFIX)/man/man1/bzegrep.1
+-	echo ".so man1/bzgrep.1" > $(PREFIX)/man/man1/bzfgrep.1
+-	echo ".so man1/bzmore.1" > $(PREFIX)/man/man1/bzless.1
+-	echo ".so man1/bzdiff.1" > $(PREFIX)/man/man1/bzcmp.1
++	cp -f bzgrep.1 bzmore.1 bzdiff.1 $(PREFIX)/share/man/man1
++	chmod a+r $(PREFIX)/share/man/man1/bzgrep.1
++	chmod a+r $(PREFIX)/share/man/man1/bzmore.1
++	chmod a+r $(PREFIX)/share/man/man1/bzdiff.1
++	echo ".so man1/bzgrep.1" > $(PREFIX)/share/man/man1/bzegrep.1
++	echo ".so man1/bzgrep.1" > $(PREFIX)/share/man/man1/bzfgrep.1
++	echo ".so man1/bzmore.1" > $(PREFIX)/share/man/man1/bzless.1
++	echo ".so man1/bzdiff.1" > $(PREFIX)/share/man/man1/bzcmp.1
++	if ( test ! -d $(PREFIX)/lib/pkgconfig ) ; then mkdir -p $(PREFIX)/lib/pkgconfig ; fi
++	echo "prefix=$(PREFIX)" > $(PREFIX)/lib/pkgconfig/bzip2.pc
++	cat bzip2.pc.in >> $(PREFIX)/lib/pkgconfig/bzip2.pc
+
+ clean:
+ 	rm -f *.o libbz2.a bzip2 bzip2recover \

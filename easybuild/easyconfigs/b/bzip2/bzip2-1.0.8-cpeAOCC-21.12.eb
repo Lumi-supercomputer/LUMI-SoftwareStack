@@ -37,18 +37,29 @@ toolchainopts = {'pic': True}
 
 source_urls = ['https://sourceware.org/pub/%(name)s/']
 sources =     [SOURCE_TAR_GZ]
-patches =     ['bzip2-%(version)s-pkgconfig.patch']
-checksums =   [
+patches =     ['bzip2-%(version)s-pkgconfig-manpath.patch']
+checksums = [
     'ab5a03176ee106d3f0fa90e381da478ddae405918153cca248e682cd0c4a2269',  # bzip2-1.0.8.tar.gz
-    '290d9b6e98c4bf89bfe98f898d115f9e9aa16269e03c0848cb7da0102ec0e928',  # bzip2-1.0.8-pkgconfig.patch
+    'de11269dc6e4917023af4cee9ff83b204953ad9cde561dbc9d6fc70d9b9578e3',  # bzip2-1.0.8-pkgconfig-manpath.patch
 ]
 
 builddependencies = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
 ]
 
+sanity_check_paths = {
+    'files': [ 'lib/pkgconfig/bzip2.pc', 'lib/libbz2.a', 'lib/libbz2.%s' % SHLIB_EXT,
+               'lib/libbz2.%s.%s' % (SHLIB_EXT, local_bzip2_major_minor),
+               'lib/libbz2.%s.%s' % (SHLIB_EXT, local_bzip2_version),
+               'include/bzlib.h' ] +
+             [ 'bin/b%s' % x for x in ['unzip2', 'zcat', 'zdiff', 'zgrep', 'zip2', 'zip2recover', 'zmore'] ] +
+             [ 'share/man/man1/bz%s.1' % x for x in ['cmp', 'diff', 'egrep', 'fgrep', 'grep', 'ip2', 'less', 'more'] ],
+    'dirs':  []
+}
+
 sanity_check_commands = [
     'bzip2 --help',
+    'pkg-config --libs bzip2',
 ]
 
 moduleclass = 'tools'
