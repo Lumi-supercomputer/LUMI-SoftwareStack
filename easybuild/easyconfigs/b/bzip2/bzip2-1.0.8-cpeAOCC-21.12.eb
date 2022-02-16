@@ -62,8 +62,6 @@ sanity_check_paths = {
 sanity_check_commands = [
     'bzip2 --help',
     'pkg-config --libs bzip2',
-sanity_check_commands = [
-    'bzip2 --help',
 ]
 
 moduleclass = 'tools'
