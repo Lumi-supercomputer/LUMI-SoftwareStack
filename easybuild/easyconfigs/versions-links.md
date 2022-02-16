@@ -94,13 +94,13 @@ better to avoid bugs also).
 | [HarfBuzz](https://www.freedesktop.org/software/harfbuzz/release/) | [EB HarfBuzz](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/h/HarfBuzz) | / |
 | [ICU](http://site.icu-project.org/home) | [EB ICU](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/i/ICU) | / |
 | [intltool](https://launchpad.net/intltool/+download) | [EB intltool](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/i/intltool) | / |
-| [JasPer](https://github.com/jasper-software/jasper/releases) | [ EB JasPEr](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/j/JasPer) | [CSCS JasPer](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/j/JasPer) |
+| [JasPer](https://github.com/jasper-software/jasper/releases) | [ EB JasPer](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/j/JasPer) | [CSCS JasPer](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/j/JasPer) |
 | [LAME](http://lame.sourceforge.net/) | [EB LAME](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/LAME)
 | [EB CSCS](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/l/LAME) |
 | [libaec](https://gitlab.dkrz.de/k202009/libaec/-/tags) | [EB libaec](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/libaec) | [CSCS libaec](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/l/libaec) |
 | [libarchive](https://github.com/libarchive/libarchive/releases) | [EB libarchive](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/libarchive) | / |
 | [libatomic](https://github.com/ivmai/libatomic_ops/releases) | / | / |
-| [libb2](https://github.com/BLAKE2/libb2/releases) | / | / |
+| [libb2](https://github.com/BLAKE2/libb2/releases) | [EB gc](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/g/gc) | / |
 | [libcerf](https://jugit.fz-juelich.de/mlz/libcerf/-/releases) | [ EB libcerf](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/libcerf) | [CSCS libcerf](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/l/libcerf) |
 | [libdeflate](https://github.com/ebiggers/libdeflate/releases) | [EB libdeflate](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/libdeflate) | / |
 | [libevent](https://libevent.org/) | [EB libevent](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/libevent) | [CSCS libevent](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/l/libevent) |
@@ -125,7 +125,7 @@ better to avoid bugs also).
 | [libxml2](http://xmlsoft.org/sources/) | [EB libxml2](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/libxml2) | [CSCS libxml2](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/l/libxml2) |
 | [libxslt](http://xmlsoft.org/sources/) | [EB libxslt](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/libxslt) | / |
 | [libyaml](https://github.com/yaml/libyaml/releases) | [ EB libyaml](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/libyaml) |  [CSCS libyaml](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/l/libyaml) |
-| [LMDB](https://github.com/LMDB/lmdb/releases) | [LEBLMDB](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/LMDB) | [CSCS LMDB](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/l/LMDB) |
+| [LMDB](https://github.com/LMDB/lmdb/releases) | [LE LMDB](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/LMDB) | [CSCS LMDB](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/l/LMDB) |
 | [lz4](https://github.com/lz4/lz4/releases) | [EB lz4](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/lz4) | [CSCS lz4](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/l/lz4) |
 | [lzip](http://download.savannah.gnu.org/releases/lzip/) | / | / |
 | [LZO](http://www.oberhumer.com/opensource/lzo/#download) | [EB LZO](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/LZO) | / |
