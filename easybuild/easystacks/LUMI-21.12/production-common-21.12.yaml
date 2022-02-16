@@ -9,3 +9,11 @@ software:
         versions:
           '21.12':
             versionsuffix: '-static'
+  Eigen:
+    toolchains:
+      SYSTEM:
+        versions: ['3.3.9']
+  xorg-macros:
+    toolchains:
+      SYSTEM:
+        versions: ['1.19.3']
