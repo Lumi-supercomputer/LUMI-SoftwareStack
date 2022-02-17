@@ -21,7 +21,7 @@ docpaths = [
     'share/doc/gc'
 ]
 
-toolchain = {'name': 'cpeAMD', 'version': '21.12'}
+toolchain = {'name': 'cpeAOCC', 'version': '21.12'}
 toolchainopts = {'pic': True}
 
 source_urls = [
