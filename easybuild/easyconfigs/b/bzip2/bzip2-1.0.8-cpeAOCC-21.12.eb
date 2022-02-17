@@ -47,6 +47,8 @@ builddependencies = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
 ]
 
+local_bzip2_major_minor =  '.'.join(local_bzip2_version.split('.')[:2])
+
 sanity_check_paths = {
     'files': [ 'lib/pkgconfig/bzip2.pc', 'lib/libbz2.a', 'lib/libbz2.%s' % SHLIB_EXT,
                'lib/libbz2.%s.%s' % (SHLIB_EXT, local_bzip2_major_minor),
