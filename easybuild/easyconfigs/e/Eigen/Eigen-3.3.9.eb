@@ -1,8 +1,15 @@
 # Adapted fro LUMI by Kurt Lust (kurt.lust@uantwerpen.be)
 local_buildset = '2020a'
 
-local_LUMI_version =         '21.08'         # Version of the CPE and buildtools
 local_Eigen_version =        '3.3.9'         # https://gitlab.com/libeigen/eigen/-/releases
+
+import os as local_os
+
+# The first line below is a dirty trick not very much loved by the EasyBuild developers but
+# it helps to make this EasyConfig indpendent of the LUMI software stack version as there is
+# no other reference to that version in the file that we can use since it relies on the
+# SYSTEM toolchain.
+local_LUMI_version = local_os.environ['LUMI_STACK_CPE_VERSION']
 
 name =    'Eigen'
 version = local_Eigen_version
