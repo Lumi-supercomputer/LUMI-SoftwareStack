@@ -30,7 +30,7 @@ docurls = [
     'Support for the info command (info libffi)',
 ]
 
-toolchain = {'name': 'cpeAMD', 'version': '21.12'}
+toolchain = {'name': 'cpeAOCC', 'version': '21.12'}
 toolchainopts = {'pic': True}
 
 # https://github.com/libffi/libffi/releases/download/v3.4.2/libffi-3.4.2.tar.gz
