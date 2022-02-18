@@ -1,0 +1,221 @@
+software:
+  Blosc:
+    toolchains:
+      cpeGNU-21.12:
+        versions: ['1.21.1']
+  Brotli:
+    toolchains:
+      cpeGNU-21.12:
+        versions: ['1.0.9']
+  bzip2:
+    toolchains:
+      cpeGNU-21.12:
+        versions: ['1.0.8']
+  DB:
+    toolchains:
+      cpeCray-21.12:
+        versions: ['18.1.40']
+  double-conversion:
+    toolchains:
+      cpeGNU-21.12:
+        versions: ['3.1.5']
+  expat:
+    toolchains:
+      cpeGNU-21.12:
+        versions: ['2.4.1']
+  FriBidi:
+    toolchains:
+      cpeGNU-21.12:
+        versions: ['1.0.10']
+  giflib:
+    toolchains:
+      cpeGNU-21.12:
+        versions: ['5.2.1']
+  gc:
+    toolchains:
+      cpeGNU-21.12:
+        versions: ['8.2.0']
+  GMP:
+    toolchains:
+      cpeGNU-21.12:
+        versions: ['6.2.1']
+  GSL:
+    toolchains:
+      cpeGNU-21.12:
+        versions: ['2.7']
+  gzip:
+    toolchains:
+      cpeGNU-21.12:
+        versions: ['1.10']
+  ICU:
+    toolchains:
+      cpeGNU-21.12:
+        versions: ['69.1']
+  libaec:
+    toolchains:
+      cpeGNU-21.12:
+        versions: ['1.0.6']
+  libb2:
+    toolchains:
+      cpeGNU-21.12:
+        versions: ['0.98.1']
+  libcerf:
+    toolchains:
+      cpeGNU-21.12:
+        versions: ['1.17']
+  libdeflate:
+    toolchains:
+      cpeGNU-21.12:
+        versions: ['1.8']
+  libffi:
+    toolchains:
+      cpeGNU-21.12:
+        versions: ['3.4.2']
+  libidn:
+    toolchains:
+      cpeGNU-21.12:
+        versions: ['1.38']
+  libidn2:
+    toolchains:
+      cpeGNU-21.12:
+        versions: ['2.3.2']
+  libjpeg-turbo:
+    toolchains:
+      cpeGNU-21.12:
+        versions: ['2.1.0']
+  libogg:
+    toolchains:
+      cpeGNU-21.12:
+        versions: ['1.3.5']
+  libopus:
+    toolchains:
+      cpeGNU-21.12:
+        versions: ['1.3.1']
+  libtirpc:
+    toolchains:
+      cpeGNU-21.12:
+        versions: ['1.3.2']
+  libyaml:
+    toolchains:
+      cpeGNU-21.12:
+        versions: ['0.2.5']
+  LMDB:
+    toolchains:
+      cpeGNU-21.12:
+        versions: ['0.9.29']
+  lz4:
+    toolchains:
+      cpeGNU-21.12:
+        versions: ['1.9.3']
+  Lzip:
+    toolchains:
+      cpeGNU-21.12:
+        versions: ['1.23']
+  LZO:
+    toolchains:
+      cpeGNU-21.12:
+        versions: ['2.10']
+  mpdecimal:
+    toolchains:
+      cpeGNU-21.12:
+        versions: ['2.5.1']
+  Szip:
+    toolchains:
+      cpeGNU-21.12:
+        versions: ['2.1.1']
+  termcap:
+    toolchains:
+      cpeCray-21.12:
+        versions: ['1.3.1']
+  x264:
+    toolchains:
+      cpeGNU-21.12:
+        versions: ['20210613']
+  x265:
+    toolchains:
+      cpeGNU-21.12:
+        versions: ['3.5']
+  zlib:
+    toolchains:
+      cpeGNU-21.12:
+        versions: ['1.2.11']
+  cURL:
+    toolchains:
+      cpeGNU-21.12:
+        versions: ['7.78.0']
+  file:
+    toolchains:
+      cpeGNU-21.12:
+        versions: ['5.41']
+  FLAC:
+    toolchains:
+      cpeGNU-21.12:
+        versions: ['1.3.3']
+  JasPer:
+    toolchains:
+      cpeGNU-21.12:
+        versions: ['2.0.33']
+  LAME:
+    toolchains:
+      cpeGNU-21.12:
+        versions: ['3.100']
+  libevent:
+    toolchains:
+      cpeGNU-21.12:
+        versions: ['2.1.12']
+  libpciaccess:
+    toolchains:
+      cpeCray-21.12:
+        versions: ['0.16']
+  libpng:
+    toolchains:
+      cpeGNU-21.12:
+        versions: ['1.6.37']
+  libvorbis:
+    toolchains:
+      cpeGNU-21.12:
+        versions: ['1.3.7']
+  MPFR:
+    toolchains:
+      cpeGNU-21.12:
+        versions: ['4.1.0']
+  snappy:
+    toolchains:
+      cpeGNU-21.12:
+        versions: ['1.1.9']
+  Tcl:
+    toolchains:
+      cpeGNU-21.12:
+        versions: ['8.6.11']
+  UDUNITS:
+    toolchains:
+      cpeGNU-21.12:
+        versions: ['2.2.28']
+  freetype:
+    toolchains:
+      cpeGNU-21.12:
+        versions: ['2.11.0']
+  libiconv:
+    toolchains:
+      cpeGNU-21.12:
+        versions: ['1.16']
+  libsndfile:
+    toolchains:
+      cpeGNU-21.12:
+        versions: ['1.0.31']
+  libtheora:
+    toolchains:
+      cpeGNU-21.12:
+        versions: ['1.1.1']
+  MPC:
+    toolchains:
+      cpeGNU-21.12:
+        versions: ['1.2.1']
+  PCRE:
+    toolchains:
+      cpeGNU-21.12:
+        versions: ['8.45']
+  PCRE2:
+    toolchains:
+      cpeGNU-21.12:
+        versions: ['10.37']
