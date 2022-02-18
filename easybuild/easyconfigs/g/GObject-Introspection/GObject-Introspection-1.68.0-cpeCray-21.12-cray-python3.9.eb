@@ -7,7 +7,7 @@ local_libffi_version =       '3.4.2'         # ftp://sourceware.org/pub/libffi/
 local_GLib_version =         '2.69.1'        # https://ftp.gnome.org/pub/GNOME/sources/glib/
 local_util_version =         '2.37.1'        # https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/
 
-local_craypython_version =  '3.9.4'
+local_craypython_version =  '3.9.4.2'
 
 local_GObject_version =      '1.68.0'        # https://github.com/GNOME/gobject-introspection/releases
 

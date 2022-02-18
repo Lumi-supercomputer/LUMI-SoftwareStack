@@ -8,7 +8,7 @@ local_ICU_version =          '69.1'          # http://site.icu-project.org/home
 local_freetype_version =     '2.11.0'        # https://download.savannah.gnu.org/releases/freetype/
 local_GObject_version =      '1.68.0'        # https://github.com/GNOME/gobject-introspection/releases
 
-local_craypython_version =  '3.9.4'
+local_craypython_version =  '3.9.4.2'
 
 local_HarfBuzz_version =     '2.8.2'          # https://www.freedesktop.org/software/harfbuzz/release/
 
