@@ -9,9 +9,12 @@ local_zstd_version =         '1.5.0'         # https://github.com/facebook/zstd/
 
 local_Boost_version =        '1.77.0'        # https://www.boost.org/
 
+local_craypython_version = '3.9.4'
+
 name =          'Boost'
 version =       local_Boost_version
-versionsuffix = '-python%(pymajver)s'
+versionsuffix = '-python' + local_craypython_version.split(':')[0]
+#versionsuffix = '-python%(pymajver)s'
 
 homepage = 'http://www.boost.org/'
 
@@ -73,8 +76,10 @@ configopts = " --with-python=$(EBROOTPYTHON)/bin/python  --with-python-version=%
 # build_toolset = 'clang'
 
 # for python3 the corresponding lib is libboost_python%(pymajver)s%(pyminver)s.so
+local_suffix = ''.join(local_craypython_version.split('.')[:2])
 sanity_check_paths = {
-    'files': ['lib/libboost_system.so', 'lib/libboost_mpi.so', 'lib/libboost_python%(pymajver)s%(pyminver)s.so'],
+    'files': ['lib/libboost_system.so', 'lib/libboost_mpi.so',
+              'lib/libboost_python' + local_suffix + '.so'],
     'dirs':  ['include/%(namelower)s'],
 }
 
