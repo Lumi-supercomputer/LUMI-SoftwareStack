@@ -49,7 +49,7 @@ docurls = [
     'Manual page for gnuplot',
 ]
 
-toolchain = {'name': 'cpeAMD', 'version': '21.12'}
+toolchain = {'name': 'cpeAOCC', 'version': '21.12'}
 
 source_urls = [('https://sourceforge.net/projects/gnuplot/files/gnuplot/%(version)s', 'download')]
 sources =     [SOURCE_TAR_GZ]

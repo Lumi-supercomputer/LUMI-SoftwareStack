@@ -32,7 +32,7 @@ docurls = [
     "Web-based documentation: https://libgd.github.io/manuals/%(version)s/files/preamble-txt.html",
 ]
 
-toolchain = {'name': 'cpeAMD', 'version': '21.12'}
+toolchain = {'name': 'cpeAOCC', 'version': '21.12'}
 toolchainopts = {'pic': True}
 
 source_urls = ['https://github.com/libgd/libgd/releases/download/gd-%(version)s/']
