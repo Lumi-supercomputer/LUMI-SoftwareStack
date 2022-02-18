@@ -63,3 +63,5 @@ HPE-Cray has a sample build script for Boost in their
   * cpeAMD: Compiles if ``toolset == clang`` is added to the EasyConfig. It is not clear if
     any of the Cray patches actually make sense.
 
+  * For 21.12, which switched to Python 3.9.4, the version detection is wrong so the sanity
+    check goes looking for the files for Python 3.8 rather than 3.9.
