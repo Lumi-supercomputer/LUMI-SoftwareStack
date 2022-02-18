@@ -7,7 +7,11 @@ local_GLib_version =         '2.69.1'        # https://ftp.gnome.org/pub/GNOME/s
 local_GObject_version =      '1.68.0'        # https://github.com/GNOME/gobject-introspection/releases
 local_HarfBuzz_version =      '2.8.2'          # https://www.freedesktop.org/software/harfbuzz/release/
 
+local_craypython_version =  '3.9.4'
+
 local_Pango_version =        '1.48.10'       # http://ftp.gnome.org/pub/GNOME/sources/pango/
+
+local_craypython_maj_min = '.'.join( local_craypython_version.split('.')[:2] )
 
 name =    'Pango'
 version = local_Pango_version
@@ -45,8 +49,8 @@ sources =     [SOURCELOWER_TAR_XZ]
 checksums =   ['21e1f5798bcdfda75eabc4280514b0896ab56f656d4e7e66030b9a2535ecdc98']
 
 builddependencies = [
-    ('buildtools',            '%(toolchain_version)s', '',                True), # For ninja, meson, pkg-config and for help2man to generate the man page.
-    ('GObject-Introspection', local_GObject_version,   '-cray-python3.8'),
+    ('buildtools',            '%(toolchain_version)s', '', True),
+    ('GObject-Introspection', local_GObject_version,   '-cray-python' + local_craypython_maj_min),
 ]
 
 dependencies = [

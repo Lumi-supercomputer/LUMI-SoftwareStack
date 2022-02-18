@@ -2,7 +2,7 @@ easyblock = 'Bundle'
 
 local_bzip2_version =        '1.0.8'         # http://www.bzip.org/downloads.html
 local_fontconfig_version =   '2.13.94'       # https://www.freedesktop.org/software/fontconfig/release/
-local_freetype_version =     '2.10.4'        # https://download.savannah.gnu.org/releases/freetype/
+local_freetype_version =     '2.11.0'        # https://download.savannah.gnu.org/releases/freetype/
 local_intltool_version =     '0.51.0'        # https://launchpad.net/intltool/+download
 local_libpciaccess_version = '0.16'         # https://cgit.freedesktop.org/xorg/lib/libpciaccess/
 local_xorg_macros_version =  '1.19.3'       # https://cgit.freedesktop.org/xorg/util/macros

@@ -310,7 +310,7 @@ software:
   X11:
     toolchains:
       cpeAOCC-21.12:
-        versions: ['21.08']
+        versions: ['21.12']
   cairo:
     toolchains:
       cpeAOCC-21.12:

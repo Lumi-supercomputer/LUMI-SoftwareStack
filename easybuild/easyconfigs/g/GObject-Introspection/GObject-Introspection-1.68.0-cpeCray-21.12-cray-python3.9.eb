@@ -11,11 +11,11 @@ local_craypython_version =  '3.9.4'
 
 local_GObject_version =      '1.68.0'        # https://github.com/GNOME/gobject-introspection/releases
 
-local_craypython_maj_min = '.'.join( local_craypython_version.spli('.')[:2] )
+local_craypython_maj_min = '.'.join( local_craypython_version.split('.')[:2] )
 
 name =          'GObject-Introspection'
 version =       local_GObject_version
-versionsuffix = '-cray-python%ss' % local_craypython_maj_min
+versionsuffix = '-cray-python%s' % local_craypython_maj_min
 
 homepage = 'https://gi.readthedocs.io/en/latest/'
 
@@ -51,7 +51,7 @@ builddependencies = [
 ]
 
 dependencies = [
-    ('cray-python/%s.%s.%s' % (local_py_maj_ver, local_py_min_ver, local_py_rev_ver), EXTERNAL_MODULE),
+    ('cray-python/%s' % local_craypython_version, EXTERNAL_MODULE),
     ('GLib',       local_GLib_version),
     ('libffi',     local_libffi_version),
     ('util-linux', local_util_version),
