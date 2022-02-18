@@ -165,7 +165,7 @@ software:
         versions: ['2.1.12']
   libpciaccess:
     toolchains:
-      cpeCray-21.12:
+      cpeGNU-21.12:
         versions: ['0.16']
   libpng:
     toolchains:
