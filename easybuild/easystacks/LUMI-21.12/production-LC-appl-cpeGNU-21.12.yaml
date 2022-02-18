@@ -1,4 +1,8 @@
 software:
+  ELPA:
+    toolchains:
+      cpeGNU-21.12:
+        versions: ['2021.11.001']
   METIS:
     toolchains:
       cpeGNU-21.12:
@@ -10,7 +14,7 @@ software:
   SCOTCH:
     toolchains:
       cpeGNU-21.12:
-        versions: ['6.1.1']
+        versions: ['6.1.2']
   ESMF:
     toolchains:
       cpeGNU-21.12:
@@ -18,8 +22,4 @@ software:
   gnuplot:
     toolchains:
       cpeGNU-21.12:
-        versions: ['5.4.2']
-  ELPA:
-    toolchains:
-      cpeGNU-21.12:
-        versions: ['2021.11.001']
+        versions: ['5.4.3']
