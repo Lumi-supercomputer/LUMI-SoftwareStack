@@ -31,11 +31,8 @@ docurls = [
 toolchain = {'name': 'cpeGNU', 'version': '21.12'}
 toolchainopts = {'usempi': True, 'openmp': True}
 
-# https://gitlab.mpcdf.mpg.de/elpa/elpa/-/archive/new_release_2021_05_002/elpa-new_release_2021_05_002.tar.bz2
-# https://gitlab.mpcdf.mpg.de/elpa/elpa/-/archive/new_release_2021_05_002/elpa-new_release_2021_05_002.tar.gz
-local_version_underscore = '_'.join( version.split('.') )
-source_urls = ['https://gitlab.mpcdf.mpg.de/elpa/elpa/-/archive/new_release_%s/' % local_version_underscore]
-sources =     ['elpa-new_release_%s.tar.bz2' % local_version_underscore]
+source_urls = ['https://gitlab.mpcdf.mpg.de/elpa/elpa/-/archive/new_release_%(version)s/']
+sources =     ['elpa-new_release_%(version)s.tar.gz']
 patches =     ['%(name)s-%(version)s_fix_hardcoded_perl_path.patch']
 checksums =   [
     'e61048393a5e5f460858a11b216547fa3f434dd620c478cb20a52ebf543260f1',  # elpa-new_release_2021.11.001.tar.gz
