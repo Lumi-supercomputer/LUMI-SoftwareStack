@@ -11,10 +11,6 @@ software:
     toolchains:
       cpeAOCC-21.12:
         versions: ['6.1.2']
-  ESMF:
-    toolchains:
-      cpeAOCC-21.12:
-        versions: ['8.2.0']
   gnuplot:
     toolchains:
       cpeAOCC-21.12:
