@@ -47,7 +47,7 @@ local_double_conv_version =  '3.1.5'         # https://github.com/google/double-
 local_Eigen_version =        '3.3.9'         # https://gitlab.com/libeigen/eigen/-/releases
 local_ELPA_version =         '2021.05.002'   # Synchronized with CSCS
 local_ESMF_version =         '8.2.0'         # https://github.com/esmf-org/esmf/releases
-local_expat_version =        '2.4.1'         # https://github.com/libexpat/libexpat/releases
+local_expat_version =        '2.4.6'         # https://github.com/libexpat/libexpat/releases
 
 local_file_version =         '5.41'          # ftp://ftp.astron.com/pub/file/
 local_FFmpeg_version =       '4.3.3'         # https://ffmpeg.org/download.html#releases
@@ -63,7 +63,7 @@ local_giflib_version =       '5.2.1'         # https://sourceforge.net/projects/
 local_GLib_version =         '2.69.1'        # https://ftp.gnome.org/pub/GNOME/sources/glib/
 local_GMP_version =          '6.2.1'         # https://ftp.gnu.org/gnu/gmp/
 local_gnuplot_version =      '5.4.3'         # http://gnuplot.sourceforge.net/
-local_GObject_version =      '1.68.0'        # https://github.com/GNOME/gobject-introspection/releases
+local_GObject_version =      '1.71.0'        # https://github.com/GNOME/gobject-introspection/releases
 local_GSL_version =          '2.7'           # https://ftp.gnu.org/gnu/gsl/
 local_gzip_version =         '1.10'          # https://ftp.gnu.org/gnu/gzip/
 

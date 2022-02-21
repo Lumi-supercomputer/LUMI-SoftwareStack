@@ -4,7 +4,7 @@ easyblock = 'MesonNinja'
 local_cairo_version =        '1.17.4'        # https://www.cairographics.org/
 local_fribidi_version =      '1.0.10'        # https://github.com/fribidi/fribidi/releases
 local_GLib_version =         '2.69.1'        # https://ftp.gnome.org/pub/GNOME/sources/glib/
-local_GObject_version =      '1.68.0'        # https://github.com/GNOME/gobject-introspection/releases
+local_GObject_version =      '1.71.0'        # https://github.com/GNOME/gobject-introspection/releases
 local_HarfBuzz_version =     '2.8.2'         # https://www.freedesktop.org/software/harfbuzz/release/
 
 local_craypython_version =  '3.9.4.2'
