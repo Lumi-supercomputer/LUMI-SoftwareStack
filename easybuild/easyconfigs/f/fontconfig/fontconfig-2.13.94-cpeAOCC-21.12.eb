@@ -1,6 +1,6 @@
 easyblock = 'ConfigureMake'
 
-local_expat_version =        '2.4.1'         # https://github.com/libexpat/libexpat/releases
+local_expat_version =        '2.4.6'         # https://github.com/libexpat/libexpat/releases
 local_util_version =         '2.37.1'        # https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/
 local_freetype_version =     '2.11.0'        # https://download.savannah.gnu.org/releases/freetype/
 local_fontconfig_version =   '2.13.94'       # https://www.freedesktop.org/software/fontconfig/release/

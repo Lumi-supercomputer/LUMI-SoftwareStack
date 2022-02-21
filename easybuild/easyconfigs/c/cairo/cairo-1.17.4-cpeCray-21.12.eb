@@ -1,7 +1,7 @@
 easyblock = 'ConfigureMake'
 
 local_bzip2_version =        '1.0.8'         # http://www.bzip.org/downloads.html
-local_expat_version =        '2.4.1'         # https://github.com/libexpat/libexpat/releases
+local_expat_version =        '2.4.6'         # https://github.com/libexpat/libexpat/releases
 local_freetype_version =     '2.11.0'        # https://download.savannah.gnu.org/releases/freetype/
 local_GLib_version =         '2.69.1'        # https://ftp.gnome.org/pub/GNOME/sources/glib/
 local_libpng_version =       '1.6.37'        # http://www.libpng.org/pub/png/libpng.html

@@ -1,6 +1,6 @@
 easyblock = 'ConfigureMake'
 
-local_expat_version =        '2.4.1'         # https://github.com/libexpat/libexpat/releases
+local_expat_version =        '2.4.6'         # https://github.com/libexpat/libexpat/releases
 
 name =    'expat'
 version = local_expat_version
@@ -36,9 +36,9 @@ docurls = [
 toolchain = {'name': 'cpeAOCC', 'version': '21.12'}
 toolchainopts = {'pic': True}
 
-sources =     [SOURCELOWER_TAR_BZ2]
-source_urls = [SOURCEFORGE_SOURCE]
-checksums =   ['2f9b6a580b94577b150a7d5617ad4643a4301a6616ff459307df3e225bcfbf40']
+source_urls = ['https://github.com/libexpat/libexpat/releases/download/R_%s/' % version.replace('.', '_')]
+sources =     [SOURCE_TAR_BZ2]
+checksums =   ['ce317706b07cae150f90cddd4253f5b4fba929607488af5ac47bf2bc08e31f09']
 
 builddependencies = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
