@@ -106,6 +106,9 @@ configopts += '--with-x '
 configopts += '--without-lua '
 #configopts += '--with-lua '
 
+# Disable LaTeX files as the Makefile doesn't honour --prefix when determining the location
+configopts += '--without-latex '
+
 sanity_check_paths = {
     'files': ['bin/gnuplot'],
     'dirs':  []

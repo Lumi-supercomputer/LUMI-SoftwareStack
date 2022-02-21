@@ -15,3 +15,9 @@
   * Given the complexity of installing Qt5, we decided to go for an old-style
     gnuplot installation without Qt5. Hence we started from the UAntwerpen
     EasyConfig.
+
+
+### Version 5.4.3 for CPE 21.12
+
+  * Needed to add `--without-latex` to `configopts` as the makefiles did not honour
+    `--prefix` for this option and tried to install files in a system directory.
