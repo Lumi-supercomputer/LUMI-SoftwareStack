@@ -39,18 +39,19 @@ toolchain = {'name': 'cpeGNU', 'version': '21.12'}
 toolchainopts = {'pic': True}
 
 sources = [
-    {
-        'filename': '%(namelower)s_%(version)s.tar.gz',
-        'source_urls': ['https://gforge.inria.fr/frs/download.php/latestfile/298'],
+    {   # https://gitlab.inria.fr/scotch/scotch/-/archive/v6.1.2/scotch-v6.1.2.tar.gz
+        'filename': '%(namelower)s_v%(version)s.tar.gz',
+        'source_urls': ['https://gitlab.inria.fr/scotch/scotch/-/archive/v%(version)s/'],
+        'extract_cmd': 'tar xvf %s ; mv scotch-v%(version)s* scotch-%(version)s'
     },
     {
         'filename': 'Makefile.inc.CPE.%(version)s',
-        'extract_cmd': 'cp %s scotch_%(version)s/src/Make.inc/Makefile.inc.CPE',
+        'extract_cmd': 'cp %s scotch-%(version)s/src/Make.inc/Makefile.inc.CPE',
     },
 ]
-checksums =   [
-    '9c2c75c75f716914a2bd1c15dffac0e29a2f8069b2df1ad2b6207c984b699450' # scotch_6.1.2.tar.gz
-]
+#checksums =   [
+#    'a2f65f58f31085e4c3dcca22e571a3a1b9d65a6ff05ff882b0eb07c78e3b755b' # scotch_v6.1.2.tar.gz
+#]
 
 builddependencies = [ # Create a reproducible build environment.
     ('buildtools',   '%(toolchain_version)s',   '', True), # For CMake
