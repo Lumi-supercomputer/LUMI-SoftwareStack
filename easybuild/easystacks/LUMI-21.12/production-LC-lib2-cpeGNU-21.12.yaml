@@ -22,7 +22,7 @@ software:
   expat:
     toolchains:
       cpeGNU-21.12:
-        versions: ['2.4.1']
+        versions: ['2.4.6']
   FriBidi:
     toolchains:
       cpeGNU-21.12:
@@ -323,7 +323,7 @@ software:
     toolchains:
       cpeGNU-21.12:
         versions:
-          '1.68.0':
+          '1.71.0':
             versionsuffix: '-cray-python3.9'
   HarfBuzz:
     toolchains:
