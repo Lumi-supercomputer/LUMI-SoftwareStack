@@ -42,3 +42,13 @@
         modules).
 
   * This implies that the resulting EasyConfig is actually almost completely rewritten.
+
+
+### Version 6.1.2 for CPE 21.12
+
+  * The root directory name has changed, some tricks were needed to unpack in a directory
+    with a more predictable name. Maybe this can be further improved with appropriate options
+    of tar rather than the construction with a move.
+
+  * We're not sure we will get exactly the same file every time so we disabled the sanity
+    check.
