@@ -22,7 +22,7 @@ software:
   expat:
     toolchains:
       cpeAOCC-21.12:
-        versions: ['2.4.1']
+        versions: ['2.4.6']
   FriBidi:
     toolchains:
       cpeAOCC-21.12:
@@ -315,10 +315,6 @@ software:
     toolchains:
       cpeAOCC-21.12:
         versions: ['1.17.4']
-  FFmpeg:
-    toolchains:
-      cpeAOCC-21.12:
-        versions: ['4.3.3']
   Tk:
     toolchains:
       cpeAOCC-21.12:
@@ -327,7 +323,7 @@ software:
     toolchains:
       cpeAOCC-21.12:
         versions:
-          '1.68.0':
+          '1.71.0':
             versionsuffix: '-cray-python3.9'
   HarfBuzz:
     toolchains:
