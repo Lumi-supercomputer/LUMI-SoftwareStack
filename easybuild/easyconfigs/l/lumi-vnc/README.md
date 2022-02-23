@@ -57,6 +57,17 @@ module spider lumi-vnc/20220125
 
 ## Known issues
 
+### Container cannot follow symbolic links to a different file system
+
+It is not possible to test a user install of the VNC container if the software directory
+or any other directory is soft-linked to a different file system (e.g., to have a
+personal repository in your home directory but have the installation which requires
+a higher quota on a different file system). The startup file for VNC will not be found
+and as a result the start-vnc command will fail to start a window manager.
+
+
+### Missing fonts
+
 When testing with x11perf (included in the X11 modules on LUMI), certain tests fail
 due to missing fonts:
 
@@ -67,3 +78,4 @@ font '-jis-fixed-medium-r-normal--24-230-75-75-c-240-jisx0208.1983-*'
 font '-adobe-times-medium-r-normal--10-100-75-75-p-54-iso8859-1'
 font '-adobe-times-medium-r-normal--24-240-75-75-p-124-iso8859-1'
 font '-adobe-times-medium-r-normal--10-100-75-75-p-54-iso8859-1'
+

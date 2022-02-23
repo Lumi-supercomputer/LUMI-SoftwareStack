@@ -39,6 +39,10 @@ and can be used to start the VNC server. That will print information on how to
 connect to the server either using a web browser or a VNC client, e.g., the
 TigerVNC client used in the output or the TurboVNC client.
 
+Try
+  start-vnc -h
+for help on the available command line options of the start-vnc command.
+
 Furthermore, after starting the server, the following additional commands become
 available in the shell where the VNC server was started:
   * stop-vnc: This will stop the VNC server and clean up the shell.
@@ -56,6 +60,9 @@ you started the VNC server. The DISPLAY variable will be set up correctly to do 
 If you want to do so from another shell on the same node, you'll have to set the
 DISPLAY variable first to the value indicated by start-vnc or vnc-info, e.g.,
 export DISPLAY=:1
+
+The TurboVNC server started by start-vnc will create a log file in $HOME/.vnc
+which can be useful for debugging problems.
 """
 
 docurls = [
@@ -90,6 +97,10 @@ components = [
         'start_dir':     '.',
         'files_to_copy': [ ([ 'vnc.sif' ], 'scripts/VNC') ],
     }),
+]
+
+postinstallcmds = [
+    ''
 ]
 
 sanity_check_paths = {
