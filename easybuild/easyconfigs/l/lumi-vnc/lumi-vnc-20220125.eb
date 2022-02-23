@@ -74,7 +74,7 @@ components = [
                       'git_config': {
                           'url':       'https://github.com/Lumi-supercomputer',
                           'repo_name': '%(name)s',
-                          'commit':    '4c34619832663ffa61b614678e01f412db33feae'
+                          'commit':    '6e0535f17e9e362e0225ca923c215aa2f9be0a1d'
                       }
                    }],
         'skipsteps': [ 'configure', 'build' ],
