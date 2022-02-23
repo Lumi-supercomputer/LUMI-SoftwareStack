@@ -26,7 +26,7 @@ local SystemRepo_prefix = LMOD_root:gsub( '/LMOD/*', '' )
 
 -- -----------------------------------------------------------------------------
 --
--- Constants: Architecture for optimization.
+-- Constants: Architecture for optimization, special cases.
 --
 -- The keys of this table can also be used to test if the partition detected is
 -- valid.
@@ -39,7 +39,21 @@ local optarch = {
     G =       'x86-milan',
     D =       'x86-rome',
     CrayEnv = 'x86-rome', -- This is really a dummy as we do not want ot use the Cray PE here.
-    }
+    system  = 'x86-rome', -- This is really a dummy as we do not want ot use the Cray PE here.
+}
+
+-- Special partitions are those that are created to install
+-- software in abnormal places and have no equivalent for
+-- user installations.
+local special_partition = {
+    common  = false,
+    C       = false,
+    G       = false,
+    D       = false,
+    L       = false,
+    CrayEnv = true,
+    system  = true,
+}
 
 -- -----------------------------------------------------------------------------
 --
@@ -56,10 +70,9 @@ local show_message = true
 if myModuleName() ~= 'EasyBuild-user'           and isloaded( 'EasyBuild-user' )           then show_message = false end
 if myModuleName() ~= 'EasyBuild-production'     and isloaded( 'EasyBuild-production' )     then show_message = false end
 if myModuleName() ~= 'EasyBuild-infrastructure' and isloaded( 'EasyBuild-infrastructure' ) then show_message = false end
-if myModuleName() ~= 'EasyBuild-CrayEnv'        and isloaded( 'EasyBuild-CrayEnv' )        then show_message = false end
 
 --
--- Avoid loading together with EasyBuild-production
+-- Avoid loading any of EasyBuild-user, EasyBuild-production or EasyBuild-infrastructure at the same time
 --
 
 family( 'EasyBuildConfig' )
@@ -79,9 +92,6 @@ elseif detail_mode == 'production' then
 elseif detail_mode == 'infrastructure' then
     mod_mode =   'system'
     mod_prefix = 'Infrastructure'
-elseif detail_mode == 'CrayEnv' then
-    mod_mode =   'system'
-    mod_prefix = 'easybuild'
 else
     LmodError( 'Unrecongnized module name' )
 end
@@ -99,7 +109,7 @@ end
 -- used as this may lead to installing in the wrong directories.
 if mode() == 'load' and mod_mode == 'user' then
     if user_prefix == nil then
-        LmodError( 'User installation is impossible as it was explicitly turned off by means of EBU_USER_PREFIX.' )
+        LmodError( 'User installation is impossible as it was explicitly turned off by setting EBU_USER_PREFIX to an empty value.' )
     elseif user_prefix:match('^[~/]') == nil then
         LmodError( 'Detected an invalid user installation directory. When using EBU_PREFIX_USER, an absolute path should be used.' )
     end
@@ -129,7 +139,7 @@ end
 local stack_name
 local stack_version
 local lumi_stack_version
-local partition_name
+local partition_name       -- Partition name as detexcted from the location of the module
 
 stack_version, partition_name = myFileName():match( '/LUMI/([^/]+)/partition/([^/]+)/' )
 
@@ -144,20 +154,21 @@ end
 
 lumi_stack_version = stack_version
 
--- For CrayEnv, we overwrite the stack_name etc. for installation,
+-- For CrayEnv and system, we overwrite the stack_name etc. for installation,
 -- but we had to preserve the version of the LUMI stack to find the right
 -- hooks file.
-if detail_mode == 'CrayEnv' then
+if special_partition[partition_name] then
 
-    stack_name =     'CrayEnv'
+    stack_name =     partition_name
     stack_version =  ''
-    partition_name = 'common'
+    -- partition_name = 'NONE'
 
 end
 
 -- - Prepare some additional variables to reduce the length of some lines
 
-local stack =                 stack_version == ''  and stack_name or stack_name  .. '-' .. stack_version
+-- local stack =                 stack_version == ''  and stack_name or stack_name  .. '-' .. stack_version
+local stack =                 special_partition[partition_name] and partition_name or stack_name  .. '-' .. stack_version
 local partition =             'LUMI-' .. partition_name
 local common_partition_name = 'common'
 local common_partition =      'LUMI-' .. common_partition_name
@@ -220,16 +231,15 @@ local user_installpath =           user_prefix
 
 local configdir =     mod_mode == 'user' and user_configdir     or system_configdir
 local easyconfigdir = mod_mode == 'user' and user_easyconfigdir or system_easyconfigdir
-local easyblockdir =  mod_mode == 'user' and user_easyblockdir  or system_easyblockdir
 local installpath =   mod_mode == 'user' and user_installpath   or system_installpath
 
 local system_sourcepath =          pathJoin( system_prefix, 'sources/easybuild' )
 local system_containerpath =       pathJoin( system_prefix, 'containers' )
 local system_packagepath =         pathJoin( system_prefix, 'packages' )
 
-local user_sourcepath =            pathJoin( user_prefix,    'sources' )
-local user_containerpath =         pathJoin( user_prefix,    'containers' )
-local user_packagepath =           pathJoin( user_prefix,    'packages' )
+local user_sourcepath =            pathJoin( user_prefix,   'sources' )
+local user_containerpath =         pathJoin( user_prefix,   'containers' )
+local user_packagepath =           pathJoin( user_prefix,   'packages' )
 
 local containerpath = mod_mode == 'user' and user_containerpath or system_containerpath
 local packagepath =   mod_mode == 'user' and user_packagepath   or system_packagepath
@@ -250,9 +260,9 @@ local user_installpath_software =    pathJoin( user_prefix,   'SW',             
 local user_installpath_modules =     pathJoin( user_prefix,   'modules',                 'LUMI', stack_version, 'partition', partition_name )
 local user_repositorypath =          pathJoin( user_prefix,   'ebrepo_files',            stack,                 partition )
 
-local CrayEnv_installpath_software = pathJoin( system_prefix, 'SW',                      stack,                                              'EB' )
-local CrayEnv_installpath_modules =  pathJoin( system_prefix, 'modules', mod_prefix,     'CrayEnv' )
-local CrayEnv_repositorypath =       pathJoin( system_prefix, 'mgmt',    'ebrepo_files', stack )
+local special_installpath_software = pathJoin( system_prefix, 'SW',                      stack,                                              'EB' )
+local special_installpath_modules =  pathJoin( system_prefix, 'modules', mod_prefix,     stack )
+local special_repositorypath =       pathJoin( system_prefix, 'mgmt',    'ebrepo_files', stack )
 
 local installpath_software = mod_mode == 'user' and user_installpath_software or system_installpath_software
 local installpath_modules =  mod_mode == 'user' and user_installpath_modules  or system_installpath_modules
@@ -263,10 +273,10 @@ if mod_mode == 'user' then
     installpath_software = user_installpath_software
     installpath_modules  = user_installpath_modules
     repositorypath       = user_repositorypath
-elseif detail_mode == 'CrayEnv' then
-    installpath_software = CrayEnv_installpath_software
-    installpath_modules  = CrayEnv_installpath_modules
-    repositorypath       = CrayEnv_repositorypath
+elseif special_partition[partition_name] then
+    installpath_software = special_installpath_software
+    installpath_modules  = special_installpath_modules
+    repositorypath       = special_repositorypath
 else
     installpath_software = system_installpath_software
     installpath_modules  = system_installpath_modules
@@ -326,11 +336,8 @@ table.insert( source_paths, system_sourcepath )
 
 local robot_paths = {}
 
---   + Always included in usermode: the current directory so that we can even just give the user
---     a couple of EasyConfig files that they put in a directory and run with eb -r.
-if mod_mode == 'user' then
-    table.insert( robot_paths, '.' )
-end
+--   + We do no longer include the current directory in user mode as this caused performance problems
+--     when used outside of an EasyBuild repository.
 
 --   + Always included in usermode: the user repository for the software stack
 if mod_mode == 'user' then
@@ -344,16 +351,16 @@ if mod_mode == 'user' and partition_name ~=  'common' then
 end
 
 --   + Always included: the system repository for the software stack, but be careful
---     for CrayEnv as that has a different structure.
-if detail_mode == 'CrayEnv' then
-    table.insert( robot_paths, CrayEnv_repositorypath )
+--     for CrayEnv and other special partitions as these have a different structure.
+if special_partition[partition_name] then
+    table.insert( robot_paths, special_repositorypath )
 else
     table.insert( robot_paths, system_repositorypath )
 end
 
 --   + If the partition is not the common one, we need to add that repository
 --     directory also.
-if partition_name ~=  'common' then
+if partition_name ~=  'common' and not special_partition[partition_name] then
     table.insert( robot_paths, pathJoin( system_prefix, 'mgmt', 'ebrepo_files', stack, common_partition ) )
 end
 
@@ -372,6 +379,8 @@ table.insert( robot_paths, system_easyconfigdir )
 
 --   + In user mode, add the system copy of contributed EasyConfig files
 --     if there is no user copy (which would have been added earlier in the path)
+--     We don't want this directory in system mode as we should not be installing
+--     contributed EasyConfig files in production or infrastructure modes.
 if mod_mode == 'user' and not isDir( user_easybuild_contrib ) then
     table.insert( robot_paths, system_easybuild_contrib )
 end
@@ -411,8 +420,10 @@ end
 --   + Possible future option: Include the CSCS repository
 
 --   + EasyBuild default config files if we can find it (through EBROOTEASYBUILD that is)
+--     are no longer included in user mode as it is misleading for inexperienced users
+--     but we still include them in other modes for expert users.
 local ebroot_easybuild = os.getenv( 'EBROOTEASYBUILD' )
-if ebroot_easybuild ~= nil then
+if mod_mode ~=  'user' and ebroot_easybuild ~= nil then
     table.insert( search_paths, pathJoin( ebroot_easybuild, 'easybuild/easyconfigs' ) )
 end
 

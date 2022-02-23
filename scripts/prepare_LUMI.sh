@@ -47,10 +47,12 @@ mkdir -p "$installroot/modules/SystemPartition/LUMI"   # For LUMI/yy.mm subdirec
 mkdir -p "$installroot/modules/easybuild"
 mkdir -p "$installroot/modules/easybuild/LUMI"
 mkdir -p "$installroot/modules/easybuild/CrayEnv"
+mkdir -p "$installroot/modules/easybuild/system"
 mkdir -p "$installroot/modules/spack"
 mkdir -p "$installroot/modules/spack/LUMI"
 mkdir -p "$installroot/modules/manual"
 mkdir -p "$installroot/modules/manual/LUMI"
+mkdir -p "$installroot/modules/manual/system"
 mkdir -p "$installroot/modules/Infrastructure"
 mkdir -p "$installroot/modules/Infrastructure/LUMI"
 mkdir -p "$installroot/modules/init-$repo"
@@ -58,10 +60,14 @@ mkdir -p "$installroot/modules/init-$repo"
 mkdir -p "$installroot/SW"
 mkdir -p "$installroot/SW/CrayEnv"
 mkdir -p "$installroot/SW/CrayEnv/EB"
+mkdir -p "$installroot/SW/system"
+mkdir -p "$installroot/SW/system/EB"
+mkdir -p "$installroot/SW/system/MNL"
 
 mkdir -p "$installroot/mgmt"
 mkdir -p "$installroot/mgmt/ebrepo_files"
 mkdir -p "$installroot/mgmt/ebrepo_files/CrayEnv"
+mkdir -p "$installroot/mgmt/ebrepo_files/system"
 mkdir -p "$installroot/mgmt/LMOD"
 mkdir -p "$installroot/mgmt/LMOD/VisibilityHookData"
 mkdir -p "$installroot/mgmt/LMOD/ModuleRC"
@@ -88,7 +94,7 @@ then
 fi
 
 #
-# Link the CrayEnv module
+# Link the CrayEnv modules
 #
 create_link "$installroot/$repo/modules/CrayEnv.lua"  "$installroot/modules/SoftwareStack/CrayEnv.lua"
 

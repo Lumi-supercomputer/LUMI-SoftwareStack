@@ -9,7 +9,8 @@
    | early March we will make a LUMI/21.12 software stack available |
  * | using the Cray PE version 21.12. However, the build recipes    |
    | provided in the contributed repository will also need updating |
-*  | which will happen after the installation.                      |
+*  | which will happen after the installation of the core 21.12     |
+   | software stack.                                                |
    |                                                                |
  * | IMPORTANT: The flash file system on /flash/project_<...> will  |
    | be unavialable until after the installation of the GPU         |

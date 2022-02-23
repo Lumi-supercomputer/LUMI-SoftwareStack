@@ -58,12 +58,12 @@
 
   * [``EasyBuild-config``](../modules/EasyBuild-config): A generic EasyBuild
     configuration module that instantiates into the ``EasyBuild-production``,
-    ``EasyBuild-infrastructure``, ``EasyBuild-CrayEnv`` and ``EasyBuild-user``
+    ``EasyBuild-infrastructure`` and ``EasyBuild-user``
     modules in the relevant partitions of the LUMI software stacks.
 
   * [``EasyBuild-unlock``](../modules/EasyBuild-unlock): A module that has to be
-    loaded before any of the ``EasyBuild-production``, ``EasyBuild-infrastructure``
-    or ``EasyBuild-CrayEnv`` modules can be loaded as additional protection to not
+    loaded before any of the ``EasyBuild-production`` or ``EasyBuild-infrastructure``
+    modules can be loaded as additional protection to not
     accidentally overwrite a system installation.
 
   * [``init-lumi``](../modules/init-lumi): The module called from the Cray PE intialisation
