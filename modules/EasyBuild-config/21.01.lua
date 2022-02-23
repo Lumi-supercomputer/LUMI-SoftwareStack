@@ -336,11 +336,8 @@ table.insert( source_paths, system_sourcepath )
 
 local robot_paths = {}
 
---   + Always included in usermode: the current directory so that we can even just give the user
---     a couple of EasyConfig files that they put in a directory and run with eb -r.
-if mod_mode == 'user' then
-    table.insert( robot_paths, '.' )
-end
+--   + We do no longer include the current directory in user mode as this caused performance problems
+--     when used outside of an EasyBuild repository.
 
 --   + Always included in usermode: the user repository for the software stack
 if mod_mode == 'user' then
@@ -423,8 +420,10 @@ end
 --   + Possible future option: Include the CSCS repository
 
 --   + EasyBuild default config files if we can find it (through EBROOTEASYBUILD that is)
+--     are no longer included in user mode as it is misleading for inexperienced users
+--     but we still include them in other modes for expert users.
 local ebroot_easybuild = os.getenv( 'EBROOTEASYBUILD' )
-if ebroot_easybuild ~= nil then
+if mod_mode ~=  'user' and ebroot_easybuild ~= nil then
     table.insert( search_paths, pathJoin( ebroot_easybuild, 'easybuild/easyconfigs' ) )
 end
 
