@@ -6,7 +6,7 @@
 # That cd will work if the script is called by specifying the path or is simply
 # found on PATH. It will not expand symbolic links.
 cd "$(dirname $0)"
-cd ..
+cd ../..
 repo="${PWD##*/}"
 cd ..
 installroot="$(pwd)"
