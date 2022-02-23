@@ -132,10 +132,17 @@ if ( ( partition ~= 'common' ) and not special_partition[partition] ) or ( mode(
     -- Configuration for EasyBuild to install in the requested partition (and maybe later for Spack)
     prepend_path(     'MODULEPATH', pathJoin( module_root, 'Infrastructure', stack_name_version, 'partition', partition ) )
     -- The modules of application software installed in the system. Make sure to also add the common ones.
-    if special_partition[partition] then
-        -- The cross-installation partitions are soecial cases
+    if partition == 'CrayEnv' then
+        -- CrayEnv partition: The system generic modules and the CrayEnv modules.
+        prepend_path( 'MODULEPATH', pathJoin( module_root, 'easybuild', 'system' ) )
+        prepend_path( 'MODULEPATH', pathJoin( module_root, 'easybuild', 'CrayEnv' ) )
+    elseif special_partition[partition] then
+        -- This should currently only be the system partition in which case we only want that
+        -- software in the MODULEPATH, but we keep open the option to add further special partitions
+        -- with default behaviour this way.
         prepend_path( 'MODULEPATH', pathJoin( module_root, 'easybuild', partition ) )
     else
+        prepend_path( 'MODULEPATH', pathJoin( module_root, 'easybuild', 'system' ) )
         if partition ~= 'common' then
             prepend_path( 'MODULEPATH', pathJoin( module_root, 'manual',        stack_name_version, 'partition', 'common' ) )
         end
@@ -153,14 +160,15 @@ if ( ( partition ~= 'common' ) and not special_partition[partition] ) or ( mode(
     -- Software installed by the user using EasyBuild.
     -- For the special partitions user_easybuild_modules will always be nil so no need to test for those partitions specifically.
     if user_easybuild_modules ~= nil then
+        -- Note that we may be adding non-existent directories but Lmod does not have problems with that.
+        -- It is better to add them right away so that software installed with EasyBuild will appear right
+        -- away without first having to reload the partition module.
         local user_common_dir = pathJoin( user_easybuild_modules, stack_name_version, 'partition', 'common' )
-        if partition ~= common and isDir( user_common_dir ) then
+        if partition ~= common then
             prepend_path( 'MODULEPATH', user_common_dir )
         end
         local user_partition_dir = pathJoin( user_easybuild_modules, stack_name_version, 'partition', partition )
-        if isDir( user_partition_dir) then
-            prepend_path( 'MODULEPATH', user_partition_dir )
-        end
+        prepend_path( 'MODULEPATH', user_partition_dir )
     end
 
 end
