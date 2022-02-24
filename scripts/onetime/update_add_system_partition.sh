@@ -62,7 +62,7 @@ mkdir -p EasyBuild-unlock
 cd EasyBuild-unlock
 create_link "$installroot/LUMI-SoftwareStack/modules/EasyBuild-unlock/21.01.lua" LUMI.lua
 cd ..
-create_link "$installroot/modules/easybuild/LUMI/21.08/partition/common/EasyBuild"
+create_link "$installroot/modules/easybuild/LUMI/21.08/partition/common/EasyBuild" EasyBuild
 popd
 
 
