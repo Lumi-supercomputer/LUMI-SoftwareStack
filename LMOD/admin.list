@@ -1,7 +1,3 @@
-/.*/LUMI/21.03.dev.*GROMACS/21.1.*: The GROMACS/21.1 modules are deprecated and will be removed on July 1 2021.
-Please switch to a more recent release of GROMACS/21.X. Use module spider GROMACS to see
-a list of all GROMACS versions on the system.
-
 ParMETIS/.*:
 ParMETIS is copyrighted by the Regents of the University of Minnesota. It can
 be freely used for educational and research purposes by non-profit institutions
@@ -11,3 +7,7 @@ for further information.
 ModuleExtensions/.*:
 Unfortunately due to problems with Cray LMOD this module does not yet have the desired effect.
 We are looking for a solution but don't expect anything soon.
+
+aocc/3.0.0:
+The AMD AOCC compiler version 3.0.0 does not work on LUMI. The workaround is to use a different
+version of the compiler.
