@@ -1,5 +1,12 @@
 # What's new or different?
 
+  * 2022-02-24: Hiding cpe-cuda modules via LMOD/modulerc.lua as they don't
+    make sense on LUMI.
+
+  * 2022-02-23: Added support for a system partition with software that is
+    available everywhere, EasyBuild-CrayEnv has been replaced with
+    EasyBuild-production.
+
   * 2021-12-15: Moved the list of default modules to load out of CrayEnv to
     SitePackage.lua so and now also load target modules in the LUMIpartition
     module so that users who want to use PrgEnv instead of cpeGNU/cpeCray/cpeAMD
