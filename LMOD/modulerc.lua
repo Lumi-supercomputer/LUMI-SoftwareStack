@@ -7,6 +7,11 @@ module_version( 'ModuleColour/on', 'default' )
 module_version( 'ModuleExtensions/show', 'default' )
 module_version( 'ModuleLabel/label', 'default' )
 
+if os.getenv( 'LUMI_LMOD_POWERUSER' ) == nil then
+    hide_version( 'cpe-cuda/21.08' )
+    hide_version( 'cpe-cuda/21.12' )
+end
+
 if os.getenv( 'LUMI_STACK_NAME' ) ~= nil then
 hide_modulefile( '/opt/cray/pe/lmod/modulefiles/core/cpe/21.05.lua' )
 hide_modulefile( '/opt/cray/pe/lmod/modulefiles/core/cpe/21.08.lua' )
