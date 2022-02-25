@@ -255,7 +255,7 @@ software:
     toolchains:
       cpeCray-21.12:
         versions: ['3.5.1']
-  gettext: # The version with -minimal should be installed right after libreadline, but it seems impossible to specify both.
+  gettext: # Second entry for gettext, we may merge with the first and let EasyBuild figure out the dependencies.
     toolchains:
       cpeCray-21.12:
         versions: ['0.21']
