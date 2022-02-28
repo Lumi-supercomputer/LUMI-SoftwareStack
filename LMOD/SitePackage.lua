@@ -157,7 +157,8 @@ end
 --
 local init_module_list = {
     C = { 'craype-x86-milan',  'craype-accel-host',       'craype-network-ofi', 'xpmem' },
-    D = { 'craype-x86-rome',   'craype-accel-nvidia80',   'craype-network-ofi', 'xpmem' },
+--    D = { 'craype-x86-rome',   'craype-accel-nvidia80',   'craype-network-ofi', 'xpmem' },
+    D = { 'craype-x86-rome',   'craype-accel-host',       'craype-network-ofi', 'xpmem' }, -- craype-accel-nvidia does not yet work
     G = { 'craype-x86-milan',  'craype-accel-amd-gfx908', 'craype-network-ofi', 'xpmem' },
     L = { 'craype-x86-rome',   'craype-accel-host',       'craype-network-ofi', 'xpmem' },
 }
