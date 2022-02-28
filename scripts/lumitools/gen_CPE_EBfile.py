@@ -92,7 +92,8 @@ elif local_partition == 'G':
 elif local_partition == 'D':
     cray_targets = [
         'craype-x86-rome',
-        'craype-accel-nvidia80',
+        # 'craype-accel-nvidia80', # Does not work as cudatoolkit/11.0 is not installed.
+        'craype-accel-host',
         'craype-network-ofi'
     ]
 
