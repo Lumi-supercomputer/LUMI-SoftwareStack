@@ -1,7 +1,5 @@
 #! /bin/bash
 #
-# TEST IN GRENOBLE: ./prepare_toolchain.sh 21.G.04.dev 4.4.0 $HOME/work
-#
 # Script to initialize a new software stack.
 #
 # The script takes the following arguments:
