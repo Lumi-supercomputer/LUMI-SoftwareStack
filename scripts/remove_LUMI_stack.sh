@@ -134,6 +134,7 @@ rm_dir "$installroot/mgmt/ebrepo_files/LUMI-$stack_version"
 # Fourth step: Various files
 #
 rm_file "$installroot/mgmt/LMOD/ModuleRC/LUMIstack_${stack_version}_modulerc.lua"
+rm_file "$installroot/mgmt/LMOD/VisibilityHookData/CPEmodules_${stack_version/\./_}.lua"
 for prgenv in cpeGNU cpeCray cpeAOCC cpeAMD
 do
 	rm_file "$installroot/$repo/easybuild/easyconfigs/c/$prgenv/$prgenv-$stack_version.eb"
