@@ -25,3 +25,4 @@ end
 hide_version( 'ModuleExtensions/hide' )
 hide_version( 'ModuleExtensions/show' )
 
+hide_version( 'LUMI/21.12' )
