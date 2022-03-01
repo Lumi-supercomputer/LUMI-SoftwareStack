@@ -67,7 +67,7 @@ building software. Many of them are GNU tools.
 + GNU Autoconf %(autoconf)s               - https://www.gnu.org/software/autoconf/
 + GNU Autoconf Archive %(autoconfarchive)s - https://www.gnu.org/software/autoconf/
 + GNU Automake %(automake)s             - https://www.gnu.org/software/automake/
-+ GNU makeinfo %(makeinfo)s             -  https://www.gnu.org/software/texinfo/
++ GNU makeinfo %(makeinfo)s                - https://www.gnu.org/software/texinfo/
 + GNU libtool %(libtool)s               - https://www.gnu.org/software/libtool/
 + GNU M4 %(m4)s                   - https://www.gnu.org/software/m4/
 + GNU make %(make)s                    - https://www.gnu.org/software/make/
@@ -81,13 +81,13 @@ building software. Many of them are GNU tools.
 + SCons %(SCons)s                     - https://www.scons.org/
 + NASM %(nasm)s                    - http://www.nasm.us/
 + Yasm %(yasm)s                      - http://yasm.tortall.net/
-+ patchelf %(patchelf)s                   - Modify the dynamic linker and RPATH of ELF executables,
++ patchelf %(patchelf)s                 - Modify the dynamic linker and RPATH of ELF executables,
                                     http://nixos.org/patchelf.html
 + re2c %(re2c)s                        - http://re2c.org/
 + GNU gperf %(gperf)s                   - https://www.gnu.org/software/gperf/
-+ GNU help2man %(help2man)s            - https://www.gnu.org/software/help2man/
-+ Doxygen %(doxygen)s                  - http://www.doxygen.org/
-+ xxd %(xxd)s                          - https://www.vim.org
++ GNU help2man %(help2man)s             - https://www.gnu.org/software/help2man/
++ Doxygen %(doxygen)s                   - http://www.doxygen.org/
++ xxd %(xxd)s                    - https://www.vim.org
 These tools are all build against the system libraries and have been used to
 build several of the %(ver)s packages.
 
