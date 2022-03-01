@@ -9,6 +9,42 @@ require("sandbox")
 -- -----------------------------------------------------------------------------
 -- -----------------------------------------------------------------------------
 --
+-- Tables providing information about the system
+--
+-- -----------------------------------------------------------------------------
+-- -----------------------------------------------------------------------------
+
+--
+-- Default targeting modules
+--
+local init_module_list = {
+    C = { 'craype-x86-milan',  'craype-accel-host',       'craype-network-ofi', 'xpmem' },
+--    D = { 'craype-x86-rome',   'craype-accel-nvidia80',   'craype-network-ofi', 'xpmem' },
+    D = { 'craype-x86-rome',   'craype-accel-host',       'craype-network-ofi', 'xpmem' }, -- craype-accel-nvidia does not yet work
+    G = { 'craype-x86-milan',  'craype-accel-amd-gfx908', 'craype-network-ofi', 'xpmem' },
+    L = { 'craype-x86-rome',   'craype-accel-host',       'craype-network-ofi', 'xpmem' },
+}
+
+--
+-- Default Cray Programming Environment.
+--
+local init_PrgEnv = 'PrgEnv-cray'
+
+--
+-- Stacks with long-term support
+--
+-- Currently there are none but some commented versions are left to indicate
+-- how the table should be filled.
+--
+local LTS_LUMI_stacks = {
+    -- ['21.08'] = true,
+    -- ['21.12'] = true,
+}
+
+
+-- -----------------------------------------------------------------------------
+-- -----------------------------------------------------------------------------
+--
 -- LMOD additional functions
 --
 -- These are put first so that they can be used in the hooks also.
@@ -155,15 +191,6 @@ end
 --
 -- Returns a list of modules to load.
 --
-local init_module_list = {
-    C = { 'craype-x86-milan',  'craype-accel-host',       'craype-network-ofi', 'xpmem' },
---    D = { 'craype-x86-rome',   'craype-accel-nvidia80',   'craype-network-ofi', 'xpmem' },
-    D = { 'craype-x86-rome',   'craype-accel-host',       'craype-network-ofi', 'xpmem' }, -- craype-accel-nvidia does not yet work
-    G = { 'craype-x86-milan',  'craype-accel-amd-gfx908', 'craype-network-ofi', 'xpmem' },
-    L = { 'craype-x86-rome',   'craype-accel-host',       'craype-network-ofi', 'xpmem' },
-}
-local init_PrgEnv = 'PrgEnv-cray'
-
 function get_init_module_list( partition, PrgEnv )
 
     local modulelist
@@ -420,6 +447,19 @@ function is_interactive()
 end
 
 
+--
+-- function is_LTS_LUMI_stack()
+--
+-- Input arguments: Version of the LUMI stack
+-- Output: True it it is a LTS stack, otherwise false.
+--
+function is_LTS_LUMI_stack( stack_version )
+
+    return ( LTS_LUMI_stacks[stack_version] or false )
+
+end
+
+
 
 sandbox_registration{
     ['get_hostname']              = get_hostname,
@@ -432,6 +472,7 @@ sandbox_registration{
     ['get_motd']                  = get_motd,
     ['get_fortune']               = get_fortune,
     ['is_interactive']            = is_interactive,
+    ['is_LTS_LUMI_stack']         = is_LTS_LUMI_stack,
 }
 
 

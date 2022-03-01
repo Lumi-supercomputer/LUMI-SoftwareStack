@@ -9,6 +9,29 @@ Make sure that the environment variable ``LMOD_PACKAGE_PATH`` points to the dire
 that contains this file to activate this file.
 
 
+## Settings
+
+### Target modules per partition
+
+The target modules per partition are set via the init_module_list table. This also
+includes other modules that are set at initialisation.
+
+
+### Default programming environment
+
+The default programming environment is set via the init_PrgEnv variable.
+
+
+### List of LTS software stacks
+
+In the initial implementation every software stack that was not a development stack
+was marked as "LTS" but it turns out it will be very difficult initially to live up
+to the promise of 2 years of support. We simply need to change the programming
+environment too often and HPE Cray also does not keep supporting them.
+
+The LUMI-stacks with long-term support are set in LTS_LUMI_stacks
+
+
 ## Hooks
 
 ### SiteName hook
@@ -85,16 +108,17 @@ It is assumed to be C, G, D or L depending on the node type (CPU compute, GPU co
 data and visualisation or login), or can be common to install software in the
 hidden common partition.
 
-If that environment variable is not defined, we currently emply the following algorithm
-as a demo of what can be done on the final LUMI installation:
+Currently the following rules are implemented for LUMI:
 
-  * On eiger uan01 and uan02 the partition is set to L
+  * Node name starts with `uan`:  It must be a login node, so in partition/L
 
-  * On eiger uan03 the partition is set to common
+  * Nude number 16-23: LUMI-D with GPU
 
-  * On all other hosts we first check for the environment variable
-    LUMI_PARTITION and use that one and otherwise we set the partition
-    to L.
+  * Node number 101-108: LUMI-D without GPY, assing to partition/L
+
+  * Node number 1000-2535: Regular LUMI-C compute nodes, assign partition/C
+
+  * Other nodes are for now assigned to partition/L.
 
 The idea is to ensure that a ``module update`` would reload the loaded software
 stack for the partition on which the ``module update`` command is run.
@@ -145,3 +169,43 @@ directory.
 It is used in the ``EasyBuild-config`` module, the ``LUMIpartition`` module (to include
 the user module directory in the ``MODULEPATH`) and in the ``avail_hook`` LMOD hook.
 
+
+### get_init_module_list
+
+``get_init_module_list`` is a function that returns the list of modules to load at
+initialisation. This includes target modules, other modules, and optionally the
+default programming environment.
+
+The function takes two arguments:
+
+ 1. The partition (L, C, G, D)
+
+ 2. A boolean: When true the default programming environment is added to the list of
+    modules that is generated as a result of the function.
+
+
+### get_motd
+
+``get_motd`` returns the message-fo-the-day as stored in ``etc/motd`` in the repository
+root. The function takes no input arguments.
+
+
+### get_fortune
+
+``get_fortune`` works as the old UNIX ``fortune`` command. It returns a random tip
+read from ``etc/lumi_fortune.txt`` in the repository root.
+
+
+### is_interactive
+
+``is_interactive`` returns true if it is called in an interactive shell, otherwise
+false. The function takes no input arguments.
+
+It is used to ensure that the message-of-the-day is not printed in cases where Linux
+would not print it.
+
+
+### is_LTS_LUMI_stack
+
+``is_LTS_LUMI_stack`` takes one input argument: the version of the LUMI stack. It returns
+true if that version is a LTS stack and returns false otherwise.

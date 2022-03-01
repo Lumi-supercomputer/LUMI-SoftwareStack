@@ -37,7 +37,7 @@ end
 -- Mark the stack as either a development version of a long-term supported stack depending on its name.
 if stack_version:find( '%.dev$' ) then
     add_property( 'state', 'development_stack' )
-else
+elseif is_LTS_LUMI_stack( stack_version ) then
     add_property( 'state', 'LTS_stack' )
 end
 
