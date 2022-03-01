@@ -86,6 +86,9 @@ end
 
 if mode() == 'load' or mode() == 'show' then
 
+    local show_motd = not isFile( pathJoin( os.getenv( 'HOME' ) or '', '.nomotd' ) )
+    local show_tip  = not isFile( pathJoin( os.getenv( 'HOME' ) or '', '.nomotdtip' ) ) and show_motd
+
     if os.getenv( '_LUMI_INIT_FIRST_LOAD' ) == nil and is_interactive() then
 
         -- Get the general info MOTD and print.
@@ -96,13 +99,13 @@ if mode() == 'load' or mode() == 'show' then
         -- Note that LmodMessage itself also writes the result with
         -- io.stderr:write.
         local motd = get_motd()
-        if mode() == 'load' and motd ~= nil then
+        if mode() == 'load' and motd ~= nil and show_motd then
             io.stderr:write( motd .. '\n\n' )
         end
 
         -- Get a fortune text with LUMI tip.
         local fortune = get_fortune()
-        if mode() == 'load' and fortune ~= nil then
+        if mode() == 'load' and fortune ~= nil and show_tip then
             io.stderr:write( 'Did you know?\n' ..
                              '*************\n' ..
                              fortune .. '\n' )
@@ -139,6 +142,24 @@ extended using EasyBuild.
 
 Force-unloading this module will return you to the almost bare Cray LMOD environment
 which you can use without support from LUST at your own risk.
+
+
+Usage
+=====
+You can disable the display of the tip at the end of the message-of-the-day by creating
+a file .nomotdtip in your home directory, e.g.,
+
+$ touch ~/.nomotdtip
+
+You can disable the complete message-of-the-day except for some header by creating a file
+.nomotd in your home directory, e.g.,
+
+$ touch ~/.nomotd
+
+Note that it is still your responsability to be aware of the information that is spread
+via the message-of-the-day, so do not blame the LUMI User Support Team nor CSC if you
+miss information because you hide the message-of-the-day. If you are new on the system
+you may have missed information that is in the message-of-the-day and spread by email.
 
 
 More information
