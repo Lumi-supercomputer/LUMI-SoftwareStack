@@ -335,6 +335,8 @@ components = [
 postinstallcmds = [
     # For make
     'cd %(installdir)s/bin ; ln -s make gmake', # Some programs check for gmake first and fail if that version is too old.
+    # For CMake: Remove a dead link from cmake
+    'cd %(installdir)s/bin ; rm -f ccmake3',
 ]
 
 sanity_check_paths = {
@@ -367,7 +369,7 @@ sanity_check_paths = {
              # sed
              ['bin/sed'] +
              # CMake
-             ['bin/ccmake', 'bin/cmake', 'bin/cpack', 'bin/ctest'] +
+             ['bin/cmake', 'bin/cpack', 'bin/ctest'] +
              # Ninja
              ['bin/ninja'] +
              # Meson
@@ -438,7 +440,6 @@ sanity_check_commands = [
     'sed --version',
     # CMake
     'cmake --version',
-    'ccmake --version',
     'cpack --version',
     'ctest --version',
     # Ninja
