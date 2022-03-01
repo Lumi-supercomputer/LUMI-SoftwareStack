@@ -28,6 +28,6 @@ cd $installroot/modules/Infrastructure/LUMI/$stack_version/partition
 for file in $(find . -name cpeAOCC)
 do
 
-	sed -z -i.bak -e 's|\(load("aocc/3.1.0")\).end|\1\nend\n\npushenv("CRAY_LMOD_COMPILER",  "aocc/3.0")\n-- Force rebuilding of MODULEPATH by loading craype-network-ofi as reloading aocc\n-- would reintroduce the wrong value of the environment variable.\nif mode() == "load" then load("craype-network-ofi") end|g' $file/$stack_version.lua
+	sed -z -i.bak -e 's|\(load("aocc/3.1.0")\).end|\1\nend\n\npushenv("CRAY_LMOD_COMPILER",  "aocc/3.0")\nprepend_path("MODULEPATH", "/opt/cray/pe/lmod/modulefiles/compiler/aocc/3.0")\n-- Force rebuilding of MODULEPATH by loading craype-network-ofi as reloading aocc\n-- would reintroduce the wrong value of the environment variable.\nif mode() == "load" then load("craype-network-ofi") end|g' $file/$stack_version.lua
 
 done
