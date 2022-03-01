@@ -118,8 +118,9 @@ if ( ( partition ~= 'common' ) and not special_partition[partition] ) or ( mode(
     prepend_path(     'MODULEPATH', '/opt/cray/modulefiles' )
     if targets_version == nil then
         prepend_path(     'MODULEPATH', '/opt/cray/pe/lmod/modulefiles/craype-targets/default' )
-    else
-        prepend_path(     'MODULEPATH', pathJoin( '/opt/cray/pe/lmod/modulefiles/craype-targets', targets_version ) )
+    else -- Until we find a solution for double target modules directories: Always use the default version.
+        -- prepend_path(     'MODULEPATH', pathJoin( '/opt/cray/pe/lmod/modulefiles/craype-targets', targets_version ) )
+        prepend_path(     'MODULEPATH', '/opt/cray/pe/lmod/modulefiles/craype-targets/default' )
     end
     prepend_path(     'MODULEPATH', '/opt/cray/pe/lmod/modulefiles/core' )
 
