@@ -1,5 +1,5 @@
 if os.getenv( '_LUMI_LMOD_DEBUG' ) ~= nil then
-    LmodMessage( 'DEBUG: ' .. myModuleFullName() .. ', mode ' .. mode() )
+    io.stderr:write( 'DEBUG: ' .. myModuleFullName() .. ', mode ' .. mode() .. '\n' )
 end
 
 -- -----------------------------------------------------------------------------
@@ -37,8 +37,8 @@ end
 -- Mark the stack as either a development version of a long-term supported stack depending on its name.
 if stack_version:find( '%.dev$' ) then
     add_property( 'state', 'development_stack' )
-elseif is_LTS_LUMI_stack( stack_version ) then
-    add_property( 'state', 'LTS_stack' )
+-- elseif is_LTS_LUMI_stack( stack_version ) then
+--     add_property( 'state', 'LTS_stack' )
 end
 
 -- -----------------------------------------------------------------------------
@@ -110,5 +110,5 @@ load( 'partition/' .. partition )
 
 if os.getenv( '_LUMI_LMOD_DEBUG' ) ~= nil then
     local modulepath = os.getenv( 'MODULEPATH' ):gsub( ':', '\n' )
-    LmodMessage( 'DEBUG: The MODULEPATH before exiting ' .. myModuleFullName() .. ' (mode ' .. mode() .. ') is:\n' .. modulepath .. '\n' )
+    io.stderr:write( 'DEBUG: The MODULEPATH before exiting ' .. myModuleFullName() .. ' (mode ' .. mode() .. ') is:\n' .. modulepath .. '\n\n' )
 end

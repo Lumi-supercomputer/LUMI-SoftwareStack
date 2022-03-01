@@ -6,6 +6,11 @@ local dbg  = require("Dbg"):dbg()
 local hook = require("Hook")
 require("sandbox")
 
+if os.getenv( '_LUMI_LMOD_DEBUG' ) ~= nil then
+    io.stderr:write( 'DEBUG: Executing SitePackage.lua from ' .. ( os.getenv( 'LMOD_PACKAGE_PATH' ) or '') .. '\n' )
+end
+
+
 -- -----------------------------------------------------------------------------
 -- -----------------------------------------------------------------------------
 --
@@ -673,17 +678,24 @@ local function is_visible_hook( modT )
     -- modT is a table with: fullName, sn, fn and isVisible
     -- The latter is a boolean to determine if a module is visible or not
 
+    -- Do nothing if LUMI_LMOD_POWERUSER is set.
+    if os.getenv( 'LUMI_LMOD_POWERUSER' ) ~=  nil then return end
+
+    -- First tests: Hide the Cray PE modules that are not part of the CPE
+    -- corresponding to the loaded LUMI module (if a LUMI module is loaded)
+    -- LUMI_VISIBILITYHOODDATA* environment variables are set in the LUMI module.
+
     local CPEmodules_path = os.getenv( 'LUMI_VISIBILITYHOOKDATAPATH' )
     local CPEmodules_file = os.getenv( 'LUMI_VISIBILITYHOOKDATAFILE' )
-    if CPEmodules_path == nil or CPEmodules_file == nil then return end
 
-    local CPEmodules
-    local saved_path = package.path
-    package.path = CPEmodules_path .. ';' .. package.path
-    CPEmodules = require( CPEmodules_file )
-    package.path = saved_path
+    if CPEmodules_path ~= nil and CPEmodules_file ~= nil then
 
-    if os.getenv( 'LUMI_LMOD_POWERUSER' ) ==  nil then
+        local CPEmodules
+        local saved_path = package.path
+        package.path = CPEmodules_path .. ';' .. package.path
+        CPEmodules = require( CPEmodules_file )
+        package.path = saved_path
+
         if modT.fn:find( 'cray/pe/lmod/modulefiles' ) or modT.fn:find( 'modules/CrayOverwrite' ) then
             if CPEmodules[modT.sn] ~= nil then
                 local module_version = modT.sn .. '/' .. CPEmodules[modT.sn]
@@ -692,7 +704,8 @@ local function is_visible_hook( modT )
                 end
             end
         end
-    end
+
+    end  -- Conditional part first tests
 
 end
 

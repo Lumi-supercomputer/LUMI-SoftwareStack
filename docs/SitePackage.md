@@ -89,6 +89,9 @@ at the cost of readability.
 
     The file is auto-generated during the initialisation of a software stack.
 
+    The name and location of the file is set through two environment variables set
+    in the LUMI modules.
+
   * Note that the feature is turned of for power users.
 
 
