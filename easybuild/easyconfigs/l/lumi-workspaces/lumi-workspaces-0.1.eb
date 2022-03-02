@@ -16,6 +16,7 @@ This module provides the lumi-workspaces command to check your quota on LUMI.
 """
 
 usage = """
+The lumi-workspaces command comes in three different forms:
   * lumi-workspaces         : Shows your workspaces
   * lumi-workspaces -v      : Detailed quota information
   * lumi-workspaces -p prj  : Show quota of project prj
