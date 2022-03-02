@@ -4,13 +4,11 @@
    | SP1 to SP2. If software stopped working, please contact LUMI   |
 *  | user support via the link given above.                         |
    |                                                                |
-   | The update also includes a new version of the Cray Programming |
- * | Environment. The previous versions are still available. In     |
-   | early March we will make a LUMI/21.12 software stack available |
- * | using the Cray PE version 21.12. However, the build recipes    |
-   | provided in the contributed repository will also need updating |
-*  | which will happen after the installation of the core 21.12     |
-   | software stack.                                                |
+*  | The core of the LUMI 21/12 software stack is installed.        |
+   | EasyBuild recipes for packages for user installations still    |
+ * | need to be adapted, so installations of additional packages    |
+   | still require some EasyBuild expertise to adapt toolchain and  |
+   | dependency versions.                                           |
  * |                                                                |
    | On 2022-03-16 at 13:00 CET is the LUMI User Support Team       |
    | meeing in a virtual coffee room: https://tinyurl.com/2trrtb2d  |
