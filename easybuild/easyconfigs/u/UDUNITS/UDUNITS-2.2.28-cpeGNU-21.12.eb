@@ -69,7 +69,13 @@ sanity_check_paths = {
 
 sanity_check_commands = [
     'udunits2 -h',
+    'udunits2 -H "80 km/h" -W m/s',
 ]
+
+# In case we'd experience problems that the data files are not found, this might help.
+#modextravars = {
+#    'UDUNITS2_XML_PATH': '%(installdir)s/share/udunits/udunits2.xml',
+#}
 
 modextrapaths = {
     'INFOPATH' : 'share/info',

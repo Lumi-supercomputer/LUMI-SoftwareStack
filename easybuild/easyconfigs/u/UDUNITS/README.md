@@ -19,3 +19,5 @@
   * The EasyConfig is a straightforward adaptation of the EasyBuilders and University
     of Antwerpen ones.
 
+  * Added an additional sanity check from 21.12 on that will likely guarantee that the
+    XML data file used by the version 2 libraries can be found.
