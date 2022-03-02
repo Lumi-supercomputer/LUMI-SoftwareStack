@@ -24,3 +24,6 @@
 
   * Hence we developed new EasyConfig files that uses a ncurses module
 
+### nano 6.2 for CPE 21.12 and later
+
+  * A trivial port of the 5.9 one. No new options were added to the EasyConfig.

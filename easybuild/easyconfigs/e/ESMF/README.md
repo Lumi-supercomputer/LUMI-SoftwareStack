@@ -23,3 +23,11 @@ Note that ESMF uses a custom EasyBlock which needs adaptations for Cray systems.
   * **TODO**: The EasyBuilders version uses a patch. Does this add functionality?
 
   * Building fails with cpeAMD, with very strange error messages.
+
+
+### ESMF 8.2.0 for CPE 21.08
+
+  * This version does not compile with gfortran unless the flag to allow argument
+    mismatch is used. The problem is that the build procedure does not pick up
+    `F90FLAGS` etc., so we've done some hand work with `preconfigopts` and
+    `prebuildopts`.

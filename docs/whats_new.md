@@ -1,5 +1,13 @@
 # What's new or different?
 
+  * 2022-03-01: Not every non-development stack should be marked as a
+    LTS stack as it turns out to be very difficult to guarantee longevity
+    of the software stack. Hence there is now a table at the top of
+    SitePackage.lua to mark which stacks are LTS.
+
+  * 2022-03-01: Option to turn off the tip in the message-of-the-day or
+    even the whole message-of-the-day.
+
   * 2022-02-24: Hiding cpe-cuda modules via LMOD/modulerc.lua as they don't
     make sense on LUMI.
 

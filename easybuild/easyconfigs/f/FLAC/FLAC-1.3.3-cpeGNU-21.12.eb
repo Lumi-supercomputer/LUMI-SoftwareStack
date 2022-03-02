@@ -1,0 +1,72 @@
+##
+# This file is an EasyBuild reciPY as per https://github.com/easybuilders/easybuild
+#
+# Author:    Stephane Thiell <sthiell@stanford.edu>
+###
+
+easyblock = 'ConfigureMake'
+
+local_FLAC_version =         '1.3.3'         # https://xiph.org/downloads/ or https://github.com/xiph/flac/releases
+local_libogg_version =       '1.3.5'         # https://www.xiph.org/downloads/ or https://github.com/xiph/ogg/releases
+
+name =    'FLAC'
+version = local_FLAC_version
+
+homepage = 'https://xiph.org/flac/'
+
+whatis = [
+    "Description: programs and libraries for working with Free Lossless Audio Codec (FLAC) files",
+]
+
+description = """
+FLAC stands for Free Lossless Audio Codec, an audio format similar to MP3, but
+lossless, meaning that audio is compressed in FLAC without any loss in quality.
+This is similar to how Zip works, except with FLAC you will get much better
+compression because it is designed specifically for audio, and you can play
+back compressed FLAC files in your favorite player (or your car or home stereo,
+see supported devices) just like you would an MP3 file.
+
+FLAC stands out as the fastest and most widely supported lossless audio codec,
+and the only one that at once is non-proprietary, is unencumbered by patents,
+has an open-source reference implementation, has a well documented format
+and API, and has several other independent implementations.
+
+FLAC is compiled with support for the Ogg container format but without
+XMMS plugin.
+"""
+
+docurls = [
+    'Web-based documentation on https://xiph.org/flac/documentation.html',
+    'Man pages in section 1 for the flac and metaflac commands',
+]
+
+toolchain = {'name': 'cpeGNU', 'version': '21.12'}
+toolchainopts = {'pic': True}
+
+sources =     [SOURCELOWER_TAR_XZ]
+source_urls = ['http://downloads.xiph.org/releases/flac/']
+checksums =   ['213e82bd716c9de6db2f98bcadbc4c24c7e2efe8c75939a1a84e28539c4e1748']
+
+# use of assembly routines requires a recent binutils
+builddependencies = [ # Create a reproducible build environment.
+    ('buildtools', '%(toolchain_version)s', '', True),
+]
+
+dependencies = [
+    ('libogg', local_libogg_version),
+]
+
+# We donb't have xmns so we turn this off to avoid the warning during the configure
+# step.
+configopts = '--enable-static --enable-shared --disable-xmms-plugin'
+
+# The tests are extremely time-consuming so you may want to skip them.
+#runtest = 'check'
+
+sanity_check_paths = {
+    'files': ['bin/flac', 'lib/libFLAC.a', 'lib/libFLAC++.a',
+              'lib/libFLAC.%s' % SHLIB_EXT, 'lib/libFLAC++.%s' % SHLIB_EXT],
+    'dirs': ['include/FLAC', 'include/FLAC++'],
+}
+
+moduleclass = 'data'

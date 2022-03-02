@@ -34,4 +34,6 @@ if os.getenv( 'LUMI_LMOD_POWERUSER' ) == nil then
     hide_version( 'craype-x86-skylake' )
     hide_version( 'craype-x86-cascadelake' )
     hide_version( 'craype-x86-icelake' )
+    hide_version( 'craype-x86-icelake' )
+    hide_version( 'craype-x86-milan-x' )
 end

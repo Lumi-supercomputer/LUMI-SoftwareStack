@@ -328,7 +328,7 @@ software:
   HarfBuzz:
     toolchains:
       cpeGNU-21.08:
-        versions: ['2.6.4']
+        versions: ['2.8.2']
   Pango:
     toolchains:
       cpeGNU-21.08:

@@ -1,0 +1,556 @@
+# This easyconfig requires at least EasyBuild 3.9.4 due to a bug in the Bundle
+# EasyBlock in earlier versions. Or use the patched bundle.py of
+# https://github.com/easybuilders/easybuild-easyblocks/pull/1777 via --include-easyblocks
+#
+# NOTE: This module is developed at UAntwerp
+# NOTE: meson, which is included, requires python3 with setuptools installed in the OS.
+#
+# It is the first module we compile when starting a new toolchain.
+#
+# This bundle collects a number of GNU tools useful during the building process
+# and a few other tools.
+#
+# We do include a Flex and Bison even though they do contain libraries
+# for which some packages may want to use toolchain-specific versions. These
+# packages should then just assure that module is loaded after buildtools.
+#
+easyblock = 'Bundle'
+
+name =    'buildtools'
+version = '21.12'
+
+local_system_pyshortver = '3.6'
+
+# Version info:
+local_makeinfo_version =         '6.8'         # texinfo    20210703 - Check on https://gnu.askapache.com/texinfo/
+local_Autoconf_version =         '2.71'        # Autoconf   20210128 - Check on https://ftp.gnu.org/gnu/autoconf/
+local_Autoconf_archive_version = '2021.02.19'  # Autoconf-Archive 202102196 - check on https://ftp.gnu.org/gnu/autoconf-archive/
+local_Automake_version =         '1.16.5'      # Automake   20211003 - Check on https://ftp.gnu.org/gnu/automake/
+local_CMake_version =            '3.22.2'      # CMake      20220125 - Check on https://cmake.org/download/
+local_Ninja_version =            '1.10.2'      # Ninja      20201128 - Check on https://ninja-build.org/
+local_Meson_version =            '0.61.1'      # Meson      20220117 - Check on https://pypi.org/project/meson/#history
+local_Doxygen_version =          '1.9.3'       # Doxygen    20211231 - Check on https://www.doxygen.nl/download.html
+local_help2man_version =         '1.48.5'      # help2man   20210822 - Check on https://ftp.gnu.org/gnu/help2man/
+local_libtool_version =          '2.4.6'       # libtool    20150215 - Check on https://ftp.gnu.org/gnu/libtool/
+local_M4_version =               '1.4.19'      # M4         20210528 - Check on https://ftp.gnu.org/gnu/m4/
+local_make_version =             '4.3'         # Make       20200119 - Check on https://ftp.gnu.org/gnu/make/
+local_NASM_version =             '2.15.05'     # NASM       20200828 - Check on https://www.nasm.us/
+local_Yasm_version =             '1.3.0'       # Yasm       20140810 - Check on https://yasm.tortall.net/Download.html
+local_gperf_version =            '3.1'         # gperf      20170105 - Check on https://ftp.gnu.org/gnu/gperf/
+local_sed_version =              '4.8'         # sed        20200114 - Check on https://ftp.gnu.org/gnu/sed/
+local_patchelf_version =         '0.14.3'      # patchelf   20211205 - Check on https://github.com/NixOS/patchelf/releases
+local_Bison_version =            '3.8.2'       # Bison      20210925 - Check on https://ftp.gnu.org/gnu/bison/
+local_flex_version =             '2.6.4'       # flex       20170506 - Check on https://github.com/westes/flex/releases
+local_byacc_version =            '20220128'    # byacc      20220128 - Check on https://invisible-mirror.net/archives/byacc/
+local_re2c_version =             '3.0'         # re2c       20210127 - Check on https://github.com/skvadrik/re2c/releases
+local_SCons_version =            '4.3.0'       # SCons      20211117 - Check on https://github.com/SCons/scons/releases, https://scons.org/pages/download.html
+local_xxd_version =              '8.2.4293'    # vim        20220204 - Check on https://github.com/vim/vim/tags
+
+homepage = 'http://www.gnu.org'
+
+whatis = [
+    "Description: A bundle of often used build tools, GNU and others"
+    "Contains: åutoconf, Autoconf_archive, Automake, makeinfo, libtool, M4, make, sed, Bison, flex, Berkeley Yacc (byacc), " +
+    "CMake, Ninja, Meson, SCons, NASM, Yasm, patchelf, gperf, re2c, help2man, Doxygen and xxd"
+]
+
+description = """
+A bundle of often used build tools, GNU and others: autoconf, autoconf_archive,
+automake, makeinfo, libtool, M4, make, git, sed, Bison, flex, Berkeley Yacc (byacc),
+CMake, Ninja, Meson, SCons, NASM, Yasm, patchelf, pkg-config, gperf, re2c, help2man
+and Doxygen.
+"""
+
+usage = """
+This bundle collects a number of standard tools that are often needed when
+building software. Many of them are GNU tools.
++ GNU Autoconf %(autoconf)s               - https://www.gnu.org/software/autoconf/
++ GNU Autoconf Archive %(autoconfarchive)s - https://www.gnu.org/software/autoconf/
++ GNU Automake %(automake)s             - https://www.gnu.org/software/automake/
++ GNU makeinfo %(makeinfo)s                - https://www.gnu.org/software/texinfo/
++ GNU libtool %(libtool)s               - https://www.gnu.org/software/libtool/
++ GNU M4 %(m4)s                   - https://www.gnu.org/software/m4/
++ GNU make %(make)s                    - https://www.gnu.org/software/make/
++ GNU sed %(sed)s                     - https://www.gnu.org/software/sed/
++ GNU Bison %(bison)s                 - https://www.gnu.org/software/bison
++ GNU flex %(flex)s                  - https://www.gnu.org/software/flex/
++ byacc %(byacc)s                  - http://invisible-island.net/byacc/byacc.html
++ CMake %(cmake)s                    - http://www.cmake.org/
++ Ninja %(ninja)s                    - https://ninja-build.org/
++ Meson %(meson)s                    - https://mesonbuild.com/Manual.html
++ SCons %(SCons)s                     - https://www.scons.org/
++ NASM %(nasm)s                    - http://www.nasm.us/
++ Yasm %(yasm)s                      - http://yasm.tortall.net/
++ patchelf %(patchelf)s                 - Modify the dynamic linker and RPATH of ELF executables,
+                                    http://nixos.org/patchelf.html
++ re2c %(re2c)s                        - http://re2c.org/
++ GNU gperf %(gperf)s                   - https://www.gnu.org/software/gperf/
++ GNU help2man %(help2man)s             - https://www.gnu.org/software/help2man/
++ Doxygen %(doxygen)s                   - http://www.doxygen.org/
++ xxd %(xxd)s                    - https://www.vim.org
+These tools are all build against the system libraries and have been used to
+build several of the %(ver)s packages.
+
+Note that makeinfo is not fully functional as there is no TeX on the system.
+""" % {
+    'autoconf'        : local_Autoconf_version,
+    'autoconfarchive' : local_Autoconf_archive_version,
+    'automake'        : local_Automake_version,
+    'makeinfo'        : local_makeinfo_version,
+    'libtool'         : local_libtool_version,
+    'm4'              : local_M4_version,
+    'make'            : local_make_version,
+    'sed'             : local_sed_version,
+    'bison'           : local_Bison_version,
+    'flex'            : local_flex_version,
+    'byacc'           : local_byacc_version,
+    'cmake'           : local_CMake_version,
+    'ninja'           : local_Ninja_version,
+    'meson'           : local_Meson_version,
+    'SCons'           : local_SCons_version,
+    'nasm'            : local_NASM_version,
+    'yasm'            : local_Yasm_version,
+    'patchelf'        : local_patchelf_version,
+    're2c'            : local_re2c_version,
+    'gperf'           : local_gperf_version,
+    'help2man'        : local_help2man_version,
+    'doxygen'         : local_Doxygen_version,
+    'xxd'             : local_xxd_version,
+    'ver'             : version,
+}
+
+toolchain = SYSTEM
+
+dependencies = [ ]
+
+builddependencies = [
+#    ('flex',  local_flex_version),   # For Doxygen
+#    ('Bison', local_Bison_version),  # For Doxygen
+]
+
+osdependencies = [
+    ('openssl-devel', 'libssl-dev', 'libopenssl-devel'), # For CMake
+##    ('ncurses-devel'),                                   # For CMake - RE-enable if installed on LUMI.
+    ('libcurl-devel'),                                   # For git
+#    ('expat-devel'),                                     # For git
+#    ('gettext-devel'),                                   # For git
+#    ('pcre-devel'),                                      # For git
+    ('perl'),                                            # For git
+    ('python3'),                                          # For git, Meson, SCons
+]
+
+
+default_easyblock = 'ConfigureMake'
+
+components = [
+#    ('git', local_git_version, { # Build of 2.22.0 fails if build after Make or certain other packages...
+#        'sources':       [ { 'download_filename' : 'v%(version)s.tar.gz',
+#                             'filename'          : 'git-%(version)s.tar.gz',
+#                             'source_urls'       : ['https://github.com/git/git/archive'],
+#                         } ],
+#        'checksums':     ['2a93b9a3276464507922134bfba9be466427ab6a843e3773849050e3d05250d0'],
+#        'start_dir':     '%(namelower)s-%(version)s',
+#        'preconfigopts': 'make configure && ',
+#        'configopts':    "--with-libpcre --with-python=/usr/bin/python --enable-pthreads='-lpthread'",
+#        }),
+    ('Make', local_make_version, { # Uses pkg-config
+        'sources':     [SOURCELOWER_TAR_GZ], # .tar.lz not yet supported on our systems and not available as a constant in EasyBuild.
+        'source_urls': [GNU_SOURCE],
+        'checksums':   ['e05fdde47c5f7ca45cb697e973894ff4f5d79e13b750ed57d7b66d8defc78e19'],
+        'start_dir':   '%(namelower)s-%(version)s'
+        }),
+    ('byacc', local_byacc_version, {
+        'sources':     [SOURCELOWER_TGZ],
+        'source_urls': ['ftp://ftp.invisible-island.net/byacc//'],
+        'checksums':   ['42c1805cc529314e6a76326fe1b33e80c70862a44b01474da362e2f7db2d749c'],
+        'start_dir':   '%(namelower)s-%(version)s',
+        'installopts': ' && mv %(installdir)s/bin/yacc %(installdir)s/bin/byacc && mv %(installdir)s/share/man/man1/yacc.1 %(installdir)s/share/man/man1/byacc.1',
+        }),
+    ('M4', local_M4_version, { # Uses gawk which for now we assume to be on the system
+        'sources':     [SOURCELOWER_TAR_XZ],
+        'source_urls': [GNU_SOURCE],
+        'checksums':   ['63aede5c6d33b6d9b13511cd0be2cac046f2e70fd0a07aa9573a04a82783af96'],
+        'start_dir':   '%(namelower)s-%(version)s'
+        }),
+    ('libtool', local_libtool_version, { # Uses M4
+        'sources':     [SOURCELOWER_TAR_XZ],
+        'source_urls': [GNU_SOURCE],
+        'checksums':   ['7c87a8c2c8c0fc9cd5019e402bed4292462d00a718a7cd5f11218153bf28b26f'],
+        'start_dir':   '%(namelower)s-%(version)s'
+        }),
+    ('Autoconf', local_Autoconf_version, { # Uses M4
+        'sources':     [SOURCELOWER_TAR_XZ],
+        'source_urls': [GNU_SOURCE],
+        'checksums':   ['f14c83cfebcc9427f2c3cea7258bd90df972d92eb26752da4ddad81c87a0faa4'],
+        'start_dir':   '%(namelower)s-%(version)s'
+        }),
+    ('makeinfo', local_makeinfo_version, { # Uses the system perl
+        'sources':     ['texinfo-%(version)s.tar.xz'],
+        'source_urls': ['https://ftpmirror.gnu.org/gnu/texinfo'],
+        'checksums':   ['8eb753ed28bca21f8f56c1a180362aed789229bd62fff58bf8368e9beb59fec4'],
+        'start_dir':   'texinfo-%(version)s'
+        }),
+    ('Autoconf-archive', local_Autoconf_archive_version, { # Uses M4
+        'sources':     [SOURCELOWER_TAR_XZ],
+        'source_urls': [GNU_SOURCE],
+        'checksums':   ['e8a6eb9d28ddcba8ffef3fa211653239e9bf239aba6a01a6b7cfc7ceaec69cbd'],
+        'start_dir':   '%(namelower)s-%(version)s'
+        }),
+    ('Automake', local_Automake_version, {
+        'sources':     [SOURCELOWER_TAR_XZ],
+        'source_urls': [GNU_SOURCE],
+        'checksums':   ['f01d58cd6d9d77fbdca9eb4bbd5ead1988228fdb73d6f7a201f5f8d6b118b469'],
+        'start_dir':   '%(namelower)s-%(version)s'
+        }),
+    ('help2man', local_help2man_version, {
+        'sources':     [SOURCELOWER_TAR_XZ],
+        'source_urls': [GNU_SOURCE],
+        'checksums':   ['6739e4caa42e6aed3399be4387ca79399640967334e91728863b8eaa922582be'],
+        'start_dir':   '%(namelower)s-%(version)s'
+        }),
+    ('Bison', local_Bison_version, {
+        'sources':     [SOURCELOWER_TAR_XZ],
+        'source_urls': [GNU_SOURCE],
+        'checksums':   ['9bba0214ccf7f1079c5d59210045227bcf619519840ebfa80cd3849cff5a5bf2'],
+        'start_dir':   '%(namelower)s-%(version)s',
+        'buildopts':    'V=1',
+        'parallel':     '1',  # Building the examples fails in some Bison version when doing a parallel
+                              # build, likely due to incomplete dependencies and a file being removed
+                              # while it is still needed.
+        }),
+    ('flex', local_flex_version, {
+        'sources':       [SOURCELOWER_TAR_GZ],
+        'source_urls':   ['https://github.com/westes/flex/releases/download/v' + local_flex_version + '/'],
+        'checksums':     ['e87aae032bf07c26f85ac0ed3250998c37621d95f8bd748b31f15b33c45ee995'],
+        'start_dir':     '%(namelower)s-%(version)s',
+        'preconfigopts': 'export CPPFLAGS="$CPPFLAGS -D_GNU_SOURCE" && ',
+        }),
+    ('sed', local_sed_version, {
+        'sources':     [SOURCELOWER_TAR_XZ],
+        'source_urls': [GNU_SOURCE],
+        'checksums':   ['f79b0cfea71b37a8eeec8490db6c5f7ae7719c35587f21edb0617f370eeff633'],
+        'start_dir':   '%(namelower)s-%(version)s'
+        }),
+    ('CMake', local_CMake_version, {
+        'sources':     [SOURCELOWER_TAR_GZ],
+        'source_urls': ['https://cmake.org/files/v%(version_major_minor)s'],
+        'checksums':   ['3c1c478b9650b107d452c5bd545c72e2fad4e37c09b89a1984b9a2f46df6aced'],
+        'start_dir':   '%(namelower)s-%(version)s',
+        'configopts':  '-- -DCMAKE_USE_OPENSSL=1'
+        }),
+    ('Ninja', local_Ninja_version, {
+        'easyblock':     'CmdCp',
+        'sources':       [ { 'download_filename' : 'v%(version)s.tar.gz',
+                             'filename'          : SOURCELOWER_TAR_GZ,
+                             'source_urls'       : ['https://github.com/ninja-build/ninja/archive'],
+                         } ],
+        'checksums':     ['ce35865411f0490368a8fc383f29071de6690cbadc27704734978221f25e2bed'],
+        'start_dir':     '%(namelower)s-%(version)s',
+        'cmds_map':      [('.*', "./configure.py --bootstrap")],
+        'files_to_copy': [(['ninja'], 'bin')],
+    }),
+    ('Meson', local_Meson_version, { # Does require Ninja
+        'easyblock':     'PythonPackage',
+        'sources':       [SOURCELOWER_TAR_GZ],
+        'source_urls':   [PYPI_SOURCE],
+        'checksums':     ['feb2cefb325b437dbf36146df7c6b87688ddff0b0205caa31dc64055c6da410c'],
+        'start_dir':     '%(namelower)s-%(version)s',
+        'req_py_majver': 3, # Used to let EasyBuild select the right system Python executable.
+        'req_py_minver': 5, # Used to let EasyBuild select the right system Python executable.
+        'options':       {'modulename': 'mesonbuild'}
+    }),
+    ('SCons', local_SCons_version, {
+        'easyblock':   'PythonPackage',
+        'sources':          [SOURCE_TAR_GZ],
+        'source_urls':      [PYPI_SOURCE],
+        'checksums':        ['d47081587e3675cc168f1f54f0d74a69b328a2fc90ec4feb85f728677419b879'],
+        'start_dir':        '%(name)s-%(version)s',
+        'req_py_majver':     3, # Used to let EasyBuild select the right system Python executable.
+        'req_py_minver':     5, # Used to let EasyBuild select the right system Python executable.
+        'download_dep_fail': True,
+        'use_pip':           False,
+        'sanity_pip_check':  False,
+        'options':           {'modulename': False}
+        }),
+    ('gperf', local_gperf_version, {
+        'sources':     [SOURCELOWER_TAR_GZ],
+        'source_urls': [GNU_SOURCE],
+        'checksums':   ['588546b945bba4b70b6a3a616e80b4ab466e3f33024a352fc2198112cdbb3ae2'],
+        'start_dir':   '%(namelower)s-%(version)s'
+        }),
+    ('NASM', local_NASM_version, {
+        'sources':     [SOURCELOWER_TAR_XZ],
+        'source_urls': ['http://www.nasm.us/pub/nasm/releasebuilds/%(version)s'],
+        'checksums':   ['3caf6729c1073bf96629b57cee31eeb54f4f8129b01902c73428836550b30a3f'],
+        'start_dir':   '%(namelower)s-%(version)s'
+        }),
+    ('Yasm', local_Yasm_version, {
+        # http://www.tortall.net/projects/yasm/releases/yasm-1.3.0.tar.gz
+        'sources':     [SOURCELOWER_TAR_GZ],
+        'source_urls': ['http://www.tortall.net/projects/yasm/releases/'],
+        'checksums':   ['3dce6601b495f5b3d45b59f7d2492a340ee7e84b5beca17e48f862502bd5603f'],
+        'start_dir':   '%(namelower)s-%(version)s'
+        }),
+    ('patchelf', local_patchelf_version, {
+        'sources':       [ { 'download_filename' : '%(version)s.tar.gz',
+                             'filename'          : 'patchelf-%(version)s.tar.gz',
+                             'source_urls'       : ['https://github.com/NixOS/patchelf/archive/'],
+                         } ],
+        'checksums':     ['827a8ca914c69413f1ca0d967a637980a24edf000a938531a77e663317c853bb'],
+        'start_dir':     '%(namelower)s-%(version)s',
+        'preconfigopts': 'sh bootstrap.sh && '
+        }),
+    ('re2c', local_re2c_version, {
+        'sources':     [SOURCE_TAR_XZ],
+        'source_urls': ['https://github.com/skvadrik/re2c/releases/download/%(version)s'],
+        'checksums':   ['b3babbbb1461e13fe22c630a40c43885efcfbbbb585830c6f4c0d791cf82ba0b'],
+        'start_dir':   '%(name)s-%(version)s',
+        }),
+    ('Doxygen', local_Doxygen_version, {  # Note that the build process already requires CMake, flex and Bison
+        'easyblock':     'EB_Doxygen',
+        # Download as http://doxygen.nl/files/doxygen-1.8.15.src.tar.gz
+        'sources':       ['%(namelower)s-%(version)s.src.tar.gz'],
+        'source_urls':   ['http://doxygen.nl/files/'],
+        'checksums':     ['f352dbc3221af7012b7b00935f2dfdc9fb67a97d43287d2f6c81c50449d254e0'],
+        'start_dir':     '%(namelower)s-%(version)s',
+        }),
+    ('xxd', local_xxd_version, { # Uses pkg-config
+        'easyblock':   'MakeCp',
+        'sources':     [ { 'download_filename' : 'v%(version)s.tar.gz',
+                           'filename'          : 'xxd-%(version)s.tar.gz',
+                           'source_urls'       : ['https://github.com/vim/vim/archive/refs/tags'],
+                       } ],
+        'checksums':   ['03c9c5aeca01c779d325cdaff146c18fd1dfd48cc0fd330639e07bd845b6029e'],
+        'start_dir':   'vim-%(version)s/src/xxd',
+        'files_to_copy': [ (['xxd'], 'bin') ],
+        }),
+]
+#
+# Additions to consider:
+# - GNU coreutils: Not only for building, but several programs are used during the build process of some codes.
+#
+
+#parallel = 1
+
+postinstallcmds = [
+    # For make
+    'cd %(installdir)s/bin ; ln -s make gmake', # Some programs check for gmake first and fail if that version is too old.
+    # For CMake: Remove a dead link from cmake
+    'cd %(installdir)s/bin ; rm -f ccmake3',
+]
+
+sanity_check_paths = {
+    'files': # Make
+             ['bin/make', 'bin/gmake'] +
+             # byacc
+             ['bin/byacc'] +
+             # M4
+             ['bin/m4'] +
+             # libtool
+             ['bin/libtool', 'bin/libtoolize', 'lib/libltdl.%s' % SHLIB_EXT] +
+             # Autoconf
+             ['bin/%s' % x
+              for x in ['autoconf', 'autoheader', 'autom4te', 'autoreconf',
+                       'autoscan', 'autoupdate', 'ifnames']] +
+             # makeinfo
+             ['bin/makeinfo'] +
+             # Autoconf-archive
+             # Automake
+             ['bin/aclocal',
+              'bin/aclocal-' + '.'.join(local_Automake_version.split('.')[:2]),
+              'bin/automake',
+              'bin/automake-' + '.'.join(local_Automake_version.split('.')[:2])] +
+             # help2man
+             ['bin/help2man'] +
+             # Bison
+             ['bin/%s' % x for x in ['bison', 'yacc']] + [('lib/liby.a', 'lib64/liby.a')] +
+             # flex
+             ['bin/flex', 'bin/lex', 'bin/lex++', 'lib/libfl.a', 'lib/libfl.%s' % SHLIB_EXT] +
+             # sed
+             ['bin/sed'] +
+             # CMake
+             ['bin/cmake', 'bin/cpack', 'bin/ctest'] +
+             # Ninja
+             ['bin/ninja'] +
+             # Meson
+             # SCons
+             ['bin/scons', 'bin/sconsign', 'bin/scons-configure-cache'] + # scons-time is missing in SCons 4? Strange as there is a manual page for it.
+             # gperf
+             ['bin/gperf'] +
+             # NASM
+             ['bin/nasm', 'bin/ndisasm'] +
+             # Yasm
+             ['bin/yasm', 'bin/vsyasm', 'bin/ytasm'] +
+             # patchelf
+             ['bin/patchelf'] +
+             # re2c
+             ['bin/re2c', 'bin/re2go', 'share/re2c/stdlib/unicode_categories.re'] +
+             # Doxygen
+             ['bin/doxygen'] +
+             # xxd
+             ['bin/xxd'],
+    'dirs':  # libtool
+             ['include/libltdl', 'share/libtool/loaders', 'share/man/man1'] +
+             # Autoconf
+             ['share/autoconf'] +
+             # Autoconf-archive
+             ['share/aclocal', 'share/doc/autoconf-archive'] +
+             # Automake
+             ['share/aclocal',
+              'share/aclocal-' +  '.'.join(local_Automake_version.split('.')[:2]),
+              'share/automake-' + '.'.join(local_Automake_version.split('.')[:2])] +
+             # CMake
+             ['share/cmake-' + '.'.join(local_CMake_version.split('.')[:2])] +
+             ['share/info'],
+}
+
+sanity_check_commands = [
+    # Make
+    'make --version',
+    # byacc
+    'byacc -V',
+    # M4
+    'm4 --version',
+    # libtool
+    'libtool --version',
+    # Autoconf
+    'autoconf --version',
+    'autoheader --version',
+    'autom4te --version',
+    'autoreconf --version',
+    'autoscan --version',
+    'autoupdate --version',
+    'ifnames --version',
+    # makeinfo
+    'makeinfo --version',
+    # Autoconf-archive
+    # Automake
+    'aclocal --version',
+    'aclocal-' + '.'.join(local_Automake_version.split('.')[:2]) + ' --version',
+    'automake --version',
+    'automake-' + '.'.join(local_Automake_version.split('.')[:2]) + ' --version',
+    # help2man
+    'help2man --version',
+    # Bison
+    'bison --version',
+    'yacc --version',
+    # flex
+    'flex --version',
+    # sed
+    'sed --version',
+    # CMake
+    'cmake --version',
+    'cpack --version',
+    'ctest --version',
+    # Ninja
+    'ninja --version',
+    # Meson
+    'meson --version',
+    # SCons
+    'scons --help',
+    # gperf
+    'gperf --version',
+    # NASM
+    'nasm --version',
+    # Yasm
+    'yasm --version',
+    'vsyasm --version',
+    # patchelf
+    'patchelf --version',
+    # re2c
+    're2c --version',
+    're2go --version',
+    # Doxygen
+    'doxygen --version',
+    # xxd
+    'xxd -v',
+]
+
+modextrapaths = {
+    'PYTHONPATH': ['lib/python%s/site-packages' % local_system_pyshortver]
+}
+
+modextravars = {
+    'EBROOTBYACC':                 '%(installdir)s',
+    'EBVERSIONBYACC':              local_byacc_version,
+    'EBROOTFLEX':                  '%(installdir)s',
+    'EBVERSIONFLEX':               local_flex_version,
+#    'EBROOTGIT':                   '%(installdir)s',
+#    'EBVERSIONGIT':                local_git_version,
+    'EBROOTAUTOCONF':              '%(installdir)s',
+    'EBVERSIONAUTOCONF':           local_Autoconf_version,
+    'EBROOTAUTOCONFMINARCHIVE':    '%(installdir)s',
+    'EBVERSIONAUTOCONFMINARCHIVE': local_Autoconf_archive_version,
+    'EBROOTAUTOMAKE':              '%(installdir)s',
+    'EBVERSIONAUTOMAKE':           local_Automake_version,
+    'EBROOTBISON':                 '%(installdir)s',
+    'EBVERSIONBISON':              local_Bison_version,
+    'EBROOTLIBTOOL':               '%(installdir)s',
+    'EBVERSIONLIBTOOL':            local_libtool_version,
+    'EBROOTM4':                    '%(installdir)s',
+    'EBVERSIONM4':                 local_M4_version,
+    'EBROOTMAKE':                  '%(installdir)s',
+    'EBVERSIONMAKE':               local_make_version,
+    'EBROOTMAKEINFO':              '%(installdir)s',
+    'EBVERSIONMAKEINVO':           local_makeinfo_version,
+    'EBROOTSED':                   '%(installdir)s',
+    'EBVERSIONSED':                local_sed_version,
+    'EBROOTCMAKE':                 '%(installdir)s',
+    'EBVERSIONCMAKE':              local_CMake_version,
+    'EBROOTNINJA':                 '%(installdir)s',
+    'EBVERSIONNINJA':              local_Ninja_version,
+    'EBROOTMESON':                 '%(installdir)s',
+    'EBVERSIONMESON':              local_Meson_version,
+    'EBROOTSCONS':                 '%(installdir)s',
+    'EBVERSIONSCONS':              local_SCons_version,
+    'EBROOTNASM':                  '%(installdir)s',
+    'EBVERSIONNASM':               local_NASM_version,
+    'EBROOTYASM':                  '%(installdir)s',
+    'EBVERSIONYASM':               local_Yasm_version,
+    'EBROOTPATCHELF':              '%(installdir)s',
+    'EBVERSIONPATCHELF':           local_patchelf_version,
+    'EBROOTGPERF':                 '%(installdir)s',
+    'EBVERSIONGPERF':              local_gperf_version,
+    'EBROOTRE2C':                  '%(installdir)s',
+    'EBVERSIONRE2C':               local_re2c_version,
+    'EBROOTHELP2MAN':              '%(installdir)s',
+    'EBVERSIONHELP2MAN':           local_help2man_version,
+    'EBROOTDOXYGEN':               '%(installdir)s',
+    'EBVERSIONDOXYGEN':            local_Doxygen_version,
+    'EBROOTDXXD':                  '%(installdir)s',
+    'EBVERSIONXXD':                local_xxd_version,
+}
+
+moduleclass = 'devel'
+modluafooter = """
+extensions( "Autoconf/%(autoconf)s, Autoconf-archive/%(autoconfarchive)s, Automake/%(automake)s, " ..
+            "makeinfo/%(makeinfo)s, libtool/%(libtool)s, M4/%(m4)s, make/%(make)s, sec/%(sed)s, Bison/%(bison)s, flex/%(flex)s, " ..
+            "byacc/%(byacc)s, CMake/%(cmake)s, Ninja/%(ninja)s, Meson/%(meson)s, " ..
+            "SCons/%(SCons)s, NASM/%(nasm)s, Yasm/%(yasm)s, patchelf/%(patchelf)s, " ..
+            "re2c/%(re2c)s, gperf/%(gperf)s, help2man/%(help2man)s, Doxygen/%(doxygen)s, xxd/%(xxd)s"
+          )
+"""  % {
+    'autoconf'        : local_Autoconf_version,
+    'autoconfarchive' : local_Autoconf_archive_version,
+    'automake'        : local_Automake_version,
+    'makeinfo'        : local_makeinfo_version,
+    'libtool'         : local_libtool_version,
+    'm4'              : local_M4_version,
+    'make'            : local_make_version,
+    'sed'             : local_sed_version,
+    'bison'           : local_Bison_version,
+    'flex'            : local_flex_version,
+    'byacc'           : local_byacc_version,
+    'cmake'           : local_CMake_version,
+    'ninja'           : local_Ninja_version,
+    'meson'           : local_Meson_version,
+    'SCons'           : local_SCons_version,
+    'nasm'            : local_NASM_version,
+    'yasm'            : local_Yasm_version,
+    'patchelf'        : local_patchelf_version,
+    're2c'            : local_re2c_version,
+    'gperf'           : local_gperf_version,
+    'help2man'        : local_help2man_version,
+    'doxygen'         : local_Doxygen_version,
+    'xxd'             : local_xxd_version,
+}

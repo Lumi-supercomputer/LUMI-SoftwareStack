@@ -1,0 +1,43 @@
+# contributed by Luca Marsella (CSCS), Theofilos Manitaras (CSCS)
+# Adapted by Kurt Lust (kurt.lust@uantwerpen.be) for the LUMI consortium
+easyblock = 'esmfcray'
+
+local_ESMF_version =         '8.2.0'         # https://github.com/esmf-org/esmf/releases
+
+name =    'ESMF'
+version = local_ESMF_version
+
+homepage = 'http://sourceforge.net/projects/esmf'
+
+whatis = [
+    'Description: ESMF is the Earth System Modeling Framework, software for coupling weather, climate and related models'
+]
+
+description = """
+The Earth System Modeling Framework (ESMF) is software for building and coupling weather,
+climate, and related models.
+ """
+
+toolchain = {'name': 'cpeGNU', 'version': '21.12'}
+toolchainopts = {'usempi': True, 'openmp': True, 'gfortran9-compat': True}
+
+# https://github.com/esmf-org/esmf/archive/refs/tags/ESMF_8_2_0.tar.gz
+source_urls = ['https://github.com/esmf-org/esmf/archive/refs/tags']
+sources =     ['%s_%s.tar.gz' % (name.upper(), '_'.join(version.split('.')))]
+patches = ['ESMF-6.1.1_libopts.patch']
+checksums = [
+    '3693987aba2c8ae8af67a0e222bea4099a48afe09b8d3d334106f9d7fc311485',  # ESMF_8_2_0.tar.gz
+    '3851627f07c32a7da55d99072d619942bd3a1d9dd002e1557716158e7aacdaf4',  # ESMF-6.1.1_libopts.patch
+]
+
+mpicomm = 'mpiuni'
+
+preconfigopts = 'ESMF_F90COMPILEOPTS="$F90FLAGS" '
+prebuildopts = 'ESMF_F90COMPILEOPTS="$F90FLAGS" '
+
+dependencies = [
+    ('cray-hdf5',   EXTERNAL_MODULE),
+    ('cray-netcdf', EXTERNAL_MODULE),
+]
+
+moduleclass = 'geo'

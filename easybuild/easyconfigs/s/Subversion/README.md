@@ -14,7 +14,7 @@
   * [Subversion support in Spack](https://github.com/spack/spack/tree/develop/var/spack/repos/builtin/packages/subversion)
 
 
-### Subversion 1.4.1 for SYSTEM
+### Subversion 1.14.1 for SYSTEM in CPE 21.08 and 21.12.
 
   * Development started from the CSCS setup.
 

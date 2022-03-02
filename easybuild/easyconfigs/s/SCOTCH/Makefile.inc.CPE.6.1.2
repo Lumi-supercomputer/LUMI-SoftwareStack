@@ -1,0 +1,48 @@
+EXE            =
+LIB            = .a
+OBJ            = .o
+AR             = ar
+ARFLAGS        = ruv
+RANLIB         = ranlib
+CCS            = cc
+CCP            = cc
+CCD            = cc
+LEX            = flex -Pscotchyy -olex.yy.c
+YACC           = bison -pscotchyy -y -b y
+
+CAT            = cat
+CP             = cp
+LN             = ln
+MKDIR          = mkdir
+MV             = mv
+
+# Below we do adapt from the Cray Makefile.inc as
+# CPPFLAGS is provided combined with CFLAGS by the
+# EasyBlock on the make command line.
+#
+# Original:
+#
+# - Do not set the SCOTCH_PTHREAD flag because it requires that the
+#   MPI environment be initialized with MPI_Init_thread, which is not
+#   always the case in user applications.
+# - Install the scotch/metis interface libraries, which include
+#   bindings with the prefix "SCOTCH_METIS"
+#CPPFLAGS = $CPPFLAGS \
+#  -DSCOTCH_METIS_PREFIX \
+#  -DCOMMON_RANDOM_FIXED_SEED \
+#  -DSCOTCH_RENAME \
+#  -DCOMMON_PTHREAD \
+#  -DSCOTCH_RENAME_PARSER \
+#  -Drestrict=__restrict
+
+#CFLAGS    = $(CPPFLAGS) $CFLAGS
+# The librt library is needed for the "clock_gettime" calls;
+# libpthread for "pthread_join" and "pthread_create";
+# libm for "fmod" in parser.c, etc.
+# The line has also been edited with respect to the original
+# as it cannot be processed by the shell.
+#
+# The Cray build script does add -lfi -lf -lu -lcraymath -lcraymp
+# but they don't seem to be needed. The wrapper likely adds them
+# anyway.
+LDFLAGS   = -lrt -lpthread -lm

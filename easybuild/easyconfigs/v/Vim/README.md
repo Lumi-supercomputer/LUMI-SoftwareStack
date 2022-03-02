@@ -23,3 +23,6 @@
     dependencies.
 
 
+### Version 8.2.4487
+
+  * Trivial port of the 8.2.3852 version

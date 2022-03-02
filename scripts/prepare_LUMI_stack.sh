@@ -1,7 +1,5 @@
 #! /bin/bash
 #
-# TEST IN GRENOBLE: ./prepare_toolchain.sh 21.G.04.dev 4.4.0 $HOME/work
-#
 # Script to initialize a new software stack.
 #
 # The script takes the following arguments:
@@ -96,6 +94,30 @@ EOF
     exit 1
 fi
 
+
+###############################################################################
+#
+# Define some "constants".
+#
+
+if [[ -d '/appl/lumi' ]]
+then
+	partitions=( 'C' 'G' 'D' 'L' )
+	cpeGNU=( 'common:C:G:D:L' )
+    cpeCray=( 'common:C:G:D:L' )
+    cpeAOCC=( 'common:C:D:L' )
+    declare -A cpeENV=( ['cpeGNU']=$cpeGNU ['cpeCray']=$cpeCray ['cpeAOCC']=$cpeAOCC )
+    #declare -A cpeENV=( ['cpeGNU']=$cpeGNU ['cpeCray']=$cpeCray )
+else # We're likely on eiger, we can't test everything here.
+	partitions=( 'L' )
+	cpeGNU=( 'common:L' )
+    cpeCray=( 'common:L' )
+    cpeAOCC=( 'common:L' )
+    declare -A cpeENV=( ['cpeGNU']=$cpeGNU ['cpeCray']=$cpeCray ['cpeAOCC']=$cpeAOCC )
+    #declare -A cpeENV=( ['cpeGNU']=$cpeGNU ['cpeCray']=$cpeCray )
+fi
+
+
 ###############################################################################
 #
 # Create the module structure for the software stack.
@@ -109,6 +131,13 @@ fi
 #
 # Some functions and variables for this section
 #
+
+function die () {
+
+    echo "$*" 1>&2
+    exit 1
+
+}
 
 #
 # create_link
@@ -125,7 +154,18 @@ create_link () {
     #echo "Linking to: $2"
     #test -s "$2" && echo "File $2 found."
     #test -s "$2" || echo "File $2 not found."
-    test -s "$2" || ln -s "$1" "$2"
+    test -s "$2" || ln -s "$1" "$2" || die "Failed to create a link from $1 to $2."
+
+}
+
+#
+# make_dir
+#
+# Make a directory using mkdir -p and die with a message if this fails.
+#
+make_dir () {
+
+	mkdir -p "$1" || die "Failed to create the directory $1."
 
 }
 
@@ -188,8 +228,6 @@ function match_module_version () {
 
 }
 
-partitions=( 'C' 'G' 'D' 'L' )
-
 #
 # - Create the cpe module in CrayOverwrite for the new stack
 #
@@ -207,7 +245,7 @@ create_link "$installroot/$repo/modules/CrayOverwrite/core/cpe-generic/$match_fi
 #
 if [ ! -f "/opt/cray/pe/cpe/$CPEversion/modulerc.lua" ]
 then
-    mkdir -p "$installroot/modules/CrayOverwrite/data-cpe/$CPEversion"
+    make_dir "$installroot/modules/CrayOverwrite/data-cpe/$CPEversion"
     $installroot/$repo/scripts/make_CPE_modulerc.sh ${stack_version%.dev}
 fi
 
@@ -216,14 +254,14 @@ fi
 #   The directory likely already exists, but it doesn't hurt to use mkdir -p and it makes the script
 #   more robust.
 #
-mkdir -p "$installroot/modules/SoftwareStack/LUMI"
+make_dir "$installroot/modules/SoftwareStack/LUMI"
 match_file=$(match_module_version "$stack_version" "$installroot/$repo/modules/LUMIstack")
 create_link "$installroot/$repo/modules/LUMIstack/$match_file" "$installroot/modules/SoftwareStack/LUMI/$stack_version.lua"
 
 #
 # - Create the partition modules
 #
-mkdir -p "$installroot/modules/SystemPartition/LUMI/$stack_version/partition"
+make_dir "$installroot/modules/SystemPartition/LUMI/$stack_version/partition"
 match_file=$(match_module_version $stack_version $installroot/$repo/modules/LUMIpartition)
 for partition in "${partitions[@]}" common CrayEnv system
 do
@@ -246,40 +284,40 @@ $installroot/$repo/scripts/make_CPE_VisibilityHookData.sh ${stack_version%.dev}
 #
 # - Create the other directories for modules, and other toolchain-specific directories
 #
-mkdir -p $installroot/modules/easybuild/LUMI/$stack_version
-mkdir -p $installroot/modules/easybuild/LUMI/$stack_version/partition
-mkdir -p $installroot/modules/spack/LUMI/$stack_version
-mkdir -p $installroot/modules/spack/LUMI/$stack_version/partition
-mkdir -p $installroot/modules/manual/LUMI/$stack_version
-mkdir -p $installroot/modules/manual/LUMI/$stack_version/partition
-mkdir -p $installroot/modules/Infrastructure/LUMI/$stack_version
-mkdir -p $installroot/modules/Infrastructure/LUMI/$stack_version/partition
+make_dir $installroot/modules/easybuild/LUMI/$stack_version
+make_dir $installroot/modules/easybuild/LUMI/$stack_version/partition
+make_dir $installroot/modules/spack/LUMI/$stack_version
+make_dir $installroot/modules/spack/LUMI/$stack_version/partition
+make_dir $installroot/modules/manual/LUMI/$stack_version
+make_dir $installroot/modules/manual/LUMI/$stack_version/partition
+make_dir $installroot/modules/Infrastructure/LUMI/$stack_version
+make_dir $installroot/modules/Infrastructure/LUMI/$stack_version/partition
 
-mkdir -p $installroot/SW/LUMI-$stack_version
+make_dir $installroot/SW/LUMI-$stack_version
 
-mkdir -p $installroot/mgmt/ebrepo_files/LUMI-$stack_version
+make_dir $installroot/mgmt/ebrepo_files/LUMI-$stack_version
 
 for partition in ${partitions[@]} common
 do
 
-	mkdir -p $installroot/modules/easybuild/LUMI/$stack_version/partition/$partition
-   	mkdir -p $installroot/modules/spack/LUMI/$stack_version/partition/$partition
-   	mkdir -p $installroot/modules/manual/LUMI/$stack_version/partition/$partition
-   	mkdir -p $installroot/modules/Infrastructure/LUMI/$stack_version/partition/$partition
+	make_dir $installroot/modules/easybuild/LUMI/$stack_version/partition/$partition
+   	make_dir $installroot/modules/spack/LUMI/$stack_version/partition/$partition
+   	make_dir $installroot/modules/manual/LUMI/$stack_version/partition/$partition
+   	make_dir $installroot/modules/Infrastructure/LUMI/$stack_version/partition/$partition
 
-   	mkdir -p $installroot/SW/LUMI-$stack_version/$partition
-   	mkdir -p $installroot/SW/LUMI-$stack_version/$partition/EB
-   	mkdir -p $installroot/SW/LUMI-$stack_version/$partition/SP
-   	mkdir -p $installroot/SW/LUMI-$stack_version/$partition/MNL
+   	make_dir $installroot/SW/LUMI-$stack_version/$partition
+   	make_dir $installroot/SW/LUMI-$stack_version/$partition/EB
+   	make_dir $installroot/SW/LUMI-$stack_version/$partition/SP
+   	make_dir $installroot/SW/LUMI-$stack_version/$partition/MNL
 
-   	mkdir -p $installroot/mgmt/ebrepo_files/LUMI-$stack_version/LUMI-$partition
+   	make_dir $installroot/mgmt/ebrepo_files/LUMI-$stack_version/LUMI-$partition
 
 done
 
 for partition in CrayEnv system
 do
 
-    mkdir -p $installroot/modules/Infrastructure/LUMI/$stack_version/partition/$partition
+    make_dir $installroot/modules/Infrastructure/LUMI/$stack_version/partition/$partition
 
 done
 
@@ -308,9 +346,9 @@ function module_root_eb () {
 module_file=$(match_module_version $stack_version $installroot/$repo/modules/EasyBuild-config)
 for partition in ${partitions[@]} common
 do
-    mkdir -p $(module_root_infra $stack_version $partition)/EasyBuild-production
-    mkdir -p $(module_root_infra $stack_version $partition)/EasyBuild-infrastructure
-    mkdir -p $(module_root_infra $stack_version $partition)/EasyBuild-user
+    make_dir $(module_root_infra $stack_version $partition)/EasyBuild-production
+    make_dir $(module_root_infra $stack_version $partition)/EasyBuild-infrastructure
+    make_dir $(module_root_infra $stack_version $partition)/EasyBuild-user
 
     create_link $modsrc/EasyBuild-config/$module_file $(module_root_infra $stack_version $partition)/EasyBuild-production/LUMI.lua
     create_link $modsrc/EasyBuild-config/$module_file $(module_root_infra $stack_version $partition)/EasyBuild-infrastructure/LUMI.lua
@@ -326,7 +364,7 @@ done
 module_file=$(match_module_version $stack_version $installroot/$repo/modules/EasyBuild-unlock)
 for partition in ${partitions[@]} common CrayEnv system
 do
-    mkdir -p $(module_root_infra $stack_version $partition)/EasyBuild-unlock
+    make_dir $(module_root_infra $stack_version $partition)/EasyBuild-unlock
 
     create_link $modsrc/EasyBuild-unlock/$module_file $(module_root_infra $stack_version $partition)/EasyBuild-unlock/LUMI.lua
 done
@@ -335,14 +373,16 @@ done
 # - Download EasyBuild from PyPi
 #
 
-mkdir -p $installroot
-mkdir -p $installroot/sources
-mkdir -p $installroot/sources/easybuild
-mkdir -p $installroot/sources/easybuild/e
-mkdir -p $installroot/sources/easybuild/e/EasyBuild
+make_dir $installroot
+make_dir $installroot/sources
+make_dir $installroot/sources/easybuild
+make_dir $installroot/sources/easybuild/e
+make_dir $installroot/sources/easybuild/e/EasyBuild
 EB_tardir=$installroot/sources/easybuild/e/EasyBuild
 
 pushd $EB_tardir
+
+echo -e "\n## Downloading EasyBuild...\n"
 
 EBF_file="easybuild-framework-${EBversion}.tar.gz"
 EBF_url="https://pypi.python.org/packages/source/e/easybuild-framework"
@@ -362,6 +402,9 @@ popd
 # - Initialise LMOD before installing EasyBuild
 #   Load partion/common as that will be the one we need to install EasyBuild.
 #
+
+echo -e "\n## Initializing Lmod...\n"
+
 module --force purge
 export MODULEPATH="$installroot/modules/SoftwareStack"
 module help |& grep -q lmod
@@ -381,19 +424,23 @@ module load partition/common
 #   We would find it if the toolchain has already been initialised and the script
 #   is only run because changes were made in the directory structure.
 #
+
+echo -e "\n## Checking if the Easybuild/$EBversion module is already present...\n"
+
 module avail EasyBuild/$EBversion |& grep -q "EasyBuild/$EBversion"
 if [[ $? != 0 ]]
 then
     #
     # - Now do a temporary install of the framework and EasyBlocks
     #
-    mkdir -p $workdir
+    echo -e "\n## Easybuild/$EBversion module not found, starting the bootstrapping process...\n"
+    make_dir $workdir
     pushd $workdir
 
     tar -xf $EB_tardir/$EBF_file
     tar -xf $EB_tardir/$EBB_file
 
-    mkdir -p $workdir/easybuild
+    make_dir $workdir/easybuild
 
     pushd easybuild-framework-$EBversion
     python3 setup.py install --prefix=$workdir/easybuild
@@ -417,10 +464,12 @@ then
     # - Install EasyBuild in the common directory of the $EBstack software stack
     #
     # Need to use the full module name as the module is hidden in the default view!
+    echo -e "\n## Now properly installing Easybuild/$EBversion...\n"
     module load EasyBuild-unlock/LUMI
     module load EasyBuild-production/LUMI
-    $workdir/easybuild/bin/eb --show-config
-    $workdir/easybuild/bin/eb $installroot/$repo/easybuild/easyconfigs/e/EasyBuild/EasyBuild-${EBversion}.eb
+    $workdir/easybuild/bin/eb --show-config || die "Something wrong with the work copy of EasyBuild, eb --show-config fails."
+    $workdir/easybuild/bin/eb $installroot/$repo/easybuild/easyconfigs/e/EasyBuild/EasyBuild-${EBversion}.eb \
+      || die "EasyBuild failed to install EasyBuild-${EBversion}.eb."
 
     #
     # - Clean up
@@ -429,12 +478,17 @@ then
 
     popd
 
+else
+
+	echo -e "## EasyBuild/$EBversion already present, skipping installation...\n"
+
 fi
 
 #
-# Enable EasyBuild also for cross-installing by linking in the CrayEnv module directories
+# Enable EasyBuild also for cross-installing by linking in the CrayEnv and system module directories
 #
 create_link $(module_root_eb $stack_version common)/EasyBuild $(module_root_infra $stack_version CrayEnv)/EasyBuild
+create_link $(module_root_eb $stack_version common)/EasyBuild $(module_root_infra $stack_version system)/EasyBuild
 
 
 ###############################################################################
@@ -442,36 +496,40 @@ create_link $(module_root_eb $stack_version common)/EasyBuild $(module_root_infr
 # Initialise the main toolchains
 #
 
-pushd $installroot/$repo/easybuild/easyconfigs/c
+echo -e "\n## Initialising the main toolchains...\n"
 
-extended_partitions=( 'common' 'C' 'G' 'D' 'L' )
-toolchains=( 'cpeCray' 'cpeGNU' 'cpeAMD' )
+pushd $installroot/$repo/easybuild/easyconfigs/c
 
 module load LUMI/$stack_version
 module load EasyBuild-unlock/LUMI
 module load EasyBuild-infrastructure/LUMI
 
-for cpe in ${toolchains[@]}
+#IFS=':'
+for cpe in ${!cpeENV[@]}
 do
 
-	mkdir -p $installroot/$repo/easybuild/easyconfigs/c/$cpe
+    echo -e "\nBuilding EasyConfig file for toolchain $cpe/$CPEversion (if not present already)\n"
+	make_dir $installroot/$repo/easybuild/easyconfigs/c/$cpe
 	[[ -f "$cpe/$cpe-$CPEversion.eb" ]] || $installroot/$repo/scripts/make_CPE_EBfile.sh "$cpe/$CPEversion"
 
-	for partition in ${extended_partitions[@]}
+	for partition in ${cpeENV[$cpe]//:/ }
 	do
 
+      	echo "Installing toolchain $cpe/$CPEversion for partition $partition (if not present already)."
         module load "partition/$partition"
 
         # Install the toolchain module if it does not yet exist.
         module avail $cpe/$CPEversion |& grep -q "$cpe/$CPEversion"
         if [[ $? != 0 ]]
         then
-            eb "$cpe/$cpe-$CPEversion.eb" -f
+            echo "Installing toolchain $cpe/$CPEversion for partition $partition."
+            eb "$cpe/$cpe-$CPEversion.eb" -f || die "Failed to install $cpe/$CPEversion for partition $partition."
         fi
 
 	done
 
 done
+#unset IFS
 
 popd
 
@@ -488,8 +546,8 @@ modulerc_file="$repo/LMOD/modulerc.lua"
 egrep "hide_module.*cpe/$CPEversion" $modulerc_file >& /dev/null
 if [[ $? != 0 ]]
 then
-	echo -e "\nhide_module( '/opt/cray/pe/lmod/modulefiles/core/cpe/$CPEversion' )" >>$modulerc_file
-	echo "Please check $modulerc_file for the line \"hide_module( '/opt/cray/pe/lmod/modulefiles/core/cpe/$CPEversion' )\""
+	echo -e "\nhide_modulefile( '/opt/cray/pe/lmod/modulefiles/core/cpe/$CPEversion.lua' )" >>$modulerc_file
+	echo "Please check $modulerc_file for the line \"hide_modulefile( '/opt/cray/pe/lmod/modulefiles/core/cpe/$CPEversion.lua' )\""
 fi
 
 

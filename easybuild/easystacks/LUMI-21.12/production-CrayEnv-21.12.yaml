@@ -1,0 +1,31 @@
+software:
+  buildtools:
+    toolchains:
+      SYSTEM:
+        versions: ['21.12']
+  syslibs:
+    toolchains:
+      SYSTEM:
+        versions:
+          '21.12':
+            versionsuffix: '-static'
+  systools:
+    toolchains:
+      SYSTEM:
+        versions: ['21.12']
+  nano:
+    toolchains:
+      SYSTEM:
+        versions: ['6.2']
+  Vim:
+    toolchains:
+      SYSTEM:
+        versions: ['8.2.4487']
+  git:
+    toolchains:
+      SYSTEM:
+        versions: ['2.35.1']
+  Subversion:
+    toolchains:
+      SYSTEM:
+        versions: ['1.14.1']

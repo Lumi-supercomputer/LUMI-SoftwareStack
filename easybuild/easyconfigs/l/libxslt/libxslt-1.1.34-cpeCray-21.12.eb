@@ -1,0 +1,71 @@
+# NOTE: Could use libgcrupt
+# NOTE: Somewhere in the build process, the generation of a lot of wrapper functions
+# trhough a Python script fails, but it is not clear from the error message what could
+# be the cause.
+easyblock = 'ConfigureMake'
+
+local_libxml2_version =      '2.9.12'        # http://xmlsoft.org/sources/
+local_libxslt_version =      '1.1.34'        # http://xmlsoft.org/sources/
+
+name =    'libxslt'
+version = local_libxslt_version
+
+homepage = 'http://xmlsoft.org/xslt'
+
+whatis = [
+   'Description: XSLT C library for the Gnome project',
+   'This module provides the command line tool and static and shared libraries',
+]
+
+description = """
+Libxslt is the XSLT C library developed for the GNOME project (but usable
+outside of the Gnome platform). XSLT itself is a an XML language to define
+transformation for XML. Libxslt is based on libxml2 the XML C library developed
+for the GNOME project. It also implements most of the EXSLT set of
+processor-portable extensions functions and some of Saxon's evaluate and
+expressions extensions.
+
+People can either embed the library in their application or use xsltproc the
+command line processing tool. This library is free software and can be reused in
+commercial applications.
+
+Besides the xsltproc command line tool, the module also provides static and
+shared libraries.
+"""
+
+docurls = [
+    'Web-based documentation on the home page: http://xmlsoft.org/libxslt/',
+    'Man pages for xsltproc, libxslt and libexslt',
+]
+
+toolchain = {'name': 'cpeCray', 'version': '21.12'}
+toolchainopts = {'pic': True}
+
+source_urls = [
+    'http://xmlsoft.org/sources/',
+    'http://xmlsoft.org/sources/old/'
+]
+sources =   [SOURCELOWER_TAR_GZ]
+checksums = ['98b1bd46d6792925ad2dfe9a87452ea2adebf69dcb9919ffd55bf926a7f93f7f']
+
+builddependencies = [ # Create a reproducible build environment.
+    ('buildtools', '%(toolchain_version)s', '', True),
+]
+
+dependencies = [
+    ('libxml2', local_libxml2_version),
+]
+
+sanity_check_paths = {
+    'files': ['bin/xsltproc', 'include/libxslt/xslt.h', 'lib/%%(name)s.%s' % SHLIB_EXT],
+    'dirs':  [],
+}
+
+sanity_check_commands = [
+    'xsltproc --version',
+    'xslt-config --version',
+    'pkg-config --libs libxslt',
+    'pkg-config --libs libexslt',
+]
+
+moduleclass = 'lib'

@@ -28,13 +28,13 @@ cpeCray toolchain: CCE, Cray MPI compiler drivers, Cray LibSci and Cray FFTW (cc
 :author: Petar Forai (IMP/IMBA, Austria)
 :author: Kenneth Hoste (Ghent University)
 """
-from easybuild.toolchains.compiler.cpecce import cpeCCE
+from easybuild.toolchains.compiler.cpecompcce import cpeCompCCE
 from easybuild.toolchains.linalg.libsci import LibSci
 from easybuild.toolchains.mpi.craympich import CrayMPICH
 from easybuild.tools.toolchain.toolchain import SYSTEM_TOOLCHAIN_NAME
 
 
-class cpeCray(cpeCCE, CrayMPICH, LibSci):
+class cpeCray(cpeCompCCE, CrayMPICH, LibSci):
     """Compiler toolchain for Cray EX Programming Environment CCE compiler (cce)."""
     NAME = 'cpeCray'
     SUBTOOLCHAIN = SYSTEM_TOOLCHAIN_NAME

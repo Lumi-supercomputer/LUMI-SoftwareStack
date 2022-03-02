@@ -1,0 +1,9 @@
+software:
+  lumi-workspaces:
+    toolchains:
+      SYSTEM:
+        versions: ['0.1']
+  lumi-vnc:
+    toolchains:
+      SYSTEM:
+        versions: ['20220125']

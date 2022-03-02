@@ -24,3 +24,8 @@
   * Added additional sanity checks to test if the commands actually work. This coul,
     e.g., catch the problem where cray-python is a build dependency.
 
+
+### Version 1.71.0 for CPE 21.12
+
+  * Updated to 1.71.0 rather than following the EasyBuild common toolchain for 21.12
+    because of problems with Meson not finding a file.

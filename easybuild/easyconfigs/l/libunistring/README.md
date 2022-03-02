@@ -15,3 +15,8 @@
   * The EasyConfig file is a simple adaptation of the one in use at University of Antwerpen
     which itself is a variant from the one in the EasyBuilders repository.
 
+
+### 1.0 from 21.12 on
+
+  * Trivial update of the EasyConfig file.
+

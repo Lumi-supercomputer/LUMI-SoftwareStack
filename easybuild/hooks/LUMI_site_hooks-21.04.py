@@ -13,7 +13,7 @@ LUMI_SUPPORT = 'LUMI User Support @ https://lumi-supercomputer.eu/user-support/n
 
 def parse_hook(ec, *args, **kwargs):
     """LUMI parse hooks
-         - cpeCray, cpeGNU, cpeAMD, cpeIntel, cpeNVIDIA: Add correct cray_targets list.
+         - cpeCray, cpeGNU, cpeAOCC, cpeAMD, cpeIntel, cpeNVIDIA: Add correct cray_targets list.
     """
 
     easybuild_mode = os.environ['LUMI_EASYBUILD_MODE']
@@ -21,7 +21,7 @@ def parse_hook(ec, *args, **kwargs):
     if easybuild_mode in ['production', 'infrastructure'] and ec['site_contacts'] == None:
         ec['site_contacts'] = LUMI_SUPPORT
 
-    if ec.name == 'cpeCray' or ec.name == 'cpeGNU' or ec.name == 'cpeAMD' or ec.name == 'cpeIntel' or ec.name == 'cpeNVIDIA':
+    if ec.name == 'cpeCray' or ec.name == 'cpeGNU' or ec.name == 'cpeAOCC' or ec.name == 'cpeAMD' or ec.name == 'cpeIntel' or ec.name == 'cpeNVIDIA':
         # Fill in cray_targets if it is left empty.
         if ec['cray_targets'] == []:
             lumi_partition = os.environ['LUMI_STACK_PARTITION']
@@ -39,8 +39,8 @@ def parse_hook(ec, *args, **kwargs):
                 ] )
             elif lumi_partition == 'G':
                 ec['cray_targets'].extend( [
-                    'craype-x86-milan',
-                    'craype-accel-amd-gfx908',
+                    'craype-x86-trento',
+                    'craype-accel-amd-gfx90a',
                     'craype-network-ofi'
                 ] )
             elif lumi_partition == 'D':
@@ -51,7 +51,7 @@ def parse_hook(ec, *args, **kwargs):
                 ] )
 
         #
-        # END of processing cpeCray/cpeGNU/cpeAMD/cpeIntel/cpeNIVIDIA
+        # END of processing cpeCray/cpeGNU/cpeAOCC/cpeAMD/cpeIntel/cpeNIVIDIA
         #
 
 

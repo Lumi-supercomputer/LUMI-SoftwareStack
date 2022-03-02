@@ -6,6 +6,47 @@ local dbg  = require("Dbg"):dbg()
 local hook = require("Hook")
 require("sandbox")
 
+if os.getenv( '_LUMI_LMOD_DEBUG' ) ~= nil then
+    io.stderr:write( 'DEBUG: Executing SitePackage.lua from ' .. ( os.getenv( 'LMOD_PACKAGE_PATH' ) or '') .. '\n' )
+end
+
+
+-- -----------------------------------------------------------------------------
+-- -----------------------------------------------------------------------------
+--
+-- Tables providing information about the system
+--
+-- -----------------------------------------------------------------------------
+-- -----------------------------------------------------------------------------
+
+--
+-- Default targeting modules
+--
+local init_module_list = {
+    C = { 'craype-x86-milan',  'craype-accel-host',       'craype-network-ofi', 'xpmem' },
+--    D = { 'craype-x86-rome',   'craype-accel-nvidia80',   'craype-network-ofi', 'xpmem' },
+    D = { 'craype-x86-rome',   'craype-accel-host',       'craype-network-ofi', 'xpmem' }, -- craype-accel-nvidia does not yet work
+    G = { 'craype-x86-milan',  'craype-accel-amd-gfx908', 'craype-network-ofi', 'xpmem' },
+    L = { 'craype-x86-rome',   'craype-accel-host',       'craype-network-ofi', 'xpmem' },
+}
+
+--
+-- Default Cray Programming Environment.
+--
+local init_PrgEnv = 'PrgEnv-cray'
+
+--
+-- Stacks with long-term support
+--
+-- Currently there are none but some commented versions are left to indicate
+-- how the table should be filled.
+--
+local LTS_LUMI_stacks = {
+    -- ['21.08'] = true,
+    -- ['21.12'] = true,
+}
+
+
 -- -----------------------------------------------------------------------------
 -- -----------------------------------------------------------------------------
 --
@@ -155,14 +196,6 @@ end
 --
 -- Returns a list of modules to load.
 --
-local init_module_list = {
-    C = { 'craype-x86-milan',  'craype-accel-host',       'craype-network-ofi', 'xpmem' },
-    D = { 'craype-x86-rome',   'craype-accel-nvidia80',   'craype-network-ofi', 'xpmem' },
-    G = { 'craype-x86-milan',  'craype-accel-amd-gfx908', 'craype-network-ofi', 'xpmem' },
-    L = { 'craype-x86-rome',   'craype-accel-host',       'craype-network-ofi', 'xpmem' },
-}
-local init_PrgEnv = 'PrgEnv-cray'
-
 function get_init_module_list( partition, PrgEnv )
 
     local modulelist
@@ -419,6 +452,19 @@ function is_interactive()
 end
 
 
+--
+-- function is_LTS_LUMI_stack()
+--
+-- Input arguments: Version of the LUMI stack
+-- Output: True it it is a LTS stack, otherwise false.
+--
+function is_LTS_LUMI_stack( stack_version )
+
+    return ( LTS_LUMI_stacks[stack_version] or false )
+
+end
+
+
 
 sandbox_registration{
     ['get_hostname']              = get_hostname,
@@ -431,6 +477,7 @@ sandbox_registration{
     ['get_motd']                  = get_motd,
     ['get_fortune']               = get_fortune,
     ['is_interactive']            = is_interactive,
+    ['is_LTS_LUMI_stack']         = is_LTS_LUMI_stack,
 }
 
 
@@ -631,17 +678,24 @@ local function is_visible_hook( modT )
     -- modT is a table with: fullName, sn, fn and isVisible
     -- The latter is a boolean to determine if a module is visible or not
 
+    -- Do nothing if LUMI_LMOD_POWERUSER is set.
+    if os.getenv( 'LUMI_LMOD_POWERUSER' ) ~=  nil then return end
+
+    -- First tests: Hide the Cray PE modules that are not part of the CPE
+    -- corresponding to the loaded LUMI module (if a LUMI module is loaded)
+    -- LUMI_VISIBILITYHOODDATA* environment variables are set in the LUMI module.
+
     local CPEmodules_path = os.getenv( 'LUMI_VISIBILITYHOOKDATAPATH' )
     local CPEmodules_file = os.getenv( 'LUMI_VISIBILITYHOOKDATAFILE' )
-    if CPEmodules_path == nil or CPEmodules_file == nil then return end
 
-    local CPEmodules
-    local saved_path = package.path
-    package.path = CPEmodules_path .. ';' .. package.path
-    CPEmodules = require( CPEmodules_file )
-    package.path = saved_path
+    if CPEmodules_path ~= nil and CPEmodules_file ~= nil then
 
-    if os.getenv( 'LUMI_LMOD_POWERUSER' ) ==  nil then
+        local CPEmodules
+        local saved_path = package.path
+        package.path = CPEmodules_path .. ';' .. package.path
+        CPEmodules = require( CPEmodules_file )
+        package.path = saved_path
+
         if modT.fn:find( 'cray/pe/lmod/modulefiles' ) or modT.fn:find( 'modules/CrayOverwrite' ) then
             if CPEmodules[modT.sn] ~= nil then
                 local module_version = modT.sn .. '/' .. CPEmodules[modT.sn]
@@ -650,7 +704,8 @@ local function is_visible_hook( modT )
                 end
             end
         end
-    end
+
+    end  -- Conditional part first tests
 
 end
 
