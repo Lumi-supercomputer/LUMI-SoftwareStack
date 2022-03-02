@@ -24,5 +24,3 @@ end
 -- The following modules do not work with Cray LMOD 8.3.1
 hide_version( 'ModuleExtensions/hide' )
 hide_version( 'ModuleExtensions/show' )
-
-hide_version( 'LUMI/21.12' )

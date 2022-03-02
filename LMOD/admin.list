@@ -11,6 +11,3 @@ We are looking for a solution but don't expect anything soon.
 aocc/3.0.0:
 The AMD AOCC compiler version 3.0.0 does not work on LUMI. The workaround is to use a different
 version of the compiler.
-
-LUMI/21.12:
-This software stack is still under construction and will not yet work on the whole system.
