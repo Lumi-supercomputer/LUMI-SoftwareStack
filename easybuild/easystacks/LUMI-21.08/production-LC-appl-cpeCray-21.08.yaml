@@ -19,3 +19,7 @@ software:
     toolchains:
       cpeCray-21.08:
         versions: ['5.4.2']
+  VampirServer:
+    toolchains:
+      cpeCray-21.08:
+        versions: ['10.0.0']

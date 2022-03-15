@@ -23,3 +23,7 @@ software:
     toolchains:
       cpeGNU-21.12:
         versions: ['5.4.3']
+  VampirServer:
+    toolchains:
+      cpeGNU-21.12:
+        versions: ['10.0.0']
