@@ -197,6 +197,8 @@ The following EasyBuild packages are replaced by OS dependencies:
 
   * libunistring (cpe*) - Needs libiconv (block 3)
 
+  * libunwind (cpe*) - Needs XZ (block 3)
+
   * libxml2 (cpe*) - A often used library
 
   * SCOTCH (cpe*) - Uses bzip2, zlib (block 1) and XZ (block 3) though it can also

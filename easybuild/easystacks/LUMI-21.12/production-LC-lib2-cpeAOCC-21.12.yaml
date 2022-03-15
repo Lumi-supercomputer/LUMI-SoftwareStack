@@ -235,6 +235,10 @@ software:
     toolchains:
       cpeAOCC-21.12:
         versions: ['1.0']
+  libunwind:
+    toolchains:
+      cpeAOCC-21.12:
+        versions: ['1.5.0']
   libxml2:
     toolchains:
       cpeAOCC-21.12:

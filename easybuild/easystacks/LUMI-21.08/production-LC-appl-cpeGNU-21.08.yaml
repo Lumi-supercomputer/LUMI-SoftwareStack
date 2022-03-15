@@ -27,3 +27,7 @@ software:
     toolchains:
       cpeGNU-21.08:
         versions: ['10.0.0']
+  Score-P:
+    toolchains:
+      cpeGNU-21.08:
+        versions: ['7.1']

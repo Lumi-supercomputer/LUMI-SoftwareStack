@@ -19,7 +19,7 @@ version = '7.1'
 homepage = 'https://www.score-p.org'
 
 whatis = [
-    "Score-P measurement infrastructure is a highly scalable and easy-to-use "
+    "Description: Score-P measurement infrastructure is a highly scalable and easy-to-use "
     "tool suite for profiling, event tracing, and online analysis of HPC "
     "applications."
 ]
@@ -51,7 +51,7 @@ Score-P supports the following parallel programming paradigms:
 
 And possible combinations from these including simple serial programs.
 
-This module is a bundle that includes Score-P as well as its depedencies: 
+This module is a bundle that includes Score-P as well as its depedencies:
 CubeLib, CubeWriter, OPARI2 and OTF2.
 """
 
@@ -93,7 +93,7 @@ For a more detailed report you can use the -r option.
 
   scorep-score -r <output-dir>/profile.cubex
 
-As a second measurement step, you can perform a tracing experiment by setting 
+As a second measurement step, you can perform a tracing experiment by setting
 the value of the SCOREP_ENABLE_TRACING environment variable to true.
 
   export SCOREP_ENABLE_TRACING=true
@@ -106,11 +106,11 @@ a previous profiling experiment and the scorep-score tool:
 
   $ scorep-score <output-dir>/profile.cubex
 
-  (hint: When tracing set SCOREP_TOTAL_MEMORY=274MB to avoid intermediate 
+  (hint: When tracing set SCOREP_TOTAL_MEMORY=274MB to avoid intermediate
   flushes or reduce requirements using USR regions filters.)
 
-After the execution of your application, you can use the trace file located at 
-<output-dir>/traces.otf2. This file can be visualized using tools like Vampir. 
+After the execution of your application, you can use the trace file located at
+<output-dir>/traces.otf2. This file can be visualized using tools like Vampir.
 
 It may be desirable to reduce the amount of generated tracing data in order to
 minimize overheads. This can be done by filtering out small routines that are

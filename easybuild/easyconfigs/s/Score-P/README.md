@@ -12,7 +12,7 @@
 
 ### Version 7.1 for CPE 21.08
 
-The Easyconfig is a bundle that include Score-P as well as some of its 
+The EasyConfig is a bundle that includes Score-P as well as some of its
 dependencies: CubeLib, CubeWriter, OPARI2 and OTF2.
 
 ### Version 7.1 for CPE 21.12
