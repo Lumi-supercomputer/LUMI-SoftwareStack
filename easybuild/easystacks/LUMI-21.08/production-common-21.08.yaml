@@ -29,10 +29,6 @@ software:
     toolchains:
       SYSTEM:
         versions: ['2.33.1']
-  Subversion:
-    toolchains:
-      SYSTEM:
-        versions: ['1.14.1']
   Eigen:
     toolchains:
       SYSTEM:
