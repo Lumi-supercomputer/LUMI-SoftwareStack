@@ -1,4 +1,5 @@
-local_LUMI_version =        '21.06'
+local_LUMI_version =        '21.08'
+local_craypython_version =  '3.8.5.1'
 
 #
 # Components of buildtools
@@ -96,6 +97,7 @@ local_libtheora_version =    '1.1.1'         # https://www.theora.org/downloads/
 local_libtiff_version =      '4.3.0'         # https://download.osgeo.org/libtiff/
 local_libtirpc_version =     '1.3.2'         # https://sourceforge.net/projects/libtirpc/files/libtirpc/
 local_libunistring_version = '0.9.10'        # https://ftp.gnu.org/gnu/libunistring/
+local_libunwind_version  =   '1.5.0'         # http://download.savannah.nongnu.org/releases/libunwind/
 local_libvorbis_version =    '1.3.7'         # https://xiph.org/downloads/ or https://github.com/xiph/vorbis/releases
 local_libwebp_version =      '1.2.0'         # https://github.com/webmproject/libwebp/releases
 local_libxml2_version =      '2.9.12'        # http://xmlsoft.org/sources/
@@ -113,6 +115,9 @@ local_MPFR_version =         '4.1.0'         # https://ftp.gnu.org/gnu/mpfr/
 
 local_ncurses_version =      '6.2'           # https://ftp.gnu.org/pub/gnu/ncurses/
 
+local_OPARI2_version =       '2.0.6'         # https://www.vi-hps.org/tools/opari2.html
+local_OTF2_version =         '2.3'           # https://www.vi-hps.org/projects/score-p/
+
 local_ParMETIS_version =     '4.0.3'         # https:/http://glaros.dtc.umn.edu/gkhome/metis/parmetis/download
 local_PCRE2_version =        '10.37'         # https://ftp.pcre.org/pub/pcre/
 local_PCRE_version =         '8.45'          # https://ftp.pcre.org/pub/pcre/
@@ -122,8 +127,9 @@ local_PLUMED2_7_version =    '2.7.2'         # https://github.com/plumed/plumed2
 local_PROJ_version =         '8.1.1'         # https://proj.org/download.html
 local_pixman_version =       '0.40.0'        # https://www.cairographics.org/releases/
 
-local_snappy_version =       '1.1.9'         # https://github.com/google/snappy/releases as there are compile problems with 1.1.8
+local_ScoreP_version =       '7.1'           # https://perftools.pages.jsc.fz-juelich.de/cicd/scorep/
 local_SCOTCH_version =       '6.1.1'         # https://gforge.inria.fr/projects/scotch/
+local_snappy_version =       '1.1.9'         # https://github.com/google/snappy/releases as there are compile problems with 1.1.8
 local_SQLite_version =       '3.36.0'        # https://www.sqlite.org/
 local_Szip_version =         '2.1.1'         # https://support.hdfgroup.org/ftp/lib-external/szip/
 

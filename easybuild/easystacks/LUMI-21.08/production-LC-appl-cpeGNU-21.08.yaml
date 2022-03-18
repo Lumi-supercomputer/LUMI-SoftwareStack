@@ -23,3 +23,11 @@ software:
     toolchains:
       cpeGNU-21.08:
         versions: ['2021.05.002']
+  VampirServer:
+    toolchains:
+      cpeGNU-21.08:
+        versions: ['10.0.0']
+  Score-P:
+    toolchains:
+      cpeGNU-21.08:
+        versions: ['7.1']

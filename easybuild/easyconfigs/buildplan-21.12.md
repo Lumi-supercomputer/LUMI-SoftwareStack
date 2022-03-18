@@ -1,6 +1,6 @@
 # Build plan
 
-**THIS DOCUMENT IS STILL VERY INCOMPLETE**
+**THIS DOCUMENT IS UNDER CONTINUOUS DEVELOPMENT**
 
 The table below gives an impression of the dependencies between packages.
 
@@ -119,6 +119,8 @@ The following EasyBuild packages are replaced by OS dependencies:
 
   * x265 (cpe*) - x265 video compression library
 
+  * VampirServer (cpe*) - Vampir server component, in the appl EasyStack
+
   * zlib (cpe*) - Compression library and one of the most popular dependencies
 
 
@@ -194,6 +196,8 @@ The following EasyBuild packages are replaced by OS dependencies:
 ## Block 4
 
   * libunistring (cpe*) - Needs libiconv (block 3)
+
+  * libunwind (cpe*) - Needs XZ (block 3)
 
   * libxml2 (cpe*) - A often used library
 
