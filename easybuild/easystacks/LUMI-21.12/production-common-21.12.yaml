@@ -37,3 +37,9 @@ software:
     toolchains:
       SYSTEM:
         versions: ['1.19.3']
+  lumi-container-wrapper:
+    toolchains:
+      SYSTEM:
+        versions:
+          '0.2.2':
+            versionsuffix: '-cray-python-3.9.4.2'
