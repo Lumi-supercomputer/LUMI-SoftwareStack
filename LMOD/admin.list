@@ -11,3 +11,23 @@ We are looking for a solution but don't expect anything soon.
 aocc/3.0.0:
 The AMD AOCC compiler version 3.0.0 does not work on LUMI. The workaround is to use a different
 version of the compiler.
+
+cpe/21.05:
+The Cray Programming Environment 21.05 is deprecated on LUMI and can no longer be supported. Please
+switch to the 21.12 programming environment (the current default). 21.05 will be removed in a 
+future maintenance interval.
+
+aocc/2.2.*:
+The AMD aocc 2.2* compilers are part of the Cray Programming Environment 21.05 and can no longer
+be supported. Please switch to the aocc/3.1.0 compilers that come with the 21.12 programming
+environment. All 21.05 related files will be removed at a future maintenance interval.
+
+cce/11.0.4:
+The Cray cce 11 compilers are part of the Cray Programming Environment 21.05 and can no longer
+be supported. Please switch to the cce/13.0.0 compilers that come with the 21.12 programming
+environment. All 21.05 related files will be removed at a future maintenance interval.
+
+cray-mpich/8.1.5:
+The cray-mpich/8.1.5 module is part of the Cray Programming Environment 21.05 and can no longer
+be supported. Please switch to the cray-mpich/8.1.12 module that comes with the 21.12 programming
+environment. All 21.05 related files will be removed at a future maintenance interval.
