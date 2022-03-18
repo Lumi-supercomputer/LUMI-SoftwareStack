@@ -10,12 +10,6 @@
    | still require some EasyBuild expertise to adapt toolchain and  |
    | dependency versions.                                           |
  * |                                                                |
-   | On 2022-03-16 at 13:00 CET is the LUMI User Support Team       |
-   | meeing in a virtual coffee room: https://tinyurl.com/2trrtb2d  |
-*  | Resource Allocators and LUMI Users are welcome to join in.     |
-   | If you feel you may have a question that does not fit the      |
- * | standard support request format, this may be the place to ask. |
-   |                                                                |
  * | IMPORTANT: The flash file system on /flash/project_<...> will  |
    | be unavialable until after the installation of the GPU         |
    | partition.                                                     |
