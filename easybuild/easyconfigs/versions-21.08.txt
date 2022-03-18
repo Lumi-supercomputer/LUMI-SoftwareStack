@@ -1,4 +1,5 @@
-local_LUMI_version =        '21.06'
+local_LUMI_version =        '21.08'
+local_craypython_version =  '3.8.5.1'
 
 #
 # Components of buildtools
