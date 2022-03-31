@@ -112,7 +112,7 @@ version = '4.5.2'
 homepage = 'https://rocmdocs.amd.com/'
 
 whatis = [
-    "AMD ROCm is the first open-source software development platform for "
+    "Description: AMD ROCm is the first open-source software development platform for "
     "HPC/Hyperscale-class GPU computing"
 ]
 
@@ -126,7 +126,9 @@ OpenCL and OpenMP programming models including tools for profiling and
 debugging.
 
 This is an experimental module provided for the convenience of the Early Access
-Platform so that they can compile their code from the login node.
+Platform so that they can compile their code from the login node. Problems can
+and will occur and we can only offer limited support. The module should be
+used with the compilers from the Cray Programming Environment 21.12.
 """
 
 docurls = [

@@ -35,3 +35,7 @@ software:
         versions:
           '0.2.2':
             versionsuffix: '-cray-python-default'
+  rocm:
+    toolchains:
+      SYSTEM:
+        versions: ['4.5.2']
