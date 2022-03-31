@@ -62,7 +62,7 @@ The module will also set a number of environment variables that can be useful
 for references in scripts:
   * LUMI_STACK_NAME to ]] .. stack_name .. [[ (name of the software stack)
   * LUMI_STACK_VERSION to ]] .. stack_version .. [[ (version of the software stack)
-  * LUMI_STACK_)NAME_version to ]] .. stack_name .. '/' .. stack_version .. [[ (name/version of the software stack)
+  * LUMI_STACK_NAME_VERSION to ]] .. stack_name .. '/' .. stack_version .. [[ (name/version of the software stack)
   * LUMI_STACK_CPE_VERSION to ]] .. CPE_version .. [[ (matching release of the Cray PE)
 ]] )
 

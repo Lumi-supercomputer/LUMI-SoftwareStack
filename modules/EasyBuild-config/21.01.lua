@@ -38,6 +38,7 @@ local optarch = {
     C =       'x86-milan',
     G =       'x86-milan',
     D =       'x86-rome',
+    EAP =     'x86-rome',
     CrayEnv = 'x86-rome', -- This is really a dummy as we do not want ot use the Cray PE here.
     system  = 'x86-rome', -- This is really a dummy as we do not want ot use the Cray PE here.
 }
@@ -51,6 +52,7 @@ local special_partition = {
     G       = false,
     D       = false,
     L       = false,
+    EAP     = false,
     CrayEnv = true,
     system  = true,
 }
