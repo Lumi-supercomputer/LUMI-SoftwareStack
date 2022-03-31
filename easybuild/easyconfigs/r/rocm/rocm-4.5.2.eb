@@ -1,0 +1,183 @@
+# Created for LUMI by Orian Louant
+#
+# This is not very clean but it do the job. Tried with a bundle EasyBlock without
+# much success: Esybuild tried to uncompress the RPMs as they were Tarballs.
+
+easyblock = 'Binary'
+
+local_components = [
+  ('comgr', '2.1.0', {
+    'checksum': '0d9c175315ae9fbeccb09c9d1634ebb6a113fd7eaee681a8390c15c4af0a764d',
+  }),
+  ('half', '1.12.0', {
+    'checksum': '1b45171d8ce637c1e0c3ab120cba80dda11f082267c20a391b665de81b0304f9',
+    'source': 'half4.5.2-1.12.0.40502-164.x86_64.rpm',
+  }),
+  ('hip-devel', '4.4.21432', {
+    'checksum': '43aed283e91bb7a9c314d6f23c6ab5301675ee2673e90204091a9f54a0c2a884',
+  }),
+  ('hip-runtime-amd', '4.4.21432', {
+    'checksum': 'd089546cf45a1a6eb9dbaacdd969d0dbf6e794732118f11ce459daf282724108',
+  }),
+  ('hsa-amd-aqlprofile', '1.0.0', {
+    'checksum': 'fcca3279c2b587503248ace2068b8bde91f3d2f218a140fb612e762ef85a52b4',
+  }),
+  ('hsa-rocr', '1.4.0', {
+    'checksum': '3c27e6b5ef60bc01fd9a83924d9573e4634a9fc538f6d4b2e8e31e7b510e1ca6',
+  }),
+  ('hsakmt-roct-devel', '20210902.12.3277', {
+    'checksum': '71eabd598e4f3dbca0b6230fcc1bf05861865b4a085035911fcee155371765a5',
+  }),
+  ('hsa-rocr-devel', '1.4.0', {
+    'checksum': '6fc3789fc08fb7b22ed5c5de9b09bef442749952d72b7f10250ac502f730c778',
+  }),
+  ('openmp-extras', '13.45.0', {
+    'checksum': '8ac734d90e165a3c6543dc373156d7fbe052c0d0e4422d0c3647e43107510922',
+  }),
+  ('rocm-clang-ocl', '0.5.0', {
+    'checksum': '5c9b7692ec74c1c84585eecec6f218db77bf9b4b56f1b9d05f740985d3803fc2',
+  }),
+  ('rocm-cmake', '0.6.0', {
+    'checksum': 'a539759e3f69d27d06819997f5798de9976535e19824ecec86c51b89d3f29c08',
+  }),
+  ('rocm-core', '4.5.2', {
+    'checksum': '0a24ccdd4642e3c12ca49e4ea2ada13d9afdd2aeb3574bd102e6204f535a64f4',
+  }),
+  ('rocm-dbgapi', '0.56.0', {
+    'checksum': '448d513c42ac68de0493cce74ef144961cb55a312f86b3dfd15757da386f545a',
+  }),
+  ('rocm-debug-agent', '2.0.1', {
+    'checksum': '74639ab521cd333c63c21116a778ebd440ccf705601eaec55698e17fe6bafcbf',
+  }),
+  ('rocm-dev', '4.5.2', {
+    'checksum': '1e6a2ef9dafa626ea8d0929819420c94d74a210ac946150efbb8afd2e3c8a6e9',
+  }),
+  ('rocm-dkms', '4.5.2', {
+    'checksum' : '82204bd5eeabc6c0f1f04e172b12c8f06cc2225dd49f82d3ef5aaab88536fc65',
+    'source'   : 'rocm-dkms-4.5.2.40502-sles152.164.x86_64.rpm'
+  }),
+  ('rocm-device-libs', '1.0.0', {
+    'checksum': '451b9e72ea946ef12cbedbf6b41fc7e86885b348a675d31a880853490bcf7bb7',
+  }),
+  ('rocm-gdb', '11.1', {
+    'checksum': '2e6ffbf12e5343f05dd7bb81708d8321d2910000a3485893a77e594bdb5440bb',
+  }),
+  ('rocm-hip-runtime-devel' , '4.5.2', {
+    'checksum': '25ac37c0500ec9a5b628dd0f5a571cb2b6ab79f079ad524baa0e0bf58a469015',
+  }),
+  ('rocm-hip-runtime', '4.5.2', {
+    'checksum': 'd819571bf8ed3196d9d3d00abdcc5d52c5cc3a00b87a791569504f286283e5c3',
+  }),
+  ('rocminfo', '1.0.0', {
+    'checksum': 'f36b2cfbf73a87491b86293d276a8c98e36a3e317b928910cf34e55878047421',
+  }),
+  ('rocm-hip-sdk', '4.5.2', {
+    'checksum': '67ba7f042ca48a64e6968a33fed9ce0841dc66327d2a021d3bf3f1878f7f3217',
+  }),
+  ('rocm-language-runtime', '4.5.2', {
+    'checksum': '5781c4df3beafec6a8417ec6468e76bae4d5ea86e23ce721370fe83f2adc3a32',
+  }),
+  ('rocm-llvm', '13.0.0.21432', {
+    'checksum': '2175bb99b875457dfa7ac386420a1fa32a50dcff4579a2e41de2ab507efca1dc',
+  }),
+  ('rocm-opencl', '2.0.0', {
+    'checksum': '2fcab2d245acb627eb76515e6e1f3ceaa50ae0b22dc494f22822e61b9a6659d6',
+  }),
+  ('rocm-opencl-devel', '2.0.0', {
+    'checksum': '06967cc05462fc30842b4673a714c288da315e2c7b767deb4d2fbd859c29ccd3',
+  }),
+  ('rocm-opencl-runtime', '4.5.2', {
+    'checksum': '65d7d2df849fc019269045e515df4e6f159d4acd45256e7a323f91b7f06f990d',
+  }),
+  ('rocm-opencl-sdk', '4.5.2', {
+    'checksum': 'c9999328c0e7e9d76e466314088b5d28ae6b8062c81985c9418f44943cf09449',
+  }),
+  ('rocm-utils', '4.5.2', {
+    'checksum': 'fdeb42154a70f9fab4b8c5aaea32423f5274544078fa5e64f1136b567d898bf1',
+  }),
+  ('rocm-smi-lib', '4.0.0', {
+    'checksum': 'fa00e08923a5484855db9e655b3dee4a46f55ebdf0e0713c2155a77956ed48a9',
+  }),
+  ('rocprofiler-dev', '1.0.0', {
+    'checksum': '1955a819fc0d3bd3348641d63fdb6874de4e1c1aca90e6ad40fea46049643841',
+  }),
+  ('roctracer-dev', '1.0.0', {
+    'checksum': '9f6516cebe643dfa075039babb0d5356e67e00f37164b036a8799c733bef7ed1',
+  }),
+]
+
+name = 'rocm'
+version = '4.5.2'
+
+homepage = 'https://rocmdocs.amd.com/'
+
+whatis = [
+    "Description: AMD ROCm is the first open-source software development platform for "
+    "HPC/Hyperscale-class GPU computing"
+]
+
+description = """
+AMD ROCm is the first open-source software development platform for 
+HPC/Hyperscale-class GPU computing. AMD ROCm brings the UNIX philosophy of 
+choice, minimalism and modular software development to GPU computing.
+
+ROCm provides tools the tools required for the development of code using HIP, 
+OpenCL and OpenMP programming models including tools for profiling and 
+debugging.
+
+This is an experimental module provided for the convenience of the Early Access
+Platform so that they can compile their code from the login node. Problems can
+and will occur and we can only offer limited support. The module should be
+used with the compilers from the Cray Programming Environment 21.12.
+"""
+
+docurls = [
+  'https://docs.lumi-supercomputer.eu/eap/',
+  'https://rocmdocs.amd.com/en/latest/'
+]
+
+toolchain = SYSTEM
+
+source_urls = ['https://repo.radeon.com/rocm/zyp/%(version)s/']
+
+sources = []
+checksums = []
+for local_component in local_components:
+  local_name    = local_component[0]
+  local_version = local_component[1]
+  local_specs   = local_component[2]
+
+  if 'source' in local_specs:
+    sources.append(local_specs['source'])
+  else:
+    sources.append('%s%s-%s.40502-sles152.164.x86_64.rpm' % (local_name, version, local_version))
+  
+  if 'checksum' in local_specs:
+    checksums.append(local_specs['checksum'])
+
+install_cmd  = 'for rpm in *.rpm; do rpm2cpio $rpm | cpio -idmv; done &&'
+install_cmd += 'cd opt/rocm-%(version)s/ &&'
+install_cmd += 'cp -ar . %(installdir)s/'
+
+postinstallcmds = [
+  'cd %(installdir)s/lib && for i in ../hip/lib/libamdhip64.*; do ln -s $i; done',
+  'cd %(installdir)s/include && ln -s ../hip/include/hip',
+]
+
+modextrapaths = {
+  'CPATH'              : 'llvm/include',
+  'C_INCLUDE_PATH'     : 'llvm/include',
+  'CPLUS_INCLUDE_PATH' : 'llvm/include',
+  'PATH'               : ['hip/bin', 'llvm/bin'],
+  'LD_LIBRARY_PATH'    : ['hsa/lib', 'llvm/lib'],
+  'LIBRARY_PATH'       : ['hsa/lib', 'llvm/lib'],
+}
+
+modextravars = {
+  'ROCM_PATH'    : '%(installdir)s',
+  'HIP_PATH'     : '%(installdir)s/hip',
+  'HIP_LIB_PATH' : '%(installdir)s/hip/lib',
+  'HSA_PATH'     : '%(installdir)s/hsa',
+}
+
+moduleclass = 'devel'
