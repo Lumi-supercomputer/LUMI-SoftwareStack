@@ -108,7 +108,6 @@ local_components = [
 
 name = 'rocm'
 version = '4.5.2'
-versionsuffix = '-patched'
 
 homepage = 'https://rocmdocs.amd.com/'
 
