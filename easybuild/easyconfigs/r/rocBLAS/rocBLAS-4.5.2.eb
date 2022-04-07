@@ -1,0 +1,68 @@
+# Created for LUMI by Orian Louant
+
+easyblock = 'CMakeMake'
+
+name = 'rocBLAS'
+version = '4.5.2'
+
+import os
+local_stackversion = os.getenv('LUMI_STACK_VERSION')
+
+local_gpu_target     = 'gfx908:xnack-'
+local_Tensile_commit = '0f6a6d1557868d6d563cb1edf167c32c2e34fda0'
+local_Tensile_url    = 'https://github.com/ROCmSoftwarePlatform/Tensile/archive'
+
+homepage = 'https://github.com/ROCmSoftwarePlatform/rocBLAS/'
+
+whatis = [
+    'Description: rocBLAS is the AMD library for Basic Linear Algebra Subprograms'
+]
+
+description = """
+rocBLAS is the AMD library for Basic Linear Algebra Subprograms (BLAS) on the
+ROCm platform. It is implemented in the HIP programming language and optimized
+for AMD GPUs.
+"""
+
+toolchain = SYSTEM
+
+source_urls = ['https://github.com/ROCmSoftwarePlatform/rocBLAS/archive']
+sources = ['rocm-%(version)s.tar.gz']
+
+checksums = ['15d725e38f91d1ff7772c4204b97c1515af58fa7b8ec2a2014b99b6d337909c4']
+
+builddependencies = [
+    ('buildtools', local_stackversion, '', True)
+]
+
+dependencies = [
+    ('rocm', '%(version)s'),
+]
+
+# Download Tensile ourself instead of doing it during the configuration process
+# Replace the 'threadCount' value to the parallel value defined by easybuild
+
+local_Tensile_archive = '%s.tar.gz' % local_Tensile_commit
+local_Tensile_download = os.path.join(local_Tensile_url, local_Tensile_archive)
+
+preconfigopts  = ' wget %s && tar xf %s' % (local_Tensile_download, local_Tensile_archive)
+preconfigopts += ' && sed -i "s/= CPUThreadCount(.*)/= %s/" Tensile-%s/Tensile/Parallel.py && ' % ('%(parallel)s', local_Tensile_commit)
+
+configopts  = ' -DCMAKE_CXX_COMPILER="hipcc"'
+configopts += ' -DAMDGPU_TARGETS="%s"' % local_gpu_target
+configopts += ' -DRUN_HEADER_TESTING=OFF'
+configopts += ' -DROCM_PATH=$ROCM_PATH'
+configopts += ' -Damd_comgr_DIR="$ROCM_PATH/lib/cmake/amd_comgr"'
+configopts += ' -DTensile_TEST_LOCAL_PATH="Tensile-%s"' % local_Tensile_commit
+configopts += ' -DTensile_LOGIC=asm_full'
+configopts += ' -DTensile_ARCHITECTURE="%s"' % local_gpu_target
+configopts += ' -DTensile_CODE_OBJECT_VERSION=V3'
+configopts += ' -DTensile_LIBRARY_FORMAT=yaml'
+configopts += ' -DTensile_COMPILER="hipcc"'
+
+sanity_check_paths = {
+    'files': ['lib/librocblas.%s' % SHLIB_EXT, 'include/rocblas.h'],
+    'dirs': ['rocblas'],
+}
+
+moduleclass = 'math'
