@@ -1,0 +1,55 @@
+# Created for LUMI by Orian Louant
+
+easyblock = 'CMakeMake'
+
+name = 'rocThrust'
+version = '4.5.2'
+
+import os
+local_stackversion = os.getenv('LUMI_STACK_VERSION')
+
+homepage = 'https://github.com/ROCmSoftwarePlatform/rocThrust'
+
+whatis = [
+    'Description: rocThrust is the HIP/ROCm implementation of Thrust, a parallel algorithm library'
+]
+
+description = """
+Thrust allows you to implement high performance parallel applications with
+minimal programming effort through a high-level interface. rocThrust is the
+HIP/ROCm implementation of Thrust
+
+Thrust provides a rich collection of data parallel primitives such as scan,
+sort, and reduce, which can be composed together to implement complex algorithms
+with concise, readable source code. By describing your computation in terms of
+these high-level abstractions you provide Thrust with the freedom to select the
+most efficient implementation automatically. As a result, Thrust can be utilized
+in rapid prototyping of HIP applications, where programmer productivity matters
+most, as well as in production, where robustness and absolute performance are
+crucial.
+"""
+
+toolchain = SYSTEM
+
+source_urls = ['https://github.com/ROCmSoftwarePlatform/rocThrust/archive/']
+sources = ['rocm-%(version)s.tar.gz']
+checksums = ['9171a05dd7438aebd4f6a939b1b33b7e87be1a0bd52d90a171b74539885cf591']
+
+builddependencies = [
+    ('buildtools', local_stackversion, '', True)
+]
+
+dependencies = [
+    ('rocm',    '%(version)s'),
+    ('rocPRIM', '%(version)s'),
+]
+
+configopts  = ' -DCMAKE_CXX_COMPILER="$ROCM_PATH/hip/bin/hipcc" '
+configopts += ' -DCMAKE_MODULE_PATH=$ROCM_PATH/hip/cmake'
+
+sanity_check_paths = {
+    'files': ['include/thrust/reduce.h', 'include/thrust/scan.h'],
+    'dirs': ['include/thrust'],
+}
+
+moduleclass = 'devel'
