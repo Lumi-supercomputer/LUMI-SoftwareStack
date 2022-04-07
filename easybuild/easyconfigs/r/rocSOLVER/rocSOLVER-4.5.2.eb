@@ -1,0 +1,88 @@
+# Created for LUMI by Orian Louant
+
+easyblock = 'Bundle'
+
+name = 'rocSOLVER'
+version = '4.5.2'
+
+local_fmt_version  = '7.0.3'
+
+local_fmt_checksum       = 'b4b51bc16288e2281cddc59c28f0b4f84fed58d016fb038273a09f05f8473297'
+local_rocSOLVER_checksum = '4639322bd1e77fedfdeb9032633bde6211a0b1cc16a612db7754f873f18a492f'
+
+local_gpu_target = 'gfx908:xnack-'
+
+import os
+local_stackversion = os.getenv('LUMI_STACK_VERSION')
+
+homepage = 'https://github.com/ROCmSoftwarePlatform/rocSOLVER'
+
+whatis = [
+    'Description: rocSOLVER is an implementation of a subset of LAPACK functionality on the ROCm platform.'
+]
+
+description = """
+rocSOLVER is an implementation of LAPACK routines on top of the AMD’s ROCm 
+platform. rocSOLVER is implemented in the HIP programming language and optimized
+for AMD’s latest discrete GPUs.
+"""
+
+docurls = ['https://rocsolver.readthedocs.io/en/rocm-5.1.0/index.html']
+
+toolchain = SYSTEM
+
+default_easyblock = 'CMakeMake'
+
+builddependencies = [
+    ('buildtools', local_stackversion, '', True)
+]
+
+dependencies = [
+    ('rocm',    '%(version)s'),
+    ('rocBLAS', '%(version)s'),
+]
+
+local_fmt_configopts  = ' -DCMAKE_POSITION_INDEPENDENT_CODE=TRUE'
+local_fmt_configopts += ' -DCMAKE_CXX_STANDARD=11'
+local_fmt_configopts += ' -DCMAKE_CXX_STANDARD_REQUIRED=ON'
+
+local_rocSOLVER_configopts  = ' -DCMAKE_CXX_COMPILER="hipcc" '
+local_rocSOLVER_configopts += ' -DCMAKE_PREFIX_PATH="%(installdir)s"'
+local_rocSOLVER_configopts += ' -DAMDGPU_TARGETS="%s"' % local_gpu_target
+local_rocSOLVER_configopts += ' -DBUILD_CLIENTS_SAMPLES=OFF'
+local_rocSOLVER_configopts += ' -DBUILD_CLIENTS_TESTS=OFF'
+local_rocSOLVER_configopts += ' -DBUILD_CLIENTS_BENCHMARKS=OFF'
+local_rocSOLVER_configopts += ' -DROCSOLVER_EMBED_FMT=ON'
+
+local_rocSOLVER_preconfigopts = 'sed -i "s/#define ROCSOLVER_EXTRAS_H_/#define ROCSOLVER_EXTRAS_H_\\n\\n#include <stdint.h>/" %(builddir)s/%(name)s-rocm-%(version)s/library/include/rocsolver-extra-types.h && '
+
+# fmt is a build dependency, we install it to build rocSOLVER but remove in a
+# post-install step
+components = [
+    ('fmt', local_fmt_version, {
+        'source_urls' : ['https://github.com/fmtlib/fmt/archive'],
+        'sources'     : ['%(version)s.tar.gz'],
+        'checksums'   : [local_fmt_checksum],
+        'configopts'  : local_fmt_configopts,
+        'start_dir'   : '%(namelower)s-%(version)s',
+    }),
+    (name, version, {
+        'source_urls'   : ['https://github.com/ROCmSoftwarePlatform/rocSOLVER/archive/'],
+        'sources'       : ['rocm-%(version)s.tar.gz'],
+        'checksums'     : [local_rocSOLVER_checksum],
+        'configopts'    : local_rocSOLVER_configopts,
+        'preconfigopts' : local_rocSOLVER_preconfigopts,
+        'start_dir'     : '%(name)s-rocm-%(version)s/',
+    }),
+]
+
+postinstallcmds	= [
+    'rm -rf %(installdir)s/lib64 %(installdir)s/include/fmt',
+]
+
+sanity_check_paths = {
+    'files': ['include/rocsolver.h', 'lib/librocsolver.%s' % SHLIB_EXT],
+    'dirs': ['rocsolver'],
+}
+
+moduleclass = 'numlib'
