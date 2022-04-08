@@ -1,0 +1,321 @@
+# Created for LUMI by Orian Louant
+
+easyblock = 'Bundle'
+
+name = 'rocmlibs'
+version = '4.5.2'
+
+import os
+local_stackversion = os.getenv('LUMI_STACK_VERSION')
+
+local_fmt_version      = '7.0.3'
+
+local_github_url       = 'https://github.com/ROCmSoftwarePlatform'
+
+local_Tensile_commit   = '0f6a6d1557868d6d563cb1edf167c32c2e34fda0'
+local_Tensile_url      = os.path.join(local_github_url, 'Tensile/archive')
+local_Tensile_archive  = '%s.tar.gz' % local_Tensile_commit
+local_Tensile_download = os.path.join(local_Tensile_url, local_Tensile_archive)
+
+local_gpu_target = 'gfx908:xnack-'
+
+homepage = 'https://github.com/ROCmSoftwarePlatform'
+
+whatis = [
+    'Description: bundle of the ROCm libraries numerical libraries',
+    'Keywords: rocFFT, rocPRIM, rocRAND, hipRAND, rocBLAS, rocSOLVER, rocSPARSE, rocALUTION, hipFFT, hipBLAS'
+]
+
+description = """
+This module is a bundle of the ROCm numerical libraries. It provides the 
+following libraries:
+
+  - rocFFT     : a software library for computing Fast Fourier Transforms
+  - rocPRIM    : a header-only library providing HIP parallel primitives
+  - rocRAND    : pseudo-random and quasi-random numbers generator
+  - rocBLAS    : Basic Linear Algebra Subprograms for AMD GPUs
+  - rocSOLVER  : subset of LAPACK functionality for AMD GPUs
+  - rocSPARSE  : Basic Linear Algebra Subroutines for sparse computation
+  - rocALUTION : a sparse linear algebra library
+  - hipFFT     : marshalling library supporting rocFFT or cuFFT as backends
+  - hipBLAS    : marshalling library supporting rocBLAS or cuBLAS as backends
+"""
+
+docurls = [
+    'rocSOLVER  : https://rocsolver.readthedocs.io/en/rocm-4.5.2/',
+    'rocALUTION : https://rocalution.readthedocs.io/en/rocm-4.5.2/',
+    'rocBLAS    : https://rocblas.readthedocs.io/en/rocm-4.5.2/',
+    'rocFFT     : https://rocfft.readthedocs.io/en/rocm-4.5.2/',
+    'rocPRIM    : https://codedocs.xyz/ROCmSoftwarePlatform/rocPRIM/',
+    'rocRAND    : https://codedocs.xyz/ROCmSoftwarePlatform/rocRAND/modules.html',
+    'rocSPARSE  : https://rocsparse.readthedocs.io/en/rocm-4.5.2/',
+    'hipFFT     : https://hipfft.readthedocs.io/',
+]
+
+toolchain = SYSTEM
+
+default_easyblock = 'CMakeMake'
+
+builddependencies = [
+    ('buildtools', local_stackversion, '', True)
+]
+
+dependencies = [
+    ('rocm', '%(version)s'),
+]
+
+# !!! The order in important because of dependencies
+local_build_order = [
+    'rocFFT',
+    'rocPRIM',
+    'rocRAND',
+    'rocBLAS',
+    'fmt',
+    'rocSOLVER',
+    'rocSPARSE',
+    'rocALUTION',
+    'hipFFT',
+    'hipBLAS',
+]
+
+local_common_configopts  = ' -DCMAKE_CXX_COMPILER="hipcc" '
+local_common_configopts += ' -DCMAKE_PREFIX_PATH="%(installdir)s"'
+local_common_configopts += ' -DAMDGPU_TARGETS="%s"' % local_gpu_target
+
+local_configopts    = {}
+local_preconfigopts = {}
+
+local_configs = {
+    'fmt': {
+        'checksum': 'b4b51bc16288e2281cddc59c28f0b4f84fed58d016fb038273a09f05f8473297',
+        'configopts': [
+            '-DCMAKE_POSITION_INDEPENDENT_CODE=TRUE',
+            '-DCMAKE_CXX_STANDARD=11',
+            '-DCMAKE_CXX_STANDARD_REQUIRED=ON',
+        ]
+    },
+    'rocRAND': {
+        'checksum': '1523997a21437c3b74d47a319d81f8cc44b8e96ec5174004944f2fb4629900db',
+        'configopts': [
+            local_common_configopts,
+            '-DBUILD_TEST=OFF', 
+            '-DBUILD_BENCHMARK=OFF',
+        ],
+        'sanity_files': [
+            'include/rocrand/rocrand.h', 
+            'include/hiprand/hiprand.h',
+            'lib/librocrand.%s' % SHLIB_EXT,
+            'lib/libhiprand.%s' % SHLIB_EXT,
+        ],
+        'sanity_dirs': [
+            'rocrand', 
+            'hiprand',
+        ],
+    },
+    'rocPRIM': {
+        'checksum': '0dc673847e67db672f2e239f299206fe16c324005ddd2e92c7cb7725bb6f4fa6',
+        'configopts': [
+            local_common_configopts,
+            '-DBUILD_TEST=OFF', 
+            '-DBUILD_BENCHMARK=OFF', 
+        ],
+        'sanity_files': [
+            'include/rocprim/rocprim.hpp',
+        ],
+        'sanity_dirs': [
+            'include/rocprim'
+        ],
+    },
+    'rocSOLVER': {
+        'checksum': '4639322bd1e77fedfdeb9032633bde6211a0b1cc16a612db7754f873f18a492f',
+        'configopts': [
+            local_common_configopts,
+            '-DBUILD_CLIENTS_SAMPLES=ON',
+            '-DBUILD_CLIENTS_TESTS=OFF',
+            '-DBUILD_CLIENTS_BENCHMARKS=OFF',
+            '-DROCSOLVER_EMBED_FMT=ON',
+        ],
+        'preconfigopts': [
+            'sed -i "s/#define ROCSOLVER_EXTRAS_H_/#define ROCSOLVER_EXTRAS_H_\\n\\n#include <stdint.h>/" %(builddir)s/%(name)s-rocm-%(version)s/library/include/rocsolver-extra-types.h && '
+        ],
+        'sanity_files': [
+          'include/rocsolver.h', 
+          'lib/librocsolver.%s' % SHLIB_EXT,
+        ],
+        'sanity_dirs': [
+            'rocsolver'
+        ],
+    },
+    'rocSPARSE': {
+        'checksum': 'e37af2cd097e239a55a278df534183b5591ef4d985fe1a268a229bd11ada6599',
+        'configopts': [
+            local_common_configopts,
+            '-DCMAKE_Fortran_COMPILER=flang ',
+            '-DCMAKE_Fortran_FLAGS="-Mfreeform"',
+            '-Drocprim_DIR="%(installdir)s/rocprim/lib/cmake/rocprim"',
+            '-DBUILD_CLIENTS_SAMPLES=OFF',
+            '-DBUILD_CLIENTS_TESTS=OFF',
+            '-DBUILD_CLIENTS_BENCHMARKS=OFF',
+        ],
+        'sanity_files': [
+            'lib/librocsparse.%s' % SHLIB_EXT, 
+            'include/rocsparse.h',
+        ],
+        'sanity_dirs': [
+            'rocsparse'
+        ],
+    },
+    'rocFFT': {
+        'checksum': '2724118ca00b9e97ac9578fe0b7e64a82d86c4fb0246d0da88d8ddd9c608b1e1',
+        'configopts': [
+            local_common_configopts,
+            '-DUSE_HIP_CLANG=ON',
+        ],
+        'sanity_files': [
+            'include/rocfft.h',
+            'lib/librocfft.%s' % SHLIB_EXT,
+        ],
+        'sanity_dirs': [
+            'rocfft',
+        ],
+    },
+    'rocBLAS': {
+        'checksum': '15d725e38f91d1ff7772c4204b97c1515af58fa7b8ec2a2014b99b6d337909c4',
+        'configopts': [
+            local_common_configopts,
+            '-DRUN_HEADER_TESTING=OFF',
+            '-DROCM_PATH=$ROCM_PATH',
+            '-Damd_comgr_DIR="$ROCM_PATH/lib/cmake/amd_comgr"',
+            '-DTensile_TEST_LOCAL_PATH="Tensile-%s"' % local_Tensile_commit,
+            '-DTensile_LOGIC=asm_full',
+            '-DTensile_ARCHITECTURE="%s"' % local_gpu_target,
+            '-DTensile_CODE_OBJECT_VERSION=V3',
+            '-DTensile_LIBRARY_FORMAT=yaml',
+            '-DTensile_COMPILER="hipcc"',
+        ],
+        'preconfigopts': [
+            'wget -q %s && tar xf %s' % (local_Tensile_download, local_Tensile_archive),
+            'sed -i "s/= CPUThreadCount(.*)/= %s/" Tensile-%s/Tensile/Parallel.py && ' % ('%(parallel)s', local_Tensile_commit),
+        ],
+        'sanity_files': [
+            'lib/librocblas.%s' % SHLIB_EXT, 
+            'include/rocblas.h',
+        ],
+        'sanity_dirs': [
+            'rocblas',
+        ],
+    },
+    'rocALUTION': {
+        'checksum': '8be38922320cd9d4fc465a30f0322843849f62c0c7dad2bdbe52290a1b69d2a0',
+        'configopts': [
+            local_common_configopts,
+            '-DCMAKE_MODULE_PATH=$ROCM_PATH/hip/cmake',
+            '-DSUPPORT_HIP=ON',
+            '-DBUILD_CLIENTS_SAMPLES=OFF',
+        ],
+        'sanity_files': [
+            'include/rocalution.hpp',
+            'lib/librocalution.%s' % SHLIB_EXT, 
+            'lib/librocalution_hip.%s' % SHLIB_EXT,
+        ],
+        'sanity_dirs': [
+            'rocalution',
+        ],
+    },
+    'hipFFT': {
+        'checksum': '32ba6a5f50cfede3777a43794371ffb1363302131d8a0382d96df90ed7bc911a',
+        'configopts': [
+            local_common_configopts,
+            '-DCMAKE_MODULE_PATH=$ROCM_PATH/hip/cmake',
+            '-DBUILD_CLIENTS_SAMPLES=OFF',
+        ],
+        'sanity_files': [
+              'include/hipfft.h', 
+              'lib/libhipfft.%s' % SHLIB_EXT
+        ],
+        'sanity_dirs': [
+            'hipfft'
+        ],
+    },
+    'hipBLAS': {
+        'checksum': '82dd82a41bbadbb2a91a2a44a5d8e0d2e4f36d3078286ed4db3549b1fb6d6978',
+        'configopts': [
+            local_common_configopts,
+            '-DCMAKE_MODULE_PATH=$ROCM_PATH/hip/cmake',
+            '-DBUILD_CLIENTS_SAMPLES=OFF',
+            '-DBUILD_CLIENTS_TESTS=OFF',
+        ],
+        'sanity_files': [
+              'include/hipblas.h', 
+              'lib/libhipblas.%s' % SHLIB_EXT,
+        ],
+        'sanity_dirs': [
+            'hipblas',
+        ],
+    },
+}
+
+components = []
+
+sanity_check_paths = {
+    'files': [],
+    'dirs': [],
+}
+
+for local_name in local_build_order:
+    local_conf = local_configs[local_name]
+
+    if local_name is 'fmt':
+        local_specs = {
+            'source_urls' : ['https://github.com/fmtlib/fmt/archive'],
+            'sources'     : ['%(version)s.tar.gz'],
+            'start_dir'   : '%(namelower)s-%(version)s',
+        }
+    else:
+        local_specs = {
+            'source_urls': ['%s/%s/archive/' % (local_github_url, local_name)],
+            'sources': [{
+                'download_filename': 'rocm-%(version)s.tar.gz',
+                'filename': '%s-rocm-%s.tar.gz' % (local_name, version),
+            }],
+            'start_dir': '%s-rocm-%s/' % (local_name, '%(version)s'),
+        }
+    
+    if 'checksum' in local_conf:
+        local_specs['checksums'] = [local_conf['checksum']]
+    if 'configopts' in local_conf:
+        local_specs['configopts'] = ' '.join(local_conf['configopts'])
+    if 'preconfigopts' in local_conf:
+        local_specs['preconfigopts'] = ' && '.join(local_conf['preconfigopts'])
+    if 'sanity_files' in local_conf:
+        sanity_check_paths['files'].extend(local_conf['sanity_files'])
+    if 'sanity_dirs' in local_conf:
+        sanity_check_paths['dirs'].extend(local_conf['sanity_dirs'])
+    
+    if local_name is 'fmt':
+      components.append((local_name, local_fmt_version, local_specs))
+    else:
+      components.append((local_name, version, local_specs))
+
+postinstallcmds	= [
+    'rm -rf %(installdir)s/lib64 %(installdir)s/include/fmt',
+    'mkdir -p %(installdir)s/include/rocrand',
+    'mkdir -p %(installdir)s/include/hiprand',
+    'cd %(installdir)s/lib && for i in ../rocrand/lib/*.so*; do ln -s $i; done',
+    'cd %(installdir)s/lib && for i in ../hiprand/lib/*.so*; do ln -s $i; done',
+    'cd %(installdir)s/include/rocrand && for i in ../../rocrand/include/*.h; do ln -s $i; done',
+    'cd %(installdir)s/include/hiprand && for i in ../../hiprand/include/*.h; do ln -s $i; done',
+]
+
+modextravars = {
+    'EBROOTHIPRAND': str(os.path.join('%(installdir)s', 'hiprand')),
+    'EBROOTROCPRIM': '%(installdir)s',
+}
+
+for local_name in local_configs.keys():
+    if local_name != 'fmt' and local_name != 'rocPRIM':
+        local_path = str(os.path.join('%(installdir)s', local_name.lower()))
+        local_root = 'EBROOT%s' % local_name.upper()
+        modextravars[local_root] = local_path
+
+moduleclass = 'numlib'
