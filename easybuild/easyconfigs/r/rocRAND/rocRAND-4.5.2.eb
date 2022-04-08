@@ -23,6 +23,8 @@ for AMD's latest discrete GPUs. It is designed to run on top of AMD's Radeon
 Open Compute ROCm runtime.
 """
 
+docurls = ['https://codedocs.xyz/ROCmSoftwarePlatform/rocRAND/modules.html']
+
 toolchain = SYSTEM
 
 source_urls = ['https://github.com/ROCmSoftwarePlatform/rocRAND/archive/']

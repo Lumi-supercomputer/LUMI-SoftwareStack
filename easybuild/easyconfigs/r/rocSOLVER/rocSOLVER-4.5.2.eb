@@ -27,7 +27,7 @@ platform. rocSOLVER is implemented in the HIP programming language and optimized
 for AMD’s latest discrete GPUs.
 """
 
-docurls = ['https://rocsolver.readthedocs.io/en/rocm-5.1.0/index.html']
+docurls = ['https://rocsolver.readthedocs.io/en/rocm-4.5.2/']
 
 toolchain = SYSTEM
 

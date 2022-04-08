@@ -23,6 +23,8 @@ eCosystem Platform ROCm runtime and toolchains. rocSPARSE is created using the
 HIP programming language and optimized for AMD's latest discrete GPUs.
 """
 
+docurls = ['https://rocsparse.readthedocs.io/en/rocm-4.5.2/']
+
 toolchain = SYSTEM
 
 source_urls = ['https://github.com/ROCmSoftwarePlatform/rocSPARSE/archive/']

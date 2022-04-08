@@ -24,6 +24,8 @@ ROCm platform. It is implemented in the HIP programming language and optimized
 for AMD GPUs.
 """
 
+docurls = ['https://rocblas.readthedocs.io/en/rocm-4.5.2/']
+
 toolchain = SYSTEM
 
 source_urls = ['https://github.com/ROCmSoftwarePlatform/rocBLAS/archive']

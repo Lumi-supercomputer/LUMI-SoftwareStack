@@ -22,6 +22,8 @@ HIP, it provides a portable, generic and flexible design that allows seamless
 integration with other scientific software packages.
 """
 
+docurls = ['https://rocalution.readthedocs.io/en/rocm-4.5.2/']
+
 toolchain = SYSTEM
 
 source_urls = ['https://github.com/ROCmSoftwarePlatform/rocALUTION/archive/']

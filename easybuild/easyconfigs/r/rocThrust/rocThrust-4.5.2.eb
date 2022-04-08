@@ -29,6 +29,8 @@ most, as well as in production, where robustness and absolute performance are
 crucial.
 """
 
+docurls = ['https://rocthrust.readthedocs.io/en/rocm-4.2.0/']
+
 toolchain = SYSTEM
 
 source_urls = ['https://github.com/ROCmSoftwarePlatform/rocThrust/archive/']

@@ -23,6 +23,8 @@ GPU devices, the library can also be compiled with the CUDA compiler using HIP
 tools for running on Nvidia GPU devices.
 """
 
+docurls = ['https://rocfft.readthedocs.io/en/rocm-4.5.2/']
+
 toolchain = SYSTEM
 
 source_urls = ['https://github.com/ROCmSoftwarePlatform/rocFFT/archive/']
