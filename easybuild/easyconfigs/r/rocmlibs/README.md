@@ -10,7 +10,7 @@ Bundle of the ROCm numerical libraries. Created for usage on the Early Access
 Platform. The bundle contains:
 
 * [rocFFT](https://github.com/ROCmSoftwarePlatform/rocFFT): a software library for computing Fast Fourier Transforms
-* [rocPRIM])(https://github.com/ROCmSoftwarePlatform/rocPRIM): a header-only library providing HIP parallel primitives
+* [rocPRIM](https://github.com/ROCmSoftwarePlatform/rocPRIM): a header-only library providing HIP parallel primitives
 * [rocRAND](https://github.com/ROCmSoftwarePlatform/rocRAND): pseudo-random and quasi-random numbers generator
 * [rocBLAS](https://github.com/ROCmSoftwarePlatform/rocBLAS): Basic Linear Algebra Subprograms for AMD GPUs
 * [rocSOLVER](https://github.com/ROCmSoftwarePlatform/rocSOLVER): subset of LAPACK functionality for AMD GPUs
