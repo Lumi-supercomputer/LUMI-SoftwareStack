@@ -65,12 +65,12 @@ dependencies = [
 ]
 
 # !!! The order in important because of dependencies
-local_build_order = [
+local_libs = [
     'rocFFT',
     'rocPRIM',
     'rocRAND',
+    'hipRAND',
     'rocBLAS',
-    'fmt',
     'rocSOLVER',
     'rocSPARSE',
     'rocALUTION',
@@ -81,9 +81,6 @@ local_build_order = [
 local_common_configopts  = ' -DCMAKE_CXX_COMPILER="hipcc" '
 local_common_configopts += ' -DCMAKE_PREFIX_PATH="%(installdir)s"'
 local_common_configopts += ' -DAMDGPU_TARGETS="%s"' % local_gpu_target
-
-local_configopts    = {}
-local_preconfigopts = {}
 
 local_configs = {
     'fmt': {
@@ -111,6 +108,10 @@ local_configs = {
             'rocrand', 
             'hiprand',
         ],
+        'rootdirs': {
+            'ROCRAND': 'rocrand',
+            'HIPRAND': 'hiprand',
+        },
     },
     'rocPRIM': {
         'checksum': '0dc673847e67db672f2e239f299206fe16c324005ddd2e92c7cb7725bb6f4fa6',
@@ -145,6 +146,9 @@ local_configs = {
         'sanity_dirs': [
             'rocsolver'
         ],
+        'rootdirs': {
+            'ROCSOLVER': 'rocsolver',
+        },
     },
     'rocSPARSE': {
         'checksum': 'e37af2cd097e239a55a278df534183b5591ef4d985fe1a268a229bd11ada6599',
@@ -164,6 +168,9 @@ local_configs = {
         'sanity_dirs': [
             'rocsparse'
         ],
+        'rootdirs': {
+            'ROCSPARSE': 'rocsparse',
+        },
     },
     'rocFFT': {
         'checksum': '2724118ca00b9e97ac9578fe0b7e64a82d86c4fb0246d0da88d8ddd9c608b1e1',
@@ -178,6 +185,9 @@ local_configs = {
         'sanity_dirs': [
             'rocfft',
         ],
+        'rootdirs': {
+            'ROCFFT': 'rocfft',
+        },  
     },
     'rocBLAS': {
         'checksum': '15d725e38f91d1ff7772c4204b97c1515af58fa7b8ec2a2014b99b6d337909c4',
@@ -204,6 +214,9 @@ local_configs = {
         'sanity_dirs': [
             'rocblas',
         ],
+        'rootdirs': {
+            'ROCBLAS': 'rocblas',
+        }, 
     },
     'rocALUTION': {
         'checksum': '8be38922320cd9d4fc465a30f0322843849f62c0c7dad2bdbe52290a1b69d2a0',
@@ -221,6 +234,9 @@ local_configs = {
         'sanity_dirs': [
             'rocalution',
         ],
+        'rootdirs': {
+            'ROCALUTION': 'rocalution',
+        }, 
     },
     'hipFFT': {
         'checksum': '32ba6a5f50cfede3777a43794371ffb1363302131d8a0382d96df90ed7bc911a',
@@ -236,6 +252,9 @@ local_configs = {
         'sanity_dirs': [
             'hipfft'
         ],
+        'rootdirs': {
+            'HIPFFT': 'hipfft',
+        }, 
     },
     'hipBLAS': {
         'checksum': '82dd82a41bbadbb2a91a2a44a5d8e0d2e4f36d3078286ed4db3549b1fb6d6978',
@@ -246,40 +265,49 @@ local_configs = {
             '-DBUILD_CLIENTS_TESTS=OFF',
         ],
         'sanity_files': [
-              'include/hipblas.h', 
-              'lib/libhipblas.%s' % SHLIB_EXT,
+            'include/hipblas.h', 
+            'lib/libhipblas.%s' % SHLIB_EXT,
         ],
         'sanity_dirs': [
             'hipblas',
         ],
+        'rootdirs': {
+            'HIPBLAS': 'hipblas',
+        }, 
     },
 }
-
-components = []
 
 sanity_check_paths = {
     'files': [],
     'dirs': [],
 }
 
-for local_name in local_build_order:
+modextravars = {}
+
+components = [
+    ('fmt', local_fmt_version, {
+        'source_urls' : ['https://github.com/fmtlib/fmt/archive'],
+        'sources'     : ['%(version)s.tar.gz'],
+        'start_dir'   : '%(namelower)s-%(version)s',
+        'checksums'   : [local_configs['fmt']['checksum']],
+        'configopts'  : ' '.join(local_configs['fmt']['configopts']),
+    })
+]
+
+for local_name in local_libs:
+    if local_name not in local_configs:
+        continue
+
     local_conf = local_configs[local_name]
 
-    if local_name is 'fmt':
-        local_specs = {
-            'source_urls' : ['https://github.com/fmtlib/fmt/archive'],
-            'sources'     : ['%(version)s.tar.gz'],
-            'start_dir'   : '%(namelower)s-%(version)s',
-        }
-    else:
-        local_specs = {
-            'source_urls': ['%s/%s/archive/' % (local_github_url, local_name)],
-            'sources': [{
-                'download_filename': 'rocm-%(version)s.tar.gz',
-                'filename': '%s-rocm-%s.tar.gz' % (local_name, version),
-            }],
-            'start_dir': '%s-rocm-%s/' % (local_name, '%(version)s'),
-        }
+    local_specs = {
+        'source_urls': ['%s/%s/archive/' % (local_github_url, local_name)],
+        'sources': [{
+            'download_filename': 'rocm-%(version)s.tar.gz',
+            'filename': '%s-rocm-%s.tar.gz' % (local_name, version),
+        }],
+        'start_dir': '%s-rocm-%s/' % (local_name, '%(version)s'),
+    }
     
     if 'checksum' in local_conf:
         local_specs['checksums'] = [local_conf['checksum']]
@@ -291,11 +319,14 @@ for local_name in local_build_order:
         sanity_check_paths['files'].extend(local_conf['sanity_files'])
     if 'sanity_dirs' in local_conf:
         sanity_check_paths['dirs'].extend(local_conf['sanity_dirs'])
-    
-    if local_name is 'fmt':
-      components.append((local_name, local_fmt_version, local_specs))
+
+    components.append((local_name, version, local_specs))
+
+    if 'rootdirs' in local_conf:
+        for local_root, local_dir in local_conf['rootdirs'].items():
+            modextravars['EBROOT%s' % local_root] = str(os.path.join('%(installdir)s', local_dir))
     else:
-      components.append((local_name, version, local_specs))
+        modextravars['EBROOT%s' % local_name.upper()] = '%(installdir)s'
 
 postinstallcmds	= [
     'rm -rf %(installdir)s/lib64 %(installdir)s/include/fmt',
@@ -306,16 +337,5 @@ postinstallcmds	= [
     'cd %(installdir)s/include/rocrand && for i in ../../rocrand/include/*.h; do ln -s $i; done',
     'cd %(installdir)s/include/hiprand && for i in ../../hiprand/include/*.h; do ln -s $i; done',
 ]
-
-modextravars = {
-    'EBROOTHIPRAND': str(os.path.join('%(installdir)s', 'hiprand')),
-    'EBROOTROCPRIM': '%(installdir)s',
-}
-
-for local_name in local_configs.keys():
-    if local_name != 'fmt' and local_name != 'rocPRIM':
-        local_path = str(os.path.join('%(installdir)s', local_name.lower()))
-        local_root = 'EBROOT%s' % local_name.upper()
-        modextravars[local_root] = local_path
 
 moduleclass = 'numlib'
