@@ -159,9 +159,14 @@ install_cmd += 'cd opt/rocm-%(version)s/ &&'
 install_cmd += 'cp -ar . %(installdir)s/'
 
 postinstallcmds = [
-  'cd %(installdir)s/lib && for i in ../hip/lib/libamdhip64.*; do ln -s $i; done',
-  'cd %(installdir)s/include && ln -s ../hip/include/hip',
-  'find %(installdir)s -type f -name "*.cmake" -exec sed -i s+/opt/rocm-4.5.2+%(installdir)s+ {} +',
+  'cd %(installdir)s/lib       && for i in ../hip/lib/*.so;       do ln -s $i; done',
+  'cd %(installdir)s/lib/cmake && for i in ../../hip/lib/cmake/*; do ln -s $i; done',
+  'cd %(installdir)s/bin       && for i in ../hip/bin/*;          do ln -s $i; done',
+  'cd %(installdir)s/bin       && for i in ../llvm/bin/amd*;      do ln -s $i; done',
+  'cd %(installdir)s/bin       && ln -s ../rocm_smi/bindings/rsmiBindings.py'
+  'cd %(installdir)s/include   && ln -s ../hip/include/hip',
+  'sed -i s+/opt/rocm-%(version)s+%(installdir)s+ %(installdir)s/bin/clang-ocl',
+  'find %(installdir)s -type f -name "*.cmake" -exec sed -i s+/opt/rocm-%(version)s+%(installdir)s+ {} +',
   'find %(installdir)s -type f -name "*.cmake" -exec sed -i s+/opt/rocm+%(installdir)s+ {} +',
   'find %(installdir)s -type f -name "*.cmake" -exec sed -i s+/usr/lib64/libtinfo.so+/lib64/libtinfo.so.6+ {} +'
 ]
