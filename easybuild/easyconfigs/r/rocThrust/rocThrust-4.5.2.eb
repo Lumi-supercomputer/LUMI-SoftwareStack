@@ -42,8 +42,8 @@ builddependencies = [
 ]
 
 dependencies = [
-    ('rocm',    '%(version)s'),
-    ('rocPRIM', '%(version)s'),
+    ('rocm',     '%(version)s'),
+    ('rocmlibs', '%(version)s'),
 ]
 
 configopts  = ' -DCMAKE_CXX_COMPILER="$ROCM_PATH/hip/bin/hipcc" '
