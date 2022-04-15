@@ -27,11 +27,16 @@ whatis = [
 ]
 
 description = """
-This module is a bundle of the ROCm numerical libraries. It provides the 
-following libraries:
+This module is a bundle of the ROCm utilities and numerical libraries. 
+
+It provides the following utilities libraries:
+
+  - rocPRIM : a header-only library providing HIP parallel primitives
+  - hipCUB  : a thin wrapper library on top of rocPRIM
+
+and the following numerical libraries libraries:
 
   - rocFFT     : a software library for computing Fast Fourier Transforms
-  - rocPRIM    : a header-only library providing HIP parallel primitives
   - rocRAND    : pseudo-random and quasi-random numbers generator
   - rocBLAS    : Basic Linear Algebra Subprograms for AMD GPUs
   - rocSOLVER  : subset of LAPACK functionality for AMD GPUs
@@ -42,11 +47,12 @@ following libraries:
 """
 
 docurls = [
+    'rocPRIM    : https://codedocs.xyz/ROCmSoftwarePlatform/rocPRIM/',
+    'hipCUB     : https://codedocs.xyz/ROCmSoftwarePlatform/hipCUB/',
     'rocSOLVER  : https://rocsolver.readthedocs.io/en/rocm-4.5.2/',
     'rocALUTION : https://rocalution.readthedocs.io/en/rocm-4.5.2/',
     'rocBLAS    : https://rocblas.readthedocs.io/en/rocm-4.5.2/',
     'rocFFT     : https://rocfft.readthedocs.io/en/rocm-4.5.2/',
-    'rocPRIM    : https://codedocs.xyz/ROCmSoftwarePlatform/rocPRIM/',
     'rocRAND    : https://codedocs.xyz/ROCmSoftwarePlatform/rocRAND/modules.html',
     'rocSPARSE  : https://rocsparse.readthedocs.io/en/rocm-4.5.2/',
     'hipFFT     : https://hipfft.readthedocs.io/',
@@ -68,6 +74,7 @@ dependencies = [
 local_libs = [
     'rocFFT',
     'rocPRIM',
+    'hipCUB',
     'rocRAND',
     'hipRAND',
     'rocBLAS',
@@ -126,6 +133,22 @@ local_configs = {
         'sanity_dirs': [
             'include/rocprim'
         ],
+    },
+    'hipCUB': {
+        'checksum': 'bec9ba1a6aa0475475ee292e54807accc839ed001338275f48da13e3bfb77514',
+        'configopts': [
+            local_common_configopts,
+            '-DCMAKE_MODULE_PATH=$ROCM_PATH/hip/cmake',
+        ],
+        'sanity_files': [
+            'include/hipcub/hipcub.hpp',
+        ],
+        'sanity_dirs': [
+            'hipcub'
+        ],
+        'rootdirs': {
+            'HIPCUB': 'hipcub',
+        },
     },
     'rocSOLVER': {
         'checksum': '4639322bd1e77fedfdeb9032633bde6211a0b1cc16a612db7754f873f18a492f',
