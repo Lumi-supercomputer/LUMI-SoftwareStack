@@ -1,0 +1,44 @@
+# Created for LUMI by Orian Louant
+
+easyblock = 'CMakeMake'
+
+name = 'RCCL'
+version = '4.5.2'
+
+import os
+local_stackversion = os.getenv('LUMI_STACK_VERSION')
+
+homepage = 'https://github.com/ROCmSoftwarePlatform/rccl/'
+
+whatis = [
+    'Description: RCCL is a stand-alone library of standard collective communication routines for GPUs'
+]
+
+description = """
+RCCL (pronounced "Rickle") is a stand-alone library of standard collective
+communication routines for GPUs, implementing all-reduce, all-gather, reduce,
+broadcast, and reduce-scatter.
+"""
+
+toolchain = SYSTEM
+
+source_urls = ['https://github.com/ROCmSoftwarePlatform/rccl/archive']
+sources = ['rocm-%(version)s.tar.gz']
+checksums = ['36de0d3f3ffad491758d89c208ef72c5be5e0db766053a9c766e9c5c6a33a487']
+
+builddependencies = [
+    ('buildtools', local_stackversion, '', True)
+]
+
+dependencies = [
+    ('rocm', '%(version)s'),
+]
+
+configopts  = ' -DCMAKE_CXX_COMPILER="$ROCM_PATH/hip/bin/hipcc" '
+
+sanity_check_paths = {
+    'files': ['lib/librccl.%s' % SHLIB_EXT, 'include/rccl.h'],
+    'dirs': ['rccl'],
+}
+
+moduleclass = 'devel'

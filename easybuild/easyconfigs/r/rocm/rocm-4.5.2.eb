@@ -117,18 +117,17 @@ whatis = [
 ]
 
 description = """
-AMD ROCm is the first open-source software development platform for 
-HPC/Hyperscale-class GPU computing. AMD ROCm brings the UNIX philosophy of 
+AMD ROCm is the first open-source software development platform for
+HPC/Hyperscale-class GPU computing. AMD ROCm brings the UNIX philosophy of
 choice, minimalism and modular software development to GPU computing.
 
-ROCm provides tools the tools required for the development of code using HIP, 
-OpenCL and OpenMP programming models including tools for profiling and 
-debugging.
+ROCm provides the tools required for the development of code using HIP, OpenCL
+and OpenMP programming models including tools for profiling and debugging.
 
-This is an experimental module provided for the convenience of the Early Access
-Platform so that they can compile their code from the login node. Problems can
-and will occur and we can only offer limited support. The module should be
-used with the compilers from the Cray Programming Environment 21.12.
+This is an experimental module provided for the convenience of the users of the
+Early Access Platform so that they can compile their code from the login node.
+Problems can and will occur and we can only offer limited support. The module
+should be used with the compilers from the Cray Programming Environment 21.12.
 """
 
 docurls = [
@@ -160,8 +159,16 @@ install_cmd += 'cd opt/rocm-%(version)s/ &&'
 install_cmd += 'cp -ar . %(installdir)s/'
 
 postinstallcmds = [
-  'cd %(installdir)s/lib && for i in ../hip/lib/libamdhip64.*; do ln -s $i; done',
-  'cd %(installdir)s/include && ln -s ../hip/include/hip',
+  'cd %(installdir)s/lib       && for i in ../hip/lib/*.so;       do ln -s $i; done',
+  'cd %(installdir)s/lib/cmake && for i in ../../hip/lib/cmake/*; do ln -s $i; done',
+  'cd %(installdir)s/bin       && for i in ../hip/bin/*;          do ln -s $i; done',
+  'cd %(installdir)s/bin       && for i in ../llvm/bin/amd*;      do ln -s $i; done',
+  'cd %(installdir)s/bin       && ln -s ../rocm_smi/bindings/rsmiBindings.py'
+  'cd %(installdir)s/include   && ln -s ../hip/include/hip',
+  'sed -i s+/opt/rocm-%(version)s+%(installdir)s+ %(installdir)s/bin/clang-ocl',
+  'find %(installdir)s -type f -name "*.cmake" -exec sed -i s+/opt/rocm-%(version)s+%(installdir)s+ {} +',
+  'find %(installdir)s -type f -name "*.cmake" -exec sed -i s+/opt/rocm+%(installdir)s+ {} +',
+  'find %(installdir)s -type f -name "*.cmake" -exec sed -i s+/usr/lib64/libtinfo.so+/lib64/libtinfo.so.6+ {} +'
 ]
 
 modextrapaths = {
