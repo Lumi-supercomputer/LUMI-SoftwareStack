@@ -23,7 +23,7 @@ homepage = 'https://github.com/ROCmSoftwarePlatform'
 
 whatis = [
     'Description: bundle of the ROCm libraries numerical libraries',
-    'Keywords: rocFFT, rocPRIM, rocRAND, hipRAND, rocBLAS, rocSOLVER, rocSPARSE, rocALUTION, hipFFT, hipBLAS'
+    'Keywords: rocPRIM, hipCUB, rocFFT, rocPRIM, rocRAND, hipRAND, rocBLAS, rocSOLVER, rocSPARSE, rocALUTION, hipFFT, hipBLAS'
 ]
 
 description = """
