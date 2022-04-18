@@ -159,17 +159,25 @@ install_cmd += 'cd opt/rocm-%(version)s/ &&'
 install_cmd += 'cp -ar . %(installdir)s/'
 
 postinstallcmds = [
-  'cd %(installdir)s/lib       && for i in ../hip/lib/*.so;       do ln -s $i; done',
+  'cd %(installdir)s/lib       && for i in ../hip/lib/*.so*;      do ln -s $i; done',
   'cd %(installdir)s/lib/cmake && for i in ../../hip/lib/cmake/*; do ln -s $i; done',
   'cd %(installdir)s/bin       && for i in ../hip/bin/*;          do ln -s $i; done',
   'cd %(installdir)s/bin       && for i in ../llvm/bin/amd*;      do ln -s $i; done',
-  'cd %(installdir)s/bin       && ln -s ../rocm_smi/bindings/rsmiBindings.py'
   'cd %(installdir)s/include   && ln -s ../hip/include/hip',
   'sed -i s+/opt/rocm-%(version)s+%(installdir)s+ %(installdir)s/bin/clang-ocl',
   'find %(installdir)s -type f -name "*.cmake" -exec sed -i s+/opt/rocm-%(version)s+%(installdir)s+ {} +',
   'find %(installdir)s -type f -name "*.cmake" -exec sed -i s+/opt/rocm+%(installdir)s+ {} +',
   'find %(installdir)s -type f -name "*.cmake" -exec sed -i s+/usr/lib64/libtinfo.so+/lib64/libtinfo.so.6+ {} +'
 ]
+
+local_bin_files = ['hipcc', 'hipconfig', 'amdclang', 'amdclang++', 'amdflang']
+local_lib_files = ['libamdhip64.so.4', 'libhsa-runtime64.so.1']
+local_inc_dirs  = ['hsa', 'rocm', 'roctracer', 'rocprofiler', 'hip']
+
+sanity_check_paths = {
+    'files': ['bin/%s' % x for x in local_bin_files] + ['lib/%s' %x for x in local_lib_files],
+    'dirs': ['include/%s' % x for x in local_inc_dirs] + ['hip', 'hsa', 'llvm']
+}
 
 modextrapaths = {
   'CPATH'              : 'llvm/include',
