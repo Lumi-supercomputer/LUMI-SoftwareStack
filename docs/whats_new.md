@@ -1,5 +1,8 @@
 # What's new or different?
 
+  * 2022-04-22: Corrections to the EasyBuild-config modules to avoid
+    having twice the same directory in the output of searches.
+
   * 2022-03-01: Not every non-development stack should be marked as a
     LTS stack as it turns out to be very difficult to guarantee longevity
     of the software stack. Hence there is now a table at the top of
