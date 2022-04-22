@@ -82,9 +82,9 @@ family( 'EasyBuildConfig' )
 --
 -- Detect the mode
 --
-local detail_mode = myModuleName():gsub( 'EasyBuild%-', '')
-local mod_mode
-local mod_prefix
+local detail_mode = myModuleName():gsub( 'EasyBuild%-', '') -- production, infrastructure or user
+local mod_mode                                              -- system,     system         or user
+local mod_prefix                                            -- easybuild,  Infrastructure or easybuild
 if detail_mode == 'user' then
     mod_mode =   'user'
     mod_prefix = 'easybuild'
@@ -188,6 +188,11 @@ if ( get_hostname():find( 'uan' ) ) then
     -- which is cleaned automatically at the end of the session
 
     workdir = os.getenv( 'XDG_RUNTIME_DIR' )
+    
+    if workdir == nil then
+        cleandir = pathJoin( '/dev/shm', os.getenv( 'USER' ) )
+        workdir = cleandir
+    end
 
 else
 
@@ -361,7 +366,8 @@ else
 end
 
 --   + If the partition is not the common one, we need to add that repository
---     directory also.
+--     directory also. Special partitions however do not use the common
+--     partition.
 if partition_name ~=  'common' and not special_partition[partition_name] then
     table.insert( robot_paths, pathJoin( system_prefix, 'mgmt', 'ebrepo_files', stack, common_partition ) )
 end
@@ -372,51 +378,27 @@ if mod_mode == 'user' then
 end
 
 --   + Add the user copy of EasyBuild-contrib (if the directory exists)
-if mod_mode == 'user' and isDir( user_easybuild_contrib ) then
-    table.insert( robot_paths, user_easybuild_contrib )
+--     * Prefer the user copy if it exists
+--     * But otherwise use the system one
+if mod_mode == 'user' then
+    if isDir( user_easybuild_contrib ) then
+        table.insert( robot_paths, user_easybuild_contrib )
+    elseif isDir( system_easybuild_contrib ) then
+        table.insert( robot_paths, system_easybuild_contrib )
+    end
 end
 
 --   + Now include the system easyconfig directory.
 table.insert( robot_paths, system_easyconfigdir )
 
---   + In user mode, add the system copy of contributed EasyConfig files
---     if there is no user copy (which would have been added earlier in the path)
---     We don't want this directory in system mode as we should not be installing
---     contributed EasyConfig files in production or infrastructure modes.
-if mod_mode == 'user' and not isDir( user_easybuild_contrib ) then
-    table.insert( robot_paths, system_easybuild_contrib )
-end
-
-
--- - List of directories for eb -S
+-- - List of additional directories for eb -S
 
 local search_paths = {}
 
---   + Our user EasyConfig repository in user mode
-
-if mod_mode == 'user' then
-    table.insert( search_paths, user_easyconfigdir )
-end
-
---   + Always include our system EasyConfig repository
-
-table.insert( search_paths, system_easyconfigdir )
-
---   + Include LUMI-EasyBuild-contrib if we can find and are in user mode
---     These EasyConfigs are not meant to be used in production mode, but this
---     is only a search and they may be the starting basis for new production
---     recipes.
-
---     - First look in the user directory if we are in user mode
-if mod_mode == 'user' and isDir( user_easybuild_contrib ) then
-
-    table.insert( search_paths, user_easybuild_contrib )
-
---     - Then look in the system directory.
-elseif isDir( system_easybuild_contrib ) then
-
+--   + Include LUMI-EasyBuild-contrib in system mode as there 
+--     it is not in the robot path.
+if mod_mode == 'system' and isDir( system_easybuild_contrib ) then
     table.insert( search_paths, system_easybuild_contrib )
-
 end
 
 --   + Possible future option: Include the CSCS repository
@@ -459,7 +441,9 @@ setenv( 'EASYBUILD_TMPDIR',                        tmpdir )
 
 -- - Path variables
 setenv( 'EASYBUILD_ROBOT_PATHS',                   table.concat( robot_paths, ':' ) )
-setenv( 'EASYBUILD_SEARCH_PATHS',                  table.concat( search_paths, ':' ) )
+if #search_paths > 0 then
+    setenv( 'EASYBUILD_SEARCH_PATHS',              table.concat( search_paths, ':' ) )
+end
 
 -- - List of configfiles
 if #configfiles > 0 then
@@ -559,8 +543,6 @@ elseif detail_mode == 'production' then
     whatis( 'Prepares EasyBuild for production installation in the system directories. Appropriate rights required.' )
 elseif detail_mode == 'infrastructure' then
     whatis( 'Prepares EasyBuild for production installation in the system infrastructure directories. Appropriate rights required.' )
-elseif detail_mode == 'CrayEnv' then
-    whatis( 'Prepares EasyBuild for production cross-installation in the CrayEnv directories. Appropriate rights required.' )
 else
     LmodError( 'Unrecongnized module name' )
 end

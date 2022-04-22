@@ -199,10 +199,11 @@ The following settings are made through environment variables:
 
   * Search path for EasyConfig files with ``eb -S`` and ``eb --search``
 
-     1. Our own system repository
+     1. Every directory of the robot search path is automatically included and 
+        does not need to be added to EASYBUILD_SEARCH_PATHS
 
      2. The [LUMI-EasyBuild-contrib repository](https://github.com/Lumi-supercomputer/LUMI-EasyBuild-contrib),
-        if that one is installed next to the production repository
+        as that one is not in the robot path in non-user mode.
 
      3. Not yet done, but we could maintain a local copy of the CSCS repository and
         enable search in that also.
@@ -217,17 +218,6 @@ The following settings are made through environment variables:
   * We also set containerpath and packagepath even though we don't plan to use those,
     but it ensures that files produced by this option will not end up in our GitHub
     repository.
-
-
-### The EasyBuild-CrayEnv mode
-
-This mode is for cross-installing in the ``CrayEnv`` software stack, to offer an easy
-option to install software using the SYSTEM toolchain in EasyBuild in that stack. This
-makes it easier to offer updated build tools etc.
-
-The settings are largely the same as for the EasyBuild-production and EasyBuild-infrastructure
-modes, but with different install paths for software and modules and a separate directory
-in ``ebrepo_files``.
 
 
 ### The EasyBuild-user mode
@@ -273,30 +263,31 @@ in ``ebrepo_files``.
      4. The system repository for the common partition (if different from
         the previous one)
 
-     5. The user EasyConfig directory
+     5. The user EasyConfig directory `UserRepo` (even if it is not there
+        yet)
 
-     6. The LUMI-specific EasyConfig directory.
+     1. The LUMI-EasyBuild-contrib repository, if present in the user 
+        directory use that one and otherwise use the one from the central
+        installation.
+
+     2. The LUMI-specific EasyConfig directory from the application directory
 
   * The search path for EasyConfig files with ``eb -S`` and ``eb --search``
 
-     1. The user EasyConfig repository
+     1. The directories above in the robot search path are automatically also used
+        for search.
 
-     2. Our own system repository
-
-     3. The [LUMI-EasyBuild-contrib repository](https://github.com/Lumi-supercomputer/LUMI-EasyBuild-contrib),
-        if that one is installed either next to the user EasyConfig repository
-        or next to the system EasyConfig repository. If it is installed in both
-        locations, the one next to the user EasyConfig repository is used.
-
-     4. Not yet done, but we could maintain a local copy of the CSCS repository and
+     2. Not yet done, but we could maintain a local copy of the CSCS repository and
         enable search in that also.
 
-     5. Default EasyConfig files that come with EasyBuild
+     3. Default EasyConfig files that come with EasyBuild are deliberately not included
+        in user mode as it was decided this is confusing for the users.
 
-     6. Deliberately not included: Our ebrepo_files repositories. Everything in there
+     4. Deliberately not included: Our ebrepo_files repositories. Everything in there
         should be in our own EasyConfig repository if the installations are managed
         properly.
 
+    So currently the additional search paths in user mode are empty. 
 
 There are two regular configuration files:
 
@@ -320,4 +311,17 @@ Only the first of those 4 files has to be present. Presence of the others is
 detected when the module is loaded. Reload the module after creating one of
 these files to start using it.
 
+Comparison:
 
+| **robot path non-user**        | **robot path user**                   |
+|:-------------------------------|:--------------------------------------|
+| /                              | ebrepo user active partition          |
+| /                              | ebrepo user common partition          |
+| ebrepo system active partition | ebrepo system active partition        |
+| ebrepo system common partition | ebrepo system common partition        |
+|                                | EBU_USER_PREFIX/UserRepo              |
+|                                | LUMI-EasyBuild-contrib user or system |
+| LUMI-SoftwareStack system      | LUMI-SoftwareStack system             |
+| **search path non-user**       | **search path user**                  |
+| LUMI-EasyBuild-contrib system  | /                                     |
+| Default easybuild EasyConfigs  | /                                     |
