@@ -3,8 +3,11 @@ all: preview
 build:
 	mkdocs build
 
-deploy:
-	mkdocs gh-deploy --force
+deploy-origin:
+	mkdocs gh-deploy --force --remote-name origin
+
+deploy-upstream:
+	mkdocs gh-deploy --force --remote-name upstream
 
 check test:
 	mkdocs build --strict
