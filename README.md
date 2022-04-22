@@ -14,8 +14,12 @@ See [the "Procedures" in the documentation subdirectory, section "Making a maste
 installation of the software stack](docs/procedures.md#making-a-master-installation-of-the-software-stack)
 on how to set up a test setup.
 
-[Full documentation](docs/README.md)
+Read processed documentation on github.io:
+-   [Full documentation](https://lumi-supercomputer.github.io/LUMI-SoftwareStack/README.md)
+-   [Check the recent changes](https://lumi-supercomputer.github.io/LUMI-SoftwareStack/whats_new.md)
 
-[Check the recent changes](docs/whats_new.md)
+Read markdown documentation in this repository:
+-   [Full documentation](docs/README.md)
+-   [Check the recent changes](docs/whats_new.md)
 
 
