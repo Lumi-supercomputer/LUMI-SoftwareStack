@@ -44,7 +44,7 @@ prepend_path( 'LMOD_MODULERCFILE', pathJoin( LUMI_root, repo, 'LMOD', 'modulerc.
 
 -- Set the display style of the modules by loading one of the ModuleLable modules
 -- instead. The problem is that in cpe 21.05, due to a configuration error on LUMI,
--- loading one of the PRgEnv modules triggers a reload of lumi (as the wrong list
+-- loading one of the PrgEnv modules triggers a reload of lumi (as the wrong list
 -- of modules is reloaded). We don't want the settings of the user to be reset.
 if not isloaded( 'ModuleLabel' ) then
     if os.getenv( '_LUMI_LMOD_DEBUG' ) ~= nil then
