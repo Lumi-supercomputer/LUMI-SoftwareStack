@@ -1,0 +1,1357 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Technical documentation for the LUMI software stack">
+      
+      
+      
+        <link rel="canonical" href="https://Lumi-supercomputer.github.io/LUMI-SoftwareStack/CrayPEToolchain/">
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.2.5">
+    
+    
+      
+        <title>The CrayPEToolchain EasyBlock - LUMI Software Stack technical documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.2d9f7617.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.e6a45f82.min.css">
+        
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#the-craypetoolchain-easyblock-and-cpecraycpegnucpeamd-modules" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="LUMI Software Stack technical documentation" class="md-header__button md-logo" aria-label="LUMI Software Stack technical documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            LUMI Software Stack technical documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              The CrayPEToolchain EasyBlock
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Lumi-supercomputer/LUMI-SoftwareStack/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="LUMI Software Stack technical documentation" class="md-nav__button md-logo" aria-label="LUMI Software Stack technical documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    LUMI Software Stack technical documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Lumi-supercomputer/LUMI-SoftwareStack/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../whats_new/" class="md-nav__link">
+        What's new or different?
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../start_on_LUMI_pilot/" class="md-nav__link">
+        Installation instructions for the pilot phase
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../module_setup/" class="md-nav__link">
+        Setup of the LUMI module system
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../easybuild_setup/" class="md-nav__link">
+        EasyBuild setup
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CrayPE_integration/" class="md-nav__link">
+        Cray PE integration
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../procedures/" class="md-nav__link">
+        Some procedures
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../directory_structure/" class="md-nav__link">
+        Installation directory structure
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../files_used/" class="md-nav__link">
+        Overview of files
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SitePackage/" class="md-nav__link">
+        The contents of the SitePackage.lua file
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_11" type="checkbox" id="__nav_11" >
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_11">
+          Toolchain documentation
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Toolchain documentation" data-md-level="1">
+        <label class="md-nav__title" for="__nav_11">
+          <span class="md-nav__icon md-icon"></span>
+          Toolchain documentation
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Toolchains/toolchain_common/" class="md-nav__link">
+        EasyBuild toolchains common options
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Toolchains/toolchain_cpe_common/" class="md-nav__link">
+        Common information to all cpe* toolchains
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Toolchains/cpeCray/" class="md-nav__link">
+        cpeCray toolchain
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Toolchains/cpeGNU/" class="md-nav__link">
+        cpeGNU toolchain
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Toolchains/cpeAMD/" class="md-nav__link">
+        cpeAMD toolchain
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_12" type="checkbox" id="__nav_12" checked>
+      
+      
+      
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_12">
+          Documentation on our EasyBlocks
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Documentation on our EasyBlocks" data-md-level="1">
+        <label class="md-nav__title" for="__nav_12">
+          <span class="md-nav__icon md-icon"></span>
+          Documentation on our EasyBlocks
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          The CrayPEToolchain EasyBlock
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        The CrayPEToolchain EasyBlock
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    Introduction
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supported-extra-parameters-for-the-easyconfig-files" class="md-nav__link">
+    Supported extra parameters for the EasyConfig files
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#order-of-loads-generated-by-the-easyblock" class="md-nav__link">
+    Order of loads generated by the EasyBlock
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#some-examples" class="md-nav__link">
+    Some examples
+  </a>
+  
+    <nav class="md-nav" aria-label="Some examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#non-working-load-cpe-and-prgenv-gnu" class="md-nav__link">
+    Non-working: Load cpe and PrgEnv-gnu
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#non-working-load-prgenv-gnu-and-then-cpe" class="md-nav__link">
+    Non-working: Load PrgEnv-gnu and then cpe
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-setup-without-prgenv-or-cpe-module" class="md-nav__link">
+    A setup without PrgEnv- or cpe module
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loading-the-cpe-and-prgenv-modules-first-then-reloading-packages-just-to-be-sure" class="md-nav__link">
+    Loading the cpe and PrgEnv modules first, then reloading packages just to be sure
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mimic-prgenv-load-hardcoded-versions-but-load-cpeyymm-first" class="md-nav__link">
+    Mimic PrgEnv, load hardcoded versions but load cpe/yy.mm first
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mimic-prgenv-and-load-cpeyymm-at-the-end" class="md-nav__link">
+    Mimic PrgEnv and load cpe/yy.mm at the end
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    Introduction
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supported-extra-parameters-for-the-easyconfig-files" class="md-nav__link">
+    Supported extra parameters for the EasyConfig files
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#order-of-loads-generated-by-the-easyblock" class="md-nav__link">
+    Order of loads generated by the EasyBlock
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#some-examples" class="md-nav__link">
+    Some examples
+  </a>
+  
+    <nav class="md-nav" aria-label="Some examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#non-working-load-cpe-and-prgenv-gnu" class="md-nav__link">
+    Non-working: Load cpe and PrgEnv-gnu
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#non-working-load-prgenv-gnu-and-then-cpe" class="md-nav__link">
+    Non-working: Load PrgEnv-gnu and then cpe
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-setup-without-prgenv-or-cpe-module" class="md-nav__link">
+    A setup without PrgEnv- or cpe module
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loading-the-cpe-and-prgenv-modules-first-then-reloading-packages-just-to-be-sure" class="md-nav__link">
+    Loading the cpe and PrgEnv modules first, then reloading packages just to be sure
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mimic-prgenv-load-hardcoded-versions-but-load-cpeyymm-first" class="md-nav__link">
+    Mimic PrgEnv, load hardcoded versions but load cpe/yy.mm first
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mimic-prgenv-and-load-cpeyymm-at-the-end" class="md-nav__link">
+    Mimic PrgEnv and load cpe/yy.mm at the end
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+<a href="https://github.com/Lumi-supercomputer/LUMI-SoftwareStack/edit/master/docs/CrayPEToolchain.md" title="Edit this page" class="md-content__button md-icon">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+</a>
+
+
+
+<h1 id="the-craypetoolchain-easyblock-and-cpecraycpegnucpeamd-modules">The CrayPEToolchain EasyBlock and cpeCray/cpeGNU/cpeAMD modules<a class="headerlink" href="#the-craypetoolchain-easyblock-and-cpecraycpegnucpeamd-modules" title="Permanent link">&para;</a></h1>
+<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
+<p>Our CrayPEToolchain EasyBlock allows for many different scenarios to generate the
+cpeCray/cpeGNU/cpeAMD modules:</p>
+<ul>
+<li>
+<p>The <code>cpe</code> module can be loaded first, last or not at all. Note that if the
+    module is not loaded at all, it may be wise to have a different way of setting
+    the default versions for the Cray PE modules.</p>
+<p>On LUMI, in the LUMI software stacks, these default versions are already set by
+the <code>LUMIstack_&lt;yy.mm&gt;_modulerc.lua</code> files.</p>
+<p>In version 21.04 of the CPE, the <code>cpe</code> modules still have several problems,
+partly due to an LMOD restriction and partly due to bugs in those modules:</p>
+<ul>
+<li>
+<p>The <code>cpe</code> modules set <code>LMOD_MODULERCFILE</code> through <code>setenv</code> rather than
+    <code>prepend_path</code> or <code>append_path</code> so they overwrite any file that sets
+    system-wide defaults and visibility from other sources, which is not desirable.</p>
+</li>
+<li>
+<p>A change to <code>LMOD_MODULERCFILE</code> has only effect the next time a module command
+    is executed. This is a restriction not only of LMOD version <code>8.3.x</code> used in the
+    21.04 CPE, but also of versions in the 8.4 and 8.5 series. Hence loading the
+    <code>cpe/yy.mm</code> module before loading other versionless modules for the CPE components
+    will not have the desired effect of loading the versions for that specific version of
+    the CPE.</p>
+</li>
+<li>
+<p>The <code>cpe</code> modules do contain code to reload already loaded modules from the CPE in
+    the correct version, but that code is also broken in the <code>21.04</code> version as the
+    modules may be loaded in an order in which a module that has already been reloaded
+    in the correct version, gets reloaded once more with a versionless load, which may
+    reload the wrong version. This is because the LUA loop with <code>pairs</code> doesn't have
+    a fixed order of going over the entries in the LUA table. The order should be such
+    that no module reloads an other module that has already been reloaded in the correct
+    version.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>The matching <code>PrgEnv-*</code> module can either be loaded, or its loading can just be emulated
+    by only setting the environment variable that this module sets, but relying on the <code>cray_targets</code>
+    variable and dependencies list to load all Cray PE components.</p>
+<p>The reason to avoid loading the <code>PrgEnv-*</code> module is reproducibility. That module
+depends on a file in <code>/etc</code> to define the components that will be loaded, and
+that file cannot distinguish between versions of the CPE. Hence if changes to that
+file would be made, it has an effect on the working of all <code>cpe*</code> modules that
+EasyBuild may already have generated.</p>
+</li>
+<li>
+<p>It is possible to specify target modules via <code>cray_targets</code>.  This is a list just as the
+    dependencies. They will be loaded after the <code>PrgEnv-*</code> module (if the latter is loaded) but
+    before other dependencies specified by <code>dependencies</code>. They do not need to be defined in
+    the EasyBuild external modules file. We chose to load them after the <code>PrgEnv-*</code>
+    module (if the latter is loaded) to be able to overwrite Cray targeting modules
+    loaded by the latter.</p>
+</li>
+<li>
+<p>Dependencies in this case will be external modules. It is possible to specify versions by using,
+    e.g.,
+    <div class="highlight"><pre><span></span><code><span class="p">(</span> <span class="s1">&#39;gcc/9.3.0&#39;</span><span class="p">,</span> <span class="n">EXTERNAL_MODULE</span><span class="p">)</span>
+</code></pre></div>
+    Versions should be specified if the <code>cpe</code> module is not loaded, even on LUMI, as if
+    a user would execute
+    <div class="highlight"><pre><span></span><code>module load LUMI/21.04 cpeGNU/21.04
+</code></pre></div>
+    the wrong versions of CPE components might be loaded because of the same LMOD restriction
+    that causes the problems with the Cray <code>cpe/yy.mm</code> modules: The <code>LUMI/yy.mm</code>
+    module will add a file that sets the default versions of CPE compoments for the
+    requested LUMI software stack and matching CPE version, but those changes only
+    take effect at the following <code>module</code> command, so the <code>cpeGNU/21.04</code> module
+    which is loaded in the above example will not yet see the correct default versions
+    of the modules.</p>
+<p>Note also that if versions are specified but the <code>cpe</code> module is loaded at the
+end, modules might be reloaded in a different version.</p>
+</li>
+<li>
+<p>The default value for various parameters is chosen to generate module files that
+    are as similar as possible to those used ast CSCS (or at least those used for their
+    20.04 environment), but are not the defaults initially used on LUMI.</p>
+</li>
+</ul>
+<h2 id="supported-extra-parameters-for-the-easyconfig-files">Supported extra parameters for the EasyConfig files<a class="headerlink" href="#supported-extra-parameters-for-the-easyconfig-files" title="Permanent link">&para;</a></h2>
+<p>The <code>CrayPEToolchain</code> EasyBlock supports the following parameters:</p>
+<ul>
+<li>
+<p><code>PrgEnv</code>: Sets the <code>PrgEnv-*</code> module to load or emulate.</p>
+<ul>
+<li>The default is to derive the value from the name of the module to generate:<ul>
+<li><code>PrgEnv = 'cray'</code> for <code>cpeCray</code></li>
+<li><code>PrgEnv = 'gnu'</code> for <code>cpeGNU</code></li>
+<li><code>PrgEnv = 'aocc'</code> for <code>cpeAMD</code></li>
+<li><code>PrgEnv = 'intel'</code> for <code>cpeIntel</code></li>
+<li><code>PrgEnv = 'nvidia'</code> for <code>cpeNVIDIA</code> (not tested as we have no access to
+    a machine with a fully working version of this environment)</li>
+</ul>
+</li>
+<li>It is also possible to specify any of these values, or even a different value for a
+    <code>PrgEnv-*</code> module that is not yet recognized by the EasyBlock.</li>
+</ul>
+</li>
+<li>
+<p><code>PrgEnv_load</code>: Boolean value, indicate if the <code>PrgEnv</code> module should be loaded
+    explicitly (if True) or not (if False).</p>
+<p>Default is <code>True</code>.</p>
+<p>If you want to hard-code a version, you can do so by specifying the module with
+the version in the dependencies.</p>
+<p>It is important that all <code>cpe*</code> modules available in the system at the same time
+are also generated with the same setting for <code>PrgEnv_load</code> as otherwise the
+conflict resolution between those modules would not work correctly.</p>
+</li>
+<li>
+<p><code>PrgEnv_family</code>:</p>
+<ul>
+<li>
+<p>If <code>cpeToolchain</code>, the module will declare itself a member of the <code>cpeToolchain</code>
+    family. If all <code>cpe*</code> modules are generated that way, this will ensure that no two
+    different <code>cpe*</code> modules will be loaded simulataneously, which wouldn't work correctly
+    anyway with the Cray compiler wrappers.</p>
+<p>If <code>PrgEnv_load</code> is false, it will also force unload all <code>PrgEnv-*</code> modules
+to ensure that none is loaded. Otherwise it relies on the  family-mechanism
+used in the LMOD <code>PrgEnv-*</code> modules to do the job.</p>
+<p>This is the most robust option when explicitly loading a <code>PrgEnv-*</code> module
+and using LMOD as LMOD will then ensure that no two <code>cpe*</code> modules will be
+loaded simultaneously and the family mechanism used in the Cray <code>PrgEnv-*</code>
+modules will do the same for those modules.</p>
+</li>
+<li>
+<p>If <code>PrgEnv</code>, the module will declare itself a member of the <code>PrgEnv-</code>
+    family. This will generate an error if <code>PrgEnv_load</code> is True as one
+    cannot load two modules of the same family but is the most robust ootion when
+    using LMOD and emulating the <code>PrgEnv-*</code> module.</p>
+<p>The LMOD family feature will take care of unloading all other <code>PrgEnv-*</code>
+or <code>cpe*</code> modules as they would conflict with the current module.</p>
+</li>
+<li>
+<p>If <code>None</code> (default), which is the only setting that works when TCL-based modules are
+    used and is therefore the default, the module will start with unload commands
+    for all known <code>PrgEnv-*</code> and all <code>cpe*</code> modules except itself and the <code>PrgEnv-*</code>
+    module that it uses (if it uses one).</p>
+</li>
+</ul>
+<p>It is important that all <code>cpe*</code> modules available in the system at the same time
+are also generated with the same setting for <code>PrgEnv_family</code> as otherwise the
+conflict resolution between those modules would not work correctly.</p>
+</li>
+<li>
+<p><code>CPE_compiler</code> specifies the (versionless) compiler to load. Possible values are:</p>
+<ul>
+<li>
+<p><code>None</code> (default): Derive the name of the compiler module from the name of the
+    module to generate. This may not yet work for <code>cpeNVIDIA</code> as it is not clear
+    what the name of the compiler module will be.</p>
+<p>If will not add an additional load if that compiler module is already specified
+in the dependencies.</p>
+<p>Note that this will load the module without specifying the version, so it only
+makes sense to rely on the autodetect feature if the <code>cpe</code> module is loaded
+(and if the bugs with that one are fixed).</p>
+</li>
+<li>
+<p>Any other value will be considered the name of the compiler module to load.
+    The module should be versionless. If you want to specify a version, you can
+    do so via <code>dependencies</code>.</p>
+<p>No separate load will be generated if the compiler module is also found in
+the list of dependencies.</p>
+</li>
+</ul>
+</li>
+<li>
+<p><code>CPE_version</code>: Version of the cpe module to use (if it is used). Possible values:</p>
+<ul>
+<li>
+<p><code>None</code> (default): Determine the version from the version of the module to generate,
+    i.e., the <code>version</code> parameter in the EasyConfig.</p>
+</li>
+<li>
+<p>Any other value is interpreted as the value to load.</p>
+</li>
+</ul>
+</li>
+<li>
+<p><code>CPE_load</code>:  Possible values:</p>
+<ul>
+<li>
+<p><code>first</code> (default): Load as the very first module. This does not make sense until the LMOD
+    problems with <code>LMOD_MODULERCFILE</code> are fixed.</p>
+</li>
+<li>
+<p><code>after</code>: Load immediately after loading <code>PrgEnv-*</code> but before loading any
+    other module. This does not make too much sense until the LMOD problems with
+    <code>LMOD_MODULERCFILE</code> are fixed, but it could be a way to first load modules
+    the Cray way and then correct by manually loading correct versions via the
+    <code>cray_targets</code> and <code>dependencies</code> parameters.</p>
+<p>This value will produce an error message when <code>PrgEnv_load</code> is set to <code>False</code>.</p>
+</li>
+<li>
+<p><code>last</code>: Load as the last module. Currently this does not make sense until
+    the problems with the <code>cpe</code> module are fully fixed, and on LUMI, until the problem
+    with overwriting <code>LMOD_MODIULERCFILE</code> is fixed.</p>
+</li>
+<li>
+<p><code>None</code>: Do not load the <code>cpe</code> module but rely on explicit dependencies specified in
+    the list of dependencies instead.</p>
+</li>
+</ul>
+</li>
+<li>
+<p><code>cray_targets</code>: A list of Cray targetting modules to load.</p>
+</li>
+<li>
+<p><code>dependencies</code>:  This is a standard EasyConfig parameter. The versions of the
+    selected PrgEnv, compiler and <code>craype</code> module can be specified through dependencies
+    but those modules will still be loaded according to the scheme below. Any redifinition
+    of the <code>cpe</code> module is discarded.</p>
+</li>
+</ul>
+<h2 id="order-of-loads-generated-by-the-easyblock">Order of loads generated by the EasyBlock<a class="headerlink" href="#order-of-loads-generated-by-the-easyblock" title="Permanent link">&para;</a></h2>
+<ol>
+<li>
+<p>The <code>cpe/&lt;CPE_version&gt;</code> module, if <code>CPE_load</code> is <code>first</code>.</p>
+<p>If LMOD would be modified to honour changes to <code>LMOD_MODULERCFILE</code> immediately
+as it does with changes to <code>MODULEPATH</code>, this would be the best moment to load
+the <code>cpe</code> module as it ensures that all other packages would be loaded with the
+correct version number immediately.</p>
+</li>
+<li>
+<p>The <code>PrgEnv-&lt;PrgEnv&gt;</code> module, if <code>PrgEnv_load</code> is True.</p>
+</li>
+<li>
+<p>The targeting modules specified by <code>cray_targets</code>. Hence they can overwrite the
+    targets set by the <code>PrgEnv-*</code> module which may be usefull on a heterogeneous
+    system should there only be a single configuration for the <code>PrgEnv-*</code> modules
+    for all hardware partitions in the system, or to build a <code>cpe*</code> module for cross-compiling.</p>
+<p>Note that changes to the targeting modules may trigger reloads of other modules
+loaded by the <code>PrgEnv-*</code> module.</p>
+</li>
+<li>
+<p>The <code>CPE_compiler</code> module (or autodected one), unless both
+    PrgEnv-* is loaded explicitly and the module is not in the list
+    of dependencies (in which case we rely on the <code>PrgEnv-*</code> module to do the proper
+    job).</p>
+</li>
+<li>
+<p>The craype module (compiler wrappers), unless both PrgEnv-* is
+    loaded explicitly and the module is not in the list of dependencies (in which case
+    we rely on the <code>PrgEnv-*</code> module to do the proper job).</p>
+</li>
+<li>
+<p>The specified dependencies, minus the <code>cpe/*</code>, <code>PrgEnv-*</code> and <code>craype/*</code>
+    modules.</p>
+</li>
+<li>
+<p>The <code>cpe/&lt;CPE_version&gt;</code> module, if <code>CPE_load</code> is <code>last</code>.</p>
+<p>In principle this should reload any module loaded before in a version that does
+not match the selected Cray PE version, and hence will also overwrite versions
+set in the dependencies. However, in the Cray PE 21.04 release (which was used
+for testing) the module did not always do the reloads in the proper order to always
+ensure the right version, and one might even end up with a version that is neither
+the one specified in the dependencies nor the one specified by the <code>cpe/*</code> module.</p>
+</li>
+</ol>
+<h2 id="some-examples">Some examples<a class="headerlink" href="#some-examples" title="Permanent link">&para;</a></h2>
+<h3 id="non-working-load-cpe-and-prgenv-gnu">Non-working: Load cpe and PrgEnv-gnu<a class="headerlink" href="#non-working-load-cpe-and-prgenv-gnu" title="Permanent link">&para;</a></h3>
+<p>This is the default configuration for this EasyBlock.
+A minimal EasyConfig (omitting some mandatory parts such the <code>homepage</code> and <code>description</code>
+parameters) is</p>
+<p><div class="highlight"><pre><span></span><code><span class="n">easyblock</span> <span class="o">=</span> <span class="s1">&#39;CrayPEToolchain&#39;</span>
+
+<span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;cpeGNU&#39;</span>
+<span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;21.04&quot;</span>
+
+<span class="n">toolchain</span> <span class="o">=</span> <span class="n">SYSTEM</span>
+
+<span class="n">moduleclass</span> <span class="o">=</span> <span class="s1">&#39;toolchain&#39;</span>
+</code></pre></div>
+This generates a module file that activates the toolchain by only loading the
+<code>cpe/21.04</code> and <code>PrgEnv-gnu</code>-modules (in that order). Unfortunately, this scheme
+does not work with LMOD 8.3.x as is part of the Cray PE stack when the 21.04-21.06 releases
+were made, nor with version from the 8.4 and 8.5 branches, as LMOD_MODULERCFILE is only
+honoured at the next <code>module</code> call. If the effect of <code>LMOD_MODULERCFILE</code> would
+be immediate, this would probably be the most efficient way of activating a particular
+release of a particular PrgEnv. The module does not belong to any family. Instead it
+explicitly unloads other <code>cpe*</code> modules.</p>
+<h3 id="non-working-load-prgenv-gnu-and-then-cpe">Non-working: Load PrgEnv-gnu and then cpe<a class="headerlink" href="#non-working-load-prgenv-gnu-and-then-cpe" title="Permanent link">&para;</a></h3>
+<p>Now we first load a <code>PrgEnv-*</code> module and only subsequently the <code>cpe/yy.mm</code> module
+that fixes versions for the modules.
+<div class="highlight"><pre><span></span><code><span class="n">easyblock</span> <span class="o">=</span> <span class="s1">&#39;CrayPEToolchain&#39;</span>
+
+<span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;cpeGNU&#39;</span>
+<span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;21.04&quot;</span>
+
+<span class="n">toolchain</span> <span class="o">=</span> <span class="n">SYSTEM</span>
+
+<span class="n">PrgEnv_family</span> <span class="o">=</span> <span class="s1">&#39;cpeToolchain&#39;</span>
+<span class="n">CPE_load</span> <span class="o">=</span> <span class="s1">&#39;after&#39;</span>
+
+<span class="n">moduleclass</span> <span class="o">=</span> <span class="s1">&#39;toolchain&#39;</span>
+</code></pre></div>
+This generates a module file that activates the toolchain by first loading the <code>PrgEnv-gnu</code>
+module and then correcting the versions by loading <code>cpe/21.04</code>. This doesn't work
+reliably either due to the current design of the module reloading process in the <code>cpe/21.04</code>
+module combined with the delayed impact of changes to <code>LMOD_MODULERCFILE</code>.</p>
+<p>The module will belong to the <code>cpeToolchain</code> family. That family will take care of
+unloading any other <code>cpe*</code> module that would be loaded (provided the <code>PrgEnv_family</code>
+parameter was set the same way in their EasyConfigs), while the <code>PrgEnv-gnu</code> module
+will take care of unloading other <code>PrgEnv-*</code> modules through the <code>PrgEnv</code> family.</p>
+<h3 id="a-setup-without-prgenv-or-cpe-module">A setup without PrgEnv- or cpe module<a class="headerlink" href="#a-setup-without-prgenv-or-cpe-module" title="Permanent link">&para;</a></h3>
+<p>On LUMI, due to the problems with LMOD and the cpe modules, we currently use a setup
+without <code>PrgEnv-*</code> or <code>cpe</code> module. One of the functions of the <code>cpe</code> module,
+setting the default versions of the Cray PE components, is already done by the <code>LUMI</code>
+module that loads the software stack. The other is replaced by hard-coding the necessary
+versions in the EasyConfig. One of the functions of the <code>PrgEnv-*</code> modules, setting
+and environment variable that tells the compiler wrappers which PE is selected, is
+taken over by the EasyBlock which sets the variable in the module file that it generates.
+The other, loading the correct targets and other PE modules, is taken over by the <code>craype_targets</code>
+parameter and the dependency list. This is the most reproducible setup as it only depends
+on versioned components (the <code>partition</code> module already ensures that a particular version
+of the Cray targeting modules is made available).
+<div class="highlight"><pre><span></span><code><span class="n">easyblock</span> <span class="o">=</span> <span class="s1">&#39;CrayPEToolchain&#39;</span>
+
+<span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;cpeGNU&#39;</span>
+<span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;21.04&quot;</span>
+
+<span class="n">toolchain</span> <span class="o">=</span> <span class="n">SYSTEM</span>
+
+<span class="n">PrgEnv_load</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">PrgEnv_family</span> <span class="o">=</span> <span class="s1">&#39;PrgEnv&#39;</span>
+<span class="n">CPE_load</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="n">cray_targets</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;craype-x86-rome&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;craype-accel-host&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;craype-network-ofi&#39;</span>
+<span class="p">]</span>
+
+<span class="n">dependencies</span> <span class="o">=</span> <span class="p">[</span>
+   <span class="p">(</span><span class="s1">&#39;gcc/9.3.0&#39;</span><span class="p">,</span>              <span class="n">EXTERNAL_MODULE</span><span class="p">),</span>
+   <span class="p">(</span><span class="s1">&#39;craype/2.7.6&#39;</span><span class="p">,</span>           <span class="n">EXTERNAL_MODULE</span><span class="p">),</span>
+   <span class="p">(</span><span class="s1">&#39;cray-mpich/8.1.4&#39;</span><span class="p">,</span>       <span class="n">EXTERNAL_MODULE</span><span class="p">),</span>
+   <span class="p">(</span><span class="s1">&#39;cray-libsci/21.04.1.1&#39;</span><span class="p">,</span>  <span class="n">EXTERNAL_MODULE</span><span class="p">),</span>
+   <span class="p">(</span><span class="s1">&#39;cray-dsmml/0.1.4&#39;</span><span class="p">,</span>       <span class="n">EXTERNAL_MODULE</span><span class="p">),</span>
+   <span class="p">(</span><span class="s1">&#39;perftools-base/21.02.0&#39;</span><span class="p">,</span> <span class="n">EXTERNAL_MODULE</span><span class="p">),</span>
+   <span class="p">(</span><span class="s1">&#39;xpmem&#39;</span><span class="p">,</span>                  <span class="n">EXTERNAL_MODULE</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="n">moduleclass</span> <span class="o">=</span> <span class="s1">&#39;toolchain&#39;</span>
+</code></pre></div>
+The <code>cpeGNU</code> module generated by this EasyConfig will be unloaded if the user would
+load a <code>PrgEnv-*</code> module as it is also a member of the <code>PrgEnv</code> family. As such
+it is a full replacement of the Cray <code>PrgEnv-gnu</code> module.</p>
+<h3 id="loading-the-cpe-and-prgenv-modules-first-then-reloading-packages-just-to-be-sure">Loading the cpe and PrgEnv modules first, then reloading packages just to be sure<a class="headerlink" href="#loading-the-cpe-and-prgenv-modules-first-then-reloading-packages-just-to-be-sure" title="Permanent link">&para;</a></h3>
+<p>A compromise solution that will work around the problems with LMOD and the <code>cpe</code>
+modules yet retain much of the spirit of the Cray PE, and that also can correct the
+targeting modules should the <code>PrgEnv-*</code> module not take the ones that you want
+(or ensure that at least certain other modules are loaded, even if they would be
+removed from the list of modules loaded by <code>PrgEnv-gnu</code> in an update of the system), is
+the following setup:
+<div class="highlight"><pre><span></span><code><span class="n">easyblock</span> <span class="o">=</span> <span class="s1">&#39;CrayPEToolchain&#39;</span>
+
+<span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;cpeGNU&#39;</span>
+<span class="n">version</span> <span class="o">=</span> <span class="s1">&#39;21.04&#39;</span>
+
+<span class="n">toolchain</span> <span class="o">=</span> <span class="n">SYSTEM</span>
+
+<span class="n">CPE_load</span> <span class="o">=</span> <span class="s1">&#39;first&#39;</span>
+<span class="n">PrgEnv_load</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">PrgEnv_family</span> <span class="o">=</span> <span class="s1">&#39;cpeToolchain&#39;</span>
+
+<span class="n">cray_targets</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;craype-x86-rome&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;craype-accel-host&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;craype-network-ofi&#39;</span>
+<span class="p">]</span>
+
+<span class="n">dependencies</span> <span class="o">=</span> <span class="p">[</span>
+   <span class="p">(</span><span class="s1">&#39;PrgEnv-gnu/8.0.0&#39;</span><span class="p">,</span>       <span class="n">EXTERNAL_MODULE</span><span class="p">),</span>
+   <span class="p">(</span><span class="s1">&#39;gcc/9.3.0&#39;</span><span class="p">,</span>              <span class="n">EXTERNAL_MODULE</span><span class="p">),</span>
+   <span class="p">(</span><span class="s1">&#39;craype/2.7.6&#39;</span><span class="p">,</span>           <span class="n">EXTERNAL_MODULE</span><span class="p">),</span>
+   <span class="p">(</span><span class="s1">&#39;cray-mpich/8.1.4&#39;</span><span class="p">,</span>       <span class="n">EXTERNAL_MODULE</span><span class="p">),</span>
+   <span class="p">(</span><span class="s1">&#39;cray-libsci/21.04.1.1&#39;</span><span class="p">,</span>  <span class="n">EXTERNAL_MODULE</span><span class="p">),</span>
+   <span class="p">(</span><span class="s1">&#39;cray-dsmml/0.1.4&#39;</span><span class="p">,</span>       <span class="n">EXTERNAL_MODULE</span><span class="p">),</span>
+   <span class="p">(</span><span class="s1">&#39;perftools-base/21.02.0&#39;</span><span class="p">,</span> <span class="n">EXTERNAL_MODULE</span><span class="p">),</span>
+   <span class="p">(</span><span class="s1">&#39;xpmem&#39;</span><span class="p">,</span>                  <span class="n">EXTERNAL_MODULE</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="n">moduleclass</span> <span class="o">=</span> <span class="s1">&#39;toolchain&#39;</span>
+</code></pre></div>
+This setup will first load the <code>cpe/21.04</code> and <code>PrgEnv-gnu/8.0.0</code> modules to stay in
+the Cray PE spirit. Next the indicated targeting modules will be loaded, one for the
+CPU, one for the accelerator architecture and one for the network. This may trigger
+reloads of some other modules and will overwrite targeting modules of the same type
+loaded by <code>PrgEnv-gnu</code>. Finally, the gcc compiler module, the craype module and all
+other modules from the dependency list are loaded with the versions specified.</p>
+<p>This setup is a compromise that on one hand stays close to the Cray PE spirit by using
+the <code>cpe</code> and <code>PrgEnv-gnu</code> modules, yet works around some problems, namely:
+  * Setting <code>LMOD_MODULERCFILE</code> does not work immediately.
+  * Any corrective action when loading <code>cpe</code> after <code>PrgEnv-gnu</code> does not work
+  * On a heterogeneous cluster, the targeting modules loaded by <code>PrgEnv-gnu</code> may
+    not be the ones you want when cross-compiling or when the system would use the same
+    file defining the modules for the whole system.
+  * The list of modules loaded by <code>PrgEnv-gnu</code> may change as it is determined by
+    a single file on the system that does not depend on the version of the Cray PE.
+    In this case, you can always be sure that at least the modules mentioned in the
+    dependency list and <code>cray_targets</code> parameter will be loaded.</p>
+<p>A variant of this would set <code>CPE_load = 'after'</code> which would load the <code>cpe/21.04</code>
+module immediately after loading <code>PrgEnv-gnu</code> rather than just before, but with the
+current flaws of the <code>cpe/21.04</code> module this still does not solve all problems:</p>
+<div class="highlight"><pre><span></span><code><span class="n">easyblock</span> <span class="o">=</span> <span class="s1">&#39;CrayPEToolchain&#39;</span>
+
+<span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;cpeGNU&#39;</span>
+<span class="n">version</span> <span class="o">=</span> <span class="s1">&#39;21.04&#39;</span>
+
+<span class="n">toolchain</span> <span class="o">=</span> <span class="n">SYSTEM</span>
+
+<span class="n">CPE_load</span> <span class="o">=</span> <span class="s1">&#39;after&#39;</span>
+<span class="n">PrgEnv_load</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">PrgEnv_family</span> <span class="o">=</span> <span class="s1">&#39;cpeToolchain&#39;</span>
+
+<span class="n">cray_targets</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;craype-x86-rome&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;craype-accel-host&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;craype-network-ofi&#39;</span>
+<span class="p">]</span>
+
+<span class="n">dependencies</span> <span class="o">=</span> <span class="p">[</span>
+   <span class="p">(</span><span class="s1">&#39;PrgEnv-gnu/8.0.0&#39;</span><span class="p">,</span>       <span class="n">EXTERNAL_MODULE</span><span class="p">),</span>
+   <span class="p">(</span><span class="s1">&#39;gcc/9.3.0&#39;</span><span class="p">,</span>              <span class="n">EXTERNAL_MODULE</span><span class="p">),</span>
+   <span class="p">(</span><span class="s1">&#39;craype/2.7.6&#39;</span><span class="p">,</span>           <span class="n">EXTERNAL_MODULE</span><span class="p">),</span>
+   <span class="p">(</span><span class="s1">&#39;cray-mpich/8.1.4&#39;</span><span class="p">,</span>       <span class="n">EXTERNAL_MODULE</span><span class="p">),</span>
+   <span class="p">(</span><span class="s1">&#39;cray-libsci/21.04.1.1&#39;</span><span class="p">,</span>  <span class="n">EXTERNAL_MODULE</span><span class="p">),</span>
+   <span class="p">(</span><span class="s1">&#39;cray-dsmml/0.1.4&#39;</span><span class="p">,</span>       <span class="n">EXTERNAL_MODULE</span><span class="p">),</span>
+   <span class="p">(</span><span class="s1">&#39;perftools-base/21.02.0&#39;</span><span class="p">,</span> <span class="n">EXTERNAL_MODULE</span><span class="p">),</span>
+   <span class="p">(</span><span class="s1">&#39;xpmem&#39;</span><span class="p">,</span>                  <span class="n">EXTERNAL_MODULE</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="n">moduleclass</span> <span class="o">=</span> <span class="s1">&#39;toolchain&#39;</span>
+</code></pre></div>
+<h3 id="mimic-prgenv-load-hardcoded-versions-but-load-cpeyymm-first">Mimic PrgEnv, load hardcoded versions but load cpe/yy.mm first<a class="headerlink" href="#mimic-prgenv-load-hardcoded-versions-but-load-cpeyymm-first" title="Permanent link">&para;</a></h3>
+<p>This is yet another compromise scenario:
+  * Loading <code>cpe/yy.mm</code> first ensures that further modules a user might load after
+    loading the <code>cpe*</code> module will load in the proper versions if a user does a versionless
+    load.
+  * Mimicing <code>PrgEnv-*</code> and loading modules explicitly ensures reproducibility over
+    time as the list of modules loaded does not depend on a single file elsewhere in
+    the system configuration which is not specific to a particular release of the PE.
+  * Hard-coding the versions ensures that we avoid the problems caused by the implementation
+    of the <code>cpe/yy.mm</code> modules (certainly in releases up to and including 21.06)</p>
+<div class="highlight"><pre><span></span><code><span class="n">easyblock</span> <span class="o">=</span> <span class="s1">&#39;CrayPEToolchain&#39;</span>
+
+<span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;cpeGNU&#39;</span>
+<span class="n">version</span> <span class="o">=</span> <span class="s1">&#39;21.04&#39;</span>
+
+<span class="n">toolchain</span> <span class="o">=</span> <span class="n">SYSTEM</span>
+
+<span class="n">PrgEnv_load</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">PrgEnv_family</span> <span class="o">=</span> <span class="s1">&#39;PrgEnv&#39;</span>
+<span class="n">CPE_load</span> <span class="o">=</span> <span class="s1">&#39;first&#39;</span>
+
+<span class="n">cray_targets</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;craype-x86-rome&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;craype-accel-host&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;craype-network-ofi&#39;</span>
+<span class="p">]</span>
+
+<span class="n">dependencies</span> <span class="o">=</span> <span class="p">[</span>
+   <span class="p">(</span><span class="s1">&#39;PrgEnv-gnu/8.0.0&#39;</span><span class="p">,</span>       <span class="n">EXTERNAL_MODULE</span><span class="p">),</span>
+   <span class="p">(</span><span class="s1">&#39;gcc/9.3.0&#39;</span><span class="p">,</span>              <span class="n">EXTERNAL_MODULE</span><span class="p">),</span>
+   <span class="p">(</span><span class="s1">&#39;craype/2.7.6&#39;</span><span class="p">,</span>           <span class="n">EXTERNAL_MODULE</span><span class="p">),</span>
+   <span class="p">(</span><span class="s1">&#39;cray-mpich/8.1.4&#39;</span><span class="p">,</span>       <span class="n">EXTERNAL_MODULE</span><span class="p">),</span>
+   <span class="p">(</span><span class="s1">&#39;cray-libsci/21.04.1.1&#39;</span><span class="p">,</span>  <span class="n">EXTERNAL_MODULE</span><span class="p">),</span>
+   <span class="p">(</span><span class="s1">&#39;cray-dsmml/0.1.4&#39;</span><span class="p">,</span>       <span class="n">EXTERNAL_MODULE</span><span class="p">),</span>
+   <span class="p">(</span><span class="s1">&#39;perftools-base/21.02.0&#39;</span><span class="p">,</span> <span class="n">EXTERNAL_MODULE</span><span class="p">),</span>
+   <span class="p">(</span><span class="s1">&#39;xpmem&#39;</span><span class="p">,</span>                  <span class="n">EXTERNAL_MODULE</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="n">moduleclass</span> <span class="o">=</span> <span class="s1">&#39;toolchain&#39;</span>
+</code></pre></div>
+<h3 id="mimic-prgenv-and-load-cpeyymm-at-the-end">Mimic PrgEnv and load cpe/yy.mm at the end<a class="headerlink" href="#mimic-prgenv-and-load-cpeyymm-at-the-end" title="Permanent link">&para;</a></h3>
+<p>This would be a valid scenario once the <code>cpe/yy.mm</code> modules have been corrected and
+work as they should. In this scenario,</p>
+<ul>
+<li>
+<p>We mimic <code>PrgEnv-*</code> by setting the necessary environment variables and then loading
+    a list of versionless modules. This avoids a problem with the actual PrgEnv modules
+    as the list of modules they load depends on a single system file which is the same
+    for all releases of the PE and hence may change over time.</p>
+</li>
+<li>
+<p>At the end the relevant <code>cpe/yy.mm</code> module is loaded to fix the versions of all
+    already loaded modules.</p>
+</li>
+</ul>
+<p>The corresponding EasyConfig file (minus help etc.) is:
+<div class="highlight"><pre><span></span><code><span class="n">easyblock</span> <span class="o">=</span> <span class="s1">&#39;CrayPEToolchain&#39;</span>
+
+<span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;cpeGNU&#39;</span>
+<span class="n">version</span> <span class="o">=</span> <span class="s1">&#39;21.04&#39;</span>
+
+<span class="n">toolchain</span> <span class="o">=</span> <span class="n">SYSTEM</span>
+
+<span class="n">PrgEnv_load</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">PrgEnv_family</span> <span class="o">=</span> <span class="s1">&#39;PrgEnv&#39;</span>
+<span class="n">CPE_load</span> <span class="o">=</span> <span class="s1">&#39;last&#39;</span>
+
+<span class="n">cray_targets</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;craype-x86-rome&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;craype-accel-host&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;craype-network-ofi&#39;</span>
+<span class="p">]</span>
+
+<span class="n">dependencies</span> <span class="o">=</span> <span class="p">[</span>
+   <span class="p">(</span><span class="s1">&#39;gcc&#39;</span><span class="p">,</span>            <span class="n">EXTERNAL_MODULE</span><span class="p">),</span>
+   <span class="p">(</span><span class="s1">&#39;craype&#39;</span><span class="p">,</span>         <span class="n">EXTERNAL_MODULE</span><span class="p">),</span>
+   <span class="p">(</span><span class="s1">&#39;cray-mpich&#39;</span><span class="p">,</span>     <span class="n">EXTERNAL_MODULE</span><span class="p">),</span>
+   <span class="p">(</span><span class="s1">&#39;cray-libsci&#39;</span><span class="p">,</span>    <span class="n">EXTERNAL_MODULE</span><span class="p">),</span>
+   <span class="p">(</span><span class="s1">&#39;cray-dsmml&#39;</span><span class="p">,</span>     <span class="n">EXTERNAL_MODULE</span><span class="p">),</span>
+   <span class="p">(</span><span class="s1">&#39;perftools-base&#39;</span><span class="p">,</span> <span class="n">EXTERNAL_MODULE</span><span class="p">),</span>
+   <span class="p">(</span><span class="s1">&#39;xpmem&#39;</span><span class="p">,</span>          <span class="n">EXTERNAL_MODULE</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="n">moduleclass</span> <span class="o">=</span> <span class="s1">&#39;toolchain&#39;</span>
+</code></pre></div></p>
+
+              
+            </article>
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../Toolchains/cpeAMD/" class="md-footer__link md-footer__link--prev" aria-label="Previous: cpeAMD toolchain" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              cpeAMD toolchain
+            </div>
+          </div>
+        </a>
+      
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    <a href="https://www.youtube.com/channel/UCb31KOJ6Wqu0sRpIRi_k8Mw" target="_blank" rel="noopener" title="LUMI on YouTube" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.322-42.003 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.281 23.65 24.787 41.5 48.284 47.821C117.22 448 288 448 288 448s170.78 0 213.371-11.486c23.497-6.321 42.003-24.171 48.284-47.821 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zm-317.51 213.508V175.185l142.739 81.205-142.739 81.201z"/></svg>
+    </a>
+  
+    
+    
+    <a href="https://www.linkedin.com/company/lumi-supercomputer" target="_blank" rel="noopener" title="LUMI on LinkedIn" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+    </a>
+  
+    
+    
+    <a href="https://twitter.com/LUMIhpc" target="_blank" rel="noopener" title="LUMI on Twitter" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "navigation.indexes", "header.autohide", "toc.follow"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../assets/javascripts/workers/search.bd0b6b67.min.js"}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.467223ff.min.js"></script>
+      
+    
+  </body>
+</html>

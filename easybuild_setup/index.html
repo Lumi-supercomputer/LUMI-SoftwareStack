@@ -1,0 +1,1268 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Technical documentation for the LUMI software stack">
+      
+      
+      
+        <link rel="canonical" href="https://Lumi-supercomputer.github.io/LUMI-SoftwareStack/easybuild_setup/">
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.2.5">
+    
+    
+      
+        <title>EasyBuild setup - LUMI Software Stack technical documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.2d9f7617.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.e6a45f82.min.css">
+        
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#easybuild-setup" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="LUMI Software Stack technical documentation" class="md-header__button md-logo" aria-label="LUMI Software Stack technical documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            LUMI Software Stack technical documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              EasyBuild setup
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Lumi-supercomputer/LUMI-SoftwareStack/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="LUMI Software Stack technical documentation" class="md-nav__button md-logo" aria-label="LUMI Software Stack technical documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    LUMI Software Stack technical documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Lumi-supercomputer/LUMI-SoftwareStack/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../whats_new/" class="md-nav__link">
+        What's new or different?
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../start_on_LUMI_pilot/" class="md-nav__link">
+        Installation instructions for the pilot phase
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../module_setup/" class="md-nav__link">
+        Setup of the LUMI module system
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          EasyBuild setup
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        EasyBuild setup
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-decisions" class="md-nav__link">
+    Configuration decisions
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration decisions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#easybuild-module-naming-scheme" class="md-nav__link">
+    EasyBuild Module Naming Scheme
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#other-configuration-decisions" class="md-nav__link">
+    Other configuration decisions
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#external-modules-for-integration-with-the-cray-pe" class="md-nav__link">
+    External modules for integration with the Cray PE
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-easybuild" class="md-nav__link">
+    Running EasyBuild
+  </a>
+  
+    <nav class="md-nav" aria-label="Running EasyBuild">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common-settings-that-are-made-through-environment-variables-in-all-modes" class="md-nav__link">
+    Common settings that are made through environment variables in all modes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-easybuild-production-and-easybuild-infrastructure-mode" class="md-nav__link">
+    The EasyBuild-production and EasyBuild-infrastructure mode
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-easybuild-user-mode" class="md-nav__link">
+    The EasyBuild-user mode
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CrayPE_integration/" class="md-nav__link">
+        Cray PE integration
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../procedures/" class="md-nav__link">
+        Some procedures
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../directory_structure/" class="md-nav__link">
+        Installation directory structure
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../files_used/" class="md-nav__link">
+        Overview of files
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SitePackage/" class="md-nav__link">
+        The contents of the SitePackage.lua file
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_11" type="checkbox" id="__nav_11" >
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_11">
+          Toolchain documentation
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Toolchain documentation" data-md-level="1">
+        <label class="md-nav__title" for="__nav_11">
+          <span class="md-nav__icon md-icon"></span>
+          Toolchain documentation
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Toolchains/toolchain_common/" class="md-nav__link">
+        EasyBuild toolchains common options
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Toolchains/toolchain_cpe_common/" class="md-nav__link">
+        Common information to all cpe* toolchains
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Toolchains/cpeCray/" class="md-nav__link">
+        cpeCray toolchain
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Toolchains/cpeGNU/" class="md-nav__link">
+        cpeGNU toolchain
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Toolchains/cpeAMD/" class="md-nav__link">
+        cpeAMD toolchain
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_12" type="checkbox" id="__nav_12" >
+      
+      
+      
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_12">
+          Documentation on our EasyBlocks
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Documentation on our EasyBlocks" data-md-level="1">
+        <label class="md-nav__title" for="__nav_12">
+          <span class="md-nav__icon md-icon"></span>
+          Documentation on our EasyBlocks
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CrayPEToolchain/" class="md-nav__link">
+        The CrayPEToolchain EasyBlock
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-decisions" class="md-nav__link">
+    Configuration decisions
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration decisions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#easybuild-module-naming-scheme" class="md-nav__link">
+    EasyBuild Module Naming Scheme
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#other-configuration-decisions" class="md-nav__link">
+    Other configuration decisions
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#external-modules-for-integration-with-the-cray-pe" class="md-nav__link">
+    External modules for integration with the Cray PE
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-easybuild" class="md-nav__link">
+    Running EasyBuild
+  </a>
+  
+    <nav class="md-nav" aria-label="Running EasyBuild">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common-settings-that-are-made-through-environment-variables-in-all-modes" class="md-nav__link">
+    Common settings that are made through environment variables in all modes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-easybuild-production-and-easybuild-infrastructure-mode" class="md-nav__link">
+    The EasyBuild-production and EasyBuild-infrastructure mode
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-easybuild-user-mode" class="md-nav__link">
+    The EasyBuild-user mode
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+<a href="https://github.com/Lumi-supercomputer/LUMI-SoftwareStack/edit/master/docs/easybuild_setup.md" title="Edit this page" class="md-content__button md-icon">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+</a>
+
+
+
+<h1 id="easybuild-setup">EasyBuild setup<a class="headerlink" href="#easybuild-setup" title="Permanent link">&para;</a></h1>
+<h2 id="configuration-decisions">Configuration decisions<a class="headerlink" href="#configuration-decisions" title="Permanent link">&para;</a></h2>
+<h3 id="easybuild-module-naming-scheme">EasyBuild Module Naming Scheme<a class="headerlink" href="#easybuild-module-naming-scheme" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>Options</p>
+<ul>
+<li>
+<p>A flat naming scheme, even without the module classes as they are of little
+    use. May packages belong to more than one class, it is impossible to come up
+    with a consistent categorization. Fully omitting the categorization requires
+    a slightly customized naming scheme that can be copied from UAntwerpen. When
+    combining with --suffix-modules-path='' one can also drop the 'all' subdirectory
+    level which is completely unnecessary in that case.</p>
+</li>
+<li>
+<p>A hierarchical naming scheme as used at CSCS and CSC. Note that CSCS has an
+    open bug report at the time of writing (May 12) on the standard implementation
+    in EasyBuild (<a href="https://github.com/easybuilders/easybuild-framework/issues/3626">Issue #3626</a>
+    and the related <a href="https://github.com/easybuilders/easybuild-framework/issues/3575">issue 3575</a>).
+    The solution might be to develop our own naming scheme module.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Choice implemented for the current software stacks:</p>
+<ul>
+<li>
+<p>A flat naming scheme that is a slight customization of the default EasyBuildMNS
+    without the categories, combined with an empty <code>suffix-modules-path</code> to avoid
+    adding the unnecessary <code>all</code> subdirectory level in the module tree.</p>
+</li>
+<li>
+<p>As we need to point to our own module naming scheme implementation which is
+    hard to do in a configuration file (as the path needs to be hardcoded), the
+    settings for the module scheme are done via <code>EASYBUILD_*</code> environment variables,
+    specifically:</p>
+<ul>
+<li><code>EASYBUILD_INCLUDE_MODULE_NAMING_SCHEMES</code> to add out own module naming schemes</li>
+<li><code>EASYBUILD_MODULE_NAMING_SCHEME=LUMI_FlatMNS</code></li>
+<li><code>EASYBUILD_SUFFIX_MODULES_PATH=''</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="other-configuration-decisions">Other configuration decisions<a class="headerlink" href="#other-configuration-decisions" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>TODO: rpath or not?</p>
+</li>
+<li>
+<p>TODO: Hiding many basic libraries</p>
+</li>
+</ul>
+<h2 id="external-modules-for-integration-with-the-cray-pe">External modules for integration with the Cray PE<a class="headerlink" href="#external-modules-for-integration-with-the-cray-pe" title="Permanent link">&para;</a></h2>
+<p>See the <a href="../CrayPE_integration/">Cray PE integration page</a>.</p>
+<h2 id="running-easybuild">Running EasyBuild<a class="headerlink" href="#running-easybuild" title="Permanent link">&para;</a></h2>
+<p>EasyBuild for LUMI is configured through a set of EasyBuild configuration files and
+environment variables. The basic idea is to never load the EasyBuild module directly
+without using one of the EasyBuild configuration modules. There are three such modules</p>
+<ul>
+<li>
+<p><code>EasyBuild-production</code> to do the installations in the production directories.</p>
+</li>
+<li>
+<p><code>EasyBuild-infrastructure</code> is similar to <code>EasyBuild-production</code> but places the module
+    in the Infrastructure tree rather than the easybuild tree.</p>
+</li>
+<li>
+<p><code>EasyBuild-user</code> is meant to do software installations in the home directory of a
+    user or in their project directory. This module will configure EasyBuild such that
+    it builds on top of the software already installed on the system, with a compatible
+    directory structure.</p>
+<p>This module is not only useful to regular users, but also to LUST to develop EasyConfig
+files for installation on the system. We aim to develop the module in such a way
+that being able to install the module in a home or project subdirectory would also
+practically guarantee that the installation will also work in the system directories.</p>
+</li>
+</ul>
+<p>These three modules are implemented as one generic module, <code>EasyBuild-config</code>, that
+is symlinked to those three modules. The module will derive what it should do from
+its name and also gets all information about the software stack and partition from
+its place in the module hierarchy to ensure maximum robustness.</p>
+<p><strong>NOTE:</strong> We deliberately chose to use EasyBuild-production, EasyBuild-user etc and
+not EasyBuild-config/production, EasyBuild-config/user, etc. because of the way
+EasyBuild acts when loading a different partition module. For additional safety
+we want to avoid that LMOD would reload a different version of the EasyBuild-config
+module and would rather get an error message that the EasyBuild-* partition is not
+available in the new partition.</p>
+<h3 id="common-settings-that-are-made-through-environment-variables-in-all-modes">Common settings that are made through environment variables in all modes<a class="headerlink" href="#common-settings-that-are-made-through-environment-variables-in-all-modes" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>The buildpath and path for temporary files. The current implementation creates
+    subdirectories in the directory pointed to by <code>XDG_RUNTIME_DIR</code> as this is a
+    RAM-based file system and gets cleaned when the user logs out. This value is based
+    on the CSCS setup.</p>
+</li>
+<li>
+<p>Name and location of the EasyBuild external modules definition file.</p>
+</li>
+<li>
+<p>Settings for the module naming scheme: As we need to point to a custom implementation
+    of the module naming schemes, this is done through an environment variable. For
+    consistency we also set the module naming scheme itself via a variable and set
+    EASYBUILD_SUFFIX_MODULES_PATH as that together with the module naming scheme determines
+    the location of the modules with respect to the module install path.</p>
+</li>
+<li>
+<p><code>EASYBUILD_OPTARCH</code> has been extended compared to the CSCS setup:</p>
+<ul>
+<li>
+<p>We support multiple target modules so that it is possible to select both the
+    CPU and accelerator via <code>EASYBUILD_OPTARCH</code>. See the
+    <a href="../Toolchains/toolchain_cpe_common/">EasyBuild CPE toolchains common options</a></p>
+</li>
+<li>
+<p>It is now also possible to specify arguments for multiple compilers. Use <code>CPE:</code>
+    to mark the options for the CPE toolchains. See also
+    <a href="../Toolchains/toolchain_cpe_common/">EasyBuild CPE toolchains common options</a></p>
+</li>
+</ul>
+</li>
+<li>
+<p>As the CPE toolchains are not included with the standard EasyBuild distribution
+    and as we have also extended them (if those from CSCS would ever be included),
+    we set <code>EASYBUILD_INCLUDE_TOOLCHAINS</code> to tell EasyBuild where to find the toolchains.</p>
+</li>
+</ul>
+<h3 id="the-easybuild-production-and-easybuild-infrastructure-mode">The EasyBuild-production and EasyBuild-infrastructure mode<a class="headerlink" href="#the-easybuild-production-and-easybuild-infrastructure-mode" title="Permanent link">&para;</a></h3>
+<p>Most of the settings for EasyBuild on LUMI are controlled through environment variables
+as this gives us more flexibility and a setup that we can easily redo in a different
+directory (e.g., to test on the test system). Some settings that are independent of
+the directory structure and independent of the software stack are still done in regular
+configuration files.</p>
+<p>There are two regular configuration files:</p>
+<ol>
+<li>
+<p><code>easybuild-production.cfg</code> is always read. In the current implementation it is
+    assumed to be present.</p>
+</li>
+<li>
+<p><code>easybuild-production-LUMI-yy.mm.cfg</code> is read after <code>production.cfg</code>, hence can be used
+    to overwrite settings made in <code>production.cfg</code> for a specific toolchain. This
+    allows us to evolve the configuration files while keeping the possibility to install
+    in older versions of the LUMI software stack.</p>
+</li>
+</ol>
+<p>Settings made in the configuration files:</p>
+<ul>
+<li>
+<p>Modules tool and modules syntax.</p>
+</li>
+<li>
+<p>Modules that may be loaded when EasyBuild runs</p>
+</li>
+<li>
+<p>Modules that should be hidden. Starting point is currently the list of CSCS.
+    <strong>TODO: Not yet enabled as this makes development more difficult.</strong></p>
+<p>In fact, another (untested) option is to hide the modules via a modulerc file in
+the module system rather than via EasyBuild which would have the advantage that
+they maintain regular version numbers rather than version numbers that start with
+a dot (as it seems that that version number with the dot should then also be used
+consistently).</p>
+</li>
+<li>
+<p>Ignore EBROOT variables without matching module as we use this to implement Bundles
+    that are detected by certain EasyBlocks as if each package included in the Bundle
+    was installed as a separate package.</p>
+</li>
+</ul>
+<p>The following settings are made through environment variables:</p>
+<ul>
+<li>
+<p>Software and module install paths, according to the directory scheme given in the
+    module system section.</p>
+</li>
+<li>
+<p>The directory where sources will be stored, as indicated in the directory structure
+    overview.</p>
+</li>
+<li>
+<p>The repo directories where EasyBuild stores EasyConfig files for the modules that
+    are build, as indicated in the directory structure overview.</p>
+</li>
+<li>
+<p>EasyBuild robot paths: we use EASYBUILD_ROBOT_PATHS and not EASYBUILD_ROBOT so
+    searching the robot path is not enabled by default but can be controlled through
+    the <code>-r</code> flag of the <code>eb</code> command. The search order is:</p>
+<ol>
+<li>
+<p>The repository for the currently active partition build by EasyBuild for
+    installed packages (<code>ebrepo_files</code>)</p>
+</li>
+<li>
+<p>The repository for the common partition build by EasyBuild for
+    installed packages (<code>ebrepo_files</code>)</p>
+</li>
+<li>
+<p>The LUMI-specific EasyConfig directory.</p>
+</li>
+</ol>
+<p>We deliberately put the ebrepo_files repositories first as this ensure that EasyBuild
+will always find the EasyConfig file for the installed module first as changes
+may have been made to the EasyConfig in the LUMI EasyConfig repository that are
+not yet reflected in the installed software.</p>
+<p>The default EasyConfig files that come with EasyBuild are not put in the robot
+search path for two reasons:</p>
+<ol>
+<li>
+<p>They are not made for the Cray toolchains anyway (though one could of course
+    use <code>--try-toolchain</code> etc.)</p>
+</li>
+<li>
+<p>We want to ensure that our EasyConfig repository is complete so that we can
+    impose our own standards on, e.g., adding information to the help block or
+    whatis lines in modules, and do not accidentally install dependencies without
+    realising this.</p>
+</li>
+</ol>
+</li>
+<li>
+<p>Names and locations of the EasyBuild configuration files and of the external modules
+    definition file.</p>
+</li>
+<li>
+<p>Settings for the module naming scheme: As we need to point to a custom implementation
+    of the module naming schemes, this is done through an environment variable. For
+    consistency we also set the module naming scheme itself via a variable and set
+    EASYBUILD_SUFFIX_MODULES_PATH as that together with the module naming scheme determines
+    the location of the modules with respect to the module install path.</p>
+</li>
+<li>
+<p>Custom EasyBlocks</p>
+</li>
+<li>
+<p>Search path for EasyConfig files with <code>eb -S</code> and <code>eb --search</code></p>
+<ol>
+<li>
+<p>Every directory of the robot search path is automatically included and 
+    does not need to be added to EASYBUILD_SEARCH_PATHS</p>
+</li>
+<li>
+<p>The <a href="https://github.com/Lumi-supercomputer/LUMI-EasyBuild-contrib">LUMI-EasyBuild-contrib repository</a>,
+    as that one is not in the robot path in non-user mode.</p>
+</li>
+<li>
+<p>Not yet done, but we could maintain a local copy of the CSCS repository and
+    enable search in that also.</p>
+</li>
+<li>
+<p>Default EasyConfig files that come with EasyBuild (if we can find EasyBuild,
+    which is if an EasyBuild-build EasyBuild module is loaded)</p>
+</li>
+<li>
+<p>Deliberately not included: Our ebrepo_files repositories. Everything in there
+    should be in our own EasyConfig repository if the installations are managed
+    properly.</p>
+</li>
+</ol>
+</li>
+<li>
+<p>We also set containerpath and packagepath even though we don't plan to use those,
+    but it ensures that files produced by this option will not end up in our GitHub
+    repository.</p>
+</li>
+</ul>
+<h3 id="the-easybuild-user-mode">The EasyBuild-user mode<a class="headerlink" href="#the-easybuild-user-mode" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>The root of the user EasyBuild directory structure is pointed to by the
+    environment variable <code>EBU_USER_PREFIX</code>. The default value if the variable
+    is not defined is <code>$HOME/EasyBuild</code>.</p>
+<p>Note that this environment variable is also used in the <code>LUMI/yy.mm</code> modules
+as these modules try to include the user modules in the MODULEPATH.</p>
+</li>
+<li>
+<p>The directory structure in that directory largely reflects the system
+    directory structure. This may be a bit more complicated than really needed
+    for the user who does an occasional install, but is great for user communities
+    who install a more elaborate software stack in their project directory.</p>
+<p>Changes:</p>
+<ul>
+<li>
+<p><code>SystemRepo</code> is named <code>UserRepo</code> instead and that name is fixed,
+     contrary to the <code>SytemRepo</code> name. We do keep it
+     as a separate level so that the user can also easily do version
+     tracking via a versioning system such as GitHub.</p>
+</li>
+<li>
+<p>The <code>mgmt</code> level is missing as we do not take into account
+     subdirectories that might be related to other software management
+     tools.</p>
+</li>
+<li>
+<p>As there are only modules generated by EasyBuild in this module tree,
+     <code>modules/easybuild</code> simply becomes <code>modules</code>.</p>
+</li>
+<li>
+<p>Similarly, the <code>EB</code> level in the directory for installed software is
+     omitted.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>The robot search path:</p>
+<ol>
+<li>
+<p>The user repository for the currently active partition</p>
+</li>
+<li>
+<p>The user repository for the common partition (if different from
+    the previous one)</p>
+</li>
+<li>
+<p>The system repository for the currently active partition</p>
+</li>
+<li>
+<p>The system repository for the common partition (if different from
+    the previous one)</p>
+</li>
+<li>
+<p>The user EasyConfig directory <code>UserRepo</code> (even if it is not there
+    yet)</p>
+</li>
+<li>
+<p>The LUMI-EasyBuild-contrib repository, if present in the user 
+    directory use that one and otherwise use the one from the central
+    installation.</p>
+</li>
+<li>
+<p>The LUMI-specific EasyConfig directory from the application directory</p>
+</li>
+</ol>
+</li>
+<li>
+<p>The search path for EasyConfig files with <code>eb -S</code> and <code>eb --search</code></p>
+<ol>
+<li>
+<p>The directories above in the robot search path are automatically also used
+    for search.</p>
+</li>
+<li>
+<p>Not yet done, but we could maintain a local copy of the CSCS repository and
+    enable search in that also.</p>
+</li>
+<li>
+<p>Default EasyConfig files that come with EasyBuild are deliberately not included
+    in user mode as it was decided this is confusing for the users.</p>
+</li>
+<li>
+<p>Deliberately not included: Our ebrepo_files repositories. Everything in there
+    should be in our own EasyConfig repository if the installations are managed
+    properly.</p>
+</li>
+</ol>
+<p>So currently the additional search paths in user mode are empty. </p>
+</li>
+</ul>
+<p>There are two regular configuration files:</p>
+<ol>
+<li>
+<p>The system <code>easybuild-production.cfg</code> is always read. In the current
+    implementation it is assumed to be present.</p>
+</li>
+<li>
+<p>The user <code>easybuild-user.cfg</code>(in <code>UserRepo/easybuild/config</code> in the user
+    direcgtory) is read next and meant for user-specific settings that should be
+    read for all LUMI software stacks.</p>
+</li>
+<li>
+<p>Then the system <code>easybuild-production-LUMI-yy.mm.cfg</code> is read after, hence can be used
+    to overwrite settings made in <code>production.cfg</code> for a specific toolchain. This
+    allows us to evolve the configuration files while keeping the possibility to install
+    in older versions of the LUMI software stack. This will overwrite generic
+    user options!</p>
+</li>
+<li>
+<p>Finally the user <code>easybuild-user-LUMI-yy.mm.cfg</code> is read for user
+    customizations to a specific toolchain.</p>
+</li>
+</ol>
+<p>Only the first of those 4 files has to be present. Presence of the others is
+detected when the module is loaded. Reload the module after creating one of
+these files to start using it.</p>
+<p>Comparison:</p>
+<table>
+<thead>
+<tr>
+<th align="left"><strong>robot path non-user</strong></th>
+<th align="left"><strong>robot path user</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">/</td>
+<td align="left">ebrepo user active partition</td>
+</tr>
+<tr>
+<td align="left">/</td>
+<td align="left">ebrepo user common partition</td>
+</tr>
+<tr>
+<td align="left">ebrepo system active partition</td>
+<td align="left">ebrepo system active partition</td>
+</tr>
+<tr>
+<td align="left">ebrepo system common partition</td>
+<td align="left">ebrepo system common partition</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">EBU_USER_PREFIX/UserRepo</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">LUMI-EasyBuild-contrib user or system</td>
+</tr>
+<tr>
+<td align="left">LUMI-SoftwareStack system</td>
+<td align="left">LUMI-SoftwareStack system</td>
+</tr>
+<tr>
+<td align="left"><strong>search path non-user</strong></td>
+<td align="left"><strong>search path user</strong></td>
+</tr>
+<tr>
+<td align="left">LUMI-EasyBuild-contrib system</td>
+<td align="left">/</td>
+</tr>
+<tr>
+<td align="left">Default easybuild EasyConfigs</td>
+<td align="left">/</td>
+</tr>
+</tbody>
+</table>
+
+              
+            </article>
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../module_setup/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Setup of the LUMI module system" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Setup of the LUMI module system
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../CrayPE_integration/" class="md-footer__link md-footer__link--next" aria-label="Next: Cray PE integration" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Cray PE integration
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    <a href="https://www.youtube.com/channel/UCb31KOJ6Wqu0sRpIRi_k8Mw" target="_blank" rel="noopener" title="LUMI on YouTube" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.322-42.003 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.281 23.65 24.787 41.5 48.284 47.821C117.22 448 288 448 288 448s170.78 0 213.371-11.486c23.497-6.321 42.003-24.171 48.284-47.821 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zm-317.51 213.508V175.185l142.739 81.205-142.739 81.201z"/></svg>
+    </a>
+  
+    
+    
+    <a href="https://www.linkedin.com/company/lumi-supercomputer" target="_blank" rel="noopener" title="LUMI on LinkedIn" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+    </a>
+  
+    
+    
+    <a href="https://twitter.com/LUMIhpc" target="_blank" rel="noopener" title="LUMI on Twitter" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "navigation.indexes", "header.autohide", "toc.follow"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../assets/javascripts/workers/search.bd0b6b67.min.js"}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.467223ff.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,1100 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Technical documentation for the LUMI software stack">
+      
+      
+      
+        <link rel="canonical" href="https://Lumi-supercomputer.github.io/LUMI-SoftwareStack/module_setup/">
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.2.5">
+    
+    
+      
+        <title>Setup of the LUMI module system - LUMI Software Stack technical documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.2d9f7617.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.e6a45f82.min.css">
+        
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#setup-of-the-lumi-module-system" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="LUMI Software Stack technical documentation" class="md-header__button md-logo" aria-label="LUMI Software Stack technical documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            LUMI Software Stack technical documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Setup of the LUMI module system
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Lumi-supercomputer/LUMI-SoftwareStack/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="LUMI Software Stack technical documentation" class="md-nav__button md-logo" aria-label="LUMI Software Stack technical documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    LUMI Software Stack technical documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Lumi-supercomputer/LUMI-SoftwareStack/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../whats_new/" class="md-nav__link">
+        What's new or different?
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../start_on_LUMI_pilot/" class="md-nav__link">
+        Installation instructions for the pilot phase
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Setup of the LUMI module system
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Setup of the LUMI module system
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#features-of-the-module-system-on-lumi" class="md-nav__link">
+    Features of the module system on LUMI
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#assumptions-in-the-implementation" class="md-nav__link">
+    Assumptions in the implementation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#default-behaviour-when-loading-modules" class="md-nav__link">
+    Default behaviour when loading modules
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#module-presentation" class="md-nav__link">
+    Module presentation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-common-software-subdirectories" class="md-nav__link">
+    The common software subdirectories
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-crayenv-partition" class="md-nav__link">
+    The CrayEnv partition
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-system-partition" class="md-nav__link">
+    The system partition
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#where-do-we-set-the-default-modules" class="md-nav__link">
+    Where do we set the default modules?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#helper-functions-in-sitepackagelua" class="md-nav__link">
+    Helper functions in SitePackage.lua
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../easybuild_setup/" class="md-nav__link">
+        EasyBuild setup
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CrayPE_integration/" class="md-nav__link">
+        Cray PE integration
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../procedures/" class="md-nav__link">
+        Some procedures
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../directory_structure/" class="md-nav__link">
+        Installation directory structure
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../files_used/" class="md-nav__link">
+        Overview of files
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SitePackage/" class="md-nav__link">
+        The contents of the SitePackage.lua file
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_11" type="checkbox" id="__nav_11" >
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_11">
+          Toolchain documentation
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Toolchain documentation" data-md-level="1">
+        <label class="md-nav__title" for="__nav_11">
+          <span class="md-nav__icon md-icon"></span>
+          Toolchain documentation
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Toolchains/toolchain_common/" class="md-nav__link">
+        EasyBuild toolchains common options
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Toolchains/toolchain_cpe_common/" class="md-nav__link">
+        Common information to all cpe* toolchains
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Toolchains/cpeCray/" class="md-nav__link">
+        cpeCray toolchain
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Toolchains/cpeGNU/" class="md-nav__link">
+        cpeGNU toolchain
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Toolchains/cpeAMD/" class="md-nav__link">
+        cpeAMD toolchain
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_12" type="checkbox" id="__nav_12" >
+      
+      
+      
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_12">
+          Documentation on our EasyBlocks
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Documentation on our EasyBlocks" data-md-level="1">
+        <label class="md-nav__title" for="__nav_12">
+          <span class="md-nav__icon md-icon"></span>
+          Documentation on our EasyBlocks
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CrayPEToolchain/" class="md-nav__link">
+        The CrayPEToolchain EasyBlock
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#features-of-the-module-system-on-lumi" class="md-nav__link">
+    Features of the module system on LUMI
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#assumptions-in-the-implementation" class="md-nav__link">
+    Assumptions in the implementation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#default-behaviour-when-loading-modules" class="md-nav__link">
+    Default behaviour when loading modules
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#module-presentation" class="md-nav__link">
+    Module presentation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-common-software-subdirectories" class="md-nav__link">
+    The common software subdirectories
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-crayenv-partition" class="md-nav__link">
+    The CrayEnv partition
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-system-partition" class="md-nav__link">
+    The system partition
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#where-do-we-set-the-default-modules" class="md-nav__link">
+    Where do we set the default modules?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#helper-functions-in-sitepackagelua" class="md-nav__link">
+    Helper functions in SitePackage.lua
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+<a href="https://github.com/Lumi-supercomputer/LUMI-SoftwareStack/edit/master/docs/module_setup.md" title="Edit this page" class="md-content__button md-icon">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+</a>
+
+
+
+<h1 id="setup-of-the-lumi-module-system">Setup of the LUMI module system<a class="headerlink" href="#setup-of-the-lumi-module-system" title="Permanent link">&para;</a></h1>
+<h3 id="features-of-the-module-system-on-lumi">Features of the module system on LUMI<a class="headerlink" href="#features-of-the-module-system-on-lumi" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>The module system is organised in software stacks enabled through loading a
+    meta-module. <code>CrayEnv</code> will enable the native Cray environment for developers
+    who prefer to do everything themselves, while the <code>LUMI/yy.mm</code> modules enable
+    the LUMI software stacks, based on the corresponding yy.mm version of the Cray
+    programming environment.</p>
+<p>To distinguish between versions of the software stack that are fairly complete
+and that we try to support for a longer period and those versions that are only
+meant to install a few applications that run into compiler bugs on the main
+versions, the latter versions of the software stack have a name of the form
+<code>LUMI/yy.mm.dev</code>. It is possible to at some point having both a <code>LUMI/yy.mm.dev</code>
+and <code>LUMI/yy.mm</code> software stack for the same release of the Cray PE so that
+if we figure out that a particular Cray PE release is good enough to build a new
+version of the software stack, we can do so without interupting users using the
+development version while still being able to update some components that are already
+installed in the .dev stack. However, they have to use the same components of
+the Cray PE and same cpeCray/cpeGNU/cpeAMD EasyBuild toolchain modules.</p>
+</li>
+<li>
+<p>When it matters, the module system will automatically select the software for
+    the partition on which the software stack was loaded (and change to the correct
+    partition in Slurm batch scripts if you reload the LUMI module). It is always possible
+    to overwrite by loading a partition module after (re)loading the software stack
+    meta-module.</p>
+<p>Moreover, we ensure as much as possible that after loading a different partition,
+already loaded modules are reloaded in as reasonable versions as possible.</p>
+<p>NOTE:</p>
+<ul>
+<li>
+<p>LMOD 8.3.x, the default on Cray with the 21.06 software release: <code>module update</code>
+    does not work correctly and the way to trigger a reload of the software stack
+    in case of a possible partition change is</p>
+<div class="highlight"><pre><span></span><code>module load LUMI/<span class="nv">$LUMI_STACK_VERSION</span>
+</code></pre></div>
+</li>
+<li>
+<p>In LMOD 8.4.x and 8.5.x, it is possible to instead use <code>module update</code>, and
+    there seems to be an undocumented <code>module reload</code> that has exactly the same
+    effect.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>User-friendly presentation with clear labels is the default, and there is a user-friendly
+    way to change the presentation through modules rather than by setting LMOD environment
+    variables by hand.</p>
+<p>We also do an effort to hide modules that a regular user does not need at some
+point, e.g., EasyBuild configuration modules to install in the system directories,
+or those Cray PE modules that are not relevant for a particular version of the
+LUMI software stack.</p>
+</li>
+<li>
+<p>Discoverability of software is a key feature. The whole module system is designed
+    to make it easy to find installed software through <code>module spider</code> and <code>module
+    keyword</code> even if that software may not be visible at some point through <code>module
+    avail</code>.</p>
+</li>
+<li>
+<p>The modules that load the software stack and partition, and the modules that
+    influence the presentation of the modules are sticky so that <code>module purge</code>
+    will not remove them. Hence a user who wants to continue working in the same
+    software stack can use <code>module purge</code> to unload all software stack-specific
+    modules without having to start from scratch.</p>
+</li>
+</ul>
+<h3 id="assumptions-in-the-implementation">Assumptions in the implementation<a class="headerlink" href="#assumptions-in-the-implementation" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>The SoftwareStack module relies on the <code>detect_LUMI_partition</code> function in
+    <code>SitePackage.lua</code> to determine on which partition it is running.</p>
+<p>The current implementation first checks if the environment variable
+LUMI_OVERWRITE_PARTITION is defined and if so, the value of that variable is used.
+It is assumed to be C, G, D or L depending on the node type (CPU compute, GPU compute,
+data and visualisation or login), or can be common to install software in the
+hidden common partition.</p>
+<p>If that environment variable is not defined, we currently emply the following algorithm
+as a demo of what can be done on the final LUMI installation:</p>
+<ul>
+<li>
+<p>On eiger uan01 and uan02 the partition is set to L</p>
+</li>
+<li>
+<p>On eiger uan03 the partition is set to common</p>
+</li>
+<li>
+<p>On all other hosts we first check for the environment variable
+    LUMI_PARTITION and use that one and otherwise we set the partition
+    to L.</p>
+</li>
+</ul>
+<p>This is used by the SoftwareStack module to then auto-load the
+module for the current partition when it is loaded. That function can be implemented
+differently also so that the environment variable is no longer needed.</p>
+</li>
+<li>
+<p>The current implementation assumes that <code>LMOD_PACKAGE_PATH</code> refers to the LMOD
+    directory in the repository as that is used to determine the name of the repository
+    (rather than use a hardcoded name, e./g/. <code>SystemRepo</code>).</p>
+</li>
+</ul>
+<h3 id="default-behaviour-when-loading-modules">Default behaviour when loading modules<a class="headerlink" href="#default-behaviour-when-loading-modules" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>A user will always need to load a software stack module first.</p>
+<ul>
+<li>For those software stack modules that further split up according
+    to partition (the LUMI/yy.mm modules), the relevant partition
+    module will be loaded automatically when loading the software
+    stack. This is based on the partition detected by the
+    detect_LUMI_partition function defined in SitePackage.lua.</li>
+</ul>
+</li>
+<li>
+<p>We made the SoftwareStack and LUMIpartition
+     modules sticky so that once loaded a user can use <code>module purge</code> if they
+     want to continue working in the same software stack but load other packages.</p>
+</li>
+</ul>
+<h3 id="module-presentation">Module presentation<a class="headerlink" href="#module-presentation" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>The LUMI module system supports three ways of presenting the module to the users</p>
+<ol>
+<li>
+<p>The default way users user-friendly labels rather than subdirectories to present
+    the modules. Sometimes several subdirectories may map to the same label when
+    our feeling is that those modules belong together for the regular user.</p>
+<p>There are two variants of this view:</p>
+<p>a. All Cray PE module directories collapsed into a single category. This
+    style is called <code>label</code>.</p>
+<p>b. User-friendly names for the Cray PE module directories, but showing the
+    full hierarchy. This is called the <code>PEhierarchy</code> style.</p>
+</li>
+<li>
+<p>But of course the view with subdirectories is also supported for the power
+    user. This is called the <code>system</code> style.</p>
+</li>
+</ol>
+<p>The implementation of the labeled view is done in the <code>avail_hook</code> hook in the
+<code>SitePackage.lua</code> file and is derived from an example in the Lmod manual.</p>
+</li>
+<li>
+<p>To not confront the user directly with all Lmod environment variables that influence
+    the presentation of the modules, we also have a set of modules that can be used
+    to change the presentation, including</p>
+<ul>
+<li>
+<p>Switching between the label, PEhierarchy and system (subdirectory) view</p>
+</li>
+<li>
+<p>Showing extensions in module avail</p>
+</li>
+<li>
+<p>Turn on and off colour in the presentation of the modules as the colour selection
+    can never be good for both white background and black background (though of
+    course a power user can change the colour definitions in their terminal emulation
+    software to ensure that both bright and dark colours are displayed properly).</p>
+</li>
+</ul>
+<p>The presentation modules are sticky so that <code>module purge</code> doesn't change the
+presentation of the modules.</p>
+</li>
+<li>
+<p>There is a "power user" view that will reveal a number of modules that are
+    otherwise hidden. This is at their own risk. Use of this module is not documented
+    on the regular LUMI-documentation.</p>
+</li>
+<li>
+<p>There are also two <code>ModuleStyle</code> modules that try to reset the presentation to
+    the system defaults or whatever the user may have set through environment variables.</p>
+</li>
+</ul>
+<h3 id="the-common-software-subdirectories">The common software subdirectories<a class="headerlink" href="#the-common-software-subdirectories" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>We have a set of subdirectories for each of the 4 LUMI partitions on which the
+    modules are available. However, we also have a directory to install software that
+    is common to all partitions and doesn't need specific processor optimisations hence
+    is simply compiled for the minimal configuration that works everywhere, Rome without
+    accelerator.</p>
+</li>
+<li>
+<p>We use a hidden partition module (<code>partition/common</code>) which can then be recognized
+    by the EasyBuild configuration modules to install software in that partition.</p>
+<ul>
+<li>
+<p>Hiding is done via the <code>LMOD/LUMIstack_modulerc.lua</code> file.</p>
+</li>
+<li>
+<p>The path to the common software modules is added in the other partition module
+    files, always in such a way that the partition-specific directory comes before
+    the equivalent common directory to ensure that partition-specific software
+    has a higher priority.</p>
+<p>Yet because of the way that LMOD works, it is still better to either install
+a certain package only in the common partition or only in the other partitions
+as the order in the MODULEPATH is not always respected if a particular version
+is hard-marked as the default.</p>
+</li>
+<li>
+<p>Moreover, the labeling in SitePackage.lua is such that in the labeled view one
+    sees the common and partition-specific software is put together. This is another
+    reason to not have a package in both the common subdirectory and in one or
+    more of the regular partition subdirectories as it would appear twice in the
+    list for that partition.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>A hidden partition module did show up into the output of <code>module spider</code> as a way to
+    reach certain other modules. This was the case even when it was hidden by using a name
+    starting with a dot rather than a modulerc.lua file. This "feature" is also mentioned
+    in <a href="https://github.com/TACC/Lmod/issues/289">Lmod issue #289</a>.</p>
+<ul>
+<li>
+<p>Our solution was to modify the module file itself to not include the paths when the
+    mode is "spider" so that Lmod cannot see that it is a partition module that makes
+    other modules available.</p>
+<p><strong>We currently do not show this for power users either which may be the
+best choice to avoid conflicts with caches.</strong></p>
+</li>
+</ul>
+</li>
+<li>
+<p>We needed an additional module tree, <code>Infrastructure</code>, which works a pure hierarchy
+    (i.e., the common subdirectory is not loaded in the MODULEPATH of any other partition)
+    to ensure that <code>module update</code> and changing partitions works well for modules
+    that have to be present in all four regular partitions and the common meta-partition,
+    e.g., cpe* modules needed by EasyBuild and EasyBuild configuration modules.</p>
+</li>
+<li>
+<p>We also use a visibility hook for LMOD to hide modules from the Cray PE that are
+    not relevant for a particular version of the LUMI software stack.</p>
+<p>The data used by that hook is stored in the <code>mgmt/LMOD/VisibilityHookData</code> directory
+in a format that favours speed over readability and is auto-generated by a script
+based on the description of a version of the CPE.</p>
+</li>
+</ul>
+<h3 id="the-crayenv-partition">The CrayEnv partition<a class="headerlink" href="#the-crayenv-partition" title="Permanent link">&para;</a></h3>
+<p>The <code>CrayEnv</code> partition is a hidden partition used to trigger cross-installation of software
+in the <code>CrayEnv</code> stack. This is done via a separate hidden partition as we need a
+way to avoid loading modules that will not be visible in that stack.</p>
+<p>This partition had only modules in the corresponding <code>Infrastructure</code> tree in the
+module system. To make EasyBuild available, we symlink in that directory to the
+EasyBuild subdirectory in the <code>common</code> partition of the same <code>LUMI/yy.mm</code> software
+stack.</p>
+<h3 id="the-system-partition">The system partition<a class="headerlink" href="#the-system-partition" title="Permanent link">&para;</a></h3>
+<p>The <code>system</code> partitions functions nearly identical to the <code>CrayEnv</code> partition but
+its function is to install software whose modules will be available system-wide, independent
+of any toolchain, and can be loaded as soon as the <code>init-lumi</code> module is loaded (which
+itself is loaded at login).</p>
+<h3 id="where-do-we-set-the-default-modules">Where do we set the default modules?<a class="headerlink" href="#where-do-we-set-the-default-modules" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>Style modifiers: LMOD/modulerc.lua (central moduler.lua file)</p>
+</li>
+<li>
+<p>Software stack: Currently by a hidden <code>.modulerc.lua</code> file in the <code>SoftwareStacks</code>
+    subdirectory since we use different defaults on different test systems.</p>
+</li>
+<li>
+<p>Partition: No assigned default, the software stack module determines the optimal
+    partition based on the node where that module is loaded.</p>
+</li>
+<li>
+<p>Cray PE compoments: Depending on the version of the LUMI stack loaded, different
+    versions of the modules in the Cray PE will be the default ones, corresponding
+    to the release of the PE used for that stack. These defaults are set in
+    <code>LMOD/LUMIstack_&lt;version&gt;_modulerc.lua</code>, which can be generated with the
+    <code>make_CPE_modulerc.sh</code> script.</p>
+<p>Note that loading a <code>cpe/yy.mm</code> module may overwrite this depending on the implementation
+of that module.</p>
+</li>
+</ul>
+<h3 id="helper-functions-in-sitepackagelua">Helper functions in SitePackage.lua<a class="headerlink" href="#helper-functions-in-sitepackagelua" title="Permanent link">&para;</a></h3>
+<p>See <a href="../SitePackage/">the separate SitePackage information file</a>.</p>
+
+              
+            </article>
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../start_on_LUMI_pilot/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Installation instructions for the pilot phase" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Installation instructions for the pilot phase
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../easybuild_setup/" class="md-footer__link md-footer__link--next" aria-label="Next: EasyBuild setup" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              EasyBuild setup
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    <a href="https://www.youtube.com/channel/UCb31KOJ6Wqu0sRpIRi_k8Mw" target="_blank" rel="noopener" title="LUMI on YouTube" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.322-42.003 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.281 23.65 24.787 41.5 48.284 47.821C117.22 448 288 448 288 448s170.78 0 213.371-11.486c23.497-6.321 42.003-24.171 48.284-47.821 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zm-317.51 213.508V175.185l142.739 81.205-142.739 81.201z"/></svg>
+    </a>
+  
+    
+    
+    <a href="https://www.linkedin.com/company/lumi-supercomputer" target="_blank" rel="noopener" title="LUMI on LinkedIn" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+    </a>
+  
+    
+    
+    <a href="https://twitter.com/LUMIhpc" target="_blank" rel="noopener" title="LUMI on Twitter" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "navigation.indexes", "header.autohide", "toc.follow"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../assets/javascripts/workers/search.bd0b6b67.min.js"}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.467223ff.min.js"></script>
+      
+    
+  </body>
+</html>
