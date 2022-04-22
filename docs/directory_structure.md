@@ -172,7 +172,7 @@ EasyBuild installations only.
 
       * ``easybuild/config`` to add to the system config files (the ``easybuild-user.cfg``
         and ``easybuild-user-LUMI-yy.mm.cfg`` files, see the
-        [Setup of a LUMI software stack and EasyBuild](easybuild_Setup.md) page)
+        [Setup of a LUMI software stack and EasyBuild](easybuild_setup.md) page)
 
       * ``easybuild/easyblkocks`` for additional custom EasyBlocks. We currently assume
         an organisation in two levels (first letter and then the python file).
