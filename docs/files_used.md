@@ -15,34 +15,35 @@
 
 ## LMOD subdirectory
 
-  * The [``LMOD``](../LMOD) subdirectory itself is set as the value of the environment variable
+  * The [``LMOD``](https://github.com/Lumi-supercomputer/LUMI-SoftwareStack/tree/main/LMOD) 
+    subdirectory itself is set as the value of the environment variable
     ``LMOD_PACKAGE_PATH`` in the system setup.
 
-  *  [``admin.list``](../LMOD/admin.list): Set as the value of the environment variable
+  *  [``admin.list``](https://github.com/Lumi-supercomputer/LUMI-SoftwareStack/tree/main/LMOD/admin.list): Set as the value of the environment variable
      ``LMOD_ADMIN_FILE``      in the system setup.
 
-  * [``lmodrc.lua``](../LMOD/lmodrc.lua): Set as the value of the environment variable
+  * [``lmodrc.lua``](https://github.com/Lumi-supercomputer/LUMI-SoftwareStack/tree/main/LMOD/lmodrc.lua): Set as the value of the environment variable
     ``LMOD_RC`` in the system setup.
 
-  * [``LUMIstack_yy.mm_modulerc.lua``](../LMOD/) files: Added to the list of modulerc files in
+  * [``LUMIstack_yy.mm_modulerc.lua``](https://github.com/Lumi-supercomputer/LUMI-SoftwareStack/tree/main/LMOD/) files: Added to the list of modulerc files in
     the ``LMOD_MODULERCFILE`` environment variable by the
-    [``modules/LUMIstack``](../modules/LUMIstack) generic
+    [``modules/LUMIstack``](https://github.com/Lumi-supercomputer/LUMI-SoftwareStack/tree/main/modules/LUMIstack) generic
     module files for the ``LUMI/yy.mm`` modules.
 
     Sets the default versions for the CPE release yy.mm in a way that is independent
     of everything the ``cpe/yy.mm`` modules might do (unless they really overwrite
     ``LMOD_MODULERCFILE``).
 
-  * [``LUMIstack_modulerc.lua``](../LMOD/LUMIstack_modulerc.lua) files: Added to the
+  * [``LUMIstack_modulerc.lua``](https://github.com/Lumi-supercomputer/LUMI-SoftwareStack/tree/main/LMOD/LUMIstack_modulerc.lua) files: Added to the
     list of modulerc files in the ``LMOD_MODULERCFILE`` environment variable by the
-    [``modules/LUMIstack``](../modules/LUMIstack) generic
+    [``modules/LUMIstack``](https://github.com/Lumi-supercomputer/LUMI-SoftwareStack/tree/main/modules/LUMIstack) generic
     module files for the ``LUMI/yy.mm`` modules.
 
     Used to hide a number of modules that are of no use to ordinary users when using
     the LUMI software stacks, and provide some user-friendly aliases for the partition
     modules.
 
-  * [``SitePackage.lua``](../LMOD/SitePackage.lua): Referred to indirectly by the
+  * [``SitePackage.lua``](https://github.com/Lumi-supercomputer/LUMI-SoftwareStack/tree/main/LMOD/SitePackage.lua): Referred to indirectly by the
     ``LMOD_PACKAGE_PATH`` system environment variable.
 
     [Additional information on this file](SitePackage.md)
@@ -50,35 +51,35 @@
 
 ## modules subdirectory
 
-  * [``CraEnv.lua``](../modules/CrayEnv.lua): Module providing the plain nearly unmodified
+  * [``CraEnv.lua``](https://github.com/Lumi-supercomputer/LUMI-SoftwareStack/tree/main/modules/CrayEnv.lua): Module providing the plain nearly unmodified
     Cray Programming Environment.
 
-    We do overwrite a number of CPE files in the [``modules/CrayOverwrite``](../modules/CrayOverwrite)
+    We do overwrite a number of CPE files in the [``modules/CrayOverwrite``](https://github.com/Lumi-supercomputer/LUMI-SoftwareStack/tree/main/modules/CrayOverwrite)
     subdirectory to work around problems in some of the Cray module files.
 
-  * [``EasyBuild-config``](../modules/EasyBuild-config): A generic EasyBuild
+  * [``EasyBuild-config``](https://github.com/Lumi-supercomputer/LUMI-SoftwareStack/tree/main/modules/EasyBuild-config): A generic EasyBuild
     configuration module that instantiates into the ``EasyBuild-production``,
     ``EasyBuild-infrastructure`` and ``EasyBuild-user``
     modules in the relevant partitions of the LUMI software stacks.
 
-  * [``EasyBuild-unlock``](../modules/EasyBuild-unlock): A module that has to be
+  * [``EasyBuild-unlock``](https://github.com/Lumi-supercomputer/LUMI-SoftwareStack/tree/main/modules/EasyBuild-unlock): A module that has to be
     loaded before any of the ``EasyBuild-production`` or ``EasyBuild-infrastructure``
     modules can be loaded as additional protection to not
     accidentally overwrite a system installation.
 
-  * [``init-lumi``](../modules/init-lumi): The module called from the Cray PE intialisation
+  * [``init-lumi``](https://github.com/Lumi-supercomputer/LUMI-SoftwareStack/tree/main/modules/init-lumi): The module called from the Cray PE intialisation
     process (in ``/etc/cray-pe.d/cray-pe-configuration.sh``) to do the final steps
     of enabling the LUST software stacks.
 
-  * [``LUMIstack``](../modules/LUMIstack): Generic implementation(s) of the LUMI software
+  * [``LUMIstack``](https://github.com/Lumi-supercomputer/LUMI-SoftwareStack/tree/main/modules/LUMIstack): Generic implementation(s) of the LUMI software
     stack modules. The actual modules can simply link to the right version of the generic
     module file.
 
-  * [``LUMIpartition``](../modules/LUMIpartition): Generic implementation(s) of the
+  * [``LUMIpartition``](https://github.com/Lumi-supercomputer/LUMI-SoftwareStack/tree/main/modules/LUMIpartition): Generic implementation(s) of the
     LUMI partition modules. The actual modules can simply link to the right version
     of the generic module file.
 
-  * [``CrayOverwrite``](../modules/CrayOverwrite): A directory with modulefiles that
+  * [``CrayOverwrite``](https://github.com/Lumi-supercomputer/LUMI-SoftwareStack/tree/main/modules/CrayOverwrite): A directory with modulefiles that
     should overwrite standard CPE module files that have behaviour that conflicts with
     our setup.
 
@@ -86,20 +87,20 @@
     is set as default in the original CPE subdirectory, one should make sure that that
     is overruled in the ``CrayOverwrite`` subdirectory for that module.
 
-  * [``StyleModifiers``](../modules/StyleModifiers): A set of small modules that change
+  * [``StyleModifiers``](https://github.com/Lumi-supercomputer/LUMI-SoftwareStack/tree/main/modules/StyleModifiers): A set of small modules that change
     the presentation of the module display by ``module avail``. These modules simply
     set one or more environment variables, one LUMI-specific one and the other LMOD
     configuration variables.
 
     These modules include:
 
-      * [``ModuleColour``](../modules/StyleModifiers/ModuleColour): Switch between
+      * [``ModuleColour``](https://github.com/Lumi-supercomputer/LUMI-SoftwareStack/tree/main/modules/StyleModifiers/ModuleColour): Switch between
         colour and black-and-white display of the modules
 
-      * [``ModuleExtensions``](../modules/StyleModifiers/ModuleExtensions): Show or
+      * [``ModuleExtensions``](https://github.com/Lumi-supercomputer/LUMI-SoftwareStack/tree/main/modules/StyleModifiers/ModuleExtensions): Show or
         hide the display of extensions in the output of ``module avail``.
 
-      * [``ModuleLabel``](../modules/StyleModifiers/ModuleLabel): Switch between three
+      * [``ModuleLabel``](https://github.com/Lumi-supercomputer/LUMI-SoftwareStack/tree/main/modules/StyleModifiers/ModuleLabel): Switch between three
         ways of displaying the module subdirectories:
 
           * ``label``: Give the module subdirectories meaningful names and collapses
@@ -110,17 +111,18 @@
 
           * ``system``: Show the directory names of all modules subdirectories
 
-      * [``ModulePowerUser``](../modules/StyleModifiers/ModulePowerUser): Enables the power
+      * [``ModulePowerUser``](https://github.com/Lumi-supercomputer/LUMI-SoftwareStack/tree/main/modules/StyleModifiers/ModulePowerUser): Enables the power
         user view of the module system: Less modules are hidden, but using those modules
         that are otherwise hidden is not supported by the LUMI User Support Team. These
         modules may not work under a regular user account or are their use is not documented
         in the regular LUMI documentation as they are only meant for support staff.
 
-      * [``ModuleStyle``](../modules/StyleModifiers/ModuleStyle): Used to return to
+      * [``ModuleStyle``](https://github.com/Lumi-supercomputer/LUMI-SoftwareStack/tree/main/modules/StyleModifiers/ModuleStyle): Used to return to
         the situation at login or the default for the system.
 
-For the [``EasyBuild-config``](../modules/EasyBuild-config), [``LUMIstack``](../modules/LUMIstack)
-and [``LUMIpartition``](../modules/LUMIpartition) modules we adopted a special version
+For the [``EasyBuild-config``](https://github.com/Lumi-supercomputer/LUMI-SoftwareStack/tree/main/modules/EasyBuild-config), 
+[``LUMIstack``](https://github.com/Lumi-supercomputer/LUMI-SoftwareStack/tree/main/modules/LUMIstack)
+and [``LUMIpartition``](https://github.com/Lumi-supercomputer/LUMI-SoftwareStack/tree/main/modules/LUMIpartition) modules we adopted a special version
 numbering: They are numbered in the same way as CPE releases and a particular module
 for any LUMI stack we use the most recent version that is not younger than the correpsonding
 CPE/LUMI stack.
@@ -128,7 +130,7 @@ CPE/LUMI stack.
 
 ## easybuild/config subdirectory
 
-The files are referred to by the [``EasyBuild-config``](../modules/EasyBuild-config)
+The files are referred to by the [``EasyBuild-config``](https://github.com/Lumi-supercomputer/LUMI-SoftwareStack/tree/main/modules/EasyBuild-config)
 generic module file.
 
 
@@ -178,19 +180,19 @@ For LUMI:
 
 ## easybuild/tools subdirectory
 
-  * [``module_naming_scheme``](../easybuild/tools/module_naming_scheme) subdirectory:
+  * [``module_naming_scheme``](https://github.com/Lumi-supercomputer/LUMI-SoftwareStack/tree/main/easybuild/tools/module_naming_scheme) subdirectory:
     LUMI uses a customised flat EasyBuild naming scheme. The links by moduleclass are
     omitted as they are not used in our module system.
 
-    Note that the [``EasyBuild-config``](../modules/EasyBuild-config) generic module
+    Note that the [``EasyBuild-config``](https://github.com/Lumi-supercomputer/LUMI-SoftwareStack/tree/main/modules/EasyBuild-config) generic module
     also sets the environment variable ``EASYBUILD_SUFFIX_MODULES_PATH`` to the empty
     string to omit the ``all`` level in the EasyBuild modules directory structure.
 
 
 # The etc subdirectory
 
-This directory contains the [``motd.txt``](../etc/motd.txt) and
-[`lumi_fortune.txt``](../etc/lumi_fortune.txt) files that are used
+This directory contains the [``motd.txt``](https://github.com/Lumi-supercomputer/LUMI-SoftwareStack/tree/main/etc/motd.txt) and
+[`lumi_fortune.txt``](https://github.com/Lumi-supercomputer/LUMI-SoftwareStack/tree/main/etc/lumi_fortune.txt) files that are used
 by the `init-lumi` module to augment the message of the day and to display a random
 tip about LUMI.
 
@@ -213,7 +215,7 @@ the HPE Cray PE, useful to communicate with the sysadmins who maintain those fil
 This directory contains scripts that are useful to any user of EasyBuild of LUMI, e.g.,
 to bump EasyConfig files to a new release of the Cray PE.
 
-  * [``upgrade-tc.py``](../tools/upgrade-tc.py): Bump the version of the Cray PE in
+  * [``upgrade-tc.py``](https://github.com/Lumi-supercomputer/LUMI-SoftwareStack/tree/main/tools/upgrade-tc.py): Bump the version of the Cray PE in
     an EasyConfig file, also adapting the name of the file. Note that the regular
     dependencies are not updated to a new version.
 
@@ -222,20 +224,20 @@ to bump EasyConfig files to a new release of the Cray PE.
 
 This directory contains various files to be used in component tests.
 
-  * [``install_lmod_newest.sh``](../Testing/install_lmod_newest.sh) is a script to
+  * [``install_lmod_newest.sh``](https://github.com/Lumi-supercomputer/LUMI-SoftwareStack/tree/main/Testing/install_lmod_newest.sh) is a script to
     install a very recent version of LMOD to test compatibility of the module system
     agains more recent versions than the one that comes with a HPE-Cray system.
 
 
 ## Note: Files and directories referred to from outside the LUMI software structure
 
-  * [``LMOD``](../LMOD) subdirectory itself as the value of the environment variable
+  * [``LMOD``](https://github.com/Lumi-supercomputer/LUMI-SoftwareStack/tree/main/LMOD) subdirectory itself as the value of the environment variable
     ``LMOD_PACKAGE_PATH``
 
-  * [``LMOD/admin.list``](../LMOD/admin.list) as the value of the environment variable
+  * [``LMOD/admin.list``](https://github.com/Lumi-supercomputer/LUMI-SoftwareStack/tree/main/LMOD/admin.list) as the value of the environment variable
      ``LMOD_ADMIN_FILE``
 
-  * [``LMOD/lmodrc.lua``](../LMOD/lmodrc.lua) as the value of the environment variable
+  * [``LMOD/lmodrc.lua``](https://github.com/Lumi-supercomputer/LUMI-SoftwareStack/tree/main/LMOD/lmodrc.lua) as the value of the environment variable
     ``LMOD_RC``
 
   * Not a reference to a file, but the system should set ``LMOD_AVAIL_STYLE`` to
