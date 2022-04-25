@@ -16,6 +16,8 @@ theme:
     - navigation.indexes
     - header.autohide
     - toc.follow
+  palette:
+    - primary: black
 
 nav:
   - Home: README.md
@@ -33,9 +35,12 @@ nav:
       - Common information to all cpe* toolchains: Toolchains/toolchain_cpe_common.md
       - cpeCray toolchain: Toolchains/cpeCray.md
       - cpeGNU toolchain: Toolchains/cpeGNU.md
-      - cpeAMD toolchain: Toolchains/cpeAMD.md
+      - cpeAOCC toolchain: Toolchains/cpeAOCC.md
+      - Configurations on LUMI: configurations.md
   - Documentation on our EasyBlocks:
       - The CrayPEToolchain EasyBlock: CrayPEToolchain.md
+  - Archive:
+      - Failed experiments: failed_experiments.md
 
 plugins:
   # show revision date at bottom of each page

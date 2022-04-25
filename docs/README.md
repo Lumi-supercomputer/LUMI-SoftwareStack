@@ -18,7 +18,8 @@
       * [Common information to all cpe* toolchains](Toolchains/toolchain_cpe_common.md)
       * [cpeCray toolchain](Toolchains/cpeCray.md)
       * [cpeGNU toolchain](Toolchains/cpeGNU.md)
-      * [cpeAMD toolchain](Toolchains/cpeAMD.md)
+      * [cpeAOCC toolchain](Toolchains/cpeAOCC.md)
+      * [Current configurations on LUMI](configurations.md)
 
   * Documentation on our EasyBlocks:
       * [The CrayPEToolchain EasyBlock](CrayPEToolchain.md)
