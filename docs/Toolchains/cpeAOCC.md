@@ -1,4 +1,4 @@
-# cpeAMD toolchain
+# cpeAOCC toolchain
 
 Note: The options are for the ``aocc.py`` file included in this repository and are
 not the same as those for the repository at CSCS.
@@ -31,7 +31,7 @@ AOCC supports a number of extensions that are similar to those of the GNU compil
 | loop-vectorize        | parallelism     | Explicitly enable/disable loop vectorization        |
 | basic-block-vectorize | parallelism     | Explicitly enable/disable basic block vectorization |
 
-### cpeGNU-specific flags
+### cpeAOCC-specific flags
 
 | Option   | Categorie       | What?                                                        |
 |:---------|:----------------|:-------------------------------------------------------------|

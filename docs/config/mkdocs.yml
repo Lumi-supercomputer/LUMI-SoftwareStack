@@ -1,0 +1,89 @@
+site_name: "LUMI Software Stack technical documentation"
+site_url: https://Lumi-supercomputer.github.io/LUMI-SoftwareStack
+repo_url: https://github.com/Lumi-supercomputer/LUMI-SoftwareStack
+site_description: >-
+  Technical documentation for the LUMI software stack
+
+docs_dir: ..
+site_dir: ../../site
+
+theme:
+  name: material
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.top
+    - navigation.indexes
+    - header.autohide
+    - toc.follow
+  palette:
+    - primary: black
+
+nav:
+  - Home: README.md
+  - What's new or different?: whats_new.md
+  - Installation instructions for the pilot phase: start_on_LUMI_pilot.md
+  - Setup of the LUMI module system: module_setup.md
+  - EasyBuild setup: easybuild_setup.md
+  - Cray PE integration: CrayPE_integration.md
+  - Some procedures: procedures.md
+  - Installation directory structure: directory_structure.md
+  - Overview of files: files_used.md
+  - The contents of the SitePackage.lua file: SitePackage.md
+  - Toolchain documentation:
+      - EasyBuild toolchains common options: Toolchains/toolchain_common.md
+      - Common information to all cpe* toolchains: Toolchains/toolchain_cpe_common.md
+      - cpeCray toolchain: Toolchains/cpeCray.md
+      - cpeGNU toolchain: Toolchains/cpeGNU.md
+      - cpeAOCC toolchain: Toolchains/cpeAOCC.md
+      - Configurations on LUMI: configurations.md
+  - Documentation on our EasyBlocks:
+      - The CrayPEToolchain EasyBlock: CrayPEToolchain.md
+  - Archive:
+      - Failed experiments: failed_experiments.md
+
+plugins:
+  # show revision date at bottom of each page
+  # - git-revision-date-localized
+  # necessary for search to work
+  - search
+  # redirects to avoid broken URLs in original version of the tutorial (June 2020)
+  #- redirects:
+  #    redirect_maps:
+  #        practical_information.md: 2020-06-isc20/practical_information.md
+
+markdown_extensions:
+  # Attributes (e.g., for lazy loading)
+  - attr_list
+  # Markdown in HTML
+  - md_in_html
+  # notes, warnings, hints, ...
+  - admonition
+  # code blocks with syntax highlighting, graphs
+  - pymdownx.superfences:
+        custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  # clickable details
+  - pymdownx.details
+  # tabbed contents
+  - pymdownx.tabbed
+  - toc:
+      permalink: true
+      
+extra:
+  # add links in bottom right
+  social:
+      #- type: github
+      #icon: octicons/logo-github
+      #link: https://github.com/easybuilders
+    - icon: fontawesome/brands/youtube
+      link: https://www.youtube.com/channel/UCb31KOJ6Wqu0sRpIRi_k8Mw
+      name: LUMI on YouTube
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/company/lumi-supercomputer
+      name: LUMI on LinkedIn
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/LUMIhpc
+      name: LUMI on Twitter
