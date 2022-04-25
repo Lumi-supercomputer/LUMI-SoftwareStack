@@ -33,7 +33,7 @@ cray-python,3.8.5.1
 cray-R,4.0.5.1
 jemalloc,5.1.0.4
 AOCC,3.0.0
-ROCM,4.0.1
+ROCM,4.5.2
 intel,2021.2
 NVIDIA,20.9
 craype-targets,1.5.0
