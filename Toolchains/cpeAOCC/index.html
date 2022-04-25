@@ -10,14 +10,14 @@
       
       
       
-        <link rel="canonical" href="https://Lumi-supercomputer.github.io/LUMI-SoftwareStack/Toolchains/cpeAMD/">
+        <link rel="canonical" href="https://Lumi-supercomputer.github.io/LUMI-SoftwareStack/Toolchains/cpeAOCC/">
       
       <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.2.5">
     
     
       
-        <title>cpeAMD toolchain - LUMI Software Stack technical documentation</title>
+        <title>cpeAOCC toolchain - LUMI Software Stack technical documentation</title>
       
     
     
@@ -50,12 +50,16 @@
   
     
     
+      
     
     
     
-    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="black" data-md-color-accent="">
   
     
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
@@ -63,7 +67,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#cpeamd-toolchain" class="md-skip">
+        <a href="#cpeaocc-toolchain" class="md-skip">
           Skip to content
         </a>
       
@@ -96,12 +100,21 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              cpeAMD toolchain
+              cpeAOCC toolchain
             
           </span>
         </div>
       </div>
     </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="" data-md-color-primary="black" data-md-color-accent=""  aria-hidden="true"  type="radio" name="__palette" id="__palette_1">
+          
+        
+      </form>
     
     
     
@@ -376,6 +389,8 @@
         
           
         
+          
+        
       
       
         <label class="md-nav__link" for="__nav_11">
@@ -462,12 +477,12 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          cpeAMD toolchain
+          cpeAOCC toolchain
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        cpeAMD toolchain
+        cpeAOCC toolchain
       </a>
       
         
@@ -508,8 +523,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#cpegnu-specific-flags" class="md-nav__link">
-    cpeGNU-specific flags
+  <a href="#cpeaocc-specific-flags" class="md-nav__link">
+    cpeAOCC-specific flags
   </a>
   
 </li>
@@ -583,6 +598,20 @@
 
             
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configurations/" class="md-nav__link">
+        Configurations on LUMI
+      </a>
+    </li>
+  
+
+            
+          
         </ul>
       </nav>
     </li>
@@ -629,6 +658,58 @@
     <li class="md-nav__item">
       <a href="../../CrayPEToolchain/" class="md-nav__link">
         The CrayPEToolchain EasyBlock
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_13" type="checkbox" id="__nav_13" >
+      
+      
+      
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_13">
+          Archive
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Archive" data-md-level="1">
+        <label class="md-nav__title" for="__nav_13">
+          <span class="md-nav__icon md-icon"></span>
+          Archive
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../failed_experiments/" class="md-nav__link">
+        Failed experiments
       </a>
     </li>
   
@@ -690,8 +771,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#cpegnu-specific-flags" class="md-nav__link">
-    cpeGNU-specific flags
+  <a href="#cpeaocc-specific-flags" class="md-nav__link">
+    cpeAOCC-specific flags
   </a>
   
 </li>
@@ -768,13 +849,13 @@
             <article class="md-content__inner md-typeset">
               
                 
-<a href="https://github.com/Lumi-supercomputer/LUMI-SoftwareStack/edit/master/docs/Toolchains/cpeAMD.md" title="Edit this page" class="md-content__button md-icon">
+<a href="https://github.com/Lumi-supercomputer/LUMI-SoftwareStack/edit/master/docs/Toolchains/cpeAOCC.md" title="Edit this page" class="md-content__button md-icon">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
 </a>
 
 
 
-<h1 id="cpeamd-toolchain">cpeAMD toolchain<a class="headerlink" href="#cpeamd-toolchain" title="Permanent link">&para;</a></h1>
+<h1 id="cpeaocc-toolchain">cpeAOCC toolchain<a class="headerlink" href="#cpeaocc-toolchain" title="Permanent link">&para;</a></h1>
 <p>Note: The options are for the <code>aocc.py</code> file included in this repository and are
 not the same as those for the repository at CSCS.</p>
 <h2 id="note-about-the-compilers">Note about the compilers<a class="headerlink" href="#note-about-the-compilers" title="Permanent link">&para;</a></h2>
@@ -819,7 +900,7 @@ really just redefinitions of standard compiler flags.</p>
 </tr>
 </tbody>
 </table>
-<h3 id="cpegnu-specific-flags">cpeGNU-specific flags<a class="headerlink" href="#cpegnu-specific-flags" title="Permanent link">&para;</a></h3>
+<h3 id="cpeaocc-specific-flags">cpeAOCC-specific flags<a class="headerlink" href="#cpeaocc-specific-flags" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -1114,13 +1195,13 @@ yet supported by AOCC 2.2.</p>
       
       
         
-        <a href="../../CrayPEToolchain/" class="md-footer__link md-footer__link--next" aria-label="Next: The CrayPEToolchain EasyBlock" rel="next">
+        <a href="../../configurations/" class="md-footer__link md-footer__link--next" aria-label="Next: Configurations on LUMI" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 Next
               </span>
-              The CrayPEToolchain EasyBlock
+              Configurations on LUMI
             </div>
           </div>
           <div class="md-footer__button md-icon">
