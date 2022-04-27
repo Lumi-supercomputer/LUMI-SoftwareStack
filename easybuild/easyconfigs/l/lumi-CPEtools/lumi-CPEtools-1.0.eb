@@ -1,0 +1,56 @@
+easyblock = 'MakeCp'
+
+name =    'lumi-CPEtools'
+version = '1.0'
+
+homepage = 'https://www.lumi-supercomputer.eu'
+
+whatis = [
+    'Description: Various programs to experiment with starting processes and core affinity and analyse executables.',
+]
+
+description = """
+The LUMI-CPEtools module provides various programs to experiment with starting
+applications of various types and with core affinity and to show which Cray PE
+libraries are used by an executable. It may be enhanced with additional 
+features in the future.
+
+This version is only a restricted version of the module as CrayEnv does not
+support building with the Cray PE through EasyBuild. Only the xldd cpmmand
+is currently included. Please use the LUMI software stacks for access to
+the other programs.
+"""
+
+docurls = [
+    "Run xldd --help",
+]
+
+toolchain = SYSTEM
+
+# Downloading from GitHub releases..
+# https://github.com/Lumi-supercomputer/lumi-CPEtools/archive/refs/tags/1.0.tar.gz
+sources = [{
+    'download_filename': '%(version)s.tar.gz',
+    'filename':          '%(name)s-%(version)s.tar.gz',
+    'source_urls':       ['https://github.com/Lumi-supercomputer/%(name)s/archive/refs/tags']
+}]
+
+prebuildopts = 'cd src ; '
+buildopts = 'bindir ../bin/xldd CC=gcc MPICC=gcc CFLAGS="-O2" OMPFLAG="-fopenmp" DEFINES="" LIBS=""'
+
+files_to_copy = [
+    'bin',
+    ( ['man/man1/xldd.1'], 'man/man1'),
+    'README.md',
+]
+
+sanity_check_paths = {
+    'files': [ 'bin/xldd' ],
+    'dirs':  [ 'man/man1']
+}
+
+sanity_check_commands = [
+    'xldd --help',
+]
+
+moduleclass = 'devel'

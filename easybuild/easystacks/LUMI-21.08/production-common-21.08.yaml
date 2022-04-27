@@ -17,6 +17,12 @@ software:
     toolchains:
       SYSTEM:
         versions: ['15.1.0']
+  lumi-CPEtools:
+    toolchains:
+      cpeCray-21.08:
+        versions: ['1.0']
+      cpeGNU-21.08:
+        versions: ['1.0']
   nano:
     toolchains:
       SYSTEM:

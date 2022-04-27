@@ -13,6 +13,10 @@ software:
     toolchains:
       SYSTEM:
         versions: ['21.12']
+  lumi-CPEtools:
+    toolchains:
+      SYSTEM:
+        versions: ['1.0']
   nano:
     toolchains:
       SYSTEM:
