@@ -19,6 +19,11 @@ This version is only a restricted version of the module as CrayEnv does not
 support building with the Cray PE through EasyBuild. Only the xldd cpmmand
 is currently included. Please use the LUMI software stacks for access to
 the other programs.
+
+After loading this module, you can still see the sources of the tools not
+included in this version in $EBROOTLUMIMINCPETOOLS/src, so you can copy
+these sources and still recompile for yourself using any of the available
+programming environments should you want to.
 """
 
 docurls = [
@@ -40,6 +45,7 @@ buildopts = 'bindir ../bin/xldd CC=gcc MPICC=gcc CFLAGS="-O2" OMPFLAG="-fopenmp"
 
 files_to_copy = [
     'bin',
+    'src', 
     ( ['man/man1/xldd.1'], 'man/man1'),
     'README.md',
 ]
