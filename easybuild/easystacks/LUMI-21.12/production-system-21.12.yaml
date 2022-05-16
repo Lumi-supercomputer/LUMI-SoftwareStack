@@ -11,3 +11,7 @@ software:
     toolchains:
       SYSTEM:
         versions: ['10.0.0']
+  ARMForge:
+    toolchains:
+      SYSTEM:
+        versions: ['22.0.1']
