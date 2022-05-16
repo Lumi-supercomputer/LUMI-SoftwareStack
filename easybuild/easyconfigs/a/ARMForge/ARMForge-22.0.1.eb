@@ -1,6 +1,6 @@
 easyblock = 'EB_Allinea'
 
-name =    'Arm-Forge'
+name =    'ARMForge'
 version = '22.0.1'
 
 homepage = 'https://developer.arm.com/Tools%20and%20Software/Arm%20Forge'
@@ -13,6 +13,15 @@ description = """
 Arm Forge is the leading server and HPC development tool
 suite in research, industry, and academia for C, C++,
 Fortran, and Python high performance code on Linux.
+
+Arm Forge is the leading server and HPC development tool suite in research, 
+industry, and academia for C, C++, Fortran, and Python high performance 
+code on Linux.  
+
+Arm Forge includes Arm DDT, the best debugger for time-saving high 
+performance application debugging, Arm MAP, the trusted performance profiler 
+for invaluable optimization advice, and Arm Performance Reports to help you 
+analyze your HPC application runs.
 """
 
 usage = """
@@ -27,15 +36,12 @@ Arm Forge can be used in two different modes on LUMI:
     contains everything, but only the remote client will work on your machine 
     (unless you would happen to have a personal license for Arm Forge).
 
-TODO: Where to go with this documentation?
-
-To run Arm Forge from command line use `--offline` option.
-To run with graphical user interface use the VNC container
-with the following additional modules: `X11` `lumi-vnc`
+For more information, try also "ddt -h", "map -h" or "perf-report -h".
 """
 
 docurls = [
-    'Links to PDF versions of the manuals on https://developer.arm.com/Tools%20and%20Software/Arm%20Forge'
+    'Links to PDF versions of the manuals on https://developer.arm.com/Tools%20and%20Software/Arm%20Forge',
+    'Copy of the PDF user guide in $EBROOTARMFORGE/doc/userguide.pdf (after loading the module)',
 ]
 
 toolchain = SYSTEM
