@@ -72,6 +72,19 @@ wait
 printf " Done"
 
 #
+# Sync the licenses, but be careful with Vampir.
+#
+directory='licenses'
+printf "\nPushing the $directory directory..."
+for i in "${!destinations[@]}"
+do
+    mkdir -p ${destinations[$i]}/$directory
+    rsync --archive --delete --exclude $main_appl/$directory/Vampir $main_appl/$directory/ ${destinations[$i]}/$directory/ >& "$logdir/${dest_short[$i]}_$logfile" &
+done
+wait
+printf " Done"
+
+#
 # Update the LUMI-EasyBuild-contrib repo but don't copy the git structures
 # to save some space.
 #
