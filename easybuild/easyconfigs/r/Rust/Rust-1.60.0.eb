@@ -23,6 +23,13 @@ it can power performance-critical services, run on embedded devices, and easily
 integrate with other languages. Rust’s rich type system and ownership model
 guarantee memory-safety and thread-safety — enabling you to eliminate many
 classes of bugs at compile-time.
+
+Note that the Rust installation process is not exactly HPC-friendly and 
+downloads files on the fly, so installation will not work on nodes that do
+not have internet access. Moreover, because of this we cannot give any
+guarantee about reproducibility of the install or even our ability to 
+re-install Rust when needed, so this version may disappear without any
+warning.
 """
 
 toolchain = SYSTEM
