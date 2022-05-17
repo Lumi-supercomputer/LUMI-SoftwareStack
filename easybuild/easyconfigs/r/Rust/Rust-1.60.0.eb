@@ -1,0 +1,77 @@
+# Contributed by Kurt Lust, University of Antwerpen and LUMI consortium, based on
+# the build recipe in the easybuilders repository.
+#
+# NOTE: This package is meant to be installed in partition/common on LUMI.
+#
+easyblock = 'ConfigureMake'
+
+local_LUMI_version =   '21.12'         # Version of the CPE and buildtools
+local_Rust_version =   '1.60.0'        # https://www.rust-lang.org
+
+name =    'Rust'
+version = local_Rust_version
+
+homepage = 'https://www.rust-lang.org'
+
+whatis = [
+    "Description: Rust is a systems programming language that runs blazingly fast, prevents segfaults, and guarantees thread safety"
+]
+
+description = """
+Rust is blazingly fast and memory-efficient: with no runtime or garbage collector,
+it can power performance-critical services, run on embedded devices, and easily
+integrate with other languages. Rust’s rich type system and ownership model
+guarantee memory-safety and thread-safety — enabling you to eliminate many
+classes of bugs at compile-time.
+"""
+
+toolchain = SYSTEM
+
+source_urls = ['https://static.rust-lang.org/dist/']
+sources =     ['rustc-%(version)s-src.tar.gz']
+checksums =   ['20ca826d1cf674daf8e22c4f8c4b9743af07973211c839b85839742314c838b7']
+
+builddependencies = [
+    ('buildtools', local_LUMI_version),  # For CMake
+]
+
+osdependencies = [
+    ('openssl-devel', 'libssl-dev', 'libopenssl-devel'), # For CMake
+]
+
+#
+# Configure phase
+#
+# TODO: Double-check if it makes sense to set CFLAGS, figure out how to see the compiler flags
+# in the log file which may not be trivial as we do not directly call Make.
+preconfigopts  = 'module unload cce gcc aocc PrgEnv-gnu PrgEnv-cray PrgEnv-aocc ; module list ; '
+preconfigopts += 'CFLAGS="-macrch=znver1 -O2 -fpic" CXXFLAGS="-march=znver1 -O2 -fpic" '
+
+configopts  = "--enable-extended --sysconfdir=%(installdir)s/etc "
+# avoid build dependency on Ninja, which requires Python,
+# since Rust is a build dependency for cryptography that is included with Python
+configopts += "--set=llvm.ninja=false "
+
+# Use ./x.py to bootstrap so that options like -j N are correctly passed through
+# see: https://rustc-dev-guide.rust-lang.org/building/how-to-build-and-run.html#what-is-xpy
+# (ConfigureMake already adds `-j %(parallel)s` to the `build_cmd`)
+build_cmd = "./x.py build"
+install_cmd = "./x.py install -j %(parallel)s"
+
+# avoid failure when home directory is an NFS mount,
+# see https://github.com/rust-lang/cargo/issues/6652
+prebuildopts  = 'module unload cce gcc aocc PrgEnv-gnu PrgEnv-cray PrgEnv-aocc ; module list ; '
+prebuildopts += 'export CARGO_HOME=%(builddir)s/cargo && '
+preinstallopts = prebuildopts
+
+sanity_check_paths = {
+    'files': ['bin/cargo', 'bin/rustc', 'bin/rustdoc'],
+    'dirs':  ['lib/rustlib', 'share/doc', 'share/man'],
+}
+
+sanity_check_commands = [
+    "cargo --version",
+    "rustc --version",
+]
+
+moduleclass = 'lang'
