@@ -19,3 +19,6 @@ dependencies: CubeLib, CubeWriter, OPARI2 and OTF2.
 
 The cpeCray version requires to disable Cray specific optimization to avoid
 a compiler crash.
+
+With cpeAOCC/21.12 there is also a compiler crash for which we have no solution yet.
+
