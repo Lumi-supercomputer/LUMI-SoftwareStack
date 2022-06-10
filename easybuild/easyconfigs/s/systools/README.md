@@ -34,3 +34,11 @@ The current content is
     (but not with -h or --version so it is not detected in the EasyBuild sanity
     check). The likely cause is a problem with out ncursesw library that is part
     of syslibs and fully static.
+
+### 21.12
+
+### 22.05
+
+  * Update of htop and some improvements to the EasyConfig.
+
+  * Robustified the installation on LUMI with checksums.
