@@ -15,7 +15,7 @@
   * [Vim support in the CSCS repository](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/v/Vim)
 
 
-### Version 8.2.3852
+### Version 8.2.3852 for LUMI/21.08
 
   * EasyConfig derived from the CSCS one and adapted to our needs.
 
@@ -23,6 +23,11 @@
     dependencies.
 
 
-### Version 8.2.4487
+### Version 8.2.4487 for LUMI/21.12
 
   * Trivial port of the 8.2.3852 version
+
+
+### Version 8.2.5075 for LUMI/22.05
+
+  * Trivial port of the 8.2.4487 version
