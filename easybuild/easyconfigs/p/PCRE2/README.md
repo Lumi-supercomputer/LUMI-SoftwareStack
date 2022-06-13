@@ -1,8 +1,10 @@
 # PCRE2
 
-  * [PCRE home page](http://www.pcre.org/)
+  * [PCRE/PCRE2 home page](http://www.pcre.org/)
 
-  * [PCRE downloads](https://ftp.pcre.org/pub/pcre/)
+  * [PCRE2 GitHub](https://github.com/PCRE2Project/pcre2)
+
+      * [PCRE2 releases on GitHub](https://github.com/PCRE2Project/pcre2/releases)
 
 
 ## EasyBuild
