@@ -18,3 +18,11 @@
 
   * We started from an EasyConfig file from the University of Antwerpen which
     itself is based on the ones in the EasyBuilders repository.
+
+### 71.1 from CPE 22.05 on
+
+  * Trivial port of the EasyConfig.
+
+  * Added `sanity_check_commands`.
+
+  * Checked the documentation for further testing procedures bud coulnd't find any at the moment.
