@@ -1,0 +1,51 @@
+easyblock = 'CMakeMake'
+
+local_Blosc_version =        '1.21.1'        # https://github.com/Blosc/c-blosc/releases
+
+name =    'Blosc'
+version = local_Blosc_version
+
+homepage = 'https://www.blosc.org/'
+
+whatis = [
+    "Description: Blosc is an extremely fast, multi-threaded, meta-compressor library"
+]
+
+description = """
+Blosc is a high performance compressor optimized for binary data. It has been
+designed to transmit data to the processor cache faster than the traditional,
+non-compressed, direct memory fetch approach via a memcpy() OS call. Blosc is
+the first compressor (that I'm aware of) that is meant not only to reduce the
+size of large datasets on-disk or in-memory, but also to accelerate
+memory-bound computations (which is typical in vector-vector operations).
+
+It uses the blocking technique (as described in this article) to reduce activity
+on the memory bus as much as possible. In short, the blocking technique works
+by dividing datasets in blocks that are small enough to fit in L1 cache of
+modern processor and perform compression/decompression there. It also
+leverages SIMD (SSE2) and multi-threading capabilities present in nowadays
+multi-core processors so as to accelerate the compression/decompression
+process to a maximum.
+"""
+
+toolchain = {'name': 'cpeGNU', 'version': '22.05'}
+toolchainopts = {'pic': True, 'cstd': 'c++11'}
+
+#source_urls = ['https://github.com/Blosc/c-blosc/archive/']
+#sources =     ['v%(version)s.tar.gz']
+sources = [ { 'filename': SOURCELOWER_TAR_GZ,
+              'download_filename': 'v%(version)s.tar.gz',
+              'source_urls': ['https://github.com/Blosc/c-blosc/archive/'] } ]
+checksums =   ['f387149eab24efa01c308e4cba0f59f64ccae57292ec9c794002232f7903b55b']
+
+builddependencies = [
+    ('buildtools', '%(toolchain_version)s', '', True),
+]
+
+sanity_check_paths = {
+    'files': ['include/blosc-export.h', 'include/blosc.h', 'lib/libblosc.a',
+              'lib/libblosc.%s' % SHLIB_EXT],
+    'dirs':  [],
+}
+
+moduleclass = 'lib'
