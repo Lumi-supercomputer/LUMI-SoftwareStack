@@ -1,0 +1,46 @@
+# Contributed by Kurt Lust, LUMI project & UAntwerpen
+easyblock = 'CMakeMake'
+
+local_Brotli_version =       '1.0.9'         # https://github.com/google/brotli/releases
+
+name =    'Brotli'
+version = local_Brotli_version
+
+homepage = 'https://github.com/google/brotli'
+
+whatis = [
+    "Description: brotli is a lossless compression technique used by browsers and web servers and better than zlib"
+]
+
+description = """
+Brotli is a generic-purpose lossless compression algorithm that compresses data
+using a combination of a modern variant of the LZ77 algorithm, Huffman coding
+currently available general-purpose compression methods. It is similar in speed
+with deflate but offers more dense compression.
+
+The specification of the Brotli Compressed Data Format is defined in RFC 7932.
+
+Brotli is open-sourced under the MIT License, see the LICENSE file.
+"""
+
+toolchain = {'name': 'cpeAOCC', 'version': '22.05'}
+toolchainopts = {'pic': True}
+
+sources = [ {
+              'download_filename': 'v%(version)s.tar.gz',
+              'filename':          SOURCELOWER_TAR_GZ,
+              'source_urls':       ['https://github.com/google/brotli/archive']
+            } ]
+source_urls = []
+checksums =   ['f9e8d81d0405ba66d181529af42a3354f838c939095ff99930da6aa9cdf6fe46']
+
+builddependencies = [ # Create a reproducible build environment.
+    ('buildtools', '%(toolchain_version)s', '', True),
+]
+
+sanity_check_paths = {
+    'files': ['bin/brotli', 'lib64/libbrotlicommon-static.a', 'lib64/libbrotlicommon.%s' % SHLIB_EXT],
+    'dirs':  ['lib64/pkgconfig'],
+}
+
+moduleclass = 'lib'
