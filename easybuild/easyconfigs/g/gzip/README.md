@@ -25,3 +25,10 @@
         for all Cray environments.
       * Disable the warning via extra_cflags which is what we have done here.
 
+### 1.12 from CPE 22.05 on
+
+  * Trivial port of the EasyConfig.
+
+  * The extra flag to deal with problems with zen3 optimisation is no longer needed.
+
+

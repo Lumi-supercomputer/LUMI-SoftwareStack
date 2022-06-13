@@ -1,0 +1,36 @@
+easyblock = 'ConfigureMake'
+
+local_gzip_version =     '1.12'    # https://ftp.gnu.org/gnu/gzip/
+
+name =    'gzip'
+version = local_gzip_version
+
+homepage = 'http://www.gnu.org/software/gzip/'
+
+whatis = [
+    "Description: gzip provides the gzip data compression programs",
+]
+
+description = """
+gzip (GNU zip) is a popular data compression program as a replacement for compress
+"""
+
+toolchain = {'name': 'cpeGNU', 'version': '22.05'}
+toolchainopts = {'pic': True}
+
+source_urls = [GNU_SOURCE]
+sources =     [SOURCE_TAR_XZ]
+checksums =   ['ce5e03e519f637e1f814011ace35c4f87b33c0bbabeec35baf5fbd3479e91956']
+
+builddependencies = [ # Create a reproducible build environment.
+    ('buildtools', '%(toolchain_version)s', '', True),
+]
+
+sanity_check_paths = {
+    'files': ["bin/gunzip", "bin/gzip", "bin/uncompress"],
+    'dirs':  [],
+}
+
+sanity_check_commands = [True, ('gzip', '--version')]
+
+moduleclass = 'tools'
