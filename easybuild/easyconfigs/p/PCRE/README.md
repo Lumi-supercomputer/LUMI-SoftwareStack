@@ -4,6 +4,9 @@
 
   * [PCRE downloads](https://ftp.pcre.org/pub/pcre/)
 
+  * [Alternative PCRE download on SourceForge](https://sourceforge.net/projects/pcre/files/pcre/) 
+    (as the previous one seems to be dead as PCRE is no longer maintained)
+
 
 ## EasyBuild
 
