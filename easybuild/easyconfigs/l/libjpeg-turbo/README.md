@@ -24,3 +24,9 @@
 
       * Switched to GitHub as the source of the files and the home page.
 
+### Version 2.1.3 from CPE 22.05 on
+
+  * Trivial version bump,
+
+  * Added some sanity_check_commands, but this may not be that useful as there is a 
+    testing procedure during the build.
