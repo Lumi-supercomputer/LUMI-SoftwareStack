@@ -7,7 +7,7 @@
 
 ## EasyBuild
 
-  * [Regular EasyBuild support](https://github.com/easybuilders/easybuild-easyconfigs/tree/main/easybuild/easyconfigs/n/ncurses)
+  * [Regular EasyBuild support](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/n/ncurses)
   * [CSCS EasyConfigs](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/n/ncurses)
 
 

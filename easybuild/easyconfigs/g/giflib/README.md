@@ -6,7 +6,7 @@
 
 ## EasyBuild
 
-  * [ giflib support in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/main/easybuild/easyconfigs/g/giflib)
+  * [ giflib support in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/g/giflib)
 
   * There is no support for giflib in the CSCS repository
 

@@ -6,7 +6,7 @@
 
 ## EasyBuild
 
-  *  [FriBidi support in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/main/easybuild/easyconfigs/f/FriBidi)
+  *  [FriBidi support in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/f/FriBidi)
 
   * FriBidi is not in the CSCS repository
 

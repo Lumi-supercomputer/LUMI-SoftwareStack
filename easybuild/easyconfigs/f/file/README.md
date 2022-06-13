@@ -2,14 +2,14 @@
 
   * [file home page](http://www.darwinsys.com/file/)
 
-  * [file downloads](ftp://ftp.astron.com/pub/file/)
+  * [file downloads](https://www.astron.com/pub/file/)
 
   * [GitHub mirror of the CVS](https://github.com/file/file)
 
 
 ## EasyBuild
 
-  * [file support in the EasyBuilders repository]()
+  * [file support in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/f/file)
 
   * There is no support for file in the CSCS repository
 

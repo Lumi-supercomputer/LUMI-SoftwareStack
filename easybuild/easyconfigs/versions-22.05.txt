@@ -43,22 +43,22 @@ local_bzip2_major_minor =    '1.0'
 local_cairo_version =        '1.17.4'        # https://www.cairographics.org/
 local_CubeLib_version =      '4.6'           # https://www.scalasca.org/scalasca/software/cube-4.x/download.html
 local_CubeWriter_version =   '4.6'           # https://www.scalasca.org/scalasca/software/cube-4.x/download.html
-local_cURL_version =         '7.78.0'        # https://curl.haxx.se/download/
+local_cURL_version =         '7.83.1'        # https://curl.haxx.se/download/
 
 local_DB_version =           '18.1.40'       # https://www.oracle.com/database/technologies/related/berkeleydb-downloads.html
-local_double_conv_version =  '3.1.5'         # https://github.com/google/double-conversion/releases
+local_double_conv_version =  '3.2.0'         # https://github.com/google/double-conversion/releases
 
 local_Eigen_version =        '3.4'           # https://gitlab.com/libeigen/eigen/-/releases
-local_ELPA_version =         '2021.05.002'   # Synchronized with CSCS
-local_ESMF_version =         '8.2.0'         # https://github.com/esmf-org/esmf/releases
-local_expat_version =        '2.4.6'         # https://github.com/libexpat/libexpat/releases
+local_ELPA_version =         '2021.11.001'   # Synchronized with CSCS
+local_ESMF_version =         '8.3.0'         # https://github.com/esmf-org/esmf/releases
+local_expat_version =        '2.4.8'         # https://github.com/libexpat/libexpat/releases
 
-local_file_version =         '5.41'          # ftp://ftp.astron.com/pub/file/
+local_file_version =         '5.42'          # ftp://ftp.astron.com/pub/file/
 local_FFmpeg_version =       '4.3.3'         # https://ffmpeg.org/download.html#releases
-local_FLAC_version =         '1.3.3'         # https://xiph.org/downloads/ or https://github.com/xiph/flac/releases
+local_FLAC_version =         '1.3.4'         # https://xiph.org/downloads/ or https://github.com/xiph/flac/releases
 local_fontconfig_version =   '2.13.94'       # https://www.freedesktop.org/software/fontconfig/release/
 local_freetype_version =     '2.11.0'        # https://download.savannah.gnu.org/releases/freetype/
-local_fribidi_version =      '1.0.10'        # https://github.com/fribidi/fribidi/releases
+local_fribidi_version =      '1.0.12'        # https://github.com/fribidi/fribidi/releases
 
 local_gc_version =           '8.2.0'         # http://hboehm.info/gc/gc_source/
 local_gdbm_version =         '1.20'          # https://ftp.gnu.org/gnu/gdbm/
@@ -68,30 +68,30 @@ local_GLib_version =         '2.69.1'        # https://ftp.gnome.org/pub/GNOME/s
 local_GMP_version =          '6.2.1'         # https://ftp.gnu.org/gnu/gmp/
 local_gnuplot_version =      '5.4.3'         # http://gnuplot.sourceforge.net/
 local_GObject_version =      '1.71.0'        # https://github.com/GNOME/gobject-introspection/releases
-local_GSL_version =          '2.7'           # https://ftp.gnu.org/gnu/gsl/
-local_gzip_version =         '1.10'          # https://ftp.gnu.org/gnu/gzip/
+local_GSL_version =          '2.7.1'         # https://ftp.gnu.org/gnu/gsl/
+local_gzip_version =         '1.12'          # https://ftp.gnu.org/gnu/gzip/
 
 local_HarfBuzz_version =     '2.8.2'          # https://www.freedesktop.org/software/harfbuzz/release/
 
-local_ICU_version =          '69.1'          # http://site.icu-project.org/home
+local_ICU_version =          '71.1'          # http://site.icu-project.org/home
 local_intltool_version =     '0.51.0'        # https://launchpad.net/intltool/+download
 
-local_JasPer_version =       '2.0.33'        # https://github.com/jasper-software/jasper/releases
+local_JasPer_version =       '3.0.4'         # https://github.com/jasper-software/jasper/releases
 
 local_LAME_version =         '3.100'         # http://lame.sourceforge.net/
 local_libaec_version =       '1.0.6'         # https://gitlab.dkrz.de/k202009/libaec/-/tags
 local_libarchive_version =   '3.5.1'         # https://github.com/libarchive/libarchive/releases
 local_libatomic_version =    '7.6.12'        # https://github.com/ivmai/libatomic_ops/releases (with gc)
 local_libb2_version =        '0.98.1'        # https://github.com/BLAKE2/libb2/releases
-local_libcerf_version =      '1.17'          # https://jugit.fz-juelich.de/mlz/libcerf/-/releases
-local_libdeflate_version =   '1.8'           # https://github.com/ebiggers/libdeflate/releases
+local_libcerf_version =      '2.1'           # https://jugit.fz-juelich.de/mlz/libcerf/-/releases
+local_libdeflate_version =   '1.12'          # https://github.com/ebiggers/libdeflate/releases
 local_libevent_version =     '2.1.12'        # https://libevent.org/
 local_libffi_version =       '3.4.2'         # https://sourceware.org/libffi/
 local_libgd_version =        '2.3.3'         # http://www.libgd.org/
 local_libiconv_version =     '1.16'          # https://ftp.gnu.org/pub/gnu/libiconv/
 local_libidn2_version =      '2.3.2'         # https://ftp.gnu.org/gnu/libidn/
 local_libidn_version =       '1.38'          # https://ftp.gnu.org/gnu/libidn/
-local_libjpegturbo_version = '2.1.0'         # https://github.com/libjpeg-turbo/libjpeg-turbo/releases
+local_libjpegturbo_version = '2.1.3'         # https://github.com/libjpeg-turbo/libjpeg-turbo/releases
 local_libogg_version =       '1.3.5'         # https://www.xiph.org/downloads/ or https://github.com/xiph/ogg/releases
 local_libopus_version =      '1.3.1'         # http://opus-codec.org/downloads/
 local_libpciaccess_version = '0.16'          # https://cgit.freedesktop.org/xorg/lib/libpciaccess/
@@ -138,8 +138,8 @@ local_snappy_version =       '1.1.9'         # https://github.com/google/snappy/
 local_SQLite_version =       '3.36.0'        # https://www.sqlite.org/
 local_Szip_version =         '2.1.1'         # https://support.hdfgroup.org/ftp/lib-external/szip/
 
-local_Tcl_version =          '8.6.11'        # https://tcl.tk/
-local_Tk_version =           '8.6.11'        # https://tcl.tk/
+local_Tcl_version =          '8.6.12'        # https://tcl.tk/
+local_Tk_version =           '8.6.12'        # https://tcl.tk/
 local_termcap_version =      '1.3.1'         # https://ftp.gnu.org/gnu/termcap/
 
 local_UDUNITS_version =      '2.2.28'        # https://artifacts.unidata.ucar.edu/service/rest/repository/browse/downloads-udunits/
@@ -153,5 +153,5 @@ local_x265_version =         '3.5'           # http://download.videolan.org/pub/
 local_xorg_macros_version =  '1.19.3'        # https://cgit.freedesktop.org/xorg/util/macros
 local_XZ_version =           '5.2.5'         # https://tukaani.org/xz/
 
-local_zlib_version =         '1.2.11'        # https://zlib.net/
+local_zlib_version =         '1.2.12'        # https://zlib.net/
 local_zstd_version =         '1.5.0'         # https://github.com/facebook/zstd/releases

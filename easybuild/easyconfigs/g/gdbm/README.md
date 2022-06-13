@@ -6,7 +6,7 @@
 
 ## EasyBuild
 
-  * [gdbm in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/main/easybuild/easyconfigs/g/gdbm)
+  * [gdbm in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/g/gdbm)
 
   * There is no support for gdbm in the CSCS repository
 

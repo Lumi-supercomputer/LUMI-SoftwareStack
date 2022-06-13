@@ -6,7 +6,7 @@
 
 ## EasyBuild
 
-  * [Regular EasyBuild support](https://github.com/easybuilders/easybuild-easyconfigs/tree/main/easybuild/easyconfigs/l/libreadline)
+  * [Regular EasyBuild support](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/libreadline)
   * [CSCS EasyConfigs](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/l/libreadline)
 
 ### 8.1 from 21.06 on

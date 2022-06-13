@@ -6,7 +6,7 @@
 
 ## EasyBuild
 
-  * [libiconv support in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/main/easybuild/easyconfigs/l/libiconv)
+  * [libiconv support in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/libiconv)
 
 ### 1.16 from 21.06 on
 

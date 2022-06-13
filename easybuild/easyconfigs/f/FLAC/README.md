@@ -18,7 +18,7 @@
 
 ## EasyConfig
 
-  * [FLAC support in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/main/easybuild/easyconfigs/f/FLAC)
+  * [FLAC support in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/f/FLAC)
 
   * There is no support for FLAC in the CSCS repository
 

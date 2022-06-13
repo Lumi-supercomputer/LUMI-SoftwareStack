@@ -16,7 +16,7 @@
 
 ## EasyConfig
 
-  * [libogg in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/main/easybuild/easyconfigs/l/libogg)
+  * [libogg in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/libogg)
 
   * There is no support for libogg in the CSCS repository
 

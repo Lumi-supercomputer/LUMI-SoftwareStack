@@ -9,7 +9,7 @@
 
 ## Easybuild
 
-  * [libwebp support in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/main/easybuild/easyconfigs/l/libwebp)
+  * [libwebp support in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/libwebp)
 
   * There is no libwebp support in the CSCS repository
 

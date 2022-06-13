@@ -6,7 +6,7 @@
 
 ## EasyBuild support
 
-  * [GMP in the EasyBuilders repositories](https://github.com/easybuilders/easybuild-easyconfigs/tree/main/easybuild/easyconfigs/g/GMP).
+  * [GMP in the EasyBuilders repositories](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/g/GMP).
 
   * [GMP in the CSCS repository](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/g/GMP)
 

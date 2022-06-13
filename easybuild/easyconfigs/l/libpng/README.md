@@ -4,7 +4,7 @@
 
 ## EasyBuild
 
-  * [libpng support in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/main/easybuild/easyconfigs/l/libpng)
+  * [libpng support in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/libpng)
 
   * [libpng support in the CSCS repository](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/l/libpng)
 

@@ -5,7 +5,7 @@
 
 ## EasyBuild
 
-  * [Rust support in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/main/easybuild/easyconfigs/r/Rust)
+  * [Rust support in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/r/Rust)
 
   * There is no support for Rust in the CSCS repository
 

@@ -4,7 +4,7 @@
 
 ## EasyBuild
 
-  * [LZO support in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/main/easybuild/easyconfigs/l/LZO)
+  * [LZO support in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/LZO)
 
   * There is no support in the CSCS repository
 

@@ -1,13 +1,13 @@
 # libpciaccess
 
-  * [libpciaccess home page]()
+  * [libpciaccess home page](https://cgit.freedesktop.org/xorg/lib/libpciaccess/)
 
   * [libpciaccess main development gitlab](https://gitlab.freedesktop.org/xorg/lib/libpciaccess)
 
 
 ## EasyBuild
 
-  * [libpciaccess support in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/main/easybuild/easyconfigs/l/libpciaccess)
+  * [libpciaccess support in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/libpciaccess)
 
   * There is no support for libpciaccess in the CSCS repository
 

@@ -8,7 +8,7 @@
 
 ## EasyBuild
 
-  * [gzip support in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/main/easybuild/easyconfigs/g/gzip)
+  * [gzip support in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/g/gzip)
 
   * There is no gzip in the CSCS repository
 

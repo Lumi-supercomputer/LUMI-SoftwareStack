@@ -4,7 +4,7 @@ This is a bundle of X11 tools provided by EasyBuild.
 
 ## EasyBuild
 
-  * [X11 bundle in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/main/easybuild/easyconfigs/x/X11)
+  * [X11 bundle in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/x/X11)
 
   * The X11 bundle is not in the CSCS repository.
 

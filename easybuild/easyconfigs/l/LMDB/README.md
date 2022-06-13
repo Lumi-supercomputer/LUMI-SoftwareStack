@@ -4,7 +4,7 @@
 
   * [GitHub mirror of the code](https://github.com/LMDB/lmdb)
 
-      * [GitHub releases](https://github.com/LMDB/lmdb/releases)
+      * [GitHub releases](https://github.com/LMDB/lmdb/tags)
 
 ## General information
 
@@ -19,7 +19,7 @@
 
 ## EasyBuild information
 
-  * [LMDB support in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/main/easybuild/easyconfigs/l/LMDB)
+  * [LMDB support in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/LMDB)
 
   * [LMDB support in the CSCS repository](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/l/LMDB)
 

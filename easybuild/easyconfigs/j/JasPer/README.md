@@ -1,6 +1,6 @@
 # JasPer
 
-  * [JasPEr on GitHub](https://github.com/jasper-software/jasper)
+  * [JasPer on GitHub](https://github.com/jasper-software/jasper)
 
       * [GitHub releases](https://github.com/jasper-software/jasper/releases)
 
@@ -8,7 +8,7 @@
 
 ## EasyBuild
 
-  * [JasPer support in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/main/easybuild/easyconfigs/j/JasPer)
+  * [JasPer support in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/j/JasPer)
 
   * [JasPer support in the CSCS repository](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/j/JasPer)
 

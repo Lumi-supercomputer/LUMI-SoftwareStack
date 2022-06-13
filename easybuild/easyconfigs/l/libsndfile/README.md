@@ -38,7 +38,7 @@
 ## EasyConfig
 
 
-  * [libsndfile support in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/main/easybuild/easyconfigs/l/libsndfile)
+  * [libsndfile support in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/libsndfile)
 
   * There is no libsndfile support in the CSCS repository
 

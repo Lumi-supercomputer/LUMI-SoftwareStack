@@ -9,7 +9,7 @@ of their configure scripts with autoconf.
 
 ## EasyBuild
 
-  * [xorg-macros support in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/main/easybuild/easyconfigs/x/xorg-macros)
+  * [xorg-macros support in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/x/xorg-macros)
 
   * [xorg-macros support in the CSCS repository]https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/x/xorg-macros)
 
