@@ -149,7 +149,7 @@ The following EasyBuild packages are replaced by OS dependencies:
 
   * VampirServer (cpe*) - Vampir server component, in the appl EasyStack
 
-  * [zlib (cpe*)](../z/zlib) - Compression library and one of the most popular dependencies
+  * [zlib (cpe*)](z/zlib) - Compression library and one of the most popular dependencies
 
     UPDATE, synchronizes with EasyBuild.
 
