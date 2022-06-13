@@ -50,16 +50,26 @@ The following EasyBuild packages are replaced by OS dependencies:
 
   * double-conversion (cpe*) - Binary-decimal and decimal-binary conversions
 
+    UPDATE!
+
   * ELPA (cpeGNU) - Large-scale eigenvalue solver
+
+    UPDATE! Synchronizes with EasyBuild.
 
   * ESMF (cpe*) - Tool for coupling climate models, only used in contributed
     packages but as it needs adaptations to an EasyBlock we put it here as a
     courtasy to our users. Skip for now as it turns out to be a mistake in
     the EasyBuilders NCO EasyConfig. It is not linked into the package.
 
+    UPDATE: To 8.3.0.
+
   * expat (cpe*) - XML parser and a popular dependency for many packages
 
+    UPDATE, synchronizes with EasyBuild.
+
   * FriBidi (cpe*) - Free Implementation of the Unicode Bidirectional Algorithm
+
+    UPDATE, synchronizes with EasyBuild.
 
   * giflib (cpe*) - Library for working with gif-files
 
@@ -69,9 +79,15 @@ The following EasyBuild packages are replaced by OS dependencies:
 
   * GSL (cpe*) - GNU Scientific Library
 
+    MINIOR UPDATE
+
   * gzip (cpe*) - Compression library and tools
 
+    UPDATE, synchronizes with EasyBuild.
+
   * ICU (cpe*) - Dependency for libxml2 and hence frequently used
+
+    UPDATE, synchronizes with EasyBuild.
 
   * libaec (cpe*) - Compression library popular in climate applications
 
@@ -79,7 +95,11 @@ The following EasyBuild packages are replaced by OS dependencies:
 
   * libcerf (cpe*) - Complex error function library
 
+    UPDATE: Try update to 2.1.
+
   * libdeflate (cpe*) - Compression library
+
+    UPDATE, would be ahead of EasyBuild, otherwise try 1.10.
 
   * libffi (cpe*) - A fairly often used library, should be in any release.
 
@@ -90,6 +110,8 @@ The following EasyBuild packages are replaced by OS dependencies:
     **TODO: Do we still need libidn or can it be replaced with libidn2 everywhere?**
 
   * libjpeg-turbo (cpe*) - Library and tools for jpeg files
+
+    UPDATE, synchronizes with EasyBuild.
 
   * libogg (cpe*) - Ogg container format
 
@@ -127,7 +149,9 @@ The following EasyBuild packages are replaced by OS dependencies:
 
   * VampirServer (cpe*) - Vampir server component, in the appl EasyStack
 
-  * zlib (cpe*) - Compression library and one of the most popular dependencies
+  * [zlib (cpe*)](../z/zlib) - Compression library and one of the most popular dependencies
+
+    UPDATE, synchronizes with EasyBuild.
 
 
 ## Block 2
