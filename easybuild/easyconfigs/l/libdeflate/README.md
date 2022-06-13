@@ -14,3 +14,8 @@
 
   * The EasyConfig is derived from the EasyBuilders one with additional documentation
     added.
+
+### Version 1.12 from CPE 22.05 on
+
+  * Trivial version bump of the EasyConfig.
+
