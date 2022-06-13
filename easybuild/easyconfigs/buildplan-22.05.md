@@ -81,7 +81,7 @@ The following EasyBuild packages are replaced by OS dependencies:
 
     MINIOR UPDATE
 
-  * [gzip (cpe*)](g./zip) - Compression library and tools
+  * [gzip (cpe*)](g/gzip) - Compression library and tools
 
     UPDATE, synchronizes with EasyBuild.
 
@@ -171,14 +171,22 @@ The following EasyBuild packages are replaced by OS dependencies:
   * [cURL (cpe*)](c/cURL) - Tools for transfering data via URLs. Needs Brotli and zlib (block
     1)
 
+    UPDATE, bugfix release ahead of EasyBuild.
+
   * [file (cpe*)](f/file) - Provides libmagic used by several tools, including util-linux, and
     depends upon zlib (block 1)
 
-  * [FLAC (cpe*)](FLAC) - FLAC audio codec, needs libogg (block 1)
+    UPDATE
+
+  * [FLAC (cpe*)](f/FLAC) - FLAC audio codec, needs libogg (block 1)
+
+    UPDATE
 
   * [gettext -minmal version (cpe*)](g/gettext) - Depends upon ncurses
 
   * [JasPer (cpe*)](j/JasPer) - JPEG-2000, needs libjpeg-turbo (block 1)
+
+    UPDATE: Try major version update, if not return to 2.0.33.
 
   * [LAME (cpe*)](l/LAME) - MP3 audo codec, depends on ncurses (block 1)
 
@@ -198,6 +206,8 @@ The following EasyBuild packages are replaced by OS dependencies:
   * [snappy (cpe*)](s/snappy) - Compression/decompressio library, needs LZO and zlib (block 1)
 
   * [Tcl (cpe*)](t/Tcl) - Dynamic scripting language, needs zlib (block 1)
+
+    UPDATE, synchronizes with EasyBuild.
 
   * [UDUNITS (cpe*)](u/UDUNITS) - Toolset to work with various unit systems. Needs expat (block
     1)
@@ -319,6 +329,8 @@ The following EasyBuild packages are replaced by OS dependencies:
     TODO: FFmpeg for Cray and AOCC???
 
   * [Tk (cpe*)](t/Tk) - Depends on zlib (block 1), Tcl (block 2) and X11 (block 8)
+
+    UPDATE, synchronizes with EasyBuild.
 
 
 ## Block 10
