@@ -173,11 +173,6 @@ The following EasyBuild packages are replaced by OS dependencies:
 
     UPDATE, bugfix release ahead of EasyBuild.
 
-  * [file (cpe*)](f/file) - Provides libmagic used by several tools, including util-linux, and
-    depends upon zlib (block 1)
-
-    UPDATE
-
   * [FLAC (cpe*)](f/FLAC) - FLAC audio codec, needs libogg (block 1)
 
     UPDATE
@@ -217,17 +212,22 @@ The following EasyBuild packages are replaced by OS dependencies:
 
   * [freetype (cpe*)](f/freetype) - Depends on bzip2, zlib (block 1), libpng (block 2)
 
+    UPDATE
+
   * [libiconv (cpe*)](l/libiconv) - Depends upon gettext -minimal and is itself a dependency
     for GLib and other popular packages.
+
+    UPDATE
 
   * [libsndfile (cpe*)](l/libsndfile) - Library and tools encapsulating various audio codecs. Needs
     libogg, libopus (block 1), FLAC and libvorbis (block 2)
 
+    UPDATE
+
   * [libtheora (cpe*)](l/libtheora) - Theora video codec. Needs libogg, libpng (block 1) and libvorbis
     (block 2)
 
-  * [MPC (cpe*)](m/MPC) - Arbitrary precision arithmetic of complex numbers. Needs GMP (block
-    1) and MPFR (block 2)
+  * [MPC (cpe*)](m/MPC) - Arbitrary precision arithmetic of complex numbers. Needs GMP (block 1) and MPFR (block 2)
 
   * [PCRE (cpe*)](p/PCRE) - A popular regular expression library, uses bzip2, zlib (block 1),
     libreadline (block2)
@@ -237,9 +237,13 @@ The following EasyBuild packages are replaced by OS dependencies:
   * [PCRE2 (cpe*)](p/PCRE2) - A popular regular expression library, uses bzip2, zlib (block 1),
     libreadline (block2)
 
+    UPDATE, synchronizes with EasyBuild.
+
   * [pixman (cpe*)](p/pixman) - Pixel manipulation library. Needs libpng (block 2)
 
   * [SQLite (cpe*)](s/SQLite) - Database library. Needs libreadline and Tcl (block 2)
+
+    UPDATE, synchronizes with EasyBuild.
 
   * [XZ (cpe*)](x/XZ) - Depends upon the minimal version of gettext and is a dependency for
     libxml2.
@@ -247,7 +251,12 @@ The following EasyBuild packages are replaced by OS dependencies:
 
 ## Block 4
 
-  * [libunistring (cpe*)](l/libunitstrin) - Needs libiconv (block 3)
+  * [file (cpe*)](f/file) - Provides libmagic used by several tools, including util-linux, and
+    depends upon zlib an bzip2 (block 1) and XZ (block 3)
+
+    UPDATE
+
+  * [libunistring (cpe*)](l/libunitstring) - Needs libiconv (block 3)
 
   * [libunwind (cpe*)](l/libunwind) - Needs XZ (block 3)
 
@@ -306,7 +315,7 @@ The following EasyBuild packages are replaced by OS dependencies:
   * [fontconfig (cpe*)](f/fontconfig) - Depends on expat (block 1), freetype (block 3), util-linux
     (block 6) and is needed by X11
 
-  * [GLib (cpe*)](g/Glib) - Depends on libffi (block 1), PCRE2, libiconv (block 3), libxml2 (block
+  * [GLib (cpe*)](g/GLib) - Depends on libffi (block 1), PCRE2, libiconv (block 3), libxml2 (block
     4), gettext (block 5), util-linux (block 6).
 
 
