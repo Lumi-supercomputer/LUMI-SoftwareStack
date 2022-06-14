@@ -21,3 +21,9 @@
     TLS backend, so this has been added to the EasyConfig file.
 
   * Added additional sanity check commands to the file.
+
+### Version 7.83.1 for LUMI/21.05
+
+  * Trivial update of the EasyConfig, we did not check for new features that could be
+    exploited via additional dependencies.
+
