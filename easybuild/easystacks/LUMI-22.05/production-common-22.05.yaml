@@ -51,8 +51,8 @@ software:
         versions:
           '0.2.2':
             versionsuffix: '-cray-python-3.9.12.1'
-#  Rust:
-#    toolchains:
-#      SYSTEM:
-#        versions: ['1.61.0']
+  Rust:
+    toolchains:
+      SYSTEM:
+        versions: ['1.60.0']
 

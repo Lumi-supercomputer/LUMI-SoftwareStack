@@ -1,0 +1,15 @@
+software:
+  ncurses:
+    toolchains:
+      cpeGNU-21.12:
+        versions: ['6.2']
+  libreadline:
+    toolchains:
+      cpeGNU-21.12:
+        versions: ['8.1']
+  gettext:
+    toolchains:
+      cpeGNU-21.12:
+        versions:
+          '0.21':
+            versionsuffix: '-minimal'

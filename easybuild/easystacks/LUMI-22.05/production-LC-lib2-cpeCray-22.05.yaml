@@ -1,0 +1,337 @@
+software:
+  Blosc:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['1.21.1']
+  Brotli:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['1.0.9']
+  bzip2:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['1.0.8']
+  DB:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['18.1.40']
+  double-conversion:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['3.2.0']
+  expat:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['2.4.8']
+  FriBidi:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['1.0.12']
+  giflib:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['5.2.1']
+  gc:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['8.2.0']
+  GMP:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['6.2.1']
+  GSL:
+    toolchains:
+      cpeCray-22.05:
+        versions: 
+          '2.7.1':
+            versionsuffix: ['-sequential', '-OpenMP']
+  gzip:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['1.12']
+  ICU:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['71.1']
+  libaec:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['1.0.6']
+  libb2:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['0.98.1']
+  libcerf:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['2.1']
+  libdeflate:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['1.12']
+  libffi:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['3.4.2']
+  libidn:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['1.38']
+  libidn2:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['2.3.2']
+  libjpeg-turbo:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['2.1.3']
+  libogg:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['1.3.5']
+  libopus:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['1.3.1']
+  libtirpc:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['1.3.2']
+  libyaml:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['0.2.5']
+  LMDB:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['0.9.29']
+  lz4:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['1.9.3']
+  Lzip:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['1.23']
+  LZO:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['2.10']
+  mpdecimal:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['2.5.1']
+  Szip:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['2.1.1']
+  termcap:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['1.3.1']
+  x264:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['20210613']
+  x265:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['3.5']
+  zlib:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['1.2.12']
+  cURL:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['7.83.1']
+  FLAC:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['1.3.4']
+  JasPer:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['3.0.4']
+  LAME:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['3.100']
+  libevent:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['2.1.12']
+  libpciaccess:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['0.16']
+  libpng:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['1.6.37']
+  libvorbis:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['1.3.7']
+  MPFR:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['4.1.0']
+  snappy:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['1.1.9']
+  Tcl:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['8.6.12']
+  UDUNITS:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['2.2.28']
+  freetype:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['2.12.1']
+  libiconv:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['1.17']
+  libsndfile:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['1.1.0']
+  libtheora:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['1.1.1']
+  MPC:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['1.2.1']
+  PCRE:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['8.45']
+  PCRE2:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['10.40']
+  pixman:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['0.40.0']
+  SQLite:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['3.38.3']
+  XZ:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['5.2.5']
+  file:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['5.42']
+  libunistring:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['1.0']
+  libunwind:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['1.6.2']
+  libxml2:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['2.9.12']
+  wget:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['1.21.3']
+  zstd:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['1.5.2']
+  Boost:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['1.79.0']
+  libarchive:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['3.6.1']
+  gettext: # Second entry for gettext, we may merge with the first and let EasyBuild figure out the dependencies.
+    toolchains:
+      cpeCray-22.05:
+        versions: ['0.21']
+  LibTIFF:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['4.4.0']
+  libxslt:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['1.1.34']
+  Perl:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['5.36.0']
+  intltool:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['0.51.0']
+  gdbm:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['1.23']
+  libwebp:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['1.2.2']
+  PROJ:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['9.0.0']
+  util-linux:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['2.38']
+  fontconfig:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['2.14']
+  GLib:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['2.73.0']
+  libgd:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['2.3.3']
+  X11:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['22.05']
+  cairo:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['1.17.4']
+  Tk:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['8.6.12']
+  GObject-Introspection:
+    toolchains:
+      cpeCray-22.05:
+        versions:
+          '1.71.0':
+            versionsuffix: '-cray-python3.9'
+  HarfBuzz:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['2.8.2']
+  Pango:
+    toolchains:
+      cpeCray-22.05:
+        versions: ['1.50.7']

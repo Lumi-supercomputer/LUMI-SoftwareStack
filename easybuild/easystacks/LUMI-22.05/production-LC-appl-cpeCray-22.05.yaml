@@ -1,0 +1,29 @@
+software:
+  METIS:
+    toolchains:
+      cpeCray-21.12:
+        versions: ['5.1.0']
+  ParMETIS:
+    toolchains:
+      cpeCray-21.12:
+        versions: ['4.0.3']
+  SCOTCH:
+    toolchains:
+      cpeCray-21.12:
+        versions: ['6.1.3']
+  ESMF:
+    toolchains:
+      cpeCray-21.12:
+        versions: ['8.2.0']
+  gnuplot:
+    toolchains:
+      cpeCray-21.12:
+        versions: ['5.4.3']
+  VampirServer:
+    toolchains:
+      cpeCray-21.12:
+        versions: ['10.0.0']
+  Score-P:
+    toolchains:
+      cpeCray-21.12:
+        versions: ['7.1']
