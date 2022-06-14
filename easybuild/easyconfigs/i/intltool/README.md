@@ -6,7 +6,7 @@ of certain X11 libraries.
 
   * [intltool home page](https://freedesktop.org/wiki/Software/intltool/)
 
-  * [Downloads]](https://launchpad.net/intltool/+download)
+  * [Downloads](https://launchpad.net/intltool/+download)
 
 
 ## Installation
