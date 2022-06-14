@@ -12,3 +12,8 @@
 ### Version 8.6.11 from CPE 21.08 onwards
 
   * The EasyConfig file is a mix of the CSCS and EasyBuilder ones
+
+### Version 8.6.12 from CPE 22.05 on
+
+  * Trivial version bump of the 8.6.11 EasyConfig
+
