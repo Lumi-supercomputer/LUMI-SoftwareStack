@@ -21,3 +21,20 @@
 ### Version 2.11.0 from 21.12 on
 
   * Straightforward port of the 2.10.4 one.
+
+### Version 2.12.1 from CPE 22.05 on
+
+  * Started with a straightforward port of the 2.11.0 one.
+
+  * Dependency check
+
+      * Brotli added.
+
+      * Can use harfbuzz but this was not added as a dependency as that requires a 
+        complete reorganisation of the build process, and it is also a circular
+        dependency.
+
+      * Gnome librsvg not added as a dependency as that pulls in a lot of 
+        annoying dependencies, and there seems to be a circular dependency with
+        freetype.
+

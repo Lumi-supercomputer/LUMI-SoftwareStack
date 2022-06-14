@@ -1,0 +1,77 @@
+easyblock = "ConfigureMake" # Avoid using the freetype easyblock, it doesn't do much.
+
+local_Brotli_version =       '1.0.9'         # https://github.com/google/brotli/releases
+local_bzip2_version =        '1.0.8'         # http://www.bzip.org/downloads.html
+local_zlib_version =         '1.2.12'        # https://zlib.net/
+local_libpng_version =       '1.6.37'        # http://www.libpng.org/pub/png/libpng.html
+local_freetype_version =     '2.12.1'        # https://download.savannah.gnu.org/releases/freetype/
+
+name =    'freetype'
+version = local_freetype_version
+
+homepage = 'http://freetype.org'
+
+whatis = [
+    'Description: A freely available software library to render fonts',
+    'This module contains static and shared libraries'
+]
+
+description = """
+FreeType 2 is a software font engine that is designed to be small, efficient,
+highly customizable, and portable while capable of producing high-quality output
+(glyph images). It can be used in graphics libraries, display servers, font
+conversion tools, text image generation tools, and many other products as well.
+
+The module contains static and shared libraries.
+"""
+
+usage = """
+The API is documented on the freetype web page.
+
+The freetype package now supports pkg-config.
+"""
+
+docurls = [
+   'Web-based documentation: https://www.freetype.org/freetype2/docs/documentation.html',
+   'Man page for freetype-config in section 1',
+]
+
+toolchain = {'name': 'cpeGNU', 'version': '22.05'}
+toolchainopts = {'pic': True}
+
+source_urls = [GNU_SAVANNAH_SOURCE]
+sources =     [SOURCE_TAR_GZ]
+checksums =   ['efe71fd4b8246f1b0b1b9bfca13cfff1c9ad85930340c27df469733bbb620938']
+
+builddependencies = [ # Create a reproducible build environment.
+    ('buildtools', '%(toolchain_version)s', '', True),
+]
+
+dependencies = [
+    ('libpng', local_libpng_version),
+    ('Brotli', local_Brotli_version),
+    ('bzip2',  local_bzip2_version),
+    ('zlib',   local_zlib_version),
+]
+
+configopts = '--enable-freetype-config --with-harfbuzz=no'
+
+maxparallel = 1
+
+sanity_check_paths = {
+    'files': ['lib/libfreetype.%s' %x for x in ['a', 'la', SHLIB_EXT]] +
+             ['lib/pkgconfig/freetype2.pc', 'bin/freetype-config', 'share/man/man1/freetype-config.1'],
+    'dirs':  ['include/freetype2'],
+}
+
+sanity_check_commands = [
+    'freetype-config --version',
+    'pkg-config --libs freetype2',
+]
+
+modextrapaths = {
+    'CPATH': 'include/freetype2',
+}
+
+moduleclass = 'vis'
+
