@@ -32,5 +32,13 @@
   * Our EasyConfig is derived from the University of Antwerpen one which has more
     dependencies (that are used by some of the command line tools it seems).
 
+### Version 4.4.0 for CPE 22.05
 
+  * Trivial version bump of the 4.3.0 one.
+
+  * Added libdeflate as a dependency. libwebp can also be a dependency but then
+    we'd create a circular dependency as libwebp can also use LibTIFF.
+
+  * Support for OpenGL is incomplete in this version as the libraries are not installed 
+    everywhere.
 
