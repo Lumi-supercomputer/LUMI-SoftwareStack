@@ -1,0 +1,81 @@
+easyblock = 'ConfigureMake'
+
+local_libreadline_version =  '8.1'           # https://ftp.gnu.org/pub/gnu/readline/
+local_zlib_version =         '1.2.12'        # https://zlib.net/
+local_bzip2_version =        '1.0.8'         # http://www.bzip.org/downloads.html
+local_PCRE_version =         '8.45'          # https://ftp.pcre.org/pub/pcre/
+
+name =    'PCRE'
+version = local_PCRE_version
+
+homepage = 'http://www.pcre.org/'
+
+whatis = [
+    'Description: Library for Perl-compatible regular expressions',
+    'This package provides some command line tools and static and shared libraries'
+]
+
+description = """
+The PCRE library is a set of functions that implement regular expression pattern
+matching using the same syntax and semantics as Perl 5. PCRE has its own native
+API, as well as a set of wrapper functions that correspond to the POSIX regular
+expression API. The PCRE library is free, even for building proprietary software.
+"""
+
+usage = """
+This package provides a number of command line tools:
++ pcregrep:    a grep with Perl-compatible regular expressions
++ pcretest:    a program for testing Perl-compatibel regular expressions
++ pcre-config: return the PCRE configuration
+All commands are documented in the man pages; pcregrep and pcretest also support
+the --help option.
+
+The API is documented in the web based documentation and the manual pages, try
+man pcre
+"""
+
+docurls = [
+    'Web-based documentation: http://www.pcre.org/original/doc/html/',
+    'Man pages for the commands (section 1) and API (section 3, starting point man pcre)',
+]
+
+toolchain = {'name': 'cpeGNU', 'version': '22.05'}
+toolchainopts = {'pic': True}
+
+source_urls = [SOURCEFORGE_SOURCE]
+sources =     [SOURCELOWER_TAR_GZ]
+checksums =   ['4e6ce03e0336e8b4a3d6c2b70b1c5e18590a5673a98186da90d4f33c23defc09']
+
+builddependencies = [ # Create a reproducible build environment.
+    ('buildtools', '%(toolchain_version)s', '', True),
+]
+
+dependencies = [
+    ('libreadline', local_libreadline_version),
+    ('zlib',        local_zlib_version),
+    ('bzip2',       local_bzip2_version),
+]
+
+configopts  = "--with-pic --disable-cpp --enable-utf --enable-unicode-properties --enable-newline-is-any "
+configopts += "--enable-pcre16 --enable-pcre32 "
+configopts += "--enable-jit "
+configopts += "--enable-pcregrep-libz --enable-pcregrep-libbz2 --enable-pcretest-libreadline "
+
+local_executables = ['pcre-config', 'pcregrep', 'pcretest']
+local_lib_variants = ['', 'posix', '16', '32']
+sanity_check_paths = {
+    'files': ['bin/%s' %x for x in local_executables] +
+             ['share/man/man1/%s.1' % x for x in local_executables] +
+             ['lib/libpcre%s.%s' % (x,y) for x in local_lib_variants for y in ['a', 'la', SHLIB_EXT]] +
+             [ 'lib/pkgconfig/libpcre%s.pc' % x for x in local_lib_variants] +
+             [ 'include/pcre.h', 'include/pcreposix.h'],
+    'dirs': ['share/doc/pcre/html', 'share/man/man3'],
+}
+
+sanity_check_commands = [
+    'pcre-config --version',
+    'pcregrep --version',
+    'pcretest -help',
+] + ['pkg-config --libs libpcre%s' % x for x in local_lib_variants]
+
+moduleclass = 'devel'
