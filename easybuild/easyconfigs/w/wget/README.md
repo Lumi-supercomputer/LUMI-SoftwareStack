@@ -4,7 +4,7 @@
 
       * [Download](https://ftp.gnu.org/gnu/wget/)
 
-## EAsyBuild
+## EasyBuild
 
   * [wget in the EasyBuilders repository]()
 
@@ -24,4 +24,16 @@
         it is likely EasyBuild has the last word and that option is the same
         for all Cray environments.
       * Disable the warning via extra_cflags which is what we have done here.
+
+### Version 1.21.2 for 21.12
+
+  * Trivial port
+
+### Version 1.21.3 for CPE 22.05
+
+  * Trivial port
+
+  * Added libpsl as a dependency. We do not use libmetalink though, and it looks
+    like at least Red Hat linux wants to get rid of libmetalink.
+
 
