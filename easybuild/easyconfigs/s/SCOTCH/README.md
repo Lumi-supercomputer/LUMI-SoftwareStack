@@ -52,3 +52,11 @@
 
   * We're not sure we will get exactly the same file every time so we disabled the sanity
     check.
+
+
+### Version 6.1.3 for CPE 22.05
+
+  * We decided against upgrading to 7.0.1 in the central software stack as that release
+    might need some more testing and as we may need to rework the custom application
+    EasyBlock.
+
