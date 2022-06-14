@@ -18,3 +18,9 @@
     dependencies, the CSCS variant gets gzip and lz4 from the OS.
 
     We did upgrade to the fresh release 1.5.0.
+
+### Version 1.5.2 for CPE 22.05
+
+  * Trivial port of the EasyConfig
+
+
