@@ -1,0 +1,57 @@
+easyblock = 'ConfigureMake'
+
+local_libpng_version =       '1.6.37'        # http://www.libpng.org/pub/png/libpng.html
+local_pixman_version =       '0.40.0'        # https://www.cairographics.org/releases/
+
+name =    'pixman'
+version = local_pixman_version
+
+homepage = 'http://www.pixman.org/'
+
+whatis = [
+    'Description: A low-level library for pixel manipulation',
+    'The module includes both static and dynamic libraries and supports pkg-config'
+]
+
+description = """
+Pixman is a low-level software library for pixel manipulation, providing
+features such as image compositing and trapezoid rasterization. Important users
+of pixman are the cairo graphics library and the X server.
+
+Pixman is implemented as a library in the C programming language. It runs on
+many platforms, including Linux, BSD Derivatives, MacOS X, and Windows.
+
+Pixman is free and open source software. It is available to be redistributed
+and/or modified under the terms of the MIT license.
+
+Documentation is inexistent.
+"""
+
+toolchain = {'name': 'cpeAOCC', 'version': '22.05'}
+toolchainopts = {'pic': True}
+
+sources =     [SOURCE_TAR_GZ]
+source_urls = ['http://cairographics.org/releases/']
+checksums =   ['6d200dec3740d9ec4ec8d1180e25779c00bc749f94278c8b9021f5534db223fc']
+
+builddependencies = [ # Create a reproducible build environment.
+    ('buildtools', '%(toolchain_version)s', '', True),
+]
+
+dependencies = [
+    ('libpng', local_libpng_version),
+]
+
+configopts = '--enable-gnuplot ' # Should be possible to use without first installing GNUplot?
+
+sanity_check_paths = {
+    'files': ['lib/libpixman-1.%s' % x for x in ['a', 'la', SHLIB_EXT]] +
+             ['lib/pkgconfig/pixman-1.pc', 'include/pixman-1/pixman.h', 'include/pixman-1/pixman-version.h'],
+    'dirs':  []
+}
+
+sanity_check_commands = [
+    'pkg-config --libs pixman-1',
+]
+
+moduleclass = 'vis'
