@@ -4,7 +4,7 @@
 
   * [libwebp on GitHub](https://github.com/webmproject/libwebp)
 
-      * [GitHub releases](https://github.com/webmproject/libwebp/releases)
+      * [GitHub releases](https://github.com/webmproject/libwebp/tags)
 
 
 ## Easybuild
@@ -28,3 +28,8 @@
   * The EasyConfig is based on the one from the University of Antwerpen but
     mostly follows the EasyBuilders one with some additional configuration
     options.
+
+### 1.2.2 from CPE 22.05 on
+
+  * Trivial version bump of the 1.2.0 EasyConfig.
+  
