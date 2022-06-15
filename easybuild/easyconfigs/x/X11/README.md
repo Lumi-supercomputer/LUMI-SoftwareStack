@@ -48,5 +48,6 @@ This is a bundle of X11 tools provided by EasyBuild.
 
 ### Bundle for 22.05
 
-  * Started from the 21.12 bundle.
+  * Started from the 21.12 bundle, but updated the packages with those of the
+    GCCcore/11.3.0 - 2022b bundle. Also updated the local additions.
 
