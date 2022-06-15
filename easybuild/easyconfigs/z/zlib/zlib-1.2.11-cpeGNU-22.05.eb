@@ -1,7 +1,7 @@
 # Contributed by Kurt Lust, LUMI project & UAntwerpen
-easyblock = 'CMakeMake'
+easyblock = 'ConfigureMake'
 
-local_zlib_version =             '1.2.12'        # https://zlib.net/
+local_zlib_version =             '1.2.11'        # https://zlib.net/
 
 name =    'zlib'
 version = local_zlib_version
@@ -32,31 +32,20 @@ docurls = [
 toolchain = {'name': 'cpeGNU', 'version': '22.05'}
 toolchainopts = {'pic': True}
 
-# http://www.zlib.net/zlib-1.2.12.tar.xz
+# http://www.zlib.net/zlib-1.2.11.tar.xz
 source_urls = ['http://www.zlib.net/']
-sources =     [SOURCELOWER_TAR_XZ]
-checksums =   ['7db46b8d7726232a621befaab4a1c870f00a90805511c0e0090441dac57def18']
+#sources =     [SOURCELOWER_TAR_XZ]
+#checksums =   ['7db46b8d7726232a621befaab4a1c870f00a90805511c0e0090441dac57def18']
+sources = ['zlib-1.2.11.tar.gz'] 
+checksums =   ['4ff941449631ace0d4d203e3483be9dbc9da454084111f97ea0a2114e19bf066']
 
 builddependencies = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
-]
-
-# build twice, once for static, once for shared libraries
-# We also redirect the pkgconfig dir from its standard location in share to lib
-# to make the installation as similar as possible to the one done with 
-# ConfigureMake in earlier versions.
-configopts = [
-    '-DBUILD_SHARED_LIBS=OFF -DINSTALL_PKGCONFIG_DIR=%(installdir)s/lib/pkgconfig'
-    '-DBUILD_SHARED_LIBS=ON  -DINSTALL_PKGCONFIG_DIR=%(installdir)s/lib/pkgconfig', 
 ]
 
 sanity_check_paths = {
     'files': ['include/zconf.h', 'include/zlib.h', 'lib/libz.a', 'lib/libz.%s' % SHLIB_EXT],
     'dirs':  [],
 }
-
-sanity_check_commands = [ 
-    'pkg-config --libs zlib | grep -q "%(installdir)s/lib"'
-]
 
 moduleclass = 'lib'

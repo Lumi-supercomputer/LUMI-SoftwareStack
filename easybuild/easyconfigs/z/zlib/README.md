@@ -15,5 +15,12 @@
 
 ### zlib 1.2.12 from CPE 22.05 on
 
-  * Trivial port of the EasyConfig.
+  * We needed to switch to a CMake-based build process as there seems to be no way
+    to include version info (a set of symbols shown as `A ZLIB_1.2*`) when using the 
+    configure-based build process. Not including these symbols causes warnings when
+    running various OS and Cray PE tools, and can cause the configure scripts of 
+    other tools to wrongly fail some tests.
+
+  * Tried to mimic a `ConfigureMake` installation as much as possible with our
+    `CMakeMake` EasyConfig.
 

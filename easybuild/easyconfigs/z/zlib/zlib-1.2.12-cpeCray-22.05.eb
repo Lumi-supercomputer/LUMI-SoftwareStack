@@ -1,5 +1,5 @@
 # Contributed by Kurt Lust, LUMI project & UAntwerpen
-easyblock = 'ConfigureMake'
+easyblock = 'CMakeMake'
 
 local_zlib_version =             '1.2.12'        # https://zlib.net/
 
@@ -41,9 +41,22 @@ builddependencies = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
 ]
 
+# build twice, once for static, once for shared libraries
+# We also redirect the pkgconfig dir from its standard location in share to lib
+# to make the installation as similar as possible to the one done with 
+# ConfigureMake in earlier versions.
+configopts = [
+    '-DBUILD_SHARED_LIBS=OFF -DINSTALL_PKGCONFIG_DIR=%(installdir)s/lib/pkgconfig'
+    '-DBUILD_SHARED_LIBS=ON  -DINSTALL_PKGCONFIG_DIR=%(installdir)s/lib/pkgconfig', 
+]
+
 sanity_check_paths = {
     'files': ['include/zconf.h', 'include/zlib.h', 'lib/libz.a', 'lib/libz.%s' % SHLIB_EXT],
     'dirs':  [],
 }
+
+sanity_check_commands = [ 
+    'pkg-config --libs zlib | grep -q "%(installdir)s/lib"'
+]
 
 moduleclass = 'lib'
