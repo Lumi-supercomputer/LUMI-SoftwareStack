@@ -117,6 +117,8 @@ The following EasyBuild packages are replaced by OS dependencies:
 
   * [libopus (cpe*)](l/libopus) - Opus audio codec
 
+  * [libpsl](l/libpsl) - Library to work with the public domain suffix list
+
   * [libtirpc (cpe*)](l/libtirpc) - A port of a sun RPC library
 
   * [libyaml (cpe*)](l/libyaml) - YAML parser and emitter
@@ -266,7 +268,7 @@ The following EasyBuild packages are replaced by OS dependencies:
     be build without those libraries, that only provide extra file formats.
 
   * [wget (cpe*)](w/wget) - Package for retrieving files using HTTP/HTTPS, ... Needs libidn2,
-    zlib (block 1) and PCRE2 (block 3)
+    libpsl, zlib (block 1) and PCRE2 (block 3)
 
   * [zstd (cpe*)](z/zstd) - Zstandard compression algorithm and tools. Needs gzip, lz4, zlib
     (block 1) and XZ (block 3)
@@ -277,7 +279,7 @@ The following EasyBuild packages are replaced by OS dependencies:
   * [Boost (cpe*)](b/Boost) - Needs bzip2, ICU and zlib (block 1) and zstd (block 5)
 
   * [libarchive (cpe*)](l/libarchive) - Multi-format archive and compression library, needs
-    bzip2, libb2, lz4, zlib (block 1), XZ (block 3 ) and zstd (block 4)
+    bzip2, expat, libb2, lz4, zlib (block 1), XZ (block 3 ) and libxml2 and zstd (block 4)
 
   * [gettext (cpe*) full version](g/gettext) - depends upon ncurses (block 1) and libxml2 (block
     4)
