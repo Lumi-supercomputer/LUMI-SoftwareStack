@@ -31,3 +31,12 @@ Note that ESMF uses a custom EasyBlock which needs adaptations for Cray systems.
     mismatch is used. The problem is that the build procedure does not pick up
     `F90FLAGS` etc., so we've done some hand work with `preconfigopts` and
     `prebuildopts`.
+
+### ESMF 8.3.0 for CPE 22.05
+
+  * Near-trivial version bump, but the way the sources are distributed has changed.
+
+  * Building with AOCC still fails.
+
+  * Note that the build process does include some testing.
+
