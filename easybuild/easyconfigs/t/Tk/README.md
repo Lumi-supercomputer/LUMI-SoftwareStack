@@ -17,3 +17,7 @@
   * The patch has to do with a bug when compiling the Python package Tkinter
     and is discusssed in [easybuild-easyblock issue 728](https://github.com/easybuilders/easybuild-easyblocks/issues/728).
 
+### Version 8.6.12 from CPE 22.05 onwards.
+
+  * Trivial version bump of the 8.6.11 EasyConfig
+
