@@ -22,3 +22,5 @@
 
      * cpeCVray needs '-Wno-unsupported-target-opt' or the compilation fails in the
        building phase.
+
+TODO: Problems on eiger likely because the configure process fails to find the pthread library...
