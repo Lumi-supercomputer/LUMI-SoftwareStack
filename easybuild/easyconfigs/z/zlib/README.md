@@ -15,12 +15,10 @@
 
 ### zlib 1.2.12 from CPE 22.05 on
 
-  * We needed to switch to a CMake-based build process as there seems to be no way
-    to include version info (a set of symbols shown as `A ZLIB_1.2*`) when using the 
-    configure-based build process. Not including these symbols causes warnings when
-    running various OS and Cray PE tools, and can cause the configure scripts of 
-    other tools to wrongly fail some tests.
-
-  * Tried to mimic a `ConfigureMake` installation as much as possible with our
-    `CMakeMake` EasyConfig.
+  * The configure script is broken and the patch used in the EasyBuilders version is
+    absolutely needed. Without it, the shared library is build incorrectly and lacks
+    version information (the `A ZLIB_1.2.*` lines that show up in the output of
+    `nm zlib.so`), causing several OS tools to complain, but also some of the tools
+    of the CPE to complain. And the latter than causes misdetection of features in
+    some configure scripts, leading to, e.g., the build of `cairo` to fail.
 

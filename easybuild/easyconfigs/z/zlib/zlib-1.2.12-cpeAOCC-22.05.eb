@@ -1,5 +1,5 @@
 # Contributed by Kurt Lust, LUMI project & UAntwerpen
-easyblock = 'CMakeMake'
+easyblock = 'ConfigureMake'
 
 local_zlib_version =             '1.2.12'        # https://zlib.net/
 
@@ -32,31 +32,26 @@ docurls = [
 toolchain = {'name': 'cpeAOCC', 'version': '22.05'}
 toolchainopts = {'pic': True}
 
-# http://www.zlib.net/zlib-1.2.12.tar.xz
-source_urls = ['http://www.zlib.net/']
-sources =     [SOURCELOWER_TAR_XZ]
-checksums =   ['7db46b8d7726232a621befaab4a1c870f00a90805511c0e0090441dac57def18']
+# Without the patch, version info is not correctly included in the shared libraries,
+# leading to problems with various system utilities and CPE compilers that in turn
+# can also cause configure to misdetect certain features and hence produced the wrong
+# configuration (happened with cairo).
+# It is a recognized bug so may not be needed anymore in a future version.
+source_urls = ['https://zlib.net/fossils']
+sources = [SOURCELOWER_TAR_GZ]
+patches = ['zlib-%(version)s_fix-CC-logic-in-configure.patch']
+checksums = [
+    '91844808532e5ce316b3c010929493c0244f3d37593afd6de04f71821d5136d9',  # zlib-1.2.12.tar.gz
+    'f35eb05334a4f8d7b40b6c5610a6369f654863b5fa1a19c2507888f918025238',  # zlib-1.2.12_fix-CC-logic-in-configure.patch
+]
 
 builddependencies = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
-]
-
-# build twice, once for static, once for shared libraries
-# We also redirect the pkgconfig dir from its standard location in share to lib
-# to make the installation as similar as possible to the one done with 
-# ConfigureMake in earlier versions.
-configopts = [
-    '-DBUILD_SHARED_LIBS=OFF -DINSTALL_PKGCONFIG_DIR=%(installdir)s/lib/pkgconfig'
-    '-DBUILD_SHARED_LIBS=ON  -DINSTALL_PKGCONFIG_DIR=%(installdir)s/lib/pkgconfig', 
 ]
 
 sanity_check_paths = {
     'files': ['include/zconf.h', 'include/zlib.h', 'lib/libz.a', 'lib/libz.%s' % SHLIB_EXT],
     'dirs':  [],
 }
-
-sanity_check_commands = [ 
-    'pkg-config --libs zlib | grep -q "%(installdir)s/lib"'
-]
 
 moduleclass = 'lib'
