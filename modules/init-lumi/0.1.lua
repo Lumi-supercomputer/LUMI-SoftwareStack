@@ -86,10 +86,19 @@ end
 
 if mode() == 'load' or mode() == 'show' then
 
-    local show_motd = not isFile( pathJoin( os.getenv( 'HOME' ) or '', '.nomotd' ) )
-    local show_tip  = not isFile( pathJoin( os.getenv( 'HOME' ) or '', '.nomotdtip' ) ) and show_motd
 
     if os.getenv( '_LUMI_INIT_FIRST_LOAD' ) == nil and is_interactive() then
+
+        local show_motd = not isFile( pathJoin( os.getenv( 'HOME' ) or '', '.nomotd' ) )
+        local show_tip  = not isFile( pathJoin( os.getenv( 'HOME' ) or '', '.nomotdtip' ) ) and show_motd   
+        
+        local times_shown = get_num_motd()
+        if times_shown >= 3 then
+            -- We simply disable showing motd and tip rather than working with
+            -- even more nested if's.
+            show_motd = false
+            show_tip = false
+        end
 
         -- Get the general info MOTD and print.
         --
@@ -113,6 +122,13 @@ if mode() == 'load' or mode() == 'show' then
 
         -- Flush
         io.stderr:flush()
+
+        if show_motd then        
+            -- Augment the counter for the number of times the message of the day has been
+            -- shown today, but don't do so if we didn't show anything as this is useless 
+            -- load on the file system.
+            set_num_motd( times_shown + 1 )
+        end       
 
         -- Make sure this block of code is not executed anymore.
         -- This statement is not reached during an unload of the module
