@@ -11,7 +11,7 @@ import os as local_os
 local_LUMI_version = local_os.environ['LUMI_STACK_CPE_VERSION']
 
 name =    'Vim'
-version = '8.2.5075'
+version = '9.0.0016'
 
 homepage = 'http://www.vim.org'
 
@@ -44,7 +44,7 @@ sources = {
     'filename':          SOURCELOWER_TAR_GZ,
     'source_urls':       ['https://github.com/vim/vim/archive/refs/tags']
 }
-checksums = ['37adc0e5fe2e741fbe2c8f072c1cc40d5b7d7ea51ea9cdfc32c1f69116b241f5']
+checksums = ['99a48466ee090a4ea811b34134a389073af140ad026ad4f16985b635d9a6a6c8']
 
 builddependencies = [ # Create a reproducible build environment
     ('buildtools', local_LUMI_version),
@@ -60,6 +60,9 @@ configopts += '--enable-multibyte '
 configopts += '--disable-gui --without-x '
 configopts += '--enable-pythoninterp=yes --with-python-command=python2 '
 configopts += '--enable-python3interp=yes --with-python3-command=python3 '
+configopts += '--enable-luainterp=yes --with-lua-prefix=/usr '
+configopts += '--enable-perlinterp=yes '
+configopts += '--enable-tclinterp=yes --with-tclsh=/usr/bin/tclsh8.6 '
 
 sanity_check_paths = {
     'files': ['bin/vim','bin/vimdiff'],

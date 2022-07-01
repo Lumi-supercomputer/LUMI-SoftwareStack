@@ -28,6 +28,6 @@
   * Trivial port of the 8.2.3852 version
 
 
-### Version 8.2.5075 for LUMI/22.05
+### Version 8.2.5172 for LUMI/22.05
 
-  * Trivial port of the 8.2.4487 version
+  * Trivial port of the 8.2.4487 version. This is likely the final 8.2 version.

@@ -24,7 +24,7 @@ software:
   Vim:
     toolchains:
       SYSTEM:
-        versions: ['8.2.5055']
+        versions: ['8.2.5172','9.0.0016']
   git:
     toolchains:
       SYSTEM:
@@ -39,19 +39,19 @@ software:
         versions:
           '0.2.2':
             versionsuffix: '-cray-python-default'
-  rocm:
-    toolchains:
-      SYSTEM:
-        versions: ['4.5.2']
-  rocmlibs:
-    toolchains:
-      SYSTEM:
-        versions: ['4.5.2']
-  RCCL:
-    toolchains:
-      SYSTEM:
-        versions: ['4.5.2']
-  rocThrust:
-    toolchains:
-      SYSTEM:
-        versions: ['4.5.2']
+#  rocm:
+#    toolchains:
+#      SYSTEM:
+#        versions: ['4.5.2']
+#  rocmlibs:
+#    toolchains:
+#      SYSTEM:
+#        versions: ['4.5.2']
+#  RCCL:
+#    toolchains:
+#      SYSTEM:
+#        versions: ['4.5.2']
+#  rocThrust:
+#    toolchains:
+#      SYSTEM:
+#        versions: ['4.5.2']

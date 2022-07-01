@@ -45,7 +45,7 @@ local_flex_version =             '2.6.4'       # flex       20170506 - Check on 
 local_byacc_version =            '20220128'    # byacc      20220128 - Check on https://invisible-mirror.net/archives/byacc/
 local_re2c_version =             '3.0'         # re2c       20210127 - Check on https://github.com/skvadrik/re2c/releases
 local_SCons_version =            '4.3.0'       # SCons      20211117 - Check on https://github.com/SCons/scons/releases, https://scons.org/pages/download.html
-local_xxd_version =              '8.2.5075'    # vim        20220610 - Check on https://github.com/vim/vim/tags
+local_xxd_version =              '8.2.5172'    # vim        20220627 - Check on https://github.com/vim/vim/tags
 
 homepage = 'http://www.gnu.org'
 
@@ -314,7 +314,7 @@ components = [
                            'filename'          : 'xxd-%(version)s.tar.gz',
                            'source_urls'       : ['https://github.com/vim/vim/archive/refs/tags'],
                        } ],
-        'checksums':   ['37adc0e5fe2e741fbe2c8f072c1cc40d5b7d7ea51ea9cdfc32c1f69116b241f5'],
+        'checksums':   ['366a45168f59d7218ea22597432e64ac05c2626703b5d8fa70f37bfd674cd2c1'],
         'start_dir':   'vim-%(version)s/src/xxd',
         'files_to_copy': [ (['xxd'], 'bin') ],
         }),
