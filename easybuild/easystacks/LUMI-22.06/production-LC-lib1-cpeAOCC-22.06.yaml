@@ -1,21 +1,21 @@
 software:
   ncurses:
     toolchains:
-      cpeAOCC-22.05:
+      cpeAOCC-22.06:
         versions: ['6.2']
   libreadline:
     toolchains:
-      cpeAOCC-22.05:
+      cpeAOCC-22.06:
         versions: ['8.1']
   gettext:
     toolchains:
-      cpeAOCC-22.05:
+      cpeAOCC-22.06:
         versions:
           '0.21':
             versionsuffix: '-minimal'
   GSL:
     toolchains:
-      cpeAOCC-22.05:
+      cpeAOCC-22.06:
         versions: 
           '2.7.1':
             versionsuffix: '-sequential'

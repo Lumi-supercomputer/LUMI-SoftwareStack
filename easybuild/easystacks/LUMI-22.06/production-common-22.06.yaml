@@ -2,20 +2,24 @@ software:
   buildtools:
     toolchains:
       SYSTEM:
-        versions: ['22.05']
+        versions: ['22.06']
   syslibs:
     toolchains:
       SYSTEM:
         versions:
-          '22.05':
+          '22.06':
             versionsuffix: '-static'
   systools:
     toolchains:
       SYSTEM:
-        versions: ['22.05']
+        versions: ['22.06']
   lumi-CPEtools:
     toolchains:
-      SYSTEM:
+      cpeAOCC-22.06:
+        versions: ['1.0']
+      cpeCray-22.06:
+        versions: ['1.0']
+      cpeGNU-22.06:
         versions: ['1.0']
   nano:
     toolchains:
@@ -33,25 +37,22 @@ software:
     toolchains:
       SYSTEM:
         versions: ['1.14.2']
+  Eigen:
+    toolchains:
+      SYSTEM:
+        versions: ['3.4']
+  xorg-macros:
+    toolchains:
+      SYSTEM:
+        versions: ['1.19.3']
   lumi-container-wrapper:
     toolchains:
       SYSTEM:
         versions:
           '0.2.2':
-            versionsuffix: '-cray-python-default'
-#  rocm:
-#    toolchains:
-#      SYSTEM:
-#        versions: ['4.5.2']
-#  rocmlibs:
-#    toolchains:
-#      SYSTEM:
-#        versions: ['4.5.2']
-#  RCCL:
-#    toolchains:
-#      SYSTEM:
-#        versions: ['4.5.2']
-#  rocThrust:
-#    toolchains:
-#      SYSTEM:
-#        versions: ['4.5.2']
+            versionsuffix: '-cray-python-3.9.12.1'
+  Rust:
+    toolchains:
+      SYSTEM:
+        versions: ['1.60.0']
+

@@ -1,33 +1,29 @@
 software:
-#  ELPA:
-#    toolchains:
-#      cpeGNU-22.05:
-#        versions: ['2021.11.001']
   METIS:
     toolchains:
-      cpeGNU-22.05:
+      cpeCray-22.06:
         versions: ['5.1.0']
   ParMETIS:
     toolchains:
-      cpeGNU-22.05:
+      cpeCray-22.06:
         versions: ['4.0.3']
   SCOTCH:
     toolchains:
-      cpeGNU-22.05:
+      cpeCray-22.06:
         versions: ['6.1.3']
   ESMF:
     toolchains:
-      cpeGNU-22.05:
+      cpeCray-22.06:
         versions: ['8.3.0']
   gnuplot:
     toolchains:
-      cpeGNU-22.05:
+      cpeCray-22.06:
         versions: ['5.4.3']
 #  VampirServer:
 #    toolchains:
-#      cpeGNU-22.05:
+#      cpeCray-22.06:
 #        versions: ['10.0.0']
 #  Score-P:
 #    toolchains:
-#      cpeGNU-22.05:
+#      cpeCray-22.06:
 #        versions: ['7.1']
