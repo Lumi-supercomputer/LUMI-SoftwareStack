@@ -23,7 +23,7 @@ docurls = [
     "Man pages, start with man lumi-CPEtools",
 ]
 
-toolchain = {'name': 'cpeCray', 'version': '22.05'}
+toolchain = {'name': 'cpeAOCC', 'version': '22.06'}
 # Note: The Makefile is designed to work with the compiler variables as defined
 # when usempi and openmp are both false, as the module contains code with and
 # without MPI or OpenMP support, though it would probably still work if these

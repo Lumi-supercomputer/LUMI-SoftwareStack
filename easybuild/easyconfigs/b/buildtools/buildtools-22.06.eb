@@ -17,7 +17,7 @@
 easyblock = 'Bundle'
 
 name =    'buildtools'
-version = '22.05'
+version = '22.06'
 
 local_system_pyshortver = '3.6'
 

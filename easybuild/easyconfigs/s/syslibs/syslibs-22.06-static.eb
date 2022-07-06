@@ -1,7 +1,7 @@
 easyblock = 'Bundle'
 
 name =          'syslibs'
-version =       '22.05'
+version =       '22.06'
 versionsuffix = '-static'
 
 import os as local_os
@@ -34,7 +34,6 @@ local_syslibs_file_version =         '5.42'          # http://ftp.astron.com/pub
 local_syslibs_PCRE2_version =        '10.40'         # https://github.com/PhilipHazel/pcre2/releases
 local_syslibs_Serf_version =         '1.3.9'         # https://serf.apache.org/download
 local_syslibs_SQLite3_version =      '3.38.5'        # https://www.sqlite.org/
-local_SQLite3_filename_version =  '3380500'
 
 description = """
 This module provides a number of libraries that are mostly also found on the
@@ -161,6 +160,7 @@ docurls = [
 ]
 
 local_syslibs_bzip2_major_minor = '.'.join(local_syslibs_bzip2_version.split('.')[:2])
+local_SQLite3_filename_version =  '%1d%02d%02d00' % (int(local_syslibs_SQLite3_version.split('.')[0]), int(local_syslibs_SQLite3_version.split('.')[1]), int(local_syslibs_SQLite3_version.split('.')[2]))
 
 toolchain = SYSTEM
 

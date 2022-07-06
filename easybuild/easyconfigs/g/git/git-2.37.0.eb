@@ -13,7 +13,7 @@ import os as local_os
 local_LUMI_version = local_os.environ['LUMI_STACK_CPE_VERSION']
 
 name =    'git'
-version = '2.36.1'
+version = '2.37.0'
 #versionsuffix = '-nodocs'
 
 homepage = 'https://git-scm.com/'
@@ -49,7 +49,7 @@ sources = {
     'filename':          SOURCELOWER_TAR_GZ,
     'source_urls':       ['https://github.com/git/git/archive']
 }
-checksums =   ['cbaac97b2bd4a5beb8b81b7bd009415eed4faec9f799d6bb1be61be907e39cf7']
+checksums =   ['17733eb8bc7de35e2e399ac6577df0aa856faaf0a2ef1e55e90a4978dcf9caa1']
 
 builddependencies = [
     ('buildtools', local_LUMI_version),
