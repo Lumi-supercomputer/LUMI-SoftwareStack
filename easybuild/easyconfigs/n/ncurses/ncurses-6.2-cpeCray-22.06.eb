@@ -11,7 +11,7 @@ of curses in System V Release 4.0, and more. It uses Terminfo format, supports
 pads and color and multiple highlights and forms characters and function-key
 mapping, and has all the other SYSV-curses enhancements over BSD Curses."""
 
-toolchain = {'name': 'cpeAOCC', 'version': '22.05'}
+toolchain = {'name': 'cpeCray', 'version': '22.06'}
 toolchainopts = {'optarch': True, 'pic': True}
 
 source_urls = [GNU_SOURCE]

@@ -4,7 +4,7 @@ local_GSL_version =          '2.7.1'         # https://ftp.gnu.org/gnu/gsl/
 
 name =          'GSL'
 version =       local_GSL_version
-versionsuffix = '-sequential'
+versionsuffix = '-OpenMP'
 
 homepage = 'http://www.gnu.org/software/gsl/'
 
@@ -18,12 +18,12 @@ programmers. The library provides a wide range of mathematical routines
 such as random number generators, special functions and least-squares
 fitting.
 
-This version of GSL is compiled without OpenMP support and hence uses the
-serial non-threaded version of the Cray Scientific Libraries.
+This version of GSL is compiled with OpenMP support and hence uses the
+OpenMP parallel multithreaded version of the Cray Scientific Libraries.
 """
 
-toolchain = {'name': 'cpeAOCC', 'version': '22.05'}
-toolchainopts = {'opt': True, 'optarch': True, 'unroll': True, 'pic': True, 'verbose': True, 'openmp': False}
+toolchain = {'name': 'cpeAOCC', 'version': '22.06'}
+toolchainopts = {'opt': True, 'optarch': True, 'unroll': True, 'pic': True, 'verbose': True, 'openmp': True}
 
 source_urls = [GNU_SOURCE]
 sources =     [SOURCELOWER_TAR_GZ]

@@ -22,7 +22,7 @@ This version of GSL is compiled without OpenMP support and hence uses the
 serial non-threaded version of the Cray Scientific Libraries.
 """
 
-toolchain = {'name': 'cpeGNU', 'version': '22.05'}
+toolchain = {'name': 'cpeAOCC', 'version': '22.06'}
 toolchainopts = {'opt': True, 'optarch': True, 'unroll': True, 'pic': True, 'verbose': True, 'openmp': False}
 
 source_urls = [GNU_SOURCE]

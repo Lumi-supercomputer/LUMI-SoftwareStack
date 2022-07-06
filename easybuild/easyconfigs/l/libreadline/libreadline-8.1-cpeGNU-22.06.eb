@@ -38,7 +38,7 @@ docurls = [
    'Man pages in section 3 for readline and history, and texinfo support',
 ]
 
-toolchain = {'name': 'cpeCray', 'version': '22.05'}
+toolchain = {'name': 'cpeGNU', 'version': '22.06'}
 toolchainopts = {'pic': True}
 
 source_urls = ['http://ftp.gnu.org/gnu/readline']
