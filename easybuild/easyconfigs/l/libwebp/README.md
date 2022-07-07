@@ -29,7 +29,7 @@
     mostly follows the EasyBuilders one with some additional configuration
     options.
 
-### 1.2.2 from CPE 22.05 on
+### 1.2.2 from CPE 22.06 on
 
   * Trivial version bump of the 1.2.0 EasyConfig.
   

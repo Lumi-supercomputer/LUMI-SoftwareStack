@@ -37,7 +37,7 @@
     Workaround: Edit the Makefile in ``prebuildopts`` with ``sed``:
     ``'prebuildopts': 'sed -i -e "s|CC = .*|CC = CC|" Makefile && '``.
 
-### Version 5.36 for CPE 22.05
+### Version 5.36 for CPE 22.06
 
   * We used the list of extensions from the EasyConfig for GCCcore/11.3.0, part of 2022a.
 

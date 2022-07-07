@@ -32,7 +32,7 @@ Note that ESMF uses a custom EasyBlock which needs adaptations for Cray systems.
     `F90FLAGS` etc., so we've done some hand work with `preconfigopts` and
     `prebuildopts`.
 
-### ESMF 8.3.0 for CPE 22.05
+### ESMF 8.3.0 for CPE 22.06
 
   * Near-trivial version bump, but the way the sources are distributed has changed.
 

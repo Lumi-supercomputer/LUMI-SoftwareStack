@@ -58,7 +58,7 @@
 
 
 
-### Version 3.4 for LUMI/22.05
+### Version 3.4 for LUMI/22.06
 
   * Trivial port of the 3.3.9 EasyConfig.
 

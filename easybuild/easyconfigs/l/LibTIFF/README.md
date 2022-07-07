@@ -32,7 +32,7 @@
   * Our EasyConfig is derived from the University of Antwerpen one which has more
     dependencies (that are used by some of the command line tools it seems).
 
-### Version 4.4.0 for CPE 22.05
+### Version 4.4.0 for CPE 22.06
 
   * Trivial version bump of the 4.3.0 one.
 

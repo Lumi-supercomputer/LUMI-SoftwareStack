@@ -24,3 +24,5 @@ end
 -- The following modules do not work with Cray LMOD 8.3.1
 hide_version( 'ModuleExtensions/hide' )
 hide_version( 'ModuleExtensions/show' )
+
+hide_modulefile( '/opt/cray/pe/lmod/modulefiles/core/cpe/22.05.lua' )

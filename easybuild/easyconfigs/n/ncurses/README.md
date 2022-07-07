@@ -25,7 +25,7 @@
     is probably even more dangerous as bash will pick it up, so there is a risk
     that the shell may not work the way it should anymore if a new shell is loaded.
 
-### 6.2 from 22.05 on
+### 6.2 from 22.06 on
 
   * We stuck to 6.2 as there is a bug in the generation of .pc files in 6.3. It is
     impossible to put the files in the correct location: The comibnation of 

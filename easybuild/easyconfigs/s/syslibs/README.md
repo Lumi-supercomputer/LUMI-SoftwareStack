@@ -52,7 +52,7 @@ use.
 
   * Configure didn't work for ncurses 6.3 so we stuck to 6.2 rather than to start debugging.
 
-### 22.05
+### 22.06
 
   * No new version of ncurses yet with working configure, so stick to 6.2 instead of 6.3.
 

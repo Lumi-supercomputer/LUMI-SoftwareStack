@@ -25,7 +25,7 @@
   * PROJ does contain a number of commands also but no easy way to test them like
     producing help or a version without producing an error code.
 
-### Version 9.0.0 from CPE 22.05 on
+### Version 9.0.0 from CPE 22.06 on
 
   * Started from a version bump of the 8.1.1 EasyConfig but had to switch to a
     `CMakeMake` build process.

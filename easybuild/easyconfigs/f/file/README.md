@@ -23,7 +23,7 @@
 
   * Trivial port of the EasyConfig
 
-### Version 5.42 from CPE 22.05 on
+### Version 5.42 from CPE 22.06 on
 
   * Did a check for additional dependencies and found that it can also use bzip2
     and XZ, so moved it further down in the build chain.

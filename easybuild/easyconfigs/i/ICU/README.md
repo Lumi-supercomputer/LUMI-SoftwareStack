@@ -19,7 +19,7 @@
   * We started from an EasyConfig file from the University of Antwerpen which
     itself is based on the ones in the EasyBuilders repository.
 
-### 71.1 from CPE 22.05 on
+### 71.1 from CPE 22.06 on
 
   * Trivial port of the EasyConfig.
 

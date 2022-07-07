@@ -14,7 +14,7 @@
 
   * The EasyConfig is a mix of the CSCS and Univerity of Antwerpen ones.
 
-### Version 2.7.1 from CPE 22.05 on
+### Version 2.7.1 from CPE 22.06 on
 
   * Build on the previous EasyConfig.
 

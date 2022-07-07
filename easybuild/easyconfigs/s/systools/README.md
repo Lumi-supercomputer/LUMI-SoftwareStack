@@ -37,7 +37,7 @@ The current content is
 
 ### 21.12
 
-### 22.05
+### 22.06
 
   * Update of htop and some improvements to the EasyConfig.
 

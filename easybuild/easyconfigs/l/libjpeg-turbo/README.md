@@ -24,7 +24,7 @@
 
       * Switched to GitHub as the source of the files and the home page.
 
-### Version 2.1.3 from CPE 22.05 on
+### Version 2.1.3 from CPE 22.06 on
 
   * Trivial version bump,
 

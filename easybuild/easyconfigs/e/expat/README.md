@@ -26,3 +26,9 @@
     present in version up to 2.4.2.
 
   * Also switched to downloading from GitHub rather than from SourceForge
+
+
+### Version 2.4.8 from CPE 22.06 on
+
+  * Trivial port of the EasyConfig
+

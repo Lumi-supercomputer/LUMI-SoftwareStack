@@ -46,7 +46,7 @@ cluster).
 
   * Straightforward port of the 2.33.1 EasyConfig file
 
-### git 2.36.1 for LUMI/22.05
+### git 2.36.1 for LUMI/22.06
 
   * Straightforward port of the 2.35.1 EasyConfig file
 

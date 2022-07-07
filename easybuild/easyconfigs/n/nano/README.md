@@ -28,7 +28,7 @@
 
   * A trivial port of the 5.9 one. No new options were added to the EasyConfig.
 
-### nano 6.3 for LUMI/22.05 and later
+### nano 6.3 for LUMI/22.06 and later
 
   * A trivial upgrade from 6.2. No new options were added to the EasyConfig.
 

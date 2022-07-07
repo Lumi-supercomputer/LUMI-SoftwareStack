@@ -12,7 +12,7 @@
 
 -   There is no support for libpsl in the CSCS repository
 
-### Version 0.21.1 for CPE 22.05
+### Version 0.21.1 for CPE 22.06
 
 -   The EasyConfig is a port of the standard EasyBuilders one.
 

@@ -54,7 +54,7 @@
     check.
 
 
-### Version 6.1.3 for CPE 22.05
+### Version 6.1.3 for CPE 22.06
 
   * We decided against upgrading to 7.0.1 in the central software stack as that release
     might need some more testing and as we may need to rework the custom application

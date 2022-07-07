@@ -24,7 +24,7 @@
 
   * Straightforward adaptation of the EasyConfig for version 1.54.0.
 
-### Rust 1.60.0 for LUMI/21.12 and LUMI/22.05
+### Rust 1.60.0 for LUMI/21.12 and LUMI/22.06
 
   * Port of the one for 1.55.0, but with some clean-up of loaded modules in the pre
     options as we have experienced that otherwise Rust might pick up the wrong 
@@ -36,6 +36,6 @@
   * TODO: We set CFLAGS and CXXFLAGS but it is not clear at all if this is of any 
     use during the install procedure.
 
-### Rust 1.61.0 for LUMI/22.05
+### Rust 1.61.0 for LUMI/22.06
 
   * This does not work so we did not update Rust.

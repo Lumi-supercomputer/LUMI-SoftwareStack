@@ -13,7 +13,7 @@
   * The EasyConfig is the standard EasyConfig with additional documentation added
     from the University of Antwerpen.
 
-### zlib 1.2.12 from CPE 22.05 on
+### zlib 1.2.12 from CPE 22.06 on
 
   * The configure script is broken and the patch used in the EasyBuilders version is
     absolutely needed. Without it, the shared library is build incorrectly and lacks

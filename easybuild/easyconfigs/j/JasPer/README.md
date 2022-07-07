@@ -18,7 +18,7 @@
   * The EasyConfig is derived from the University of Antwerpen one with a version
     bump and change of download location.
 
-### 3.0.4 from CPE 22.05 on
+### 3.0.4 from CPE 22.06 on
 
   * Trivial version bump of the EasyConfig
 

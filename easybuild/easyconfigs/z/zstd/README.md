@@ -19,7 +19,7 @@
 
     We did upgrade to the fresh release 1.5.0.
 
-### Version 1.5.2 for CPE 22.05
+### Version 1.5.2 for CPE 22.06
 
   * Trivial port of the EasyConfig
 

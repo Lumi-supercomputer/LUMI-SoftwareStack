@@ -14,7 +14,7 @@
     which already employs gettext (which is in fact the first source of a circular
     dependency as gettext can also benefit from libiconv).
 
-### 1.17 from 22.05 on
+### 1.17 from 22.06 on
 
   * Trivial port of the 1.16 EasyConfig.
 

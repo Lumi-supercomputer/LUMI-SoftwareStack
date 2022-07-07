@@ -55,7 +55,7 @@
     of Antwerpen one which predates the former.
 
 
-### Version 1.1 from CPE 22.05 on
+### Version 1.1 from CPE 22.06 on
 
   * Trivial bump of the EasyConfig.
 

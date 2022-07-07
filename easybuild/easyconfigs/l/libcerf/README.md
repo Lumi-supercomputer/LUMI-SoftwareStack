@@ -20,7 +20,7 @@
   * **NOTE: The build process also uses Perl which is currently taken from the system
     to avoid having to build an incomplete Perl that early in the build cycle.**
 
-### Version 2.1 from CPE 22.05 on
+### Version 2.1 from CPE 22.06 on
 
   * Trivial update of the EasyConfig.
 

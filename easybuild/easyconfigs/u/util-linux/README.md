@@ -22,7 +22,7 @@
   * We need to use ``--without-tinfo`` as otherwise we get an error message about
     ``cur_term`` not found.
 
-### 2.38 from CPE 22.05 on
+### 2.38 from CPE 22.06 on
 
   * Trivial version bump of the EasyConfig,
 

@@ -22,7 +22,7 @@
 
   * Straightforward port of the 2.10.4 one.
 
-### Version 2.12.1 from CPE 22.05 on
+### Version 2.12.1 from CPE 22.06 on
 
   * Started with a straightforward port of the 2.11.0 one.
 

@@ -29,7 +29,7 @@
 
   * Trivial port
 
-### Version 1.21.3 for CPE 22.05
+### Version 1.21.3 for CPE 22.06
 
   * Trivial port
 

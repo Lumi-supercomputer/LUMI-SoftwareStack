@@ -19,7 +19,7 @@
   * The EasyConfig is derived from the University of Antwerpen one as that one builds
     a more fully featured version of the library.
 
-### Version 10.40 from CPE 22.05 on
+### Version 10.40 from CPE 22.06 on
 
   * Trivial port of 10.37, but with a switch to GitHub for sources.
 

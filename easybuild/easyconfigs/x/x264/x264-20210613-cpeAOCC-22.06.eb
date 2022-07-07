@@ -1,0 +1,53 @@
+easyblock = 'ConfigureMake'
+
+local_x264_commit =          '5db6aa6c'      # Just follow EasyBuild as the distribution is currently a mess
+local_x264_version =         '20210613'      # Just follow EasyBuild as the distribution is currently a mess
+
+name =    'x264'
+version = local_x264_version
+
+homepage = 'http://www.videolan.org/developers/x264.html'
+
+whatis = [
+    "Description: x264 is a free library and application for H.264/MPEG-4 AVC encoding, made by the VideoLAN organization",
+    "This module provides both the command line tool and static and shared libraries"
+]
+
+description = """
+x264 is a free software library and application for encoding video streams
+into the H.264/MPEG-4 AVC compression format, and is released under the
+terms of the GNU GPL. It is developed by the VideoLAN organization.
+
+This module provides the encodign tool x264 and static and shared libraries.
+"""
+
+examples = """
+This package does not come with much integrated documentation. It is however
+possible to get some help information for the x264 command line tool using
+the --help option, which includes a few examples.
+"""
+
+toolchain = {'name': 'cpeAOCC', 'version': '22.06'}
+toolchainopts = {'pic': True}
+
+source_urls = ['https://code.videolan.org/videolan/x264/-/archive/%s/' % local_x264_commit]
+sources =     [{'download_filename': 'x264-%s.tar.gz' % local_x264_commit, 'filename': SOURCE_TAR_GZ}]
+checksums =   ['9b5543a5f114f4c6905a2319ea4c2063d6ebd2db209b41642086df3c1f7b6f50']
+
+builddependencies = [ # Create a reproducible build environment.
+    ('buildtools', '%(toolchain_version)s', '', True), # USes NASM
+]
+
+configopts = " --enable-shared --enable-static"
+
+installopts  = ' && cp -r doc %(installdir)s'
+installopts += ' && cp AUTHORS %(installdir)s'
+installopts += ' && cp COPYING %(installdir)s'
+
+sanity_check_paths = {
+    'files': ['bin/x264', 'include/x264_config.h', 'include/x264.h',
+              'lib/libx264.a', 'lib/libx264.%s' % SHLIB_EXT],
+    'dirs':  [],
+}
+
+moduleclass = 'vis'

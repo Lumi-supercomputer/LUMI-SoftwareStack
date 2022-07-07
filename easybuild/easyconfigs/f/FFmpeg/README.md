@@ -27,7 +27,7 @@ in EasyBuild.
 
       * Crashes the Cray compiler
 
-### Version 5.0.1 for CPE 22.05
+### Version 5.0.1 for CPE 22.06
 
   * We started from a version bump of the 4.3.3 EasyConfig.
 

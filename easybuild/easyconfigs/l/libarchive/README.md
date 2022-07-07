@@ -16,7 +16,7 @@
     Antwerpen which supports more compression tools than the one from the
     EasyBuilders repository.
 
-### 3.6.1 for CPE 22.05
+### 3.6.1 for CPE 22.06
 
   * Trivial port of the EasyConfig of 3.5.1
 
