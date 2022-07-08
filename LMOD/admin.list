@@ -31,3 +31,7 @@ cray-mpich/8.1.5:
 The cray-mpich/8.1.5 module is part of the Cray Programming Environment 21.05 and can no longer
 be supported. Please switch to the cray-mpich/8.1.12 module that comes with the 21.12 programming
 environment. All 21.05 related files will be removed at a future maintenance interval.
+
+LUMI/21.08:
+The LUMI/21.08 software stack is deprecated and will be removed in a future maintenance period.
+Please switch to the more recent 21.12, or 22.06 when that one becomes available.
