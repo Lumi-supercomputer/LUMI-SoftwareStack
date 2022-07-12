@@ -1,3 +1,13 @@
+# EasyConfig versions are synchronized were possible with the 2022a toolchains in
+# EasyBuild 4.6.0. However,
+# -   Some packages may have older versions due to compile problems
+# -   Sometimes EasyConfig files were not yet visible during development so webmproject
+#     had to pick our own version and may have a newer one (with the older one likely
+#     been stuck as a pull request)
+# -   Many packages were not yet supported in 2022a in EasyBuild 4.6.0.
+# -   And sometimes we had no time to switch to a newer version when 4.6.0 came out
+#     just days before 22.06 had to be installed on LUMI.
+#
 local_LUMI_version =        '22.05'
 local_craypython_version =  '3.9.4.2'
 local_EasyBuild_version =   '4.6.0'
@@ -50,7 +60,7 @@ local_DB_version =           '18.1.40'       # https://www.oracle.com/database/t
 local_double_conv_version =  '3.2.0'         # https://github.com/google/double-conversion/releases
 
 local_Eigen_version =        '3.4'           # https://gitlab.com/libeigen/eigen/-/releases
-local_ELPA_version =         '2021.11.001'   # Synchronized with CSCS
+local_ELPA_version =         '2021.11.001'   # Synchronized with CSCS and same version in EasyBuild 2022a
 local_ESMF_version =         '8.3.0'         # https://github.com/esmf-org/esmf/releases
 local_expat_version =        '2.4.8'         # https://github.com/libexpat/libexpat/releases
 
