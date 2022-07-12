@@ -5,9 +5,9 @@
 
 ## EasyBuild
 
-  * [util-linux support in the EasyBuilders repository]()
+  * [util-linux support in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/u/util-linux)
 
-  * [util-linux support in the CSCS repository]()
+  * [util-linux support in the CSCS repository](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/u/util-linux)
 
 
 ### 2.37.1 from cpe 21.06 on

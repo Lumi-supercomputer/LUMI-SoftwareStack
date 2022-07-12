@@ -11,7 +11,7 @@ of their configure scripts with autoconf.
 
   * [xorg-macros support in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/x/xorg-macros)
 
-  * [xorg-macros support in the CSCS repository]https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/x/xorg-macros)
+  * [xorg-macros support in the CSCS repository](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/x/xorg-macros)
 
 
 ### 1.19.3 from CPE 21.06 on

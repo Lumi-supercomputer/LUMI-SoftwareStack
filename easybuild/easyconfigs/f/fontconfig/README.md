@@ -6,9 +6,9 @@
 
 ## EasyBuild
 
-  * [fontconfig in the EasyBuilders repository]()
+  * [fontconfig in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/f/fontconfig)
 
-  * [fontconfig in the CSCS repository]()
+  * [fontconfig in the CSCS repository](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/f/fontconfig)
 
 
 ### Version 2.13.94 from cpe 21.06 on

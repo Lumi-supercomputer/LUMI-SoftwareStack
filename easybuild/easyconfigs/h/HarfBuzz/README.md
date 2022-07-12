@@ -9,7 +9,7 @@
 
 ## EasyBuild
 
-  * [HarfBuzz support in the EasyBuilders repository]()
+  * [HarfBuzz support in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/h/HarfBuzz)
 
   * Three is no HarfBuzz support in the CSCS repository.
 

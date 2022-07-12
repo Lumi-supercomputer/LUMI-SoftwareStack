@@ -6,7 +6,7 @@
 
 ## EasyBuild
 
-  * [libdeflate support in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/libarchive)
+  * [libarchive support in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/libarchive)
 
   * There is no support in the CSCS repository
 

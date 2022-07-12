@@ -7,9 +7,9 @@
 
 ## EasyBuild
 
-  * [libcerf in the EasyBuilders repository]()
+  * [libcerf in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/libcerf)
 
-  * [libcerf in the CSCS repository]()
+  * [libcerf in the CSCS repository](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/l/libcerf)
 
 
 ### Version 1.17 from CPE 21.06 on

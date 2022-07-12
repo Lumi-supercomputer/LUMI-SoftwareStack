@@ -9,7 +9,7 @@
 
   * [ gettext support in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/g/gettext)
 
-  * [gettext support in the CSCS repository](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/g/gettext
+  * [gettext support in the CSCS repository](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/g/gettext)
 
 ### gettext 0.21 from 21.06 on
 

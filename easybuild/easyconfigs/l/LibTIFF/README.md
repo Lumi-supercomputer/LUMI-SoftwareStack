@@ -1,5 +1,5 @@
 # LibTIFF
-]
+
   * [Home page 1](https://libtiff.gitlab.io/libtiff/)
 
   * [Home page 2 (if it works) on gitlab](https://libtiff.gitlab.io/libtiff/)

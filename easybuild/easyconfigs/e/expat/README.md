@@ -8,9 +8,9 @@
 
 ## EasyBuild
 
-  * [expat support in the EasyBuilders repository]()
+  * [expat support in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/e/expat)
 
-  * [expat support in the CSCS repository]()
+  * [expat support in the CSCS repository](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/e/expat)
 
 
 ### Version 2.4.1 from CPE 21.06 on

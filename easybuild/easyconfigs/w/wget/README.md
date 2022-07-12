@@ -6,7 +6,7 @@
 
 ## EasyBuild
 
-  * [wget in the EasyBuilders repository]()
+  * [wget in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/w/wget)
 
   * There is no support for wget in the CSCS repository.
 

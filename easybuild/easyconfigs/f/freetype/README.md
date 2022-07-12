@@ -7,9 +7,9 @@
 
 ## EasyBuild
 
-  * [freetype in the EasyBuilders repository]()
+  * [freetype in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/f/freetype)
 
-  * [freetype in the CSCS repository]()
+  * [freetype in the CSCS repository](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/f/freetype)
 
 
 ### Version 2.10.4 from CPE 21.06 on
