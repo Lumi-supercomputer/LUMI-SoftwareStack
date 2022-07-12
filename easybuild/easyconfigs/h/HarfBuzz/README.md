@@ -22,3 +22,12 @@
     concerns that it might break builds.
 
   * The EasyConfig is a mix of the EasyBuilders and UAntwerpen ones.
+
+### Version 4.2.1 for CPE 22.06
+
+  * Last-minute update to align with the 2022a toolchains in EasyBuild 4.6.0.
+
+  * Sources taken from where we took them before rather than using the sources
+    statements from the EasyBuild 4.6.0 version as that one produced problems
+    during the configure step.
+

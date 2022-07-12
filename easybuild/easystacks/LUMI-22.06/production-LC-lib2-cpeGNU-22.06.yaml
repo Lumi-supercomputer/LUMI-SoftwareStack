@@ -333,12 +333,12 @@ software:
     toolchains:
       cpeGNU-22.06:
         versions:
-          '1.71.0':
+          '1.72.0':
             versionsuffix: '-cray-python3.9'
   HarfBuzz:
     toolchains:
       cpeGNU-22.06:
-        versions: ['2.8.2']
+        versions: ['4.2.1']
   Pango:
     toolchains:
       cpeGNU-22.06:
