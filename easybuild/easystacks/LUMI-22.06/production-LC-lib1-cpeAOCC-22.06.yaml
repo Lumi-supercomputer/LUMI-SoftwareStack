@@ -6,7 +6,7 @@ software:
   libreadline:
     toolchains:
       cpeAOCC-22.06:
-        versions: ['8.1']
+        versions: ['8.1.2']
   gettext:
     toolchains:
       cpeAOCC-22.06:

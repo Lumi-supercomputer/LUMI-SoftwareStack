@@ -1,7 +1,7 @@
 easyblock = 'ConfigureMake'
 
 local_ncurses_version =      '6.2'           # https://ftp.gnu.org/pub/gnu/ncurses/
-local_libreadline_version =  '8.1'           # https://ftp.gnu.org/pub/gnu/readline/
+local_libreadline_version =  '8.1.2'         # https://ftp.gnu.org/pub/gnu/readline/
 local_libiconv_version =     '1.17'          # https://ftp.gnu.org/pub/gnu/libiconv/
 local_gettext_version =      '0.21'          # https://ftp.gnu.org/pub/gnu/gettext/
 local_gdbm_version =         '1.23'          # https://ftp.gnu.org/gnu/gdbm/

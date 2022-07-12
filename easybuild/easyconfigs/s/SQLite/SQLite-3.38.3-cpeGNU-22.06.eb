@@ -12,7 +12,7 @@
 # http://hpcbios.readthedocs.org/en/latest/
 easyblock = 'ConfigureMake'
 
-local_libreadline_version =  '8.1'           # https://ftp.gnu.org/pub/gnu/readline/
+local_libreadline_version =  '8.1.2'         # https://ftp.gnu.org/pub/gnu/readline/
 local_Tcl_version =          '8.6.12'        # https://tcl.tk/
 
 local_SQLite_version =       '3.38.3'        # https://www.sqlite.org/

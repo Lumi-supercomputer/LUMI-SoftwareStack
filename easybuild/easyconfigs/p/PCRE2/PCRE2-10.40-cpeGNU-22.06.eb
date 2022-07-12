@@ -1,6 +1,6 @@
 easyblock = 'ConfigureMake'
 
-local_libreadline_version =  '8.1'           # https://ftp.gnu.org/pub/gnu/readline/
+local_libreadline_version =  '8.1.2'         # https://ftp.gnu.org/pub/gnu/readline/
 local_zlib_version =         '1.2.12'        # https://zlib.net/
 local_bzip2_version =        '1.0.8'         # http://www.bzip.org/downloads.html
 local_PCRE2_version =        '10.40'         # https://ftp.pcre.org/pub/pcre/
