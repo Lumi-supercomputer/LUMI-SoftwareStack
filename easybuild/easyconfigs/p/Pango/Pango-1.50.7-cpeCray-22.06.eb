@@ -7,7 +7,7 @@ local_GLib_version =         '2.73.0'        # https://ftp.gnome.org/pub/GNOME/s
 local_GObject_version =      '1.72.0'        # https://github.com/GNOME/gobject-introspection/releases
 local_HarfBuzz_version =     '4.2.1'         # https://www.freedesktop.org/software/harfbuzz/release/
 
-local_craypython_version =  '3.9.7.1'
+local_craypython_version =  '3.9.12.1'
 
 local_Pango_version =        '1.50.7'        # http://ftp.gnome.org/pub/GNOME/sources/pango/
 

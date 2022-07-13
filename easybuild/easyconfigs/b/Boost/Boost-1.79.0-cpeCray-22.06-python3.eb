@@ -9,7 +9,7 @@ local_zstd_version =         '1.5.2'         # https://github.com/facebook/zstd/
 
 local_Boost_version =        '1.79.0'        # https://www.boost.org/
 
-local_craypython_version = '3.9.7'
+local_craypython_version = '3.9.12.1'
 
 name =          'Boost'
 version =       local_Boost_version
