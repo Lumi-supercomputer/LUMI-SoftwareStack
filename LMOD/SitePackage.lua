@@ -163,7 +163,9 @@ function detect_LUMI_partition()
             nodenum = tonumber( tmp3 ) -- Convert to number
 
             -- Find the partition based on the node number
-            if ( nodenum >= 1000 ) and ( nodenum <= 2535 ) then
+            if ( nodenum >= 5000 ) and ( nodenum <= 7559 ) then
+                partition = 'G'
+            elseif ( nodenum >= 1000 ) and ( nodenum <= 2535 ) then
                 partition = 'C'
             elseif ( nodenum >= 101 ) and ( nodenum <= 108 ) then
                 -- LUMI-D nodes without a GPU (largemem nodes)
@@ -175,7 +177,7 @@ function detect_LUMI_partition()
                 -- EAP nodes with GPU
                 partition = 'EAP'
             else
-                partition = 'L'
+                partition = 'L' -- As we know of nothing better, but this should not happen.
             end
 
         else -- Don't recognize the form of the host name unfortunately.
