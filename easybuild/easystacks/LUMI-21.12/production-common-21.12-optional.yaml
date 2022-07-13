@@ -1,5 +1,0 @@
-software:
-  Rust:
-    toolchains:
-      SYSTEM:
-        versions: ['1.55.0']
