@@ -28,17 +28,17 @@ software:
   git:
     toolchains:
       SYSTEM:
-        versions: ['2.36.1']
+        versions: ['2.37.0']
   Subversion:
     toolchains:
       SYSTEM:
         versions: ['1.14.2']
-  lumi-container-wrapper:
-    toolchains:
-      SYSTEM:
-        versions:
-          '0.2.2':
-            versionsuffix: '-cray-python-default'
+#  lumi-container-wrapper:
+#    toolchains:
+#      SYSTEM:
+#        versions:
+#          '0.2.2':
+#            versionsuffix: '-cray-python-default'
 #  rocm:
 #    toolchains:
 #      SYSTEM:

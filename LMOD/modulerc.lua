@@ -19,10 +19,11 @@ hide_modulefile( '/opt/cray/pe/lmod/modulefiles/core/cpe/21.09.lua' )
 hide_modulefile( '/opt/cray/pe/lmod/modulefiles/core/cpe/21.10.lua' )
 hide_modulefile( '/opt/cray/pe/lmod/modulefiles/core/cpe/21.11.lua' )
 hide_modulefile( '/opt/cray/pe/lmod/modulefiles/core/cpe/21.12.lua' )
+hide_modulefile( '/opt/cray/pe/lmod/modulefiles/core/cpe/22.06.lua' )
 end
 
 -- The following modules do not work with Cray LMOD 8.3.1
 hide_version( 'ModuleExtensions/hide' )
 hide_version( 'ModuleExtensions/show' )
 
-hide_modulefile( '/opt/cray/pe/lmod/modulefiles/core/cpe/22.05.lua' )
+

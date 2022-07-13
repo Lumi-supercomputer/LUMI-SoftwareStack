@@ -16,8 +16,8 @@ STAT,4.11.10
 valgrind4hpc,2.12.8
 perftools,22.06.0
 PAPI,6.0.0.15
-LibSci,22.08.1.2
-LibSci_acc,22.08.1.2
+LibSci,22.06.1.3
+LibSci_acc,22.06.1.3
 FFTW,3.3.10.1
 craype-dl-plugin-py3,22.06.1
 craypkg-gen,1.3.25
