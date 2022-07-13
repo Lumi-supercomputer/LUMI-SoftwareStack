@@ -99,16 +99,23 @@ environment: Clean the environment using "module purge", load the cpe/yy.mm
 module of your choice, and then load the PrgEnv module of your choice in its
 default version. You have to use different module load statements though
 for the cpe and PrgEnv module as the cpe module only takes full effect at the
-next module load command. E.g., to load the 21.08 version of PrgEnv-cray:
+next module load command. E.g., to load the 21.12 version of PrgEnv-cray:
 $ ml CrayEnv
 $ module purge
-$ module load cpe/21.08
+$ module load cpe/21.12
 $ module load PrgEnv-cray
 
 =====
 
-The interconnect that will be used on LUMI-G and on the LUMI-C compute nodes
-after the installation of LUMI-G, does not support UCX. Even though UCX is
-currently on the system we do not support it. Use at your own risk and be
-aware that it will disappear from the system.
+The interconnect on LUMI after the update of late June and early July 2022
+does not support UCX, xo craype-network-ucx and cray-mpich-ucx no longer
+work as before or will fall back to (slow) TCP communication.
 
+For technical people: only libfabric with the so-called cassini provider are
+supported for hibh performance communication.
+
+====
+
+Though the late June - early July update integrated LUMI-G in the LUMI setup,
+the system is not yet available for general use and currently undergoing
+extensive testing and benchmarking.

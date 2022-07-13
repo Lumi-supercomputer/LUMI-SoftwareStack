@@ -1,18 +1,22 @@
    .Announcements---------------------------------------------------.
-   | Between February 7 and February 23 LUMI received an upgrade of |
- * | the system software which included a OS upgrade from SLES 15   |
-   | SP1 to SP2. If software stopped working, please contact LUMI   |
-*  | user support via the link given above.                         |
+   | During the late June - early July downtime LUMI-G was          |
+ * | integrated and is now under testing. THe LUMI-C interconnect   |
+   | was upgraded to 200 Gbit/s. The system software received many  |
+*  | updates and the 22.06 programming environment was installed.   |
    |                                                                |
-*  | The core of the LUMI 21/12 software stack is installed.        |
-   | EasyBuild recipes for packages for user installations still    |
- * | need to be adapted, so installations of additional packages    |
-   | still require some EasyBuild expertise to adapt toolchain and  |
-   | dependency versions.                                           |
- * |                                                                |
- * | IMPORTANT: The flash file system on /flash/project_<...> will  |
-   | be unavialable until after the installation of the GPU         |
-   | partition.                                                     |
+ * | LUMI/21.12 is now the recommended LUMI software stack but      |
+   | users are encouraged to switch to LUMI/22.06 as soon as it     |
+   | satisfies their needs. LUMI/21.08 is currently disabled        |
+*  | but may reappear.                                              |
+   |                                                                |
+   | LUMI-C will have reduced capacity during much of July due to   |
+ * | maintenance of the cooling.                                    |
+   |                                                                |
+*  | Further system software updates are planned for late July and  |
+*  | September to improve performance on LUMI-G.                    |
+   |                                                                |
+  *| The flash file system on /flash/project_<...> is unavailable   |
+   | until the next upgrade scheduled for late July.                |
 *  .Notes-----------------------------------------------------------.
    | Make sure one of the following modules is loaded to have the   |
  * | full LUMI experience:                                          |
