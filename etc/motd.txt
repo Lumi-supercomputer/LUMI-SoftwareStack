@@ -4,9 +4,10 @@
    | was upgraded to 200 Gbit/s. The system software received many  |
 *  | updates and the 22.06 programming environment was installed.   |
    |                                                                |
- * | We will soon make available a software stack build on 22.06.   |
-   | LUMI/21.08 is deprecated and will be removed in a future       |
-*  | system maintenance period.                                     |
+ * | LUMI/21.12 is now the recommended LUMI software stack but      |
+   | users are encouraged to switch to LUMI/22.06 as soon as it     |
+   | satisfies their needs. LUMI/21.08 is currently disabled        |
+*  | but may reappear.                                              |
    |                                                                |
    | LUMI-C will have reduced capacity during much of July due to   |
  * | maintenance of the cooling.                                    |
@@ -14,8 +15,8 @@
 *  | Further system software updates are planned for late July and  |
 *  | September to improve performance on LUMI-G.                    |
    |                                                                |
-  *| The flash file system on /flash/project_<...> is available     |
-   | again.                                                         |
+  *| The flash file system on /flash/project_<...> is unavailable   |
+   | until the next upgrade scheduled for late July.                |
 *  .Notes-----------------------------------------------------------.
    | Make sure one of the following modules is loaded to have the   |
  * | full LUMI experience:                                          |
