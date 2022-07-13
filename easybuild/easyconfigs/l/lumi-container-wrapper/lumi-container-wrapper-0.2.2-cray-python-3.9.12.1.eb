@@ -1,6 +1,6 @@
 easyblock = 'Binary'
 
-local_LUMI_version =        '22.05'
+local_LUMI_version =        '22.06'
 local_craypython_version =  '3.9.12.1'
 
 name =          'lumi-container-wrapper'
