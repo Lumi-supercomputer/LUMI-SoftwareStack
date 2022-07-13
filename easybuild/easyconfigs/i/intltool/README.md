@@ -6,7 +6,7 @@ of certain X11 libraries.
 
   * [intltool home page](https://freedesktop.org/wiki/Software/intltool/)
 
-  * [Downloads]](https://launchpad.net/intltool/+download)
+  * [Downloads](https://launchpad.net/intltool/+download)
 
 
 ## Installation
@@ -16,7 +16,7 @@ of certain X11 libraries.
 
 ## EasyBuild
 
-  * [intltool support in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/main/easybuild/easyconfigs/i/intltool)
+  * [intltool support in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/i/intltool)
 
   * There is no support for intltool in the CSCS repository
 

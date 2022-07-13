@@ -1,6 +1,6 @@
 easyblock = 'CMakeMake'
 
-local_libcerf_version =      '1.17'          # https://jugit.fz-juelich.de/mlz/libcerf/-/releases
+local_libcerf_version =      '2.1'           # https://jugit.fz-juelich.de/mlz/libcerf/-/releases
 
 name =    'libcerf'
 version = local_libcerf_version
@@ -30,13 +30,13 @@ docurls = [
     'Man pages in section 3'
 ]
 
-toolchain = {'name': 'cpeAMD', 'version': '21.08'}
+toolchain = {'name': 'cpeAOCC', 'version': '22.06'}
 toolchainopts = {'pic': True}
 
 # https://jugit.fz-juelich.de/mlz/libcerf/-/archive/v1.13/libcerf-v1.13.tar.bz2
 sources =     [ '%(name)s-v%(version)s.tar.bz2' ]
 source_urls = [ 'https://jugit.fz-juelich.de/mlz/libcerf/-/archive/v%(version)s' ]
-checksums =   ['5e0e734edd8976ce41cceca4f83769acba8c49eb38f482e53e8c24770daee5f5']
+checksums =   ['1173dfdd18b2a95643697708691088deeda13b5ff245eb1d6126285dc174028d']
 
 builddependencies = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True), # For CMake but perl is actually needed to and for now taken from the system

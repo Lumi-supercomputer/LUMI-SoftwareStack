@@ -7,9 +7,9 @@
 
 ## EasyBuild
 
-  * [libcerf in the EasyBuilders repository]()
+  * [libcerf in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/libcerf)
 
-  * [libcerf in the CSCS repository]()
+  * [libcerf in the CSCS repository](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/l/libcerf)
 
 
 ### Version 1.17 from CPE 21.06 on
@@ -19,3 +19,8 @@
 
   * **NOTE: The build process also uses Perl which is currently taken from the system
     to avoid having to build an incomplete Perl that early in the build cycle.**
+
+### Version 2.1 from CPE 22.06 on
+
+  * Trivial update of the EasyConfig.
+

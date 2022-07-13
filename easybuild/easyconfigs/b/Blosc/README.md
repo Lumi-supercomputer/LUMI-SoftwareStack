@@ -8,7 +8,7 @@
 
 ## EasyBuild
 
-  * [Blosc in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/main/easybuild/easyconfigs/b/Blosc)
+  * [Blosc in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/b/Blosc)
 
   * [Blosc in the CSCS repository](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/b/Blosc)
 

@@ -1,0 +1,49 @@
+# Contributed by Kurt Lust, LUMI project & UAntwerpen
+easyblock = 'ConfigureMake'
+
+local_lz4_version =      '1.9.3'         # https://github.com/lz4/lz4/releases
+
+name =    'lz4'
+version = local_lz4_version
+
+homepage = 'https://lz4.github.io/lz4/'
+
+whatis = [
+    "Description: LZ4 is lossless compression algorithm, providing compression speed at 400 MB/s per core"
+]
+
+description = """
+LZ4 is lossless compression algorithm, providing compression speed at 400 MB/s per core.
+It features an extremely fast decoder, with speed in multiple GB/s per core.
+"""
+
+toolchain = {'name': 'cpeCray', 'version': '22.06'}
+toolchainopts = {'pic': True}
+
+sources = {
+    'download_filename': 'v%(version)s.tar.gz',
+    'filename':          SOURCELOWER_TAR_GZ,
+    'source_urls':       ['https://github.com/lz4/lz4/archive/']
+}
+checksums =   ['030644df4611007ff7dc962d981f390361e6c97a34e5cbc393ddfbe019ffe2c1']
+
+builddependencies = [ # Create a reproducible build environment.
+    ('buildtools', '%(toolchain_version)s', '', True),
+]
+
+skipsteps = ['configure']
+
+installopts = "PREFIX=%(installdir)s"
+
+runtest = 'check'
+
+sanity_check_paths = {
+    'files': ["bin/lz4", "lib/liblz4.%s" % SHLIB_EXT, "include/lz4.h"],
+    'dirs':  ["lib/pkgconfig"]
+}
+
+sanity_check_commands = [
+    'lz4 -V',
+]
+
+moduleclass = 'lib'

@@ -18,13 +18,17 @@
 
 ## EasyConfig
 
-  * [FLAC support in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/main/easybuild/easyconfigs/f/FLAC)
+  * [FLAC support in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/f/FLAC)
 
   * There is no support for FLAC in the CSCS repository
 
 
-### Version 1.3.3. from CPE 21.06 on
+### Version 1.3.3 from CPE 21.06 on
 
   * Our EasyConfig is a combination of the EasyBuilders one and the one used
     at the University of Antwerpen.
+
+### Version 1.3.4 from CPE 22.06 on
+
+  * The EasyConfig is a trivial update of the 1.3.3 one.
 

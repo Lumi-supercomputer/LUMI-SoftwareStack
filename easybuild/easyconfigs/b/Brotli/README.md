@@ -6,7 +6,7 @@
 
 ## EasyBuild
 
-  * [Brotli in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/main/easybuild/easyconfigs/b/Brotli)
+  * [Brotli in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/b/Brotli)
 
   * There is no support for Brotli in the CSCS repository
 

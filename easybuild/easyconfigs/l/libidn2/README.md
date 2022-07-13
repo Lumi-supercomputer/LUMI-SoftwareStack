@@ -10,7 +10,7 @@
 
 ## EasyBuild
 
-  * [libidn2 support in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/main/easybuild/easyconfigs/l/libidn2)
+  * [libidn2 support in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/libidn2)
 
   * There is no libidn2 support in the CSCS repository
 

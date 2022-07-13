@@ -65,3 +65,8 @@ HPE-Cray has a sample build script for Boost in their
 
   * For 21.12, which switched to Python 3.9.4, the version detection is wrong so the sanity
     check goes looking for the files for Python 3.8 rather than 3.9.
+
+### Version 1.79.0 for LUMI/22.06
+
+  * Trivial port of the EasyConfigs.
+

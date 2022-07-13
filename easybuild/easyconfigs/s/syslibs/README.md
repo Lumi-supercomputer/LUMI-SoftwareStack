@@ -6,17 +6,17 @@ as static libraries using the system GCC and are meant to be used as build depen
 for a number of tools that we want to be able to use without dependencies.
 
 Currently included are:
-  * ncurses
-  * libreadline
-  * bzip2
-  * zlib
-  * lz4
-  * expat
-  * APR and APR-util
-  * Serf
-  * file
-  * PCRE2
-  * SQLite3 (limited configuration, but enough for, e.g., subversion)
+  * ncurses [version check](https://ftp.gnu.org/pub/gnu/ncurses/)
+  * libreadline [version check](https://ftp.gnu.org/pub/gnu/readline/)
+  * bzip2 [version check](https://sourceware.org/git/?p=bzip2.git;a=summary)
+  * zlib [version check](https://zlib.net/)
+  * lz4 [version check](https://github.com/lz4/lz4/releases)
+  * expat [version check](https://github.com/libexpat/libexpat/releases)
+  * APR and APR-util [version check](https://apr.apache.org/)
+  * Serf [version check](https://serf.apache.org/download)
+  * file [version check](http://ftp.astron.com/pub/file/)
+  * PCRE2 [version check](https://github.com/PhilipHazel/pcre2/releases)
+  * SQLite3 (limited configuration, but enough for, e.g., subversion) [version check](https://www.sqlite.org/)
 
 For those libraries that are present on SUSE Linux, we tried to take the same versions
 as much as possible for optimal compatibility with other files that the libraries might
@@ -51,4 +51,12 @@ use.
   * PCRE2: Switched to download from GitHub.
 
   * Configure didn't work for ncurses 6.3 so we stuck to 6.2 rather than to start debugging.
+
+### 22.06
+
+  * No new version of ncurses yet with working configure, so stick to 6.2 instead of 6.3.
+
+  * Several minor upgrades but no new packages.
+  
+  * Added checksums to make the installation on LUMI more robust.
 

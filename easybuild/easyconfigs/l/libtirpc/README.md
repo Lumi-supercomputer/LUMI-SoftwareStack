@@ -7,7 +7,7 @@
 
 ## EasyBuild
 
-  * [libtirpc support in the EasyBuilders repository]()
+  * [libtirpc support in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/libtirpc)
 
   * There is no support for libtirpc in the CSCS repository
 

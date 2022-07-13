@@ -8,7 +8,7 @@
 
 ## EasyBuild
 
-  * [gzip support in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/main/easybuild/easyconfigs/g/gzip)
+  * [gzip support in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/g/gzip)
 
   * There is no gzip in the CSCS repository
 
@@ -24,4 +24,11 @@
         it is likely EasyBuild has the last word and that option is the same
         for all Cray environments.
       * Disable the warning via extra_cflags which is what we have done here.
+
+### 1.12 from CPE 22.06 on
+
+  * Trivial port of the EasyConfig.
+
+  * The extra flag to deal with problems with zen3 optimisation is no longer needed.
+
 

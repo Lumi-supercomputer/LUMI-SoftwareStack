@@ -1,0 +1,70 @@
+# Author: Pavel Grochal (INUITS)
+# License: GPLv2
+
+easyblock = 'ConfigureMake'
+
+name =    'libdeflate'
+version = '1.12'
+
+homepage = 'https://github.com/ebiggers/libdeflate'
+
+whatis = [
+    'Description: libdeflate is a heavily optimized library for DEFLATE/zlib/gzip compression and decompression.'
+]
+
+description = """
+libdeflate is a library for fast, whole-buffer DEFLATE-based compression and
+decompression.
+
+The supported formats are:
+  * DEFLATE (raw)
+  * zlib (a.k.a. DEFLATE with a zlib wrapper)
+  * gzip (a.k.a. DEFLATE with a gzip wrapper)
+
+libdeflate is heavily optimized. It is significantly faster than the zlib library,
+both for compression and decompression, and especially on x86 processors. In
+addition, libdeflate provides optional high compression modes that provide a better
+compression ratio than the zlib's "level 9".
+
+libdeflate itself is a library, but the following command-line programs which use
+this library are also provided:
+
+  * gzip (or gunzip), a program which mostly behaves like the standard equivalent, except
+    that it does not yet have good streaming support and therefore does not yet support
+    very large files
+  * benchmark, a program for benchmarking in-memory compression and decompression
+"""
+
+toolchain = {'name': 'cpeGNU', 'version': '22.06'}
+
+github_account = 'ebiggers'
+sources = {
+    'download_filename': 'v%(version)s.tar.gz',
+    'filename':          SOURCELOWER_TAR_GZ,
+    'source_urls':       [GITHUB_SOURCE],
+}
+checksums = ['ba89fb167a5ab6bbdfa6ee3b1a71636e8140fa8471cce8a311697584948e4d06']
+
+builddependencies = [ # Create a reproducible build environment.
+    ('buildtools', '%(toolchain_version)s', '', True),
+]
+
+skipsteps = ['configure']
+
+installopts = 'PREFIX=%(installdir)s'
+
+sanity_check_paths = {
+    'files': [
+        'bin/%(name)s-gunzip', 'bin/%(name)s-gzip',
+        'lib/%(name)s.a', 'lib/%%(name)s.%s' % SHLIB_EXT,
+        'include/%(name)s.h',
+    ],
+    'dirs': [],
+}
+
+sanity_check_commands = [
+    '%(name)s-gzip -h',
+    '%(name)s-gunzip -h',
+]
+
+moduleclass = 'system'

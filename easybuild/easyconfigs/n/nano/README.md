@@ -16,7 +16,7 @@
   * [Sopport for nano in the CSCS repository](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/n/nano)
 
 
-### nano 5.9 for CPE 21.08 and later
+### nano 5.9 for LUMI/21.08 and later
 
   * Nano is a typical tool to compile using the SYSTEM toolchain. It does
     however require the header files for ncurses which were missing in the
@@ -24,6 +24,12 @@
 
   * Hence we developed new EasyConfig files that uses a ncurses module
 
-### nano 6.2 for CPE 21.12 and later
+### nano 6.2 for LUMI/21.12 and later
 
   * A trivial port of the 5.9 one. No new options were added to the EasyConfig.
+
+### nano 6.3 for LUMI/22.06 and later
+
+  * A trivial upgrade from 6.2. No new options were added to the EasyConfig.
+
+  

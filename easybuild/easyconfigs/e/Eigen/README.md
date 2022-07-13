@@ -2,7 +2,7 @@
 
   * [Eigen weg site](http://eigen.tuxfamily.org/)
 
-  * [Eigen on GitLAb](https://gitlab.com/libeigen/eigen)
+  * [Eigen on GitLab](https://gitlab.com/libeigen/eigen)
 
       * [Releases](https://gitlab.com/libeigen/eigen/-/releases)
 
@@ -36,7 +36,7 @@
   * [Eigen support in the CSCS repository](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/e/Eigen)
 
 
-### Version 3.3.9 for CPE 21.08
+### Version 3.3.9 for LUMI/21.08 and LUMI/21.12
 
   * As this is just a template library it does not make sense to install this
     for a specific toolchain or specific partition. We recommend to simply use the
@@ -55,5 +55,12 @@
     one did not install properly. During the installation process an illegal directory
     name was generated. It is not clear if this is a problem with the EasyBlock or with
     the Eigen installation process itself.
+
+
+
+### Version 3.4 for LUMI/22.06
+
+  * Trivial port of the 3.3.9 EasyConfig.
+
 
 

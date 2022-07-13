@@ -25,7 +25,7 @@ The contents of the module evolved over time. It does contain a subset of:
 * GNU M4 [version check](https://www.gnu.org/software/m4/)
 * GNU make [version check](https://ftp.gnu.org/gnu/make/)
 * GNU sed [version check](https://ftp.gnu.org/gnu/sed/)
-* Byacc [version check](ftp://ftp.invisible-island.net/byacc)
+* Byacc [version check](https://invisible-mirror.net/archives/byacc/)
 * CMake [version check](http://www.cmake.org/)
 * Flex [version check](https://github.com/westes/flex/releases)
 * Ninja [version check](https://ninja-build.org/)
@@ -37,7 +37,8 @@ The contents of the module evolved over time. It does contain a subset of:
 * re2c [version check](https://github.com/skvadrik/re2c/releases)
 * GNU gperf [version check](https://www.gnu.org/software/gperf/)
 * GNU help2man [version check](http://ftpmirror.gnu.org/help2man/)
-* Doxygen [version check](http://www.doxygen.nl/download.html) or [version check](https://github.com/doxygen/doxygen/releases)
+* Doxygen [version check](http://www.doxygen.nl/download.html) or [version check](https://github.com/doxygen/doxygen/tags)
+* xxd [version check: part of vim](https://github.com/vim/vim/tags)
 
 Not included at the moment:
 * git [version check](https://github.com/git/git/releases)

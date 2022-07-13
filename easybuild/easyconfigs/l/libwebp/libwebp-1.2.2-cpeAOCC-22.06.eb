@@ -1,0 +1,60 @@
+# NOTE: Can use SDL (optional), not yet included and doesn't seem to make sense
+# unless OpenGL is also used.
+easyblock = 'ConfigureMake'
+
+local_giflib_version =       '5.2.1'         # https://sourceforge.net/projects/giflib/files/
+local_libjpegturbo_version = '2.1.3'         # https://github.com/libjpeg-turbo/libjpeg-turbo/releases
+local_libpng_version =       '1.6.37'        # http://www.libpng.org/pub/png/libpng.html
+local_libtiff_version =      '4.4.0'         # https://download.osgeo.org/libtiff/
+local_libwebp_version =      '1.2.2'         # https://github.com/webmproject/libwebp/releases
+
+name =    'libwebp'
+version = local_libwebp_version
+
+homepage = 'https://developers.google.com/speed/webp/'
+
+whatis = [
+    "Description: libwebp is a library to encode and decode images in WebP format"
+]
+
+description = """
+WebP is a modern image format that provides superior lossless and lossy
+compression for images on the web. Using WebP, webmasters and web developers
+can create smaller, richer images that make the web faster.
+"""
+
+toolchain = {'name': 'cpeAOCC', 'version': '22.06'}
+toolchainopts = {'pic': True}
+
+source_urls = ['https://storage.googleapis.com/downloads.webmproject.org/releases/webp']
+sources =     [SOURCELOWER_TAR_GZ]
+checksums =   ['7656532f837af5f4cec3ff6bafe552c044dc39bf453587bd5b77450802f4aee6']
+
+builddependencies = [ # Create a reproducible build environment.
+    ('buildtools', '%(toolchain_version)s', '', True),
+]
+
+dependencies = [
+    ('giflib',        local_giflib_version),
+    ('libjpeg-turbo', local_libjpegturbo_version),
+    ('libpng',        local_libpng_version),
+    ('LibTIFF',       local_libtiff_version),
+]
+
+configopts = '--enable-libwebpmux --enable-libwebpdemux --enable-libwebpdecoder --enable-libwebpextras'
+
+sanity_check_paths = {
+    'files': [],
+    'dirs':  ['include', 'lib']
+}
+
+sanity_check_commands = [
+    'webpinfo -version',
+    'cwebp -h',
+    'dwebp -h',
+    'gif2webp -h',
+    'img2webp -h',
+    'webpmux -h',
+]
+
+moduleclass = 'lib'

@@ -5,7 +5,7 @@
 
 ## EasyBuild
 
-  * [SQLite support in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/main/easybuild/easyconfigs/s/SQLite)
+  * [SQLite support in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/s/SQLite)
 
   * [SQLite support in the CSCS repository](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/s/SQLite)
 
@@ -18,3 +18,8 @@
 
   * No cpeAMD version for 21.08 as the compilation of the Tcl dependency
     fails with that compiler.
+
+### Version 3.38.3 from CPE 22.06 on
+
+  * Trivial port of the EasyConfig with some refinement to the download procedure.
+

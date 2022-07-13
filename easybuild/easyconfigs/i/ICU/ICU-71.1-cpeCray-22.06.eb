@@ -1,0 +1,54 @@
+easyblock = 'ConfigureMake'
+
+local_ICU_version =          '71.1'          # http://site.icu-project.org/home
+
+name =          'ICU'
+version =       local_ICU_version
+
+homepage = 'http://site.icu-project.org/home'
+
+whatis = [
+    "Description: ICU is a set of C/C++ and Java libraries providing Unicode and globalization support",
+]
+
+description = """
+ICU is a mature, widely used set of C/C++ and Java libraries providing Unicode
+and Globalization support for software applications.
+"""
+
+toolchain = {'name': 'cpeCray', 'version': '22.06'}
+toolchainopts = {'pic': True}
+
+# https://github.com/unicode-org/icu/releases/download/release-64-2/icu4c-64_2-src.tgz
+source_urls = ['https://github.com/unicode-org/icu/releases/download/release-%(version_major)s-%(version_minor)s']
+sources =     ['icu4c-%(version_major)s_%(version_minor)s-src.tgz']
+checksums =   ['67a7e6e51f61faf1306b6935333e13b2c48abd8da6d2f46ce6adca24b1e21ebf']
+
+builddependencies = [ # Create a reproducible build environment.
+    ('buildtools', '%(toolchain_version)s', '', True),
+]
+
+start_dir = 'source'
+
+sanity_check_paths = {
+    'files': ['lib/libicu%s.%s' % (x, SHLIB_EXT) for x in ['data', 'i18n', 'io', 'test', 'tu', 'uc']],
+    'dirs':  ['bin', 'include/unicode', 'share/icu', 'share/man'],
+}
+
+# Unfortunately the command line arguments are inconsistent and broken. Some packages mention
+# -V or --version in the help but it turns out that that option does not work, some produce
+# exit code 0 when using -h, but two command produceded exit code 1.
+sanity_check_commands = [
+    'icuinfo',
+    'icu-config --version',
+    'icuexportdata --version',
+    'makeconv --version',
+    'derb --version',
+    'uconv --version',
+    'genbrk -h',
+    'gencfu -h',
+    'gencnval -h',
+    'gendict -h',
+]
+
+moduleclass = 'lib'

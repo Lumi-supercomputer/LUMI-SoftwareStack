@@ -1,6 +1,6 @@
 # JasPer
 
-  * [JasPEr on GitHub](https://github.com/jasper-software/jasper)
+  * [JasPer on GitHub](https://github.com/jasper-software/jasper)
 
       * [GitHub releases](https://github.com/jasper-software/jasper/releases)
 
@@ -8,7 +8,7 @@
 
 ## EasyBuild
 
-  * [JasPer support in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/main/easybuild/easyconfigs/j/JasPer)
+  * [JasPer support in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/j/JasPer)
 
   * [JasPer support in the CSCS repository](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/j/JasPer)
 
@@ -17,4 +17,12 @@
 
   * The EasyConfig is derived from the University of Antwerpen one with a version
     bump and change of download location.
+
+### 3.0.4 from CPE 22.06 on
+
+  * Trivial version bump of the EasyConfig
+
+  * Did a check of the tests in the log file and there don't seem to be any new optional
+    dependencies.
+
 

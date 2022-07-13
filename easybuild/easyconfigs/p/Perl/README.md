@@ -2,7 +2,7 @@
 
   * [Perl home page](https://www.perl.org/)
 
-      * [PErl latest versions](https://www.cpan.org/src/README.html)
+      * [Perl latest versions](https://www.cpan.org/src/README.html)
 
 
 ## Possible issues
@@ -19,7 +19,7 @@
 
 ## EasyBuild
 
-  * [Perl support in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/main/easybuild/easyconfigs/p/Perl)
+  * [Perl support in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/p/Perl)
 
   * [Perl support in the CSCS repository](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/p/Perl)
 
@@ -36,3 +36,23 @@
 
     Workaround: Edit the Makefile in ``prebuildopts`` with ``sed``:
     ``'prebuildopts': 'sed -i -e "s|CC = .*|CC = CC|" Makefile && '``.
+
+### Version 5.36 for CPE 22.06
+
+  * We used the list of extensions from the EasyConfig for GCCcore/11.3.0, part of 2022a.
+
+  * Issue with cpeCray/21.08 for the ``Set::IntervalTree`` package: The makefile that
+    is generated during the configure step uses ``clang++`` rather then ``CC`` and as
+    a consequence not all include files are found.
+
+    Workaround: Edit the Makefile in ``prebuildopts`` with ``sed``:
+    ``'prebuildopts': 'sed -i -e "s|CC = .*|CC = CC|" Makefile && '``.
+    This is safe for all CPE toolchains.
+
+  * Do not forget to remove the `preconfigopts` ofr `Net::SSLeay`.
+
+  * Other issues:
+
+      * AOCC: 
+ 
+          * `DBD::SQLite` extension does not compile

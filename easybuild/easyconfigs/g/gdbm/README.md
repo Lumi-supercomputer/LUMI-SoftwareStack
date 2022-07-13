@@ -6,7 +6,7 @@
 
 ## EasyBuild
 
-  * [gdbm in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/main/easybuild/easyconfigs/g/gdbm)
+  * [gdbm in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/g/gdbm)
 
   * There is no support for gdbm in the CSCS repository
 
@@ -15,3 +15,10 @@
 
   * The EasyConfig is derived from the University of Antwerpen one as that one
     is more complete in terms of dependencies.
+
+### Version 1.23 from CPE 22.06 on
+
+  * Trivial version bump of the EasyConfig, but we removed unnecessary variables
+    from the EasyConfig accidentally left in when copying from the UAntwerpen
+    repository.
+

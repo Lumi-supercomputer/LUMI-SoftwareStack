@@ -1,4 +1,4 @@
-# MPFR
+# MPC
 
   * [MPC home page](http://www.multiprecision.org/mpc/)
 

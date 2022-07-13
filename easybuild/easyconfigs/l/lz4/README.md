@@ -4,11 +4,11 @@
 
   * [lz4 on GitHub](https://github.com/lz4/lz4)
 
-      * [lz4 GitHug releases](https://github.com/lz4/lz4/releases)
+      * [lz4 GitHub releases](https://github.com/lz4/lz4/releases)
 
 ## EasyBuild
 
-  * [lz4 in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/main/easybuild/easyconfigs/l/lz4)
+  * [lz4 in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/lz4)
 
   * [lz4 in the CSCS repository](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/l/lz4)
 

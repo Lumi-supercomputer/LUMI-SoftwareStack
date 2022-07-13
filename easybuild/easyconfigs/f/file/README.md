@@ -2,14 +2,14 @@
 
   * [file home page](http://www.darwinsys.com/file/)
 
-  * [file downloads](ftp://ftp.astron.com/pub/file/)
+  * [file downloads](https://www.astron.com/pub/file/)
 
   * [GitHub mirror of the CVS](https://github.com/file/file)
 
 
 ## EasyBuild
 
-  * [file support in the EasyBuilders repository]()
+  * [file support in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/f/file)
 
   * There is no support for file in the CSCS repository
 
@@ -18,3 +18,14 @@
 
   * The EasyConfig is a mix of the EasyBuilders and University of Antwerpen ones
     with additional documentation.
+
+### Version 5.41 from CPE 21.12 on
+
+  * Trivial port of the EasyConfig
+
+### Version 5.42 from CPE 22.06 on
+
+  * Did a check for additional dependencies and found that it can also use bzip2
+    and XZ, so moved it further down in the build chain.
+
+  * Otherwise a simple port of the EasyConfig file of 5.41.

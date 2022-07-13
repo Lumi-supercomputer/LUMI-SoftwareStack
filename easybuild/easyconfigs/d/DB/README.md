@@ -7,7 +7,7 @@
 
 ## EasyBuild
 
-  * [DB in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/main/easybuild/easyconfigs/d/DB)
+  * [DB in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/d/DB)
 
   * There is no support for DB in the EasyBuilders repository
 

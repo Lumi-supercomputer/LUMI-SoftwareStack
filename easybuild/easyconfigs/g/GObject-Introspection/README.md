@@ -29,3 +29,8 @@
 
   * Updated to 1.71.0 rather than following the EasyBuild common toolchain for 21.12
     because of problems with Meson not finding a file.
+
+
+### Version 1.72.0 for CPE 22.06
+
+  * Trivial port of the EasyConfig, made last minute to align with EasyBuild 4.6.0.

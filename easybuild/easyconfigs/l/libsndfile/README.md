@@ -34,11 +34,17 @@
 
   * One needs to run `autogen.sh` to generate the `configure` script.
 
+  * Notes about dependencies:
+
+      * We don't include ALSA as that is an interface to hardware which likely doesn't make
+        sense for applications on a supercomputer. According to the instructions it is only
+        used in the sound player (`snd-play` executable).
+
 
 ## EasyConfig
 
 
-  * [libsndfile support in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/main/easybuild/easyconfigs/l/libsndfile)
+  * [libsndfile support in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/libsndfile)
 
   * There is no libsndfile support in the CSCS repository
 
@@ -47,3 +53,13 @@
 
   * The EasyConfig file is a mix of the EasyBuilders one and the University
     of Antwerpen one which predates the former.
+
+
+### Version 1.1 from CPE 22.06 on
+
+  * Trivial bump of the EasyConfig.
+
+  * Checked to add MPEG support, but LAME is not enough and MPG123 is also needed
+    which may be a burden to install. We instead added the flag to disable MPEG support.
+
+  * The static library is no longer generated.

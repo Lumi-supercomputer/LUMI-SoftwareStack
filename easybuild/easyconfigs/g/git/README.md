@@ -42,6 +42,11 @@ cluster).
     additional packages that provide the necessary tools. This is not yet finished
     on LUMI though as more packages are missing than on eiger.
 
-### git 2.35.1 for CPE 21.12
+### git 2.35.1 for LUMI/21.12
 
   * Straightforward port of the 2.33.1 EasyConfig file
+
+### git 2.36.1 for LUMI/22.06
+
+  * Straightforward port of the 2.35.1 EasyConfig file
+

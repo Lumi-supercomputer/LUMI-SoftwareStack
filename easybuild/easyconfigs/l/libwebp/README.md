@@ -4,12 +4,12 @@
 
   * [libwebp on GitHub](https://github.com/webmproject/libwebp)
 
-      * [GitHub releases](https://github.com/webmproject/libwebp/releases)
+      * [GitHub releases](https://github.com/webmproject/libwebp/tags)
 
 
 ## Easybuild
 
-  * [libwebp support in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/main/easybuild/easyconfigs/l/libwebp)
+  * [libwebp support in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/libwebp)
 
   * There is no libwebp support in the CSCS repository
 
@@ -28,3 +28,8 @@
   * The EasyConfig is based on the one from the University of Antwerpen but
     mostly follows the EasyBuilders one with some additional configuration
     options.
+
+### 1.2.2 from CPE 22.06 on
+
+  * Trivial version bump of the 1.2.0 EasyConfig.
+  

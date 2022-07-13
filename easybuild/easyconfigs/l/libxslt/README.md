@@ -7,7 +7,7 @@
 ## EasyBuild
 
 
-  * [libxslt support in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/main/easybuild/easyconfigs/l/libxslt)
+  * [libxslt support in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/libxslt)
 
   * There is no support for libxslt in the CSCS repository
 

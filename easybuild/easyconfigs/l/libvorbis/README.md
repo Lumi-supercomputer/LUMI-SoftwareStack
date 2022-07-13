@@ -17,7 +17,7 @@
 
 ## EasyConfig
 
-  * [libvorbis support in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/main/easybuild/easyconfigs/l/libvorbis)
+  * [libvorbis support in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/libvorbis)
 
   * There is no support for libvorbis in the CSCS repository
 

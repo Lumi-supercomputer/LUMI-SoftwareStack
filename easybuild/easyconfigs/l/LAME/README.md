@@ -7,7 +7,7 @@
 
 ## EasyBuild
 
-  * [LAME in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/main/easybuild/easyconfigs/l/LAME)
+  * [LAME in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/LAME)
 
   * There is no support for LAME in the CSCS repository
 

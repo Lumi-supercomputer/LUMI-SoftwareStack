@@ -7,7 +7,7 @@
 
 ## EasyBuild
 
-  * [cURL support in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/main/easybuild/easyconfigs/c/cURL)
+  * [cURL support in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/c/cURL)
 
   * [cURL support in the CSCS repository](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/c/cURL)
 
@@ -21,3 +21,9 @@
     TLS backend, so this has been added to the EasyConfig file.
 
   * Added additional sanity check commands to the file.
+
+### Version 7.83.1 for LUMI/22.06
+
+  * Trivial update of the EasyConfig, we did not check for new features that could be
+    exploited via additional dependencies.
+

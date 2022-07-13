@@ -7,7 +7,7 @@
 
 ## EasyBuild
 
-  * [Szip in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/main/easybuild/easyconfigs/s/Szip)
+  * [Szip in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/s/Szip)
 
   * [Szip in the CSCS repository](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/s/Szip)
 
