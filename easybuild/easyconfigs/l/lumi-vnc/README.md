@@ -79,3 +79,22 @@ font '-adobe-times-medium-r-normal--10-100-75-75-p-54-iso8859-1'
 font '-adobe-times-medium-r-normal--24-240-75-75-p-124-iso8859-1'
 font '-adobe-times-medium-r-normal--10-100-75-75-p-54-iso8859-1'
 
+## EasyBuild
+
+### Version 20220125
+
+-   This version was developed for LUMI as it was at the beginning of 2022 and continued
+    to work after the February upgrade (which did upgrade the OS).
+
+
+### Version 20220715
+
+-   This version was not properly tested when installed but was still installed as it
+    was kind of an emergency situation after the June-July 2022 upgrade.
+
+    It included an OS update to SLES15SP3 and matching COS, but `lsof` which was used in
+    the script that starts the container was no longer available.
+
+    Due to the holiday schedule this version had to be installed without proper testing
+    on the compute nodes and before the patch was merged in the main branch.
+
