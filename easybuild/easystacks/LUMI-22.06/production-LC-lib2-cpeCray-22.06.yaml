@@ -321,6 +321,10 @@ software:
     toolchains:
       cpeCray-22.06:
         versions: ['1.17.4']
+  FFmpeg:
+    toolchains:
+      cpeCray-22.06:
+        versions: ['5.0.1']
   Tk:
     toolchains:
       cpeCray-22.06:
