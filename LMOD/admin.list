@@ -34,6 +34,7 @@ environment. All 21.05 related files will be removed at a future maintenance int
 
 LUMI/21.08:
 The LUMI/21.08 software stack is currently hidden and broken due to missing components on the 
-system after the upgrade in early July. It is not clear if it will be possible to offer this
-stack again. Users should move to 21.12 in the short term and to 22.06 in the longer term
-(or if it already satisfies your needs).
+system after the upgrade in early July. It will work for some users but not all, so try at your
+own risk. It is not clear if it will be possible to offer this stack again. Users should move
+to 21.12 in the short term and to 22.06 in the longer term (or if it already satisfies your needs).
+Do not to attempt to recompile software with 21.08, as you will get unexpected results.
