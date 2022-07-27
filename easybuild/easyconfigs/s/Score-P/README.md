@@ -22,3 +22,11 @@ a compiler crash.
 
 With cpeAOCC/21.12 there is also a compiler crash for which we have no solution yet.
 
+### Version 7.1 for CPE 22.06
+
+- Toolchain version bump to use CPE 22.06
+- Cray specific optimization no longer produces a compiler crash and have been
+  re-enabled for cpeCray
+- Usage with the Cray Fortran compiler can be tricky: missing OpenMP
+  instrumentation as well as "Invalid pointer" error. Workaround are provided in
+  the usage section of the easyconfig. See `module help Score-P/7.1-cpeCray-22.06`
