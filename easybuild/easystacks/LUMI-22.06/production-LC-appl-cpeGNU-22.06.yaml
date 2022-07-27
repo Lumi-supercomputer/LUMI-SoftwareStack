@@ -27,7 +27,7 @@ software:
 #    toolchains:
 #      cpeGNU-22.06:
 #        versions: ['10.0.0']
-#  Score-P:
-#    toolchains:
-#      cpeGNU-22.06:
-#        versions: ['7.1']
+  Score-P:
+    toolchains:
+      cpeGNU-22.06:
+        versions: ['7.1']
