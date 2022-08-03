@@ -1,8 +1,8 @@
 software:
-#  ELPA:
-#    toolchains:
-#      cpeGNU-22.06:
-#        versions: ['2021.11.001']
+  ELPA:
+    toolchains:
+      cpeGNU-22.06:
+        versions: ['2021.11.001']
   METIS:
     toolchains:
       cpeGNU-22.06:
