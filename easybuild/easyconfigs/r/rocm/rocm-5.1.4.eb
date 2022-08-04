@@ -1,0 +1,470 @@
+# Created for LUMI by Orian Louant
+#
+# This is not very clean but it do the job. Tried with a bundle EasyBlock without
+# much success: Esybuild tried to uncompress the RPMs as they were Tarballs.
+
+easyblock = 'Binary'
+
+import os
+
+local_components = [
+  ('atmi', '5.0.1', {
+    'checksum' : '9ebafcd29b5e8c380395c5d34cd4fc931c25a9eb3c44ea10fab8c3a2df04a9dc'
+  }),
+  ('comgr', '2.4.0', {
+    'checksum' : '496558e67b54fcb9831840b76bf2c1e5b60f2c5cc0f23939c332f8237d16e0b3'
+  }),
+  ('half', '1.12.0', {
+    'checksum' : '6adb899f9154ddbc5e962fa2cf3bcb9db1e61d72c0df59af56da0671c94087e6',
+    'nosles'   : True
+  }),
+  ('hip-devel', '5.1.20532', {
+    'checksum' : '4c167500942d603b9ba4d27cea67b426afb335d87d069363db7ca05c554d5b6a'
+  }),
+  ('hip-doc', '5.1.20532', {
+    'checksum' : '5d46b98320cca3317fbfbe6149157cd009455c32bf8d2dcd0c584008d506fe23'
+  }),
+  ('hip-runtime-amd', '5.1.20532', {
+    'checksum' : '6292ec5f58364e5fe8992233fabe9424a8d4c4c60a36b16a6abd69d1dd835789'
+  }),
+  ('hip-samples', '5.1.20532', {
+    'checksum' : '39fdaff4a73097bb8e5863a5e8e2fd033aba0c8cbef7f9b748d8dbaf4ec508d2'
+  }),
+  ('hsa-amd-aqlprofile', '1.0.0', {
+    'checksum' : '62afaa5ef0f2ab24a5f2ead0c770d8ed0844dcb839a4b535d5391280111671bc'
+  }),
+  ('hsa-rocr-devel', '1.5.0', {
+    'checksum' : 'b9d20b95d4b1f6f61e9b8d459a9cd6b0b81ebd70ac8a7b114f5baf2b83f57305'
+  }),
+  ('hsa-rocr', '1.5.0', {
+    'checksum' : '645a1d845f7eb91c219f824271fc06d55d6cb9a6f73b5ebea4412b4104a204c6'
+  }),
+  ('hsakmt-roct-devel', '20220128.1.7', {
+    'checksum' : 'd33d88d096c6e2b3e8694ae4a13600173000b305df09de64e917d4dd0a8ca2b4'
+  }),
+  ('openmp-extras', '13.51.0', {
+    'checksum' : '7730c74efbce7178d77979b30311676317f860d90306e8479e7fdfb4933d983b'
+  }),
+  ('rdc', '0.3.0', {
+    'checksum' : '4853c314a7d9582bf3f92906c0ff7201fa2e1fc0feb7b72e3816412b528a2ce3'
+  }),
+  ('rocm-clang-ocl', '0.5.0', {
+    'checksum' : '58fb1337c45b668ce61e702b40471146661633bf9c2169dd6c88ff8553003f38'
+  }),
+  ('rocm-cmake', '0.7.2', {
+    'checksum' : '5d656a076d0585ca3d7cb3a699c93c4fadcd10386de9edf33ef7908cbb6b233b'
+  }),
+  ('rocm-core', '5.1.4', {
+    'checksum' : '347102e4ec2e4330c5a8c4000194dbc2444a405592ab093fdf55b421510aee3b'
+  }),
+  ('rocm-dbgapi', '0.64.0', {
+    'checksum' : 'a7c25e327b722d673050dfe87b75601c63ec7d77ec2a991e0bad563d66281d20'
+  }),
+  ('rocm-debug-agent', '2.0.3', {
+    'checksum' : '3ba7b6a7e0758e2cc1907d07c0310d9389921a565920f36f83a2d889bc89fa16'
+  }),
+  ('rocm-dev', '5.1.4', {
+    'checksum' : 'd981b27cdb8b30ee11806babba7876d92b86a5e8b32e44ed16ed2f0311276f79'
+  }),
+  ('rocm-developer-tools', '5.1.4', {
+    'checksum' : 'fefe07b1216aae157738b18dcf27c164e74e91c08905ddbd87b1866e1ec020c5'
+  }),
+  ('rocm-device-libs', '1.0.0', {
+    'checksum' : '5ca72d148ab3083ad06b7c412edb33678b9a15bd26158c165139480fdcd707e2'
+  }),
+  ('rocm-dkms', '5.1.4', {
+    'checksum' : 'f4591043c26969325496637518e2b808c1b7c638d6f0974cd2b33a53d53ba3fc',
+    'source' : 'rocm-dkms-5.1.4.50104-sles153.85.x86_64.rpm'
+  }),
+  ('rocm-gdb', '11.2', {
+    'checksum' : '872d43ae3417f01a372305daf546e4a6e77e4df404fe2f69d3f7210209449c10'
+  }),
+  ('rocm-hip-runtime-devel', '5.1.4', {
+    'checksum' : 'd167ba3d5a8efcf7f9d571475d1c8df4ce4627243f9ee64375ceeacc21897552'
+  }),
+  ('rocm-hip-runtime', '5.1.4', {
+    'checksum' : '24650d08d6e1f5044d9d188cafd7326aedf5b8ff3e81657bd151d43f886d69d4'
+  }),
+  ('rocm-hip-sdk', '5.1.4', {
+    'checksum' : '5eaf25a8f8d1b0438518c1282cb09a948f5b854aaeaa248df73a8524fbb4e6d9'
+  }),
+  ('rocm-language-runtime', '5.1.4', {
+    'checksum' : '278f7cdda6d8e7f961b0c3f0fdbc4836a537faa8381336c055b2603a8fb47376'
+  }),
+  ('rocm-llvm', '14.0.0.22114', {
+    'checksum' : 'bbc5106fecab0145de12f27444f2c90a113445fd235be4680c7c7c6d481d80d8'
+  }),
+  ('rocm-ocl-icd', '2.0.0', {
+    'checksum' : 'c63789087e9f8018a23a6863655a7ce109210ec472e7e703c18bd9106f0fd9ea'
+  }),
+  ('rocm-opencl-devel', '2.0.0', {
+    'checksum' : 'b9d6ecb4234c5224cb0d23928e3435d056fcf1ffd12b8d3e1826edf8bc1f3bea'
+  }),
+  ('rocm-opencl-runtime', '5.1.4', {
+    'checksum' : '229c8b3ae0998cbc709acea7f9e49a897e582f7bf65dc8cdacc468d71844b9b6'
+  }),
+  ('rocm-opencl-sdk', '5.1.4', {
+    'checksum' : '6bd082364488bce7648d64f0bfc69fc6a340aa3b4a0431262f9501f8cc727388'
+  }),
+  ('rocm-opencl', '2.0.0', {
+    'checksum' : '1cb5c5dfc8bb455f4568eefeaeb7a504edc83f2f888f87136692a9fbd761b06a'
+  }),
+  ('rocm-openmp-sdk', '5.1.4', {
+    'checksum' : 'bec312af8276d87220aad088f26bf63af0784ad41daa6eb71f520b4e787debb9'
+  }),
+  ('rocm-smi-lib', '5.0.0', {
+    'checksum' : 'cc320e656e42de5cbb359ac9ee625c5897148fc3ab7fb032f692364028b82981'
+  }),
+  ('rocm-utils', '5.1.4', {
+    'checksum' : '47cf446f525694cee579932be5a0005ce80d8ae8271370957758da754abb47c2'
+  }),
+  ('rocminfo', '1.0.0', {
+    'checksum' : '479d177fe781b3512f9c394a56041043277fb69dbd309a7768761bd480f622b9'
+  }),
+  ('rocprofiler-dev', '1.0.0', {
+    'checksum' : 'f25a100a36bea9eb30a8937885aaf9ec5f2866f7a85dc81c3f436d6d8cb2636f'
+  }),
+  ('roctracer-dev', '1.0.0', {
+    'checksum' : '68ec39e40f45864379c4402808d08ab150bcf41287abf8180ca6ae31773158ea'
+  }),
+  ('hipblas-devel', '0.50.0', {
+    'checksum' : '0657f6a91edc0911507b11215c1b0b070f0af335a6bf85769765c9ebc2926d2a',
+    'nosles': True
+  }),
+  ('hipblas', '0.50.0', {
+    'checksum' : 'f2493af3e05adf1ae0c07a95621f8126c9857cdef15fc6d74840fc4e804131a6',
+    'nosles': True,
+    'ebrootdirs': {
+      'HIPBLAS' : 'hipblas'
+    }
+  }),
+  ('hipcub-devel', '2.10.12', {
+    'checksum' : '628649c24e44b9b8b38188fde9cbfbc40d6ed5121d376a6f4a6def518fcae255',
+    'nosles': True,
+    'ebrootdirs': {
+      'HIPCUB' : 'hipcub'
+    }
+  }),
+  ('hipfft-devel', '1.0.7', {
+    'checksum' : '8fbabc89df0542a92ce40ee6190525d6740a6bbac4e446eb6dd1724db8b6c6a7',
+    'nosles': True
+  }),
+  ('hipfft', '1.0.7', {
+    'checksum' : 'f89757f4766cc3a33d93dc515595c3bc7bcea1d2c97e5a87458a26a5024c54f9',
+    'nosles': True,
+    'ebrootdirs': {
+      'HIPFFT' : 'hipfft'
+    }
+  }),
+  ('hipsolver-devel', '1.3.0', {
+    'checksum' : '43f855b9ac9d6f97732d67d510f002ff1f070bd35e07328b0b9570c43cc92ce8',
+    'nosles': True
+  }),
+  ('hipsolver', '1.3.0', {
+    'checksum' : '529c258a0e9080c8e1802fc4769355966751458ffe88727db93752d922e5e3f6',
+    'nosles': True,
+    'ebrootdirs': {
+      'HIPSOLVER' : 'hipsolver'
+    }
+  }),
+  ('hipsparse-devel', '2.1.0', {
+    'checksum' : 'd78be638954f423e69368f590b2896b6dbd213c65333c090b6d032cb6af71c3b',
+    'nosles': True
+  }),
+  ('hipsparse', '2.1.0', {
+    'checksum' : 'd742f5025e0cb546b1dc7618bbd2d46cba9126ac76ee484aefe42e4167bc0c86',
+    'nosles': True,
+    'ebrootdirs': {
+      'HIPSPARSE' : 'hipsparse'
+    }
+  }),
+  ('rocalution-devel', '2.0.2', {
+    'checksum' : '72f9e6ab8340615c81dbf2a5122127348ed5edb7d6a1cefceef0fd51bd6c5d8a',
+    'nosles': True
+  }),
+  ('rocalution', '2.0.2', {
+    'checksum' : '6f1f9e21f4539361e70f8849dabe5463c39aa46bbd127f8ac4b3fdb66f94e367',
+    'nosles': True,
+    'ebrootdirs': {
+      'ROCALUTION' : 'rocalution'
+    }
+  }),
+  ('rocblas-devel', '2.43.0', {
+    'checksum' : 'aed62f4b9d6a1c4034f434169086a0bc1efa7530889a168329352a96d79283c9',
+    'nosles': True
+  }),
+  ('rocblas', '2.43.0', {
+    'checksum' : '5d5145cf5ee5bc2a3e364ddceadfe743f40cbfcf588baac8cedbe9a199e1e1a3',
+    'nosles': True,
+    'ebrootdirs': {
+      'ROCBLAS' : 'rocblas'
+    }
+  }),
+  ('rocfft-devel', '1.0.16', {
+    'checksum' : '35371199feafd3f8dbc72f6459dfb6a9b21eeea27542b7a26497055a91c379a5',
+    'nosles': True
+  }),
+  ('rocfft', '1.0.16', {
+    'checksum' : '8290fa5cbe554451369cfe5b1537894a8c31d2fd839a8c4348e0b19c3e6866b5',
+    'nosles': True,
+    'ebrootdirs': {
+      'ROCFFT' : 'rocfft'
+    }
+  }),
+  ('rocrand-devel', '2.10.9', {
+    'checksum' : 'f702cd98bf2ac38056195f6edbf5789e7f1a6bf8010cccb5ba9c8b9d1ffa9630',
+    'nosles': True
+  }),
+  ('rocrand', '2.10.9', {
+    'checksum' : '840ad6ce86931993ed6718b7abc100c1e2b0b38cbda366b3ab445f9da3853a18',
+    'nosles': True,
+    'ebrootdirs': {
+      'ROCRAND' : 'rocrand'
+    }
+  }),
+  ('rocsolver-devel', '3.17.0', {
+    'checksum' : 'e1869b7642954e7b07ce4ca25df3766fdd38babdfb7dae0d7917b91713c184e7',
+    'nosles': True
+  }),
+  ('rocsolver', '3.17.0', {
+    'checksum' : 'edbbd767831f535cb9dd4bc3088051338155e7278582d542264080e282a65bce',
+    'nosles': True,
+    'ebrootdirs': {
+      'ROCSOLVER' : 'rocsolver'
+    }
+  }),
+  ('rocsparse-devel', '2.1.0', {
+    'checksum' : 'ade5c826c04a39dd073a7355e69508d6d1eeb6d0ade5899a2ce61dcdaf9a119d',
+    'nosles': True
+  }),
+  ('rocsparse', '2.1.0', {
+    'checksum' : '79355ffdf4a0d0db4991ce76907dd0e971d7ecfa4701e890f288a9096735c6f0',
+    'nosles': True,
+    'ebrootdirs': {
+      'ROCSPARSE' : 'rocsparse'
+    }
+  }),  
+  ('rocthrust-devel', '2.10.9', {
+    'checksum' : 'f7bbed618d7c1f8af47ab4ad0a7ddcb32db88509760fa678b93eae7d8e210377',
+    'nosles': True
+  }),
+  ('rccl', '2.11.4', {
+    'checksum' : 'abe01a0462db0558f23e4f2148e8a0664eade03f06b6bebc9bc7f2770beab74d',
+    'nosles': True,
+    'ebrootdirs': {
+      'RCCL' : 'rccl'
+    }
+  }),  
+  ('rccl-devel', '2.11.4', {
+    'checksum' : '826ba40d74184958fa8a0fbdda4e74422d4f75f0237bb568ec1090c1143b9c3b',
+    'nosles': True
+  }),
+  ('migraphx', '2.1.0', {
+    'checksum': 'ddca535b70ae9e5fecfc5e0dd45f47cb06e2588f48ee8d7f4868054df8931d43',
+    'nosles': True,
+    'ebrootdirs': {
+      'MIGRAPHX' : '%(installdir)s'
+    }
+  }),
+  ('miopen-hip-devel', '2.16.0', {
+    'checksum': '2f73d195394ad0044251c78097c6587acef90af9baca6eeec17fa8eb74d9068d',
+    'nosles': True
+  }),
+  ('miopen-hip', '2.16.0', {
+    'checksum': '042b1265d5275a9e75329b717e4c732a1a2ae1e69a79aed51afecddba331203d',
+    'nosles': True,
+    'ebrootdirs': {
+      'MIOPEN' : 'miopen'
+    }
+  }),
+  ('miopengemm-devel', '1.1.6', {
+    'checksum': '19aa2f63fa9326c7a430394781900725844c5c30faf4fa1cb06846b95bb449d7',
+    'nosles': True
+  }),
+  ('miopengemm', '1.1.6', {
+    'checksum': '4d6be7f01fa83a8baf339c82748a37ef6ea44cce67bc4c6badd1de8c6f2f2a7b',
+    'nosles': True,
+    'ebrootdirs': {
+      'MIOPENGEMM' : 'miopengemm'
+    }
+  }),
+  ('mivisionx', '2.1.0', {
+    'checksum': '322acf3359e8ba2c5edccf5366c34de0a1be3e11b1a1294ad27b226411ac7bfd',
+    'nosles': True,
+    'ebrootdirs': {
+      'MIVISIONX' : 'mivisionx'
+    }
+  }),
+  ('miopenkernels-gfx1030-36kdb', '1.1.0', {
+  'checksum': '42b6004c4693b30a2a09acf65091abd45c8ab6c3aecf9beab97810e3d921ee7e',
+  'nosles': True
+  }),
+  ('miopenkernels-gfx900-56kdb', '1.1.0', {
+    'checksum': 'f4ddd93a3dd4ed475bc2e1942af145b55efa28d66489308a3e84e605549bf603',
+    'nosles': True
+  }),
+  ('miopenkernels-gfx900-64kdb', '1.1.0', {
+    'checksum': '2f633f07fa8b80df4ccf45014583cab087f6888f15e39546123588fc516b46f4',
+    'nosles': True
+  }),
+  ('miopenkernels-gfx906-60kdb', '1.1.0', {
+    'checksum': 'd5a393a685f51e772eaffeb00938b7a08f38c1047d55d98626ff457ed53bbd7a',
+    'nosles': True
+  }),
+  ('miopenkernels-gfx906-64kdb', '1.1.0', {
+    'checksum': '2c56d712cd9b63c65d8fc4ef6278ae11fcb347c9689cc48e91a870d85d6e3ab0',
+    'nosles': True
+  }),
+  ('miopenkernels-gfx908-120kdb', '1.1.0', {
+    'checksum': 'f4e0ef84345c9ff9f81a1ba76afd35cdd7c39b22b78323e77763e9359e1530ff',
+    'nosles': True
+  }),
+  ('miopenkernels-gfx90a-104', '1.1.0', {
+    'checksum': '506ca21c884ee3c48e90a6e2b40d9157ca7256bab45cd887e608b6f083ea8890',
+    'nosles': True
+  }),
+  ('miopenkernels-gfx90a-110', '1.1.0', {
+    'checksum': '79146c9bebe7e6ab3990c36fa5653a35c87d267255a42b19667dca28d2840759',
+    'nosles': True
+  }),
+]
+
+local_rocm_pkgconfig = """
+rocm_prefix=%(installdir)s
+includedir=${rocm_prefix}/include
+lib64dir=${rocm_prefix}/lib64
+libdir=${rocm_prefix}/lib
+profiler_includedir=${rocm_prefix}/rocprofiler/include
+profiler_libdir=${rocm_prefix}/rocprofiler/lib
+profiler_tooldir=${rocm_prefix}/rocprofiler/tool
+profiler_bindir=${rocm_prefix}/rocprofiles/bin
+tracer_includedir=${rocm_prefix}/roctracer/include
+tracer_libdir=${rocm_prefix}/roctracer/lib
+tracer_tooldir=${rocm_prefix}/roctracer/tool
+hip_includedir=${rocm_prefix}/hip/include
+hip_libdir=${rocm_prefix}/hip/lib
+hip_bindir=${rocm_prefix}/hip/bin
+
+Cflags: -I${includedir} -I${profiler_includedir} -I${tracer_includedir} -I${hip_includedir} -D_HIP_PLATFORM_HCC_
+Description: ROCm Toolkit
+Libs: -L${lib64dir} -L${libdir} -L${profiler_libdir} -L${profiler_tooldir} -L${tracer_libdir} -L${tracer_tooldir} -L${hip_libdir} -lamdhip64
+Name: %(name)s-%(version)s
+Version: %(version)s
+"""
+
+name = 'rocm'
+version = '5.1.4'
+
+homepage = 'https://rocmdocs.amd.com/'
+
+whatis = [
+    "Description: AMD ROCm is the first open-source software development platform for "
+    "HPC/Hyperscale-class GPU computing"
+]
+
+description = """
+AMD ROCm is the first open-source software development platform for
+HPC/Hyperscale-class GPU computing. AMD ROCm brings the UNIX philosophy of
+choice, minimalism and modular software development to GPU computing.
+
+ROCm provides the tools required for the development of code using HIP, OpenCL
+and OpenMP programming models including tools for profiling and debugging.
+
+This is an experimental module provided for the convenience of the users of the
+Early Access Platform so that they can compile their code from the login node.
+Problems can and will occur and we can only offer limited support. The module
+should be used with the compilers from the Cray Programming Environment 21.12.
+"""
+
+docurls = [
+  'https://rocmdocs.amd.com/en/latest/'
+]
+
+toolchain = SYSTEM
+
+source_urls = ['https://repo.radeon.com/rocm/zyp/%(version)s/main/']
+
+sources = []
+checksums = []
+for local_component in local_components:
+  local_name    = local_component[0]
+  local_version = local_component[1]
+  local_specs   = local_component[2]
+
+  if 'source' in local_specs:
+    sources.append(local_specs['source'])
+  elif 'nosles' in local_specs and local_specs['nosles']:
+    sources.append('%s%s-%s.50104-85.x86_64.rpm' % (local_name, version, local_version))
+  else:
+    sources.append('%s%s-%s.50104-sles153.85.x86_64.rpm' % (local_name, version, local_version))
+  
+  if 'checksum' in local_specs:
+    checksums.append(local_specs['checksum'])
+
+install_cmd  = 'for rpm in *.rpm; do rpm2cpio $rpm | cpio -idmv; done &&'
+install_cmd += 'cd opt/rocm-%(version)s/ &&'
+install_cmd += 'cp -ar . %(installdir)s/'
+
+postinstallcmds = [
+  'cd %(installdir)s/lib       && for i in ../hip/lib/*.so*;      do ln -s $i; done',
+  'cd %(installdir)s/lib/cmake && for i in ../../hip/lib/cmake/*; do ln -s $i; done',
+  'cd %(installdir)s/bin       && for i in ../hip/bin/*;          do ln -s $i; done',
+  'cd %(installdir)s/bin       && for i in ../llvm/bin/amd*;      do ln -s $i; done',
+  'cd %(installdir)s/include   && ln -s ../hip/include/hip',
+  'sed -i s+/opt/rocm-%(version)s+%(installdir)s+ %(installdir)s/bin/clang-ocl',
+  'find %(installdir)s -type f -name "*.cmake" -exec sed -i s+/opt/rocm-%(version)s+%(installdir)s+ {} +',
+  'find %(installdir)s -type f -name "*.cmake" -exec sed -i s+/opt/rocm+%(installdir)s+ {} +',
+  'find %(installdir)s -type f -name "*.cmake" -exec sed -i s+/usr/lib64/libtinfo.so+/lib64/libtinfo.so.6+ {} +',
+  'mkdir -p %(installdir)s/lib64/pkgconfig',
+  'cat >%(installdir)s/lib64/pkgconfig/rocm-%(version_major_minor)s.pc <<EOF\n' + local_rocm_pkgconfig.replace('$', '\$') + '\nEOF\n',
+  'ln -s %(installdir)s/lib64/pkgconfig/rocm-%(version_major_minor)s.pc %(installdir)s/lib64/pkgconfig/rocm.pc'
+]
+
+local_bin_files = ['hipcc', 'hipconfig', 'amdclang', 'amdclang++', 'amdflang']
+local_lib_files = ['libamdhip64.so.5', 'libhsa-runtime64.so.1']
+local_inc_dirs  = ['hsa', 'roctracer', 'rocprofiler', 'hip']
+
+local_library_paths = [
+  'lib64', 'lib', 'rocprofiler/lib', 'rocprofiler/tool', 'roctracer/lib',
+  'roctracer/tool', 'hip/lib'
+]
+
+local_include_paths = [
+  'include', 'rocprofiler/include', 'roctracer/include', 'hip/include'
+]
+
+sanity_check_paths = {
+    'files': ['bin/%s' % x for x in local_bin_files] + ['lib/%s' %x for x in local_lib_files],
+    'dirs': ['include/%s' % x for x in local_inc_dirs] + ['hip', 'hsa', 'llvm']
+}
+
+modextrapaths = {
+  'LD_LIBRARY_PATH'          : local_library_paths[2:],
+  'CRAY_LD_LIBRARY_PATH'     : local_library_paths,
+}
+
+modextravars = {
+  'ROCM_PATH'                : '%(installdir)s',
+  'HIP_PATH'                 : '%(installdir)s/hip',
+  'HIP_LIB_PATH'             : '%(installdir)s/hip/lib',
+  'HSA_PATH'                 : '%(installdir)s/hsa',
+  'CRAY_ROCM_VERSION'        : '%(version)s',
+  'CRAY_ROCM_DIR'            : '%(installdir)s',
+  'CRAY_ROCM_PREFIX'         : '%(installdir)s',
+  'XTPE_LINK_TYPE'           : 'dynamic',
+  'CRAYPE_LINK_TYPE'         : 'dynamic',
+  'CRAY_ROCM_POST_LINK_OPTS' : '-L%(installdir)s/' + ' -L%(installdir)s/'.join(local_library_paths) + ' -lamdhip64',
+  'CRAY_ROCM_INCLUDE_OPTS'   : '-I%(installdir)s/' + ' -I%(installdir)s/'.join(local_include_paths) + ' -D_HIP_PLATFORM_HCC__',
+}
+
+modluafooter = """
+append_path("PE_PRODUCT_LIST", "CRAY_ROCM")
+prepend_path("PE_PKGCONFIG_LIBS", "rocm-%(version_major_minor)s")
+"""
+
+for local_component in local_components:
+  if 'ebrootdirs' in local_component[2]:
+    for local_root, local_dir in local_component[2]['ebrootdirs'].items():
+      modextravars['EBROOT%s' % local_root] = str(os.path.join('%(installdir)s', local_dir))
+
+moduleclass = 'devel'
