@@ -15,8 +15,8 @@ software:
         versions: ['22.06']
   lumi-CPEtools:
     toolchains:
-      cpeAOCC-22.06:
-        versions: ['1.0']
+#      cpeAOCC-22.06:
+#        versions: ['1.0']
       cpeCray-22.06:
         versions: ['1.0']
       cpeGNU-22.06:
