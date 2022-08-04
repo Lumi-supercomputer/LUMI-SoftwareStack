@@ -437,6 +437,57 @@ end
 
 
 --
+-- function get_num_motd
+--
+-- Gets the number of times the message-of-the-day has been shown today.
+--
+function get_num_motd()
+
+    -- Read .motd-day-counter if present. If not, return 0.
+    local filename = pathJoin( os.getenv( 'HOME' ) or '', '.motd-day-counter' )
+    if not isFile( filename ) then return 0 end
+    local fp = io.open( filename, 'r' )
+    if fp == nil then return 0 end
+    local buffer = fp:read( '*all' )
+    fp:close()
+
+    local date, num
+    date, num = buffer:match( '(%d+):(%d+)' )
+    if date == nil or num == nil then return 0 end
+    num = tonumber( num )
+    
+    -- Now compare the date value to the current date.
+    local cur_date = os.date( '%Y%m%d', os.time() )
+    if date ~= cur_date then
+        num = 0 -- Data in the file was for a different date.
+    end
+
+    return num
+
+end
+
+
+--
+-- function set_num_motd
+--
+-- Increments the number of times the message-of-the-day has been shown today.
+--
+function set_num_motd( num ) 
+
+    local cur_date = os.date( '%Y%m%d', os.time() )
+    local buffer = cur_date .. ':' .. num
+ 
+    -- Write .motd-day-counter. Fail silently if the file cannot be created.
+    local filename = pathJoin( os.getenv( 'HOME' ) or '', '.motd-day-counter' )
+    local fp = io.open( filename, 'w' )
+    if fp == nil then return end
+    fp:write( buffer )
+    fp:close()
+
+end
+
+
+--
 -- function is_interactive()
 --
 -- Input arguments: None
@@ -482,6 +533,8 @@ sandbox_registration{
     ['get_versionedfile']         = get_versionedfile,
     ['get_motd']                  = get_motd,
     ['get_fortune']               = get_fortune,
+    ['get_num_motd']              = get_num_motd,
+    ['set_num_motd']              = set_num_motd,
     ['is_interactive']            = is_interactive,
     ['is_LTS_LUMI_stack']         = is_LTS_LUMI_stack,
 }
