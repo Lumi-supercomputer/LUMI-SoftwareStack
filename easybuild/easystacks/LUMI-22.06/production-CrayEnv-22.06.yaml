@@ -39,19 +39,8 @@ software:
 #        versions:
 #          '0.2.2':
 #            versionsuffix: '-cray-python-default'
-#  rocm:
-#    toolchains:
-#      SYSTEM:
-#        versions: ['4.5.2']
-#  rocmlibs:
-#    toolchains:
-#      SYSTEM:
-#        versions: ['4.5.2']
-#  RCCL:
-#    toolchains:
-#      SYSTEM:
-#        versions: ['4.5.2']
-#  rocThrust:
-#    toolchains:
-#      SYSTEM:
-#        versions: ['4.5.2']
+  rocm:
+    toolchains:
+      SYSTEM:
+        versions: ['5.1.4']
+
