@@ -243,10 +243,20 @@ local_components = [
     'ebrootdirs': {
       'ROCSPARSE' : 'rocsparse'
     }
-  }),  
+  }),
+  ('rocprim-devel', '2.10.9', {
+    'checksum' : '2f195c5cd4b4ba4eed3e7c8357d5524a68ed3a9c3c5342773d54b18154747663',
+    'nosles': True,
+    'ebrootdirs': {
+      'ROCPRIM' : 'rocprim'
+    }
+  }),
   ('rocthrust-devel', '2.10.9', {
     'checksum' : 'f7bbed618d7c1f8af47ab4ad0a7ddcb32db88509760fa678b93eae7d8e210377',
-    'nosles': True
+    'nosles': True,
+    'ebrootdirs': {
+      'ROCTHRUST' : 'rocthrust'
+    }
   }),
   ('rccl', '2.11.4', {
     'checksum' : 'abe01a0462db0558f23e4f2148e8a0664eade03f06b6bebc9bc7f2770beab74d',
