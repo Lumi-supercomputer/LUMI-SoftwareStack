@@ -10,6 +10,8 @@ module_version( 'ModuleLabel/label', 'default' )
 if os.getenv( 'LUMI_LMOD_POWERUSER' ) == nil then
     hide_version( 'cpe-cuda/21.08' )
     hide_version( 'cpe-cuda/21.12' )
+    hide_version( 'partition/D' )
+    hide_version( 'partition/EAP' )
 end
 
 if os.getenv( 'LUMI_STACK_NAME' ) ~= nil then
