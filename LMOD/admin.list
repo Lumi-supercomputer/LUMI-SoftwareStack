@@ -38,3 +38,8 @@ system after the upgrade in early July. It will work for some users but not all,
 own risk. It is not clear if it will be possible to offer this stack again. Users should move
 to 21.12 in the short term and to 22.06 in the longer term (or if it already satisfies your needs).
 Do not to attempt to recompile software with 21.08, as you will get unexpected results.
+
+partition/EAP:
+The MI100 based Early Access Platform is currently out of service, and replaced by a few regular
+MI250X nodes of LUMI-G. For these nodes, partition/G should be used instead (and will be loaded
+automatically if you load a LUMI module on those nodes).
