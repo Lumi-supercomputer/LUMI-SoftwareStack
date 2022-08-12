@@ -20,15 +20,15 @@ software:
   nano:
     toolchains:
       SYSTEM:
-        versions: ['6.3']
-  Vim:
-    toolchains:
-      SYSTEM:
-        versions: ['8.2.5172','9.0.0016']
+        versions: ['6.4']
+#  Vim:
+#    toolchains:
+#      SYSTEM:
+#        versions: ['8.2.5172','9.0.0193']
   git:
     toolchains:
       SYSTEM:
-        versions: ['2.37.0']
+        versions: ['2.37.2']
   Subversion:
     toolchains:
       SYSTEM:
