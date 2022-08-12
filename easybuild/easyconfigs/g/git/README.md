@@ -4,7 +4,7 @@
 
   * [Git on GitHub](https://github.com/git/git)
 
-      * [GitHub releases](https://github.com/git/git/releases)
+      * [GitHub releases via tags](https://github.com/git/git/tags)
 
 
 ## Build instructions
@@ -46,7 +46,11 @@ cluster).
 
   * Straightforward port of the 2.33.1 EasyConfig file
 
-### git 2.36.1 for LUMI/22.06
+### git 2.37.0 for LUMI/22.06
 
   * Straightforward port of the 2.35.1 EasyConfig file
 
+
+### git 2.37.2 for LUMI/22.08
+
+  * Straightforward port of the 2.37.0 EasyConfig file.
