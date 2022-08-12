@@ -1,0 +1,19 @@
+# Software to go in the system partition.
+#
+software:
+  lumi-workspaces:
+    toolchains:
+      SYSTEM:
+        versions: ['0.1']
+  lumi-vnc:
+    toolchains:
+      SYSTEM:
+        versions: ['20220715']
+  Vampir:
+    toolchains:
+      SYSTEM:
+        versions: ['10.0.0']
+  ARMForge:
+    toolchains:
+      SYSTEM:
+        versions: ['22.0.1']

@@ -1,0 +1,17 @@
+software:
+  METIS:
+    toolchains:
+      cpeAOCC-22.08:
+        versions: ['5.1.0']
+  ParMETIS:
+    toolchains:
+      cpeAOCC-22.08:
+        versions: ['4.0.3']
+  SCOTCH:
+    toolchains:
+      cpeAOCC-22.08:
+        versions: ['6.1.3']
+  gnuplot:
+    toolchains:
+      cpeAOCC-22.08:
+        versions: ['5.4.3']
