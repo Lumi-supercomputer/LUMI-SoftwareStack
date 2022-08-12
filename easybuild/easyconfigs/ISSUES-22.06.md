@@ -1,4 +1,4 @@
-# Some known potential issues in the 22.05 LUMI stack
+# Some known potential issues in the 22.06 LUMI stack
 
   * **ELPA**: So far this library fails to compile with the Cray and AMD
     Fortran compilers.
