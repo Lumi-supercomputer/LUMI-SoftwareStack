@@ -32,4 +32,8 @@
 
   * A trivial upgrade from 6.2. No new options were added to the EasyConfig.
 
+### nano 6.4 for LUMI/22.08 and later
+ 
+  * A trivial upgrade from 6.3. No new options were added to the EasyConfig.
+
   

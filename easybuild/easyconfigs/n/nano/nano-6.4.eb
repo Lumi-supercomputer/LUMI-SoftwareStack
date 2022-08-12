@@ -11,7 +11,7 @@ import os as local_os
 # SYSTEM toolchain.
 local_LUMI_version = local_os.environ['LUMI_STACK_CPE_VERSION']
 
-local_nano_version =         '6.3'           # https://www.nano-editor.org/download.php
+local_nano_version =         '6.4'           # https://www.nano-editor.org/download.php
 
 name =    'nano'
 version = local_nano_version
@@ -39,7 +39,7 @@ toolchain = SYSTEM
 # https://www.nano-editor.org/dist/v5/nano-5.9.tar.xz
 sources =     [SOURCE_TAR_XZ]
 source_urls = ['http://www.nano-editor.org/dist/v%(version_major)s']
-checksums =   ['eb532da4985672730b500f685dbaab885a466d08fbbf7415832b95805e6f8687']
+checksums =   ['4199ae8ca78a7796de56de1a41b821dc47912c0307e9816b56cc317df34661c0']
 
 builddependencies = [ # Create a reproducible build environment
     ('buildtools', local_LUMI_version),
