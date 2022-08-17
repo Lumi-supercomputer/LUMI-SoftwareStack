@@ -21,7 +21,7 @@ written, and tested with great care to replace gzip and bzip2 as the
 standard general-purpose compressed format for unix-like systems.
 """
 
-toolchain = {'name': 'cpeAOCC', 'version': '21.12'}
+toolchain = {'name': 'cpeAMD', 'version': '21.12'}
 toolchainopts = {'pic': True}
 
 # https://download.savannah.gnu.org/releases/lzip/lzip-1.22.tar.gz
