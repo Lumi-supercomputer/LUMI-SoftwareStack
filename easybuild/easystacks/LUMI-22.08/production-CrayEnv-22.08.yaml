@@ -21,10 +21,10 @@ software:
     toolchains:
       SYSTEM:
         versions: ['6.4']
-#  Vim:
-#    toolchains:
-#      SYSTEM:
-#        versions: ['8.2.5172','9.0.0193']
+  Vim:
+    toolchains:
+      SYSTEM:
+        versions: ['8.2.5172','9.0.0193']
   git:
     toolchains:
       SYSTEM:
