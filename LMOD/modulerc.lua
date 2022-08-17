@@ -12,6 +12,7 @@ if os.getenv( 'LUMI_LMOD_POWERUSER' ) == nil then
     hide_version( 'cpe-cuda/21.12' )
     hide_version( 'partition/D' )
     hide_version( 'partition/EAP' )
+    hide_version( 'buildtools/22.08-minimal' )
 end
 
 if os.getenv( 'LUMI_STACK_NAME' ) ~= nil then
@@ -22,6 +23,8 @@ hide_modulefile( '/opt/cray/pe/lmod/modulefiles/core/cpe/21.10.lua' )
 hide_modulefile( '/opt/cray/pe/lmod/modulefiles/core/cpe/21.11.lua' )
 hide_modulefile( '/opt/cray/pe/lmod/modulefiles/core/cpe/21.12.lua' )
 hide_modulefile( '/opt/cray/pe/lmod/modulefiles/core/cpe/22.06.lua' )
+hide_modulefile( '/opt/cray/pe/lmod/modulefiles/core/cpe/22.08.lua' )
+hide_modulefile( '/opt/cray/pe/lmod/modulefiles/core/cpe/22.09.lua' )
 end
 
 -- The following modules do not work with Cray LMOD 8.3.1
@@ -63,4 +66,5 @@ module_version( 'cray-hdf5-parallel/1.12.0.7', '1.12.0.6' )
 module_version( 'cray-netcdf/4.7.4.7', '4.7.4.6' )
 module_version( 'cray-netcdf-hdf5parallel/4.7.4.7', '4.7.4.6' )
 module_version( 'cray-parallel-netcdf/1.12.1.7', '1.12.1.6' )
+
 
