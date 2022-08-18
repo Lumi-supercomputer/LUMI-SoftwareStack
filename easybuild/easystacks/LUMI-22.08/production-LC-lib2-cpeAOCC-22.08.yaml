@@ -39,12 +39,12 @@ software:
     toolchains:
       cpeAOCC-22.08:
         versions: ['6.2.1']
-#  GSL:
-#    toolchains:
-#      cpeAOCC-22.08:
-#        versions: 
-#          '2.7.1':
-#            versionsuffix: '-OpenMP'
+  GSL:
+    toolchains:
+      cpeAOCC-22.08:
+        versions: 
+          '2.7.1':
+            versionsuffix: '-OpenMP'
   gzip:
     toolchains:
       cpeAOCC-22.08:
