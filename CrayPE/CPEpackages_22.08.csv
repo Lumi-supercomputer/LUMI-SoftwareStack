@@ -11,7 +11,7 @@ CCDB,4.12.13
 Cray-dininst,12.1.1
 CTI,2.15.13
 gdb4hpc,4.14.2
-Sanityzers4hpc,1.0.1
+sanitizers4hpc,1.0.1
 STAT,4.11.12
 valgrind4hpc,2.12.10
 perftools,22.06.0
@@ -19,6 +19,7 @@ PAPI,6.0.0.15
 LibSci,22.08.1.1
 LibSci_acc,22.06.1.3
 FFTW,3.3.10.1
+craype-dl-plugin-ftr,22.06.1.2
 craype-dl-plugin-py3,22.08.1
 craypkg-gen,1.3.25
 craype,2.7.17
@@ -37,6 +38,6 @@ cray-R,4.1.3.1
 jemalloc,5.1.0.4
 AOCC,3.2.0
 ROCM,5.0.2
-intel,2022.2.0
+intel,2022.1.0
 NVIDIA,22.3
 craype-targets,1.8.0

@@ -11,7 +11,7 @@ CCDB,4.12.11
 Cray-dininst,12.1.0
 CTI,2.15.12
 gdb4hpc,4.14.1
-Sanityzers4hpc,1.0.0
+sanitizers4hpc,1.0.0
 STAT,4.11.10
 valgrind4hpc,2.12.8
 perftools,22.06.0
