@@ -8,38 +8,43 @@ ModuleExtensions/.*:
 Unfortunately due to problems with Cray LMOD this module does not yet have the desired effect.
 We are looking for a solution but don't expect anything soon.
 
-aocc/3.0.0:
-The AMD AOCC compiler version 3.0.0 does not work on LUMI. The workaround is to use a different
-version of the compiler.
-
-cpe/21.05:
-The Cray Programming Environment 21.05 is deprecated on LUMI and can no longer be supported. Please
-switch to the 21.12 programming environment (the current default). 21.05 will be removed in a 
-future maintenance interval.
-
-aocc/2.2.*:
-The AMD aocc 2.2* compilers are part of the Cray Programming Environment 21.05 and can no longer
-be supported. Please switch to the aocc/3.1.0 compilers that come with the 21.12 programming
-environment. All 21.05 related files will be removed at a future maintenance interval.
-
-cce/11.0.4:
-The Cray cce 11 compilers are part of the Cray Programming Environment 21.05 and can no longer
-be supported. Please switch to the cce/13.0.0 compilers that come with the 21.12 programming
-environment. All 21.05 related files will be removed at a future maintenance interval.
-
-cray-mpich/8.1.5:
-The cray-mpich/8.1.5 module is part of the Cray Programming Environment 21.05 and can no longer
-be supported. Please switch to the cray-mpich/8.1.12 module that comes with the 21.12 programming
-environment. All 21.05 related files will be removed at a future maintenance interval.
-
 LUMI/21.08:
 The LUMI/21.08 software stack is currently hidden and broken due to missing components on the 
 system after the upgrade in early July. It will work for some users but not all, so try at your
-own risk. It is not clear if it will be possible to offer this stack again. Users should move
-to 21.12 in the short term and to 22.06 in the longer term (or if it already satisfies your needs).
+own risk. It will not be possible to offer this stack again. Users should move to 21.12 in the
+short term and to 22.08 in the longer term (or if it already satisfies your needs).
 Do not to attempt to recompile software with 21.08, as you will get unexpected results.
 
 partition/EAP:
 The MI100 based Early Access Platform is currently out of service, and replaced by a few regular
 MI250X nodes of LUMI-G. For these nodes, partition/G should be used instead (and will be loaded
 automatically if you load a LUMI module on those nodes).
+
+rocm/4.5.2:
+This module is only suited for use with the cpe/21.12 compilers, and its use is discouraged.
+MPI may fail as the default MPI library which is used expects a different version of rocm.
+Users are advised to switch to the cpe/22.08 programming environment which is the default 
+since August 18 and use rocm/5.0.2.
+
+rocm/5.1.4:
+This module is only suited for use with the cpe/22.06 compilers, and its use is discouraged.
+MPI may fail as the default MPI library which is used expects a different version of rocm.
+Users are advised to switch to the cpe/22.08 programming environment which is the default
+since August 18 and use rocm/5.0.2.
+
+rocmlibs/4.5.2:
+This module is no longer supported on the system. Users are advised to switch to the 22.08
+programming environment which is the default since August 18. The functionality of this
+module is now provided by rocm/5.0.2.
+
+RCCL/4.5.2:
+This module is no longer supported on the system. Users are advised to switch to the 22.08
+programming environment which is the default since August 18. The functionality of this
+module is now provided by rocm/5.0.2.
+
+rocThrust/4.5.2:
+This module is no longer supported on the system. Users are advised to switch to the 22.08
+programming environment which is the default since August 18. The functionality of this
+module is now provided by rocm/5.0.2.
+
+
