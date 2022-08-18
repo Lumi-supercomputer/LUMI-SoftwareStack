@@ -1,25 +1,24 @@
    .Announcements---------------------------------------------------.
-   | During the late June - early July downtime LUMI-G was          |
- * | integrated and is now under testing. The LUMI-C interconnect   |
-   | was upgraded to 200 Gbit/s. The system software received many  |
-*  | updates and the 22.06 programming environment was installed.   |
-   |                                                                |
- * | LUMI/21.12 is now the recommended LUMI software stack but      |
-   | users are encouraged to switch to LUMI/22.06 as soon as it     |
-   | satisfies their needs. LUMI/21.08 is currently hidden as it    |
-*  | does not fully function but may reappear. You can still load   |
-   | the modules but at your own risk (and you will get             |
-   | replacements instead).                                         |           
- * |                                                                |
-*  | Further system software updates are planned for August and     |
-*  | September to improve performance on LUMI-G and stability on    |
-   | LUMI as a whole. These updates are partly rolled out while the |
-   | system is online. However, as this is the first time this is   |
- * | done, unexpected problems can occur.                           | 
+ * | In the first half of August several silent updates were done   |
+   | on the system to further enable LUMI-G which is still under    |
+   | testing.                                                       |
+*  |                                                                |
+   | On August 18 the default programming environment was changed   |
+  *| to the 22.08 enviornment which should solve some problems with |
+   | 22.06. In the coming days the software stack will be ported to |
+   | this enviornment and will then be the recommended version of   |
+ * | the LUMI stack. LUMI/21.12 is currently the most complete      |
+   | software stack but users are recommended to switch to 22.08    |
+   | as soon as it satisfies their needs.                           |
+*  |                                                                |
+ * | LUMI/21.08 is hidden as it does not fully function and will    |
+   | not reappear. You can still load the modules but at your own   |
+   | risk (and will get replacements instead). It is not possible   |
+*  | to reliably do new installations in 21.08.                     |
    |                                                                |
   *| The flash file system on /flash/project_<...> is unavailable   |
-   | until the next upgrade scheduled for August or later given     |
-   | the problems that still exist after the last upgrade.          |
+   | until the next upgrade currently scheduled for September as    |
+   | the software is not yet fully ready.                           |
 *  .Notes-----------------------------------------------------------.
    | Make sure one of the following modules is loaded to have the   |
  * | full LUMI experience:                                          |
