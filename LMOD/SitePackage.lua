@@ -443,10 +443,13 @@ end
 --
 function get_num_motd()
 
+    local LMOD_root = os.getenv( 'LMOD_PACKAGE_PATH' )
+    local motd_file = pathJoin( LMOD_root, '../etc/motd.txt' )
+
     -- Read .motd-day-counter if present. If not, return 0.
-    local filename = pathJoin( os.getenv( 'HOME' ) or '', '.motd-day-counter' )
-    if not isFile( filename ) then return 0 end
-    local fp = io.open( filename, 'r' )
+    local motd_counter_file = pathJoin( os.getenv( 'HOME' ) or '', '.motd-day-counter' )
+    if not isFile( motd_counter_file ) then return 0 end
+    local fp = io.open( motd_counter_file, 'r' )
     if fp == nil then return 0 end
     local buffer = fp:read( '*all' )
     fp:close()
@@ -456,10 +459,17 @@ function get_num_motd()
     if date == nil or num == nil then return 0 end
     num = tonumber( num )
     
-    -- Now compare the date value to the current date.
+    -- Check the time of the last change of the motd.
+    local motd_time = lfs.attributes( motd_file, 'modification')
+    local motd_counter_time = lfs.attributes( motd_counter_file, 'modification')
+    
+    -- Now compare the date value to the current date and the date of
+    -- the last modification of the message-of-the-day.
     local cur_date = os.date( '%Y%m%d', os.time() )
     if date ~= cur_date then
         num = 0 -- Data in the file was for a different date.
+    elseif motd_counter_time < motd_time then
+        num = 0 -- Reset the counter if motd has changed since the last update of the counter.
     end
 
     return num
