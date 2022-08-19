@@ -460,8 +460,8 @@ function get_num_motd()
     num = tonumber( num )
     
     -- Check the time of the last change of the motd.
-    local motd_time = lfs.attributes( motd_file, 'modification')
-    local motd_counter_time = lfs.attributes( motd_counter_file, 'modification')
+    local motd_time = lfs.attributes( motd_file, 'modification') or 0
+    local motd_counter_time = lfs.attributes( motd_counter_file, 'modification') or 0
     
     -- Now compare the date value to the current date and the date of
     -- the last modification of the message-of-the-day.
