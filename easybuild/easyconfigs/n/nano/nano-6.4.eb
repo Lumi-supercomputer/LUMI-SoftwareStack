@@ -1,0 +1,67 @@
+# Developed by Kurt Lust (kurt.lust@uantwerpen.be) for LUMI
+# Based on deprecated EasyConfigs developed by Fotis Georgatos <fotis@cern.ch>
+
+easyblock = 'ConfigureMake'
+
+import os as local_os
+
+# The first line below is a dirty trick not very much loved by the EasyBuild developers but
+# it helps to make this EasyConfig indpendent of the LUMI software stack version as there is
+# no other reference to that version in the file that we can use since it relies on the
+# SYSTEM toolchain.
+local_LUMI_version = local_os.environ['LUMI_STACK_CPE_VERSION']
+
+local_nano_version =         '6.4'           # https://www.nano-editor.org/download.php
+
+name =    'nano'
+version = local_nano_version
+
+homepage = 'http://www.nano-editor.org/'
+
+whatis = [
+    'Description: nano is a small and friendly test editor and a free replacement for Pico',
+]
+
+description = """
+GNU nano was designed to be a free replacement for the Pico text editor, part
+of the Pine email suite from The University of Washington. It aimed to "emulate
+Pico as closely as is reasonable and then include extra functionality".
+"""
+
+docurls = [
+    'Online documentation at https://www.nano-editor.org/docs.php',
+    'Manual pages for nano and rnano in section 1 and nanorc in section 5',
+    'Support for the GNU info command (info nano)',
+]
+
+toolchain = SYSTEM
+
+# https://www.nano-editor.org/dist/v5/nano-5.9.tar.xz
+sources =     [SOURCE_TAR_XZ]
+source_urls = ['http://www.nano-editor.org/dist/v%(version_major)s']
+checksums =   ['4199ae8ca78a7796de56de1a41b821dc47912c0307e9816b56cc317df34661c0']
+
+builddependencies = [ # Create a reproducible build environment
+    ('buildtools', local_LUMI_version),
+    ('syslibs',    local_LUMI_version, '-static'), # for ncurses, zlib and file.
+]
+
+osdependencies = [
+#    ('ncurses-devel'), # Use syslibs version instead
+#    ('zlib-devel'),    # Use syslibs version instead
+]
+
+preconfigopts = 'CFLAGS="-O2 -march=znver1" LDFLAGS="-Wl,-Bstatic -L$EBROOTZLIB -lz -Wl,-Bdynamic" '
+configopts  = '--enable-utf8 '
+configopts += '--enable-libmagic ' # Not yet installed.
+
+sanity_check_paths = {
+    'files': ['bin/nano'],
+    'dirs':  ['share/man', 'share/info'],
+}
+
+sanity_check_commands = [
+    'nano --version',
+]
+
+moduleclass = 'tools'

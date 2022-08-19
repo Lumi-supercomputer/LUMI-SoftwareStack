@@ -38,3 +38,7 @@
   * Turned out to be an almost trivial port, though options of the configure script
     were checked and a few more enabled.
 
+### Version 9.0.0193 for LUMI/22.08
+
+  * Trivial port of the 9.0.0016 EasyConfig.
+

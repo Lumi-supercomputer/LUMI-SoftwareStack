@@ -83,3 +83,19 @@ Not included at the moment:
   * Added `xxd`, a hexadecimal editor that comes with `vim`, as it is a build dependency
     for recent PLUMED versions. This ensures that the command will be present even if
     `vim` would be deleted again from the system images.
+    
+### 22.06
+
+  * Version updates of components.
+  
+### 22.08
+
+  * Major change: Split into a -minimal version which is linked against the system 
+    libraries but does not have all functionality (left out some tools that are not
+    needed in that version, and some commands, e.g., ccmake, are missing) and then the
+    full version which is linked against the static library package `syslibs` which
+    allows us to use `ncurses` and to minimize interference with other tools.
+    
+  * Some version updates.
+
+    

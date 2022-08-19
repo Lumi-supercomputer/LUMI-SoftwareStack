@@ -1,0 +1,48 @@
+# Test build for inclusion in the baselibs 2020a bundle.
+easyblock = 'ConfigureMake'
+
+local_libidn2_version =      '2.3.2'         # https://ftp.gnu.org/gnu/libidn/
+
+name =    'libidn2'
+version = local_libidn2_version
+
+homepage = 'http://www.gnu.org/software/%(name)s'
+
+whatis = [
+    "Description: libidn2 is the new GNU implementation of the Stringprep, Punycode and IDNA 2003 specifications."
+]
+
+description = """
+Libidn2 is an implementation of the IDNA2008 + TR46 specifications (RFC 5890,
+RFC 5891, RFC 5892, RFC 5893, TR 46). Libidn2 is a standalone library,
+without any dependency on Libidn. Libidn2 is believed to be a complete
+IDNA2008 / TR46 implementation, but has yet to be as extensively used as
+the original Libidn library.
+"""
+
+docurls = [
+    'web-based manual pages on https://www.gnu.org/software/libidn2/manual',
+    'man pages for the idn2 command (section 1) and the API (section 3)',
+]
+
+toolchain = {'name': 'cpeAMD', 'version': '22.08'}
+
+source_urls = ['https://ftp.gnu.org/gnu/libidn/']
+sources =     [SOURCELOWER_TAR_GZ]
+checksums =   ['76940cd4e778e8093579a9d195b25fff5e936e9dc6242068528b437a76764f91']
+
+builddependencies = [ # Create a reproducible build environment.
+    ('buildtools', '%(toolchain_version)s', '', True),
+]
+
+sanity_check_paths = {
+    'files': ['bin/idn2', 'lib/libidn2.%s' % SHLIB_EXT],
+    'dirs':  ['include'],
+}
+
+sanity_check_commands = [
+    'idn2 --help',
+    'pkg-config --libs libidn2',
+]
+
+moduleclass = 'lib'

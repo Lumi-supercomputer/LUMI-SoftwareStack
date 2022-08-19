@@ -106,8 +106,9 @@ then
 	cpeGNU=( 'common:C:G:D:L:EAP' )
     cpeCray=( 'common:C:G:D:L:EAP' )
     cpeAOCC=( 'common:C:D:L' )
-    #declare -A cpeENV=( ['cpeGNU']=$cpeGNU ['cpeCray']=$cpeCray ['cpeAOCC']=$cpeAOCC )
-    declare -A cpeENV=( ['cpeGNU']=$cpeGNU ['cpeCray']=$cpeCray )
+    cpeAMD=( 'G:EAP' )
+    #declare -A cpeENV=( ['cpeGNU']=$cpeGNU ['cpeCray']=$cpeCray ['cpeAOCC']=$cpeAOCC ['cpeAMD']=$cpeAMD )
+    declare -A cpeENV=( ['cpeGNU']=$cpeGNU ['cpeCray']=$cpeCray ['cpeAOCC']=$cpeAOCC )
 else # We're likely on eiger, we can't test everything here.
 	partitions=( 'L' )
 	cpeGNU=( 'common:L' )
@@ -415,6 +416,8 @@ then
 fi
 export LMOD_PACKAGE_PATH="$installroot/$repo/LMOD"
 export LMOD_RC="$installroot/$repo/LMOD/lmodrc.lua"
+export LMOD_IGNORE_CACHE=1
+export LMOD_CACHED_LOADS=0
 export LUMI_OVERWRITE_PARTITION='common'
 module load LUMI/$stack_version
 module load partition/common

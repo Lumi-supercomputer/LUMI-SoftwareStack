@@ -47,8 +47,8 @@ builddependencies = [ # Create a reproducible build environment
 ]
 
 osdependencies = [
-#    ('ncurses-devel'),
-#    ('zlib-devel'),
+#    ('ncurses-devel'), # Use syslibs version instead
+#    ('zlib-devel'),    # Use syslibs version instead
 ]
 
 preconfigopts = 'CFLAGS="-O2 -march=znver1" LDFLAGS="-Wl,-Bstatic -L$EBROOTZLIB -lz -Wl,-Bdynamic" '
