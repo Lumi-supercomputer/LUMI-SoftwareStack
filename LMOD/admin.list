@@ -47,4 +47,9 @@ This module is no longer supported on the system. Users are advised to switch to
 programming environment which is the default since August 18. The functionality of this
 module is now provided by rocm/5.0.2.
 
+partition/G:
+There is currently no support for GPU software building in partition/G. It is still under
+development and not supported. Users need to create the right environment by hand. It may be
+better to use CrayEnv instead. Partiton/G will only become officially available when
+production use starts.
 
