@@ -12,6 +12,7 @@ if os.getenv( 'LUMI_LMOD_POWERUSER' ) == nil then
     hide_version( 'cpe-cuda/21.12' )
     hide_version( 'partition/D' )
     hide_version( 'partition/EAP' )
+    hide_version( 'partition/G' )
     hide_version( 'buildtools/22.08-minimal' )
 end
 

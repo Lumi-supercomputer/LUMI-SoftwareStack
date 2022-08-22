@@ -48,7 +48,9 @@ programming environment which is the default since August 18. The functionality 
 module is now provided by rocm/5.0.2.
 
 partition/G:
-There is currently no support for GPU software building in partition/G. It is still under
-development. Users may need to augment the environment by hand. It may be better to use 
-CrayEnv instead. Partiton/G will only become officially available when production use starts.
+The LUMI software stacks are not yet fully implemented for LUMI-G and partition/G is
+currently only a placeholder to make it easy to manage modules. Some things may work, 
+others won't, and its use is currently not supported by the LUMI User Support Team. 
+The partition/G module will only become officially supported when production use starts.
+
 
