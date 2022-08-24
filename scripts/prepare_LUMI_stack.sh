@@ -108,7 +108,8 @@ then
     cpeAOCC=( 'common:C:D:L' )
     cpeAMD=( 'G:EAP' )
     #declare -A cpeENV=( ['cpeGNU']=$cpeGNU ['cpeCray']=$cpeCray ['cpeAOCC']=$cpeAOCC ['cpeAMD']=$cpeAMD )
-    declare -A cpeENV=( ['cpeGNU']=$cpeGNU ['cpeCray']=$cpeCray ['cpeAOCC']=$cpeAOCC )
+	cpeGNU=( 'common:C' )
+    declare -A cpeENV=( ['cpeGNU']=$cpeGNU )
 else # We're likely on eiger, we can't test everything here.
 	partitions=( 'L' )
 	cpeGNU=( 'common:L' )
@@ -430,7 +431,13 @@ module load partition/common
 
 echo -e "\n## Checking if the Easybuild/$EBversion module is already present...\n"
 
-module avail EasyBuild/$EBversion |& grep -q "EasyBuild/$EBversion"
+# 2 possible test:
+#  - Checking in the output of module avail which inexplicably fails in certain
+#    command sequences with Lmod 8.3.1
+#  - Checking for the module file itself instead
+# We currently take the second option.
+#module avail EasyBuild/$EBversion |& grep -q "EasyBuild/$EBversion"
+[[ -f "$installroot/modules/easybuild/LUMI/$stack_version/partition/common/EasyBuild/$EBversion.lua" ]]
 if [[ $? != 0 ]]
 then
     #
@@ -511,19 +518,34 @@ module load EasyBuild-infrastructure/LUMI
 for cpe in ${!cpeENV[@]}
 do
 
-    echo -e "\nBuilding EasyConfig file for toolchain $cpe/$CPEversion (if not present already)\n"
+    echo -e "\nBuilding EasyConfig file for toolchain $cpe/$CPEversion (if not present already)"
 	make_dir $installroot/$repo/easybuild/easyconfigs/c/$cpe
-	[[ -f "$cpe/$cpe-$CPEversion.eb" ]] || $installroot/$repo/scripts/make_CPE_EBfile.sh "$cpe/$CPEversion"
+	if [[ -f "$cpe/$cpe-$CPEversion.eb" ]]
+	then
+		echo -e "Found existing $cpe-$CPEversion.eb file, not rebuilding.\n"
+	else
+	    echo -e "Generating $cpe-$CPEversion.eb...\n"
+	    $installroot/$repo/scripts/make_CPE_EBfile.sh "$cpe/$CPEversion"
+	fi
+	#[[ -f "$cpe/$cpe-$CPEversion.eb" ]] || $installroot/$repo/scripts/make_CPE_EBfile.sh "$cpe/$CPEversion"
 
 	for partition in ${cpeENV[$cpe]//:/ }
 	do
 
       	echo "Installing toolchain $cpe/$CPEversion for partition $partition (if not present already)."
         module load "partition/$partition"
-
+        
         # Install the toolchain module if it does not yet exist.
-        module avail $cpe/$CPEversion |& grep -q "$cpe/$CPEversion"
-        if [[ $? != 0 ]]
+        # It turns out that the following test does not always work with Lmod 8.3.1,
+        # Though it is unclear why. It is no problem with 8.7.
+        #module avail $cpe/$CPEversion |& grep -q "$cpe/$CPEversion"
+        #is_present=$?
+        
+        # Check for the module file instead:
+        [[ -f "$EASYBUILD_INSTALLPATH_MODULES/$cpe/$CPEversion.lua" ]]
+        is_present=$?
+        
+        if [[ $is_present != 0 ]]
         then
             echo "Installing toolchain $cpe/$CPEversion for partition $partition."
             eb "$cpe/$cpe-$CPEversion.eb" -f || die "Failed to install $cpe/$CPEversion for partition $partition."
