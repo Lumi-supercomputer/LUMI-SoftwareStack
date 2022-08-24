@@ -107,9 +107,7 @@ then
     cpeCray=( 'common:C:G:D:L:EAP' )
     cpeAOCC=( 'common:C:D:L' )
     cpeAMD=( 'G:EAP' )
-    #declare -A cpeENV=( ['cpeGNU']=$cpeGNU ['cpeCray']=$cpeCray ['cpeAOCC']=$cpeAOCC ['cpeAMD']=$cpeAMD )
-	cpeGNU=( 'common:C' )
-    declare -A cpeENV=( ['cpeGNU']=$cpeGNU )
+    declare -A cpeENV=( ['cpeGNU']=$cpeGNU ['cpeCray']=$cpeCray ['cpeAOCC']=$cpeAOCC ['cpeAMD']=$cpeAMD )
 else # We're likely on eiger, we can't test everything here.
 	partitions=( 'L' )
 	cpeGNU=( 'common:L' )
