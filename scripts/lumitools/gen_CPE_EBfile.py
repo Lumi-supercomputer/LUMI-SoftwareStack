@@ -17,7 +17,7 @@ map_cpe_compilermodule = {
     'cpeCray': 'cce',
     'cpeGNU':  'gcc',
     'cpeAOCC': 'aocc',
-    'cpeAMD':  'rocm'
+    'cpeAMD':  'amd'
     }
 # - Define the mapping between cpe* module and PE compiler package (the packages s used
 #   in the CPEpackages_*.csv files)
@@ -89,6 +89,12 @@ elif local_partition == 'G':
         'craype-accel-amd-gfx90a',
         'craype-network-ofi'
     ]
+elif local_partition == 'EAP':
+    cray_targets = [
+        'craype-x86-rome',
+        'craype-accel-amd-gfx908',
+        'craype-network-ofi'
+    ]
 elif local_partition == 'D':
     cray_targets = [
         'craype-x86-rome',
@@ -100,8 +106,13 @@ elif local_partition == 'D':
 dependencies = [
 %(dependencies)s
 ]
-
+%(extra_mods)s
 moduleclass = 'toolchain'
+"""
+
+EBfile_extra = """
+if local_partition == 'G' or local_partition == 'EAP':
+    dependencies.insert( 0, ('rocm/%(rocm_version)s', EXTERNAL_MODULE) )
 """
 
 
@@ -170,9 +181,22 @@ def gen_CPE_EBfile( CPEmodule, PEversion, CPEpackages_dir, EBfile_dir ):
     dependency_list.append( generate_dependency( 'cray-dsmml',     'DSMML',         package_versions ) )
     dependency_list.append( generate_dependency( 'perftools-base', 'perftools',     package_versions ) )
     dependency_list.append( generate_dependency( 'xpmem',          'NONE',          package_versions ) )
+    
+    #
+    # Do we need to add ROCm?
+    #
+    if CPEmodule != 'cpeAMD':
+        if 'ROCM' in package_versions:
+            rocm_version = package_versions['ROCM']
+        else:
+            # The routine to generate an EB file shouldn't have been called in the first place...
+            rocm_version = '0.0.0'
+        EBfile_add = EBfile_extra % { 'rocm_version': rocm_version }
+    else:
+        EBfile_add = ''
 
     #
-    # Open the CPE-specific modulerc file
+    # Open the CPE-specific EasyConfig file
     #
     extdeffile = '%s-%s.eb' % (CPEmodule, PEversion)
     extdeffileanddir = os.path.join( EBfile_dir, extdeffile )
@@ -185,9 +209,10 @@ def gen_CPE_EBfile( CPEmodule, PEversion, CPEpackages_dir, EBfile_dir ):
         'compiler':     compilermodule,
         'PrgEnv':       map_cpe_PrgEnv[CPEmodule],
         'dependencies': '\n'.join( dependency_list ),
+        'extra_mods':   EBfile_add,
         } )
 
-     #
+    #
     # Close the file and terminate
     #
     fileH.close( )
