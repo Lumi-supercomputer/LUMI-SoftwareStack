@@ -96,6 +96,9 @@ Not included at the moment:
     full version which is linked against the static library package `syslibs` which
     allows us to use `ncurses` and to minimize interference with other tools.
     
+  * Major change: A `-noPython` version that leaves out Meson and SCons as those require
+    Python and can interfer with software that needs a different version of Python.
+    
   * Some version updates.
 
     
