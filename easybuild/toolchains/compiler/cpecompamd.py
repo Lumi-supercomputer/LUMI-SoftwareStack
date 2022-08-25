@@ -70,8 +70,6 @@ class cpeCompAMD(Compiler):
 
     COMPILER_UNIQUE_OPTS = {
         # AOMP-specific ones
-        'loop-vectorize': (False, "Explicitly enable/disable loop vectorization"),
-        'basic-block-vectorize': (False, "Explicitly enable/disable basic block vectorization"),
         'lto': (False, "Enable Link Time Optimization in the default 'full' mode"),
         'offload-lto': (False, "Enable Link Time Optimization for offload compilation in the default 'full' mode"),
         # Generic Cray options
