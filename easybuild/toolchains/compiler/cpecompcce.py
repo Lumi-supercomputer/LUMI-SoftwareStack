@@ -81,12 +81,13 @@ class cpeCompCCE(Compiler):
         'offload-lto': 'foffload-lto',
         # Cray-specific options
         'mpich-mt': 'craympich-mt',        
-        'dynamic': '',
+        'dynamic': '',  # Check: Should add code for CRAY_PE_LINK_TYPE?
         # Overwriting or filling in default EasyBuild toolchain options.
         'unroll': '', # As we don't know what to do in Fortran.
         'verbose': 'craype-verbose',
         'i8': '-s integer64',
         'r8': '-s real64',        
+        'shared': '',
         # We cannot assign proper precision options for the Cray compilers as they differ
         # between their C/C++ and Fortran compilers.
         'strict': '',
@@ -94,8 +95,6 @@ class cpeCompCCE(Compiler):
         'defaultprec': '',
         'loose': '',
         'veryloose': '',
-        # handle shared and dynamic always via $CRAYPE_LINK_TYPE environment variable, don't pass flags to wrapper
-        'shared': '',
     }
 
     COMPILER_CC  = 'cc'

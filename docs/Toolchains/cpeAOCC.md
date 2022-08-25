@@ -5,13 +5,23 @@ not the same as those for the repository at CSCS.
 
 ## Note about the compilers
 
+From the user guides, introduction section:
+
   * AOCC 2.1 is based on LLVM 9.0 release (llvm.org, 19th Sep 2019) with improved
     Flang Fortran frond-end added with F2008 features and bug fixes.
   * AOCC 2.2 is based on LLVM 10.0 release (llvm.org, 24th Mar 2020) with improved
     Flang Fortran front-end added with F2008 features and bug fixes.
-  * AOCC 3.0 is based on LLVM 12 trunk (llvm.org, 22nd Oct 2020) with Flang as a Fortran front-end
+  * [AOCC 3.0](https://developer.amd.com/wp-content/resources/AOCC-3.0-User-Guide.pdf)
+    is based on LLVM 12 trunk (llvm.org, 22nd Oct 2020) with Flang as a Fortran front-end
     added with F2008, Real 128 features. AOCC 3.0 also includes the support for OpenMP Debugging
     Interface (OMPD) APIs.
+  * [AOCC 3.1](https://developer.amd.com/wp-content/resources/AOCC_57222_User_Guide_Rev_3.1.pdf) 
+    release is based on LLVM 12 release (llvm.org, 14th April 2021) with Flang as a
+    Fortran front-end added with F2008 and Real 128 features. It is an incremental version of AOCC
+    3.0 that includes bug fixes and a support for compiler directives in Flang.
+  * [AOCC 3.2](https://developer.amd.com/wp-content/resources/57222_AOCC_UG_Rev_3.2.pdf)
+    AOCC 3.2 is based on the LLVMTM 13 compiler infrastructure (llvm.org, 4 October 2021) and
+    includes bug fixes and support for other new features.
 
 
 ## Available options
@@ -23,13 +33,12 @@ really just redefinitions of standard compiler flags.
 
 ### AOCC-specific flags
 
-AOCC supports a number of extensions that are similar to those of the GNU compiler.
+The following options map on AOCC-dpecific compiler flags can be similar to similar options in 
+the cpeGNU toolchain:
 
 | Option                | Categorie       | What?                                               |
 |:----------------------|:----------------|:----------------------------------------------------|
 | lto                   | code generation | Enable Link Time Optimization                       |
-| loop-vectorize        | parallelism     | Explicitly enable/disable loop vectorization        |
-| basic-block-vectorize | parallelism     | Explicitly enable/disable basic block vectorization |
 
 ### cpeAOCC-specific flags
 

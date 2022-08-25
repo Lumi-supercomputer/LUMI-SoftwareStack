@@ -93,6 +93,7 @@ class cpeCompAMD(Compiler):
         'i8': 'fdefault-integer-8',
         'r8': 'fdefault-real-8',
         'unroll': 'funroll-loops',
+        'shared': '',
         # Note that vectorize is special, we cannot use the same in this construct.
         'vectorize': {False: ['fno-vectorize', 'no-slp-vectorize'], True: ['f-vectorize', 'fslp-vectorize'] },
         # Clang's options do not map well onto these precision modes.  The flags enable and disable certain classes of
@@ -124,9 +125,6 @@ class cpeCompAMD(Compiler):
         'ieee': '',
         # At optimzation level -O2 or above vectorisation is turned on by default so no need to turn it on
         # for DEFAULT_OPT_LEVEL as in the GCC compiler defintion.
-        #
-        # Generic Cray PE options
-        'shared': '',
     }
 
     # used when 'optarch' toolchain option is enabled (and --optarch is not specified)
