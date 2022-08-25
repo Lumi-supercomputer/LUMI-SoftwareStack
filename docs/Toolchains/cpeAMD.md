@@ -14,6 +14,13 @@ The cpeAMD toolchain supports the [common toolchain options](toolchain_common.md
 the additional AMD flags and some additional Cray-specific flags, two of which are
 really just redefinitions of standard compiler flags.
 
+### Default toolchain options that may not behave as expected
+
+  * `rpath`: rpath linking in EasyBuild has not been properly tested in the HPE Cray PE.
+
+  * `unroll`: As it is not clear from the docunentation for the Fortran compiler which
+    options should be set to enable or disable (if any at all) 
+
 
 ### AMD-specific toolchain options
 

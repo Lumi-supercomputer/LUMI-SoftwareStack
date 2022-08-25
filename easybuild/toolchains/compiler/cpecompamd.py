@@ -77,14 +77,21 @@ class cpeCompAMD(Compiler):
         'mpich-mt': (False, "Directs the driver to link in an alternate version of the Cray-MPICH library which \
                              provides fine-grained multi-threading support to applications that perform \
                              MPI operations within threaded regions."),
+        # AMD GPU-related options
         'usehip': (False, "Enable hip mode for the C++ compiler"),
         'gpu-rdc': (False, "Enable relocatable device code (can have a negative performance impact)"),
     }
     COMPILER_UNIQUE_OPTION_MAP = {
-        'i8': 'fdefault-integer-8',
-        'r8': 'fdefault-real-8',
+        # Options rooted in clang/LLVM
         'lto': 'flto',
         'offload-lto': 'foffload-lto',
+        # Cray-specific options
+        'mpich-mt': 'craympich-mt',        
+        'dynamic': '',
+        # Overwriting or filling in default EasyBuild toolchain options.
+        'verbose': 'craype-verbose',
+        'i8': 'fdefault-integer-8',
+        'r8': 'fdefault-real-8',
         'unroll': 'funroll-loops',
         # Note that vectorize is special, we cannot use the same in this construct.
         'vectorize': {False: ['fno-vectorize', 'no-slp-vectorize'], True: ['f-vectorize', 'fslp-vectorize'] },
@@ -120,9 +127,6 @@ class cpeCompAMD(Compiler):
         #
         # Generic Cray PE options
         'shared': '',
-        'dynamic': '',
-        'verbose': 'craype-verbose',
-        'mpich-mt': 'craympich-mt',
     }
 
     # used when 'optarch' toolchain option is enabled (and --optarch is not specified)
