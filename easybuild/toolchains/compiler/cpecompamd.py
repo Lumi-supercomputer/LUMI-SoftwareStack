@@ -23,7 +23,7 @@
 # along with EasyBuild.  If not, see <http://www.gnu.org/licenses/>.
 ##
 """
-Support for ROCCm (Radeon Open Compute platform) as toolchain compiler used
+Support for AMD ROCCm (Radeon Open Compute platform) as toolchain compiler used
 via the Cray Programming Environment compiler drivers (aka cc, CC, ftn).
 
 The basic concept is that the compiler driver knows how to invoke the true underlying
@@ -55,18 +55,18 @@ from easybuild.tools.config import build_option
 
 
 TC_CONSTANT_CPE = "CPE"
-TC_CONSTANT_ROCM = "ROCM"
+TC_CONSTANT_AMD = "AMD"
 
 
-class cpeCompROCm(Compiler):
+class cpeCompAMD(Compiler):
     """ROCm support for using Cray compiler drivers"""
     TOOLCHAIN_FAMILY = TC_CONSTANT_CPE
-    COMPILER_FAMILY = TC_CONSTANT_ROCM
+    COMPILER_FAMILY = TC_CONSTANT_AMD
 
     COMPILER_MODULE_NAME = ['cpeAMD']
     CRAYPE_MODULE_NAME = ['cpeAMD']
 
-    COMPILER_FAMILY = TC_CONSTANT_ROCM
+    COMPILER_FAMILY = TC_CONSTANT_AMD
 
     COMPILER_UNIQUE_OPTS = {
         # AOMP-specific ones
@@ -78,6 +78,8 @@ class cpeCompROCm(Compiler):
         'mpich-mt': (False, "Directs the driver to link in an alternate version of the Cray-MPICH library which \
                              provides fine-grained multi-threading support to applications that perform \
                              MPI operations within threaded regions."),
+        'usehip': (False, "Enable hip mode for the C++ compiler"),
+        'gpu-rdc': (False, "Enable relocatable device code (can hava a negative performance impact)"),
     }
     COMPILER_UNIQUE_OPTION_MAP = {
         'i8': 'fdefault-integer-8',
@@ -193,9 +195,19 @@ class cpeCompROCm(Compiler):
 
     def prepare(self, *args, **kwargs):
         """Prepare to use this toolchain; define $CRAYPE_LINK_TYPE if 'dynamic' toolchain option is enabled."""
-        super(cpeCompROCm, self).prepare(*args, **kwargs)
+        super(cpeCompAMD, self).prepare(*args, **kwargs)
 
         if self.options['dynamic'] or self.options['shared']:
             self.log.debug("Enabling building of shared libs/dynamically linked executables via $CRAYPE_LINK_TYPE")
             env.setvar('CRAYPE_LINK_TYPE', 'dynamic')
+
+    def _set_compiler_vars(self):
+        super(cpeCompAMD, self)._set_compiler_vars()
+        
+        if self.options.get('usehip', False):  # False is the default for this option if not specified.
+            self.variables.nappend('CXXFLAGS', ['xhip'])
+            
+        if self.options.get('gpu-rdc', False):  # False is the default for this option if not specified.
+            self.variables.nappend('CXXFLAGS', ['fgpu-rdc'])
+            self.variables.nappend('LDFLAGS', ['fgpu-rdc', '-hip-link'])
 

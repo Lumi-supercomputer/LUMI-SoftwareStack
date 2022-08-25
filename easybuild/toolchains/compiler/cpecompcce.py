@@ -66,6 +66,8 @@ class cpeCompCCE(Compiler):
         'mpich-mt': (False, "Directs the driver to link in an alternate version of the Cray-MPICH library which \
                              provides fine-grained multi-threading support to applications that perform \
                              MPI operations within threaded regions."),
+        'usehip': (False, "Enable hip mode for the C++ compiler"),
+        'gpu-rdc': (False, "Enable relocatable device code (can hava a negative performance impact)"),
     }
 
     COMPILER_UNIQUE_OPTION_MAP = {
@@ -145,3 +147,14 @@ class cpeCompCCE(Compiler):
         if self.options['dynamic'] or self.options['shared']:
             self.log.debug("Enabling building of shared libs/dynamically linked executables via $CRAYPE_LINK_TYPE")
             env.setvar('CRAYPE_LINK_TYPE', 'dynamic')
+
+    def _set_compiler_vars(self):
+        super(cpeCompCCE, self)._set_compiler_vars()
+        
+        if self.options.get('usehip', False):  # False is the default for this option if not specified.
+            self.variables.nappend('CXXFLAGS', ['xhip'])
+            
+        if self.options.get('gpu-rdc', False):  # False is the default for this option if not specified.
+            self.variables.nappend('CXXFLAGS', ['fgpu-rdc'])
+            self.variables.nappend('LDFLAGS', ['fgpu-rdc', '-hip-link'])
+
