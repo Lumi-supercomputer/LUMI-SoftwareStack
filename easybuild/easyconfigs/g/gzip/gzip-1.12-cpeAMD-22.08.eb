@@ -15,7 +15,7 @@ description = """
 gzip (GNU zip) is a popular data compression program as a replacement for compress
 """
 
-toolchain = {'name': 'cpeAOCC', 'version': '22.08'}
+toolchain = {'name': 'cpeAMD', 'version': '22.08'}
 toolchainopts = {'pic': True}
 
 source_urls = [GNU_SOURCE]
