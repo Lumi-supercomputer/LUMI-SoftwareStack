@@ -1,0 +1,21 @@
+software:
+  ncurses:
+    toolchains:
+      cpeCray-22.08:
+        versions: ['6.2']
+  libreadline:
+    toolchains:
+      cpeCray-22.08:
+        versions: ['8.1.2']
+  gettext:
+    toolchains:
+      cpeCray-22.08:
+        versions:
+          '0.21':
+            versionsuffix: '-minimal'
+ # GSL:
+ #   toolchains:
+ #     cpeCray-22.08:
+ #       versions: 
+ #         '2.7.1':
+ #           versionsuffix: '-sequential'
