@@ -209,5 +209,5 @@ class cpeCompAMD(Compiler):
             
         if self.options.get('gpu-rdc', False):  # False is the default for this option if not specified.
             self.variables.nappend('CXXFLAGS', ['fgpu-rdc'])
-            self.variables.nappend('LDFLAGS', ['fgpu-rdc', '-hip-link'])
+            #self.variables.nappend('LDFLAGS', ['fgpu-rdc', '-hip-link'])
 
