@@ -28,7 +28,7 @@ docurls = [
     'Web-based documentation on https://www.theora.org/doc/',
 ]
 
-toolchain = {'name': 'cpeAOCC', 'version': '22.08'}
+toolchain = {'name': 'cpeAMD', 'version': '22.08'}
 toolchainopts = {'pic': True}
 
 # http://downloads.xiph.org/releases/theora/libtheora-1.1.1.zip
