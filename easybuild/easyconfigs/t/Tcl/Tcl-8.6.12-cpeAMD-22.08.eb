@@ -20,7 +20,7 @@ programming language, suitable for a very wide range of uses, including web
 and desktop applications, networking, administration, testing and many more.
 """
 
-toolchain = {'name': 'cpeAOCC', 'version': '22.08'}
+toolchain = {'name': 'cpeAMD', 'version': '22.08'}
 
 source_urls = ['http://prdownloads.sourceforge.net/%(namelower)s']
 sources =     ['%(namelower)s%(version)s-src.tar.gz']
