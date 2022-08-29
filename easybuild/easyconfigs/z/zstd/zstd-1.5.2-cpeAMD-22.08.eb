@@ -24,7 +24,7 @@ small data, called dictionary compression, and can create dictionaries
 from any sample set.
 """
 
-toolchain = {'name': 'cpeAAMD', 'version': '22.08'}
+toolchain = {'name': 'cpeAMD', 'version': '22.08'}
 toolchainopts = {'pic': True}
 
 sources =   [ {
