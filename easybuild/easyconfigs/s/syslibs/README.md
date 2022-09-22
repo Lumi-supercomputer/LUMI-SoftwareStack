@@ -60,3 +60,7 @@ use.
   
   * Added checksums to make the installation on LUMI more robust.
 
+### 22.08
+
+  * Port of the 22.06 version with the addition of Brotli and cURL.
+
