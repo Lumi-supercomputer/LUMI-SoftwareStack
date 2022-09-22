@@ -2,7 +2,7 @@ software:
   buildtools:
     toolchains:
       SYSTEM:
-        versions: ['22.08']
+        versions: ['22.08', '22.08-noPython']
   syslibs:
     toolchains:
       SYSTEM:
@@ -45,12 +45,12 @@ software:
     toolchains:
       SYSTEM:
         versions: ['1.19.3']
-#  lumi-container-wrapper:
-#    toolchains:
-#      SYSTEM:
-#        versions:
-#          '0.2.2':
-#            versionsuffix: '-cray-python-3.9.12.1'
+  lumi-container-wrapper:
+    toolchains:
+      SYSTEM:
+        versions:
+          '0.2.6':
+            versionsuffix: '-cray-python-3.9.12.1'
 #  rocm:
 #    toolchains:
 #      SYSTEM:
