@@ -63,4 +63,7 @@ use.
 ### 22.08
 
   * Port of the 22.06 version with the addition of cURL.
+  
+    REVERSED AS IT SEEMS IMPOSSIBLE TO GET GIT TO LINK WITH THAT LIBRARY CORRECTLY 
+    AND STATICALLY.
 

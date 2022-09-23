@@ -73,13 +73,6 @@ Overview of included libraries:
     speed at 400 MB/s per core. It features an extremely fast decoder, with
     speed in multiple GB/s per core.
 * Networking, security and XML
-  + cURL (version %(cURL)s): libcurl is a free and easy-to-use client-side URL transfer 
-    library, supporting DICT, FILE, FTP, FTPS, Gopher, HTTP, HTTPS, IMAP, 
-    IMAPS, LDAP, LDAPS, POP3, POP3S, RTMP, RTSP, SCP, SFTP, SMTP, SMTPS, 
-    Telnet and TFTP. libcurl supports SSL certificates, HTTP POST, HTTP PUT, 
-    FTP uploading, HTTP form based upload, proxies, cookies, user+password 
-    authentication (Basic, Digest, NTLM, Negotiate, Kerberos), file transfer 
-    resume, http proxy tunneling and more.
   + expat (version %(expat)s): Expat is an XML parser library written in C.
     It is a stream-oriented parser in which an application registers handlers
     for things the parser might find in the XML document (like start tags).
@@ -161,8 +154,6 @@ docurls = [
     'bzip2:         Web-based documentation on http://www.bzip.org/docs.html',
     'zlib:          Web-based manual on https://zlib.net/manual.html',
     'lz4:           Manual page for the lz4 command in section 1',
-    'cURL:          Web-based documentation: https://curl.haxx.se/docs/',
-    'cURL:          Man pages for the curl and curl-config commands (section 1) and the library functions (section 3)',
     'expat:         Web-based documentation: https://libexpat.github.io/doc/',
     'expat:         Man page for xmlwf',
     'file:          Home page is https://www.darwinsys.com/file/',
@@ -279,17 +270,17 @@ components = [
         'runtest':     'check',
         'installopts': 'PREFIX=%(installdir)s BUILD_STATIC="yes" BUILD_SHARED="no"',
     }),
-    ('cURL', local_syslibs_cURL_version, {
-        'sources':       [ {
-                            'filename':    SOURCELOWER_TAR_XZ,
-                            'source_urls': ['http://curl.haxx.se/download/']
-                         }],
-        'checksums':     ['2cb9c2356e7263a1272fd1435ef7cdebf2cd21400ec287b068396deb705c22c4'],
-        'start_dir':     '%(namelower)s-%(version)s',
-        'preconfigopts': 'CFLAGS="-O2 -march=znver1 -fPIC" CXXFLAGS="-O2 -march=znver1 -fPIC" ',
-        'configopts':    '--enable-static --disable-shared --with-zlib=%(installdir)s --with-openssl'
-#        'configopts':    '--enable-static --disable-shared --with-zlib=%(installdir)s --with-brotli=%(installdir)s --with-zstd=%(installdir)s --with-openssl'
-    }),
+#    ('cURL', local_syslibs_cURL_version, {
+#        'sources':       [ {
+#                            'filename':    SOURCELOWER_TAR_XZ,
+#                            'source_urls': ['http://curl.haxx.se/download/']
+#                         }],
+#        'checksums':     ['2cb9c2356e7263a1272fd1435ef7cdebf2cd21400ec287b068396deb705c22c4'],
+#        'start_dir':     '%(namelower)s-%(version)s',
+#        'preconfigopts': 'CFLAGS="-O2 -march=znver1 -fPIC" CXXFLAGS="-O2 -march=znver1 -fPIC" ',
+#        'configopts':    '--enable-static --disable-shared --with-zlib=%(installdir)s --with-openssl'
+##        'configopts':    '--enable-static --disable-shared --with-zlib=%(installdir)s --with-brotli=%(installdir)s --with-zstd=%(installdir)s --with-openssl'
+#    }),
     ('expat', local_syslibs_expat_version, {
         'sources':       [ {
                             'filename':    SOURCELOWER_TAR_BZ2,
@@ -394,8 +385,8 @@ sanity_check_paths = {
              ['include/zconf.h', 'include/zlib.h', 'lib/libz.a', 'lib/pkgconfig/zlib.pc'] +
              # lz4
              ["bin/lz4", "lib/liblz4.a", "include/lz4.h"] +
-             # cURL
-             ['bin/curl', 'lib/libcurl.a'] +
+#             # cURL
+#             ['bin/curl', 'lib/libcurl.a'] +
              # expat
              ['bin/xmlwf', 'include/expat.h', 'lib/libexpat.a', 'lib/pkgconfig/expat.pc'] +
              ['bin/file', 'lib/libmagic.a', 'lib/libmagic.la', 'include/magic.h'] +
@@ -435,10 +426,10 @@ sanity_check_commands = [
     'lz4 --version',
     'unlz4 --version',
     'pkg-config --libs liblz4' ] + [
-    # cURL
-    'curl --version',
-    'curl-config --version',
-    'pkg-config --libs libcurl',
+#    # cURL
+#    'curl --version',
+#    'curl-config --version',
+#    'pkg-config --libs libcurl',
     # expat
     'xmlwf -h',
     'pkg-config --libs expat'] + [
@@ -474,8 +465,8 @@ modextravars = {
     'EBVERSIONZLIB':                local_syslibs_zlib_version,
     'EBROOTLZ4':                    '%(installdir)s',
     'EBVERSIONLZ4':                 local_syslibs_zlib_version,
-    'EBROOTCURL':                   '%(installdir)s',
-    'EBVERSIONCURL':                local_syslibs_cURL_version,
+#    'EBROOTCURL':                   '%(installdir)s',
+#    'EBVERSIONCURL':                local_syslibs_cURL_version,
     'EBROOTEXPAT':                  '%(installdir)s',
     'EBVERSIONEXPAT':               local_syslibs_expat_version,
     'EBROOTAPR':                    '%(installdir)s',
