@@ -4,9 +4,9 @@
    | testing.                                                       |
 *  |                                                                |
    | On August 18 the default programming environment was changed   |
-  *| to the 22.08 enviornment which should solve some problems with |
+  *| to the 22.08 environment which should solve some problems with |
    | 22.06. In the coming days the software stack will be ported to |
-   | this enviornment and will then be the recommended version of   |
+   | this environment and will then be the recommended version of   |
  * | the LUMI stack. LUMI/21.12 is currently the most complete      |
    | software stack but users are recommended to switch to 22.08    |
    | as soon as it satisfies their needs.                           |

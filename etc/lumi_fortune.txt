@@ -108,11 +108,11 @@ $ module load PrgEnv-cray
 =====
 
 The interconnect on LUMI after the update of late June and early July 2022
-does not support UCX, xo craype-network-ucx and cray-mpich-ucx no longer
+does not support UCX, so craype-network-ucx and cray-mpich-ucx no longer
 work as before or will fall back to (slow) TCP communication.
 
 For technical people: only libfabric with the so-called cassini provider are
-supported for hibh performance communication.
+supported for high performance communication.
 
 ====
 
