@@ -62,5 +62,5 @@ use.
 
 ### 22.08
 
-  * Port of the 22.06 version with the addition of Brotli and cURL.
+  * Port of the 22.06 version with the addition of cURL.
 

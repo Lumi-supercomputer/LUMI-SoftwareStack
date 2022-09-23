@@ -70,7 +70,7 @@ osdependencies = [
 preconfigopts = 'make configure && CFLAGS="-O2 -march=znver1" CXXFLAGS="-O2 -march=znver1" '
 # Work around git build system bug.  If LIBS contains -lpthread, then configure
 # will not append -lpthread to LDFLAGS, but Makefile ignores LIBS.
-configopts = "--with-openssl --with-libpcre2 --without-tcltk --with-curl --with-expat --enable-pthreads='-lpthread'"
+configopts = "--with-openssl --with-libpcre2 --without-tcltk --with-zlib --with-curl --with-expat --enable-pthreads='-lpthread'"
 # Other options to specify paths: --with-perl --with-python --with-zlib
 
 #

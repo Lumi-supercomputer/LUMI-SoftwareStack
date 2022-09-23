@@ -288,6 +288,7 @@ components = [
         'start_dir':     '%(namelower)s-%(version)s',
         'preconfigopts': 'CFLAGS="-O2 -march=znver1 -fPIC" CXXFLAGS="-O2 -march=znver1 -fPIC" ',
         'configopts':    '--enable-static --disable-shared --with-zlib=%(installdir)s --with-openssl'
+#        'configopts':    '--enable-static --disable-shared --with-zlib=%(installdir)s --with-brotli=%(installdir)s --with-zstd=%(installdir)s --with-openssl'
     }),
     ('expat', local_syslibs_expat_version, {
         'sources':       [ {
