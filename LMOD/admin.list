@@ -53,4 +53,6 @@ currently only a placeholder to make it easy to manage modules. Some things may 
 others won't, and its use is currently not supported by the LUMI User Support Team. 
 The partition/G module will only become officially supported when production use starts.
 
-
+lumi-vnc/20220715:
+This version of lumi-vnc should not be used anymore as there is a bug that occasionally
+shows up. Please use the newer 20221010 version.

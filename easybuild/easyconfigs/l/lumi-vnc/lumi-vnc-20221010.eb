@@ -1,0 +1,125 @@
+# Written by Kurt Lust for the LUMI consortium.
+easyblock = 'Bundle'
+#
+# This EasyConfig file is rather tricky at the moment.
+#   - It uses a GitHub repository which is private so a GitHub token is needed to read it.
+#   - It also assumes that there is a file turbovnc-container-%(version)s.tar ready in the
+#     sources directory that only contains vnc.sif, the Singularity container for VNC.
+#     (We didn't even botter compressing the tar file as it turns out there is almost no gain).
+#
+
+name =    'lumi-vnc'
+version = '20221010'
+
+local_container_version = '20220125'
+
+homepage = '(none)'
+
+whatis = [
+    'Description: Containerised VNC server to use until Open OnDemand becomes available on LUMI in late \'22'
+]
+
+description = """
+This module provides a containerised version of the TurboVNC server to be used
+for remote graphics as long as Open OnDemand hasn't been set up on LUMI, which
+will happen at the earliest in the latter half of 2022.
+
+It is possible to connect to the VNC server using either a web browser or a
+native VNC client such as TigerVNC or TurboVNC. In both cases you will need
+to set up ssh port forwarding from your laptop/desktop to LUMI. Instructions on
+how to do this and which ports to use will be printed when starting the VNC
+server.
+
+Do not expect a full-featured desktop environment though: The X server runs
+the fluxbox.org window manager but currently does not support any desktop
+environment.
+"""
+
+usage = """
+After loading the module, the start-vnc command is defined (as a shell function)
+and can be used to start the VNC server. That will print information on how to
+connect to the server either using a web browser or a VNC client, e.g., the
+TigerVNC client used in the output or the TurboVNC client.
+
+Try
+  start-vnc -h
+for help on the available command line options of the start-vnc command.
+
+Furthermore, after starting the server, the following additional commands become
+available in the shell where the VNC server was started:
+  * stop-vnc: This will stop the VNC server and clean up the shell.
+  * vnc-info: This prints the connection information to the VNC server, i.e.,
+    repeats the output already shown by the start-vnc command.
+  * vnc-status: Returns exit code 0 if the VNC server is running, nonzero
+    otherwise.
+
+Note that exiting the shell from which you called start-vnc will shut down the VNC
+server and hence cause all applications using it to fail.
+
+After starting the VNC server you can run any X11 GUI program in the shell from which
+you started the VNC server. The DISPLAY variable will be set up correctly to do so.
+
+If you want to do so from another shell on the same node, you'll have to set the
+DISPLAY variable first to the value indicated by start-vnc or vnc-info, e.g.,
+export DISPLAY=:1
+
+The TurboVNC server started by start-vnc will create a log file in $HOME/.vnc
+which can be useful for debugging problems.
+"""
+
+docurls = [
+    'TigerVNC info and download: https://tigervnc.org/',
+    'TurboVNC info and download: https://www.turbovnc.org/',
+]
+
+toolchain = SYSTEM
+
+default_easyblock = 'MakeCp'
+
+components = [
+    ( 'utility-tools', version, {
+        'sources': [{
+                      'filename': '%(namelower)s-%(version)s.tar.gz',
+                      'git_config': {
+                          'url':       'https://github.com/Lumi-supercomputer',
+                          'repo_name': '%(name)s',
+                          'commit':    'b21f00fbea5a349830e6aca1055f134eb0097495'
+                      }
+                   }],
+        'skipsteps': [ 'configure', 'build' ],
+        'start_dir': '%(name)s',
+        'files_to_copy': [
+                            (['VNC/*'], 'scripts/VNC'),
+                            (['settings.sh', 'LICENSE'], 'scripts')
+                         ],
+    }),
+    ( 'turbovnc-container', local_container_version, {
+        'sources':       ['turbovnc-container-%(version)s.tar'],
+        'skipsteps':     [ 'configure', 'build' ],
+        'start_dir':     '.',
+        'files_to_copy': [ ([ 'vnc.sif' ], 'scripts/VNC') ],
+    }),
+]
+
+#postinstallcmds = [
+#    ''
+#]
+
+sanity_check_paths = {
+    'files': [ 'scripts/VNC/vnc.sif' ],
+#    'files': [  ],
+    'dirs':  [ 'scripts/VNC' ]
+}
+
+modluafooter = """
+
+local start_vnc_bash = 'source %(installdir)s/scripts/VNC/_get_vnc_display "$@"'
+-- The following for CSH needs improvement, but we don't really support C shell and its derivatives
+-- on LUMI at the moment.
+local start_vnc_csh  = 'source %(installdir)s/scripts/VNC/_get_vnc_display $*'
+
+set_shell_function( 'start-vnc', start_vnc_bash, start_vnc_csh )
+
+"""
+
+moduleclass = 'tools'
