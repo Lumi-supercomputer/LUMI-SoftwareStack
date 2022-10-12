@@ -102,11 +102,16 @@ fi
 
 if [[ -d '/appl/lumi' ]]
 then
-	partitions=( 'C' 'G' 'D' 'L' 'EAP' )
-	cpeGNU=( 'common:C:G:D:L:EAP' )
-    cpeCray=( 'common:C:G:D:L:EAP' )
+	#partitions=( 'C' 'G' 'D' 'L' 'EAP' )
+	#cpeGNU=( 'common:C:G:D:L:EAP' )
+    #cpeCray=( 'common:C:G:D:L:EAP' )
+    #cpeAOCC=( 'common:C:D:L' )
+    #cpeAMD=( 'G:EAP' )
+	partitions=( 'C' 'G' 'D' 'L' )
+	cpeGNU=( 'common:C:G:D:L' )
+    cpeCray=( 'common:C:G:D:L' )
     cpeAOCC=( 'common:C:D:L' )
-    cpeAMD=( 'G:EAP' )
+    cpeAMD=( 'G' )
     declare -A cpeENV=( ['cpeGNU']=$cpeGNU ['cpeCray']=$cpeCray ['cpeAOCC']=$cpeAOCC ['cpeAMD']=$cpeAMD )
 else # We're likely on eiger, we can't test everything here.
 	partitions=( 'L' )
