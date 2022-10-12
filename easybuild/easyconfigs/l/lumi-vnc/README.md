@@ -98,3 +98,10 @@ font '-adobe-times-medium-r-normal--10-100-75-75-p-54-iso8859-1'
     Due to the holiday schedule this version had to be installed without proper testing
     on the compute nodes and before the patch was merged in the main branch.
 
+
+### Version 20221010
+
+-   This version makes some corrections in the `_start-vnc` script to work around a 
+    race condition that could occur and then use port 0 instead of the right port 
+    for the web access to the VNC server.
+
