@@ -19,6 +19,7 @@
       * [cpeCray toolchain](Toolchains/cpeCray.md)
       * [cpeGNU toolchain](Toolchains/cpeGNU.md)
       * [cpeAOCC toolchain](Toolchains/cpeAOCC.md)
+      * [cpeAMD toolchain](Toolchains/cpeAMD.md)
       * [Current configurations on LUMI](configurations.md)
 
   * Documentation on our EasyBlocks:

@@ -23,7 +23,7 @@
 # along with EasyBuild.  If not, see <http://www.gnu.org/licenses/>.
 ##
 """
-Support for ROCCm (Radeon Open Compute platform) as toolchain compiler used
+Support for AMD ROCCm (Radeon Open Compute platform) as toolchain compiler used
 via the Cray Programming Environment compiler drivers (aka cc, CC, ftn).
 
 The basic concept is that the compiler driver knows how to invoke the true underlying
@@ -55,37 +55,46 @@ from easybuild.tools.config import build_option
 
 
 TC_CONSTANT_CPE = "CPE"
-TC_CONSTANT_ROCM = "ROCM"
+TC_CONSTANT_AMD = "AMD"
 
 
-class cpeCompROCm(Compiler):
+class cpeCompAMD(Compiler):
     """ROCm support for using Cray compiler drivers"""
     TOOLCHAIN_FAMILY = TC_CONSTANT_CPE
-    COMPILER_FAMILY = TC_CONSTANT_ROCM
+    COMPILER_FAMILY = TC_CONSTANT_AMD
 
     COMPILER_MODULE_NAME = ['cpeAMD']
     CRAYPE_MODULE_NAME = ['cpeAMD']
 
-    COMPILER_FAMILY = TC_CONSTANT_ROCM
+    COMPILER_FAMILY = TC_CONSTANT_AMD
 
     COMPILER_UNIQUE_OPTS = {
         # AOMP-specific ones
-        'loop-vectorize': (False, "Explicitly enable/disable loop vectorization"),
-        'basic-block-vectorize': (False, "Explicitly enable/disable basic block vectorization"),
-        'lto': (False, "Enable Link Time Optimization"),
+        'lto': (False, "Enable Link Time Optimization in the default 'full' mode"),
+        'offload-lto': (False, "Enable Link Time Optimization for offload compilation in the default 'full' mode"),
         # Generic Cray options
         'dynamic': (True, "Generate dynamically linked executable"),
         'mpich-mt': (False, "Directs the driver to link in an alternate version of the Cray-MPICH library which \
                              provides fine-grained multi-threading support to applications that perform \
                              MPI operations within threaded regions."),
+        # AMD GPU-related options
+        'usehip': (False, "Enable hip mode for the C++ compiler"),
+        'gpu-rdc': (False, "Enable relocatable device code (can have a negative performance impact)"),
     }
     COMPILER_UNIQUE_OPTION_MAP = {
+        # Options rooted in clang/LLVM
+        'lto': 'flto',
+        'offload-lto': 'foffload-lto',
+        # Cray-specific options
+        'mpich-mt': 'craympich-mt',        
+        'dynamic': '',
+        # Overwriting or filling in default EasyBuild toolchain options.
+        'verbose': 'craype-verbose',
         'i8': 'fdefault-integer-8',
         'r8': 'fdefault-real-8',
-        'lto': 'flto',
         'unroll': 'funroll-loops',
-        'loop-vectorize': {False: 'fno-vectorize', True: 'f-vectorize' },
-        'basic-block-vectorize': {False: 'no-slp-vectorize', True: 'fslp-vectorize' },
+        'shared': '',
+        # Note that vectorize is special, we cannot use the same in this construct.
         'vectorize': {False: ['fno-vectorize', 'no-slp-vectorize'], True: ['f-vectorize', 'fslp-vectorize'] },
         # Clang's options do not map well onto these precision modes.  The flags enable and disable certain classes of
         # optimizations.
@@ -116,12 +125,6 @@ class cpeCompROCm(Compiler):
         'ieee': '',
         # At optimzation level -O2 or above vectorisation is turned on by default so no need to turn it on
         # for DEFAULT_OPT_LEVEL as in the GCC compiler defintion.
-        #
-        # Generic Cray PE options
-        'shared': '',
-        'dynamic': '',
-        'verbose': 'craype-verbose',
-        'mpich-mt': 'craympich-mt',
     }
 
     # used when 'optarch' toolchain option is enabled (and --optarch is not specified)
@@ -137,12 +140,12 @@ class cpeCompROCm(Compiler):
 
     COMPILER_CC = 'cc'
     COMPILER_CXX = 'CC'
-    COMPILER_C_UNIQUE_FLAGS = ['dynamic', 'mpich-mt', 'loop-vectorize', 'basic-block-vectorize', 'lto']
+    COMPILER_C_UNIQUE_FLAGS = ['dynamic', 'mpich-mt', 'lto', 'offload-lto']
 
     COMPILER_F77 = 'ftn'
     COMPILER_F90 = 'ftn'
     COMPILER_FC = 'ftn'
-    COMPILER_F_UNIQUE_FLAGS = ['dynamic', 'mpich-mt', 'loop-vectorize', 'basic-block-vectorize', 'lto']
+    COMPILER_F_UNIQUE_FLAGS = ['dynamic', 'mpich-mt', 'lto', 'offload-lto']
 
 #    LIB_MULTITHREAD = ['pthread']
     LIB_MATH = ['m']
@@ -193,9 +196,21 @@ class cpeCompROCm(Compiler):
 
     def prepare(self, *args, **kwargs):
         """Prepare to use this toolchain; define $CRAYPE_LINK_TYPE if 'dynamic' toolchain option is enabled."""
-        super(cpeCompROCm, self).prepare(*args, **kwargs)
+        super(cpeCompAMD, self).prepare(*args, **kwargs)
 
         if self.options['dynamic'] or self.options['shared']:
             self.log.debug("Enabling building of shared libs/dynamically linked executables via $CRAYPE_LINK_TYPE")
             env.setvar('CRAYPE_LINK_TYPE', 'dynamic')
 
+    def _set_compiler_vars(self):
+        
+        super(cpeCompAMD, self)._set_compiler_vars()
+        
+        if self.options.get('usehip', False):  # False is the default for this option if not specified.
+            self.variables.nappend('CXXFLAGS', ['xhip'])
+            
+        if self.options.get('gpu-rdc', False):  # False is the default for this option if not specified.
+            self.variables.nappend('CXXFLAGS', ['fgpu-rdc', 'Xlinker --hip-link'])
+            #self.variables.nappend('CXXFLAGS', ['fgpu-rdc'])
+            #self.variables.nappend('LDFLAGS', ['fgpu-rdc', '-hip-link'])
+            

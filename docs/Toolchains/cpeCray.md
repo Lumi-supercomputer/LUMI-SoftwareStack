@@ -1,12 +1,28 @@
-# cpeGNU toolchain
+# cpeCray toolchain
 
 **NOTE: Stuff in italics has to be checked: Do these options really work?**
+
+## Note about the compilers
+
+  * The major version of the `cce` module corresponds to the major version of
+    the clang/LLVM compilers on which it is based for all versions that are
+    relevant for LUMI.
+
 
 ## Available options
 
 The cpeCray toolchain supports the [common toolchain options](toolchain_common.md),
 and some additional Cray-specific flags, two of which are
 really just redefinitions of standard compiler flags.
+
+### Compiler flags that are inherited from the LLVM compilers on which the compilers are based
+
+| Option      | Categorie       | What?                                                           |
+|:------------|:----------------|:----------------------------------------------------------------|
+| lto         | code generation | Enable Link Time Optimization (in the default 'full' mode)      |
+| offload-lto | code generation | Enable LTO for offload compilation (in the default 'full' mode) |
+
+These options should not be used in projects that also contains Fortran code.
 
 
 ### cpeCray-specific flags
@@ -19,9 +35,6 @@ really just redefinitions of standard compiler flags.
 mpich-mt: Directs the driver to link in an alternate version of the Cray-MPICH
 library which provides fine-grained multi-threading support to applications that
 perform MPI operations within threaded regions. (default: False)
-
-Note that 'i8' and 'r8' do not work for the cpeCray toolchain as the compiler only
-has an option to promote both types.
 
 Two further options trigger different compiler flags than in the GCC toolchain: ``verbose``
 and ``optarch`` but have otherwise the same meaning.

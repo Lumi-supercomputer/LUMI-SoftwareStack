@@ -54,7 +54,7 @@ MAP_TOOLCHAIN_COMPILER = {
     'cpeCray':   'cce',
     'cpeGNU':    'gcc',
     'cpeAOCC':   'aocc',
-    'cpeAMD':    'rocm',
+    'cpeAMD':    'amd',
     'cpeIntel':  'intel',
     'cpeNVIDIA': 'NVIDIA',
 }

@@ -44,8 +44,14 @@ def parse_hook(ec, *args, **kwargs):
                 ] )
             elif lumi_partition == 'G':
                 ec['cray_targets'].extend( [
-                    'craype-x86-milan',
+                    'craype-x86-trento',
                     'craype-accel-amd-gfx90a',
+                    'craype-network-ofi'
+                ] )
+            elif lumi_partition == 'EAP':
+                ec['cray_targets'].extend( [
+                    'craype-x86-rome',
+                    'craype-accel-amd-gfx908',
                     'craype-network-ofi'
                 ] )
             elif lumi_partition == 'D':

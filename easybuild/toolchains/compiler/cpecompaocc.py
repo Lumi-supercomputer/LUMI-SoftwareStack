@@ -70,9 +70,7 @@ class cpeCompAOCC(Compiler):
 
     COMPILER_UNIQUE_OPTS = {
         # AOCC-specific ones
-        'loop-vectorize': (False, "Explicitly enable/disable loop vectorization"),
-        'basic-block-vectorize': (False, "Explicitly enable/disable basic block vectorization"),
-        'lto': (False, "Enable Link Time Optimization"),
+        'lto': (False, "Enable Link Time Optimization in the default 'full' mode"),
         # Generic Cray options
         'dynamic': (True, "Generate dynamically linked executable"),
         'mpich-mt': (False, "Directs the driver to link in an alternate version of the Cray-MPICH library which \
@@ -80,12 +78,18 @@ class cpeCompAOCC(Compiler):
                              MPI operations within threaded regions."),
     }
     COMPILER_UNIQUE_OPTION_MAP = {
+        # Options rooted in clang/LLVM
+        'lto': 'flto',
+        # Cray-specific options
+        'mpich-mt': 'craympich-mt',        
+        'dynamic': '',
+        # Overwriting or filling in default EasyBuild toolchain options.
+        'verbose': 'craype-verbose',
         'i8': 'fdefault-integer-8',
         'r8': 'fdefault-real-8',
-        'lto': 'flto',
         'unroll': 'funroll-loops',
-        'loop-vectorize': {False: 'fno-vectorize', True: 'f-vectorize' },
-        'basic-block-vectorize': {False: 'no-slp-vectorize', True: 'fslp-vectorize' },
+        'shared': '',
+        # Note that vectorize is special, we cannot use the same in this construct.
         'vectorize': {False: ['fno-vectorize', 'no-slp-vectorize'], True: ['f-vectorize', 'fslp-vectorize'] },
         # Clang's options do not map well onto these precision modes.  The flags enable and disable certain classes of
         # optimizations.
@@ -116,12 +120,6 @@ class cpeCompAOCC(Compiler):
         'ieee': '',
         # At optimzation level -O2 or above vectorisation is turned on by default so no need to turn it on
         # for DEFAULT_OPT_LEVEL as in the GCC compiler defintion.
-        #
-        # Generic Cray PE options
-        'shared': '',
-        'dynamic': '',
-        'verbose': 'craype-verbose',
-        'mpich-mt': 'craympich-mt',
     }
 
     # used when 'optarch' toolchain option is enabled (and --optarch is not specified)
@@ -137,12 +135,12 @@ class cpeCompAOCC(Compiler):
 
     COMPILER_CC = 'cc'
     COMPILER_CXX = 'CC'
-    COMPILER_C_UNIQUE_FLAGS = ['dynamic', 'mpich-mt', 'loop-vectorize', 'basic-block-vectorize', 'lto']
+    COMPILER_C_UNIQUE_FLAGS = ['dynamic', 'mpich-mt', 'lto']
 
     COMPILER_F77 = 'ftn'
     COMPILER_F90 = 'ftn'
     COMPILER_FC = 'ftn'
-    COMPILER_F_UNIQUE_FLAGS = ['dynamic', 'mpich-mt', 'loop-vectorize', 'basic-block-vectorize', 'lto']
+    COMPILER_F_UNIQUE_FLAGS = ['dynamic', 'mpich-mt', 'lto']
 
 #    LIB_MULTITHREAD = ['pthread']
     LIB_MATH = ['m']

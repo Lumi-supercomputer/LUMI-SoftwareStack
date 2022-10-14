@@ -35,7 +35,7 @@ This project is developed for the Python Software Foundation as a part of
 Google Summer of Code under the mentorship of Clark Evans.
 """
 
-toolchain = {'name': 'cpeAOCC', 'version': '22.08'}
+toolchain = {'name': 'cpeAMD', 'version': '22.08'}
 toolchainopts = {'pic': True}
 
 #https://github.com/yaml/libyaml/releases/download/0.2.5/yaml-0.2.5.tar.gz

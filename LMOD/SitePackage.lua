@@ -26,7 +26,7 @@ local init_module_list = {
     C   = { 'craype-x86-milan',  'craype-accel-host',       'craype-network-ofi', 'xpmem' },
 --    D   = { 'craype-x86-rome',   'craype-accel-nvidia80',   'craype-network-ofi', 'xpmem' },
     D   = { 'craype-x86-rome',   'craype-accel-host',       'craype-network-ofi', 'xpmem' }, -- craype-accel-nvidia does not yet work
-    G   = { 'craype-x86-milan',  'craype-accel-amd-gfx90a', 'craype-network-ofi', 'xpmem' },
+    G   = { 'craype-x86-trento', 'craype-accel-amd-gfx90a', 'craype-network-ofi', 'xpmem' },
     L   = { 'craype-x86-rome',   'craype-accel-host',       'craype-network-ofi', 'xpmem' },
     EAP = { 'craype-x86-rome',   'craype-accel-amd-gfx908', 'craype-network-ofi', 'xpmem' },
 }
@@ -775,6 +775,16 @@ local function is_visible_hook( modT )
         end
 
     end  -- Conditional part first tests
+    
+    -- Temporary fix to hide LUMI-G software.
+    
+    local poweruser =    os.getenv( 'LUMI_POWER_USER' )
+    
+    if poweruser ~=  1 then
+        if modT.fn:find( 'easybuild/LUMI/22.08/partition/G' ) then
+            modT.isVisible = false
+        end
+    end
 
 end
 

@@ -29,7 +29,7 @@ and external string representation (a traditional encoding) when they are doing 
 GNU libiconv is a conversion library for both kinds of applications.
 """
 
-toolchain = {'name': 'cpeAOCC', 'version': '22.08'}
+toolchain = {'name': 'cpeAMD', 'version': '22.08'}
 toolchainopts = {'pic': True}
 
 source_urls = [GNU_SOURCE]

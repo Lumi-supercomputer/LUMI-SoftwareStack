@@ -1,46 +1,35 @@
-# cpeAOCC toolchain
+# cpeAMD toolchain
 
 Note: The options are for the ``aocc.py`` file included in this repository and are
 not the same as those for the repository at CSCS.
 
 ## Note about the compilers
 
-From the user guides, introduction section:
-
-  * AOCC 2.1 is based on LLVM 9.0 release (llvm.org, 19th Sep 2019) with improved
-    Flang Fortran frond-end added with F2008 features and bug fixes.
-  * AOCC 2.2 is based on LLVM 10.0 release (llvm.org, 24th Mar 2020) with improved
-    Flang Fortran front-end added with F2008 features and bug fixes.
-  * [AOCC 3.0](https://developer.amd.com/wp-content/resources/AOCC-3.0-User-Guide.pdf)
-    is based on LLVM 12 trunk (llvm.org, 22nd Oct 2020) with Flang as a Fortran front-end
-    added with F2008, Real 128 features. AOCC 3.0 also includes the support for OpenMP Debugging
-    Interface (OMPD) APIs.
-  * [AOCC 3.1](https://developer.amd.com/wp-content/resources/AOCC_57222_User_Guide_Rev_3.1.pdf) 
-    release is based on LLVM 12 release (llvm.org, 14th April 2021) with Flang as a
-    Fortran front-end added with F2008 and Real 128 features. It is an incremental version of AOCC
-    3.0 that includes bug fixes and a support for compiler directives in Flang.
-  * [AOCC 3.2](https://developer.amd.com/wp-content/resources/57222_AOCC_UG_Rev_3.2.pdf)
-    AOCC 3.2 is based on the LLVMTM 13 compiler infrastructure (llvm.org, 4 October 2021) and
-    includes bug fixes and support for other new features.
+  * AMD/ROCm 5.0.2 is based on LLVM 14.0.0
 
 
 ## Available options
 
 The cpeAMD toolchain supports the [common toolchain options](toolchain_common.md),
-the additional AOCC flags and some additional Cray-specific flags, two of which are
+the additional AMD flags and some additional Cray-specific flags, two of which are
 really just redefinitions of standard compiler flags.
 
+### Default toolchain options that may not behave as expected
 
-### AOCC-specific flags
+  * `rpath`: rpath linking in EasyBuild has not been properly tested in the HPE Cray PE.
 
-The following options map on AOCC-dpecific compiler flags can be similar to similar options in 
-the cpeGNU toolchain:
+  * `unroll`: As it is not clear from the docunentation for the Fortran compiler which
+    options should be set to enable or disable (if any at all) 
 
-| Option                | Categorie       | What?                                               |
-|:----------------------|:----------------|:----------------------------------------------------|
-| lto                   | code generation | Enable Link Time Optimization                       |
 
-### cpeAOCC-specific flags
+### AMD-specific toolchain options
+
+| Option      | Categorie       | What?                                                           |
+|:------------|:----------------|:----------------------------------------------------------------|
+| lto         | code generation | Enable Link Time Optimization (in the default 'full' mode)      |
+| offload-lto | code generation | Enable LTO for offload compilation (in the default 'full' mode) |
+
+### cpeAMD-specific flags (coming from the HPE Cray PE compiler wrappers)
 
 | Option   | Categorie       | What?                                                        |
 |:---------|:----------------|:-------------------------------------------------------------|
@@ -127,7 +116,8 @@ Other floating-point optimisation and accuracy-related flags:
 | Option                | Flag                                                                                  |
 |:----------------------|:--------------------------------------------------------------------------------------|
 | dynamic               | No flag as this is currently the only mode supported                                  |
-| lto                   | -flto
+| lto                   | -flto                                                                                 |
+| offload-lto           | -foffload-lto                                                                         |
 | 32bit                 | -m32                                                                                  |
 | debug                 | -g                                                                                    |
 | pic                   | -fPIC                                                                                 |
@@ -136,6 +126,8 @@ Other floating-point optimisation and accuracy-related flags:
 | static                | -static                                                                               |
 | rpath                 | Use RPATH wrappers when --rpath is enabled in EasyBuild configuration (default: True) |
 
+NOTE: `rpath` has not yet been checked and is likely broken. There is a better way to do this in the /hPE Cray PE 
+than what EasyBuild does as the wrappers already support rpath linking.
 
 ## Source-related options
 

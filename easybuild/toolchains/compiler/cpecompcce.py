@@ -62,15 +62,32 @@ class cpeCompCCE(Compiler):
     COMPILER_FAMILY = TC_CONSTANT_CCE
 
     COMPILER_UNIQUE_OPTS = {
+        # AOMP-specific ones
+        'lto': (False, "Enable Link Time Optimization in the default 'full' mode"),
+        'offload-lto': (False, "Enable Link Time Optimization for offload compilation in the default 'full' mode"),
+        # Generic Cray options
         'dynamic':  (True, "Generate dynamically linked executable"),
         'mpich-mt': (False, "Directs the driver to link in an alternate version of the Cray-MPICH library which \
                              provides fine-grained multi-threading support to applications that perform \
                              MPI operations within threaded regions."),
+        # AMD GPU-related options
+        'usehip': (False, "Enable hip mode for the C++ compiler"),
+        'gpu-rdc': (False, "Enable relocatable device code (can hava a negative performance impact)"),
     }
 
     COMPILER_UNIQUE_OPTION_MAP = {
+        # Options rooted in clang/LLVM
+        'lto': 'flto',
+        'offload-lto': 'foffload-lto',
+        # Cray-specific options
+        'mpich-mt': 'craympich-mt',        
+        'dynamic': '',  # Check: Should add code for CRAY_PE_LINK_TYPE?
+        # Overwriting or filling in default EasyBuild toolchain options.
+        'unroll': '', # As we don't know what to do in Fortran.
+        'verbose': 'craype-verbose',
         'i8': '-s integer64',
-        'r8': '-s real64',
+        'r8': '-s real64',        
+        'shared': '',
         # We cannot assign proper precision options for the Cray compilers as they differ
         # between their C/C++ and Fortran compilers.
         'strict': '',
@@ -78,16 +95,11 @@ class cpeCompCCE(Compiler):
         'defaultprec': '',
         'loose': '',
         'veryloose': '',
-        # handle shared and dynamic always via $CRAYPE_LINK_TYPE environment variable, don't pass flags to wrapper
-        'shared': '',
-        'dynamic': '',
-        'verbose': 'craype-verbose',
-        'mpich-mt': 'craympich-mt',
     }
 
     COMPILER_CC  = 'cc'
     COMPILER_CXX = 'CC'
-    COMPILER_C_UNIQUE_FLAGS = ['dynamic', 'mpich-mt']
+    COMPILER_C_UNIQUE_FLAGS = ['dynamic', 'mpich-mt', 'lto', 'offload-lto']
 
     COMPILER_F77 = 'ftn'
     COMPILER_F90 = 'ftn'
@@ -145,3 +157,15 @@ class cpeCompCCE(Compiler):
         if self.options['dynamic'] or self.options['shared']:
             self.log.debug("Enabling building of shared libs/dynamically linked executables via $CRAYPE_LINK_TYPE")
             env.setvar('CRAYPE_LINK_TYPE', 'dynamic')
+
+    def _set_compiler_vars(self):
+        super(cpeCompCCE, self)._set_compiler_vars()
+        
+        if self.options.get('usehip', False):  # False is the default for this option if not specified.
+            self.variables.nappend('CXXFLAGS', ['xhip'])
+            
+        if self.options.get('gpu-rdc', False):  # False is the default for this option if not specified.
+            self.variables.nappend('CXXFLAGS', ['fgpu-rdc', 'Xlinker --hip-link'])
+            #self.variables.nappend('CXXFLAGS', ['fgpu-rdc'])
+            #self.variables.nappend('LDFLAGS', ['fgpu-rdc', '-hip-link'])
+

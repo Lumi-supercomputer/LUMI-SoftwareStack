@@ -1,0 +1,21 @@
+software:
+  ncurses:
+    toolchains:
+      cpeGNU-22.08:
+        versions: ['6.2']
+  libreadline:
+    toolchains:
+      cpeGNU-22.08:
+        versions: ['8.1.2']
+  gettext:
+    toolchains:
+      cpeGNU-22.08:
+        versions:
+          '0.21':
+            versionsuffix: '-minimal'
+#  GSL:
+#    toolchains:
+#      cpeGNU-22.08:
+#        versions: 
+#          '2.7.1':
+#            versionsuffix: '-sequential'

@@ -38,12 +38,12 @@ docurls = [
    'Man pages in section 3 for readline and history, and texinfo support',
 ]
 
-toolchain = {'name': 'cpeAOCC', 'version': '22.08'}
+toolchain = {'name': 'cpeAMD', 'version': '22.08'}
 toolchainopts = {'pic': True}
 
 source_urls = ['http://ftp.gnu.org/gnu/readline']
 sources =     ['readline-%(version)s.tar.gz']
-checksums = ['7589a2381a8419e68654a47623ce7dfcb756815c8fee726b98f90bf668af7bc6']
+checksums =   ['7589a2381a8419e68654a47623ce7dfcb756815c8fee726b98f90bf668af7bc6']
 
 builddependencies = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
