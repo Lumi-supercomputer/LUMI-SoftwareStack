@@ -52,5 +52,9 @@ The LUMI software stacks are not yet fully implemented for LUMI-G and partition/
 currently only a placeholder to make it easy to manage modules. Some things may work, 
 others won't, and its use is currently not supported by the LUMI User Support Team. 
 The partition/G module will only become officially supported when production use starts.
+There is some software installed there already (non-accelerated libraries) but expect
+that these may change in icompatible ways during the Pilot phase without prior warning.
+Most system-installed packages for the GPU nodes are currently hidden but can be made
+visible by loadin ModulePowerUser. Use at your own risk.
 
 
