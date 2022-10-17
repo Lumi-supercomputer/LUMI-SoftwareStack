@@ -160,6 +160,10 @@ class EB_BoostCPE(EasyBlock):
                 def_bootstrap_toolset = 'clang'
                 def_build_toolset = 'clang'
                 self.log.info('EB_BoostCPE: Default bootstrap and build toolset both clang (AOCC compiler)')
+            elif self.toolchain.comp_family() == toolchain.AMD:
+                def_bootstrap_toolset = 'gcc'
+                def_build_toolset = 'clang'
+                self.log.info('EB_BoostCPE: Default bootstrap and build toolset both clang (AMD ROCm compiler)')
             elif self.cfg['toolset'] is None:
                 raise EasyBuildError("Unknown compiler used, don't know what to specify to --with-toolset when bootstrapping, aborting.")
 
