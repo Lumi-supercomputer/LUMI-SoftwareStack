@@ -257,10 +257,10 @@ software:
     toolchains:
       cpeAMD-22.08:
         versions: ['1.5.2']
-#  Boost:
-#    toolchains:
-#      cpeAMD-22.08:
-#        versions: ['1.79.0']
+  Boost:
+    toolchains:
+      cpeAMD-22.08:
+        versions: ['1.79.0']
   libarchive:
     toolchains:
       cpeAMD-22.08:
