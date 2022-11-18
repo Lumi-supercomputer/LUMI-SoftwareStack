@@ -1,24 +1,21 @@
    .Announcements---------------------------------------------------.
- * | In the first half of August several silent updates were done   |
-   | on the system to further enable LUMI-G which is still under    |
-   | testing.                                                       |
+ * | LUMI-G is currently in its pilot phase while a small early     |
+   | access platform section is available to a wider community for  |
+   | development.                                                   |
 *  |                                                                |
    | On August 18 the default programming environment was changed   |
   *| to the 22.08 environment which should solve some problems with |
-   | 22.06. In the coming days the software stack will be ported to |
-   | this environment and will then be the recommended version of   |
- * | the LUMI stack. LUMI/21.12 is currently the most complete      |
-   | software stack but users are recommended to switch to 22.08    |
-   | as soon as it satisfies their needs.                           |
+   | 22.06. The 22.08 version is now the recommended version and    |
+ * | users should transition from teh 22.06 and 21.12 versions to   |
+   | 22.08.                                                         |
 *  |                                                                |
  * | LUMI/21.08 is hidden as it does not fully function and will    |
    | not reappear. You can still load the modules but at your own   |
    | risk (and will get replacements instead). It is not possible   |
 *  | to reliably do new installations in 21.08.                     |
    |                                                                |
-  *| The flash file system on /flash/project_<...> is unavailable   |
-   | until the next upgrade currently scheduled for September as    |
-   | the software is not yet fully ready.                           |
+  *| The flash file system on /flash/project_<...> is partially     |
+   | back but only as /pfs/lustref1/flash/project_<...>.            |
 *  .Notes-----------------------------------------------------------.
    | Make sure one of the following modules is loaded to have the   |
  * | full LUMI experience:                                          |
