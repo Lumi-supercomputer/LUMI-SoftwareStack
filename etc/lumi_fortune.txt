@@ -99,10 +99,10 @@ environment: Clean the environment using "module purge", load the cpe/yy.mm
 module of your choice, and then load the PrgEnv module of your choice in its
 default version. You have to use different module load statements though
 for the cpe and PrgEnv module as the cpe module only takes full effect at the
-next module load command. E.g., to load the 21.12 version of PrgEnv-cray:
+next module load command. E.g., to load the 22.08 version of PrgEnv-cray:
 $ ml CrayEnv
 $ module purge
-$ module load cpe/21.12
+$ module load cpe/22.08
 $ module load PrgEnv-cray
 
 =====
