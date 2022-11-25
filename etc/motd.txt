@@ -14,8 +14,8 @@
    | risk (and will get replacements instead). It is not possible   |
 *  | to reliably do new installations in 21.08.                     |
    |                                                                |
-  *| The flash file system on /flash/project_<...> is partially     |
-   | back but only as /pfs/lustref1/flash/project_<...>.            |
+  *| The flash file system on /flash/project_<...> is again fully   |
+   | available.                                                     |
 *  .Notes-----------------------------------------------------------.
    | Make sure one of the following modules is loaded to have the   |
  * | full LUMI experience:                                          |
