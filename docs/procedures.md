@@ -49,10 +49,11 @@ but do not yet include instructions for EasyBuild
     of ``SystemRepo``.
 
   * Hide the new cpe module installed in the Cray PE subdirectory by adding a line to
-    ``LMOD/modulerc.lua`` in the repository.
+    ``LMOD/modulerc.lua`` in the ``LUMI-SoftwareStack`` repository.
 
   * If there are new Cray targeting modules that are irrelevant for LUMI you may want to
-    hide them in the respective code block in ``LMOD/LUMIstack_modulerc.lua``.
+    hide them in the respective code block in ``LMOD/LUMIstack_modulerc.lua``
+    in the ``LUMI-SoftwareStack`` repository.
 
 
 ### Part 2: Adding support as a LUMI/yy.mm(.dev) software stack
@@ -68,7 +69,7 @@ though before running this script:
     ``easybuild/easyconfigs/e/EasyBuild`` subdirectory of the repository.
 
     Note that it is always possible to run ``prepare_LUMI_stack.sh``-script
-    with ``EASYBUILD_IGNORE_CHECKSUMS=1`` set if the checksums in the module
+    with ``EASYBUILD_IGNORE_CHECKSUMS=1`` set if the checksums in the EasyConfig
     file are not yet OK.
 
   * Add a software stack-specific configuration file
@@ -87,7 +88,7 @@ installed before:
   * The generic ``EasyBuild-config`` module should you want to make changes to, e.g.,
     the environment variables et by that module.
 
-  * The generic ``LUMIstack`` and ```LUMIpartition`` module.
+  * The generic ``LUMIstack`` and ``LUMIpartition`` module.
 
   * The generic cpe module ``cpe-generic``.
 
