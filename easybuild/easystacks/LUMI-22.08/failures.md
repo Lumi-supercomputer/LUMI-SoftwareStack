@@ -15,4 +15,9 @@
   
 STATUS: Done with gzip in list lib2 for cpeAMD.
   
+# Known problems from partial re-installation on M28 November 2022
+
+  * buildtools: Sources for doxygen not found
+  * syslibs: Sources for zlib and expat not found.
+  * Perl package: Variable-Magic-0.62.tar.gz
   
