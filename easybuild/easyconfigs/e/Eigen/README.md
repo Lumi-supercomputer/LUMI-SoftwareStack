@@ -1,6 +1,6 @@
 # Eigen instructions
 
-  * [Eigen weg site](http://eigen.tuxfamily.org/)
+  * [Eigen web site](http://eigen.tuxfamily.org/)
 
   * [Eigen on GitLab](https://gitlab.com/libeigen/eigen)
 
