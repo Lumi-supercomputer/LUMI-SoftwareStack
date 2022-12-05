@@ -2,10 +2,10 @@
 
 easyblock = 'Bundle'
 
-local_allocations_version = '691e4ee'
+local_allocations_version = '0.1.0'
 
 name =    'lumi-tools'
-version = '0.1'
+version = '22.12'
 
 homepage = ''
 
@@ -230,17 +230,14 @@ print_line
 components = [
     ('lumi-allocations', local_allocations_version, {
         'easyblock':    'Tarball',
-        'sources':      [{
-                            'filename': '%(name)s-%(version)s.tar.gz',
-                            'git_config': {
-                                'url':          'https://github.com/Lumi-supercomputer',
-                                'repo_name':    '%(name)s',
-                                'commit':       '%(version)s',
-                                'keep_git_dir': False,
-                            },
+        'sources':      [{ # https://github.com/Lumi-supercomputer/lumi-allocations/archive/refs/tags/v0.1.0.tar.gz
+                            'filename':          '%(name)s-%(version)s.tar.gz',
+                            'download_filename': 'v%(version)s.tar.gz',
+                            'source_urls':       ['https://github.com/Lumi-supercomputer/lumi-allocations/archive/refs/tags'],
                         }],
+        'checksums':    ['c800711f16483b05b7a382c0a83cbf5547533edae4974135016a711a6b2170c6'],
         'install_type': 'merge',
-        'start_dir':    '%(namelower)s'
+        'start_dir':    '%(namelower)s-%(version)s'
     }),
 ]
 
