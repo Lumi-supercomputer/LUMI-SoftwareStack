@@ -1,9 +1,10 @@
 # Contributed by Kurt Lust for the LUMI project
+# Original script created by Sami Ilvonens (CSC)
 
 easyblock = 'Bundle'
 
 name =    'lumi-workspaces'
-version = '0.1'
+version = '0.2'
 
 homepage = ''
 
@@ -156,7 +157,6 @@ function print_home() {
 #----------------------------------------------------------------------
 
 # Fill in the active project info
-# Each FMI project has a symlink in /scratch folder
 my_groups=$(groups)
 # DEBUG projects my_groups="ilvonens p_installation_spack project_2001659 project_2001981 project_2003573"
 
