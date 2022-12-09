@@ -40,7 +40,6 @@ set -o nounset
 declare -A offsets=( ["users"]="1000000000" \
                               ["projappl"]="2000000000" \
                               ["scratch"]="3000000000" \
-                              ["flash"]="3000000000" \
                    )
 
 # User specific values
@@ -139,7 +138,6 @@ function print_projects() {
         echo
         print_quota projappl ${grp}
         print_quota scratch ${grp}
-        print_quota flash ${grp}
     done
 }
 
