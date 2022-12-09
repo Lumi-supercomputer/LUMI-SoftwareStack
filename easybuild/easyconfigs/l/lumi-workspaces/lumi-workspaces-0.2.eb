@@ -140,7 +140,9 @@ function print_projects() {
         echo
         print_quota projappl ${grp}
         print_quota scratch ${grp}
-        print_quota flash ${grp}
+        if [[ -d "/flash/${grp}" ]]; then
+             print_quota flash ${grp}
+        fi
     done
 }
 
