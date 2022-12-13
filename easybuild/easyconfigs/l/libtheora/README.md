@@ -2,8 +2,8 @@
 
   * [libtheora web site](https://www.theora.org/)
       * [downloads via the web site](https://www.theora.org/downloads/)
-  * [libvorbis on GitHub](https://github.com/xiph/theora)
-      * [libvorbis releases on GitHub](https://github.com/xiph/theora/releases)
+  * [libtheora on GitHub](https://github.com/xiph/theora)
+      * [libtheora releases on GitHub](https://github.com/xiph/theora/releases)
 
 ## General information
 
