@@ -2,7 +2,7 @@
 
   * [libgd web site](https://libgd.github.io/)
 
-  * [libgd gitHub](https://github.com/libgd/libgd)
+  * [libgd GitHub](https://github.com/libgd/libgd)
 
       * [GitHub releases](https://github.com/libgd/libgd/releases)
 
