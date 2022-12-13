@@ -1,8 +1,8 @@
 # HarfBuzz instructions
 
-  * [HarfBuzz web site](http://www.freedesktop.org/wiki/Software/HarfBuzz)
+  * [HarfBuzz web site](https://harfbuzz.github.io/)
 
-  * [HArfBuzz on GitHub](https://github.com/harfbuzz/harfbuzz)
+  * [HarfBuzz on GitHub](https://github.com/harfbuzz/harfbuzz)
 
       * [GitHub releases](https://github.com/harfbuzz/harfbuzz/releases)
 
