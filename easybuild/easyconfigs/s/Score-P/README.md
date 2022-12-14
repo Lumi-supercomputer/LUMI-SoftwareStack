@@ -2,6 +2,8 @@
 
   * [Score-P home page](https://www.vi-hps.org/projects/score-p/)
 
+  * [Score-P read-only GitLab](https://gitlab.com/score-p/scorep)
+
 
 ## EasyBuild
 
