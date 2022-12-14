@@ -4,6 +4,9 @@
 
   * [Download from GNU](https://ftp.gnu.org/gnu/mpfr/)
 
+  * [MPFR source development is hosted in the INRIA GitLab](https://gitlab.inria.fr/mpfr/mpfr)
+
+
 ## EasyBuild
 
   * [MPFR in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/m/MPFR)
