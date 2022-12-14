@@ -4,6 +4,9 @@
 
       * [Download](https://ftp.gnu.org/gnu/wget/)
 
+  * [GNU wget GitLab](https://gitlab.com/gnuwget/wget)
+
+
 ## EasyBuild
 
   * [wget in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/w/wget)
