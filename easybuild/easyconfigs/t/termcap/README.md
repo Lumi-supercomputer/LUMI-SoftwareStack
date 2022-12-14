@@ -1,6 +1,6 @@
 # GNU termcap
 
-  * [termcap home page]()
+  * [termcap home page](https://www.gnu.org/software/termutils/)
 
       * [termcap downloads](https://ftp.gnu.org/gnu/termcap/)
 
@@ -9,7 +9,8 @@
 
 This is a library that would normally be taken from the OS. However, on some or all
 Cray systems it seems to be missing in the default setup so this is a workaround for
-those packages that require libtermcap.
+those packages that require libtermcap. Also, in most cases packages should be able
+to find the required functionality in ncurses.
 
   * There is no support in the EasyBuilders repository
 
