@@ -6,6 +6,8 @@
 
   * [EasyBuild download archive for other versions](https://sources.easybuild.io/u/UDUNITS/)
 
+  * [UDUNITS in GitHub](https://github.com/Unidata/UDUNITS-2)
+
 
 ## EasyBuild
 
