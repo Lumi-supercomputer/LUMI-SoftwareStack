@@ -4,6 +4,8 @@
 
   * [Download from GNU](https://ftp.gnu.org/gnu/mpc/)
 
+  * [MPC source development is hosted in the INRIA GitLab](https://gitlab.inria.fr/mpc/mpc)
+
 
 ## Issues
 
