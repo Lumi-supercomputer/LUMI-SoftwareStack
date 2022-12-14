@@ -15,3 +15,7 @@ terms. These terms and conditions are subject to change at any time without
 prior notice.
 
 Source: the [ParMETIS download page](http://glaros.dtc.umn.edu/gkhome/metis/parmetis/download)
+
+Note that according to the [LUMI Conditions of Use](https://www.lumi-supercomputer.eu/lumi-general-terms-of-use_1-0/)
+it is the User's responsibility to respect the software license terms. When loading the ParMETIS modules
+on LUMI, a warning about the licensing conditions is shown to inform User's of the license.
