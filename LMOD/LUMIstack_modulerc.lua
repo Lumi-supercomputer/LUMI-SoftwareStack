@@ -17,6 +17,9 @@ if os.getenv( 'LUMI_LMOD_POWERUSER' ) == nil then
     hide_version( 'partition/common' )
     hide_version( 'partition/CrayEnv' )
     hide_version( 'partition/system' )
+    hide_version( 'partition/D' )
+    hide_version( 'partition/EAP' )
+    -- hide_version( 'partition/G' )
     hide_version(   'EasyBuild-unlock/LUMI' )
     module_version( 'EasyBuild-unlock/LUMI', 'default' )
     hide_version(   'EasyBuild-production/LUMI' )
@@ -26,7 +29,7 @@ if os.getenv( 'LUMI_LMOD_POWERUSER' ) == nil then
 end
 
 --
---  Cray PE modules
+--  Cray PE modules that we don't want to be seen in the LUMI stacks.
 --
 if os.getenv( 'LUMI_LMOD_POWERUSER' ) == nil then
     hide_version( 'craype-accel-nvidia70' )
