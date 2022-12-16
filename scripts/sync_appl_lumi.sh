@@ -3,9 +3,9 @@
 # Script to do a single synchronization of the /appl/lumi subdirectories
 #
 
-main_appl='/pfs/lustrep1/appl/lumi'
-destinations=( '/pfs/lustrep2/appl/lumi' '/pfs/lustrep3/appl/lumi' '/pfs/lustrep4/appl/lumi' )
-dest_short=(   'lustrep2'                'lustrep3'                'lustrep4' )
+main_appl='/pfs/lustref1/appl/lumi'
+destinations=( '/pfs/lustrep1/appl/lumi' '/pfs/lustrep2/appl/lumi' '/pfs/lustrep3/appl/lumi' '/pfs/lustrep4/appl/lumi' )
+dest_short=(   'lustrep1'                'lustrep2'                'lustrep3'                'lustrep4' )
 
 logdir="$HOME/appl_sync_logs"
 mkdir -p $logdir
