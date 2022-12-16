@@ -48,14 +48,10 @@ programming environment which is the default since August 18. The functionality 
 module is now provided by rocm/5.0.2.
 
 partition/G:
-The LUMI software stacks are not yet fully implemented for LUMI-G and partition/G is
-currently only a placeholder to make it easy to manage modules. Some things may work, 
-others won't, and its use is currently not supported by the LUMI User Support Team. 
-The partition/G module will only become officially supported when production use starts.
-There is some software installed there already (non-accelerated libraries) but expect
-that these may change in icompatible ways during the Pilot phase without prior warning.
-Most system-installed packages for the GPU nodes are currently hidden but can be made
-visible by loadin ModulePowerUser. Use at your own risk.
+The partition/G version of the software stack should definitely still be considered
+in beta stage as the libraries installed in there have not yet received that much
+testing. Installing software on the AMD GPUs is still often tricky and not yet 
+fully supported by any of the tools that we use.
 
 lumi-vnc/20220715:
 This version of lumi-vnc should not be used anymore as there is a bug that occasionally

@@ -8,11 +8,10 @@ module_version( 'ModuleExtensions/show', 'default' )
 module_version( 'ModuleLabel/label', 'default' )
 
 if os.getenv( 'LUMI_LMOD_POWERUSER' ) == nil then
+    -- Some CPE modules that should be hidden from unexperienced users
     hide_version( 'cpe-cuda/21.08' )
     hide_version( 'cpe-cuda/21.12' )
-    hide_version( 'partition/D' )
-    hide_version( 'partition/EAP' )
-    hide_version( 'partition/G' )
+    -- Tool modules in CrayEnv and LUMI that should be hidden from unexperienced users
     hide_version( 'buildtools/22.08-minimal' )
 end
 

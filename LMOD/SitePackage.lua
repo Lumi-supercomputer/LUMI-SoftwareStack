@@ -778,13 +778,13 @@ local function is_visible_hook( modT )
     
     -- Temporary fix to hide LUMI-G software.
     
-    local poweruser =    os.getenv( 'LUMI_POWER_USER' )
-    
-    if poweruser ~=  1 then
-        if modT.fn:find( 'easybuild/LUMI/22.08/partition/G' ) then
-            modT.isVisible = false
-        end
-    end
+    -- local poweruser =    os.getenv( 'LUMI_POWER_USER' )
+    -- 
+    -- if poweruser ~=  1 then
+    --     if modT.fn:find( 'easybuild/LUMI/22.08/partition/G' ) then
+    --         modT.isVisible = false
+    --     end
+    -- end
 
 end
 
