@@ -6,6 +6,7 @@ as static libraries using the system GCC and are meant to be used as build depen
 for a number of tools that we want to be able to use without dependencies.
 
 Currently included are:
+
   * ncurses [version check](https://ftp.gnu.org/pub/gnu/ncurses/)
   * libreadline [version check](https://ftp.gnu.org/pub/gnu/readline/)
   * bzip2 [version check](https://sourceware.org/git/?p=bzip2.git;a=summary)

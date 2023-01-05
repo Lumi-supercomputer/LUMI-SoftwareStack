@@ -3,7 +3,7 @@
 Installs a singularity container with the TurboVNC server and some scripts and shell
 functions to start and stop the server.
 
-  * See the (currently private) repository [Lumi-supercomputer/utility-tools](https://github.com/Lumi-supercomputer/utility-tools)
+  * See the repository [Lumi-supercomputer/utility-tools](https://github.com/Lumi-supercomputer/utility-tools)
     for the scripts and container definition.
 
 

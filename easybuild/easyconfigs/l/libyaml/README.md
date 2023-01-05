@@ -1,6 +1,6 @@
 # libyaml
 
-  * [libyaml on GitHub]()https://github.com/yaml/libyaml)
+  * [libyaml on GitHub](https://github.com/yaml/libyaml)
 
       * [GitHub releases](https://github.com/yaml/libyaml/releases)
 

@@ -2,6 +2,8 @@
 
   * [SCOTCH home page](https://gforge.inria.fr/projects/scotch/)
 
+  * [SCOTCH GitLab](https://gitlab.inria.fr/scotch/scotch)
+
 
 ## EasyBuild
 

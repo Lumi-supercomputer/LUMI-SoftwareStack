@@ -1,6 +1,6 @@
 # libxml2
 
-  * [libxslt home page](http://xmlsoft.org/)
+  * [libxslt home page](http://xmlsoft.org/xslt)
 
       * [download link](http://xmlsoft.org/sources/)
 

@@ -4,7 +4,7 @@
 
   * [libidn page at GNU](https://www.gnu.org/software/libidn/)
 
-      * [libidn downlaods at GNU](https://ftp.gnu.org/gnu/libidn/)
+      * [libidn downloads at GNU](https://ftp.gnu.org/gnu/libidn/)
 
   * [libidn2 development on GitLab](https://gitlab.com/libidn/libidn2)
 

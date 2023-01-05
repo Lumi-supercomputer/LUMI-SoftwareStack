@@ -6,7 +6,7 @@
 
   * [Home page 3 (dead when I checked but used in the default EasyConfig)](http://libtiff.maptools.org/)
 
-  * [GitLAb repsitory](https://gitlab.com/libtiff/libtiff)
+  * [GitLab repsitory](https://gitlab.com/libtiff/libtiff)
 
       * [version tags on GitLab](https://gitlab.com/libtiff/libtiff/-/tags)
 
