@@ -116,6 +116,10 @@ supported for high performance communication.
 
 ====
 
-Though the late June - early July update integrated LUMI-G in the LUMI setup,
-the system is not yet available for general use and currently undergoing
-extensive testing and benchmarking.
+When launching jobs, you need to use your LUMI project number for the account
+information, and not a program number that may have been assigned to your
+project by the instance from which you requested your allocation.
+
+This LUMI project number actually also corresponds to the project group
+assigned to your project. It is easy to see to which project(s) you belong
+by running the groups command on the command line.
