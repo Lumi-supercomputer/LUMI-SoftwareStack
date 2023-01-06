@@ -113,3 +113,13 @@ work as before or will fall back to (slow) TCP communication.
 
 For technical people: only libfabric with the so-called cassini provider are
 supported for high performance communication.
+
+====
+
+When launching jobs, you need to use your LUMI project number for the account
+information, and not a program number that may have been assigned to your
+project by the instance from which you requested your allocation.
+
+This LUMI project number actually also corresponds to the project group
+assigned to your project. It is easy to see to which project(s) you belong
+by running the groups command on the command line.
