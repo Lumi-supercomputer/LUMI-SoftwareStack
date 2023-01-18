@@ -55,3 +55,7 @@ software:
     toolchains:
       SYSTEM:
         versions: ['4.5.2']
+  cotainr:
+    toolchains:
+      SYSTEM:
+        versions: ['2023.01.0']

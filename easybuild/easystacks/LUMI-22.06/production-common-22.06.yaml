@@ -51,6 +51,10 @@ software:
 #        versions:
 #          '0.2.2':
 #            versionsuffix: '-cray-python-3.9.12.1'
+  cotainr:
+    toolchains:
+      SYSTEM:
+        versions: ['2023.01.0']
   rocm:
     toolchains:
       SYSTEM:
