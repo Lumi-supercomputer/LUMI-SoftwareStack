@@ -113,9 +113,3 @@ work as before or will fall back to (slow) TCP communication.
 
 For technical people: only libfabric with the so-called cassini provider are
 supported for high performance communication.
-
-====
-
-Though the late June - early July update integrated LUMI-G in the LUMI setup,
-the system is not yet available for general use and currently undergoing
-extensive testing and benchmarking.
