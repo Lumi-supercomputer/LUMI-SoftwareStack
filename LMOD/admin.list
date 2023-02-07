@@ -68,6 +68,6 @@ in beta stage as the libraries installed in there have not yet received that muc
 testing. Installing software on the AMD GPUs is still often tricky and not yet 
 fully supported by any of the tools that we use.
 
-lumi-vnc/20220715:
+lumi%-vnc/2022.*:
 This version of lumi-vnc should not be used anymore as there is a bug that occasionally
-shows up. Please use the newer 20221010 version.
+shows up. Please use the newer 20220110 version.
