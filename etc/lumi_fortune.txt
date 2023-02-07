@@ -5,9 +5,16 @@ can find in the lumi-workspaces module in the LUMI and CrayEnv environments.
 
 The preferred way to use compilers on a Cray system is through one of the
 PrgEnv modules: PrgEnv-gnu for the GNU compilers, PrgEnv-cray for the Cray
-compilers, and PrgEnv-aocc for the AMD compilers. The compilers are then
-called through wrapper scripts: cc for the C compiler, CC for the C++
-compiler and ftn for the Fortran compiler.
+compilers, PrgEnv-aocc for the AMD AOCC CPU-only compilers and PrgEnv-amd
+for the ROCm-based AMD compilers for GPU. The compilers are then called
+through wrapper scripts: cc for the C compiler, CC for the C++ compiler and 
+ftn for the Fortran compiler.
+
+However, when using the LUMI software stacks, it is preferable to load
+cpeGNU, cpeCray, cpeAOCC or cpeAMD instead of PrgEnv-gnu, PrgEnv-cray,
+PrgEnv-aocc and PrgEnv-amd respectively, but you should still use the 
+wrappers. This ensures optimal compatibility with software installed in
+the LUMI stacks.
 
 =====
 
