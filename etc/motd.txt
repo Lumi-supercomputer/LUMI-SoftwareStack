@@ -7,7 +7,8 @@
   *| to the 22.08 environment which should solve some problems with |
    | 22.06. The 22.08 version is now the recommended version and    |
  * | users should transition from the 22.06 and 21.12 versions to   |
-   | 22.08.                                                         |
+   | 22.08. The 21.12 and 22.06 versions will likely have to be     |
+   | removed at the next major system upgrade planned for March.    |
 *  |                                                                |
  * | LUMI/21.08 is hidden as it does not fully function and will    |
    | not reappear. You can still load the modules but at your own   |
