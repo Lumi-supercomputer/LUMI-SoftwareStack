@@ -15,6 +15,16 @@ own risk. It will not be possible to offer this stack again. Users should move t
 short term and to 22.08 in the longer term (or if it already satisfies your needs).
 Do not to attempt to recompile software with 21.08, as you will get unexpected results.
 
+LUMI/21.12:
+The LUMI/21.12 software stack is nearing the end of its supported life as we cannot guarantee
+that it can be kept available after the next major system update planned for March 2023.
+Please move to 22.08 which we will try to keep available.
+
+LUMI/22.06:
+The LUMI/22.06 software stack is nearing the end of its supported life as we cannot guarantee
+that it can be kept available after the next major system update planned for March 2023.
+Please move to 22.08 which we will try to keep available.
+
 partition/EAP:
 The MI100 based Early Access Platform is currently out of service, and replaced by a few regular
 MI250X nodes of LUMI-G. For these nodes, partition/G should be used instead (and will be loaded
