@@ -4,12 +4,10 @@
 #
 
 main_appl='/pfs/lustrep1/appl/lumi'
-destinations=( '/pfs/lustrep2/appl/lumi' '/pfs/lustrep3/appl/lumi' '/pfs/lustrep4/appl/lumi' )
-dest_short=(   'lustrep2'                'lustrep3'                'lustrep4' )
-# Not synching any git directories here as we only use this script if the flash file system
-# is unavailable.
-#destinations_git=( '/pfs/lustref1/appl/lumi' )
-#dest_git_short=(   'lustref1' )
+destinations=( '/pfs/lustref1/appl/lumi' )
+dest_short=(   'lustref1' )
+destinations_git=( '/pfs/lustref1/appl/lumi' )
+dest_git_short=(   'lustref1' )
 
 logdir="$HOME/appl_sync_logs"
 mkdir -p $logdir
@@ -158,3 +156,35 @@ do
 done
 wait
 echo "Done"
+
+#
+# Limited sync: Update the git repository LUMI-EasyBuild-contrib repo
+#
+directory='LUMI-EasyBuild-contrib/.git'
+printf "\nPushing the $directory directory...\n"
+for i in "${!destinations_git[@]}"
+do
+    destination="${destinations_git[$i]}"
+    echo "- Starting the sync of $directory from $main_appl to $destination."
+    mkdir -p $destination/$directory
+    rsync --archive --delete $main_appl/$directory/ $destination/$directory/ >& "$logdir/${dest_git_short[$i]}_$logfile" &
+done
+wait
+echo "Done"
+
+#
+# Limited sync: Update the git repository in LUMI-SoftwareStack repo
+#
+directory='LUMI-SoftwareStack/.git'
+printf "\nPushing the $directory directory...\n"
+for i in "${!destinations_git[@]}"
+do
+    destination="${destinations_git[$i]}"
+    echo "- Starting the sync of $directory from $main_appl to $destination."
+    mkdir -p $destination/$directory
+    rsync --archive --delete $main_appl/$directory/ $destination/$directory/ >& "$logdir/${dest_git_short[$i]}_$logfile" &
+done
+wait
+echo "Done"
+
+
