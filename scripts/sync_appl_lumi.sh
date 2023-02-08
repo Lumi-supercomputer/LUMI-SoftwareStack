@@ -6,6 +6,8 @@
 main_appl='/pfs/lustref1/appl/lumi'
 destinations=( '/pfs/lustrep1/appl/lumi' '/pfs/lustrep2/appl/lumi' '/pfs/lustrep3/appl/lumi' '/pfs/lustrep4/appl/lumi' )
 dest_short=(   'lustrep1'                'lustrep2'                'lustrep3'                'lustrep4' )
+destinations_git=( '/pfs/lustrep1/appl/lumi' )
+dest_git_short=(   'lustrep1' )
 
 logdir="$HOME/appl_sync_logs"
 mkdir -p $logdir
@@ -49,54 +51,63 @@ done
 # Sync SW (the binaries)
 #
 directory='SW'
-printf "\nPushing the $directory directory..."
+printf "\nPushing the $directory directory...\n"
 for i in "${!destinations[@]}"
 do
-    mkdir -p ${destinations[$i]}/$directory
-    rsync --archive --delete $main_appl/$directory/ ${destinations[$i]}/$directory/ >& "$logdir/${dest_short[$i]}_$logfile" &
+    destination="${destinations[$i]}"
+    echo "- Starting the sync of $directory from $main_appl to $destination."
+    mkdir -p $destination/$directory
+    rsync --archive --delete --exclude '.git*' $main_appl/$directory/ $destination/$directory/ >& "$logdir/${dest_short[$i]}_$logfile" &
 done
 wait
-printf " Done"
+echo "Done"
 
 #
 # Sync the sources as they can be used by user EasyConfigs also to pick up sources.
 #
 directory='sources'
-printf "\nPushing the $directory directory..."
+printf "\nPushing the $directory directory...\n"
 for i in "${!destinations[@]}"
 do
-    mkdir -p ${destinations[$i]}/$directory
-    rsync --archive --delete $main_appl/$directory/ ${destinations[$i]}/$directory/ >& "$logdir/${dest_short[$i]}_$logfile" &
+    destination="${destinations[$i]}"
+    echo "- Starting the sync of $directory from $main_appl to $destination."
+    mkdir -p $destination/$directory
+    rsync --archive --delete --exclude '.git*' $main_appl/$directory/ $destination/$directory/ >& "$logdir/${dest_short[$i]}_$logfile" &
 done
 wait
-printf " Done"
+echo "Done"
 
 #
 # Sync the licenses, but be careful with Vampir.
 #
 directory='licenses'
-printf "\nPushing the $directory directory..."
+printf "\nPushing the $directory directory...\n"
 for i in "${!destinations[@]}"
 do
-    mkdir -p ${destinations[$i]}/$directory
-    rsync --archive --delete --exclude Vampir $main_appl/$directory/ ${destinations[$i]}/$directory/ >& "$logdir/${dest_short[$i]}_$logfile" &
+    destination="${destinations[$i]}"
+    echo "- Starting the sync of $directory from $main_appl to $destination."
+    mkdir -p $destination/$directory
+    rsync --archive --delete --exclude '.git*' $main_appl/$directory/ $destination/$directory/ >& "$logdir/${dest_short[$i]}_$logfile" &
 done
 wait
-printf " Done"
+echo "Done"
 
 #
 # Update the LUMI-EasyBuild-contrib repo but don't copy the git structures
 # to save some space.
 #
 directory='LUMI-EasyBuild-contrib'
-printf "\nPushing the $directory directory..."
+printf "\nPushing the $directory directory...\n"
 for i in "${!destinations[@]}"
 do
-    mkdir -p ${destinations[$i]}/$directory
-    rsync --archive --delete --exclude '.git*' $main_appl/$directory/ ${destinations[$i]}/$directory/ >& "$logdir/${dest_short[$i]}_$logfile" &
+    destination="${destinations[$i]}"
+    echo "- Starting the sync of $directory from $main_appl to $destination."
+    mkdir -p $destination/$directory
+    rsync --archive --delete --exclude '.git*' $main_appl/$directory/ $destination/$directory/ >& "$logdir/${dest_short[$i]}_$logfile" &
 done
 wait
-printf " Done"
+echo "Done"
+
 
 #
 # Update the mgmt directory.
@@ -104,39 +115,76 @@ printf " Done"
 # EasyConfig files for software that is not yet available as a module.
 #
 directory='mgmt'
-printf "\nPushing the $directory directory..."
+printf "\nPushing the $directory directory...\n"
 for i in "${!destinations[@]}"
 do
-    mkdir -p ${destinations[$i]}/$directory
-    rsync --archive --delete $main_appl/$directory/ ${destinations[$i]}/$directory/ >& "$logdir/${dest_short[$i]}_$logfile" &
+    destination="${destinations[$i]}"
+    echo "- Starting the sync of $directory from $main_appl to $destination."
+    mkdir -p $destination/$directory
+    rsync --archive --delete --exclude '.git*' $main_appl/$directory/ $destination/$directory/ >& "$logdir/${dest_short[$i]}_$logfile" &
 done
 wait
-printf " Done"
+echo "Done"
 
 #
 # Update the LUMI-SoftwareStack repo but don't copy the git structures
 # to save some space.
 #
 directory='LUMI-SoftwareStack'
-printf "\nPushing the $directory directory..."
+printf "\nPushing the $directory directory...\n"
 for i in "${!destinations[@]}"
 do
-    mkdir -p ${destinations[$i]}/$directory
-    rsync --archive --delete --exclude '.git*' $main_appl/$directory/ ${destinations[$i]}/$directory/ >& "$logdir/${dest_short[$i]}_$logfile" &
+    destination="${destinations[$i]}"
+    echo "- Starting the sync of $directory from $main_appl to $destination."
+    mkdir -p $destination/$directory
+    rsync --archive --delete --exclude '.git*' $main_appl/$directory/ $destination/$directory/ >& "$logdir/${dest_short[$i]}_$logfile" &
 done
 wait
-printf " Done"
+echo "Done"
 
 #
-# Finally do the modules
+# Update the modules
 #
 directory='modules'
-printf "\nPushing the $directory directory..."
+printf "\nPushing the $directory directory...\n"
 for i in "${!destinations[@]}"
 do
-    mkdir -p ${destinations[$i]}/$directory
-    rsync --archive --delete $main_appl/$directory/ ${destinations[$i]}/$directory/ >& "$logdir/${dest_short[$i]}_$logfile" &
+    destination="${destinations[$i]}"
+    echo "- Starting the sync of $directory from $main_appl to $destination."
+    mkdir -p $destination/$directory
+    rsync --archive --delete --exclude '.git*' $main_appl/$directory/ $destination/$directory/ >& "$logdir/${dest_short[$i]}_$logfile" &
 done
 wait
-printf " Done\n\n"
+echo "Done"
+
+#
+# Limited sync: Update the git repository LUMI-EasyBuild-contrib repo
+#
+directory='LUMI-EasyBuild-contrib/.git'
+printf "\nPushing the $directory directory...\n"
+for i in "${!destinations_git[@]}"
+do
+    destination="${destinations_git[$i]}"
+    echo "- Starting the sync of $directory from $main_appl to $destination."
+    mkdir -p $destination/$directory
+    rsync --archive --delete $main_appl/$directory/ $destination/$directory/ >& "$logdir/${dest_git_short[$i]}_$logfile" &
+done
+wait
+echo "Done"
+
+#
+# Limited sync: Update the git repository in LUMI-SoftwareStack repo
+#
+directory='LUMI-SoftwareStack/.git'
+printf "\nPushing the $directory directory...\n"
+for i in "${!destinations_git[@]}"
+do
+    destination="${destinations_git[$i]}"
+    echo "- Starting the sync of $directory from $main_appl to $destination."
+    mkdir -p $destination/$directory
+    rsync --archive --delete $main_appl/$directory/ $destination/$directory/ >& "$logdir/${dest_git_short[$i]}_$logfile" &
+done
+wait
+echo "Done"
+
 
