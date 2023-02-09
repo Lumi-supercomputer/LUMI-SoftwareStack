@@ -99,6 +99,11 @@ fi
 create_link "$installroot/$repo/modules/CrayEnv.lua"  "$installroot/modules/SoftwareStack/CrayEnv.lua"
 
 #
+# Link the local software collections modules
+#
+create_link "$installroot/$repo/modules/LocalStack"  "$installroot/modules/SoftwareStack/LocalStack"
+
+#
 # Link the style modules
 #
 # We simply link the directory.
