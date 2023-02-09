@@ -26,36 +26,7 @@ functions to start and stop the server.
     for the software installation.
 
 
-## Instructions for users
-
-### If the module is not already on the system...
-
-The source files needed are provided on lumi-uan04 and will be found automatically
-by EasyBuild when installing from that node. To install and make the software available
-in the LUMI software stack (assuming software stack version 21.08):
-
-```bash
-ml LUMI/21.08 partition/common
-ml EasyBuild-user
-eb lumi-vnc/20220125
-```
-
-## If the module is already installed...
-
-You can check if a lumi-vnc module is already installed using
-```bash
-module spider lumi-vnc
-```
-
-To know how to start the VNC server, check the help information included in the most
-recent version of the module returned by the above `module spider` command. E.g., assuming
-that version is 20220125:
-```bash
-module spider lumi-vnc/20220125
-```
-
-
-## Known issues
+## Known issues (other than those mentioned in USER.md)
 
 ### Container cannot follow symbolic links to a different file system
 
@@ -65,19 +36,6 @@ personal repository in your home directory but have the installation which requi
 a higher quota on a different file system). The startup file for VNC will not be found
 and as a result the start-vnc command will fail to start a window manager.
 
-
-### Missing fonts
-
-When testing with x11perf (included in the X11 modules on LUMI), certain tests fail
-due to missing fonts:
-
-font '8x13'
-font '9x15'
-font '-misc-fixed-medium-r-normal--14-130-75-75-c-140-jisx0208.1983-*'
-font '-jis-fixed-medium-r-normal--24-230-75-75-c-240-jisx0208.1983-*'
-font '-adobe-times-medium-r-normal--10-100-75-75-p-54-iso8859-1'
-font '-adobe-times-medium-r-normal--24-240-75-75-p-124-iso8859-1'
-font '-adobe-times-medium-r-normal--10-100-75-75-p-54-iso8859-1'
 
 ## EasyBuild
 
@@ -104,4 +62,10 @@ font '-adobe-times-medium-r-normal--10-100-75-75-p-54-iso8859-1'
 -   This version makes some corrections in the `_start-vnc` script to work around a 
     race condition that could occur and then use port 0 instead of the right port 
     for the web access to the VNC server.
+
+
+### Version 20230110
+
+-   This version fixes a problem with non-routable hostnames that were used in the
+    instructions for ssh port forwarding.
 
