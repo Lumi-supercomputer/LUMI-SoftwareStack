@@ -22,7 +22,7 @@ A sample EasyConfig is provided in the
 -   The specific version of cray-python is left open in this version of the module.
 
 
-### Version 2023.01.0 for LUMI/22.08
+### Version 2023.01.0-cray-python-3.9.12.1 for LUMI/22.08
 
 -   The EasyConfig is a development of DeiC and the LUMI User Support Team.
 
