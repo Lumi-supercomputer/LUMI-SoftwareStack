@@ -24,11 +24,11 @@ end
 --
 local init_module_list = {
     C   = { 'craype-x86-milan',  'craype-accel-host',       'craype-network-ofi', 'xpmem' },
---    D   = { 'craype-x86-rome',   'craype-accel-nvidia80',   'craype-network-ofi', 'xpmem' },
-    D   = { 'craype-x86-rome',   'craype-accel-host',       'craype-network-ofi', 'xpmem' }, -- craype-accel-nvidia does not yet work
+-- --    D   = { 'craype-x86-rome',   'craype-accel-nvidia80',   'craype-network-ofi', 'xpmem' },
+--    D   = { 'craype-x86-rome',   'craype-accel-host',       'craype-network-ofi', 'xpmem' }, -- craype-accel-nvidia does not yet work
     G   = { 'craype-x86-trento', 'craype-accel-amd-gfx90a', 'craype-network-ofi', 'xpmem' },
     L   = { 'craype-x86-rome',   'craype-accel-host',       'craype-network-ofi', 'xpmem' },
-    EAP = { 'craype-x86-rome',   'craype-accel-amd-gfx908', 'craype-network-ofi', 'xpmem' },
+--    EAP = { 'craype-x86-rome',   'craype-accel-amd-gfx908', 'craype-network-ofi', 'xpmem' },
 }
 
 --
@@ -172,10 +172,11 @@ function detect_LUMI_partition()
                 partition = 'L'
             elseif ( nodenum >= 16 ) and ( nodenum <= 23 ) then
                 -- LUMI-D nodes with GPU
-                partition = 'D'
-            elseif ( nodenum >= 2 ) and ( nodenum <= 15 ) then
-                -- EAP nodes with GPU
-                partition = 'EAP'
+                -- partition = 'D'
+                partition = 'L'
+            -- elseif ( nodenum >= 2 ) and ( nodenum <= 15 ) then
+            --     -- EAP nodes with GPU
+            --     partition = 'EAP'
             else
                 partition = 'L' -- As we know of nothing better, but this should not happen.
             end
