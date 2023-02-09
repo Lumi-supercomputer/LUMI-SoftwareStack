@@ -12,7 +12,7 @@ software:
   lumi-vnc:
     toolchains:
       SYSTEM:
-        versions: ['20221010']
+        versions: ['20221010','20230110']
   Vampir:
     toolchains:
       SYSTEM:
@@ -21,3 +21,8 @@ software:
     toolchains:
       SYSTEM:
         versions: ['22.0.1']
+  lumi-tools:
+    toolchains:
+      SYSTEM:
+        versions: ['23.01']
+        
