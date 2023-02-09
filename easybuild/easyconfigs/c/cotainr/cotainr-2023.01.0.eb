@@ -43,7 +43,7 @@ dependencies = [
     ('cray-python', EXTERNAL_MODULE),
 ]
 
-systems = """{
+local_systems = """{
   "lumi-g": {
     "base-image": "docker://rocm/rocm-terminal:5.3"
   },
@@ -53,7 +53,7 @@ systems = """{
 }"""
 
 postinstallcmds = [
-    'cd %(installdir)s/ ; cat >systems.json <<EOF\n' + systems + '\nEOF\n'
+    'cd %(installdir)s/ ; cat >systems.json <<EOF\n' + local_systems + '\nEOF\n'
 ]
 
 sanity_check_paths = {
@@ -61,4 +61,8 @@ sanity_check_paths = {
     'dirs':  ['cotainr'],
 }
 
-sanity_check_commands = ['cotainr']
+sanity_check_commands = [
+    'cotainr --help'
+]
+
+moduleclass = "tools"
