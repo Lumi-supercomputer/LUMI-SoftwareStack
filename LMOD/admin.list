@@ -23,50 +23,18 @@ Do not to attempt to recompile software with 21.08, as you will get unexpected r
 LUMI/21.12:
 The LUMI/21.12 software stack is nearing the end of its supported life as we cannot guarantee
 that it can be kept available after the next major system update planned for March 2023.
-Please move to 22.08 which we will try to keep available.
+Please move to 22.08 which we will try to keep available and is now the default.
 
 LUMI/22.06:
 The LUMI/22.06 software stack is nearing the end of its supported life as we cannot guarantee
 that it can be kept available after the next major system update planned for March 2023.
 Please move to 22.08 which we will try to keep available.
 
-partition/EAP:
-The MI100 based Early Access Platform is currently out of service, and replaced by a few regular
-MI250X nodes of LUMI-G. For these nodes, partition/G should be used instead (and will be loaded
-automatically if you load a LUMI module on those nodes).
-
-rocm/4.5.2:
-This module is only suited for use with the cpe/21.12 compilers, and its use is discouraged.
-MPI may fail as the default MPI library which is used expects a different version of rocm.
-Users are advised to switch to the cpe/22.08 programming environment which is the default 
-since August 18 and use rocm/5.0.2.
-
 rocm/5.1.4:
 This module is only suited for use with the cpe/22.06 compilers, and its use is discouraged.
 MPI may fail as the default MPI library which is used expects a different version of rocm.
 Users are advised to switch to the cpe/22.08 programming environment which is the default
 since August 18 and use rocm/5.0.2.
-
-rocmlibs/4.5.2:
-This module is no longer supported on the system. Users are advised to switch to the 22.08
-programming environment which is the default since August 18. The functionality of this
-module is now provided by rocm/5.0.2.
-
-RCCL/4.5.2:
-This module is no longer supported on the system. Users are advised to switch to the 22.08
-programming environment which is the default since August 18. The functionality of this
-module is now provided by rocm/5.0.2.
-
-rocThrust/4.5.2:
-This module is no longer supported on the system. Users are advised to switch to the 22.08
-programming environment which is the default since August 18. The functionality of this
-module is now provided by rocm/5.0.2.
-
-partition/G:
-The partition/G version of the software stack should definitely still be considered
-in beta stage as the libraries installed in there have not yet received that much
-testing. Installing software on the AMD GPUs is still often tricky and not yet 
-fully supported by any of the tools that we use.
 
 lumi%-vnc/2022.*:
 This version of lumi-vnc should not be used anymore as there is a bug that occasionally
