@@ -644,6 +644,7 @@ local mapT =
         -- Other stacks
         ['modules/LocalStack']              = 'Local software collections (non-LUST)',
         ['/appl/local/csc/modulefiles']     = 'Local software collection managed by CSC',
+        ['/appl/local/quantum/modulefiles'] = 'Software for the Helmi quantum computer (non-LUST)',
      },
     PEhierarchy = {
 --        ['/testview$']                      = 'Activate environments',
@@ -688,6 +689,7 @@ local mapT =
         -- Other stacks
         ['modules/LocalStack']              = 'Local software collections (non-LUST)',
         ['/appl/local/csc/modulefiles']     = 'Local software collection managed by CSC',
+        ['/appl/local/quantum/modulefiles'] = 'Software for the Helmi quantum computer (non-LUST)',
      },
 }
 
