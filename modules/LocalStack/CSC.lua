@@ -1,5 +1,5 @@
--- A module to make the CSC module available on LUMI, but without
--- making them available to the module spider command if the module
+-- A module to make the CSC modules available on LUMI, but without
+-- making them findable for the module spider command if the module
 -- is not loaded to avoid interfering with the LUST software stack.
 
 whatis( 'Description: Makes the CSC-managed local software collection available, see https://docs.csc.fi/apps/by_system/#lumi' )
