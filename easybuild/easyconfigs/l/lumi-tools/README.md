@@ -1,9 +1,11 @@
 # lumi-tools instructions
 
-The lumi-tools module provides two in-house developed scripts:
+The lumi-tools module provides three in-house developed scripts:
 
--   lumi-workspaces to check your quota
--   lumi-allocations to check your allocations
+-   `lumi-quota` to check your quota on the Lustre file systems
+-   `lumi-allocations` to check your allocations
+-   `lumi-workspaces` combines the output of both to show an overview for
+    all projects of the user calling the script.
 
 Sources:
 

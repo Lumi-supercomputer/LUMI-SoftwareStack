@@ -20,10 +20,10 @@ This module provides several commands to check the state of your account:
   * lumi-quota:       to check your quota
   * lumi-allocations: to check your remaining allocations
   
-The check of the allocations is currently done based on cached data. That
-cache is refreshed periodically, but the data can be out-of-date, especially
+The check of the allocations is currently done based on pre-stored data. That
+data is refreshed periodically, but the data can be out-of-date, especially
 if the scripts that build up the cache fail. Currently the tool is not
-able to show when the data was callected, so the results may be wrong without
+able to show when the data was collected, so the results may be wrong without
 warning.
 """
 
