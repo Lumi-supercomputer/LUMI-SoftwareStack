@@ -8,6 +8,11 @@ ModuleExtensions/.*:
 Unfortunately due to problems with Cray LMOD this module does not yet have the desired effect.
 We are looking for a solution but don't expect anything soon.
 
+lumi-workspaces/0.1:
+The lumi-workspaces module is deprecated and will be removed from the system soon. 
+The lumi-workspaces command is now provided by the lumi-tools module which is loaded
+by default.
+
 LUMI/21.08:
 The LUMI/21.08 software stack is currently hidden and broken due to missing components on the 
 system after the upgrade in early July. It will work for some users but not all, so try at your
