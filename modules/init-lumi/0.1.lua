@@ -77,7 +77,9 @@ end
 -- load( 'CrayEnv' )
 -- load( 'LUMI' )
 -- load( 'cpeCray' )
-
+if not isloaded( 'lumi-tools' ) then
+    try_load( 'lumi-tools' )
+end
 
 -- -----------------------------------------------------------------------------
 --
