@@ -1,7 +1,6 @@
    .Announcements---------------------------------------------------.
- * | LUMI-G is currently in its pilot phase while a small early     |
-   | access platform section is available to a wider community for  |
-   | development.                                                   |
+ * | NOTE: The default version of the LUMI software stack is now    |
+   | LUMI/22.08!                                                    |
 *  |                                                                |
    | On August 18 the default programming environment was changed   |
   *| to the 22.08 environment which should solve some problems with |
@@ -15,8 +14,8 @@
    | risk (and will get replacements instead). It is not possible   |
 *  | to reliably do new installations in 21.08.                     |
    |                                                                |
-  *| The flash file system on /flash/project_<...> is again fully   |
-   | available.                                                     |
+  *| The flash file system is available but only as                 |
+   | /pfs/lustref1/flash/project_<...>.                             | 
 *  .Notes-----------------------------------------------------------.
    | Make sure one of the following modules is loaded to have the   |
  * | full LUMI experience:                                          |
