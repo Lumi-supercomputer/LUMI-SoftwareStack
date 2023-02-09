@@ -2,7 +2,7 @@
 
   * [ESMF on SourceForge](https://sourceforge.net/projects/esmf/)
 
-  * [ESMF on GitHub]()
+  * [ESMF on GitHub](https://github.com/esmf-org/esmf)
 
       * [GitHub releases](https://github.com/esmf-org/esmf/releases)
 

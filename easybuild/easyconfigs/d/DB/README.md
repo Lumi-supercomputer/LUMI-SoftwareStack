@@ -2,7 +2,7 @@
 
   * [DB home page](https://www.oracle.com/database/technologies/related/berkeleydb.html)
 
-      * [DB downlaods](https://www.oracle.com/database/technologies/related/berkeleydb-downloads.html)
+      * [DB downloads](https://www.oracle.com/database/technologies/related/berkeleydb-downloads.html)
 
 
 ## EasyBuild
