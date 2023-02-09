@@ -54,7 +54,9 @@ software:
   cotainr:
     toolchains:
       SYSTEM:
-        versions: ['2023.01.0']
+        versions: 
+          '2023.01.0':
+            versionsuffix: '-cray-python-3.9.12.1'
 #  rocm:
 #    toolchains:
 #      SYSTEM:

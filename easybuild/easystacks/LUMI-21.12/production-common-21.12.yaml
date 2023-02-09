@@ -71,7 +71,3 @@ software:
     toolchains:
       SYSTEM:
         versions: ['1.60.0']
-  cotainr:
-    toolchains:
-      SYSTEM:
-        versions: ['2023.01.0']
