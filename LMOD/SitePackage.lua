@@ -806,8 +806,8 @@ local mapT =
         [ EB_prefix .. '/modules/container']      = 'EasyBuild managed user-installed container modules',
         [ EB_prefix .. '/modules/' .. stack_name] = 'EasyBuild managed user software for software stack _STACK_ on _PARTITION_',
         -- Other stacks
-        ['/appl/local/csc/modulefiles']           = 'Local software stack managed by CSC',
->     },
+        ['/appl/local/csc/modulefiles']           = 'Local software collection managed by CSC',
+     },
     PEhierarchy = {
 --        ['/testview$']                            = 'Activate environments',
         ['modules/init-.*']                       = 'System initialisation',
@@ -853,7 +853,7 @@ local mapT =
         [ EB_prefix .. '/modules/container']      = 'EasyBuild managed user-installed container modules',
         [ EB_prefix .. '/modules/' .. stack_name] = 'EasyBuild managed user software for software stack _STACK_ on _PARTITION_',
         -- Other stacks
-        ['/appl/local/csc/modulefiles']     = 'Local software stack managed by CSC',
+        ['/appl/local/csc/modulefiles']           = 'Local software collection managed by CSC',
      },
 }
 
