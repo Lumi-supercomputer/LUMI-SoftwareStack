@@ -14,10 +14,10 @@ Sources:
 
 ### Version 0.1
 
--   In-house developed EasyConfig, type /Bundle
+-   In-house developed EasyConfig, type `Bundle`
 
-    -   lumi-workspaces is currently contained in the EasyConfig itself and 
+    -  `lumi-quota` and `lumi-workspaces` are currently contained in the EasyConfig itself and 
         copied to a file in the `postinstallcommands` of the EasyConfig.
         
-    -   lumi-allocations is installed from its GitHub repository using
+    -   `lumi-allocations` is installed from its GitHub repository using
         the `Tarball` generic EasyBlock, as a component of the Bundle.

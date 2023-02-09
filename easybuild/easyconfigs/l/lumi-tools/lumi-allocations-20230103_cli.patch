@@ -1,0 +1,59 @@
+Patch to run off options that are not yet robust enough for general release.
+diff -ru lumi_allocations/cli.py.orig lumi_allocations/cli.py
+--- lumi_allocations/cli.py.orig	2023-02-08 21:14:53.000000000 +0200
++++ lumi_allocations/cli.py	2023-02-08 21:22:02.000000000 +0200
+@@ -10,30 +10,32 @@
+         prog="lumi-allocations",
+         description="Get data about your LUMI projects",
+     )
+-    parser.add_argument(
+-        "-p",
+-        "--projects",
+-        help="Project numbers comma seperated. Default: all of your projects",
+-        default="",
+-    )
+-    parser.add_argument(
+-        "-a",
+-        "--all",
+-        help="Return information for all projects.",
+-        action="store_true",
+-    )
+-    parser.add_argument("--lust", action="store_true", help="Special flag for LUST")
++    #parser.add_argument(
++    #"   -p",
++    #    "--projects",
++    #    help="Project numbers comma seperated. Default: all of your projects",
++    #    default="",
++    #)
++    #parser.add_argument(
++    #    "-a",
++    #    "--all",
++    #    help="Return information for all projects.",
++    #    action="store_true",
++    #)
++    #parser.add_argument("--lust", action="store_true", help="Special flag for LUST")
+     args = parser.parse_args()
+     projdir = "/projappl"
+     projects = []
+     not_a_project = {"project_462000009": False, "project_465000002": False}
+-    if args.all is True:
+-        # get all projects through listing /projappl and filtering out non-existing projects
+-        for path in os.listdir(projdir):
+-            if os.path.islink(os.path.join(projdir, path)) and path not in not_a_project:
+-                projects.append(path)
+-        projects.sort()
+-    else:
+-        projects = [] if args.projects == "" else args.projects.split(",")
+-    info = ProjectInfo(projects, args.lust)
++    #if args.all is True:
++    #    # get all projects through listing /projappl and filtering out non-existing projects
++    #    for path in os.listdir(projdir):
++    #        if os.path.islink(os.path.join(projdir, path)) and path not in not_a_project:
++    #            projects.append(path)
++    #    projects.sort()
++    #else:
++    #    projects = [] if args.projects == "" else args.projects.split(",")
++    projects = []
++    #info = ProjectInfo(projects, args.lust)
++    info = ProjectInfo(projects)
+     info.printQuotas()
