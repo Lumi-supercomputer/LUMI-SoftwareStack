@@ -311,4 +311,8 @@ sanity_check_commands = [
     'lumi-allocations -h'
 ]
 
+modluafooter = """
+add_property("lmod","sticky")
+"""
+
 moduleclass = 'tools'
