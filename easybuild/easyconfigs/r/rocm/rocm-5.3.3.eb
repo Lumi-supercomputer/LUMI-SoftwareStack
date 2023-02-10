@@ -1,0 +1,53 @@
+easyblock = 'EB_rocmrpms'
+
+name = 'rocm'
+version = '5.3.3'
+
+homepage = 'https://docs.amd.com/'
+description = """
+ AMD ROCm is the first open-source software development platform for
+ HPC/Hyperscale-class GPU computing. AMD ROCm brings the UNIX philosophy of
+ choice, minimalism and modular software development to GPU computing.
+"""
+
+toolchain = SYSTEM
+
+index_url = 'https://repo.radeon.com/rocm/zyp/%(version)s/main/'
+gpu_archs = ['gfx90a']
+
+pkg_config = """
+rocm_prefix=%(installdir)s
+includedir=${rocm_prefix}/include
+lib64dir=${rocm_prefix}/lib64
+libdir=${rocm_prefix}/lib
+
+profiler_includedir=${rocm_prefix}/rocprofiler/include
+profiler_libdir=${rocm_prefix}/rocprofiler/lib
+profiler_tooldir=${rocm_prefix}/rocprofiler/tool
+profiler_bindir=${rocm_prefix}/rocprofiles/bin
+
+tracer_includedir=${rocm_prefix}/roctracer/include
+tracer_libdir=${rocm_prefix}/roctracer/lib
+tracer_tooldir=${rocm_prefix}/roctracer/tool
+
+Cflags: -I${includedir} -I${profiler_includedir} -I${tracer_includedir} -D_HIP_PLATFORM_HCC_
+Description: ROCm Toolkit
+Libs: -L${lib64dir} -L${libdir} -L${profiler_libdir} -L${profiler_tooldir} -L${tracer_libdir} -L${tracer_tooldir} -lamdhip64
+Name: %(name)s-%(version)s
+Version: %(version)s
+"""
+
+modextravars = {
+  'CRAY_ROCM_VERSION'        : '%(version)s',
+  'CRAY_ROCM_DIR'            : '%(installdir)s',
+  'CRAY_ROCM_PREFIX'         : '%(installdir)s',
+  'XTPE_LINK_TYPE'           : 'dynamic',
+  'CRAYPE_LINK_TYPE'         : 'dynamic',
+}
+
+modluafooter = """
+append_path("PE_PRODUCT_LIST", "CRAY_ROCM")
+prepend_path("PE_PKGCONFIG_LIBS", "rocm-%(version_major_minor)s")
+"""
+
+moduleclass = 'devel'
