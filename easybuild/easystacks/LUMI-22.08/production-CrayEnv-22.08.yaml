@@ -43,8 +43,8 @@ software:
     toolchains:
       SYSTEM:
         versions: ['2023.01.0']
-#  rocm:
-#    toolchains:
-#      SYSTEM:
-#        versions: ['5.1.4']
+  rocm:
+    toolchains:
+      SYSTEM:
+        versions: ['5.2.5','5.3.3']
 
