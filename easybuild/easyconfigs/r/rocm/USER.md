@@ -7,4 +7,3 @@ installed in the proper directories suggested by AMD thus may break links
 encoded in the RPMs from which these packages are installed and are also
 not guaranteed to be compatible with other modules from the Cray PE
 as only HPE Cray can give that warranty.
-
