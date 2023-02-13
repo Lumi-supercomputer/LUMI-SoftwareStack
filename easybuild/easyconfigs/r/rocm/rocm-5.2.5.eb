@@ -4,10 +4,29 @@ name = 'rocm'
 version = '5.2.5'
 
 homepage = 'https://docs.amd.com/'
+
+whatis = [
+    "Description: AMD ROCm is the first open-source software development platform for "
+    "HPC/Hyperscale-class GPU computing"
+]
+
 description = """
- AMD ROCm is the first open-source software development platform for
- HPC/Hyperscale-class GPU computing. AMD ROCm brings the UNIX philosophy of
- choice, minimalism and modular software development to GPU computing.
+AMD ROCm is the first open-source software development platform for
+HPC/Hyperscale-class GPU computing. AMD ROCm brings the UNIX philosophy of
+choice, minimalism and modular software development to GPU computing.
+
+ROCm provides the tools required for the development of code using HIP, OpenCL
+and OpenMP programming models including tools for profiling and debugging.
+
+This is an experimental module provided for the convenience of the users.
+This is ROCm installed in a way it is not meant to be installed so we cannot
+offer any guarantee that this module will work properly with HPE Cray PE modules
+nor can we offer any support. Some parts are almost certain to be broken, at 
+least in a way that can lead to reduced performance, as ROCm tends to contain
+hidden hard-coded links to the regular installation directories. As the inner
+workings of the HPE Cray PE are not public, there is no guarantee that this
+module will work the way the HPE Cray PE expects and subtle problems may
+occur.
 """
 
 toolchain = SYSTEM
