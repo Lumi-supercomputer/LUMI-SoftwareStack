@@ -36,6 +36,21 @@ MPI may fail as the default MPI library which is used expects a different versio
 Users are advised to switch to the cpe/22.08 programming environment which is the default
 since August 18 and use rocm/5.0.2.
 
+rocm/5.2.5:
+This module is not installed the way it is intended by AMD. Hence some parts of ROCm may
+be broken or offer slower than expected performance and there is nothing the LUMI
+User Support Team can do about that. As the module is also not an official HPE Cray 
+module there is no guarantee that it will integrate properly with HPE Cray PE modules
+or work correctly in that environment.
+
+rocm/5.3.3:
+This module is not installed the way it is intended by AMD. Hence some parts of ROCm may
+be broken or offer slower than expected performance and there is nothing the LUMI
+User Support Team can do about that. As the module is also not an official HPE Cray 
+module there is no guarantee that it will integrate properly with HPE Cray PE modules
+or work correctly in that environment. Note that HPE Cray PE programming environments
+up to at least 23.02 have only been tested with ROCm version prior to 5.3 by HPE.
+
 lumi%-vnc/2022.*:
 This version of lumi-vnc should not be used anymore as there is a bug that occasionally
 shows up. Please use the newer 20220110 version.
