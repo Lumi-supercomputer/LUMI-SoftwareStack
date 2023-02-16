@@ -13,3 +13,9 @@ as they are are also
 not guaranteed to be compatible with modules from the Cray PE
 as only HPE Cray can give that warranty and as their inner working and
 precise requirements is not public.
+
+The ROCm 5.2.5 and 5.3.3 modules have some PDF documentation in 
+`$EBROOTROCM/share/doc/rocgdb`, `$EBROOTROCM/share/doc/tracer` (5.3.3 only),
+`$EBROOTROCM/share/doc/rocm_smi` and `$EBROOTROCM/share/doc/amd-dbgapi`.
+The `EBROOTROCM` environment variable is defined after loading the module.
+
