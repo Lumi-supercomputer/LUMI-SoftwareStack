@@ -1,0 +1,50 @@
+easyblock = 'MakeCp'
+
+name = 'lumio'
+version = "1.0.0"
+homepage="https://github.com/Lumi-supercomputer/LUMI-O-tools"
+whatis = [ 'Description: Basic tooling for LUMI-O. Provides the lumio-conf authentication script + rclone,s3cmd and restic' ]
+description = """
+    This module provides the command "lumio-conf" to authenticate to LUMI-O.
+    It also provides the tools rclone,s3cmd and restic for moving data to/from LUMI-O. 
+""" 
+
+usage = """
+Authenticate to LUMI-O
+    lumio-conf     
+
+The script will prompt you for project information and authentication keys which can be 
+found from https://auth.lumidata.eu. If the keys expire (Max duration for keys is 168h )
+or you need to switch the project, rerun the command.
+
+Two different rclone remotes are configured: lumi-o and lumi-pub 
+Data pushed to lumi-pub is publicly available using the URL: https://<Project number>.lumidata.eu/<bucket_name>/<object>
+
+To use restic, set the repository to s3:https://lumidata.eu/ and assign then access and secret key
+to the environment variables AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY respectively 
+
+    export AWS_ACCESS_KEY_ID=<MY_ACCESS_KEY>
+    export AWS_SECRET_ACCESS_KEY=<MY_SECRET_ACCESS_KEY>
+    restic -r s3:https://lumidata.eu/<bucket> init
+
+https://lumidata.eu/ is also the s3 API endpoint for e.g raw API calls (not recommended)
+"""
+
+moduleclass='tools'
+
+local_lumi_conf_version='0.1.1'
+
+toolchain = SYSTEM
+dependencies =   [
+('lumio-ext-tools','1.0.0')
+]
+source_urls =  ['https://github.com/Lumi-supercomputer/LUMI-O-tools/archive/refs/tags/']
+sources = [f'v{local_lumi_conf_version}.tar.gz']
+skipsteps = ['build']
+files_to_copy = [
+            (['lumio-conf'],   'bin')
+]
+sanity_check_paths= {
+            'files': ['bin/lumio-conf'],
+            'dirs':  []
+}
