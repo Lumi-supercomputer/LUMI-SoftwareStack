@@ -326,7 +326,6 @@ components = [
                                 'keep_git_dir': False,
                             },
                         }],
-        'patches':      ['lumi-allocations-%(version)s_cli.patch'],
         'install_type': 'merge',
         'start_dir':    '%(namelower)s'
     }),
