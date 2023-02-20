@@ -36,6 +36,13 @@ by HPE there is absolutely no guarantee that this module will play nice with,
 e.g., Cray MPICH.
 """
 
+docurls = [
+    'PDF documentation in $EBROOTROCM/share/doc/rocgdb',
+    'PDF documentation in $EBROOTROCM/share/doc/roctracer',
+    'PDF documentation in $EBROOTROCM/share/doc/rocm_smi',
+    'PDF documentation in $EBROOTROCM/share/doc/amd-dbgapi',
+]
+
 toolchain = SYSTEM
 
 index_url = 'https://repo.radeon.com/rocm/zyp/%(version)s/main/'

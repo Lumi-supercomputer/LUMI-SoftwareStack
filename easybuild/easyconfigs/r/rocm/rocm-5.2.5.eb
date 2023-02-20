@@ -29,6 +29,12 @@ module will work the way the HPE Cray PE expects and subtle problems may
 occur.
 """
 
+docurls = [
+    'PDF documentation in $EBROOTROCM/share/doc/rocgdb',
+    'PDF documentation in $EBROOTROCM/share/doc/rocm_smi',
+    'PDF documentation in $EBROOTROCM/share/doc/amd-dbgapi',
+]
+
 toolchain = SYSTEM
 
 index_url = 'https://repo.radeon.com/rocm/zyp/%(version)s/main/'
