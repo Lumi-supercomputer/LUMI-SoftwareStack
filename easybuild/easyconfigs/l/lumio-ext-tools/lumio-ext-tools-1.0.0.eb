@@ -1,78 +1,95 @@
-# 
+# Written by Henrik Nortamo for the LUMI project
 easyblock = 'Bundle'
-name = 'lumio-ext-tools'
-version = "1.0.0"
+
+name =    'lumio-ext-tools'
+version = '1.0.0'
+
 homepage=""
-whatis = [ 'Description: Basic tooling for LUMI-O. Provides rclone,s3cmd and restic' ]
+
+whatis = [ 
+    'Description: Basic tooling for LUMI-O. Provides rclone, s3cmd and restic' 
+]
+
 description = """
-    Bundle of external tools used to access LUMI-O  
+Bundle of external tools used to access LUMI-O  
+
+This module is meant to be used with the `lumio` module which provides a tool
+for authentication.
 """ 
 
-moduleclass='tools'
-
-
 local_rclone_version = '1.61.1'
-local_s3cmd_version = '2.3.0'
+local_s3cmd_version =  '2.3.0'
 local_restic_version = '0.15.1'
 
+local_magic_version = '0.4.27' # Dependency for s3cmd that is not already on the system.
 
 toolchain = SYSTEM
+
 components=[
     # Static go built binary
-    ('rclone',local_rclone_version,{
-        'easyblock': 'MakeCp',
-        'source_urls' : ['https://downloads.%(name)s.org/v%(version)s/'],
-        'sources' :     ['%(name)s-v%(version)s-linux-amd64.zip'],
-        'checksums' :   ['6d6455e1cb69eb0615a52cc046a296395e44d50c0f32627ba8590c677ddf50a9'],
-        
-        'skipsteps' : ['build'],
-        
-        'files_to_copy' : [
-            (['%(name)s-v%(version)s-linux-amd64/rclone'],   'bin')
-        ],
-        
-        'sanity_check_paths' : {
-            'files': ['bin/rclone'],
-            'dirs':  []
-        },
-        
-        'sanity_check_commands' : [
-            'rclone --version'
-        ]
-
-
+    ('rclone', local_rclone_version,{
+        'easyblock':      'MakeCp',
+        'source_urls' :   ['https://downloads.%(name)s.org/v%(version)s/'],
+        'sources' :       ['%(name)s-v%(version)s-linux-amd64.zip'],
+        'checksums' :     ['6d6455e1cb69eb0615a52cc046a296395e44d50c0f32627ba8590c677ddf50a9'],
+        'skipsteps' :     ['build'],
+        'files_to_copy' : [(['%(name)s-v%(version)s-linux-amd64/rclone'],   'bin')],
     }),
     # Static go built binary
-    ('restic',local_restic_version, {
-        'easyblock': 'MakeCp',
-        'source_urls' : ['https://github.com/%(name)s/%(name)s/releases/download/v%(version)s/'],
-        'sources' :     ['%(name)s_%(version)s_linux_amd64.bz2'],
-        'checksums' :   ['3631e3c3833c84ba71f22ea3df20381676abc7476a7f6d14424d9abfada91414'],
-        'files_to_copy' : [
-            (['%(name)s_%(version)s_linux_amd64'],'bin')
-        ],
-        'skipsteps' : ['build'],
-        
-        'sanity_check_paths' : {
-            'files': ['bin/restic'], 
-            'dirs':  []
-        },
-        
-        'sanity_check_commands' : ['restic version']
+    ('restic', local_restic_version, {
+        'easyblock':      'MakeCp',
+        'source_urls' :   ['https://github.com/%(name)s/%(name)s/releases/download/v%(version)s/'],
+        'sources' :       ['%(name)s_%(version)s_linux_amd64.bz2'],
+        'checksums' :     ['3631e3c3833c84ba71f22ea3df20381676abc7476a7f6d14424d9abfada91414'],
+        'files_to_copy' : [(['%(name)s_%(version)s_linux_amd64'],'bin')],
+        'skipsteps' :     ['build'],
     }),
-    ('s3cmd',local_s3cmd_version,{
-       'easyblock': 'PythonPackage',
-        'source_urls': ['https://files.pythonhosted.org/packages/97/10/5ae9b5c69d0482dda2927c67a4db26a3e9e064964577a81be9239a419b3f/'],
-        'sources' :   ['%(name)s-%(version)s.tar.gz'],
-        'buildcmd': ' || cd %(name)s-%(version)s && python3 setup.py build', 
-        'install_target': ' || cd %(name)s-%(version)s && python3 setup.py install --prefix=%(installdir)s',
-    })
-    
-
+    ('python-magic', local_magic_version,{
+        'easyblock':      'PythonPackage',
+        'source_urls':    [PYPI_SOURCE],
+        'sources' :       ['%(name)s-%(version)s.tar.gz'],
+        'start_dir':      '%(namelower)s-%(version)s',
+        'req_py_majver':  3, # Used to let EasyBuild select the right system Python executable.
+        'req_py_minver':  6, # Used to let EasyBuild select the right system Python executable.
+    }),
+    ('s3cmd', local_s3cmd_version,{
+        'easyblock':      'PythonPackage',
+        'source_urls':    [PYPI_SOURCE],
+        'sources' :       ['%(name)s-%(version)s.tar.gz'],
+        'start_dir':      '%(namelower)s-%(version)s',
+        'req_py_majver':  3, # Used to let EasyBuild select the right system Python executable.
+        'req_py_minver':  6, # Used to let EasyBuild select the right system Python executable.
+    }),
 ]
 
 # Patch the s3cmd binary so that it does not rely on PYTHONPATH being set,
 local_patch_s3cmd = "--- s3cmd	2023-02-16 16:44:34.000000000 +0200\n+++ s3cmd_fixed	2023-02-16 16:45:09.000000000 +0200\n@@ -1,4 +1,8 @@\n #!/usr/bin/python3\n # EASY-INSTALL-SCRIPT: 's3cmd==2.3.0','s3cmd'\n+import pathlib\n+script_dir=pathlib.Path(__file__).parent.resolve()\n+import sys\n+sys.path.insert(0,str(script_dir) + f'/../lib/python{sys.version_info[0]}.{sys.version_info[1]}/site-packages/')\n __requires__ = 's3cmd==2.3.0'\n __import__('pkg_resources').run_script('s3cmd==2.3.0', 's3cmd')"
 
 # Probably not the right way to do this...
-postinstallcmds = [f'patch %(installdir)s/bin/s3cmd <(echo -e "{ local_patch_s3cmd }" )' ,'rm -f %(installdir)s/bin/s3cmd.orig','mv  %(installdir)s/bin/restic_0.15.1_linux_amd64 %(installdir)s/bin/restic && chmod +x %(installdir)s/bin/restic' ]
+postinstallcmds = [
+    f'patch %(installdir)s/bin/s3cmd <(echo -e "{ local_patch_s3cmd }" )' ,
+    'rm -f %(installdir)s/bin/s3cmd.orig',
+    'mv  %(installdir)s/bin/restic_0.15.1_linux_amd64 %(installdir)s/bin/restic && chmod +x %(installdir)s/bin/restic' 
+]
+
+sanity_check_paths = {
+    'files': [ 'bin/rclone', 'bin/restic', 'bin/s3cmd' ],
+    'dirs':  [ 'lib/python3.6/site-packages' ],    
+}
+
+sanity_check_commands = [
+    'rclone --version',
+    'restic version',
+    's3cmd --version',
+]
+
+moduleclass = 'tools'
+
+modluafooter = """
+extensions( "rclone/%(rclone)s", "restic/%(restic)s", "s3cmd/%(s3cmd)s" )
+""" % {
+    'rclone': local_rclone_version,
+    'restic': local_restic_version,
+    's3cmd':  local_s3cmd_version,
+}
+
