@@ -23,3 +23,10 @@ Sources:
         
     -   `lumi-allocations` is installed from its GitHub repository using
         the `Tarball` generic EasyBlock, as a component of the Bundle.
+
+### Version 0.2
+
+-   `lumi-allocations` now fully supports its `-p` argument and the hidden LUST options.
+
+-   Added a version of the `lumi-check-quota` script.
+
