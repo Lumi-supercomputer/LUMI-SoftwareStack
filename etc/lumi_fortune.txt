@@ -1,5 +1,5 @@
-You can check your quota on LUMI using the lumi-workspaces command that you
-can find in the lumi-workspaces module in the LUMI and CrayEnv environments.
+You can check your quota and allocations on LUMI using the lumi-workspaces 
+command that is available without loading any additional module.
 
 =====
 

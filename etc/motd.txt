@@ -1,6 +1,10 @@
    .Announcements---------------------------------------------------.
  * | NOTE: The default version of the LUMI software stack is now    |
    | LUMI/22.08!                                                    |
+   |                                                                |
+*  | You can use the lumi-workspaces command (without loading an    |
+   | additional module) to check your quota and allocations on      |
+   | LUMI. Also check `module help lumi-tools` for more info.       | 
 *  |                                                                |
    | On August 18 the default programming environment was changed   |
   *| to the 22.08 environment which should solve some problems with |
