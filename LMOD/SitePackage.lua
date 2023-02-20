@@ -163,7 +163,7 @@ function detect_LUMI_partition()
             nodenum = tonumber( tmp3 ) -- Convert to number
 
             -- Find the partition based on the node number
-            if ( nodenum >= 5000 ) and ( nodenum <= 7559 ) then
+            if ( nodenum >= 5000 ) and ( nodenum <= 7573 ) then
                 partition = 'G'
             elseif ( nodenum >= 1000 ) and ( nodenum <= 2535 ) then
                 partition = 'C'
