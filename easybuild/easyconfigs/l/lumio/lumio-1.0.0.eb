@@ -53,7 +53,7 @@ skipsteps = ['build']
 
 files_to_copy = [
     (['lumio-conf'], 'bin'),
-    (['LICENSE'], 'share/licenses/lumio')
+    (['LICENSE'], 'share/licenses/lumio'),
 ]
 
 sanity_check_paths= {
