@@ -57,12 +57,13 @@ software:
         versions: 
           '2023.01.0':
             versionsuffix: '-cray-python-3.9.12.1'
-#  rocm:
-#    toolchains:
-#      SYSTEM:
-#        versions: ['5.2.5','5.3.3']
   Rust:
     toolchains:
       SYSTEM:
         versions: ['1.60.0']
+  parallel:
+    toolchains:
+      SYSTEM:
+        versions: ['20230222']
+
 
