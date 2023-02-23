@@ -117,17 +117,6 @@ if mode() == 'load' and mod_mode == 'user' then
     end
 end
 
--- Make sure EasyBuild is loaded when in user mode. In any of the system modes
--- we assume the user is clever enough and want to support using an eb version
--- which is not in the module tree, e.g., to bootstrap.
-if not isloaded( 'EasyBuild' ) then
-    if mod_mode == 'system' then
-        try_load( 'EasyBuild' )
-    else
-        load( 'EasyBuild' )
-    end
-end
-
 
 --
 -- Compute the configuration
@@ -142,6 +131,7 @@ local stack_name
 local stack_version
 local lumi_stack_version
 local partition_name       -- Partition name as detexcted from the location of the module
+local CPE_version          -- Version of the CPE for this software stack
 
 stack_version, partition_name = myFileName():match( '/LUMI/([^/]+)/partition/([^/]+)/' )
 
@@ -155,6 +145,7 @@ if optarch[partition_name] == nil then
 end
 
 lumi_stack_version = stack_version
+CPE_version =        lumi_stack_version:gsub( '.dev', '')
 
 -- For CrayEnv and system, we overwrite the stack_name etc. for installation,
 -- but we had to preserve the version of the LUMI stack to find the right
@@ -484,6 +475,19 @@ setenv( 'LUMI_EASYBUILD_MODE', myModuleName():gsub( 'EasyBuild%-', '' ) )
 -- Add the tools to the search path for executables
 --
 prepend_path( 'PATH', pathJoin( SystemRepo_prefix, 'tools' ) )
+
+-- Make sure EasyBuild is loaded when in user mode. In any of the system modes
+-- we assume the user is clever enough and want to support using an eb version
+-- which is not in the module tree, e.g., to bootstrap.
+local easybuild_version = get_EasyBuild_version( CPE_version )
+if not isloaded( 'EasyBuild' ) then
+    if mod_mode == 'system' then
+        try_load( 'EasyBuild/' .. easybuild_version )
+    else
+        load( 'EasyBuild/' .. easybuild_version )
+    end
+end
+
 
 
 -- -----------------------------------------------------------------------------
