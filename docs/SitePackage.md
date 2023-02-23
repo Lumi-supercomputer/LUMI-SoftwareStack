@@ -77,11 +77,15 @@ This hook is used to adapt the following messages:
 ### Visibility hook
 
 The visibility hook is currently used to hide the Cray modules of other CPE versions
-in a particular version of the CPE software stack. As the hook function is called many
+in a particular version of the CPE software stack. It is also used to hide the 
+``EasyBuild`` modules as users sometimes load these without loading the 
+``EasyBuild-user`` module.
+
+As the hook function is called many
 times during a single call to ``module avail`` some effort was done to make it efficient
 at the cost of readability.
 
-  * The data about the modules that should not be hidden is contained in a LUA script
+  * The data about the Cray PE modules that should not be hidden is contained in a LUA script
     in ``mgmt/LMOD/VisibilityHookData``. This script is read via ``require`` so that
     it is cached and really processed only once. Furthermore, to make locating the
     script easy, the LUMI stack module stores the path and name in two environment
@@ -91,6 +95,12 @@ at the cost of readability.
 
     The name and location of the file is set through two environment variables set
     in the LUMI modules.
+
+  * The code to hide EasyBuild is currently rather rudimentary. It doesn't try to do 
+    so only for EasyBuild modules in the central software stack, but would hide an
+    EasyBuild module that has been installed by a user also. This is partly the
+    result of design flaws making it harder to distinguish user and central 
+    modules.
 
   * Note that the feature is turned of for power users.
 
@@ -147,6 +157,16 @@ from the CPE definition files in the ``CrayPE`` subdirectory of the repository.
 The function is used in the prototype in the ``cpe`` modules for the Grenoble
 system as a proof-of-concept for a generic ``cpe`` module to reduce the number
 of places where the version info of the Cray packages in a CPE release is kept.
+
+
+### get_EasyBuild_version
+
+``get_EasyBuild_version`` is a function that simply returns the version of 
+EasyBuild for a given software stack (and actually a given CPE version in the
+current implementation, so a `.dev` stack is assumed to have the same version
+of EasyBuild as the regular stack). Currently we abuse the CPE definition
+files in ``CrayPE`` to set the version of EasyBuild, but by making this a
+separate function this can be changed in the future.
 
 
 ### get_versionedfile

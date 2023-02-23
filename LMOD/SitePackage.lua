@@ -316,6 +316,21 @@ function get_CPE_versions( CPE_version, table_package_version )
 
 end
 
+--
+-- function get_EasyBuild_version( stack_version )
+--
+-- Input arguments
+--   * stack_version: The version of the LUMI software stack
+--
+-- Return value:: The version of EasyBuild for that stack, or nil if not found.
+--
+function get_EasyBuild_version( stack_version )
+
+    -- Currently we abuse the file with CPE components for this purpose.
+    return get_CPE_component( 'EasyBuild', stack_version )
+
+end
+
 
 --
 -- function get_versionedfile
@@ -541,6 +556,7 @@ sandbox_registration{
     ['get_init_module_list']      = get_init_module_list,
     ['get_CPE_component']         = get_CPE_component,
     ['get_CPE_versions']          = get_CPE_versions,
+    ['get_EasyBuild_version']     = get_EasyBuild_version,
     ['get_versionedfile']         = get_versionedfile,
     ['get_motd']                  = get_motd,
     ['get_fortune']               = get_fortune,

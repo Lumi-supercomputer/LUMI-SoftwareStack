@@ -38,3 +38,4 @@ intel,2021.2
 NVIDIA,20.9
 craype-targets,1.5.0
 FORGE,21.0
+EasyBuild,4.4.2
