@@ -777,6 +777,13 @@ local function is_visible_hook( modT )
 
     end  -- Conditional part first tests
     
+    --
+    -- Hide all EasyBuild modules in the software stack
+    --
+    if modT.fn:find( '/EasyBuild/' ) then
+        modT.isVisible = false
+    end
+    
     -- Temporary fix to hide LUMI-G software.
     
     -- local poweruser =    os.getenv( 'LUMI_POWER_USER' )
