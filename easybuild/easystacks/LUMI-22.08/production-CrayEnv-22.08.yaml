@@ -47,4 +47,8 @@ software:
     toolchains:
       SYSTEM:
         versions: ['5.2.5','5.3.3']
+  parallel:
+    toolchains:
+      SYSTEM:
+        versions: ['20230222']
 
