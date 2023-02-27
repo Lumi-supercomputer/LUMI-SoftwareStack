@@ -39,3 +39,4 @@ ROCM,4.5.2
 intel,2021.4.0
 NVIDIA,21.3
 craype-targets,1.7.0
+EasyBuild,4.5.3
