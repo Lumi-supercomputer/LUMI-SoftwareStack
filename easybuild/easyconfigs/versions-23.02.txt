@@ -1,0 +1,201 @@
+# EasyConfig versions are synchronized were possible with the 2022b toolchains in
+# EasyBuild 4.7.0. However,
+# -   Some packages may have older versions due to compile problems
+# -   Sometimes EasyConfig files were not yet visible during development so webmproject
+#     had to pick our own version and may have a newer one (with the older one likely
+#     been stuck as a pull request)
+# -   Many packages were not yet supported in 2022a in EasyBuild 4.6.0.
+# -   And sometimes we had no time to switch to a newer version when 4.6.0 came out
+#     just days before 22.06 had to be installed on LUMI.
+#
+local_LUMI_version =        '23.02'
+local_craypython_version =  '3.9.4.2'
+local_EasyBuild_version =   '4.7.0'
+
+#
+# Components of buildtools
+#
+local_makeinfo_version =         '7.0.2'       # texinfo    20230122 - Check on https://gnu.askapache.com/texinfo/
+local_Autoconf_version =         '2.71'        # Autoconf   20210128 - Check on https://ftp.gnu.org/gnu/autoconf/
+local_Autoconf_archive_version = '2023.02.20'  # Autoconf-Archive 20230220 - check on https://ftp.gnu.org/gnu/autoconf-archive/
+local_Automake_version =         '1.16.5'      # Automake   20211003 - Check on https://ftp.gnu.org/gnu/automake/
+local_CMake_version =            '3.25.2'      # CMake      20230119 - Check on https://cmake.org/download/ (newer than EB 2022b)
+local_Ninja_version =            '1.11.1'      # Ninja      20220830 - Check on https://ninja-build.org/
+# Note: Meson 0.61.5 is the last version with Python 3.6 support.
+local_Meson_version =            '0.61.5'      # Meson      20220117 - Check on https://pypi.org/project/meson/#history
+local_Doxygen_version =          '1.9.6'       # Doxygen    20221227 - Check on https://www.doxygen.nl/download.html (newer than EB 2022b)
+local_help2man_version =         '1.49.3'      # help2man   20221215 - Check on https://ftp.gnu.org/gnu/help2man/ (newr than EB 2022b)
+local_libtool_version =          '2.4.6'       # libtool    20150215 - Check on https://ftp.gnu.org/gnu/libtool/
+local_M4_version =               '1.4.19'      # M4         20210528 - Check on https://ftp.gnu.org/gnu/m4/
+local_make_version =             '4.4.1'       # Make       20230206 - Check on https://ftp.gnu.org/gnu/make/
+local_NASM_version =             '2.15.05'     # NASM       20200828 - Check on https://www.nasm.us/
+local_Yasm_version =             '1.3.0'       # Yasm       20140810 - Check on https://yasm.tortall.net/Download.html
+local_gperf_version =            '3.1'         # gperf      20170105 - Check on https://ftp.gnu.org/gnu/gperf/
+local_sed_version =              '4.9'         # sed        20221106 - Check on https://ftp.gnu.org/gnu/sed/
+local_patchelf_version =         '0.17.2'      # patchelf   20230110 - Check on https://github.com/NixOS/patchelf/releases
+local_Bison_version =            '3.8.2'       # Bison      20210925 - Check on https://ftp.gnu.org/gnu/bison/
+local_flex_version =             '2.6.4'       # flex       20170506 - Check on https://github.com/westes/flex/releases
+local_byacc_version =            '20230219'    # byacc      20230219 - Check on https://invisible-mirror.net/archives/byacc/
+local_re2c_version =             '3.0'         # re2c       20210127 - Check on https://github.com/skvadrik/re2c/releases
+local_SCons_version =            '4.5.1'       # SCons      20230307 - Check on https://github.com/SCons/scons/releases, https://scons.org/pages/download.html
+local_xxd_version =              '9.0.1392'    # vim        20230307 - Check on https://github.com/vim/vim/tags
+
+#
+# syslibs bundle
+#
+local_syslibs_ncurses_version =      '6.4'           # https://ftp.gnu.org/pub/gnu/ncurses/
+local_syslibs_libreadline_version =  '8.2'           # https://ftp.gnu.org/pub/gnu/readline/
+local_syslibs_bzip2_version =        '1.0.8'         # https://sourceware.org/git/?p=bzip2.git;a=summary
+local_syslibs_zlib_version =         '1.2.13'        # https://zlib.net/
+local_syslibs_lz4_version =          '1.9.4'         # https://github.com/lz4/lz4/releases
+local_syslibs_Brotli_version =       '1.0.9'         # https://github.com/google/brotli/releases
+local_syslibs_cURL_version =         '7.88.1'        # https://curl.haxx.se/download/
+local_syslibs_expat_version =        '2.5.0'         # https://github.com/libexpat/libexpat/releases
+local_syslibs_APR_version =          '1.7.2'         # https://apr.apache.org/
+local_syslibs_APR_util_version =     '1.6.3'         # https://apr.apache.org/
+local_syslibs_file_version =         '5.44'          # http://ftp.astron.com/pub/file/
+local_syslibs_PCRE2_version =        '10.42'         # https://github.com/PhilipHazel/pcre2/releases
+local_syslibs_Serf_version =         '1.3.9'         # https://serf.apache.org/download
+local_syslibs_SQLite3_version =      '3.41.0'        # https://www.sqlite.org/
+
+#
+# systools bundle
+#
+local_systools_htop_version =         '3.2.2'
+local_systools_GPP_version =          '2.27'
+local_systools_tree_version =         '2.1.0'
+
+#
+# Regular EasyConfigs
+#
+
+local_Blosc_version =        '1.21.2'        # https://github.com/Blosc/c-blosc/releases
+local_Boost_version =        '1.81.0'        # https://www.boost.org/
+local_Brotli_version =       '1.0.9'         # https://github.com/google/brotli/releases
+local_bzip2_version =        '1.0.8'         # http://www.bzip.org/downloads.html
+
+local_cairo_version =        '1.17.4'        # https://www.cairographics.org/
+local_CubeLib_version =      '4.8'           # https://www.scalasca.org/scalasca/software/cube-4.x/download.html
+local_CubeWriter_version =   '4.8'           # https://www.scalasca.org/scalasca/software/cube-4.x/download.html
+local_cURL_version =         '7.86.0'        # https://curl.haxx.se/download/
+
+local_DB_version =           '18.1.40'       # https://www.oracle.com/database/technologies/related/berkeleydb-downloads.html
+local_double_conv_version =  '3.2.1'         # https://github.com/google/double-conversion/releases
+
+local_Eigen_version =        '3.4.0'         # https://gitlab.com/libeigen/eigen/-/releases
+local_ELPA_version =         '2021.11.001'   # Synchronized with CSCS and same version in EasyBuild 2022a
+local_ESMF_version =         '8.4.1'         # https://github.com/esmf-org/esmf/releases
+local_expat_version =        '2.4.9'         # https://github.com/libexpat/libexpat/releases
+
+local_file_version =         '5.43'          # ftp://ftp.astron.com/pub/file/
+local_FFmpeg_version =       '5.1.2'         # https://ffmpeg.org/download.html#releases
+local_FLAC_version =         '1.4.2'         # https://xiph.org/downloads/ or https://github.com/xiph/flac/releases
+local_fontconfig_version =   '2.14.1'        # https://www.freedesktop.org/software/fontconfig/release/
+local_freetype_version =     '2.12.1'        # https://download.savannah.gnu.org/releases/freetype/
+local_fribidi_version =      '1.0.12'        # https://github.com/fribidi/fribidi/releases
+
+local_gc_version =           '8.2.2'         # http://hboehm.info/gc/gc_source/
+local_gdbm_version =         '1.23'          # https://ftp.gnu.org/gnu/gdbm/
+local_gettext_version =      '0.21.1'        # https://ftp.gnu.org/pub/gnu/gettext/
+local_giflib_version =       '5.2.1'         # https://sourceforge.net/projects/giflib/files/
+local_GLib_version =         '2.75.0'        # https://ftp.gnome.org/pub/GNOME/sources/glib/
+local_GMP_version =          '6.2.1'         # https://ftp.gnu.org/gnu/gmp/
+local_gnuplot_version =      '5.4.6'         # http://gnuplot.sourceforge.net/
+local_GObject_version =      '1.74.0'        # https://github.com/GNOME/gobject-introspection/releases
+local_GSL_version =          '2.7.1'         # https://ftp.gnu.org/gnu/gsl/
+local_gzip_version =         '1.12'          # https://ftp.gnu.org/gnu/gzip/
+
+local_HarfBuzz_version =     '5.3.1'          # https://www.freedesktop.org/software/harfbuzz/release/
+
+local_ICU_version =          '72.1'          # http://site.icu-project.org/home
+local_intltool_version =     '0.51.0'        # https://launchpad.net/intltool/+download
+
+local_JasPer_version =       '4.0.0'         # https://github.com/jasper-software/jasper/releases
+
+local_LAME_version =         '3.100'         # http://lame.sourceforge.net/
+local_libaec_version =       '1.0.6'         # https://gitlab.dkrz.de/k202009/libaec/-/tags
+local_libarchive_version =   '3.6.1'         # https://github.com/libarchive/libarchive/releases
+local_libatomic_version =    '7.6.14'        # https://github.com/ivmai/libatomic_ops/releases (with gc)
+local_libb2_version =        '0.98.1'        # https://github.com/BLAKE2/libb2/releases
+local_libcerf_version =      '2.3'           # https://jugit.fz-juelich.de/mlz/libcerf/-/releases
+local_libdeflate_version =   '1.15'          # https://github.com/ebiggers/libdeflate/releases
+local_libevent_version =     '2.1.12'        # https://libevent.org/
+local_libffi_version =       '3.4.4'         # https://sourceware.org/libffi/
+local_libgd_version =        '2.3.3'         # http://www.libgd.org/
+local_libiconv_version =     '1.17'          # https://ftp.gnu.org/pub/gnu/libiconv/
+local_libidn2_version =      '2.3.4'         # https://ftp.gnu.org/gnu/libidn/
+local_libidn_version =       '1.41'          # https://ftp.gnu.org/gnu/libidn/
+local_libjpegturbo_version = '2.1.4'         # https://github.com/libjpeg-turbo/libjpeg-turbo/releases
+local_libogg_version =       '1.3.5'         # https://www.xiph.org/downloads/ or https://github.com/xiph/ogg/releases
+local_libopus_version =      '1.3.1'         # http://opus-codec.org/downloads/
+local_libpciaccess_version = '0.17'          # https://cgit.freedesktop.org/xorg/lib/libpciaccess/
+local_libpng_version =       '1.6.38'        # http://www.libpng.org/pub/png/libpng.html
+local_libpsl_version =       '0.21.1'        # https://github.com/rockdaboot/libpsl/releases
+local_libreadline_version =  '8.2'           # https://ftp.gnu.org/pub/gnu/readline/
+local_libsndfile_version =   '1.2.0'         # https://github.com/libsndfile/libsndfile/releases
+local_libtheora_version =    '1.1.1'         # https://www.theora.org/downloads/ or https://github.com/xiph/theora/releases
+local_libtiff_version =      '4.4.0'         # https://download.osgeo.org/libtiff/
+local_libtirpc_version =     '1.3.3'         # https://sourceforge.net/projects/libtirpc/files/libtirpc/
+local_libunistring_version = '1.1'           # https://ftp.gnu.org/gnu/libunistring/
+local_libunwind_version  =   '1.6.2'         # http://download.savannah.nongnu.org/releases/libunwind/
+local_libvorbis_version =    '1.3.7'         # https://xiph.org/downloads/ or https://github.com/xiph/vorbis/releases
+local_libwebp_version =      '1.2.4'         # https://github.com/webmproject/libwebp/releases
+local_libxml2_version =      '2.9.12'        # http://xmlsoft.org/sources/
+local_libxslt_version =      '1.1.37'        # http://xmlsoft.org/sources/
+local_libyaml_version =      '0.2.5'         # https://github.com/yaml/libyaml/releases
+local_LMDB_version =         '0.9.29'        # https://github.com/LMDB/lmdb/releases
+local_lz4_version =          '1.9.4'         # https://github.com/lz4/lz4/releases
+local_Lzip_version =         '1.23'          # http://download.savannah.gnu.org/releases/lzip/
+local_LZO_version =          '2.10'          # http://www.oberhumer.com/opensource/lzo/#download
+
+local_MPC_version =          '1.3.1'         # https://ftp.gnu.org/gnu/mpc/
+local_METIS_version =        '5.1.0'         # https:/http://glaros.dtc.umn.edu/gkhome/metis/metis/download
+local_mpdecimal_version =    '2.5.1'         # https://www.bytereef.org/mpdecimal/
+local_MPFR_version =         '4.2.0'         # https://ftp.gnu.org/gnu/mpfr/
+
+local_ncurses_version =      '6.3'           # https://ftp.gnu.org/pub/gnu/ncurses/
+
+local_Pango_version =        '1.50.12'       # http://ftp.gnome.org/pub/GNOME/sources/pango/
+local_ParMETIS_version =     '4.0.3'         # https:/http://glaros.dtc.umn.edu/gkhome/metis/parmetis/download
+local_PCRE2_version =        '10.40'         # https://ftp.pcre.org/pub/pcre/
+local_PCRE_version =         '8.45'          # https://ftp.pcre.org/pub/pcre/
+local_Perl_version =         '5.36.0'        # https://www.perl.org/get.html
+local_PROJ_version =         '9.1.1'         # https://proj.org/download.html
+local_pixman_version =       '0.42.2'        # https://www.cairographics.org/releases/
+
+local_SCOTCH_version =       '7.0.3'         # https://gforge.inria.fr/projects/scotch/
+local_snappy_version =       '1.1.9'         # https://github.com/google/snappy/releases as there are compile problems with 1.1.8
+local_SQLite_version =       '3.39.4'        # https://www.sqlite.org/
+local_Szip_version =         '2.1.1'         # https://support.hdfgroup.org/ftp/lib-external/szip/
+
+local_Tcl_version =          '8.6.12'        # https://tcl.tk/
+local_Tk_version =           '8.6.12'        # https://tcl.tk/
+local_termcap_version =      '1.3.1'         # https://ftp.gnu.org/gnu/termcap/
+
+local_UDUNITS_version =      '2.2.28'        # https://artifacts.unidata.ucar.edu/service/rest/repository/browse/downloads-udunits/
+local_util_version =         '2.38.1'        # https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/
+
+local_wget_version =         '1.21.3'        # https://ftp.gnu.org/gnu/wget/
+
+local_x264_commit =          'baee400f'      # Just follow EasyBuild as the distribution is currently a mess
+local_x264_version =         '20230226'      # Just follow EasyBuild as the distribution is currently a mess
+local_x265_version =         '3.5'           # http://download.videolan.org/pub/videolan/x265/
+local_xorg_macros_version =  '1.19.3'        # https://cgit.freedesktop.org/xorg/util/macros
+local_XZ_version =           '5.2.10'        # https://tukaani.org/xz/
+
+local_zlib_version =         '1.2.12'        # https://zlib.net/
+local_zstd_version =         '1.5.2'         # https://github.com/facebook/zstd/releases
+
+
+#
+# EasyBuild-contrib applications
+#
+
+local_OPARI2_version =       '2.0.7'         # https://www.vi-hps.org/tools/opari2.html
+local_OTF2_version =         '3.0.2'         # https://www.vi-hps.org/projects/score-p/
+
+local_PLUMED2_6_version =    '2.6.6'         # https://github.com/plumed/plumed2/releases
+local_PLUMED2_7_version =    '2.7.5'         # https://github.com/plumed/plumed2/releases
+
+local_ScoreP_version =       '7.1'           # https://perftools.pages.jsc.fz-juelich.de/cicd/scorep/
+
