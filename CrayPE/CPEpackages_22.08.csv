@@ -8,7 +8,7 @@ ATOMS,1.1.2
 PALS,1.2.0
 ATP,3.14.13
 CCDB,4.12.13
-Cray-dininst,12.1.1
+cray-dyninst,12.1.1
 CTI,2.15.13
 gdb4hpc,4.14.2
 sanitizers4hpc,1.0.1
