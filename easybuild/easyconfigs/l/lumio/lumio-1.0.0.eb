@@ -38,7 +38,7 @@ key to the environment variables AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY respect
 https://lumidata.eu/ is also the s3 API endpoint for e.g raw API calls (not recommended)
 """
 
-local_lumi_conf_version = '0.1.1'
+local_lumi_conf_version = '0.1.2'
 
 toolchain = SYSTEM
 
