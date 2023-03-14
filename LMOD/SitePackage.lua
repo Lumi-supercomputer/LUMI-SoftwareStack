@@ -796,7 +796,8 @@ local function is_visible_hook( modT )
     --
     -- Hide all EasyBuild modules in the software stack
     --
-    if modT.fn:find( '/EasyBuild/' ) then
+    -- if modT.fn:find( '/EasyBuild/' ) then
+    if modT.sn == 'EasyBuild' then
         modT.isVisible = false
     end
     
