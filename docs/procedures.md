@@ -230,3 +230,12 @@ For now, we use the script ``upgrade-tc.py`` developed at CSCS and kept in the `
 subdirectory. It is also available when any of our EasyBuild configuration modules is loaded.
 
 
+## Bumping the toolchain to a newer version and changing the other dependencies
+
+Two scripts situated in the `tools` subdirectory and available in the path when any of the
+EasyBuild configuration modules is loaded can help with this:
+
+-   ``upgrade-tc.py`` is a script developed at CSCS to upgrade the toolchain in the EasyConfig
+    file. It will also update the name of the EasyConfig file to reflect the new toolchain version.
+-   ``upgrade-locals.txt`` uses the set of ``local_*_version`` variable defintions in one of the
+    ``versions-yy.mm.txt`` files to update those variables in one or more given EasyConfig file.
