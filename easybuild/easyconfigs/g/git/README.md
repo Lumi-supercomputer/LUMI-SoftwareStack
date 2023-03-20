@@ -54,3 +54,11 @@ cluster).
 ### git 2.37.2 for LUMI/22.08
 
   * Straightforward port of the 2.37.0 EasyConfig file.
+  
+### git 2.40.0 for 22.11/23.02
+
+  * Straightforward port of the 2.40.0 EasyConfig file.
+  
+  * Decided to not yet include git-lfs in the module itself as the latter is still 
+    installed from binaries and needs some additional treatment in `postinstallcmds`.
+
