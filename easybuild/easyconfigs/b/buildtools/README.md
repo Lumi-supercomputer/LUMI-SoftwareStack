@@ -102,3 +102,18 @@ Not included at the moment:
   * Some version updates.
 
     
+### 22.11 and 23.02
+
+  * Further implementation of the changes
+  
+      * Version that is used to bootstrap until we can build a proper `buildtools` 
+        module now has the version suffix `-bootstrap`.
+        
+      * The regular `buildtools` module no longer contains any Python-based tool that
+        require `PYTHONPATH` to be set due to interference with other tools that might
+        need a different version of Python.
+        
+      * The separate `buildtools-python` modules provide the Python-based tools.
+      
+  * Otherwise just version updates of the packages used in 22.08.
+
