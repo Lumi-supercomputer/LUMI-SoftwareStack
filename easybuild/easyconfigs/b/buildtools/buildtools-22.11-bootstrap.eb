@@ -40,7 +40,7 @@ local_Bison_version =            '3.8.2'       # Bison      20210925 - Check on 
 local_flex_version =             '2.6.4'       # flex       20170506 - Check on https://github.com/westes/flex/releases
 local_byacc_version =            '20230219'    # byacc      20230219 - Check on https://invisible-mirror.net/archives/byacc/
 local_re2c_version =             '3.0'         # re2c       20210127 - Check on https://github.com/skvadrik/re2c/releases
-local_SCons_version =            '4.5.1'       # SCons      20230307 - Check on https://github.com/SCons/scons/releases, https://scons.org/pages/download.html
+local_SCons_version =            '4.4.0'       # SCons      20220730 - Check on https://github.com/SCons/scons/releases, https://scons.org/pages/download.html
 
 homepage = 'http://www.gnu.org'
 
@@ -222,7 +222,7 @@ components = [
         'easyblock':   'PythonPackage',
         'sources':          [SOURCE_TAR_GZ],
         'source_urls':      [PYPI_SOURCE],
-        'checksums':        ['9daeabe4d87ba2bd4ea15410765fc1ed2d931b723e4dc730a487a3911b9a1738'],
+        'checksums':        ['7703c4e9d2200b4854a31800c1dbd4587e1fa86e75f58795c740bcfa7eca7eaa'],   # SCons-4.4.0.tar.gz
         'start_dir':        '%(name)s-%(version)s',
         'req_py_majver':     3, # Used to let EasyBuild select the right system Python executable.
         'req_py_minver':     5, # Used to let EasyBuild select the right system Python executable.

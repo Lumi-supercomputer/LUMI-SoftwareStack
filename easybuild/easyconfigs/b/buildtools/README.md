@@ -116,4 +116,7 @@ Not included at the moment:
       * The separate `buildtools-python` modules provide the Python-based tools.
       
   * Otherwise just version updates of the packages used in 22.08.
+  
+  * Note that we first tried with SCons 4.5.1 but that version was too new for some
+    other packages. Serf in syslibs, e.g., failed.
 
