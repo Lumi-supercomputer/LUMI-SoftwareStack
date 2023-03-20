@@ -58,9 +58,14 @@
 
 
 
-### Version 3.4 for LUMI/22.06
+### Version 3.4 for LUMI/22.06 and LUMI/22.08
 
   * Trivial port of the 3.3.9 EasyConfig.
 
+
+### 3.4.0 for 21.11/23.02
+
+  * Looks like the Eigen people returned to a normal version numberins, so adapted the
+    EasyConfig.
 
 
