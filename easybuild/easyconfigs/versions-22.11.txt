@@ -66,6 +66,13 @@ local_systools_GPP_version =          '2.27'
 local_systools_tree_version =         '2.1.0'
 
 #
+# Some SYSTEM applications
+#
+local_nano_version =         '7.2'           # https://www.nano-editor.org/download.php
+local_Vim_version =          '9.0.1392'      # https://github.com/vim/vim/tags
+local_Subversion_Version =   '1.14.2'        # https://subversion.apache.org/download.cgi (not yet used)
+
+#
 # Regular EasyConfigs
 #
 

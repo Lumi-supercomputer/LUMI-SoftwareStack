@@ -72,7 +72,7 @@ better to avoid bugs also).
 | [Go](https://go.dev/dl/) | [EB Go](https://github.com/easybuilders/easybuild-easyconfigs/blob/develop/easybuild/easyconfigs/g/Go/Go-1.17.6.eb) |  / |
 | [nano](https://www.nano-editor.org/download.php) | / | [CSCS nano](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/n/nano) |
 | [Vim](https://github.com/vim/vim/tags) | [EB Vim](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/v/Vim) | [CSCS Vim](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/v/Vim) |
-| [git](https://github.com/git/git/releases) | [EB git](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/g/git) | [CSCS git](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/g/git) |
+| [git](https://github.com/git/git/tags) | [EB git](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/g/git) | [CSCS git](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/g/git) |
 | [Subversion](https://subversion.apache.org/download.cgi) | [EB Subversion](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/s/Subversion) | [CSCS Subversion](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/s/Subversion) |
 
 
