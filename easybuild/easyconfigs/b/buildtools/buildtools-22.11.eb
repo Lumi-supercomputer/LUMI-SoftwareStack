@@ -16,7 +16,7 @@
 #
 easyblock = 'Bundle'
 
-local_LUMI_version =        '23.02'
+local_LUMI_version =        '22.11'
 
 name =    'buildtools'
 version = local_LUMI_version
