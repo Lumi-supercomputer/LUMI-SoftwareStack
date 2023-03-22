@@ -1,6 +1,6 @@
 easyblock = 'Bundle'
 
-local_LUMI_version =        '22.11'
+local_LUMI_version =        '22.12'
 
 name =     'systools'
 version =  local_LUMI_version

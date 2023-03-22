@@ -44,7 +44,7 @@ The current content is
   * Robustified the installation on LUMI with checksums.
 
 
-### 22.11 and 23.02
+### 22.12 and 23.03
 
   * Just some version bumps.
   

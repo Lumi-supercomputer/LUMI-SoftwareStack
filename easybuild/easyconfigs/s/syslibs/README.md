@@ -68,7 +68,7 @@ use.
     REVERSED AS IT SEEMS IMPOSSIBLE TO GET GIT TO LINK WITH THAT LIBRARY CORRECTLY 
     AND STATICALLY.
     
-### 22.11 and 23.02
+### 22.12 and 23.03
 
   * Trivial port of the 22.08 version (the later one without cURL).
 

@@ -1,16 +1,10 @@
 easyblock = 'Bundle'
 
+local_LUMI_version =        '23.03'
+
 name =          'syslibs'
-version =       '22.11'
+version =       local_LUMI_version
 versionsuffix = '-static'
-
-import os as local_os
-
-# The first line below is a dirty trick not very much loved by the EasyBuild developers but
-# it helps to make this EasyConfig indpendent of the LUMI software stack version as there is
-# no other reference to that version in the file that we can use since it relies on the
-# SYSTEM toolchain.
-local_LUMI_version =        '22.11'
 
 homepage = '(none)'
 
