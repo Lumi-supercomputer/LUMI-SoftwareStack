@@ -1,8 +1,8 @@
 easyconfigs:
-  - buildtools-22.11-bootstrap.eb
-  - syslibs-22.11-static.eb
-  - buildtools-22.11.eb
-  - systools-22.11.eb
+  - buildtools-22.12-bootstrap.eb
+  - syslibs-22.12-static.eb
+  - buildtools-22.12.eb
+  - systools-22.12.eb
   - nano-7.2.eb
   - Vim-9.0.1392.eb
   - git-2.40.0.eb
