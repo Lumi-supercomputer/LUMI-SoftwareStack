@@ -1,3 +1,7 @@
+# EasyConfigs that were not yet in 2022b when we checked for version numbers
+
+Including some that used unexpected version numbers.
+
 blosc
 CubeLib
 CubeWriter
