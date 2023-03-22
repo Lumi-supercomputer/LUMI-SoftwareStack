@@ -28,7 +28,7 @@ multi-core processors so as to accelerate the compression/decompression
 process to a maximum.
 """
 
-toolchain = {'name': 'cpeCray', 'version': '23.02'}
+toolchain = {'name': 'cpeAOCC', 'version': local_LUMI_version}
 toolchainopts = {'pic': True}
 
 #source_urls = ['https://github.com/Blosc/c-blosc/archive/']

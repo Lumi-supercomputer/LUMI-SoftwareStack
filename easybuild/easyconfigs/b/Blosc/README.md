@@ -28,7 +28,7 @@
   * Minor version bump of the 1.22.1 EasyConfig.
 
 
-### Versiuon 1.21.2 from CPE 22.11 on
+### Versiuon 1.21.2 from CPE 22.12 on
 
   * Minor version bump of the 1.22.2 EasyConfig.
 
