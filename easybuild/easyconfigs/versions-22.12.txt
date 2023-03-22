@@ -8,7 +8,7 @@
 # -   And sometimes we had no time to switch to a newer version when 4.6.0 came out
 #     just days before 22.06 had to be installed on LUMI.
 #
-local_LUMI_version =        '23.02'
+local_LUMI_version =        '22.12'
 local_craypython_version =  '3.9.4.2'
 local_EasyBuild_version =   '4.7.0'
 
