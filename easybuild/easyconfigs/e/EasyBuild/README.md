@@ -31,10 +31,13 @@
     specific combinations of version worked.
 
 
-### Version 4.6.0 for LUMI/22.06
+### Version 4.6.0 for LUMI/22.06 and LUMI/22.08
 
 -   The additional packages that are used to activate `archspec` in EasyBuild
     and to provide the progress bar are a very fragile mix. Updating any of them
     to newer versions didn't work, maybe due to the lack of `pip` and the very
     old version of `python` as the system Python.
 
+### Version 4.7.1 for LUMI/22.12 and LUME/23.03
+
+-   Trivial port of the 4.6.0 EasyConfig.

@@ -1,7 +1,7 @@
 easyblock = 'EB_EasyBuildMetaLUMI'
 
 name =    'EasyBuild'
-version = '4.7.0'
+version = '4.7.1'
 
 homepage = 'https://easybuilders.github.io/easybuild'
 
@@ -41,24 +41,28 @@ toolchain = SYSTEM
 
 source_urls = [
     # easybuild-framework
-    'https://files.pythonhosted.org/packages/09/0d/513a4474666ac06a534d8a972157208d96f691ae9a02d421905673f1a1b4/',
+    'https://files.pythonhosted.org/packages/76/4b/b7a88e791cce0d79db9f2319ab07c79584815ca9e497d178c39fa4621b8d/',
     # easybuild-easyblocks
-    'https://files.pythonhosted.org/packages/38/d4/b2d82d63ba96c8df407b7e1dcbfd31906d6cc3ecf8d5cd99a407c79be3bb/',
+    'https://files.pythonhosted.org/packages/10/72/391eb5bde081da67fef0a59625ce7cf4939176416aed299ef55923e422b4/',
     # easybuild-easyconfigs
-    'https://files.pythonhosted.org/packages/15/96/d0067ed08519b92f34d3e44fa0aff8ed310190d9a95efde123ed6eabdf97/',
+    'https://files.pythonhosted.org/packages/32/1a/e7c851db23ffb0fc5c3cc9c255318d533f642c86eff2c3c33e0ab063a449/',
+
 ]
+
 sources = [
     'easybuild-framework-%(version)s.tar.gz',
     'easybuild-easyblocks-%(version)s.tar.gz',
     'easybuild-easyconfigs-%(version)s.tar.gz',
 ]
+
 patches = [
     'EasyBuild-4.4.2_keyring_DBus.patch',
 ]
+
 checksums = [
-    'ea51c3cb88fca27daadd2fb55ee31f5f51fc60c4e3519ee9d275954540312df8',  # easybuild-framework-4.7.0.tar.gz
-    'c23e81cbaa3e4fa5ab1bb8b2db759332867d61110bf4ec34763ea170780f0655',  # easybuild-easyblocks-4.7.0.tar.gz
-    'c688f14a3b0dce45c6cc90d746f05127dbf7368bd9b5873ce50757992d8e6261',  # easybuild-easyconfigs-4.7.0.tar.gz
+    {'easybuild-framework-4.7.1.tar.gz': 'ad3d95c2b11f895666d83cda3422e785261ecb9d14e7c3e0c9cef427b7404d6b'},
+    {'easybuild-easyblocks-4.7.1.tar.gz': '8c383dc4d02784e5ab610cec2df58c19ff9c1b7c03bb7585788ced1646e394e8'},
+    {'easybuild-easyconfigs-4.7.1.tar.gz': '58c70e7e4a8958f932e4e7abab0194198a8f9baf19915bfa5191b431f3f1a864'},
 ]
 
 # order matters a lot, to avoid having dependencies auto-resolved (--no-deps easy_install option doesn't work?)
