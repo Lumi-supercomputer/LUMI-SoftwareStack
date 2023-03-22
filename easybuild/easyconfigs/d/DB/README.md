@@ -16,3 +16,5 @@
 
   * The EasyConfig file is a direct port of the EasyBuilders one with some
     documentation updates.
+
+  * For LUMI/22.12: Switch to the improved way of specifying checksums.
