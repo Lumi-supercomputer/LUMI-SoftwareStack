@@ -39,4 +39,6 @@ There is a difference in settings:
 
   * Check in the log files for the results of the test suite: Grep for "Testsuite",
     and there are multiple such tables.
+    
+  * We still have problems with cpeAMD.
 

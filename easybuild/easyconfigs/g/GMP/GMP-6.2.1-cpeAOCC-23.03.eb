@@ -39,7 +39,7 @@ docurls = [
 ]
 
 
-toolchain = {'name': 'cpeAMD', 'version': '22.08'}
+toolchain = {'name': 'cpeAOCC', 'version': '23.03'}
 #toolchainopts = {'lowopt': True}               # CSCS settings
 #toolchainopts = {'precise': True, 'pic': True} # EasyBuilders settings
 toolchainopts = {
