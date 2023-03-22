@@ -74,6 +74,7 @@ better to avoid bugs also).
 | [Vim](https://github.com/vim/vim/tags) | [EB Vim](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/v/Vim) | [CSCS Vim](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/v/Vim) |
 | [git](https://github.com/git/git/tags) | [EB git](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/g/git) | [CSCS git](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/g/git) |
 | [Subversion](https://subversion.apache.org/download.cgi) | [EB Subversion](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/s/Subversion) | [CSCS Subversion](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/s/Subversion) |
+| [GNU parallel](https://ftp.gnu.org/gnu/parallel/) | [EB parallel](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/p/parallel) | [CSCS parallel](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/p/parallel) |
 
 
 ## Regular packages in the main stack
