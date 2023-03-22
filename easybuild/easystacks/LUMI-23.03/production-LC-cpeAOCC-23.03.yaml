@@ -1,0 +1,15 @@
+easyconfigs:
+  - Blosc-1.21.2-cpeAOCC-23.03.eb
+  - Brotli-1.0.9-cpeAOCC-23.03.eb
+  - bzip2-1.0.8-cpeAOCC-23.03.eb
+  - DB-18.1.40-cpeAOCC-23.03.eb
+  - double-conversion-3.2.1-cpeAOCC-23.03.eb
+  - expat-2.4.9-cpeAOCC-23.03.eb
+  - FriBidi-1.0.12-cpeAOCC-23.03.eb
+  - gc-8.2.2-cpeAOCC-23.03.eb
+  - giflib-5.2.1-cpeAOCC-23.03.eb
+  - GMP-6.2.1-cpeAOCC-23.03.eb
+  - GSL-2.7.1-cpeGNU-23.03-sequential.eb
+  - GSL-2.7.1-cpeGNU-23.03-OpenMP.eb
+  - ncurses-6.4-cpeAOCC-23.03.eb
+  
