@@ -16,6 +16,7 @@
         LD_PRELOAD=/lib64/libncursesw.so.6 gdb
         ```
         
+-   Still no GMP for cpeAMD as it fails in the tests.
 
 -   Note that we were unable to upgrade SCons to 4.5.1 as that version was too new 
     for Serf included in syslibs.
