@@ -25,6 +25,7 @@
     is probably even more dangerous as bash will pick it up, so there is a risk
     that the shell may not work the way it should anymore if a new shell is loaded.
 
+
 ### 6.2 from 22.06 on
 
   * We stuck to 6.2 as there is a bug in the generation of .pc files in 6.3. It is
@@ -37,3 +38,19 @@
       * Added a checksum
 
       * Added some symbolic links that are used in the standard EasyBuilders EasyConfig.
+
+
+### 6.4 from 22.12 on
+
+  * Skipped 6.3 used in 2022b and went immediately for 6.4 as it fixes the bug 
+    in the configure process of 6.3 when `--enable-pc-files` and `--with-pkg-config-libdir`
+    are used together.
+    
+  * Tried a few new options in the EasyConfig.
+  
+  * Did not succeed in solving the compatibility problem with the `gdb` from SUSE which 
+    expects some very old version symbols that are not even included anymore with the
+    `--with-versioned-syms` flag.
+    
+    It may or may not be solved by patching the `*.map` files in the `package` subdirectory
+    but we have no idea how to do this.
