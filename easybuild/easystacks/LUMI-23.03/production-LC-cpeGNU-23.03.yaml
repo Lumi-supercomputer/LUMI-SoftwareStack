@@ -11,4 +11,29 @@ easyconfigs:
   - GMP-6.2.1-cpeGNU-23.03.eb
   - GSL-2.7.1-cpeGNU-23.03-sequential.eb
   - GSL-2.7.1-cpeGNU-23.03-OpenMP.eb
+  - gzip-1.12-cpeGNU-23.03.eb
+  - ICU-72.1-cpeGNU-23.03.eb
+  - libaec-1.0.6-cpeGNU-23.03.eb
+  - libb2-0.98.1-cpeGNU-23.03.eb
+  - libcerf-2.3-cpeGNU-23.03.eb
+  - libdeflate-1.15-cpeGNU-23.03.eb
+  - libffi-3.4.4-cpeGNU-23.03.eb
+#  - libidn-1.38-cpeGNU-23.03.eb
+  - libidn2-2.3.4-cpeGNU-23.03.eb
+  - libjpeg-turbo-2.1.4-cpeGNU-23.03.eb
+  - libogg-1.3.5-cpeGNU-23.03.eb
+  - libopus-1.3.1-cpeGNU-23.03.eb
+  - libpsl-0.21.1-cpeGNU-23.03.eb
+  - libtirpc-1.3.3-cpeGNU-23.03.eb
+  - LMDB-0.9.29-cpeGNU-23.03.eb
+  - lz4-1.9.4-cpeGNU-23.03.eb
+  - Lzip-1.23-cpeGNU-23.03.eb
+  - LZO-2.10-cpeGNU-23.03.eb
+  - mpdecimal-2.5.1-cpeGNU-23.03.eb
   - ncurses-6.4-cpeGNU-23.03.eb
+  - Szip-2.1.1-cpeGNU-23.03.eb
+#  - termcap-1.3.1-cpeGNU-23.03.eb
+  - x264-20230226-cpeGNU-23.03.eb
+  - x265-3.5-cpeGNU-23.03.eb
+  - zlib-1.2.12-cpeGNU-23.03.eb
+  
