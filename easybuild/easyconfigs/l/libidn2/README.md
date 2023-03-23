@@ -18,3 +18,9 @@
 ### Version 2.3.2 from CPE 21.06 on
 
   * The EasyConfig is a mix of the EasyBuilders and University of Antwerpen ones.
+
+
+### Version 2.3.4 from CPE 22.12 on
+
+  * Trivial port of the 3.4.2 EasyConfig.
+
