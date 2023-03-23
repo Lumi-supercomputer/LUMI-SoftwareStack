@@ -19,3 +19,11 @@ versions on the home page so we simply follow the state in EasyBuild.
 
   * The EasyConfig is derived from the EasyBuilders one with some elements taken
     from the University of Antwerpen one.
+
+
+### Version 20230226 from CPE 22.12 on
+    
+  * Trivial port of the EasyConfig for 20210414, but with a change to the location
+    where we copy the licensing information.
+
+  
