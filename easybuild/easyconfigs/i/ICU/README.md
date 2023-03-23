@@ -1,8 +1,8 @@
 # ICU - International Components for UNICODE
 
-  * [ICU home page](http://site.icu-project.org/)
+  * [ICU home page](https://icu.unicode.org/)
 
-      * [Downloads from the ICU home page](http://site.icu-project.org/download)
+      * [Downloads from the ICU home page](https://icu.unicode.org/download)
 
   * [ICU on GitHub](https://github.com/unicode-org/icu)
 
@@ -26,3 +26,10 @@
   * Added `sanity_check_commands`.
 
   * Checked the documentation for further testing procedures bud coulnd't find any at the moment.
+  
+  
+### 72.1 from CPE 22.12 on
+
+  * Trivial port of the EasyConfig
+  
+  * Switched to the new home page URL, as in the EasyBuilders repository.
