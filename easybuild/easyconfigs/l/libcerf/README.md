@@ -24,3 +24,6 @@
 
   * Trivial update of the EasyConfig.
 
+### Version 2.3 from CPE 22.12 on
+
+  * Trivial update of the EasyConfig.
