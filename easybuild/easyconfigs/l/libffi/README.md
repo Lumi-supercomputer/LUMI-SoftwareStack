@@ -22,3 +22,12 @@
       * Switch to GitHub as the download site
 
       * Install libraries in lib instead of in lib64 as most other packages install in lib.
+
+      
+### Version 3.4.4 from CPE 22.12 on
+
+  * The EasyConfig is a trivial port of the 3.4.2 one.
+      
+  * But added the `--disable-exec-static-tramp` that is also used in the EasyBuilders
+    EasyConfig.
+
