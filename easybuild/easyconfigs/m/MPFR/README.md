@@ -21,3 +21,9 @@
 
     **NOTE:** When compiled with cpeCray or cpeAMD two of the tests are skipped, while
     in the cpeGNU versions all tests pass.
+
+ 
+### Version 4.2.0 from CPE 22.12 on
+
+  * The easyConfig is a trivial port of the 4.1.0 one.
+
