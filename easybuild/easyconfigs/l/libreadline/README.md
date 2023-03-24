@@ -14,3 +14,13 @@
   * The EasyConfig file is a mix of that of CSCS, an correction from the regular EasyBuilders
     repository and additional module info from the UAntwerpen setup.
 
+
+### 8.1.2 from CPE 22.08 on
+
+  * The EasyConfig is a trivial port of the 8.1 one.
+
+
+### 8.3 from CPE 22.12 on
+
+  *  The EasyConfig is a trivial port of the 8.1.2 one.
+
