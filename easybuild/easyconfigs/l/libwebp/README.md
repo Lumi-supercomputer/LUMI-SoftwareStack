@@ -29,7 +29,14 @@
     mostly follows the EasyBuilders one with some additional configuration
     options.
 
+
 ### 1.2.2 from CPE 22.06 on
 
   * Trivial version bump of the 1.2.0 EasyConfig.
+
+
+### 1.2.4 from CPE 22.12 on
+
+  * Trivial port of the EasyConfig of 1.2.2, but with some improvements to the
+    sanity check borrowed from the EasyBuilders version. 
   
