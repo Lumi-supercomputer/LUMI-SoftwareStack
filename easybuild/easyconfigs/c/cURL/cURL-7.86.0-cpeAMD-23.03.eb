@@ -1,0 +1,81 @@
+# NOTE: Can use the LDAP libraries which would give it extra features
+# NOTE: Checks for idn2.h/libidn2 (IDN support)
+# NOTE: Should we be worried that it does not find libpsl?
+easyblock = 'ConfigureMake'
+
+local_zlib_version =         '1.2.12'        # https://zlib.net/
+local_Brotli_version =       '1.0.9'         # https://github.com/google/brotli/releases
+local_cURL_version =         '7.86.0'        # https://curl.haxx.se/download/
+
+name =    'cURL'
+version = local_cURL_version
+
+homepage = 'http://curl.haxx.se/'
+
+whatis = [
+    'Description: Command line tool and library for transferring data with URLs.',
+    'This module contains the command line tool and static and shared libraries.',
+    'Keywords: DICT, FILE, FTP, FTPS, Gopher, HTTP, HTTPS, IMAP, IMAPS, LDAP, LDAPS, POP3, POP3S, RTMP, RTSP, SCP, SFTP, SMTP, SMTPS, Telnet, TFTP',
+]
+
+description = """
+libcurl is a free and easy-to-use client-side URL transfer library, supporting
+DICT, FILE, FTP, FTPS, Gopher, HTTP, HTTPS, IMAP, IMAPS, LDAP, LDAPS, POP3,
+POP3S, RTMP, RTSP, SCP, SFTP, SMTP, SMTPS, Telnet and TFTP. libcurl supports
+SSL certificates, HTTP POST, HTTP PUT, FTP uploading, HTTP form based upload,
+proxies, cookies, user+password authentication (Basic, Digest, NTLM, Negotiate,
+Kerberos), file transfer resume, http proxy tunneling and more.
+"""
+
+usage = """
+Load the cURL module to view the man pages or check the web-based documentation
+which includes a tutoriali page with plenty of examples.
+"""
+
+
+docurls = [
+    'Web-based documentation: https://curl.haxx.se/docs/',
+    'Man pages for the curl and curl-config commands (section 1) and the library functions (section 3)',
+]
+
+toolchain = {'name': 'cpeAMD', 'version': '23.03'}
+toolchainopts = {'pic': True}
+
+sources =     [SOURCELOWER_TAR_XZ]
+source_urls = ['http://curl.haxx.se/download/']
+checksums =   ['2d61116e5f485581f6d59865377df4463f2e788677ac43222b496d4e49fb627b']
+
+builddependencies = [ # Create a reproducible build environment.
+    ('buildtools', '%(toolchain_version)s', '', True),
+]
+
+dependencies = [
+    ('zlib',   local_zlib_version),
+    ('Brotli', local_Brotli_version),
+]
+
+osdependencies = [
+    ('openssl-devel', 'libssl-dev', 'libopenssl-devel'),
+#    ('libssh2-devel'),
+]
+
+# dependencies = [('OpenSSL', '1.1.0e')]
+# configopts = "--with-ssl=$EBROOTOPENSSL"
+configopts  = "--with-zlib=$EBROOTZLIB --with-openssl"
+#configopts += '--with-nghttp2 '           # Does not yet work at UAntwerp, requires an external library
+#configopts += '--with-ssh2 '              # Does not yet work at UAntwerp
+
+modextravars = {'CURL_INCLUDES': '%(installdir)s/include'}
+
+sanity_check_paths = {
+    'files': ['bin/curl', 'lib/libcurl.a', 'lib/libcurl.%s' % SHLIB_EXT],
+    'dirs':  ['lib/pkgconfig'],
+}
+
+sanity_check_commands = [
+    '%(namelower)s --version',
+    'curl-config --version',
+    'pkg-config --libs libcurl',
+]
+
+moduleclass = 'tools'

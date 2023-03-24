@@ -22,8 +22,16 @@
 
   * Added additional sanity check commands to the file.
 
+
 ### Version 7.83.1 for LUMI/22.06
 
   * Trivial update of the EasyConfig, we did not check for new features that could be
     exploited via additional dependencies.
 
+
+### Version 7.86.0 for CPE 22.12 and later
+
+  * Trivial update of the EasyConfig, we did not check for new features that could be
+    exploited via additional dependencies.
+
+  
