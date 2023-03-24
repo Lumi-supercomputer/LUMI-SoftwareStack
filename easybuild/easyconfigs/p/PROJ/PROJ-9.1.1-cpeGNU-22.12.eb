@@ -1,0 +1,71 @@
+# Contributed by Theofilos Manitaras and Luca Marsella (CSCS)
+# Adapted by Kurt Lust (kurt.lust@uantwerpen.be) for the LUMI consortium
+easyblock = 'CMakeMake'
+
+local_cURL_version =         '7.86.0'        # https://curl.haxx.se/download/
+local_libtiff_version =      '4.4.0'         # https://download.osgeo.org/libtiff/
+local_SQLite_version =       '3.39.4'        # https://www.sqlite.org/
+
+local_PROJ_version =         '9.1.1'         # https://proj.org/download.html
+
+name =    'PROJ'
+version = local_PROJ_version
+
+homepage = 'https://proj.org'
+
+whatis = [
+    'Description: PROJ is a generic coordinate transformation software that transforms geospatial coordinates from one coordinate reference system (CRS) to another.'
+]
+
+description = """
+PROJ is a generic coordinate transformation software that transforms geospatial
+coordinates from one coordinate reference system (CRS) to another. This
+includes cartographic projections as well as geodetic transformations. PROJ is
+released under the X/MIT open source license
+
+PROJ includes command line applications for easy conversion of coordinates from
+text files or directly from user input. In addition to the command line
+utilities PROJ also exposes an application programming interface, or API in
+short. The API lets developers use the functionality of PROJ in their own
+software without having to implement similar functionality themselves.
+
+PROJ started purely as a cartography application letting users convert geodetic
+coordinates into projected coordinates using a number of different cartographic
+projections. Over the years, as the need has become apparent, support for datum
+shifts has slowly worked its way into PROJ as well. Today PROJ supports more than
+a hundred different map projections and can transform coordinates between datums
+using all but the most obscure geodetic techniques.
+"""
+
+toolchain = {'name': 'cpeGNU', 'version': '22.12'}
+toolchainopts = {'pic': True, 'usempi': True}
+
+source_urls = ['http://download.osgeo.org/%(namelower)s/']
+sources =     [SOURCELOWER_TAR_GZ]
+checksums =   ['003cd4010e52bb5eb8f7de1c143753aa830c8902b6ed01209f294846e40e6d39']
+
+builddependencies = [ # Create a reproducible build environment.
+    ('buildtools',   '%(toolchain_version)s',   '', True),
+]
+
+dependencies = [
+    ('LibTIFF', local_libtiff_version),
+    ('SQLite',  local_SQLite_version),
+    ('cURL',    local_cURL_version),
+]
+
+# build twice, once for static, once for shared libraries
+configopts = ['-DBUILD_SHARED_LIBS=ON', '-DBUILD_SHARED_LIBS=OFF']
+
+sanity_check_paths = {
+    'files': ['bin/cct', 'bin/cs2cs', 'bin/geod', 'bin/gie', 'bin/proj', 'bin/projinfo',
+              'lib/libproj.a', 'lib/libproj.%s' % SHLIB_EXT],
+    'dirs':  ['include'],
+}
+
+sanity_check_commands = [ 
+    'cct -h',
+    'gie -h',
+]
+
+moduleclass = 'lib'
