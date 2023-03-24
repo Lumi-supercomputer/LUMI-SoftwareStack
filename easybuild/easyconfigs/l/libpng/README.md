@@ -13,3 +13,10 @@
 
   * The EasyConfig file is derived from the University of Antwerpen repository which
     itself is derived from the EasyBuilders one.
+
+
+### Version 1.6.38 from CPE 22.12 on
+
+  * The EasyConfig is a trivial update of the 1.6.37 one with a modification taken
+    from the EasyBuilders one.
+
