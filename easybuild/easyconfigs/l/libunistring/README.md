@@ -20,3 +20,8 @@
 
   * Trivial update of the EasyConfig file.
 
+
+### 1.1 from 22.12 on
+
+  * Trivial update of the EasyConfig file for 1.0.
+
