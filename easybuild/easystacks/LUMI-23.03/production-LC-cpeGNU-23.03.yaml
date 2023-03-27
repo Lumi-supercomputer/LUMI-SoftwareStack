@@ -84,3 +84,27 @@ easyconfigs:
   - PROJ-9.1.1-cpeGNU-23.03.eb
   - util-linux-2.38.1-cpeGNU-23.03.eb
 # Block 7
+  - fontconfig-2.14.1-cpeGNU-23.03.eb
+  - GLib-2.75.0-cpeGNU-23.03.eb
+  - libgd-2.3.3-cpeGNU-23.03.eb
+  - X11-23.03-cpeGNU-23.03.eb
+# Block 8
+  - cairo-1.17.4-cpeGNU-23.03.eb
+  - FFmpeg-5.1.2-cpeGNU-23.03.eb
+  - Tk-8.6.12-cpeGNU-23.03.eb
+# Block 9
+  - GObject-Introspection-1.74.0-cpeGNU-23.03-cray-python3.9.eb
+# Block 10
+  - HarfBuzz-5.3.1-cpeGNU-23.03.eb
+# Block 11
+  - Pango
+# Some libraries from the apps section of before, and applications(s)
+#  - ELPA: Wait a bit, it looks like we need multiple versions and that it may need more testing.
+  - METIS-5.1.0-cpeGNU-23.03.eb
+  - ParMETIS-4.0.3-cpeGNU-23.03.eb
+  - SCOTCH-7.0.3-cpeGNU-23.03.eb  # Check if the EasyBlock needs an update!
+  - ESMF
+  - gnuplot
+#  - VampirServer
+#  - Score-P
+
