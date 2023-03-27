@@ -62,3 +62,7 @@
     might need some more testing and as we may need to rework the custom application
     EasyBlock.
 
+
+### Version 7.0.3 from CPE 22.12 on
+
+  * Followed the version upgrade in EasyBuild 2022b.
