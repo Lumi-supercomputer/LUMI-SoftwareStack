@@ -31,3 +31,8 @@
     statements from the EasyBuild 4.6.0 version as that one produced problems
     during the configure step.
 
+
+### Version 5.3.1 from CPE 22.12 on
+
+  * Trivial port of the 4.2.1 EasyConfig.
+
