@@ -19,7 +19,13 @@
   * Started from the UAntwerpen EasyConfig file which is mostly equivalent to
     the EasyBuilders one.
 
+
 ### Version 1.50.7 from CPE 22.06 on
 
   * Trivial version bump of the 1.48.10 EasyConfig.
+
+
+### Version 1.50.12 from CPE 22.12 on
+
+  * Trivial version bump of the 1.50.7 EasyConfig.
 
