@@ -1,0 +1,3 @@
+easyconfigs:
+  - rocm-5.2.5.eb
+  - rocm-5.3.3.eb
