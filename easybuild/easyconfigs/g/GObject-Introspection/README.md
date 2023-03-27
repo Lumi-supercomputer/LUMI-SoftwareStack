@@ -34,3 +34,10 @@
 ### Version 1.72.0 for CPE 22.06
 
   * Trivial port of the EasyConfig, made last minute to align with EasyBuild 4.6.0.
+
+  
+### Version 1.74.0 from CPE 22.12 on
+
+  * Trivial port of the EasyConfig of 1.72.0.
+
+  
