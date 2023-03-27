@@ -32,3 +32,8 @@ in EasyBuild.
   * We started from a version bump of the 4.3.3 EasyConfig.
 
 
+### Version 5.1.2 from CPE 22.12 on
+
+  * Almost trivial port of the 5.0.1 EasyConfig, but SDL2 was added as a dependency 
+    to better align with the EasyBuilders version.
+
