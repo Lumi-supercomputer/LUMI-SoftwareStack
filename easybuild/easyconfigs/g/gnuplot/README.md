@@ -21,3 +21,10 @@
 
   * Needed to add `--without-latex` to `configopts` as the makefiles did not honour
     `--prefix` for this option and tried to install files in a system directory.
+
+ 
+### Version 5.4.6 from CPE 22.12 on
+
+  * Trivial version bump of the 5.4.3 EasyConfig.
+    
+     
