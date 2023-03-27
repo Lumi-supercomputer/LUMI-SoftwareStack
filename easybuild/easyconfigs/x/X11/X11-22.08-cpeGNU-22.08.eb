@@ -80,7 +80,7 @@ default_component_specs = {
     'start_dir':     '%(name)s-%(version)s',
 }
 
-components = [ # List taken from the GCCcore 11.3.0 (2022b) common toolchain with own additions at the end
+components = [ # List taken from the GCCcore 11.3.0 (2022a) common toolchain with own additions at the end
     ('libpthread-stubs', '0.4', {  # 2017-03-14
         'checksums': ['50d5686b79019ccea08bcbd7b02fe5a40634abcfd4146b6e75c6420cc170e9d9'],
     }),

@@ -42,12 +42,22 @@ This is a bundle of X11 tools provided by EasyBuild.
     xauth was also added in case this would still be useful for some
     users.
 
+
 ### Bundle for 21.12
 
   * Components taken from the 2021b bundle with own additions at the end.
 
-### Bundle for 22.06
+
+### Bundle for 22.06 and 22.08
 
   * Started from the 21.12 bundle, but updated the packages with those of the
-    GCCcore/11.3.0 - 2022b bundle. Also updated the local additions.
+    GCCcore/11.3.0 - 2022a bundle. Also updated the local additions.
+
+
+### Bundle for 22.12 and 23.03
+
+  * Started from the 22.08 bundle, but updated the packages with those of the
+    GCCcore/12.2.0 - 2022b bundle. Also updated the local additions.
+    
+  * Added xterm to the bundle.
 
