@@ -34,6 +34,8 @@ in EasyBuild.
 
 ### Version 5.1.2 from CPE 22.12 on
 
-  * Almost trivial port of the 5.0.1 EasyConfig, but SDL2 was added as a dependency 
-    to better align with the EasyBuilders version.
+  * Almost trivial port of the 5.0.1 EasyConfig.
+  
+  * Note that we explicitly exclude the SDL2 dependency that is used in the EasyBuilders
+    repository as SDL2 uses DBus and hence may not work on the compute nodes.
 
