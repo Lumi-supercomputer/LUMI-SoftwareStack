@@ -18,3 +18,5 @@
 
   * The EasyConfig file is a mix of the EasyBuilders and UAntwerpen ones.
 
+  * Added a better sanity check from CPE 22.12 on.
+
