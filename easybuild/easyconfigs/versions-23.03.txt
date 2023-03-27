@@ -171,6 +171,7 @@ local_PROJ_version =         '9.1.1'         # https://proj.org/download.html
 local_pixman_version =       '0.42.2'        # https://www.cairographics.org/releases/
 
 local_SCOTCH_version =       '7.0.3'         # https://gforge.inria.fr/projects/scotch/
+local_SDL2_version =         '2.26.3'        # https://www.libsdl.org/release/
 local_snappy_version =       '1.1.9'         # https://github.com/google/snappy/releases as there are compile problems with 1.1.8
 local_SQLite_version =       '3.39.4'        # https://www.sqlite.org/
 local_Szip_version =         '2.1.1'         # https://support.hdfgroup.org/ftp/lib-external/szip/
@@ -188,6 +189,7 @@ local_x264_commit =          'baee400f'      # Just follow EasyBuild as the dist
 local_x264_version =         '20230226'      # Just follow EasyBuild as the distribution is currently a mess
 local_x265_version =         '3.5'           # http://download.videolan.org/pub/videolan/x265/
 local_xorg_macros_version =  '1.19.3'        # https://cgit.freedesktop.org/xorg/util/macros
+local_xterm_version =        '379c'          # https://github.com/ThomasDickey/xterm-snapshots/tags
 local_XZ_version =           '5.4.2'         # https://tukaani.org/xz/
 
 local_zlib_version =         '1.2.12'        # https://zlib.net/
