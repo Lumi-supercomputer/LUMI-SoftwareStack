@@ -51,7 +51,7 @@ do
             ebfile = ebfile:gsub( repl_pattern.pattern, repl_pattern.repl )
         end
 
-        os.rename( file, file .. '.orig' )
+        -- os.rename( file, file .. '.orig' )
         local fp = assert( io.open( file, 'w' ) )
         if fp == nil then os.exit( 1 ) end
         fp:write( ebfile )
