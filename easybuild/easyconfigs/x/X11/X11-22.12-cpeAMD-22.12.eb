@@ -17,9 +17,8 @@ version = '%(toolchain_version)s'
 homepage = 'https://www.x.org'
 
 whatis = [
-    'Description: X Window System (X11) libraries, a windowing system for bitmap displays',
-    'This module contains static and shared libraries for a lot of libraries from the X11 system',
-    'Local extensions: libXaw3D, libDRM and D-Bus (DBus), xproto, xdipyinfo, x11perf',
+    'Description: X Window System (X11) static and shared libraries and some X11 tools',
+    'Extensions: xproto, xdipyinfo, x11perf, xterm',
 ]
 
 description = """
@@ -41,13 +40,15 @@ EasyBuild X11 modules:
   to one another.  In addition to interprocess communication, D-Bus helps
   coordinate process lifecycle; it makes it simple and reliable to code
   a "single instance" application or daemon, and to launch applications
-  and daemons on demand when their services are needed.
+  and daemons on demand when their services are needed. D-Bus may not be
+  fully functional on the compute nodes.
 * libXaw3D: A set of simple widgets
 * xporp: The xprop utility is for displaying window and font properties in an X server.
   One window or font is selected using the command line arguments or possibly
   in the case of a window, by clicking on the desired window. A list of
   properties is then given, possibly with formatting information.
 * xdpyinfo and x11perf to quickly test if remote X is working.
+* xterm
 """
 
 toolchain = {'name': 'cpeAMD', 'version': '22.12'}
@@ -62,8 +63,9 @@ source_urls = [
 ]
 
 builddependencies = [ # Create a reproducible build environment.
-    ('buildtools',   '%(toolchain_version)s',   '', True),
-    ('intltool',     local_intltool_version),
+    ('buildtools' ,       '%(toolchain_version)s', '',              True),
+    ('buildtools-python', '%(toolchain_version)s', '-systemPython', True),
+    ('intltool',          local_intltool_version),
 ]
 
 dependencies = [
@@ -261,7 +263,7 @@ components = [ # List taken from the GCCcore 12.2.0 (2022b) common toolchain wit
         'configopts':  '--without-systemdsystemunitdir',
     }),
     ('xprop', '1.2.6', { # 2022-12-03 https://www.x.org/archive/individual/app/, used by FLTK
-        'sources':     [SOURCELOWER_TAR_BZ2],
+        'sources':     [SOURCELOWER_TAR_XZ],
         'source_urls': ['http://ftp.x.org/archive/individual/app/'],
         'checksums':   ['580b8525b12ecc0144aa16c88b0aafa76d2e799b44c8c6c50f9ce92788b5586e'],
     }),
@@ -283,7 +285,8 @@ components = [ # List taken from the GCCcore 12.2.0 (2022b) common toolchain wit
     ('xterm', local_xterm_version, { # https://github.com/ThomasDickey/xterm-snapshots/archive/refs/tags/xterm-379c.tar.gz
         'sources':     [SOURCELOWER_TAR_GZ],
         'source_urls': ['https://github.com/ThomasDickey/xterm-snapshots/archive/refs/tags'],
-        'checksums':   ['78ba6afd19536ced1dddb3276cba6e9555a211b468a06f95f6a97c62ff8ee200'],
+        'checksums':   ['0c2ae84ab5421764a72fbc417c7b9fdf3ed33a9893555882639fdf1c483e30b2'],
+        'start_dir':   'xterm-snapshots-xterm-%(version)s',
         'configopts':  '--with-pcre2',
     }),
 ]
