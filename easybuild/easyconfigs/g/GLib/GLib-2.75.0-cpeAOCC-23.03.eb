@@ -59,7 +59,8 @@ builddependencies = [
     # Packages that use GLib should either have an explicit
     # (build)dependency on Python or it will use the system version
     # EasyBuild itself uses.
-    ('buildtools', '%(toolchain_version)s', '', True),
+    ('buildtools' ,       '%(toolchain_version)s', '',              True),
+    ('buildtools-python', '%(toolchain_version)s', '-systemPython', True),
 ]
 
 dependencies = [
