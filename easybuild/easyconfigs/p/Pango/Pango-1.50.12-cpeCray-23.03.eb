@@ -49,7 +49,8 @@ sources =     [SOURCELOWER_TAR_XZ]
 checksums =   ['caef96d27bbe792a6be92727c73468d832b13da57c8071ef79b9df69ee058fe3']
 
 builddependencies = [
-    ('buildtools',            '%(toolchain_version)s', '', True),
+    ('buildtools' ,           '%(toolchain_version)s', '',              True), # For Ninja
+    ('buildtools-python',     '%(toolchain_version)s', '-systemPython', True), # For Meson
     ('GObject-Introspection', local_GObject_version,   '-cray-python' + local_craypython_maj_min),
 ]
 
