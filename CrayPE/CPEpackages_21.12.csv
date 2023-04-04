@@ -8,7 +8,7 @@ ATOMS,1.0.5
 PALS,1.1.3
 ATP,3.14.8
 CCDB,4.12.7
-Cray-dininst,10.1.0
+cray-dyninst,10.1.0
 CTI,2.15.8
 gdb4hpc,4.13.8
 STAT,4.11.8
