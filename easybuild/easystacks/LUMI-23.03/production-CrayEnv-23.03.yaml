@@ -15,5 +15,3 @@ easyconfigs:
 #  - rocm-5.2.5.eb
 #  - rocm-5.3.3.eb
   - parallel-20230222.eb
-  - lumio-ext-tools-1.0.0.eb
-  - lumio-1.0.0.eb
