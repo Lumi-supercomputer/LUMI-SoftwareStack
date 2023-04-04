@@ -103,8 +103,8 @@ easyconfigs:
   - METIS-5.1.0-cpeAMD-22.12.eb
   - ParMETIS-4.0.3-cpeAMD-22.12.eb
   - SCOTCH-7.0.3-cpeAMD-22.12.eb  # Check if the EasyBlock needs an update!
-#  - ESMF
-  - gnuplot
+#  - ESMF-8.4.1-cpeAMD-22.12.eb
+  - gnuplot-5.4.6-cpeAMD-22.12.eb
 #  - VampirServer
 #  - Score-P
 
