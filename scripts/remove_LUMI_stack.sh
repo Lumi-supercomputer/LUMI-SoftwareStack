@@ -70,7 +70,11 @@ function die () {
 function rm_dir () {
 
     echo "Removing directory $1..."
-    [[ -d "$1" ]] && ( /bin/rm -rf "$1" || die "Failed to remove directory $1" )
+    if [[ -d "$1" ]]
+    then
+        tar -u -f "$2" "$1"
+        /bin/rm -rf "$1" || die "Failed to remove directory $1"
+    fi
 
 }
 
@@ -86,7 +90,11 @@ function rm_dir () {
 function rm_file () {
 
     echo "Removing file $1..."
-    [[ -f "$1" ]] && ( /bin/rm -f "$1" || die "Failed to remove file $1" )
+    if [[ -f "$1" ]]
+    then
+        tar -u -f "$2" "$1"
+        /bin/rm -f "$1" || die "Failed to remove file $1" 
+    fi
 
 }
 
@@ -102,41 +110,59 @@ select yn in "Yes" "No"; do
     esac
 done
 
+################################################################################
+#
+# Prepare the archive.
+#
+
+mkdir -p "$installroot/archive"
+tar_file="$installroot/archive/LUMI-$stack_version.tar"
+cd "$installroot" # Should be in this directory already but you never know...
+
 
 ################################################################################
 #
 # First step: Clean module directory
 #
 
-rm_file "/$installroot/modules/SoftwareStack/LUMI/$stack_version.lua"
+rm_file "modules/SoftwareStack/LUMI/$stack_version.lua" "$tar_file"
 for subdir in SystemPartition Infrastructure easybuild spack manual
 do
-	rm_dir "$installroot/modules/$subdir/LUMI/$stack_version"
+	rm_dir "modules/$subdir/LUMI/$stack_version" "$tar_file"
 done
+rm_dir "modules/CrayOverwrite/data-cpe/$stack_version" "$tar_file"
+rm_file "modules/CrayOverwrite/core/cpe/$stack_version.lua" "$tar_file"
 
 
 ################################################################################
 #
 # Second step: Clean the software directories
 #
-rm_dir "$installroot/SW/LUMI-$stack_version"
+rm_dir "SW/LUMI-$stack_version" "$tar_file"
 
 
 ################################################################################
 #
 # Third step: Clean the repository
 #
-rm_dir "$installroot/mgmt/ebrepo_files/LUMI-$stack_version"
+rm_dir "mgmt/ebrepo_files/LUMI-$stack_version" "$tar_file"
 
 
 ################################################################################
 #
 # Fourth step: Various files
 #
-rm_file "$installroot/mgmt/LMOD/ModuleRC/LUMIstack_${stack_version}_modulerc.lua"
-rm_file "$installroot/mgmt/LMOD/VisibilityHookData/CPEmodules_${stack_version/\./_}.lua"
+rm_file "mgmt/LMOD/ModuleRC/LUMIstack_${stack_version}_modulerc.lua" "$tar_file"
+rm_file "mgmt/LMOD/VisibilityHookData/CPEmodules_${stack_version/\./_}.lua" "$tar_file"
 for prgenv in cpeGNU cpeCray cpeAOCC cpeAMD
 do
-	rm_file "$installroot/$repo/easybuild/easyconfigs/c/$prgenv/$prgenv-$stack_version.eb"
+	rm_file "$repo/easybuild/easyconfigs/c/$prgenv/$prgenv-$stack_version.eb" "$tar_file"
 done
 
+################################################################################
+#
+# Compress the archive.
+#
+
+echo "Compressing the archive..."
+gzip -9 "$tar_file"
