@@ -43,7 +43,7 @@ dependencies = [
 
 configopts = '--enable-libwebpmux --enable-libwebpdemux --enable-libwebpdecoder --enable-libwebpextras'
 
-ocal_headers, local_libs = (
+local_headers, local_libs = (
     ['decode.h', 'demux.h', 'encode.h', 'mux.h', 'mux_types.h', 'types.h'],
     ['webp', 'webpdemux', 'webpmux']
 )

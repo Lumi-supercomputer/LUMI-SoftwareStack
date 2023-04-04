@@ -23,7 +23,7 @@ compression for images on the web. Using WebP, webmasters and web developers
 can create smaller, richer images that make the web faster.
 """
 
-toolchain = {'name': 'cpeAOCC', 'version': '23.03'}
+toolchain = {'name': 'cpeAOCC', 'version': '22.12'}
 toolchainopts = {'pic': True}
 
 source_urls = ['https://storage.googleapis.com/downloads.webmproject.org/releases/webp']
