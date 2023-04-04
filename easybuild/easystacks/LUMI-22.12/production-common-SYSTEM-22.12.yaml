@@ -13,4 +13,5 @@ easyconfigs:
 #  - cotainr-2023.01.0-cray-python-3.9.12.1.eb
 #  - Rust-1.55.0.eb
   - parallel-20230322.eb
- 
+  - lumio-ext-tools-1.0.0.eb
+  - lumio-1.0.0.eb 

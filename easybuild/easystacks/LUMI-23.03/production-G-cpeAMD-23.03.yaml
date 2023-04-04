@@ -25,7 +25,7 @@ easyconfigs:
   - libogg-1.3.5-cpeAMD-23.03.eb
   - libopus-1.3.1-cpeAMD-23.03.eb
   - libpsl-0.21.1-cpeAMD-23.03.eb
-  - libreadline-8.2-cpeAMD-23.03.eb
+  - ncurses-6.4-cpeAMD-23.03.eb
   - libtirpc-1.3.3-cpeAMD-23.03.eb
   - LMDB-0.9.29-cpeAMD-23.03.eb
   - lz4-1.9.4-cpeAMD-23.03.eb
@@ -47,6 +47,7 @@ easyconfigs:
   - libevent-2.1.12-cpeAMD-23.03.eb
   - libpciaccess-0.17-cpeAMD-23.03.eb
   - libpng-1.6.38-cpeAMD-23.03.eb
+  - libreadline-8.2-cpeAMD-23.03.eb
   - libvorbis-1.3.7-cpeAMD-23.03.eb
 #  - MPFR-4.2.0-cpeAMD-23.03.eb
   - snappy-1.1.9-cpeAMD-23.03.eb
