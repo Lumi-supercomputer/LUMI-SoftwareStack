@@ -33,3 +33,8 @@
     
 -    Extensive documentation is also taken from the UAntwerpen module.
 
+
+### Version 20230222 using the system perl.
+
+-   Trivial version bump of the EasyConfig for 20230222.
+
