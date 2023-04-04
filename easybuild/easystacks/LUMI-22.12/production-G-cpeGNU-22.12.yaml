@@ -26,7 +26,7 @@ easyconfigs:
   - libopus-1.3.1-cpeGNU-22.12.eb
   - libpsl-0.21.1-cpeGNU-22.12.eb
   - ncurses-6.4-cpeGNU-22.12.eb
- - libtirpc-1.3.3-cpeGNU-22.12.eb
+  - libtirpc-1.3.3-cpeGNU-22.12.eb
   - LMDB-0.9.29-cpeGNU-22.12.eb
   - lz4-1.9.4-cpeGNU-22.12.eb
   - Lzip-1.23-cpeGNU-22.12.eb
@@ -98,7 +98,7 @@ easyconfigs:
 # Block 10
   - HarfBuzz-5.3.1-cpeGNU-22.12.eb
 # Block 11
-  - Pango
+  - Pango-1.50.12-cpeGNU-22.12.eb
 # Some libraries from the apps section of before, and applications(s)
 #  - ELPA: Wait a bit, it looks like we need multiple versions and that it may need more testing.
   - METIS-5.1.0-cpeGNU-22.12.eb
@@ -108,4 +108,3 @@ easyconfigs:
   - gnuplot-5.4.6-cpeGNU-22.12.eb
 #  - VampirServer
 #  - Score-P
-
