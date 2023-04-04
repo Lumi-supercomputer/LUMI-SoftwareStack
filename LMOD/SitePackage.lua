@@ -611,10 +611,10 @@ local mapT =
         ['modules/Infrastructure/']         = 'Infrastructure modules for the software stack _STACK_ on _PARTITION_',
         ['modules/easybuild/CrayEnv']       = 'EasyBuild managed software for CrayEnv',
         ['modules/easybuild/system']        = 'EasyBuild managed systemwide software',
-        ['modules/easybuild/']              = 'EasyBuild managed software for software stack _STACK_ on _PARTITION_',
-        ['modules/spack/']                  = 'Spack managed software for software stack _STACK_ on _PARTITION_',
-        ['modules/manual/system']           = 'Manually installed system-wide software',
-        ['modules/manual/']                 = 'Manually installed software for software stack _STACK_ on _PARTITION_',
+        ['modules/easybuild/L']             = 'EasyBuild managed software for software stack _STACK_ on _PARTITION_',
+        -- ['modules/spack/']                  = 'Spack managed software for software stack _STACK_ on _PARTITION_',
+        -- ['modules/manual/system']           = 'Manually installed system-wide software',
+        -- ['modules/manual/']                 = 'Manually installed software for software stack _STACK_ on _PARTITION_',
         ['cray/pe/.*/craype%-targets']      = 'HPE-Cray PE target modules',
         ['cray/pe/.*/core']                 = 'HPE-Cray PE modules',
         ['modules/CrayOverwrite/core']      = 'HPE-Cray PE modules',
@@ -641,6 +641,10 @@ local mapT =
         ['/usr/share/modulefiles']          = 'Non-PE HPE-Cray modules',
         -- User-installed software
         [ EB_prefix .. '/modules']          = 'EasyBuild managed user software for software stack _STACK_ on _PARTITION_',
+        -- Other stacks
+        ['modules/LocalStack']              = 'Local software collections (non-LUST)',
+        ['/appl/local/csc/modulefiles']     = 'Local software collection managed by CSC',
+        ['/appl/local/quantum/modulefiles'] = 'Software for the Helmi quantum computer (non-LUST)',
      },
     PEhierarchy = {
 --        ['/testview$']                      = 'Activate environments',
@@ -652,10 +656,10 @@ local mapT =
         ['modules/Infrastructure/']         = 'Infrastructure modules for the software stack _STACK_ on _PARTITION_',
         ['modules/easybuild/CrayEnv']       = 'EasyBuild managed software for CrayEnv',
         ['modules/easybuild/system']        = 'EasyBuild managed systemwide software',
-        ['modules/easybuild/']              = 'EasyBuild managed software for software stack _STACK_ on _PARTITION_',
-        ['modules/spack/']                  = 'Spack managed software for software stack _STACK_ on _PARTITION_',
-        ['modules/manual/system']           = 'Manually installed system-wide software',
-        ['modules/manual/']                 = 'Manually installed software for software stack _STACK_ on _PARTITION_',
+        ['modules/easybuild/L']             = 'EasyBuild managed software for software stack _STACK_ on _PARTITION_',
+        -- ['modules/spack/']                  = 'Spack managed software for software stack _STACK_ on _PARTITION_',
+        -- ['modules/manual/system']           = 'Manually installed system-wide software',
+        -- ['modules/manual/']                 = 'Manually installed software for software stack _STACK_ on _PARTITION_',
         ['cray/pe/.*/craype%-targets']      = 'HPE-Cray PE target modules',
         ['cray/pe/.*/core']                 = 'HPE-Cray PE core modules',
         ['modules/CrayOverwrite/core']      = 'HPE-Cray PE core modules',
@@ -682,6 +686,10 @@ local mapT =
         ['/usr/share/modulefiles']          = 'Non-PE HPE-Cray modules',
         -- User-installed software
         [ EB_prefix .. '/modules']          = 'EasyBuild managed user software for software stack _STACK_ on _PARTITION_',
+        -- Other stacks
+        ['modules/LocalStack']              = 'Local software collections (non-LUST)',
+        ['/appl/local/csc/modulefiles']     = 'Local software collection managed by CSC',
+        ['/appl/local/quantum/modulefiles'] = 'Software for the Helmi quantum computer (non-LUST)',
      },
 }
 
