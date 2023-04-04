@@ -1,4 +1,4 @@
--- Trickery with aliases to get some of 22.06 to run.
+-- Trickery with aliases to get some of 22.06 to run using 22.08 modules.
 
 module_version( 'PrgEnv-gnu/8.3.3', '8.3.3' )
 module_version( 'PrgEnv-cray/8.3.3', '8.3.3' )
