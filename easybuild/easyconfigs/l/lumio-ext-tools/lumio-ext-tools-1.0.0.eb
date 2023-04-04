@@ -1,0 +1,108 @@
+# Written by Henrik Nortamo for the LUMI project
+easyblock = 'Bundle'
+
+name =    'lumio-ext-tools'
+version = '1.0.0'
+
+homepage=""
+
+whatis = [ 
+    'Description: Basic tooling for LUMI-O. Provides rclone, s3cmd and restic' 
+]
+
+description = """
+Bundle of external tools used to access LUMI-O  
+
+This module is meant to be used with the `lumio` module which provides a tool
+for authentication.
+""" 
+
+docurls = [
+    'Manual pages for the rclone and s3cmd commands in section 1',
+]
+
+local_rclone_version = '1.61.1'
+local_s3cmd_version =  '2.3.0'
+local_restic_version = '0.15.1'
+
+local_magic_version = '0.4.27' # Dependency for s3cmd that is not already on the system.
+
+toolchain = SYSTEM
+
+components=[
+    # Static go built binary
+    ('rclone', local_rclone_version,{
+        'easyblock':      'MakeCp',
+        'source_urls' :   ['https://downloads.%(name)s.org/v%(version)s/'],
+        'sources' :       ['%(name)s-v%(version)s-linux-amd64.zip'],
+        'checksums' :     ['6d6455e1cb69eb0615a52cc046a296395e44d50c0f32627ba8590c677ddf50a9'],
+        'start_dir':      '%(name)s-v%(version)s-linux-amd64',
+        'skipsteps' :     ['build'],
+        #'files_to_copy' : [(['%(name)s-v%(version)s-linux-amd64/rclone'],   'bin'),
+        'files_to_copy' : [(['rclone'],   'bin'),
+                           (['rclone.1'], 'share/man/man1')],
+    }),
+    # Static go built binary
+    ('restic', local_restic_version, {
+        'easyblock':      'MakeCp',
+        'source_urls' :   ['https://github.com/%(name)s/%(name)s/releases/download/v%(version)s/'],
+        'sources' :       ['%(name)s_%(version)s_linux_amd64.bz2'],
+        'checksums' :     ['3631e3c3833c84ba71f22ea3df20381676abc7476a7f6d14424d9abfada91414'],
+        'files_to_copy' : [(['%(name)s_%(version)s_linux_amd64'],'bin')],
+        'skipsteps' :     ['build'],
+    }),
+    ('python-magic', local_magic_version,{
+        'easyblock':      'PythonPackage',
+        'source_urls':    [PYPI_SOURCE],
+        'sources' :       ['%(name)s-%(version)s.tar.gz'],
+        'start_dir':      '%(namelower)s-%(version)s',
+        'req_py_majver':  3, # Used to let EasyBuild select the right system Python executable.
+        'req_py_minver':  6, # Used to let EasyBuild select the right system Python executable.
+    }),
+    ('s3cmd', local_s3cmd_version,{
+        'easyblock':      'PythonPackage',
+        'source_urls':    [PYPI_SOURCE],
+        'sources' :       ['%(name)s-%(version)s.tar.gz'],
+        'start_dir':      '%(namelower)s-%(version)s',
+        'req_py_majver':  3, # Used to let EasyBuild select the right system Python executable.
+        'req_py_minver':  6, # Used to let EasyBuild select the right system Python executable.
+    }),
+]
+
+# Replace the s3cmd script by one that does not rely on PYTHONPATH being set
+local_s3cmd = f"""#!/usr/bin/python3
+# EASY-INSTALL-SCRIPT: 's3cmd=={local_s3cmd_version}','s3cmd'
+import pathlib
+script_dir=pathlib.Path(__file__).parent.resolve()
+import sys
+sys.path.insert(0,str(script_dir) + f'/../lib/python{{sys.version_info[0]}}.{{sys.version_info[1]}}/site-packages/')
+__requires__ = 's3cmd=={local_s3cmd_version}'
+__import__('pkg_resources').run_script('s3cmd=={local_s3cmd_version}', 's3cmd')"""
+
+# Probably not the right way to do this...
+postinstallcmds = [
+    f'cat >%(installdir)s/bin/s3cmd <<EOF\n{local_s3cmd}\nEOF',
+    'chmod 755 %(installdir)s/bin/s3cmd', 
+    'mv  %(installdir)s/bin/restic_0.15.1_linux_amd64 %(installdir)s/bin/restic && chmod +x %(installdir)s/bin/restic',
+    f'mkdir -p %(installdir)s/share/man/man1 && cp %(builddir)s/s3cmd-{local_s3cmd_version}/s3cmd.1 %(installdir)s/share/man/man1',
+    f'mkdir -p %(installdir)s/share/licenses/s3cmd        && cp %(builddir)s/s3cmd-{local_s3cmd_version}/LICENSE        %(installdir)s/share/licenses/s3cmd',
+    f'mkdir -p %(installdir)s/share/licenses/python-magic && cp %(builddir)s/python-magic-{local_magic_version}/LICENSE %(installdir)s/share/licenses/python-magic',    
+]
+
+sanity_check_paths = {
+    'files': [ 'bin/rclone', 'bin/restic', 'bin/s3cmd' ],
+    'dirs':  [ 'lib/python3.6/site-packages' ],    
+}
+
+sanity_check_commands = [
+    'rclone --version',
+    'restic version',
+    's3cmd --version',
+]
+
+moduleclass = 'tools'
+
+modluafooter = f"""
+extensions( "rclone/{local_rclone_version}", "restic/{local_restic_version}", "s3cmd/{local_s3cmd_version}" )
+"""
+

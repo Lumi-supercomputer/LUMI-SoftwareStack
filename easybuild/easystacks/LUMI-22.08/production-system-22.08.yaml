@@ -25,4 +25,12 @@ software:
     toolchains:
       SYSTEM:
         versions: ['23.01']
-        
+  lumio-ext-tools:
+    toolchains:
+      SYSTEM:
+        versions: ['1.0.0']
+  lumio:
+    toolchains:
+      SYSTEM:
+        versions: ['1.0.0']
+  
