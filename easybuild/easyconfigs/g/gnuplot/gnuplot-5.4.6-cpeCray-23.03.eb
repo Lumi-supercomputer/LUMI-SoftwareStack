@@ -70,7 +70,7 @@ dependencies = [
     ('X11',           '%(toolchain_version)s'),
 ]
 
-preconfigopts = 'LIBS="$LIBS -liconv"'
+preconfigopts = 'LIBS="$LIBS -liconv" LDFLAGS="$LDFLAGS -L$EBROOTFREETYPE/lib" '
 
 configopts = ' '
 

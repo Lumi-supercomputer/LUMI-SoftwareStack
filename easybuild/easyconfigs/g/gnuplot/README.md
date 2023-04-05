@@ -27,4 +27,11 @@
 
   * Trivial version bump of the 5.4.3 EasyConfig.
     
-     
+  * Problem with the cpeCray version: For some reason `-lfreetype` was not added to the
+    link line or found automatically, causing a missing symbol error for a FreeType symbol.
+    This may be due to errors in the pkg-config files of some other packages so that
+    the configure script fails to determine the right options while the linker of the Cray PE
+    may not be able to find libraries based on `LIBRARY_PATH`.
+
+    The solution to the problem is to add `LDFLAGS="$LDFLAGS -L$EBROOTFREETYPE/lib"` to the
+    `preconfigopts`.
