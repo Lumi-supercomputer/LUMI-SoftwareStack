@@ -10,7 +10,7 @@ easyconfigs:
   - Subversion-1.14.2.eb
   - Eigen-3.4.0.eb
   - xorg-macros-1.19.3.eb
-  - lumi-container-wrapper-0.2.6-cray-python-default.eb
+  - lumi-container-wrapper-0.3.1-cray-python-default.eb
   - cotainr-2023.01.0.eb
 #  - rocm-5.2.5.eb
 #  - rocm-5.3.3.eb
