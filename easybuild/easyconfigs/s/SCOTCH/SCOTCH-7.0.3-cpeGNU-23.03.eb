@@ -2,16 +2,16 @@
 # Adapted by Kurt Lust (kurt.lust@uantwerpen.be) for the LUMI consortium
 easyblock = 'EB_SCOTCH_CPE'
 
-local_SCOTCH_version =       '7.0.3'         # https://gforge.inria.fr/projects/scotch/
+local_SCOTCH7_version =      '7.0.3'         # https://gforge.inria.fr/projects/scotch/
 
 local_bzip2_version =        '1.0.8'         # http://www.bzip.org/downloads.html
 local_XZ_version =           '5.4.2'         # https://tukaani.org/xz/
 local_zlib_version =         '1.2.12'        # https://zlib.net/
 
 name =    'SCOTCH'
-version = local_SCOTCH_version
+version = local_SCOTCH7_version
 
-homepage = 'http://gforge.inria.fr/projects/scotch/'
+homepage = 'https://www.labri.fr/perso/pelegrin/scotch/'
 
 whatis = [
     'Description: Scotch is a software package for graph and mesh/hypergraph partitioning, graph clustering, and sparse matrix ordering'

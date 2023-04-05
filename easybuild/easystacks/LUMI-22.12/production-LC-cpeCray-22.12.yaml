@@ -103,7 +103,8 @@ easyconfigs:
 #  - ELPA: Wait a bit, it looks like we need multiple versions and that it may need more testing.
   - METIS-5.1.0-cpeCray-22.12.eb
   - ParMETIS-4.0.3-cpeCray-22.12.eb
-  - SCOTCH-7.0.3-cpeCray-22.12.eb  # Check if the EasyBlock needs an update!
+  - SCOTCH-6.1.3-cpeCray-22.12.eb
+#  - SCOTCH-7.0.3-cpeCray-22.12.eb  # Check if the EasyBlock needs an update!
   - ESMF-8.4.1-cpeCray-22.12.eb
   - gnuplot-5.4.6-cpeCray-22.12.eb
  #  - VampirServer

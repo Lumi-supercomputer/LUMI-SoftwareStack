@@ -56,7 +56,7 @@
     check.
 
 
-### Version 6.1.3 for CPE 22.06
+### Version 6.1.3 for CPE 22.06 and later
 
   * We decided against upgrading to 7.0.1 in the central software stack as that release
     might need some more testing and as we may need to rework the custom application
@@ -66,3 +66,7 @@
 ### Version 7.0.3 from CPE 22.12 on
 
   * Followed the version upgrade in EasyBuild 2022b.
+
+  * 7.0.3 does not yet work with cpeCray. Maybe the `Makefile.inc` file needs more changes, or
+    the custom EasyBlock may need more changes.
+

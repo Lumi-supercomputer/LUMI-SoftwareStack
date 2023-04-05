@@ -2,14 +2,14 @@
 # Adapted by Kurt Lust (kurt.lust@uantwerpen.be) for the LUMI consortium
 easyblock = 'EB_SCOTCH_CPE'
 
-local_SCOTCH_version =       '7.0.3'         # https://gforge.inria.fr/projects/scotch/
+local_SCOTCH6_version =      '6.1.3'         # https://gforge.inria.fr/projects/scotch/
 
 local_bzip2_version =        '1.0.8'         # http://www.bzip.org/downloads.html
 local_XZ_version =           '5.4.2'         # https://tukaani.org/xz/
 local_zlib_version =         '1.2.12'        # https://zlib.net/
 
 name =    'SCOTCH'
-version = local_SCOTCH_version
+version = local_SCOTCH6_version
 
 homepage = 'http://gforge.inria.fr/projects/scotch/'
 
@@ -35,7 +35,7 @@ https://cecill.info/licences/Licence_CeCILL-C_V1-en.html.
 software_license_urls = ['https://cecill.info/licences/Licence_CeCILL-C_V1-en.html']
 
 
-toolchain = {'name': 'cpeCray', 'version': '22.12'}
+toolchain = {'name': 'cpeAMD', 'version': '23.03'}
 toolchainopts = {'pic': True}
 
 sources = [
@@ -50,7 +50,7 @@ sources = [
     },
 ]
 #checksums =   [
-#    '0618e9bc33c02172ea7351600fce4fccd32fe00b3359c4aabb5e415f17c06fed' # scotch_v7.1.3.tar.gz
+#    'a2f65f58f31085e4c3dcca22e571a3a1b9d65a6ff05ff882b0eb07c78e3b755b' # scotch_v6.1.2.tar.gz
 #]
 
 builddependencies = [ # Create a reproducible build environment.

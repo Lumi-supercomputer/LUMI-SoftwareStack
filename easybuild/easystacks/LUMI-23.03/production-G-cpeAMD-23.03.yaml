@@ -103,6 +103,7 @@ easyconfigs:
 #  - ELPA: Wait a bit, it looks like we need multiple versions and that it may need more testing.
   - METIS-5.1.0-cpeAMD-23.03.eb
   - ParMETIS-4.0.3-cpeAMD-23.03.eb
+  - SCOTCH-6.1.3-cpeAMD-23.03.eb
   - SCOTCH-7.0.3-cpeAMD-23.03.eb  # Check if the EasyBlock needs an update!
 #  - ESMF
   - gnuplot-5.4.6-cpeAMD-23.03.eb
