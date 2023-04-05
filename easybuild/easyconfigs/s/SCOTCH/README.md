@@ -62,10 +62,14 @@
     might need some more testing and as we may need to rework the custom application
     EasyBlock.
 
+  * From 22.12 on: Link to the homepage changed to the new one.
+
 
 ### Version 7.0.3 from CPE 22.12 on
 
-  * Followed the version upgrade in EasyBuild 2022b.
+  * Changed the homepage link to the new one.
+
+  * Tried a fairly trivial update and that seemed OK for cpeGNU.
 
   * 7.0.3 does not yet work with cpeCray. Maybe the `Makefile.inc` file needs more changes, or
     the custom EasyBlock may need more changes.

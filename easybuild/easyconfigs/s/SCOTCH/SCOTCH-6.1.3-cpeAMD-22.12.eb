@@ -11,7 +11,7 @@ local_zlib_version =         '1.2.12'        # https://zlib.net/
 name =    'SCOTCH'
 version = local_SCOTCH6_version
 
-homepage = 'http://gforge.inria.fr/projects/scotch/'
+homepage = 'https://www.labri.fr/perso/pelegrin/scotch/'
 
 whatis = [
     'Description: Scotch is a software package for graph and mesh/hypergraph partitioning, graph clustering, and sparse matrix ordering'
