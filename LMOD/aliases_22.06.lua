@@ -1,8 +1,8 @@
 -- Trickery with aliases to get some of 22.06 to run using 22.08 modules.
 
-module_version( 'PrgEnv-gnu/8.3.3', '8.3.3' )
-module_version( 'PrgEnv-cray/8.3.3', '8.3.3' )
-module_version( 'PrgEnv-aocc/8.3.3', '8.3.3' )
+-- module_version( 'PrgEnv-gnu/8.3.3', '8.3.3' )
+-- module_version( 'PrgEnv-cray/8.3.3', '8.3.3' )
+-- module_version( 'PrgEnv-aocc/8.3.3', '8.3.3' )
 module_version( 'cce/14.0.2', '14.0.1' )
 module_version( 'cce_mixed/14.0.2', '14.0.1' )
 module_version( 'aocc/3.2.0', '3.1.0' )
