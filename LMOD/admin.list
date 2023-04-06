@@ -8,18 +8,6 @@ ModuleExtensions/.*:
 Unfortunately due to problems with Cray LMOD this module does not yet have the desired effect.
 We are looking for a solution but don't expect anything soon.
 
-lumi-workspaces/0.1:
-The lumi-workspaces module is deprecated and will be removed from the system soon. 
-The lumi-workspaces command is now provided by the lumi-tools module which is loaded
-by default.
-
-LUMI/21.08:
-The LUMI/21.08 software stack is currently hidden and broken due to missing components on the 
-system after the upgrade in early July. It will work for some users but not all, so try at your
-own risk. It will not be possible to offer this stack again. Users should move to 21.12 in the
-short term and to 22.08 in the longer term (or if it already satisfies your needs).
-Do not to attempt to recompile software with 21.08, as you will get unexpected results.
-
 LUMI/21.12:
 The LUMI/21.12 software stack is nearing the end of its supported life as we cannot guarantee
 that it can be kept available after the next major system update planned for March 2023.
@@ -30,18 +18,13 @@ The LUMI/22.06 software stack is nearing the end of its supported life as we can
 that it can be kept available after the next major system update planned for March 2023.
 Please move to 22.08 which we will try to keep available.
 
-rocm/5.1.4:
-This module is only suited for use with the cpe/22.06 compilers, and its use is discouraged.
-MPI may fail as the default MPI library which is used expects a different version of rocm.
-Users are advised to switch to the cpe/22.08 programming environment which is the default
-since August 18 and use rocm/5.0.2.
-
 rocm/5.2.5:
 This module is not installed the way it is intended by AMD. Hence some parts of ROCm may
 be broken or offer slower than expected performance and there is nothing the LUMI
 User Support Team can do about that. As the module is also not an official HPE Cray 
 module there is no guarantee that it will integrate properly with HPE Cray PE modules
-or work correctly in that environment.
+or work correctly in that environment. It may be safer to simply use rocm/5.2.3 which
+is provided by HPE unless you are hit by specific bugs in that version.
 
 rocm/5.3.3:
 This module is not installed the way it is intended by AMD. Hence some parts of ROCm may
@@ -50,7 +33,3 @@ User Support Team can do about that. As the module is also not an official HPE C
 module there is no guarantee that it will integrate properly with HPE Cray PE modules
 or work correctly in that environment. Note that HPE Cray PE programming environments
 up to at least 23.02 have only been tested with ROCm version prior to 5.3 by HPE.
-
-lumi%-vnc/2022.*:
-This version of lumi-vnc should not be used anymore as there is a bug that occasionally
-shows up. Please use the newer 20220110 version.
