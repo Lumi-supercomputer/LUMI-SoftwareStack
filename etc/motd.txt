@@ -1,25 +1,22 @@
    .Announcements---------------------------------------------------.
  * | NOTE: The default version of the LUMI software stack is now    |
-   | LUMI/22.08!                                                    |
+   | LUMI/22.08 while the default version of the Cray PE after      |
+   | login and in CrayEnv is now 22.12. LUMI software stacks based  |
+*  | on 22.12 and 23.03 will become gradually available over the    |
+   | next weeks and users are advised to switch as soon as one of   |
+   | those stacks suits their applications.                         |
    |                                                                |
 *  | You can use the lumi-workspaces command (without loading an    |
    | additional module) to check your quota and allocations on      |
    | LUMI. Also check `module help lumi-tools` for more info.       | 
 *  |                                                                |
-   | On August 18 the default programming environment was changed   |
-  *| to the 22.08 environment which should solve some problems with |
-   | 22.06. The 22.08 version is now the recommended version and    |
- * | users should transition from the 22.06 and 21.12 versions to   |
-   | 22.08. The 21.12 and 22.06 versions will likely have to be     |
-   | removed at the next major system upgrade planned for March.    |
-*  |                                                                |
- * | LUMI/21.08 is hidden as it does not fully function and will    |
-   | not reappear. You can still load the modules but at your own   |
-   | risk (and will get replacements instead). It is not possible   |
-*  | to reliably do new installations in 21.08.                     |
-   |                                                                |
-  *| The flash file system is available but only as                 |
-   | /pfs/lustref1/flash/project_<...>.                             | 
+ * | LUMI/21.12 and 22.06 are hidden as it they does not fully      |
+   | function and will not reappear. You can still load the modules |
+   | but at your own risk (and will get replacements instead). It   |
+ * | is not possible to reliably do new installations in 21.12 and  |
+   | 22.08. 21.08 is removed from the system.                       |
+  *|                                                                |
+   | The flash file system is again available on /flash.            |
 *  .Notes-----------------------------------------------------------.
    | Make sure one of the following modules is loaded to have the   |
  * | full LUMI experience:                                          |
