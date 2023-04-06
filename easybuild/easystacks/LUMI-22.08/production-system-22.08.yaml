@@ -24,7 +24,7 @@ software:
   lumi-tools:
     toolchains:
       SYSTEM:
-        versions: ['23.01']
+        versions: ['23.03']
   lumio-ext-tools:
     toolchains:
       SYSTEM:
