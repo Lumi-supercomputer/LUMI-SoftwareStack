@@ -31,6 +31,10 @@ end
 hide_version( 'ModuleExtensions/hide' )
 hide_version( 'ModuleExtensions/show' )
 
+-- Solve a potential problem with the Cray PE cpe modules.
+module_version( 'rocm/5.2.3', '5.2.0' )
+module_version( 'amd/5.2.3',  '5.2.0' )
+
 -- Send 22.06 modules to 22.08 as 22.06 is not currently installed on LUMI.
 
 -- module_version( 'PrgEnv-gnu/8.3.3', '8.3.3' )
