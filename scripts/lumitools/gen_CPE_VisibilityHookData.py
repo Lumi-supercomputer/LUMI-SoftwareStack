@@ -20,11 +20,13 @@ def gen_CPE_VisibilityHookData( CPEpackages_dir, VisibilityHookData_dir, version
         # those packages will now simply be skipped.
 
         nonlocal version_stack
+        nonlocal version_alias
         
-        nversion = re.sub( '\D+', '', version_stack )
-        nminv =    re.sub( '\D+', '', minv )
-        nmaxv =    re.sub( '\D+', '', maxv )
-        if nversion >= nminv and nversion <= nmaxv and PEpackage in package_versions:
+        nversion_stack = re.sub( '\D+', '', version_stack )
+        nversion_alias = re.sub( '\D+', '', version_alias )
+        nminv =          re.sub( '\D+', '', minv )
+        nmaxv =          re.sub( '\D+', '', maxv )
+        if nversion_stack >= nminv and nversion_stack <= nmaxv and nversion_alias >= nminv and nversion_alias <= nmaxv and PEpackage in package_versions:
             mversion = package_versions[PEpackage]
             fileH.write( f"['{module}']='{mversion}'," )
 
