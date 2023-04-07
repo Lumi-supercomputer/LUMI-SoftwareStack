@@ -1,6 +1,6 @@
 #! /bin/bash
 #
-# This is a wrapper script to call the gen_LCPEstack_modulerc script with the
+# This is a wrapper script to call the gen_LUMIstack_modulerc script with the
 # right options to build a LUMIstack_yy.mm_modulerc.lua file .
 #
 # Currently there is only one version of that script. However, as the version of the
@@ -10,6 +10,8 @@
 #
 # Input arguments of the script
 #   1. The version of the programming environment
+#   2. (Optional): Version of the programming environment to use for the version
+#      information (for retired stacks, the version that is now used instead).
 #
 # The install root for the installation is derived from the directory in which the
 # script resides. Hence make sure to call the correct version of this script for the
@@ -17,15 +19,25 @@
 #
 
 #
+#
 # Check the arguments of the script
 #
-if [ "$#" -ne 1 ]
+if [ "$#" -lt 1 ] || [ "$#" -gt 2 ]
 then
-	>&2 echo -e "\nThis script expects 1 and only 1 command line arguments: The version of the Cray PE.\n"
+	>&2 echo -e "\nThis script expects 1 or 2 command line arguments:" \
+	            "\n  1. The version of the Cray PE to generate the file for." \
+	            "\n  2. (Optional) The version of the Cray PE to use for the version numbers.\n"
     exit 1
 fi
 
-export PARAMETER_CPE=$1
+export PARAMETER_CPE_STACK=$1
+
+if [ "$#" -eq 1 ]
+then
+    export PARAMETER_CPE_ALIAS=$1
+else
+    export PARAMETER_CPE_ALIAS=$2
+fi
 
 # That cd will work if the script is called by specifying the path or is simply
 # found on PATH. It will not expand symbolic links.
@@ -48,12 +60,13 @@ cd "$PARAMETER_REPO_DIR/scripts"
 
 python3 -- <<END
 
-from lumitools.gen_CPE_modulerc import gen_CPE_modulerc
+from lumitools.gen_LUMIstack_modulerc import gen_LUMIstack_modulerc
 import os
 
-PEversion =   os.environ['PARAMETER_CPE']
-repo_dir =    os.environ['PARAMETER_REPO_DIR']
-install_dir = os.environ['PARAMETER_INSTALL_DIR']
+PEversion_stack = os.environ['PARAMETER_CPE_STACK']
+PEversion_alias = os.environ['PARAMETER_CPE_ALIAS']
+repo_dir =        os.environ['PARAMETER_REPO_DIR']
+install_dir =     os.environ['PARAMETER_INSTALL_DIR']
 
 #
 # Compute the directory where the PE componenet defintion file can be found, and
@@ -61,11 +74,11 @@ install_dir = os.environ['PARAMETER_INSTALL_DIR']
 #
 
 CPEpackages_dir = os.path.join( repo_dir,    'CrayPE' )
-modulerc_file =   os.path.join( install_dir, 'mgmt/LMOD/ModuleRC', f'LUMIstack_{PEversion}_modulerc.lua' )
+modulerc_file =   os.path.join( install_dir, 'mgmt/LMOD/ModuleRC', f'LUMIstack_{PEversion_stack}_modulerc.lua' )
 
 #
 # Execute the command
 #
-gen_CPE_modulerc( CPEpackages_dir, modulerc_file, PEversion )
+gen_LUMIstack_modulerc( CPEpackages_dir, modulerc_file, PEversion_stack, PEversion_alias )
 END
 
