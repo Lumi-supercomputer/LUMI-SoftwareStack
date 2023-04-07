@@ -113,6 +113,7 @@ def gen_CPE_VisibilityHookData( CPEpackages_dir, VisibilityHookData_dir, version
     write_package( fileH, 'PMI',                  'cray-pmi',                 package_versions )
     write_package( fileH, 'PMI',                  'cray-pmi-lib',             package_versions, maxv='22.06' )
     write_package( fileH, 'OpenSHMEMX',           'cray-openshmemx',          package_versions )
+    write_package( fileH, 'MPIxlate',             'cray-mpixlate',            package_versions, minv='21.11' )
 
     write_package( fileH, 'FFTW',                 'cray-fftw',                package_versions )
     write_package( fileH, 'HDF5',                 'cray-hdf5',                package_versions )
