@@ -4,12 +4,13 @@
 # Input arguments
 #   * CPEpackages_dir : Directory with the CPE definitinon files (in .csv format)
 #   * VisibilityHookData_dir : Directory with the LMOD modulerc files
-#   * version : Release of the CPE to generate the file for.
+#   * version_stack : Release of the CPE to generate the file for (and providing the list of modules)
+#   * version_alias: Release of the CPE to use for the module versions
 #
 
 import re
 
-def gen_CPE_VisibilityHookData( CPEpackages_dir, VisibilityHookData_dir, version ):
+def gen_CPE_VisibilityHookData( CPEpackages_dir, VisibilityHookData_dir, version_stack, version_alias ):
 
     def write_package( fileH, PEpackage, module, package_versions, minv='00.00', maxv='99.99' ):
 
@@ -18,9 +19,9 @@ def gen_CPE_VisibilityHookData( CPEpackages_dir, VisibilityHookData_dir, version
         # in the packages while still having a single script that works for all as
         # those packages will now simply be skipped.
 
-        nonlocal version
+        nonlocal version_stack
         
-        nversion = re.sub( '\D+', '', version )
+        nversion = re.sub( '\D+', '', version_stack )
         nminv =    re.sub( '\D+', '', minv )
         nmaxv =    re.sub( '\D+', '', maxv )
         if nversion >= nminv and nversion <= nmaxv and PEpackage in package_versions:
@@ -37,12 +38,12 @@ def gen_CPE_VisibilityHookData( CPEpackages_dir, VisibilityHookData_dir, version
     #
     # Read the .csv file with toolchain data.
     #
-    CPEpackages_file = os.path.join( CPEpackages_dir, 'CPEpackages_' + version + '.csv' )
-    print( 'Reading the toolchain composition from %s.' % CPEpackages_file )
+    CPEpackages_file = os.path.join( CPEpackages_dir, f'CPEpackages_{version_stack}.csv' )
+    print( f'Reading the toolchain composition from {CPEpackages_file}.' )
     try:
         fileH = open( CPEpackages_file, 'r' )
     except OSerror:
-        print( 'Failed to open the toolchain packages file %s.' % CPEpackages_file )
+        print( f'Failed to open the toolchain packages file {CPEpackages_file}.' )
         exit()
 
     package_versions = {}
@@ -55,18 +56,58 @@ def gen_CPE_VisibilityHookData( CPEpackages_dir, VisibilityHookData_dir, version
         package_versions[row[0]] = row[1]
 
     fileH.close()
+    
+    #
+    # If version_alias is different from version_stack: Also read the CPEpackages file
+    # for version_alias and correct package_versions with the version information from
+    # the version_alias CPEpackages file.
+    #
+    if version_stack != version_alias :
+        
+        CPEpackages_file = os.path.join( CPEpackages_dir, f'CPEpackages_{version_alias}.csv' )
+        print( f'Reading the toolchain composition for the alias versions from {CPEpackages_file}.' )
+        try:
+            fileH = open( CPEpackages_file, 'r' )
+        except OSerror:
+            print( f'Failed to open the toolchain packages file {CPEpackages_file}.' )
+            exit()
+    
+        package_versions_alias = {}
+    
+        package_reader = csv.reader( fileH )
+        # Skip the header line
+        next( package_reader )
+        # Read the data and build the package_versions dictionary
+        for row in package_reader :
+            package_versions_alias[row[0]] = row[1]
+    
+        fileH.close()
+        
+        #
+        # Now update the package versions with the aliased ones
+        #
+        
+        to_delete = []
+        for key in package_versions :
+            if key in package_versions_alias :
+                package_versions[key] = package_versions_alias[key]
+            else :
+                to_delete.append( key )
+                
+        for key in to_delete:
+            del( package_versions[key] )
 
     #
     # Add missing packages or entries needed for this script
     #
-    package_versions['CPE'] = version
+    package_versions['CPE'] = version_stack
 
 
     #
     # Open the CPE-specific modulerc file
     #
     print( 'Installing in: %s' % VisibilityHookData_dir )
-    extdeffile = 'CPEmodules_%s.lua' % version.replace( '.', '_' )
+    extdeffile = 'CPEmodules_%s.lua' % version_stack.replace( '.', '_' )
     extdeffileanddir = os.path.join( VisibilityHookData_dir, extdeffile )
     print( 'Generating %s...' % extdeffileanddir )
     fileH = open( extdeffileanddir, 'w' )
