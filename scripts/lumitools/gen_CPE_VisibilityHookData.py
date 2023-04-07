@@ -7,19 +7,25 @@
 #   * version : Release of the CPE to generate the file for.
 #
 
+import re
+
 def gen_CPE_VisibilityHookData( CPEpackages_dir, VisibilityHookData_dir, version ):
 
-    def write_package( fileH, PEpackage, module, package_versions ):
+    def write_package( fileH, PEpackage, module, package_versions, minv='00.00', maxv='99.99' ):
 
         # Note that if a particular PEpackage does not exist in package_versions, no
         # error is printed. This is done in this way to be able to cope with evolutions
         # in the packages while still having a single script that works for all as
         # those packages will now simply be skipped.
 
-        if PEpackage in package_versions:
-            version = package_versions[PEpackage]
-            fileH.write( "['%s']='%s'," % (module, version) )
-
+        nonlocal version
+        
+        nversion = re.sub( '\D+', '', version )
+        nminv =    re.sub( '\D+', '', minv )
+        nmaxv =    re.sub( '\D+', '', maxv )
+        if nversion >= nminv and nversion <= nmaxv and PEpackage in package_versions:
+            mversion = package_versions[PEpackage]
+            fileH.write( f"['{module}']='{mversion}'," )
 
     #
     # Core of the gen_EB_external_modules_from_CPEdef function
@@ -78,11 +84,22 @@ def gen_CPE_VisibilityHookData( CPEpackages_dir, VisibilityHookData_dir, version
     write_package( fileH, 'cpe-prgenv',           'PrgEnv-aocc',              package_versions )
     write_package( fileH, 'cpe-prgenv',           'PrgEnv-intel',             package_versions )
     write_package( fileH, 'cpe-prgenv',           'PrgEnv-nvidia',            package_versions )
+    write_package( fileH, 'cpe-prgenv',           'PrgEnv-nvhpc',             package_versions, minv='22.06' )
+    write_package( fileH, 'cpe-prgenv',           'PrgEnv-gnu-amd',           package_versions, minv='22.08' )
+    write_package( fileH, 'cpe-prgenv',           'PrgEnv-cray-amd',          package_versions, minv='22.08' )
 
     write_package( fileH, 'CCE',                  'cce',                      package_versions )
     write_package( fileH, 'GCC',                  'gcc',                      package_versions )
     write_package( fileH, 'AOCC',                 'aocc',                     package_versions )
+    write_package( fileH, 'ROCM',                 'amd',                      package_versions )
     write_package( fileH, 'intel',                'intel',                    package_versions )
+
+    write_package( fileH, 'CCE',                  'cce-mixed',                package_versions, minv='22.06' )
+    write_package( fileH, 'GCC',                  'gcc_mixed',                package_versions, minv='22.06' )
+    write_package( fileH, 'AOCC',                 'aocc_mixed',               package_versions, minv='22.06' )
+    write_package( fileH, 'ROCM',                 'amd_mixed',                package_versions, minv='22.06' )
+
+    write_package( fileH, 'ROCM',                 'rocm',                     package_versions )
 
     write_package( fileH, 'craype',               'craype',                   package_versions )
     write_package( fileH, 'CPE',                  'cpe',                      package_versions )
@@ -94,7 +111,7 @@ def gen_CPE_VisibilityHookData( CPEpackages_dir, VisibilityHookData_dir, version
     write_package( fileH, 'MPICH',                'cray-mpich',               package_versions )
     write_package( fileH, 'MPICH',                'cray-mpich-abi',           package_versions )
     write_package( fileH, 'PMI',                  'cray-pmi',                 package_versions )
-    write_package( fileH, 'PMI',                  'cray-pmi-lib',             package_versions )
+    write_package( fileH, 'PMI',                  'cray-pmi-lib',             package_versions, maxv='22.06' )
     write_package( fileH, 'OpenSHMEMX',           'cray-openshmemx',          package_versions )
 
     write_package( fileH, 'FFTW',                 'cray-fftw',                package_versions )
@@ -110,6 +127,7 @@ def gen_CPE_VisibilityHookData( CPEpackages_dir, VisibilityHookData_dir, version
     write_package( fileH, 'CCDB',                 'cray-ccdb',                package_versions )
     write_package( fileH, 'CTI',                  'cray-cti',                 package_versions )
     write_package( fileH, 'DSMML',                'cray-dsmml',               package_versions )
+    write_package( fileH, 'cray-dyninst',         'cray-dyninst',             package_versions, minv='21.12' )
     write_package( fileH, 'jemalloc',             'cray-jemalloc',            package_versions )
     write_package( fileH, 'STAT',                 'cray-stat',                package_versions )
     write_package( fileH, 'craypkg-gen',          'craypkg-gen',              package_versions )

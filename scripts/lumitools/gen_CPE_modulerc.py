@@ -85,7 +85,7 @@ def gen_CPE_modulerc( CPEpackages_dir, modulerc_file, version ):
     write_package( fileH, 'cpe-prgenv',           'PrgEnv-amd',               package_versions )
     #write_package( fileH, 'cpe-prgenv',           'PrgEnv-intel',             package_versions )
     #write_package( fileH, 'cpe-prgenv',           'PrgEnv-nvidia',            package_versions )
-    #write_package( fileH, 'cpe-prgenv',           'PrgEnv-nvhpc',             package_versions )
+    #write_package( fileH, 'cpe-prgenv',           'PrgEnv-nvhpc',             package_versions, minv='22.06' )
     write_package( fileH, 'cpe-prgenv',           'PrgEnv-gnu-amd',           package_versions, minv='22.08' )
     write_package( fileH, 'cpe-prgenv',           'PrgEnv-cray-amd',          package_versions, minv='22.08' )
 
