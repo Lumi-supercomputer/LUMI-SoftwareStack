@@ -9,14 +9,18 @@ Unfortunately due to problems with Cray LMOD this module does not yet have the d
 We are looking for a solution but don't expect anything soon.
 
 LUMI/21.12:
-The LUMI/21.12 software stack is nearing the end of its supported life as we cannot guarantee
-that it can be kept available after the next major system update planned for March 2023.
-Please move to 22.08 which we will try to keep available and is now the default.
+The LUMI/21.12 software stack has reached the end of its supported life. The
+necessary compilers are no longer on the system but the module system as been tweaked
+to load other modules so that software installed with 21.12 may still work. However,
+we do no longer support running that software and the default answer to a complaint
+is "Recompile with 22.08 or newer". 
 
 LUMI/22.06:
-The LUMI/22.06 software stack is nearing the end of its supported life as we cannot guarantee
-that it can be kept available after the next major system update planned for March 2023.
-Please move to 22.08 which we will try to keep available.
+The LUMI/22.06 software stack has reached the end of its supported life. The
+necessary compilers are no longer on the system but the module system as been tweaked
+to load other modules so that software installed with 21.12 may still work. However,
+we do no longer support running that software and the default answer to a complaint
+is "Recompile with 22.08 or newer". 
 
 rocm/5.2.5:
 This module is not installed the way it is intended by AMD. Hence some parts of ROCm may
