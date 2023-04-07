@@ -1,5 +1,11 @@
 # What's new or different?
 
+  * 2023-04-11: Various improvements to the generation of the files
+    that contain information for Lmod about the CPE and the visibility
+    hook.
+  
+  * Several updates missing...
+
   * 2022-04-22: Corrections to the EasyBuild-config modules to avoid
     having twice the same directory in the output of searches.
 

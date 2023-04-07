@@ -5,8 +5,7 @@
 # Currently there is only one version of that script. However, as the version of the
 # CPE is one of the arguments, it is possible to add additional logic to select between
 # versions of the routine should changes be made that break compatibility with older
-# CPE versions. Except for the file name, the Python script is currently the same as
-# gen_LUMIstack_modulerc, but that may change in the future.
+# CPE versions.
 #
 # Input arguments of the script
 #   1. The version of the programming environment
@@ -61,11 +60,11 @@ install_dir = os.environ['PARAMETER_INSTALL_DIR']
 #
 
 CPEpackages_dir = os.path.join( repo_dir,    'CrayPE' )
-LMOD_dir =        os.path.join( install_dir, 'modules/CrayOverwrite/data-cpe', PEversion )
+modulerc_file =   os.path.join( install_dir, 'modules/CrayOverwrite/data-cpe', PEversion, 'modulerc.lua' )
 
 #
 # Execute the command
 #
-gen_CPE_modulerc( CPEpackages_dir, LMOD_dir, PEversion )
+gen_CPE_modulerc( CPEpackages_dir, modulerc_file, PEversion )
 END
 
