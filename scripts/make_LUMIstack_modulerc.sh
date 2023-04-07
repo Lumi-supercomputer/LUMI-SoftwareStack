@@ -1,6 +1,7 @@
 #! /bin/bash
 #
-# This is a wrapper script to call the gen_LUMIstack_modulerc
+# This is a wrapper script to call the gen_LCPEstack_modulerc script with the
+# right options to build a LUMIstack_yy.mm_modulerc.lua file .
 #
 # Currently there is only one version of that script. However, as the version of the
 # CPE is one of the arguments, it is possible to add additional logic to select between
@@ -47,7 +48,7 @@ cd "$PARAMETER_REPO_DIR/scripts"
 
 python3 -- <<END
 
-from lumitools.gen_LUMIstack_modulerc import gen_LUMIstack_modulerc
+from lumitools.gen_CPE_modulerc import gen_CPE_modulerc
 import os
 
 PEversion =   os.environ['PARAMETER_CPE']
@@ -60,11 +61,11 @@ install_dir = os.environ['PARAMETER_INSTALL_DIR']
 #
 
 CPEpackages_dir = os.path.join( repo_dir,    'CrayPE' )
-LMOD_dir =        os.path.join( install_dir, 'mgmt/LMOD/ModuleRC' )
+modulerc_file =   os.path.join( install_dir, 'mgmt/LMOD/ModuleRC', f'LUMIstack_{PEversion}_modulerc.lua' )
 
 #
 # Execute the command
 #
-gen_LUMIstack_modulerc( CPEpackages_dir, LMOD_dir, PEversion )
+gen_CPE_modulerc( CPEpackages_dir, modulerc_file, PEversion )
 END
 

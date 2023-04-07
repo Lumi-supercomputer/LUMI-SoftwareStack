@@ -1,15 +1,16 @@
 #
-# gen_CPE_modulerc( CPEpackages_dir, LMOD_dir, version )
+# gen_CPE_modulerc( CPEpackages_dir, modulerc_file, version )
 #
 # Input arguments
 #   * CPEpackages_dir : Directory with the CPE definitinon files (in .csv format)
-#   * LMOD_dir : Directory where the LMOD modulerc file will be stored.
+#   * modulerc_file : Path and name of the modulerc file (realtive to where the script
+#     is running or an absolute path)
 #   * version : Release of the CPE to generate the file for.
 #
 
 import re
 
-def gen_CPE_modulerc( CPEpackages_dir, LMOD_dir, version ):
+def gen_CPE_modulerc( CPEpackages_dir, modulerc_file, version ):
 
     def write_package( fileH, PEpackage, module, package_versions, minv='00.00', maxv='99.99' ):
 
@@ -65,11 +66,11 @@ def gen_CPE_modulerc( CPEpackages_dir, LMOD_dir, version ):
     #
     # Open the CPE-specific modulerc file
     #
-    print( 'Installing in: %s' % LMOD_dir )
-    extdeffile = 'modulerc.lua'
-    extdeffileanddir = os.path.join( LMOD_dir, extdeffile )
-    print( 'Generating %s...' % extdeffileanddir )
-    fileH = open( extdeffileanddir, 'w' )
+    print( 'Installing in the file: %s' % modulerc_file )
+    #extdeffile = 'modulerc.lua'
+    #extdeffileanddir = os.path.join( LMOD_dir, extdeffile )
+    #print( 'Generating %s...' % extdeffileanddir )
+    fileH = open( modulerc_file, 'w' )
 
     fileH.write( '-- Make the CPE modules that belong to this version of the CPE the default versions.\n' +
                  '-- This file is auto-generated\n\n' )
@@ -85,6 +86,8 @@ def gen_CPE_modulerc( CPEpackages_dir, LMOD_dir, version ):
     #write_package( fileH, 'cpe-prgenv',           'PrgEnv-intel',             package_versions )
     #write_package( fileH, 'cpe-prgenv',           'PrgEnv-nvidia',            package_versions )
     #write_package( fileH, 'cpe-prgenv',           'PrgEnv-nvhpc',             package_versions )
+    write_package( fileH, 'cpe-prgenv',           'PrgEnv-gnu-amd',           package_versions, minv='22.08' )
+    write_package( fileH, 'cpe-prgenv',           'PrgEnv-cray-amd',          package_versions, minv='22.08' )
 
     write_package( fileH, 'CCE',                  'cce',                      package_versions )
     write_package( fileH, 'GCC',                  'gcc',                      package_versions )
@@ -136,6 +139,7 @@ def gen_CPE_modulerc( CPEpackages_dir, LMOD_dir, version ):
     write_package( fileH, 'cray-R',               'cray-R',                   package_versions )
     write_package( fileH, 'craype-dl-plugin-py3', 'craype-dl-plugin-py3',     package_versions, maxv='21.08' )
 
+    # Grenoble-only?
     write_package( fileH, 'PALS',                 'cray-pals',                package_versions )
     write_package( fileH, 'PALS',                 'cray-libpals',             package_versions )
 
