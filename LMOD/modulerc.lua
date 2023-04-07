@@ -9,8 +9,11 @@ module_version( 'ModuleLabel/label', 'default' )
 
 if os.getenv( 'LUMI_LMOD_POWERUSER' ) == nil then
     -- Some CPE modules that should be hidden from unexperienced users
-    hide_version( 'cpe-cuda/21.08' )
-    hide_version( 'cpe-cuda/21.12' )
+    hide_version( 'cpe-cuda/22.08' )
+    hide_version( 'cpe-cuda/22.12' )
+    hide_version( 'cpe-cuda/23.03' )
+    hide_version( 'PrgEnv-nvhpc/8.3.3' )
+    hide_version( 'PrgEnv-nvidia/8.3.3' )
     -- Tool modules in CrayEnv and LUMI that should be hidden from unexperienced users
     hide_version( 'buildtools/22.08-minimal' )
 end
@@ -30,6 +33,10 @@ end
 -- The following modules do not work with Cray LMOD 8.3.1
 hide_version( 'ModuleExtensions/hide' )
 hide_version( 'ModuleExtensions/show' )
+
+-- Solve a problem for users who were previously using ROCm 5.0.2
+module_version( 'rocm/5.2.3', '5.0.2' )
+module_version( 'amd/5.2.3',  '5.0.2' )
 
 -- Solve a potential problem with the Cray PE cpe modules.
 module_version( 'rocm/5.2.3', '5.2.0' )
