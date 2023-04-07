@@ -783,11 +783,17 @@ local function is_visible_hook( modT )
         package.path = saved_path
 
         if modT.fn:find( 'cray/pe/lmod/modulefiles' ) or modT.fn:find( 'modules/CrayOverwrite' ) then
+            -- The module under investigation is a Cray PE module or one of our replacements.
             if CPEmodules[modT.sn] ~= nil then
+                -- We have version information for this module.
                 local module_version = modT.sn .. '/' .. CPEmodules[modT.sn]
                 if modT.fullName ~= module_version and not visibility_exceptions[ modT.fullName] then
                     modT.isVisible = false
                 end
+            else
+                -- We do not have version information about this module in the VisbilityHookData files,
+                -- so this is a module that does not appear in the current version of the LUMI stack.
+                modT.isVisible = false
             end
         end
 
