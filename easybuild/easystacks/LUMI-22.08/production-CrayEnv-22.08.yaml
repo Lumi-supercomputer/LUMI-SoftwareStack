@@ -39,6 +39,8 @@ software:
         versions:
           '0.2.6':
             versionsuffix: '-cray-python-default'
+          '0.3.1':
+            versionsuffix: '-cray-python-default'
   cotainr:
     toolchains:
       SYSTEM:
