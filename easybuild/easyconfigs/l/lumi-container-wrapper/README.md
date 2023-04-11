@@ -6,7 +6,10 @@ Finland by Henrik Nortamo.
 -   [tykky in the GitHub hpc-container-wrapper repository](https://github.com/CSCfi/hpc-container-wrapper)
     
     -   [GitHub releases via tags](https://github.com/CSCfi/hpc-container-wrapper/tags)
-    
+
+-   [tykky in the CSC documentation](https://docs.csc.fi/computing/containers/tykky/)
+
+
 ## EasyBuild
 
 As this is an in-house developed tool, there is no support in the standard
@@ -20,4 +23,11 @@ and module file so that cray-python is force-reloaded in the right version.
 The version for CrayEnv simply loads the default version or works with whatever
 version of cray-python that is already loaded when the module is loaded.
 
-    
+
+### Version 0.3.1
+
+-   New version for LUMI after the March 2023 update, now using a base image based
+    on SUSE 15 SP4.
+
+-   The EasyConfigs are a trivial port of the ones developed before.
+
