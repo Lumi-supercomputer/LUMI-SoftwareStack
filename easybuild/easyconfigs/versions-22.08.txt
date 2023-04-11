@@ -9,7 +9,8 @@
 #     just days before 22.06 had to be installed on LUMI.
 #
 local_LUMI_version =        '22.08'
-local_craypython_version =  '3.9.4.2'
+local_craypython_version =  '3.9.12.1'
+local_crayfftw_version =    '3.3.10.1'
 local_EasyBuild_version =   '4.6.0'
 
 #
