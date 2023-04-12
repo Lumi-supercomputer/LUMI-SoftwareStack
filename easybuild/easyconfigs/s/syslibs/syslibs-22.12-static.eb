@@ -292,7 +292,7 @@ components = [
                             'source_urls': ['https://downloads.apache.org/apr',
                                             'https://archive.apache.org/dist/apr/']
                          }],
-        'checksums':     ['75e77cc86776c030c0a5c408dfbd0bf2a0b75eed5351e52d5439fa1e5509a43e'],
+        'checksums':     ['455e218c060c474f2c834816873f6ed69c0cf0e4cfee54282cc93e8e989ee59e'],
         'start_dir':     '%(namelower)s-%(version)s',
         'preconfigopts': 'CC="gcc" CFLAGS="-O2 -march=znver1 -fPIC" ',
         'configopts':    '--enable-static --disable-shared'
