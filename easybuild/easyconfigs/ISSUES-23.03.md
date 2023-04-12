@@ -23,3 +23,6 @@
     
 -   The nano installation would like a newer groff with HTML support but since we
     have no browser on LUMI this has a very, very low priority.
+
+-   Blosc should have another look as it actually also has dependencies on other 
+    comnpression tools for which we currently use internal sources.
