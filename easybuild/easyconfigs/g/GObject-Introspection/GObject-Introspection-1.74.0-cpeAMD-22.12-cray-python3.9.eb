@@ -7,7 +7,7 @@ local_libffi_version =       '3.4.4'         # https://sourceware.org/libffi/
 local_GLib_version =         '2.75.0'        # https://ftp.gnome.org/pub/GNOME/sources/glib/
 local_util_version =         '2.38.1'        # https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/
 
-local_craypython_version =   '3.9.4.2'
+local_craypython_version =  '3.9.13.1'
 
 local_GObject_version =      '1.74.0'        # https://github.com/GNOME/gobject-introspection/releases
 
@@ -52,7 +52,7 @@ builddependencies = [
 ]
 
 dependencies = [
-    ('cray-python/%s' % local_craypython_version, EXTERNAL_MODULE),
+    (f'cray-python/{local_craypython_version}', EXTERNAL_MODULE),
     ('GLib',       local_GLib_version),
     ('libffi',     local_libffi_version),
     ('util-linux', local_util_version),
