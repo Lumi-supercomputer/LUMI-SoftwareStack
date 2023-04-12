@@ -2,6 +2,7 @@ easyconfigs:
   - buildtools-22.12-bootstrap.eb
   - syslibs-22.12-static.eb
   - buildtools-22.12.eb
+  - buildtools-python-22.12-systemPython.eb
   - systools-22.12.eb
   - nano-7.2.eb
   - Vim-9.0.1392.eb
