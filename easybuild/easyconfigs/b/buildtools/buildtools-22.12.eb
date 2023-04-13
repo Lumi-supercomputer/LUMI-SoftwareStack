@@ -16,6 +16,8 @@
 #
 easyblock = 'Bundle'
 
+import os as local_os
+
 local_LUMI_version =        '22.12'
 
 name =    'buildtools'
@@ -82,9 +84,9 @@ building software. Many of them are GNU tools.
 These tools are all build against the system libraries and have been used to
 build several of the %(ver)s packages.
 
-Compared to the regular buildtools module it leaves out Meson and SCons which
-are both Python-code that is not properly wrapped and can interfer with other
-Python code that requires a different version of Python.
+Note that Python-based build tools have been moved to the buildtools-python
+module as those tools are not always properly wrapped and can interfer with
+other Python code that requires a different version of Python.
 
 Note that makeinfo is not fully functional as there is no TeX on the system.
 """ % {
@@ -111,6 +113,15 @@ Note that makeinfo is not fully functional as there is no TeX on the system.
     'xxd'             : local_xxd_version,
     'ver'             : version,
 }
+
+local_LUMI_partition = local_os.environ['LUMI_STACK_PARTITION']
+
+if local_LUMI_partition == 'CrayEnv': 
+    description = description + f"""
+The version {version} of this module refers to the version of the LUMI stack for which it
+was developed, but within this CrayEnv environment it can be used with every version of
+the programming environments.
+    """
 
 toolchain = SYSTEM
 
