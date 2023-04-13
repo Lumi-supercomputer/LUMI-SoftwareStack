@@ -46,6 +46,7 @@ source_urls = ['https://github.com/harfbuzz/harfbuzz/releases/download/%(version
 sources =     [SOURCELOWER_TAR_XZ]
 checksums =   ['4a6ce097b75a8121facc4ba83b5b083bfec657f45b003cd5a3424f2ae6b4434d']
 
+builddependencies = [
     ('buildtools',            '%(toolchain_version)s', '', True),
     ('GObject-Introspection', local_GObject_version,   '-cray-python' + local_craypython_maj_min),
 ]
@@ -57,7 +58,6 @@ dependencies = [
     ('freetype', local_freetype_version),
 ]
 
-builddependencies = [
 #preconfigopts = "./autogen.sh && "
 configopts = "--enable-introspection=yes --with-gobject=yes --enable-static --enable-shared --with-cairo "
 
