@@ -30,7 +30,7 @@ HDF5,1.12.2.3
 NetCDF,4.9.0.3
 parallel-netcdf,1.12.3.3
 iobuf,2.0.10
-GCC,12.2.0
+GCC,11.2.0
 GCC10,10.3.0
 GCC11,11.2.0
 GCC12,12.2.0

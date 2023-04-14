@@ -37,3 +37,10 @@ User Support Team can do about that. As the module is also not an official HPE C
 module there is no guarantee that it will integrate properly with HPE Cray PE modules
 or work correctly in that environment. Note that HPE Cray PE programming environments
 up to at least 23.02 have only been tested with ROCm version prior to 5.3 by HPE.
+
+gcc/12.2.0:
+Other Cray sites have reported that gcc/12.2.0 can cause inconsistent results, especially
+at high optimisation levels. There are also known problems with the installation on LUMI 
+when used in combination with the Cray wrappers (at least for C++, and likely similar 
+problems for GNU Fortran) because at runtime it is forced to use libraries from an older 
+gcc version. Use at your own risk.
