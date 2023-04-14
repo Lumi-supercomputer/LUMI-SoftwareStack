@@ -91,7 +91,7 @@ easyconfigs:
   - X11-22.12-cpeCray-22.12.eb
 # Block 8
   - cairo-1.17.4-cpeCray-22.12.eb
-  - FFmpeg-5.1.2-cpeCray-22.12.eb
+#  - FFmpeg-5.1.2-cpeCray-22.12.eb # Fails with CCE 15.0.0 with a compiler crash.
   - Tk-8.6.12-cpeCray-22.12.eb
 # Block 9
   - GObject-Introspection-1.74.0-cpeCray-22.12-cray-python3.9.eb
