@@ -91,7 +91,7 @@ easyconfigs:
   - X11-22.12-cpeAMD-22.12.eb
 # Block 8
   - cairo-1.17.4-cpeAMD-22.12.eb
-  - FFmpeg-5.1.2-cpeAMD-22.12.eb
+#  - FFmpeg-5.1.2-cpeAMD-22.12.eb
   - Tk-8.6.12-cpeAMD-22.12.eb
 # Block 9
   - GObject-Introspection-1.74.0-cpeAMD-22.12-cray-python3.9.eb
