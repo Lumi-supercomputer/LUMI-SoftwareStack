@@ -4,7 +4,7 @@
 easyblock = 'Binary'
 
 name =    'Vampir'
-version = '10.0.0'
+version = '10.2.1'
 
 local_archsuffix = '-linux-x86_64'
 
