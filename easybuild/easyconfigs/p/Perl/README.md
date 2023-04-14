@@ -67,4 +67,13 @@
         development of a central stack on which too many users depend too much for 
         the wishes of just one or a few users.
 
+### Updates to 5.36.0 for CPE 22.12/23.03
+
+  * Clang 15 is stricter on conversions from integers to pointers and does not accept
+    converting a negative integer (or signed integer type in general) to a pointer.
+    This breaks the "XML::Bare" extension. The solution is to add a compiler flag to turn
+    of that feature. The way to get that into the makefile was actually:
+    ```
+    'buildopts': 'OPTIMIZE="-O2 -Wno-int-conversion" ',
+    ```
   
