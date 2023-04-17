@@ -16,6 +16,10 @@ if os.getenv( 'LUMI_LMOD_POWERUSER' ) == nil then
     hide_version( 'PrgEnv-nvidia/8.3.3' )
     -- Tool modules in CrayEnv and LUMI that should be hidden from unexperienced users
     hide_version( 'buildtools/22.08-minimal' )
+    -- Some cpe* modules for which we have no software yet
+    hide_version( 'cpeGNU/23.03' )
+    hide_version( 'cpeAOCC/23.03' )
+    hide_version( 'cpeAMD/23.03' )
 end
 
 if os.getenv( 'LUMI_STACK_NAME' ) ~= nil then
