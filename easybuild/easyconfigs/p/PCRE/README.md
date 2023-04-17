@@ -1,7 +1,7 @@
 # PCRE
 
 Note that PCRE is old code that is no longer maintained. We're trying to move
-over to the newer PCRE2 libraries which are the successor of PCRE.
+over to the newer [PCRE2 libraries](../PCRE2) which are the successor of PCRE.
 
   * [PCRE home page](http://www.pcre.org/)
 
