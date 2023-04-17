@@ -1,5 +1,8 @@
 # PCRE
 
+Note that PCRE is old code that is no longer maintained. We're trying to move
+over to the newer PCRE2 libraries which are the successor of PCRE.
+
   * [PCRE home page](http://www.pcre.org/)
 
   * [PCRE downloads](https://ftp.pcre.org/pub/pcre/)
