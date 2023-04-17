@@ -1,11 +1,13 @@
    .Announcements---------------------------------------------------.
  * | NOTE: The default version of the LUMI software stack is now    |
    | LUMI/22.08 while the default version of the Cray PE after      |
-   | login and in CrayEnv is now 22.12. LUMI software stacks based  |
-*  | on 22.12 and 23.03 will become gradually available over the    |
-   | next weeks and users are advised to switch as soon as one of   |
-   | those stacks suits their applications.                         |
-   |                                                                |
+   | login and in CrayEnv is now 22.12. The base libraries for the  |
+*  | LUMI/22.12 software stack are now available, using GCC version |
+ * | 11 for cpeGNU as problems have been reported with GCC 12. The  |
+   | 23.03 stack currently only contains support for the Cray com-  |
+*  | piler as that version fixes important bugs from previous ver-  |
+   | sions.                                                         |
+  *|                                                                |
 *  | You can use the lumi-workspaces command (without loading an    |
    | additional module) to check your quota and allocations on      |
    | LUMI. Also check `module help lumi-tools` for more info.       | 
