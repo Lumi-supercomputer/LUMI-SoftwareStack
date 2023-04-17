@@ -28,7 +28,14 @@
   * Our EasyConfig is a combination of the EasyBuilders one and the one used
     at the University of Antwerpen.
 
+
 ### Version 1.3.4 from CPE 22.06 on
 
   * The EasyConfig is a trivial update of the 1.3.3 one.
+
+
+### Version 1.4.2 from CPE 22.12 on
+
+  * The EasyConfig is a trivial update of the 1.3.4 one but we copied the improved
+    sanity check from the EasyBuilders one.
 

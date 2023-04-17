@@ -2,7 +2,8 @@
 
   * [libxlm2 home page](http://xmlsoft.org/)
 
-      * [download link](http://xmlsoft.org/sources/)
+  * [Source downloads from gnome.org](https://download.gnome.org/sources/libxml2/)
+
 
 ## EasyBuild
 
@@ -19,4 +20,9 @@
     process searches for and may otherwise pick from the system. Additional sanity checks
     were also added.
 
+
+### Version 2.9.14 from CPE 22.12 on
+
+  * The EasyConfig is a port from the 2.9.12 one but with a new download location as 
+    the old download location doesn't contain the latest versions anymore.
 

@@ -13,6 +13,7 @@
 
   * [bzip2 support in the CSCS repository]()
 
+
 ### Version 1.08 from CPE 21.06 on
 
   * The EasyConfig is based on an EasyConfig and patch from the EasyBuilders
@@ -24,3 +25,4 @@
     repository contained a bug. The patch in this repository is already a corrected
     one and a bug report was submitted. We also modified the home page to a new one.
 
+  * Switched to the modified way of specifying checksums from 22.12 on.

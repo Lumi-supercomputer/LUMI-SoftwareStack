@@ -7,6 +7,7 @@ for versions.
 
 | Package | EasyBuild | CSCS |
 |:--------|:----------|:-----|
+| [makeinfo](https://gnu.askapache.com/texinfo/) (texinfo) | [EB makeinfo](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/m/makeinfo) |  / | 
 | [Autoconf](https://ftp.gnu.org/gnu/autoconf/) | [EB Autoconf](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/a/Autoconf) | [CSCS Autoconf](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/a/Autoconf) |
 | [Autoconf_archive](https://ftp.gnu.org/gnu/autoconf-archive/) | [EB Autoconf_archive](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/a/Autoconf-archive) | / |
 | [Automake](https://ftp.gnu.org/gnu/automake/) | [EB Automake](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/a/Automake) | [CSCS Automake](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/a/Automake) |
@@ -44,6 +45,8 @@ better to avoid bugs also).
 | [bzip2](https://sourceware.org/git/?p=bzip2.git;a=summary) | [SUSE bzip2](https://software.opensuse.org/search?utf8=%E2%9C%93&baseproject=ALL&q=bzip2) |
 | [zlib](https://zlib.net/) |  ? |
 | [lz4](https://github.com/lz4/lz4/releases) | [SUSE lz4](https://software.opensuse.org/search?utf8=%E2%9C%93&baseproject=ALL&q=lz4) |
+| [Brotli](https://github.com/google/brotli/releases) | / |
+| [cURL](https://curl.se/download/) | / | 
 | [expat](https://github.com/libexpat/libexpat/releases) | [SUSE expat](https://software.opensuse.org/search?utf8=%E2%9C%93&baseproject=ALL&q=expat) |
 | [APR](https://apr.apache.org/) | ? |
 | [APR-util](https://apr.apache.org/) | ? |
@@ -69,17 +72,18 @@ better to avoid bugs also).
 | [Go](https://go.dev/dl/) | [EB Go](https://github.com/easybuilders/easybuild-easyconfigs/blob/develop/easybuild/easyconfigs/g/Go/Go-1.17.6.eb) |  / |
 | [nano](https://www.nano-editor.org/download.php) | / | [CSCS nano](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/n/nano) |
 | [Vim](https://github.com/vim/vim/tags) | [EB Vim](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/v/Vim) | [CSCS Vim](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/v/Vim) |
-| [git](https://github.com/git/git/releases) | [EB git](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/g/git) | [CSCS git](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/g/git) |
+| [git](https://github.com/git/git/tags) | [EB git](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/g/git) | [CSCS git](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/g/git) |
 | [Subversion](https://subversion.apache.org/download.cgi) | [EB Subversion](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/s/Subversion) | [CSCS Subversion](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/s/Subversion) |
+| [GNU parallel](https://ftp.gnu.org/gnu/parallel/) | [EB parallel](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/p/parallel) | [CSCS parallel](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/p/parallel) |
 
 
-## Regular packages
+## Regular packages in the main stack
 
 | Package | EasyBuild | CSCS |
 |:--------|:----------|:-----|
 | [blosc](https://github.com/Blosc/c-blosc/releases) | [EB Blosc](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/b/Blosc) | [CSCS Blosc](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/b/Blosc) |
 | [Boost](https://www.boost.org/) | [EB Boost](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/b/Boost) | / |
-| [Brotkli](https://github.com/google/brotli/releases) | [EB Brotli](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/b/Brotli) | / |
+| [Brotli](https://github.com/google/brotli/releases) | [EB Brotli](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/b/Brotli) | / |
 | [bzip2](http://www.bzip.org/downloads.html) | [EB bzip2](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/b/bzip2) | [CSCS bzip2](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/b/bzip2) |
 | [cairo](https://www.cairographics.org/) | [EB cairo](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/c/cairo) | [CSCS cairo](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/c/cairo) |]
 | [CubeLib](https://www.scalasca.org/scalasca/software/cube-4.x/download.html) | [EB CubeLib](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/c/CubeLib) | [CSCS CubeLib](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/c/CubeLib) |
@@ -111,12 +115,11 @@ better to avoid bugs also).
 | [ICU](http://site.icu-project.org/home) | [EB ICU](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/i/ICU) | / |
 | [intltool](https://launchpad.net/intltool/+download) | [EB intltool](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/i/intltool) | / |
 | [JasPer](https://github.com/jasper-software/jasper/releases) | [ EB JasPer](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/j/JasPer) | [CSCS JasPer](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/j/JasPer) |
-| [LAME](http://lame.sourceforge.net/) | [EB LAME](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/LAME)
-| [EB CSCS](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/l/LAME) |
+| [LAME](http://lame.sourceforge.net/) | [EB LAME](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/LAME) | [EB CSCS](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/l/LAME) |
 | [libaec](https://gitlab.dkrz.de/k202009/libaec/-/tags) | [EB libaec](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/libaec) | [CSCS libaec](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/l/libaec) |
 | [libarchive](https://github.com/libarchive/libarchive/releases) | [EB libarchive](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/libarchive) | / |
 | [libatomic](https://github.com/ivmai/libatomic_ops/releases) | / | / |
-| [libb2](https://github.com/BLAKE2/libb2/releases) | [EB gc](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/g/gc) | / |
+| [libb2](https://github.com/BLAKE2/libb2/releases) | / | / |
 | [libcerf](https://jugit.fz-juelich.de/mlz/libcerf/-/releases) | [ EB libcerf](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/libcerf) | [CSCS libcerf](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/l/libcerf) |
 | [libdeflate](https://github.com/ebiggers/libdeflate/releases) | [EB libdeflate](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/libdeflate) | / |
 | [libevent](https://libevent.org/) | [EB libevent](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/libevent) | [CSCS libevent](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/l/libevent) |
@@ -142,7 +145,7 @@ better to avoid bugs also).
 | [libxml2](http://xmlsoft.org/sources/) | [EB libxml2](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/libxml2) | [CSCS libxml2](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/l/libxml2) |
 | [libxslt](http://xmlsoft.org/sources/) | [EB libxslt](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/libxslt) | / |
 | [libyaml](https://github.com/yaml/libyaml/releases) | [ EB libyaml](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/libyaml) |  [CSCS libyaml](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/l/libyaml) |
-| [LMDB](https://github.com/LMDB/lmdb/releases) | [LE LMDB](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/LMDB) | [CSCS LMDB](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/l/LMDB) |
+| [LMDB](https://github.com/LMDB/lmdb/tags) | [EB LMDB](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/LMDB) | [CSCS LMDB](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/l/LMDB) |
 | [lz4](https://github.com/lz4/lz4/releases) | [EB lz4](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/lz4) | [CSCS lz4](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/l/lz4) |
 | [lzip](http://download.savannah.gnu.org/releases/lzip/) | / | / |
 | [LZO](http://www.oberhumer.com/opensource/lzo/#download) | [EB LZO](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/LZO) | / |
@@ -151,8 +154,6 @@ better to avoid bugs also).
 | [mpdecimal](https://www.bytereef.org/mpdecimal/) | / | / |
 | [MPFR](https://ftp.gnu.org/gnu/mpfr/) | [EB MPFR](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/m/MPFR) | [CSCS MPFR](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/m/MPFR) |
 | [ncurses](https://ftp.gnu.org/pub/gnu/ncurses/) | [EB ncurses](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/n/ncurses) | [CSCS ncurses](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/n/ncurses) |
-| [OPARI2](https://www.vi-hps.org/tools/opari2.html) | [EB OPARI2](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/o/OPARI2) | [CSCS OPARI2](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/o/OPARI2) |
-| [OTF2](https://www.vi-hps.org/projects/score-p/) | [EB OTF2](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/o/OTF2) | [CSCS OTF2](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/o/OTF2) | 
 | [Pango](https://download.gnome.org/sources/pango/) | [EB Pango](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/p/Pango) | / |
 | [ParMETIS](https:/http://glaros.dtc.umn.edu/gkhome/metis/parmetis/download) | [EB ParMETIS](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/p/ParMETIS) | [CSCS ParMETIS](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/p/ParMETIS) |
 | [PCRE](https://ftp.pcre.org/pub/pcre/) | [EB PCRE](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/p/PCRE) | [CSCS PCRE](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/p/PCRE) |
@@ -161,8 +162,8 @@ better to avoid bugs also).
 | [PLUMED](https://github.com/plumed/plumed2/releases) | [EB PLUMED](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/p/PLUMED) | [CSCS PLUMED](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/p/PLUMED) |
 | [PROJ](https://proj.org/download.html) | [EB PROJ](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/p/PROJ) | [CSCS PROJ](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/p/PROJ) |
 | [pixman](https://www.cairographics.org/releases/) | [EB pixman](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/p/pixman) | [CSCS pixman](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/p/pixman) |
+| [SCOTCH](https://gitlab.inria.fr/scotch/scotch/-/tags) | [EB SCOTCH](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/s/SCOTCH) | [CSCS SCOTCH](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/s/SCOTCH) |
 | [snappy](https://github.com/google/snappy/releases) | [EB snappy](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/s/snappy) | [CSCS snappy](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/s/snappy) |
-| [SCOTCH](https://gforge.inria.fr/projects/scotch/) | [EB SCOTCH](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/s/SCOTCH) | [CSCS SCOTCH](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/s/SCOTCH) |
 | [SQLite](https://www.sqlite.org/) | [ EB SQLite](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/s/SQLite) | [CSCS SQLite](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/s/SQLite) |
 | [Szip](https://support.hdfgroup.org/ftp/lib-external/szip/) | [EB Szip](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/s/Szip) | [CSCS Szip](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/s/Szip) |
 | [Tcl](https://tcl.tk/) | [ EB Tcl](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/t/Tcl) | [CSCS Tcl](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/t/Tcl) |
@@ -177,3 +178,11 @@ better to avoid bugs also).
 | [XZ](https://tukaani.org/xz/) | [EB XZ](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/x/XZ) | [CSCS XZ](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/x/XZ) |
 | [zlib](https://zlib.net/) | [EB zlib](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/z/zlib) | [CSCS zlib](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/z/zlib) |
 | [zstd](https://github.com/facebook/zstd/releases) | [ EB zstd](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/z/zstd) | [CSCS zstd](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/z/zstd) |
+
+## Regular packages in the contributed repository
+
+| Package | EasyBuild | CSCS |
+|:--------|:----------|:-----|
+| [OPARI2](https://www.vi-hps.org/tools/opari2.html) | [EB OPARI2](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/o/OPARI2) | [CSCS OPARI2](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/o/OPARI2) |
+| [OTF2](https://www.vi-hps.org/projects/score-p/) | [EB OTF2](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/o/OTF2) | [CSCS OTF2](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/o/OTF2) | 
+

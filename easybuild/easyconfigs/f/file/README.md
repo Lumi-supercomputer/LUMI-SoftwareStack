@@ -19,9 +19,11 @@
   * The EasyConfig is a mix of the EasyBuilders and University of Antwerpen ones
     with additional documentation.
 
+
 ### Version 5.41 from CPE 21.12 on
 
   * Trivial port of the EasyConfig
+
 
 ### Version 5.42 from CPE 22.06 on
 
@@ -29,3 +31,10 @@
     and XZ, so moved it further down in the build chain.
 
   * Otherwise a simple port of the EasyConfig file of 5.41.
+
+  
+### Version 5.43 from CPE 22.12 on
+
+  * Trivial version update of the EasyConfig.
+
+  

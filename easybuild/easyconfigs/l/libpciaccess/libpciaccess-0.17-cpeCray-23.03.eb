@@ -1,0 +1,42 @@
+easyblock = 'ConfigureMake'
+
+local_xorg_macros_version =  '1.19.3'        # https://cgit.freedesktop.org/xorg/util/macros
+
+local_libpciaccess_version = '0.17'          # https://cgit.freedesktop.org/xorg/lib/libpciaccess/
+
+name =    'libpciaccess'
+version = local_libpciaccess_version
+
+homepage = 'https://cgit.freedesktop.org/xorg/lib/libpciaccess/'
+
+whatis = [
+    'Description: Generic PCI access library.'
+]
+
+description = """
+Generic PCI access library.
+"""
+
+toolchain = {'name': 'cpeCray', 'version': '23.03'}
+
+source_urls = ['https://www.x.org/releases/individual/lib/']
+sources =     [SOURCE_TAR_GZ]
+checksums =   ['bf6985a77d2ecb00e2c79da3edfb26b909178ffca3f2e9d14ed0620259ab733b']
+
+builddependencies = [ # Create a reproducible build environment.
+    ('buildtools',  '%(toolchain_version)s',   '', True),
+    ('xorg-macros', local_xorg_macros_version, '', True),
+]
+
+sanity_check_paths = {
+    'files': [ 'lib/libpciaccess.%s' % x for x in ['a', 'la', SHLIB_EXT]] +
+             ['include/pciaccess.h', 'lib/pkgconfig/pciaccess.pc'],
+    'dirs':  [],
+}
+
+# Just to be sure, check for pkg-config compatibility with Cray pkg-config.
+sanity_check_commands = [
+    'pkg-config --libs pciaccess | grep "%(installdir)s/lib"',
+]
+
+moduleclass = 'system'

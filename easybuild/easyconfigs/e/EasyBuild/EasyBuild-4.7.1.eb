@@ -1,0 +1,105 @@
+easyblock = 'EB_EasyBuildMetaLUMI'
+
+name =    'EasyBuild'
+version = '4.7.1'
+
+homepage = 'https://easybuilders.github.io/easybuild'
+
+whatis = [
+    "Description: EasyBuild is a software build and installation framework written in Python that allows you to install software in a structured, repeatable and robust way."
+]
+
+description = """
+EasyBuild is a software build and installation framework
+written in Python that allows you to install software in a structured,
+repeatable and robust way.
+"""
+
+usage = """
+See the documentation on readthedocs. Only the documentation of the latest
+version is readily available.
+
+The EasyBuild module on LUMI should be used through the EasyBuild-user or
+EasyBuild-production modules. These modules ensure that EasyBuild is properly
+configured to install software on LUMI.
+  * Installing software that is common to all partitions: First load the
+    appropriate LUMI software stack module and the hidden partition/common module
+    and then load either EasyBuild-user or EasyBuild-production (the latter for
+    system managers only) module.
+  * Installing software for a specific partition works in the same way, but then
+    by loading the appropriate partition module. It is best to compile software on
+    a node of that partition as cross-compiling may not always work as some packages
+    have the nasty habit to add compiler options that conflict with the requirements
+    of cross-compiling.
+"""
+
+docurls = [
+    "Web-based documentation on https://easybuild.readthedocs.io/"
+]
+
+toolchain = SYSTEM
+
+source_urls = [
+    # easybuild-framework
+    'https://files.pythonhosted.org/packages/76/4b/b7a88e791cce0d79db9f2319ab07c79584815ca9e497d178c39fa4621b8d/',
+    # easybuild-easyblocks
+    'https://files.pythonhosted.org/packages/10/72/391eb5bde081da67fef0a59625ce7cf4939176416aed299ef55923e422b4/',
+    # easybuild-easyconfigs
+    'https://files.pythonhosted.org/packages/32/1a/e7c851db23ffb0fc5c3cc9c255318d533f642c86eff2c3c33e0ab063a449/',
+
+]
+
+sources = [
+    'easybuild-framework-%(version)s.tar.gz',
+    'easybuild-easyblocks-%(version)s.tar.gz',
+    'easybuild-easyconfigs-%(version)s.tar.gz',
+]
+
+patches = [
+    'EasyBuild-4.4.2_keyring_DBus.patch',
+]
+
+checksums = [
+    {'easybuild-framework-4.7.1.tar.gz': 'ad3d95c2b11f895666d83cda3422e785261ecb9d14e7c3e0c9cef427b7404d6b'},
+    {'easybuild-easyblocks-4.7.1.tar.gz': '8c383dc4d02784e5ab610cec2df58c19ff9c1b7c03bb7585788ced1646e394e8'},
+    {'easybuild-easyconfigs-4.7.1.tar.gz': '58c70e7e4a8958f932e4e7abab0194198a8f9baf19915bfa5191b431f3f1a864'},
+]
+
+# order matters a lot, to avoid having dependencies auto-resolved (--no-deps easy_install option doesn't work?)
+# EasyBuild is a (set of) Python packages, so it depends on Python
+# usually, we want to use the system Python, so no actual Python dependency is listed
+allow_system_deps = [('Python', SYS_PYTHON_VERSION)]
+
+local_pyshortver = '.'.join(SYS_PYTHON_VERSION.split('.')[:2])
+
+exts_defaultclass = 'PythonPackage'
+exts_filter = ("python3 -c 'import %(ext_name)s'", '')
+exts_default_options = {
+    'download_dep_fail': True,
+    'sanity_pip_check':  False,
+    'source_urls':       [PYPI_SOURCE],
+    'use_pip':           False,
+}
+
+exts_list = [
+    ('click',             '7.1.2',    {}),    # archspec 0.1.3 is incompatible with more recent versions of click
+    ('archspec',          '0.1.3',    {}),
+    ('colorama',          '0.4.4',    {}),
+    ('commonmark',        '0.9.1',    {}),
+    ('dataclasses',       '0.8',      {}),
+    ('Pygments',          '2.11.2',   {}),
+    ('typing_extensions', '3.10.0.2', {}), # The 4.0.x versions did not install, maybe due to the lack of pip?
+    ('rich',              '11.2.0',   {}),
+]
+
+sanity_check_paths = {
+    'files': ['bin/eb'],
+    'dirs':  ['lib/python%s/site-packages' % local_pyshortver],
+}
+
+# Set Python 3 for EasyBuild
+modextravars = {
+    'EB_PYTHON': 'python3',
+}
+
+moduleclass = 'tools'

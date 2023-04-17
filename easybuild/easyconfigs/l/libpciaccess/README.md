@@ -16,3 +16,9 @@
 
   * The EasyConfig is derived from the EasyBuilders one with some refinements
     to the sanity checks.
+
+    
+### Version 0.17 from CPE 22.12 on
+
+  * The EasyConfig is a trivial version bump of the 0.16 one.
+

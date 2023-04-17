@@ -36,3 +36,13 @@ of the library that SCons generates.
   * The EasyConfig is derived from the EasyBuilders one with some changes based on
     the University of Antwerpen one.
 
+
+### 3.2.0 from CPE 22.08 on
+
+  * The EasyConfig is a trivial port of the 3.1.5 one.
+  
+### 3.2.1 from CPE 22.12 on
+
+  * The EasyConfig is a trivial port of the 3.2.0 one.
+  
+  

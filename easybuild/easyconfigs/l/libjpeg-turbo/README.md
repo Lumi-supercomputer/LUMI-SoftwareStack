@@ -24,9 +24,17 @@
 
       * Switched to GitHub as the source of the files and the home page.
 
+
 ### Version 2.1.3 from CPE 22.06 on
 
   * Trivial version bump,
 
   * Added some sanity_check_commands, but this may not be that useful as there is a 
     testing procedure during the build.
+
+    
+### Version 2.1.4 from CPE 22.12 on
+
+  * Trivial version bump of the 2.1.3 EasyConfig.
+
+

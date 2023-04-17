@@ -66,7 +66,19 @@ HPE-Cray has a sample build script for Boost in their
   * For 21.12, which switched to Python 3.9.4, the version detection is wrong so the sanity
     check goes looking for the files for Python 3.8 rather than 3.9.
 
+
 ### Version 1.79.0 for LUMI/22.06
 
   * Trivial port of the EasyConfigs.
 
+
+### 1.81.0 from CPE 22.12 on
+
+  * Trivial port of the EasyConfigs for the regular version.
+  
+  * We no longer have the -python3 versions of the modules. Instead a separate Boost.python
+    module will be developed that installs the Python 3 interfaces on top of the regular
+    Boost module. Unless the EasyBuilders repository though we do not distinguish between
+    Boost and Boost.mpi, the latter still a full library but with MPI support, as we don't
+    have those levels of hierarchy in our toolchains. 
+    

@@ -28,3 +28,10 @@
 
     **NOTE:** When compiled with cpeCray or cpeAMD two of the tests are skipped, while
     in the cpeGNU versions all tests pass.
+
+    
+### Version 1.3.1 from CPE 22.12 on
+
+  * The EasyConfig is a straightforward port of the 1.2.1 one.
+
+    

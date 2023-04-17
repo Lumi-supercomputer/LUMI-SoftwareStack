@@ -42,3 +42,6 @@
 
   * Trivial port of the 9.0.0016 EasyConfig.
 
+### Version 9.0.1392 for 22.12/23.03
+
+  * Trivial port of the 9.0.0193 EasyConfig with some layout changes.

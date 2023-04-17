@@ -12,7 +12,13 @@
 
   * [lz4 in the CSCS repository](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/l/lz4)
 
+
 ### Version 1.9.3 from CPE 21.06 on
 
   * The EasyConfig file is a direct derivative from the one from the EasyBuilders repository.
+
+
+### Version 1.9.4 from CPE 22.12 on
+
+  * The EasyConfig is a trivial version bump of the 1.9.3 one.
 

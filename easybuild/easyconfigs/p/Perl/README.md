@@ -49,10 +49,31 @@
     ``'prebuildopts': 'sed -i -e "s|CC = .*|CC = CC|" Makefile && '``.
     This is safe for all CPE toolchains.
 
-  * Do not forget to remove the `preconfigopts` ofr `Net::SSLeay`.
+  * Do not forget to remove the `preconfigopts` or `Net::SSLeay`.
 
   * Other issues:
 
       * AOCC: 
  
           * `DBD::SQLite` extension does not compile
+          
+  * Updated package list in the versions for CPE 22.12 and 23.03 to those from the 
+    EasyConfig for GCCcore/12.2.0, part of 2022b.
+    
+    *   Did not update all user requeste packages as it looks like the version of
+        Alien::Libxml2 did not build on top of the version of Alien::Base that was
+        up-to-date at the time of development. This may be caused by some new extensions
+        that require other missing dependencies, but we did not want to slow down the
+        development of a central stack on which too many users depend too much for 
+        the wishes of just one or a few users.
+
+### Updates to 5.36.0 for CPE 22.12/23.03
+
+  * Clang 15 is stricter on conversions from integers to pointers and does not accept
+    converting a negative integer (or signed integer type in general) to a pointer.
+    This breaks the "XML::Bare" extension. The solution is to add a compiler flag to turn
+    of that feature. The way to get that into the makefile was actually:
+    ```
+    'buildopts': 'OPTIMIZE="-O2 -Wno-int-conversion" ',
+    ```
+  

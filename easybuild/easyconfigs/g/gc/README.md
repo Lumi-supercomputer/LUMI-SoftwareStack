@@ -19,4 +19,12 @@
   * The EasyConfig is based on the EasyBuilders one with some input from the
     University of Antwerpen one.
 
+### Version 8.2.0 from CPE 21.12 on
 
+  * The EasyConfig is based on the EasyBuilders one with some input from the
+    University of Antwerpen one.
+    
+### Version 8.2.2 from CPE 22.12 on
+
+  * The EasyConfig is a straightforward port of the 8.2.0 one, but with
+    the checksums adapted to the more robust way of specifying them.

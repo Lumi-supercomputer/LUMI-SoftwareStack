@@ -37,8 +37,18 @@ The current content is
 
 ### 21.12
 
-### 22.06
+### 22.06 and 22.08
 
   * Update of htop and some improvements to the EasyConfig.
 
   * Robustified the installation on LUMI with checksums.
+
+
+### 22.12 and 23.03
+
+  * Just some version bumps.
+  
+  * Changing the layout of the EasyConfig a bit.
+
+  
+  

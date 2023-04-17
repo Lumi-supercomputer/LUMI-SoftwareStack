@@ -55,7 +55,7 @@
     of Antwerpen one which predates the former.
 
 
-### Version 1.1 from CPE 22.06 on
+### Version 1.1.0 from CPE 22.06 on
 
   * Trivial bump of the EasyConfig.
 
@@ -63,3 +63,11 @@
     which may be a burden to install. We instead added the flag to disable MPEG support.
 
   * The static library is no longer generated.
+  
+ 
+### Version 1.2.0 from CPE 23.03
+
+  * Trivial bump of the EasyConfig for 1.1.0, we did not yet switch to the CMake build
+    process currently used in the EasyBuilders versions.
+
+

@@ -18,6 +18,7 @@
   * The EasyConfig is derived from the University of Antwerpen one with a version
     bump and change of download location.
 
+
 ### 3.0.4 from CPE 22.06 on
 
   * Trivial version bump of the EasyConfig
@@ -25,4 +26,9 @@
   * Did a check of the tests in the log file and there don't seem to be any new optional
     dependencies.
 
+
+### Version 4.0.0 from CPE 22.12 on
+
+  * Trivial version bump of the EasyConfig, but we did copy the improved sanity check
+    from the EasyBuilders version.
 

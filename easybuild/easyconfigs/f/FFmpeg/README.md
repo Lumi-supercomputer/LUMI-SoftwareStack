@@ -32,3 +32,13 @@ in EasyBuild.
   * We started from a version bump of the 4.3.3 EasyConfig.
 
 
+### Version 5.1.2 from CPE 22.12 on
+
+  * Almost trivial port of the 5.0.1 EasyConfig.
+  
+  * Note that we explicitly exclude the SDL2 dependency that is used in the EasyBuilders
+    repository as SDL2 uses DBus and hence may not work on the compute nodes.
+
+  * FFmpeg 5.1.2 causes a compiler crash in CCE 15.0.0, but that issue seems to be
+    resolved in 15.0.1.
+

@@ -19,7 +19,13 @@
   * No cpeAMD version for 21.08 as the compilation of the Tcl dependency
     fails with that compiler.
 
+
 ### Version 3.38.3 from CPE 22.06 on
 
   * Trivial port of the EasyConfig with some refinement to the download procedure.
+
+
+### Version 3.39.4 from CPE 22.12 on
+
+  * Trivial port of the EasyConfig for 3.38.3.
 

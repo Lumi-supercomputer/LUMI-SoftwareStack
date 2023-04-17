@@ -15,3 +15,9 @@
 ### Version 1.3.2 for CPE 21.08
 
   * The EasyConfig is a straightforward adaptation of the EasyBuilders one.
+
+  
+### Version 1.3.3 from CPE 22.12 on
+
+  * The EasyConfig is a straightforward port of the 1.3.2. one.
+

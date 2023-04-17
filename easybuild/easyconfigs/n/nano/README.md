@@ -36,4 +36,8 @@
  
   * A trivial upgrade from 6.3. No new options were added to the EasyConfig.
 
-  
+### nano 7.2 for 22.11/23.02
+
+  * Trivial version bump from 6.4, but we did explicitly enable posix threading
+    even though that seems to be the default.
+
