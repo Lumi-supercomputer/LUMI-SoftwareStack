@@ -51,3 +51,33 @@ a warning when you are running out of quota or out of billing units.
 
 Note that this is fully based on cached data gathered from time to time in the background.
 The command will in no way show 100% correct instantaneous numbers.
+
+
+## lumi-ldap-projectinfo (version 23.04 and higher)
+
+`lumi-ldap-projectinfo` shows information about projects as it is kept in the 
+LDAP system. The amount of information that is shown depends on your privileges
+on the system as not all information is available to regular users and as 
+regular users can only see data from their own projects. The information includes
+information about the allocation and quota. That is not live information but
+computed periodically. The tool also shows the members of the project.
+
+This tool shows more information than `lumi-allocations`, `lumi-quota` or
+`lumi-workspaces`. However, `lumi-quota` and `lumi-workspaces` show quota
+information almost in real time. It is complementary to the
+`lumi-ldap-userinfo` tool that shows user information from the LDAP.
+
+
+## lumi-ldap-userinfo (version 23.04 and higher)
+
+`lumi-allocations` shows information about projects as it is kept in the 
+LDAP system. The amount of information that is shown depends on your privileges
+on the system as regular users can only see data from themselves. 
+The information includes information about the quota. That is not live information but
+computed periodically. The tool also shows a list of projects 
+found on the system (in the group database) for the given user(s).
+
+This tool shows more information than `lumi-quota` or
+`lumi-workspaces`. However, `lumi-quota` and `lumi-workspaces` show quota
+information almost in real time. It is complementary to the
+`lumi-ldap-projectinfo` tool that shows project information from the LDAP.

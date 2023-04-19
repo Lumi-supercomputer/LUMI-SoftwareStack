@@ -46,3 +46,10 @@ Sources:
     
 -   Completely revised EasyConfig: The shell scripts have been removed from the EasyConfig and
     moved to their own repository which makes it a lot easier to test.
+
+
+### Version 23.04
+
+-   EasyConfig based on the 23.03 one. This version adds the `lumi-ldap-projectinfo` 
+    and `lumi-ldap-userinfo` tools.
+    
