@@ -77,7 +77,7 @@ toolchain = SYSTEM
 # cannot download them automatically.
 #
 sources =   [ 'vampir-%(version)s' + local_archsuffix + '-setup.sh' ]
-checksums = [ 'c8cdfb9bb2319b0b9f8ac99c3b35bc892479166c80777199472fce641794e147' ]
+checksums = [ '06f99886826320ef084f3dea2c03384c0da467874e6d3d66d5bbd254c0036586' ]
 
 install_cmd  = './' + sources[0] + ' --silent --instdir=%(installdir)s '
 install_cmd += '--no-icon --no-menu-items --no-trace-file-association'
