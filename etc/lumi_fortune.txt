@@ -61,16 +61,6 @@ output from 4000 passenger cars.
 
 =====
 
-The CrayEnv stack is our solution to use the Cray Programming Environment fully
-as intended by Cray. However, when using the LUMI software stack, it is better to
-use the cpeGNU or cpeCray modules to load the GNU respectively the Cray compilers
-in your environment as that guarantees a setup that is compatible with the
-cpeGNU and cpeCray modules respectively. You're free to do otherwise if you're
-an experienced user, but you have to realise that not all combinations of
-compiler and software modules will work.
-
-=====
-
 With software built with EasyBuild (as is most software in the LUMI stack),
 it is very easy to find the location of the software binaries. After loading
 the module, an environment variable based on the name of the module will be
@@ -83,12 +73,13 @@ modules.
 =====
 
 The behaviour of many modules of the Cray Programming Environment depends
-on the target modules that are loaded. Compilers prior to the 21.11 environment
-did not optimize specifically for zen3, the core architecture of the AMD
-Epyc Milan CPUs in the LUMI-C compute nodes and the AMD Epyc Trento CPUs
-in the LUMI-G compute nodes. However, gcc 11 and later and also the Cray
-compilers included from the 21.11 environment onwards can get a little extra
-performance by optimising for zen3 specifically. The CrayEnv environment
+on the target modules that are loaded. All compilers on LUMI except for the
+gcc implementation provided by the operating system support proper 
+optimizations for the zen2 and zen3 processors. The zen3 architectures is 
+the core architecture of the AMD Epyc Milan CPUs in the LUMI-C compute nodes 
+and the AMD Epyc Trento CPUs in the LUMI-G compute nodes. (Except for
+gcc 10.3.0 that still lacks full zen3 support.) You may get get a little 
+extra performance by optimising for zen3 specifically. The CrayEnv environment
 will automatically load the best target CPU, network and accelerator target
 modules for each node. You can always restore them by reloading the
 CrayEnv module (and there is no need to unload first).
@@ -129,4 +120,5 @@ project by the instance from which you requested your allocation.
 
 This LUMI project number actually also corresponds to the project group
 assigned to your project. It is easy to see to which project(s) you belong
-by running the groups command on the command line.
+by running the groups command or the lumi-workspaces command or the
+lumi-ldap-userinfo command on the command line.
