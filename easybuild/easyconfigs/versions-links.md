@@ -58,11 +58,12 @@ better to avoid bugs also).
 
 ## systools bundle
 
-| Package |
-|:--------|
-| [GPP](https://github.com/logological/gpp/releases) |
-| [htop](https://github.com/htop-dev/htop/releases) |
-| [tree](http://mama.indstate.edu/users/ice/tree/src) |
+| Package | EasyBuild | CSCS |
+|:--------|:-----------|:-----|
+| [GPP](https://github.com/logological/gpp/releases)     | | |
+| [htop](https://github.com/htop-dev/htop/releases)      | | |
+| [libtree](https://github.com/haampie/libtree/releases) | [EB libtree](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/libtree) | [CSCS libtree](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/l/libtree) |
+| [tree](http://mama.indstate.edu/users/ice/tree/src)    | | |
 
 
 ## Other packages that we try to build against the SYSTEM toolchain
