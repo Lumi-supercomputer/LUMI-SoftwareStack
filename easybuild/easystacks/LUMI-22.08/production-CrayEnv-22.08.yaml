@@ -53,4 +53,8 @@ software:
     toolchains:
       SYSTEM:
         versions: ['20230222']
+  lumi-CrayPath:
+    toolchains:
+      SYSTEM:
+        versions: ['0.1']
 
