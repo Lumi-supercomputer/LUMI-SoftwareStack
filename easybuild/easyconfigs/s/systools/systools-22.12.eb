@@ -12,9 +12,10 @@ whatis = [
     "Contains: gpp, htop, tree",
 ]
 
-local_SUSE_htop_version =         '3.2.1'
-local_SUSE_GPP_version =          '2.27'
-local_SUSE_tree_version =         '2.0.2'
+local_systools_GPP_version =          '2.27'
+local_systools_htop_version =         '3.2.1'
+local_systools_libtree_version =      '3.1.1'
+local_systools_tree_version =         '2.0.2'
 
 description = f"""
 This module provides a number of popular tools to view and manage Linux processes
@@ -22,7 +23,7 @@ or files or to process files.
 
 Overview of included tools:
 
-  + gpp (version {local_SUSE_GPP_version}: a general-purpose preprocessor with customizable syntax, suitable for a
+  + gpp (version {local_systools_GPP_version}: a general-purpose preprocessor with customizable syntax, suitable for a
     wide range of preprocessing tasks. Its independence from any one programming
     language makes it much more versatile than the C preprocessor (cpp), while its
     syntax is lighter and more flexible than that of GNU m4. There are built-in
@@ -31,7 +32,7 @@ Overview of included tools:
     GPP is Free Software. It is distributed under the terms of the GNU Lesser
     General Public Licence.
 
-  + htop (version {local_SUSE_htop_version}): an interactive process viewer for Unix/Linux.
+  + htop (version {local_systools_htop_version}): an interactive process viewer for Unix/Linux.
 
     Note that by default, htop will not show the load of individual cores as you may be used from
     many other sites. However, given that there are 256 virtual cores on most nodes, this produces
@@ -42,8 +43,12 @@ Overview of included tools:
 
     This configuration will be stored in ~/.config/htop/htoprc, so you can also copy settings
     from another user by exchanging that file.
+    
+  + libtree (version {local_systools_libtree_version}) is a tool that turns ldd into a tree, explains why
+    shared libraries are found and why not and optionally deploys executables and
+    dependencies into a single directory.
 
-  + tree (version {local_SUSE_tree_version}): a recursive directory listing command that produces a depth indented
+  + tree (version {local_systools_tree_version}): a recursive directory listing command that produces a depth indented
     listing of files, which is colorized ala dircolors if the LS_COLORS environment
     variable is set and output is to tty.
 """
@@ -52,6 +57,7 @@ docurls = [
     'GPP:  Web-based documentation on: https://files.nothingisreal.com/software/gpp/gpp.html',
     'GPP:  Mal page in section 1 (man 1 gpp)',
     'htop: Man page in section 1 (man 1 htop)',
+    'libtree: Man page in section 1 (man 1 libtree)',
     'tree: Man page in section 1 (man 1 tree)',
 ]
 
@@ -66,7 +72,7 @@ dependencies = [
 default_easyblock = 'ConfigureMake'
 
 components = [
-    ('GPP', local_SUSE_GPP_version, {
+    ('GPP', local_systools_GPP_version, {
         'sources':       [ {
                             'filename':    SOURCELOWER_TAR_BZ2,
                             'source_urls': ['https://github.com/logological/gpp/releases/download/%(version)s']
@@ -74,8 +80,10 @@ components = [
         'checksums':     ['49eb99d22af991e7f4efe2b21baa1196e9ab98c05b4b7ed56524a612c47b8fd3'],
         'start_dir':     'gpp-%(version)s',
         'preconfigopts': 'CFLAGS="-O2 -march=znver1" CXXFLAGS="-O2 -march=znver1" ',
+        'installopts':   ' && mkdir -p %(installdir)s/share/licenses/%(name)s' +
+                         ' && cp COPYING COPYING.LESSER NEWS THANKS %(installdir)s/share/licenses/%(name)s'
     }),
-    ('htop', local_SUSE_htop_version, {
+    ('htop', local_systools_htop_version, {
         'sources':       [ {
                             'download_filename': '%(version)s.tar.gz',
                             'filename':          SOURCE_TAR_GZ,
@@ -86,9 +94,23 @@ components = [
         'preconfigopts': './autogen.sh && LDFLAGS="-L$EBROOTSYSLIBS/lib" LIBS="$LIBS -ltinfo" CFLAGS="-O2 -march=znver1" CXXFLAGS="-O2 -march=znver1" ',
         # Core dumps when compiled with unicode support, there must be something wrong in
         # our ncursesw library.
-        'configopts':    '--disable-unicode'
+        'configopts':    '--disable-unicode',
+        'installopts':   ' && mkdir -p %(installdir)s/share/licenses/%(name)s' +
+                         ' && cp COPYING %(installdir)s/share/licenses/%(name)s'
     }),
-    ('tree', local_SUSE_tree_version, {
+    ('libtree', local_systools_libtree_version, {
+        'easyblock':     'MakeCp',
+        'sources':       [ { # https://github.com/haampie/libtree/archive/refs/tags/v3.1.1.tar.gz
+                            'download_filename': 'v%(version)s.tar.gz',
+                            'filename':          '%(name)s-%(version)s.tar.gz',
+                            'source_urls':       ['https://github.com/haampie/libtree/archive/refs/tags']
+                         }],
+        'checksums':     ['6148436f54296945d22420254dd78e1829d60124bb2f5b9881320a6550f73f5c'],
+        'start_dir':     'libtree-%(version)s',
+        'buildopts':     'CC="gcc" CFLAGS="-O2 -march=znver1" LDFLAGS="-static"',
+        'files_to_copy': [(['libtree'], 'bin'), (['doc/libtree.1'], 'share/man/man1'), (['LICENSE'], 'share/licenses/%(name)s')]
+    }),
+    ('tree', local_systools_tree_version, {
         'easyblock':     'MakeCp',
         'sources':       [ { # http://mama.indstate.edu/users/ice/tree/src/tree-1.8.0.tgz
                             'filename':    '%(name)s-%(version)s.tgz',
@@ -97,25 +119,28 @@ components = [
         'checksums':     ['7d693a1d88d3c4e70a73e03b8dbbdc12c2945d482647494f2f5bd83a479eeeaf'],
         'start_dir':     'tree-%(version)s',
         'buildopts':     'CC="gcc" CFLAGS="-O2 -march=znver1 -ggdb -pedantic -Wall -DLINUX -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64"',
-        'files_to_copy': [(['tree'], 'bin'), (['doc/tree.1'], 'share/man/man1')]
+        'files_to_copy': [(['tree'], 'bin'), (['doc/tree.1'], 'share/man/man1'), (['LICENSE'], 'share/licenses/%(name)s')]
     }),
 ]
 
 sanity_check_paths = {
-    'files': ['bin/gpp', 'share/man/man1/gpp.1'] +
-             ['bin/htop', 'share/man/man1/htop.1'] +
-             ['bin/tree', 'share/man/man1/tree.1'],
+    'files': ['bin/gpp', 'share/man/man1/gpp.1', 'share/licenses/GPP/COPYING', 'share/licenses/GPP/COPYING.LESSER'] +
+             ['bin/htop', 'share/man/man1/htop.1', 'share/licenses/htop/COPYING'] +
+             ['bin/libtree', 'share/man/man1/libtree.1', 'share/licenses/libtree/LICENSE'] +
+             ['bin/tree', 'share/man/man1/tree.1', 'share/licenses/tree/LICENSE'],
     'dirs':  []
 }
 
 sanity_check_commands = [
     'gpp --version',
     'htop --version',
+    'libtree --help',
+    'libtree -v -p %(installdir)s/bin/libtree',
     'tree --version'
 ]
 
 modluafooter = f"""
-extensions( "GPP/{local_SUSE_GPP_version}, htop/{local_SUSE_htop_version}, tree/{local_SUSE_tree_version}" )
+extensions( "GPP/{local_systools_GPP_version}, htop/{local_systools_htop_version}, libtree/{local_systools_libtree_version}, tree/{local_systools_tree_version}" )
 """
 
 moduleclass = 'tools'
