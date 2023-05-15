@@ -6,7 +6,7 @@
 
 module_version( 'partition/C', 'CPUcompute' )
 module_version( 'partition/G', 'GPUcompute' )
-module_version( 'partition/D', 'DataVisualisation' )
+-- module_version( 'partition/D', 'DataVisualisation' )
 module_version( 'partition/L', 'login' )
 
 --
@@ -34,10 +34,16 @@ end
 --
 if os.getenv( 'LUMI_LMOD_POWERUSER' ) == nil then
     hide_version( 'craype-accel-nvidia70' )
+    hide_version( 'craype-accel-nvidia80' )
+    hide_version( 'craype-accel-amd-gfx908' )
+    hide_version( 'craype-arm-grace' )
     hide_version( 'craype-x86-broadwell' )
     hide_version( 'craype-x86-skylake' )
     hide_version( 'craype-x86-cascadelake' )
     hide_version( 'craype-x86-icelake' )
-    hide_version( 'craype-x86-icelake' )
+    hide_version( 'craype-x86-spr' )
+    hide_version( 'craype-x86-spr-hbm' )
     hide_version( 'craype-x86-milan-x' )
+    hide_version( 'craype-x86-genoa' )
+    hide_version( 'craype-network-ucx' )
 end
