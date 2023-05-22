@@ -110,6 +110,9 @@ def parse_hook(ec, *args, **kwargs):
 # Note that the log file is already closed when end_hook is called so we can only print 
 # messages to the screen.
 #
+# Note that this hook in also only needed because there is an empty entry in MODULEPATH
+# on LUMI.
+#
 def end_hook():
     
     user = os.environ['USER']
