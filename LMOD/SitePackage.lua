@@ -766,7 +766,8 @@ local function is_visible_hook( modT )
 
     -- Do nothing if LUMI_LMOD_POWERUSER is set.
     if os.getenv( 'LUMI_LMOD_POWERUSER' ) ~=  nil then return end
-
+    -- if os.getenv( 'LUMI_LMOD_POWERUSER' ) ==  nil then return end
+    
     -- First tests: Hide the Cray PE modules that are not part of the CPE
     -- corresponding to the loaded LUMI module (if a LUMI module is loaded)
     -- LUMI_VISIBILITYHOODDATA* environment variables are set in the LUMI module.
@@ -783,7 +784,7 @@ local function is_visible_hook( modT )
         package.path = saved_path
 
         if modT.fn:find( 'cray/pe/lmod/modulefiles' ) or modT.fn:find( 'modules/CrayOverwrite' ) then
-            -- The module under investigation is a Cray PE module or one of our replacements.
+            -- The module under investigation is a Cray PE module (including targets) or one of our replacements.
             if CPEmodules[modT.sn] ~= nil then
                 -- We have version information for this module.
                 local module_version = modT.sn .. '/' .. CPEmodules[modT.sn]
