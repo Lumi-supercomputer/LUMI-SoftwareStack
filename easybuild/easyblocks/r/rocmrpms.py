@@ -3,7 +3,7 @@ import re
 
 from easybuild.easyblocks.generic.bundle import Bundle
 from easybuild.tools.build_log import EasyBuildError
-from easybuild.tools.filetools import download_file, mkdir, write_file, read_file, symlink
+from easybuild.tools.filetools import download_file, mkdir, write_file, read_file, symlink, apply_regex_substitutions
 from easybuild.tools.systemtools import get_shared_lib_ext
 from easybuild.framework.easyconfig import CUSTOM
 
@@ -15,17 +15,16 @@ class EB_rocmrpms(Bundle):
         name and version of the package
         """
         rpm_regex = r'<a href=\"(.*.rpm)\">.*'
-        version_regex = r'\s*([\d.]+%s)' % self.version.replace('.', '0')
+        version_regex = r'\s*([\d.]+(%s|-sles[\d]+))' % self.version.replace('.', '0')
         name_regex = r'((^[a-zA-Z]+)((-)?([a-zA-Z]+))+(.*kdb)?)?.*'
-
+        
         index = []
         for match in re.finditer(rpm_regex, index_content, re.MULTILINE):
             rpm = match.group(1)
             name = re.search(name_regex, rpm).group(1)
             version = re.search(version_regex, rpm).group(1)
-
             index.append((name, version, rpm))
-
+        
         return index
 
     def _process_component(self, name, version, rpm):
@@ -36,8 +35,7 @@ class EB_rocmrpms(Bundle):
 
         extract_cmds  = [
             'mkdir ' + component_dir,
-            'cd ' + component_dir,
-            'rpm2cpio %s | cpio -idmv',
+            'cp %s ' + component_dir,
         ]
 
         rocm_dir_name = '-'.join(['rocm', self.version])
@@ -47,22 +45,33 @@ class EB_rocmrpms(Bundle):
         sed_cmd_nover = 'sed -i s#/opt/rocm'                 + '#' + self.installdir + '# {} +'
 
         install_cmds = [
+            'cd ' + component_dir,
+            'rpm2cpio %s | cpio -idmv' % rpm,
             'cd ' + os.path.join(component_dir, os.path.join('opt', rocm_dir_name)),
             find_cmd + sed_cmd_ver,
             find_cmd + sed_cmd_nover,
             'cp -ar . ' + self.installdir,
+            'cd ' + self.builddir,
+            'rm -rf ' + component_dir,
         ]
-
-        component = (name, version, {
-            'easyblock':   'Binary',
-            'source_urls': [self.cfg.get('index_url')],
+        
+        component_cfgs = {
+            'easyblock'       : 'Binary',
+            'source_urls'     : [self.cfg.get('index_url')],
             'sources': [{
                 'download_filename': rpm,
                 'filename'         : rpm,
-                'extract_cmd'      : ' && '.join(extract_cmds),
+                'extract_cmd'      :  ' && '.join(extract_cmds),
             }],
             'install_cmd': ' && '.join(install_cmds),
-        })
+        }
+ 
+        if self.cfg.get('component_checksums'):
+            checksum = self.cfg.get('component_checksums').get(name)
+            if checksum:
+                component_cfgs['checksums'] = [checksum]            
+
+        component = (name, version, component_cfgs)
 
         return component
 
@@ -73,11 +82,12 @@ class EB_rocmrpms(Bundle):
             extra_vars = {}
 
         extra_vars.update({
-            'index_url'       : [None, 'URL of the index file', CUSTOM],
-            'pkg_config'      : [None, 'Content of the pkgconfig file', CUSTOM],
-            'exclude_packages': [None, 'List of package names to exclude', CUSTOM],
-            'extra_components': [None, 'Additional components to be added to the compoents list', CUSTOM],
-            'gpu_archs'       : [None, 'List of GPU architecture used to filter miopen compiled for specific a architecture', CUSTOM],
+            'index_url'           : [None, 'URL of the index file', CUSTOM],
+            'pkg_config'          : [None, 'Content of the pkgconfig file', CUSTOM],
+            'exclude_packages'    : [None, 'List of package names to exclude', CUSTOM],
+            'extra_components'    : [None, 'Additional components to be added to the compoents list', CUSTOM],
+            'gpu_archs'           : [None, 'List of GPU architecture used to filter miopen compiled for specific a architecture', CUSTOM],
+            'component_checksums' : [None, 'Checksums of the ROCm RPMs', CUSTOM],
         })
 
         return Bundle.extra_options(extra_vars=extra_vars)
@@ -158,14 +168,14 @@ class EB_rocmrpms(Bundle):
             write_file(pkgconfig_file, pkgconfig_content)
             os.symlink(pkgconfig_file, os.path.join(pkgconfig_dir, 'rocm.pc'))
             self.log.info(f'pkg-config file written: %s\n\n%s', pkgconfig_file, pkgconfig_content)
-
+        
         amd_bins = ['clang', 'clang++', 'clang-cl', 'clang-cpp', 'flang', 'lld']
 
         symlinks_dsts = ['bin/amd%s' % x for x in amd_bins]
         symlinks_srcs = [os.path.join('llvm', x) for x in symlinks_dsts]
 
         for (src, dst) in zip(symlinks_srcs, symlinks_dsts):
-            if not os.path.exists(src):
+            if not os.path.exists(os.path.join(self.installdir, src)):
                 self.log.debug(f'%s do not exist, skipping symlink creation', src)
                 continue
 
