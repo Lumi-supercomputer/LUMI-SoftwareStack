@@ -757,6 +757,17 @@ end
 --
 local visibility_exceptions = {
     ['cpe/restore-defaults'] = true,
+    ['craype-hugepages2M']   = true,
+    ['craype-hugepages4M']   = true,
+    ['craype-hugepages8M']   = true,
+    ['craype-hugepages16M']  = true,
+    ['craype-hugepages32M']  = true,
+    ['craype-hugepages64M']  = true,
+    ['craype-hugepages128M'] = true,
+    ['craype-hugepages256M'] = true,
+    ['craype-hugepages512M'] = true,
+    ['craype-hugepages1G']   = true,
+    ['craype-hugepages2G']   = true,
 }
 
 local function is_visible_hook( modT )
@@ -766,7 +777,8 @@ local function is_visible_hook( modT )
 
     -- Do nothing if LUMI_LMOD_POWERUSER is set.
     if os.getenv( 'LUMI_LMOD_POWERUSER' ) ~=  nil then return end
-
+    -- if os.getenv( 'LUMI_LMOD_POWERUSER' ) ==  nil then return end
+    
     -- First tests: Hide the Cray PE modules that are not part of the CPE
     -- corresponding to the loaded LUMI module (if a LUMI module is loaded)
     -- LUMI_VISIBILITYHOODDATA* environment variables are set in the LUMI module.
@@ -782,8 +794,22 @@ local function is_visible_hook( modT )
         CPEmodules = require( CPEmodules_file )
         package.path = saved_path
 
+        --
+        -- Extend the list of visibility exceptions with the target modules for the current partition.
+        --
+        local partition = os.getenv( 'LUMI_STACK_PARTITION' )
+        if partition then
+            if init_module_list[partition] ~=  nil then
+                -- Loop over the modules loaded at initialisation for this partition and add them to visibility_exceptions.
+                for index, mod in ipairs( init_module_list[partition] ) do
+                    visibility_exceptions[mod] = true
+                end
+            end
+        end
+
         if modT.fn:find( 'cray/pe/lmod/modulefiles' ) or modT.fn:find( 'modules/CrayOverwrite' ) then
-            -- The module under investigation is a Cray PE module or one of our replacements.
+            -- io.stderr:write( 'DEBUG: Investigaten motT.sn ' .. modT.sn .. ' with modT.fullName ' .. modT.fullName .. '\n' )
+            -- The module under investigation is a Cray PE module (including targets) or one of our replacements.
             if CPEmodules[modT.sn] ~= nil then
                 -- We have version information for this module.
                 local module_version = modT.sn .. '/' .. CPEmodules[modT.sn]
@@ -792,8 +818,11 @@ local function is_visible_hook( modT )
                 end
             else
                 -- We do not have version information about this module in the VisbilityHookData files,
-                -- so this is a module that does not appear in the current version of the LUMI stack.
-                modT.isVisible = false
+                -- so this is a module that does not appear in the current version of the LUMI stack, or
+                -- is a target module.
+                if not visibility_exceptions[ modT.fullName] then
+                    modT.isVisible = false
+                end
             end
         end
 

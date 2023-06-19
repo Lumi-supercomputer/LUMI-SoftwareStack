@@ -1,5 +1,11 @@
 # What's new or different?
 
+  * 2023-06-19: `module avail` now also shows the hugepages modules
+    and the relevant target modules for the partition.
+
+  * 2023-06-16: EasyBuild now clears the user cache to force a 
+    regeneration of the cache.
+
   * 2023-04-11: Various improvements to the generation of the files
     that contain information for Lmod about the CPE and the visibility
     hook.
