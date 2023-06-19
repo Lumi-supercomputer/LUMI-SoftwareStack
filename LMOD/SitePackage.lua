@@ -794,6 +794,19 @@ local function is_visible_hook( modT )
         CPEmodules = require( CPEmodules_file )
         package.path = saved_path
 
+        --
+        -- Extend the list of visibility exceptions with the target modules for the current partition.
+        --
+        local partition = os.getenv( 'LUMI_STACK_PARTITION' )
+        if partition then
+            if init_module_list[partition] ~=  nil then
+                -- Loop over the modules loaded at initialisation for this partition and add them to visibility_exceptions.
+                for index, mod in ipairs( init_module_list[partition] ) do
+                    visibility_exceptions[mod] = true
+                end
+            end
+        end
+
         if modT.fn:find( 'cray/pe/lmod/modulefiles' ) or modT.fn:find( 'modules/CrayOverwrite' ) then
             -- io.stderr:write( 'DEBUG: Investigaten motT.sn ' .. modT.sn .. ' with modT.fullName ' .. modT.fullName .. '\n' )
             -- The module under investigation is a Cray PE module (including targets) or one of our replacements.
