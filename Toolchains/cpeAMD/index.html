@@ -10,20 +10,20 @@
       
       
       
-        <link rel="canonical" href="https://Lumi-supercomputer.github.io/LUMI-SoftwareStack/Toolchains/toolchain_common/">
+        <link rel="canonical" href="https://Lumi-supercomputer.github.io/LUMI-SoftwareStack/Toolchains/cpeAMD/">
       
       
-        <link rel="prev" href="../../SitePackage/">
+        <link rel="prev" href="../cpeAOCC/">
       
       
-        <link rel="next" href="../toolchain_cpe_common/">
+        <link rel="next" href="../../configurations/">
       
       <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.1">
     
     
       
-        <title>EasyBuild toolchains common options - LUMI Software Stack technical documentation</title>
+        <title>cpeAMD toolchain - LUMI Software Stack technical documentation</title>
       
     
     
@@ -75,7 +75,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#common-toolchain-options" class="md-skip">
+        <a href="#cpeamd-toolchain" class="md-skip">
           Skip to content
         </a>
       
@@ -110,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              EasyBuild toolchains common options
+              cpeAMD toolchain
             
           </span>
         </div>
@@ -421,87 +421,11 @@
               
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          EasyBuild toolchains common options
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../toolchain_common/" class="md-nav__link">
         EasyBuild toolchains common options
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#optimization-level" class="md-nav__link">
-    Optimization level
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#floating-point-accuracy" class="md-nav__link">
-    Floating point accuracy
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#common-parallelism-related-options" class="md-nav__link">
-    Common parallelism-related options
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#code-generation-and-linking-options" class="md-nav__link">
-    Code generation and linking options
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#source-related-options" class="md-nav__link">
-    Source-related options
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#miscellaneous-options" class="md-nav__link">
-    Miscellaneous options
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -567,11 +491,141 @@
               
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../cpeAMD/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          cpeAMD toolchain
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         cpeAMD toolchain
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#note-about-the-compilers" class="md-nav__link">
+    Note about the compilers
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#available-options" class="md-nav__link">
+    Available options
+  </a>
+  
+    <nav class="md-nav" aria-label="Available options">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#default-toolchain-options-that-may-not-behave-as-expected" class="md-nav__link">
+    Default toolchain options that may not behave as expected
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#amd-specific-toolchain-options" class="md-nav__link">
+    AMD-specific toolchain options
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cpeamd-specific-flags-coming-from-the-hpe-cray-pe-compiler-wrappers" class="md-nav__link">
+    cpeAMD-specific flags (coming from the HPE Cray PE compiler wrappers)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mapping-of-options-onto-compiler-flags" class="md-nav__link">
+    Mapping of options onto compiler flags
+  </a>
+  
+    <nav class="md-nav" aria-label="Mapping of options onto compiler flags">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#compiler-optimization-level" class="md-nav__link">
+    Compiler optimization level
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#floating-point-precision" class="md-nav__link">
+    Floating point precision
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-parallelism-related-options" class="md-nav__link">
+    Common parallelism-related options
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#code-generation-and-linking-options" class="md-nav__link">
+    Code generation and linking options
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#source-related-options" class="md-nav__link">
+    Source-related options
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#miscellaneous-options" class="md-nav__link">
+    Miscellaneous options
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -730,16 +784,70 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#optimization-level" class="md-nav__link">
-    Optimization level
+  <a href="#note-about-the-compilers" class="md-nav__link">
+    Note about the compilers
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#floating-point-accuracy" class="md-nav__link">
-    Floating point accuracy
+  <a href="#available-options" class="md-nav__link">
+    Available options
   </a>
+  
+    <nav class="md-nav" aria-label="Available options">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#default-toolchain-options-that-may-not-behave-as-expected" class="md-nav__link">
+    Default toolchain options that may not behave as expected
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#amd-specific-toolchain-options" class="md-nav__link">
+    AMD-specific toolchain options
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cpeamd-specific-flags-coming-from-the-hpe-cray-pe-compiler-wrappers" class="md-nav__link">
+    cpeAMD-specific flags (coming from the HPE Cray PE compiler wrappers)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mapping-of-options-onto-compiler-flags" class="md-nav__link">
+    Mapping of options onto compiler flags
+  </a>
+  
+    <nav class="md-nav" aria-label="Mapping of options onto compiler flags">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#compiler-optimization-level" class="md-nav__link">
+    Compiler optimization level
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#floating-point-precision" class="md-nav__link">
+    Floating point precision
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -789,36 +897,102 @@
   
 
 
-<h1 id="common-toolchain-options">Common toolchain options<a class="headerlink" href="#common-toolchain-options" title="Permanent link">&para;</a></h1>
-<h2 id="optimization-level">Optimization level<a class="headerlink" href="#optimization-level" title="Permanent link">&para;</a></h2>
-<p>EasyBuild distinguishes between four optimization levels. Rather than having a single
-toolchain option that takes the level as a number, <code>toolchainopts</code> uses four boolean
-parameters where one takes precedence over others. Lower optimization takes precedence
-over higher optimization. All have as default value <code>False</code> yet <code>defaultopt</code> is
-the one that will be used if nothing is specified.</p>
+<h1 id="cpeamd-toolchain">cpeAMD toolchain<a class="headerlink" href="#cpeamd-toolchain" title="Permanent link">&para;</a></h1>
+<p>Note: The options are for the <code>aocc.py</code> file included in this repository and are
+not the same as those for the repository at CSCS.</p>
+<h2 id="note-about-the-compilers">Note about the compilers<a class="headerlink" href="#note-about-the-compilers" title="Permanent link">&para;</a></h2>
+<ul>
+<li>AMD/ROCm 5.0.2 is based on LLVM 14.0.0</li>
+</ul>
+<h2 id="available-options">Available options<a class="headerlink" href="#available-options" title="Permanent link">&para;</a></h2>
+<p>The cpeAMD toolchain supports the <a href="../toolchain_common/">common toolchain options</a>,
+the additional AMD flags and some additional Cray-specific flags, two of which are
+really just redefinitions of standard compiler flags.</p>
+<h3 id="default-toolchain-options-that-may-not-behave-as-expected">Default toolchain options that may not behave as expected<a class="headerlink" href="#default-toolchain-options-that-may-not-behave-as-expected" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p><code>rpath</code>: rpath linking in EasyBuild has not been properly tested in the HPE Cray PE.</p>
+</li>
+<li>
+<p><code>unroll</code>: As it is not clear from the docunentation for the Fortran compiler which
+    options should be set to enable or disable (if any at all) </p>
+</li>
+</ul>
+<h3 id="amd-specific-toolchain-options">AMD-specific toolchain options<a class="headerlink" href="#amd-specific-toolchain-options" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
 <th align="left">Option</th>
+<th align="left">Categorie</th>
 <th align="left">What?</th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td align="left">lto</td>
+<td align="left">code generation</td>
+<td align="left">Enable Link Time Optimization (in the default 'full' mode)</td>
+</tr>
+<tr>
+<td align="left">offload-lto</td>
+<td align="left">code generation</td>
+<td align="left">Enable LTO for offload compilation (in the default 'full' mode)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="cpeamd-specific-flags-coming-from-the-hpe-cray-pe-compiler-wrappers">cpeAMD-specific flags (coming from the HPE Cray PE compiler wrappers)<a class="headerlink" href="#cpeamd-specific-flags-coming-from-the-hpe-cray-pe-compiler-wrappers" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th align="left">Option</th>
+<th align="left">Categorie</th>
+<th align="left">What?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">dynamic</td>
+<td align="left">code generation</td>
+<td align="left">Generate dynamically linked executable (default: True)</td>
+</tr>
+<tr>
+<td align="left">mpich-mt</td>
+<td align="left">parallelism</td>
+<td align="left">Alternate Cray-MPICH library for MT support (default: False)</td>
+</tr>
+</tbody>
+</table>
+<p>mpich-mt: Directs the driver to link in an alternate version of the Cray-MPICH
+library which provides fine-grained multi-threading support to applications that
+perform MPI operations within threaded regions. (default: False)</p>
+<p>Two further options trigger different compiler flags than in the GCC toolchain: <code>verbose</code>
+and <code>optarch</code> but have otherwise the same meaning.</p>
+<h2 id="mapping-of-options-onto-compiler-flags">Mapping of options onto compiler flags<a class="headerlink" href="#mapping-of-options-onto-compiler-flags" title="Permanent link">&para;</a></h2>
+<h3 id="compiler-optimization-level">Compiler optimization level<a class="headerlink" href="#compiler-optimization-level" title="Permanent link">&para;</a></h3>
+<p>The <a href="../toolchain_common/">common options</a> translate into:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Option</th>
+<th align="left">Flag</th>
+</tr>
+</thead>
+<tbody>
+<tr>
 <td align="left">noopt</td>
-<td align="left">Disable compiler optimizations</td>
+<td align="left">-O0</td>
 </tr>
 <tr>
 <td align="left">lowopt</td>
-<td align="left">Low compiler optimizations</td>
+<td align="left">-O1</td>
 </tr>
 <tr>
 <td align="left">defaultopt</td>
-<td align="left">Default compiler optimizations</td>
+<td align="left">-O2 -fvectorize -fslp-vectorize</td>
 </tr>
 <tr>
 <td align="left">opt</td>
-<td align="left">High compiler optimizations</td>
+<td align="left">-O3</td>
 </tr>
 </tbody>
 </table>
@@ -827,51 +1001,64 @@ the one that will be used if nothing is specified.</p>
 <thead>
 <tr>
 <th align="left">Option</th>
-<th align="left">What?</th>
+<th align="left">Flag</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td align="left">unroll</td>
-<td align="left">Unroll loops (default: False)</td>
+<td align="left">-funroll-loops</td>
 </tr>
 <tr>
 <td align="left">optarch</td>
-<td align="left">Enable architecture optimizations (default: False)</td>
+<td align="left">TODO</td>
 </tr>
 </tbody>
 </table>
-<h2 id="floating-point-accuracy">Floating point accuracy<a class="headerlink" href="#floating-point-accuracy" title="Permanent link">&para;</a></h2>
-<p>There are five flags that set the floating point precision. All are <code>False</code> by default
-but <code>defaultprec</code> is taken if none of the options is set to <code>True</code>. Again, the
-first one that is set to <code>True</code> in the table below is used:</p>
+<h3 id="floating-point-precision">Floating point precision<a class="headerlink" href="#floating-point-precision" title="Permanent link">&para;</a></h3>
+<p>The decision of our mapping is based partly on information from Cray and partly on
+looking through various manuals on Clang.</p>
+<ul>
+<li>Level <code>strict</code>: We simply stick to <code>-ffp-model=strict</code>. This automatically disables
+    all of the <code>-ffast-math</code> enablements so there is no need to add <code>-fno-fast-math</code>.
+    Note that at this level, fused multiply adds are disabled.</li>
+<li>Level <code>precise</code>: We stick to <code>-ffp-model=precise</code> and add <code>-ffp-contract=fast-honor-pragmas</code>.</li>
+<li>Default level: Currently the same as <code>strict</code>.</li>
+<li>Level <code>loose</code>: Set to <code>-ffp-model=fast</code> but try to turn on again a few safeguards:
+    <code>-ffp-contract=fast-honor-pragmas</code>, <code>-fhonor-infinities</code>, <code>-fhonor-nans</code>,
+    <code>-fsigned-zeros</code>.</li>
+<li>Level <code>veryloose</code>: Set to <code>-ffp-model=fast</code></li>
+</ul>
+<p>Note: Very recnet versions of clang add <code>-ffp-contract=fast-honor-pragmas</code> which
+may be interesting to add to <code>precise</code>, <code>defaultprec</code> and <code>loose</code> but is not
+yet supported by AOCC 2.2.</p>
 <table>
 <thead>
 <tr>
 <th align="left">Option</th>
-<th align="left">What?</th>
+<th align="left">Flag</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td align="left">strict</td>
-<td align="left">Strict (highest) precision</td>
+<td align="left">-ffp-model=strict</td>
 </tr>
 <tr>
 <td align="left">precise</td>
-<td align="left">High precision</td>
+<td align="left">-ffp-model=precise</td>
 </tr>
 <tr>
 <td align="left">defaultprec</td>
-<td align="left">Default precision</td>
+<td align="left">-ffp-model=precise</td>
 </tr>
 <tr>
 <td align="left">loose</td>
-<td align="left">Loose precision</td>
+<td align="left">-ffp-model=fast -fhonor-infinities -fhonor-nans -fsigned-zeros</td>
 </tr>
 <tr>
 <td align="left">veryloose</td>
-<td align="left">Very loose precision</td>
+<td align="left">-ffp-model=fast</td>
 </tr>
 </tbody>
 </table>
@@ -886,7 +1073,7 @@ first one that is set to <code>True</code> in the table below is used:</p>
 <tbody>
 <tr>
 <td align="left">ieee</td>
-<td align="left">Adhere to IEEE-754 rules (default: False)</td>
+<td align="left">Not supported in clang/flang</td>
 </tr>
 </tbody>
 </table>
@@ -895,84 +1082,113 @@ first one that is set to <code>True</code> in the table below is used:</p>
 <thead>
 <tr>
 <th align="left">Option</th>
-<th align="left">What?</th>
+<th align="left">Flag</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td align="left">vectorize</td>
-<td align="left">Enable compiler auto-vectorization, default except for noopt and lowopt</td>
+<td align="left">False: -fno-vectorize -fno-slp-vectorize</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">True: -fvectorize -fslp-vectorize</td>
+</tr>
+<tr>
+<td align="left">loop</td>
+<td align="left">-ftree-switch-conversion -floop-interchange -floop-strip-mine -floop-block</td>
 </tr>
 <tr>
 <td align="left">openmp</td>
-<td align="left">Enable OpenMP (default: False)</td>
+<td align="left">-fopenmp</td>
 </tr>
 <tr>
 <td align="left">usempi</td>
-<td align="left">Use MPI compiler as default compiler (default: False)</td>
+<td align="left">No compiler flags</td>
+</tr>
+<tr>
+<td align="left">mpich-mt</td>
+<td align="left">-craympich-mt</td>
 </tr>
 </tbody>
 </table>
-<p>The <code>usempi</code> option is only supported by toolchains that also include an MPI component.</p>
 <h2 id="code-generation-and-linking-options">Code generation and linking options<a class="headerlink" href="#code-generation-and-linking-options" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
 <th align="left">Option</th>
-<th align="left">What?</th>
+<th align="left">Flag</th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td align="left">dynamic</td>
+<td align="left">No flag as this is currently the only mode supported</td>
+</tr>
+<tr>
+<td align="left">lto</td>
+<td align="left">-flto</td>
+</tr>
+<tr>
+<td align="left">offload-lto</td>
+<td align="left">-foffload-lto</td>
+</tr>
+<tr>
 <td align="left">32bit</td>
-<td align="left">Compile 32bit target (default: False)</td>
+<td align="left">-m32</td>
 </tr>
 <tr>
 <td align="left">debug</td>
-<td align="left">Enable debug (default: False)</td>
+<td align="left">-g</td>
 </tr>
 <tr>
 <td align="left">pic</td>
-<td align="left">Use PIC (default: False)</td>
+<td align="left">-fPIC</td>
 </tr>
 <tr>
 <td align="left">packed-linker-options</td>
-<td align="left">No flag, internal to EasyBuild</td>
+<td align="left">Pack the linker options as comma separated list (default: False)</td>
 </tr>
 <tr>
 <td align="left">shared</td>
-<td align="left">Build shared library (default: False)</td>
+<td align="left">-shared</td>
 </tr>
 <tr>
 <td align="left">static</td>
-<td align="left">Build static library (default: False)</td>
+<td align="left">-static</td>
 </tr>
 <tr>
 <td align="left">rpath</td>
-<td align="left">No flag, internal to EasyBuild</td>
+<td align="left">Use RPATH wrappers when --rpath is enabled in EasyBuild configuration (default: True)</td>
 </tr>
 </tbody>
 </table>
+<p>NOTE: <code>rpath</code> has not yet been checked and is likely broken. There is a better way to do this in the /hPE Cray PE 
+than what EasyBuild does as the wrappers already support rpath linking.</p>
 <h2 id="source-related-options">Source-related options<a class="headerlink" href="#source-related-options" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
 <th align="left">Option</th>
-<th align="left">What?</th>
+<th align="left">Flag</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td align="left">cstd</td>
-<td align="left">Specify C standard (C/C++ only - default: None)</td>
+<td align="left">-std=%(value)s</td>
 </tr>
 <tr>
 <td align="left">i8</td>
-<td align="left">Integers are 8 byte integers (Fortran only - default: False)</td>
+<td align="left">-fdefault-integer-8</td>
 </tr>
 <tr>
 <td align="left">r8</td>
-<td align="left">Real is 8 byte real (Fortran only - default: False)</td>
+<td align="left">-fdefault-real-8</td>
+</tr>
+<tr>
+<td align="left">f2c</td>
+<td align="left">-ff2c</td>
 </tr>
 </tbody>
 </table>
@@ -981,43 +1197,16 @@ first one that is set to <code>True</code> in the table below is used:</p>
 <thead>
 <tr>
 <th align="left">Option</th>
-<th align="left">What?</th>
+<th align="left">Flag</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td align="left">verbose</td>
-<td align="left">Verbose output (default: False)</td>
-</tr>
-<tr>
-<td align="left">cciscxx</td>
-<td align="left">Use CC as CXX (default: False)</td>
-</tr>
-<tr>
-<td align="left">extra_cflags</td>
-<td align="left">Specify extra CFLAGS options. (default: None)</td>
-</tr>
-<tr>
-<td align="left">extra_cxxflags</td>
-<td align="left">Specify extra CXXFLAGS options. (default: None)</td>
-</tr>
-<tr>
-<td align="left">extra_f90flags</td>
-<td align="left">Specify extra F90FLAGS options. (default: None)</td>
-</tr>
-<tr>
-<td align="left">extra_fcflags</td>
-<td align="left">Specify extra FCFLAGS options. (default: None)</td>
-</tr>
-<tr>
-<td align="left">extra_fflags</td>
-<td align="left">Specify extra FFLAGS options. (default: None)</td>
+<td align="left">-craype-verbose</td>
 </tr>
 </tbody>
 </table>
-<p>Most of these options do not directly transform into compiler flags. Instead, they influence
-the way EasyBuild sets variables (<code>cciscxx</code>)  or directly add additional flags to
-the indicated environment variables.</p>
 
 
 
