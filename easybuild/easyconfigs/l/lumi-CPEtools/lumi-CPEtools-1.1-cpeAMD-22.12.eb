@@ -38,7 +38,7 @@ sources = [{
     'filename':          '%(name)s-%(version)s.tar.gz',
     'source_urls':       ['https://github.com/Lumi-supercomputer/%(name)s/archive/refs/tags']
 }]
-checksums = ['4b647ae25796831f13056f3622978f3b41ed5e4219ab09224904ded5dfb46b07']
+checksums = ['ffc3bea3a7842fc2be48beefce900caa7c74fbe14989330b82c55c7bc99a4ada']
 
 builddependencies = [
     ('buildtools', '%(toolchain_version)s', '', SYSTEM), # For make
