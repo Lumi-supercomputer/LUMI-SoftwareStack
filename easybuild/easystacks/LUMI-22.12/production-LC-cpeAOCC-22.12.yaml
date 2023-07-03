@@ -108,6 +108,7 @@ easyconfigs:
 #  - ESMF-8.4.1-cpeAOCC-22.12.eb
 # Some apps
   - lumi-CPEtools-1.0-cpeAOCC-22.12.eb
+  - lumi-CPEtools-1.1-cpeAOCC-22.12.eb
   - gnuplot-5.4.6-cpeAOCC-22.12.eb
 #  - VampirServer
 #  - Score-P
