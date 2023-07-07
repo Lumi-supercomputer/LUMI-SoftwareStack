@@ -107,7 +107,7 @@ easyconfigs:
 #  - SCOTCH-7.0.3-cpeCray-23.03.eb  # Check if the EasyBlock needs an update!
   - ESMF-8.4.1-cpeCray-23.03.eb
 # Some apps
-  - lumi-CPEtools-1.0-cpeCray-23.03.eb
+  - lumi-CPEtools-1.1-cpeCray-23.03.eb
   - gnuplot-5.4.6-cpeCray-23.03.eb
 #  - VampirServer
 #  - Score-P
