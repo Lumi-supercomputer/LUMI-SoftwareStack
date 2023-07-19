@@ -44,3 +44,9 @@ at high optimisation levels. There are also known problems with the installation
 when used in combination with the Cray wrappers (at least for C++, and likely similar 
 problems for GNU Fortran) because at runtime it is forced to use libraries from an older 
 gcc version. Use at your own risk.
+
+Rust/1.60.0
+The Rust 1.60.0 module is known to be faulty and will be removed from the system. As
+Rust is difficult to support and not a typical HPC language, it is removed from the
+pre-installed central software stack and we try to offer occasional support via the
+contributed EasyBuild recipes.
