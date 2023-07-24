@@ -1,5 +1,9 @@
 # lumi-vnc user instructions
 
+VNC (Virtual Network Computing) is a type of client application that can be used for interacting with graphical applications.
+
+The lumi-VNC modules are pre-installed on LUMI. You don't need to load any modules prior to loading a lumi-vnc module. The lumi-vnc modules only require the `init-lumi/0.2` module to be present, which is there by default when you log into LUMI. 
+
 To know how to start the VNC server, check the help information included in the most
 recent version of the module returned by the above `module spider` command. E.g., assuming
 that version is 20230110:
