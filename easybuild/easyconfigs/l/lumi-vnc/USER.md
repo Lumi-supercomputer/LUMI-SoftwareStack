@@ -1,15 +1,24 @@
 # lumi-vnc user instructions
 
-VNC (Virtual Network Computing) is a type of client application that can be used for interacting with graphical applications.
+VNC stands for Virtual Network Computing. It is a server running on the supercomputer and emulating an X11 server,
+rendering the image on the supercomputer and making it available to a client either via a VNC client that needs
+to be installed on your local machine, or via a web browser (using a web server included in the module and
+working with the VNC server).
 
-The lumi-VNC modules are pre-installed on LUMI. You don't need to load any modules prior to loading a lumi-vnc module. The lumi-vnc modules only require the `init-lumi/0.2` module to be present, which is there by default when you log into LUMI. 
+The module is available in all environments on LUMI, including the default login environment.
 
 To know how to start the VNC server, check the help information included in the most
-recent version of the module returned by the above `module spider` command. E.g., assuming
-that version is 20230110:
+recent version of the module with `module help` command. The versions can be found
+in the list further down this page.
+E.g., assuming the most recent version is 20230110:
+
 ```bash
-module spider lumi-vnc/20230110
+module help lumi-vnc/20230110
 ```
+
+For most users, running `start-vnc` is sufficient and it will print information about how to connect
+in the terminal. The VNC server should be cleaned up automatically if you leave the shell from which
+it was started.
 
 
 ## Known issues
