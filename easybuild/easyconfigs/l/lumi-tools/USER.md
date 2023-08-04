@@ -1,5 +1,22 @@
 # lumi-tools user information
 
+The `lumi-tools` module (which is preloaded when you log in) provides a number 
+of commands for monitoring of your account and projects on LUMI:
+
+-   `lumi-workspaces` is the all-in command and the only one that a user really
+    needs.
+
+-   `lumi-quota` and `lumi-allocations` restrict the output to just the file system
+    quota and billing unit information respectively.
+
+-   `lumi-check-quota` implements the same tests that are performed when you log in
+    to print warnings about depletion of quota or billing units.
+
+-   The `lumi-ldap-userinfo` and `lumi-ldap-projectinfo` commands are mostly meant 
+    for support people and advanced users with a technical understanding of Linux
+    user account and group management.
+
+
 ## lumi-workspaces
 
 The `lumi-workspaces` command combines the `lumi-quota` and `lumi-allocations`
@@ -8,7 +25,8 @@ all your workspaces/projects (user workspace on `/user`and the various project-r
 workspaces on `/project`, `/scratch` and `/flash`).
 
 Note that currently no output is displayed about storage use on the object file 
-system as that one is still under development.
+system as that information is not yet available in a format that a tool can 
+always access without temporary access keys.
 
 The check of the allocations in `lumi-workspaces` and `lumi-allocations` 
 is currently done based on pre-stored data. That
@@ -50,7 +68,8 @@ The `lumi-check-quota` command is equivalent to the script run at login that pri
 a warning when you are running out of quota or out of billing units.
 
 Note that this is fully based on cached data gathered from time to time in the background.
-The command will in no way show 100% correct instantaneous numbers.
+The command will in no way show 100% correct instantaneous numbers, so it is not useable
+during a quick clean-up to check if you are already again below your quota.
 
 
 ## lumi-ldap-projectinfo (version 23.04 and higher)
