@@ -1,4 +1,9 @@
    .Announcements---------------------------------------------------.
+*  | The EAP partition will be discontinued after the August 2023   |
+   | service break. People needing access to small amounts of GPU   |
+ * | time for development should apply for development projects at  |
+   | their local resource allocator or EuroHPC.                     |
+   |                                                                |
  * | NOTE: The default version of the LUMI software stack is now    |
    | LUMI/22.08 while the default version of the Cray PE after      |
    | login and in CrayEnv is now 22.12. The base libraries for the  |
@@ -17,8 +22,6 @@
    | but at your own risk (and will get replacements instead). It   |
  * | is not possible to reliably do new installations in 21.12 and  |
    | 22.06. 21.08 is removed from the system.                       |
-  *|                                                                |
-   | The flash file system is again available on /flash.            |
 *  .Notes-----------------------------------------------------------.
    | Make sure one of the following modules is loaded to have the   |
  * | full LUMI experience:                                          |
