@@ -1,12 +1,12 @@
    .Announcements---------------------------------------------------.
-*  | The EAP partition will be discontinued after the August 2023   |
-   | service break. People needing access to small amounts of GPU   |
- * | time for development should apply for development projects at  |
-   | their local resource allocator or EuroHPC.                     |
+*  | !!!Important as there are breaking changes!!! Please check     |
+   | https://lumi-supercomputer.github.io/update-202308             |
+ * | for changes to the configuration and policies after the August |
+   | 2023 update.                                                   |
    |                                                                |
- * | NOTE: The default version of the LUMI software stack is now    |
+ * | NOTE: The default version of the LUMI software stack is        |
    | LUMI/22.08 while the default version of the Cray PE after      |
-   | login and in CrayEnv is now 22.12. The base libraries for the  |
+   | login and in CrayEnv is 22.12. The base libraries for the      |
 *  | LUMI/22.12 software stack are now available, using GCC version |
  * | 11 for cpeGNU as problems have been reported with GCC 12. The  |
    | 23.03 stack currently only contains support for the Cray com-  |
