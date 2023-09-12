@@ -163,9 +163,9 @@ function detect_LUMI_partition()
             nodenum = tonumber( tmp3 ) -- Convert to number
 
             -- Find the partition based on the node number
-            if ( nodenum >= 5000 ) and ( nodenum <= 7573 ) then
+            if ( nodenum >= 5000 ) and ( nodenum <= 7977 ) then
                 partition = 'G'
-            elseif ( nodenum >= 1000 ) and ( nodenum <= 2535 ) then
+            elseif ( nodenum >= 1000 ) and ( nodenum <= 3047 ) then
                 partition = 'C'
             elseif ( nodenum >= 101 ) and ( nodenum <= 108 ) then
                 -- LUMI-D nodes without a GPU (largemem nodes)
