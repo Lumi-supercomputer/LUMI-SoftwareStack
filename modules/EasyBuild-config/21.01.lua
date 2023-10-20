@@ -33,28 +33,46 @@ local SystemRepo_prefix = LMOD_root:gsub( '/LMOD/*', '' )
 --
 
 local optarch = {
-    common =  'x86-rome',
-    L =       'x86-rome',
-    C =       'x86-milan',
-    G =       'x86-milan',
-    D =       'x86-rome',
-    EAP =     'x86-rome',
-    CrayEnv = 'x86-rome', -- This is really a dummy as we do not want ot use the Cray PE here.
-    system  = 'x86-rome', -- This is really a dummy as we do not want ot use the Cray PE here.
+    common =    'x86-rome',
+    L =         'x86-rome',
+    C =         'x86-milan',
+    G =         'x86-trento',
+    D =         'x86-rome',
+    -- EAP =    'x86-rome',
+    container = 'x86-rome', -- This is really a dummy as we do not want ot use the Cray PE here.
+    CrayEnv =   'x86-rome', -- This is really a dummy as we do not want ot use the Cray PE here.
+    system  =   'x86-rome', -- This is really a dummy as we do not want ot use the Cray PE here.
 }
 
 -- Special partitions are those that are created to install
 -- software in abnormal places and have no equivalent for
 -- user installations.
 local special_partition = {
-    common  = false,
-    C       = false,
-    G       = false,
-    D       = false,
-    L       = false,
-    EAP     = false,
-    CrayEnv = true,
-    system  = true,
+    common =    false,
+    C =         false,
+    G =         false,
+    D =         false,
+    L =         false,
+    -- EAP =    false,
+    container = true,
+    CrayEnv =   true,
+    system =    true,
+}
+
+
+-- Mark partitions for which we do not support user installation
+-- with EasyBuild-user (as there is also no add the modules to the
+-- MODULEPATH safely at the time that this should be done).
+local user_forbidden = {
+    common =    false,
+    C =         false,
+    G =         false,
+    D =         false,
+    L =         false,
+    -- EAP =    false,
+    container = false,
+    CrayEnv =   false,
+    system =    true,
 }
 
 -- -----------------------------------------------------------------------------
@@ -143,6 +161,9 @@ end
 if optarch[partition_name] == nil then
     LmodError( 'Detected partition ' .. partition_name .. ' but have no entry for it in optarch, so something is seriously wrong.' )
 end
+if mod_mode == 'user' and user_forbidden[partition] then
+    LModError( 'EasyBuild-user is not supported for partition/'.. partition_name .. '.' )
+end
 
 lumi_stack_version = stack_version
 CPE_version =        lumi_stack_version:gsub( '.dev', '')
@@ -153,7 +174,7 @@ CPE_version =        lumi_stack_version:gsub( '.dev', '')
 if special_partition[partition_name] then
 
     stack_name =     partition_name
-    stack_version =  ''
+    -- stack_version =  ''
     -- partition_name = 'NONE'
 
 end
@@ -221,6 +242,8 @@ local system_toolchaindir =        pathJoin( SystemRepo_prefix, 'easybuild/toolc
 local system_hookdir =             pathJoin( SystemRepo_prefix, 'easybuild/hooks' )
 local system_installpath =         system_prefix
 
+local container_easyconfigdir =    pathJoin( get_container_repository(), 'LUMI-EasyBuild-containers' )
+
 local user_configdir =             pathJoin( user_prefix, 'UserRepo', 'easybuild/config' )
 local user_easyconfigdir =         pathJoin( user_prefix, 'UserRepo', 'easybuild/easyconfigs' )
 local user_easybuild_contrib =     pathJoin( user_prefix, 'LUMI-EasyBuild-contrib/easybuild/easyconfigs' )
@@ -235,6 +258,8 @@ local system_sourcepath =          pathJoin( system_prefix, 'sources/easybuild' 
 local system_containerpath =       pathJoin( system_prefix, 'containers' )
 local system_packagepath =         pathJoin( system_prefix, 'packages' )
 
+local system_SIFrepo =             pathJoin( get_container_repository(), 'sif-images' )
+
 local user_sourcepath =            pathJoin( user_prefix,   'sources' )
 local user_containerpath =         pathJoin( user_prefix,   'containers' )
 local user_packagepath =           pathJoin( user_prefix,   'packages' )
@@ -248,37 +273,51 @@ local buildpath =                  pathJoin( workdir, 'easybuild', 'build' )
 local tmpdir =                     pathJoin( workdir, 'easybuild', 'tmp' )
 
 --    + Directories that depend on the software stack
---                                                            Root                       Stack                  Partition                    Suffix
+--                                                                   Root                       Stack                  Partition                    Suffix
+ 
+local system_installpath_software =         pathJoin( system_prefix, 'SW',                      stack,                 partition_name,              'EB' )
+local system_installpath_modules =          pathJoin( system_prefix, 'modules', mod_prefix,     'LUMI', stack_version, 'partition', partition_name )
+local system_repositorypath =               pathJoin( system_prefix, 'mgmt',    'ebrepo_files', stack,                partition )
 
-local system_installpath_software =  pathJoin( system_prefix, 'SW',                      stack,                 partition_name,              'EB' )
-local system_installpath_modules =   pathJoin( system_prefix, 'modules', mod_prefix,     'LUMI', stack_version, 'partition', partition_name )
-local system_repositorypath =        pathJoin( system_prefix, 'mgmt',    'ebrepo_files', stack,                partition )
+local user_installpath_software =           pathJoin( user_prefix,   'SW',                      stack,                 partition_name )
+local user_installpath_modules =            pathJoin( user_prefix,   'modules',                 'LUMI', stack_version, 'partition', partition_name )
+local user_repositorypath =                 pathJoin( user_prefix,   'ebrepo_files',            stack,                 partition )
 
-local user_installpath_software =    pathJoin( user_prefix,   'SW',                      stack,                 partition_name )
-local user_installpath_modules =     pathJoin( user_prefix,   'modules',                 'LUMI', stack_version, 'partition', partition_name )
-local user_repositorypath =          pathJoin( user_prefix,   'ebrepo_files',            stack,                 partition )
+local prod_special_installpath_software =   pathJoin( system_prefix, 'SW',                      stack,                                              'EB' )
+local prod_special_installpath_modules =    pathJoin( system_prefix, 'modules', mod_prefix,     stack )
+local prod_special_repositorypath =         pathJoin( system_prefix, 'mgmt',    'ebrepo_files', stack )
 
-local special_installpath_software = pathJoin( system_prefix, 'SW',                      stack,                                              'EB' )
-local special_installpath_modules =  pathJoin( system_prefix, 'modules', mod_prefix,     stack )
-local special_repositorypath =       pathJoin( system_prefix, 'mgmt',    'ebrepo_files', stack )
+local infra_special_installpath_software =  pathJoin( system_prefix, 'SW',                      stack,                                              'EB' )
+local infra_special_installpath_modules =   pathJoin( system_prefix, 'modules', mod_prefix,     'LUMI', stack_version, 'partition', partition_name )
+local infra_special_repositorypath =        pathJoin( system_prefix, 'mgmt',    'ebrepo_files', stack )
+
+local user_special_installpath_software =   pathJoin( user_prefix,   'SW',                      stack )
+local user_special_installpath_modules =    pathJoin( user_prefix,   'modules',                 stack )
+local user_special_repositorypath =         pathJoin( user_prefix,   'mgmt',    'ebrepo_files', stack )
 
 local installpath_software = mod_mode == 'user' and user_installpath_software or system_installpath_software
 local installpath_modules =  mod_mode == 'user' and user_installpath_modules  or system_installpath_modules
 local repositorypath =       mod_mode == 'user' and user_repositorypath       or system_repositorypath
 
 local installpath_software, installpath_modules, repositorypath
-if mod_mode == 'user' then
-    installpath_software = user_installpath_software
-    installpath_modules  = user_installpath_modules
-    repositorypath       = user_repositorypath
-elseif special_partition[partition_name] then
-    installpath_software = special_installpath_software
-    installpath_modules  = special_installpath_modules
-    repositorypath       = special_repositorypath
-else
-    installpath_software = system_installpath_software
-    installpath_modules  = system_installpath_modules
-    repositorypath       = system_repositorypath
+if detail_mode == 'user' then
+
+    installpath_software = special_partition[partition_name] and user_special_installpath_software  or user_installpath_software
+    installpath_modules  = special_partition[partition_name] and user_special_installpath_modules   or user_installpath_modules
+    repositorypath       = special_partition[partition_name] and user_special_repositorypath        or user_repositorypath
+
+elseif detail_mode == 'production' then
+
+    installpath_software = special_partition[partition_name] and prod_special_installpath_software  or system_installpath_software
+    installpath_modules  = special_partition[partition_name] and prod_special_installpath_modules   or system_installpath_modules
+    repositorypath       = special_partition[partition_name] and prod_special_repositorypath        or system_repositorypath
+
+else  -- detail_mode == 'infrastructure'
+
+    installpath_software = special_partition[partition_name] and infra_special_installpath_software or system_installpath_software
+    installpath_modules  = special_partition[partition_name] and infra_special_installpath_modules  or system_installpath_modules
+    repositorypath       = special_partition[partition_name] and infra_special_repositorypath       or system_repositorypath
+
 end
 
 --    + The relevant config files
@@ -329,6 +368,10 @@ end
 --   + The system source path is always included so that user installations that make small modifications
 --     to a config don't need to download again
 table.insert( source_paths, system_sourcepath )
+
+--   + For the container partition we also need to add the SIF repository so that we can easily copy
+--     container files without much hassle in the EasyConfig files.
+table.insert( source_paths, system_SIFrepo )
 
 -- - Build the robot path ROBOT_PATHS
 
@@ -390,6 +433,11 @@ local search_paths = {}
 --     it is not in the robot path.
 if mod_mode == 'system' and isDir( system_easybuild_contrib ) then
     table.insert( search_paths, system_easybuild_contrib )
+end
+
+--   + When using partition/container, we need the container EasyConfigs also
+if partition_name == 'container' then
+    table.insert( robot_paths, container_easyconfigdir )
 end
 
 --   + Possible future option: Include the CSCS repository
@@ -746,37 +794,32 @@ end -- Of the help block
 
 if mode() == 'load' and show_message then
 
-    local stack_message
-    if detail_mode == 'CrayEnv' then
-        stack_message = '\nEasyBuild configured to install software'
-    elseif partition_name == common then
-        stack_message = '\nEasyBuild configured to install software from the ' ..
-            stack_name .. '/'.. stack_version ..
-            ' software stack common to all partitions'
+    local stack_message = '\nEasyBuild configured to install software'
+        
+    if detail_mode == 'user' then
+        stack_message = stack_message ..  ' in the user tree at ' .. user_prefix
+    elseif detail_mode == 'production' then
+        stack_message = stack_message .. ' in the system application directories'
     else
-        stack_message = '\nEasyBuild configured to install software from the ' ..
-            stack_name .. '/'.. stack_version ..
-            ' software stack for the LUMI/' .. partition_name .. ' partition'
+        stack_message = stack_message .. ' in the system infrastructure directories'
     end
 
-    if detail_mode == 'user' then
-        stack_message = stack_message ..
-            ' in the user tree at ' .. user_prefix .. '.\n'
-    elseif detail_mode == 'production' then
-        stack_message = stack_message ..
-            ' in the system application directories.\n'
-    elseif detail_mode == 'infrastructure' then
-        stack_message = stack_message ..
-            ' in the system infrastructure directories.\n'
-    elseif detail_mode == 'CrayEnv' then
-        stack_message = stack_message ..
-            ' in the CrayEnv directories.\n'
+    if partition_name == 'CrayEnv' then
+        stack_message = stack_message ..  ' for use in the CrayEnv stack.'
+    elseif partition_name == 'system' then
+        stack_message = stack_message ..  ' that is generally available on the system.'
+    elseif partition_name == 'container' then
+        stack_message = stack_message ..  ' to more easily enable singularity containers.'
+    elseif partition_name == 'common' then
+        stack_message = stack_message ..  ' for the ' .. stack_name .. '/'.. stack_version ..
+            ' software stack common to all partitions.'
     else
-        LmodError( 'Unrecongnized module name' )
-    end
+        stack_message = stack_message ..  ' for the ' .. stack_name .. '/'.. stack_version ..
+            ' software stack for the LUMI/' .. partition_name .. ' partition.'
+    end 
 
     -- Unfortunately it looks like LmodMessage reformats the string and deletes the spaces?
-    stack_message = stack_message ..
+    stack_message = stack_message .. '\n' ..
         '  * Software installation directory:    ' .. installpath_software             .. '\n' ..
         '  * Modules installation directory:     ' .. installpath_modules              .. '\n' ..
         '  * Repository:                         ' .. repositorypath                   .. '\n' ..
