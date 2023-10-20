@@ -1,7 +1,8 @@
 -- LUMI Lmod customizations
 
 require("strict")
-local os = require("os")
+local os =   require("os")
+local lfs =  require("lfs")
 local dbg  = require("Dbg"):dbg()
 local hook = require("Hook")
 require("sandbox")
@@ -548,6 +549,61 @@ function is_LTS_LUMI_stack( stack_version )
 end
 
 
+--
+-- function get_container_repository()
+--
+-- Input arguments: None
+-- Output: The directory where the lumi container repository can better
+--         found (which should at least have the sif-images subdirectory).
+-- On the system this would be /appl/local/containers/SIF, but we enable
+-- overwriting this to use a different repository for testing.
+--
+function get_container_repository()
+
+    local default_container_repository = '/appl/local/containers'
+    local lumi_container_repository =    os.getenv( 'LUMI_CONTAINER_REPOSITORY' )
+
+    if lumi_container_repository == nil or lumi_container_repository == '' then
+        return default_container_repository
+    else
+        return lumi_container_repository
+    end
+
+end
+
+
+--
+-- function get_SIF_file()
+--
+-- Input arguments:
+-- - Name of the SIF file
+-- - Name of the package (EasyBuild easyconfig)
+-- - Installation directory (can come from %(installdir)s in an EasyConfig)
+--
+-- Output arguments:
+-- - Location of the SIF file
+-- 
+-- This routine checks first if the .sif file is present in the installation directory.
+-- If not, it computes the location from the name of the .sif file, the EasyBuild package name
+-- (in case we want to implement a structure like p/PyTorch), and whatever it gets from
+-- the get_SIF_repository function.
+--
+function get_SIF_file( sif_file, package_name, installdir )
+
+    local SIF_in_installdir = pathJoin( installdir, sif_file )
+    local SIF_attributes = lfs.attributes( SIF_in_installdir )
+
+    if SIF_attributes ~= nil and SIF_attributes.mode == 'file' then
+        -- The SIF file is in the installation directory so return this.
+        return SIF_in_installdir
+    else
+        -- Return the SIF file in the repository.
+        -- We don't check if the file is really there at the moment.
+        return pathJoin( get_container_repository(), 'sif-images', sif_file )
+    end
+
+end
+
 
 sandbox_registration{
     ['get_hostname']              = get_hostname,
@@ -564,6 +620,8 @@ sandbox_registration{
     ['set_num_motd']              = set_num_motd,
     ['is_interactive']            = is_interactive,
     ['is_LTS_LUMI_stack']         = is_LTS_LUMI_stack,
+    ['get_container_repository']  = get_container_repository,
+    ['get_SIF_file']              = get_SIF_file,
 }
 
 
