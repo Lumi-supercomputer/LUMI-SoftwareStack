@@ -573,20 +573,19 @@ end
 
 
 --
--- function get_SIF_file()
+-- function get_SIF_file( sif_file, package_name, installdir )
 --
 -- Input arguments:
--- - Name of the SIF file
--- - Name of the package (EasyBuild easyconfig)
--- - Installation directory (can come from %(installdir)s in an EasyConfig)
+--  * Name of the SIF file
+--  * Name of the package (EasyBuild easyconfig)
+--  * Installation directory (can come from %(installdir)s in an EasyConfig)
 --
--- Output arguments:
--- - Location of the SIF file
+-- Return value: The location of the SIF file
 -- 
 -- This routine checks first if the .sif file is present in the installation directory.
 -- If not, it computes the location from the name of the .sif file, the EasyBuild package name
 -- (in case we want to implement a structure like p/PyTorch), and whatever it gets from
--- the get_SIF_repository function.
+-- the get_container_repository function.
 --
 function get_SIF_file( sif_file, package_name, installdir )
 
@@ -603,6 +602,59 @@ function get_SIF_file( sif_file, package_name, installdir )
     end
 
 end
+
+--
+-- function convert_to_EBvar( package, prefix, postfix )
+--
+-- Input arguments:
+--  * package: Name of the package (EasyBuild-style)
+--  * prefix: Optional prefix for the generated variable name (can be nil)
+--  * postfix: Optional postfix for the generated variable name (cam be nil)
+--
+-- Return value: The name of the variable generated from the package, by turning
+-- all characters uppercase and replacing a hyphen with MIN, with they
+-- prefix in front and the postfix at the end of the string.
+--
+-- This is not yet a complete equivalent of the EasyBuild variable-from-packages
+-- generator, but it is a start for now.
+-- 
+function convert_to_EBvar( package, prefix, postfix )
+
+    return (prefix or '') .. package:upper():gsub(  '%-', 'MIN') .. (postfix or '')
+
+end
+
+--
+-- function create_container_vars( sif_file, package_name, installdir )
+--
+-- Input arguments:
+--  * sif_file: Name of the SIF file
+--  * package_name: Name of the package (EasyBuild easyconfig)
+--  * installdir: Installation directory (can come from %(installdir)s in an EasyConfig)
+--
+-- Return value: None. It simply calls a Lmod functions to set some environment
+-- variables.
+--
+function create_container_vars( sif_file, package_name, installdir )
+
+    local SIF_file = get_SIF_file( sif_file, package_name, installdir )    
+    local SIF_attributes = lfs.attributes( SIF_file )
+
+    if SIF_attributes ~= nil and SIF_attributes.mode == 'file' then
+        -- The SIF file exists so we can set the environment variables.
+        local varname = convert_to_EBvar( package_name, 'SIF' )
+        setenv( 'SIF',   SIF_file )
+        setenv( varname, SIF_file )
+    else
+        -- The SIF file does not exist.
+        if mode() == 'load' then
+            LmodError( 'ERROR: Cannot locate the singularity container file ' .. sif_file ..
+                       '. One potential cause is that it may have been removed from the system.' )
+        end
+    end
+
+end
+
 
 
 sandbox_registration{
@@ -622,6 +674,7 @@ sandbox_registration{
     ['is_LTS_LUMI_stack']         = is_LTS_LUMI_stack,
     ['get_container_repository']  = get_container_repository,
     ['get_SIF_file']              = get_SIF_file,
+    ['create_container_vars']     = create_container_vars,
 }
 
 
@@ -915,5 +968,3 @@ hook.register( "SiteName",     site_name_hook )
 hook.register( "avail",        avail_hook )
 hook.register( "msgHook",      msg_hook )
 hook.register("isVisibleHook", is_visible_hook)
-
-

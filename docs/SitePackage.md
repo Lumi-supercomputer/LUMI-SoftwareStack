@@ -232,3 +232,64 @@ would not print it.
 
 ``is_LTS_LUMI_stack`` takes one input argument: the version of the LUMI stack. It returns
 true if that version is a LTS stack and returns false otherwise.
+
+
+### get_container_repository
+
+``get_container_repository`` takes no input arguments. It returns the location of the container
+recipe which is taken from the ``LUMI_CONTAINER_REPOSITORY`` when defined or the default
+``/appl/local/containers`` otherwise.
+
+
+### get_SIF_file
+
+``get_SIF_file()`` takes three arguments:
+
+1.  Name of the SIF file
+
+2.  Name of the package (EasyBuild easyconfig)
+
+3.  Installation directory (can come from %(installdir)s in an EasyConfig)
+
+This routine checks first if the .sif file is present in the installation directory.
+If not, it computes the location from the name of the .sif file, the EasyBuild package name
+(in case we want to implement a structure like p/PyTorch), and whatever it gets from
+the get_container_repository function.
+
+
+### convert_to_EBvar
+
+The ``convert_to_EBvar`` outine is used to create an EasyBuild-style variable
+name from the package name and an optional prefix and postfix.
+It takes three arguments:
+
+1.  ``package``: Name of the package (EasyBuild-style)
+
+2.  ``prefix``: Optional prefix for the generated variable name (can be ``nil``)
+
+3.  ``postfix``: Optional postfix for the generated variable name (cam be ``nil``)
+
+Output: The name of the variable generated from the package, by turning
+all characters uppercase and replacing a hyphen with MIN, with they
+prefix in front and the postfix at the end of the string.
+
+This is not yet a complete equivalent of the EasyBuild variable-from-packages
+generator, but it is a start for now.
+
+
+### create_container_vars
+
+The ``create_container_vars`` routine sets a number of environment variables in
+the modules that we use to make some containers available.
+
+It takes three input arguments, with the last two optional:
+
+1.  ``sif_file``: Name of the SIF file
+
+2.  ``package_name``: Name of the package (EasyBuild easyconfig)
+
+3.  ``installdir``: Installation directory (can come from %(installdir)s in an EasyConfig)
+
+Return value: None. It simply calls a Lmod functions to set some environment
+variables.
+
