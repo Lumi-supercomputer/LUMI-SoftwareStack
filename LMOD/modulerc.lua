@@ -12,10 +12,16 @@ if os.getenv( 'LUMI_LMOD_POWERUSER' ) == nil then
     hide_version( 'cpe-cuda/22.08' )
     hide_version( 'cpe-cuda/22.12' )
     hide_version( 'cpe-cuda/23.03' )
+    hide_version( 'cpe-cuda/23.09' )
     hide_version( 'PrgEnv-nvhpc/8.3.3' )
     hide_version( 'PrgEnv-nvidia/8.3.3' )
+    hide_version( 'PrgEnv-nvhpc/8.4.0' )
+    hide_version( 'PrgEnv-nvidia/8.4.0' )
     -- Tool modules in CrayEnv and LUMI that should be hidden from unexperienced users
     hide_version( 'buildtools/22.08-minimal' )
+    hide_version( 'buildtools/22.12-bootstrap' )
+    hide_version( 'buildtools/23.03-bootstrap' )
+    hide_version( 'buildtools/23.09-bootstrap' )
     -- Some cpe* modules for which we have no software yet
     hide_version( 'cpeGNU/23.03' )
     hide_version( 'cpeAOCC/23.03' )
@@ -23,12 +29,11 @@ if os.getenv( 'LUMI_LMOD_POWERUSER' ) == nil then
 end
 
 if os.getenv( 'LUMI_STACK_NAME' ) ~= nil then
-hide_modulefile( '/opt/cray/pe/lmod/modulefiles/core/cpe/21.08.lua' )
-hide_modulefile( '/opt/cray/pe/lmod/modulefiles/core/cpe/21.12.lua' )
-hide_modulefile( '/opt/cray/pe/lmod/modulefiles/core/cpe/22.06.lua' )
-hide_modulefile( '/opt/cray/pe/lmod/modulefiles/core/cpe/22.08.lua' )
-hide_modulefile( '/opt/cray/pe/lmod/modulefiles/core/cpe/22.12.lua' )
-hide_modulefile( '/opt/cray/pe/lmod/modulefiles/core/cpe/23.03.lua' )
+    hide_modulefile( '/opt/cray/pe/lmod/modulefiles/core/cpe/22.08.lua' )
+    hide_modulefile( '/opt/cray/pe/lmod/modulefiles/core/cpe/22.12.lua' )
+    hide_modulefile( '/opt/cray/pe/lmod/modulefiles/core/cpe/23.03.lua' )
+    hide_modulefile( '/opt/cray/pe/lmod/modulefiles/core/cpe/23.05.lua' )
+    hide_modulefile( '/opt/cray/pe/lmod/modulefiles/core/cpe/23.09.lua' )
 end
 
 -- The following modules do not work with Cray LMOD 8.3.1
