@@ -38,6 +38,12 @@
     to newer versions didn't work, maybe due to the lack of `pip` and the very
     old version of `python` as the system Python.
 
-### Version 4.7.1 for LUMI/22.12 and LUME/23.03
+### Version 4.7.1 for LUMI/22.12 and LUMI/23.03
 
 -   Trivial port of the 4.6.0 EasyConfig.
+
+
+### Version 4.8.1 for LUMI/23.09
+
+-   Trivial port of the 4.7.1 EasyConfig.
+
