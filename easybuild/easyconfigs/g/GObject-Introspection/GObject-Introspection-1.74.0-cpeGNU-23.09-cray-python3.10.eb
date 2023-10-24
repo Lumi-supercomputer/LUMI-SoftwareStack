@@ -1,0 +1,84 @@
+# Based on an EasyConfig developed by CSCS
+# Adapted by Kurt Lust (kurt.lust@uantwerpen.be) for the LUMI consortium
+easyblock = 'MesonNinja'
+
+local_cairo_version =        '1.17.4'        # https://www.cairographics.org/
+local_libffi_version =       '3.4.4'         # https://sourceware.org/libffi/
+local_GLib_version =         '2.75.0'        # https://ftp.gnome.org/pub/GNOME/sources/glib/
+local_util_version =         '2.38.1'        # https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/
+
+local_craypython_version =  '3.9.13.1'
+
+local_GObject_version =      '1.74.0'        # https://github.com/GNOME/gobject-introspection/releases
+
+local_craypython_maj_min = '.'.join( local_craypython_version.split('.')[:2] )
+
+name =          'GObject-Introspection'
+version =       local_GObject_version
+versionsuffix = '-cray-python%s' % local_craypython_maj_min
+
+homepage = 'https://gi.readthedocs.io/en/latest/'
+
+whatis = [
+    'Description: GNOME middleware layer between C libraries and language bindings',
+    'This module provides the command line utilities and static and shared libraries',
+]
+
+description = """
+GObject introspection is a middleware layer between C libraries (using GObject)
+and language bindings. The C library can be scanned at compile time and generate
+a metadata file, in addition to the actual native C library. Then at runtime,
+language bindings can read this metadata and automatically provide bindings to
+call into the C library.
+
+This module provides the command line tools and static and shared libraries.
+It was compiled to use Python 2.7.
+"""
+
+docurls = [
+    'Web-based documentation: https://developer.gnome.org/gi/',
+]
+
+toolchain = {'name': 'cpeGNU', 'version': '23.09'}
+
+source_urls = [FTPGNOME_SOURCE]
+sources =     [SOURCELOWER_TAR_XZ]
+checksums =   ['347b3a719e68ba4c69ff2d57ee2689233ea8c07fc492205e573386779e42d653']
+
+builddependencies = [
+    ('buildtools' ,       '%(toolchain_version)s', '',              True), # For Ninja, flex, bison
+    ('buildtools-python', '%(toolchain_version)s', '-systemPython', True), # For Meson
+    ('cairo',             local_cairo_version),
+]
+
+dependencies = [
+    (f'cray-python/{local_craypython_version}', EXTERNAL_MODULE),
+    ('GLib',       local_GLib_version),
+    ('libffi',     local_libffi_version),
+    ('util-linux', local_util_version),
+]
+
+preconfigopts = "env GI_SCANNER_DISABLE_CACHE=true "
+
+sanity_check_paths = {
+    'files': ['bin/g-ir-%s' % x for x in ['annotation-tool', 'compiler', 'generate', 'scanner']] +
+             ['lib/libgirepository-1.0.' + SHLIB_EXT],
+    'dirs':  ['include', 'share']
+}
+
+sanity_check_commands = [
+    'g-ir-annotation-tool --help',
+    'g-ir-compiler --help',
+    'g-ir-generate --help',
+    'g-ir-inspect --help',
+    'g-ir-scanner --help',
+    'pkg-config --libs gobject-introspection-1.0',
+    'pkg-config --libs gobject-introspection-no-export-1.0',
+]
+
+modextrapaths = {
+    'GI_TYPELIB_PATH': 'share',
+    'XDG_DATA_DIRS':   'share',
+}
+
+moduleclass = 'devel'

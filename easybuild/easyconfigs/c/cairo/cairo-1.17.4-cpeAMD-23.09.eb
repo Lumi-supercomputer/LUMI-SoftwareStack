@@ -1,0 +1,91 @@
+easyblock = 'ConfigureMake'
+
+local_bzip2_version =        '1.0.8'         # http://www.bzip.org/downloads.html
+local_expat_version =        '2.4.9'         # https://github.com/libexpat/libexpat/releases
+local_freetype_version =     '2.12.1'        # https://download.savannah.gnu.org/releases/freetype/
+local_GLib_version =         '2.75.0'        # https://ftp.gnome.org/pub/GNOME/sources/glib/
+local_libpng_version =       '1.6.38'        # http://www.libpng.org/pub/png/libpng.html
+local_pixman_version =       '0.42.2'        # https://www.cairographics.org/releases/
+local_zlib_version =         '1.2.12'        # https://zlib.net/
+
+local_cairo_version =        '1.17.4'        # https://www.cairographics.org/
+
+name =    'cairo'
+version = local_cairo_version
+
+homepage = 'https://www.cairographics.org/'
+
+whatis = [
+    'Description: 2D graphics library with support for multiple output devices',
+    'This module includes command line tools for debugging Cairo applications and static and shared libraries',
+]
+
+description = """
+Cairo is a 2D graphics library with support for multiple output devices.
+Currently supported output targets include the X Window System (via both Xlib
+and XCB), Quartz, Win32, image buffers, PostScript, PDF, and SVG file output.
+Experimental backends include OpenGL and DirectFB.
+
+Cairo is designed to produce consistent output on all output media while taking
+advantage of display hardware acceleration when available (eg. through the X
+Render Extension).
+
+The cairo API provides operations similar to the drawing operators of PostScript
+and PDF. Operations in cairo including stroking and filling cubic Bézier
+splines, transforming and compositing translucent images, and antialiased text
+rendering. All drawing operations can be transformed by any affine
+transformation (scale, rotation, shear, etc.)
+
+Cairo is implemented as a library written in the C programming language, but
+bindings are available for several different programming languages.
+
+Cairo is free software and is available to be redistributed and/or modified
+under the terms of either the GNU Lesser General Public License (LGPL)
+version 2.1 or the Mozilla Public License (MPL) version 1.1 at your option.
+
+This module provides the command line tools cairo-sphinx and cairo-trace and
+static and shared libraries.
+"""
+
+docurls = [
+    'Web-based documentation: https://www.cairographics.org/documentation/',
+]
+
+docpaths = [
+    'share/gtk-doc/html/cairo',
+]
+
+toolchain = {'name': 'cpeAMD', 'version': '23.09'}
+
+source_urls = ['http://cairographics.org/snapshots/']
+sources =     [SOURCE_TAR_XZ]
+
+builddependencies = [
+    ('buildtools', '%(toolchain_version)s', '', True)
+]
+
+dependencies = [
+    ('bzip2',    local_bzip2_version),
+    ('zlib',     local_zlib_version),
+    ('libpng',   local_libpng_version),
+    ('freetype', local_freetype_version),
+    ('pixman',   local_pixman_version),
+    ('expat',    local_expat_version),
+    ('GLib',     local_GLib_version),
+    ('X11',      '%(toolchain_version)s'),
+]
+
+# disable symbol lookup, which requires -lbfd, to avoid link issues with (non-PIC) libiberty.a provided by GCC
+configopts = "--enable-symbol-lookup=no --enable-gobject=yes --enable-svg=yes --enable-tee=yes --enable-xlib-xcb "
+
+sanity_check_paths = {
+    'files': ['bin/cairo-trace', 'lib/cairo/libcairo-trace.so', 'lib/cairo/libcairo-trace.a',
+              'lib/libcairo.a', 'lib/libcairo-gobject.a', 'lib/libcairo-script-interpreter.a',
+              'lib/libcairo-gobject.so', 'lib/libcairo-script-interpreter.so', 'lib/libcairo.so'] +
+             ['include/cairo/cairo%s.h' % x for x in ['', '-deprecated', '-features', '-ft', '-gobject', '-pdf', '-ps',
+                                                      '-script', '-script-interpreter', '-svg', '-version', '-xcb',
+                                                      '-xlib', '-xlib-xrender']],
+    'dirs':  ['lib/pkgconfig'],
+}
+
+moduleclass = 'vis'

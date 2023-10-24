@@ -1,0 +1,56 @@
+easyblock = 'CMakeMake'
+
+local_double_conv_version =  '3.2.1'         # https://github.com/google/double-conversion/releases
+
+name =    'double-conversion'
+version = local_double_conv_version
+
+homepage = 'https://github.com/google/double-conversion'
+
+whatis = [
+    'Description: double-conversion is a library of efficient binary-decimal and decimal-binary conversion routines for IEEE doubles.'
+]
+
+description = """
+The double-conversion project provides binary-decimal and decimal-binary
+routines for IEEE doubles.
+
+The library consists of efficient conversion routines that have been
+extracted from the V8 JavaScript engine. The code has been refactored and
+improved so that it can be used more easily in other projects.
+"""
+
+toolchain = {'name': 'cpeCray', 'version': '23.09'}
+
+sources = [{
+    'download_filename': 'v%(version)s.tar.gz',
+    'filename':          SOURCE_TAR_GZ,
+    'source_urls':       ['https://github.com/google/%(name)s/archive']
+}]
+checksums =   ['e40d236343cad807e83d192265f139481c51fc83a1c49e406ac6ce0a0ba7cd35']
+
+builddependencies = [ # Create a reproducible build environment.
+    ('buildtools', '%(toolchain_version)s', '', True), # For CMake
+]
+
+# In the Bundle, as of EasyBuild 4.2, it is better to set this to False,
+# though it does give a cleaner build procedure when this is set to True...
+separate_build_dir = False
+
+build_type = 'Release'
+
+# Build static lib, static lib with -fPIC and shared lib
+configopts = [
+    '',
+    '-DCMAKE_POSITION_INDEPENDENT_CODE=ON -DCMAKE_STATIC_LIBRARY_SUFFIX_CXX=_pic.a',
+    '-DBUILD_SHARED_LIBS=ON'
+]
+
+sanity_check_paths = {
+    'files': ['include/double-conversion/%s.h' % h for h in ['bignum', 'cached-powers', 'diy-fp', 'double-conversion',
+                                                             'fast-dtoa', 'fixed-dtoa', 'ieee', 'strtod', 'utils']] +
+             ['lib/libdouble-conversion.%s' % e for e in ['a', SHLIB_EXT]] + ['lib/libdouble-conversion_pic.a'],
+    'dirs':  [],
+}
+
+moduleclass = 'lib'
