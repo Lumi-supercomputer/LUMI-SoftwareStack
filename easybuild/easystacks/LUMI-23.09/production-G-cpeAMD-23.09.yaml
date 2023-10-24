@@ -81,7 +81,7 @@ easyconfigs:
 # TODO: New Boost.python.
   - intltool-0.51.0-cpeAMD-23.09.eb
   - gdbm-1.23-cpeAMD-23.09.eb
-  - libwebp-1.2.4-cpeAMD-23.09.eb
+  - libwebp-1.3.2-cpeAMD-23.09.eb
   - PROJ-9.1.1-cpeAMD-23.09.eb
   - util-linux-2.38.1-cpeAMD-23.09.eb
 # Block 7
