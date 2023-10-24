@@ -1,0 +1,19 @@
+easyconfigs:
+  - buildtools-23.09-bootstrap.eb
+  - syslibs-23.09-static.eb
+  - buildtools-23.09.eb
+  - systools-23.09.eb
+  - lumi-CPEtools-1.0.eb
+  - nano-7.2.eb
+  - Vim-9.0.2059.eb
+  - git-2.42.0.eb
+  - Subversion-1.14.2.eb
+  - Eigen-3.4.0.eb
+  - xorg-macros-1.19.3.eb
+  - lumi-container-wrapper-0.3.1-cray-python-default.eb
+#  - cotainr-2023.01.0.eb
+#  - rocm-5.2.5.eb
+#  - rocm-5.3.3.eb
+  - parallel-20231022.eb
+  - lumi-CrayPath-0.1.eb
+  
