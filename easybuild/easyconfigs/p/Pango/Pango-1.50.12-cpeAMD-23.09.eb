@@ -1,0 +1,80 @@
+# This one does not yet work as HarBuzz >= 2.0 is needed for it....
+easyblock = 'MesonNinja'
+
+local_cairo_version =        '1.17.4'        # https://www.cairographics.org/
+local_fribidi_version =      '1.0.12'        # https://github.com/fribidi/fribidi/releases
+local_GLib_version =         '2.75.0'        # https://ftp.gnome.org/pub/GNOME/sources/glib/
+local_GObject_version =      '1.74.0'        # https://github.com/GNOME/gobject-introspection/releases
+local_HarfBuzz_version =     '5.3.1'          # https://www.freedesktop.org/software/harfbuzz/release/
+
+local_craypython_version =   '3.9.4.2'
+
+local_Pango_version =        '1.50.12'       # http://ftp.gnome.org/pub/GNOME/sources/pango/
+
+local_craypython_maj_min = '.'.join( local_craypython_version.split('.')[:2] )
+
+name =    'Pango'
+version = local_Pango_version
+
+homepage = 'http://www.pango.org/'
+
+whatis = [
+    'Description: Text layout and rendering library',
+    'This module provides a command line utility and static and shared libraries'
+]
+
+description = """
+Pango is a library for laying out and rendering of text, with an emphasis on
+internationalization.  Pango can be used anywhere that text layout is needed,
+though most of the work on Pango so far has been done in the context of the GTK+
+widget toolkit. Pango forms the core of text and font handling for GTK+-2.x.
+
+This module provides a command line utility pango-view and static and shared
+libraries.
+"""
+
+docurls = [
+    'Web based documentation: https://developer.gnome.org/pango/unstable/',
+    'Man page for pango-view',
+]
+
+docpaths = [
+    'share/gtk-doc/html/pango'
+]
+
+toolchain = {'name': 'cpeAMD', 'version': '23.09'}
+
+source_urls = [FTPGNOME_SOURCE]
+sources =     [SOURCELOWER_TAR_XZ]
+checksums =   ['caef96d27bbe792a6be92727c73468d832b13da57c8071ef79b9df69ee058fe3']
+
+builddependencies = [
+    ('buildtools' ,           '%(toolchain_version)s', '',              True), # For Ninja
+    ('buildtools-python',     '%(toolchain_version)s', '-systemPython', True), # For Meson
+    ('GObject-Introspection', local_GObject_version,   '-cray-python' + local_craypython_maj_min),
+]
+
+dependencies = [
+    ('FriBidi',  local_fribidi_version),
+    ('X11',      '%(toolchain_version)s'),
+    ('GLib',     local_GLib_version),
+    ('cairo',    local_cairo_version),
+    ('HarfBuzz', local_HarfBuzz_version),
+]
+
+configopts = "--buildtype=release --default-library=both "
+# Old configopts:
+# configopts = "--disable-silent-rules --enable-introspection=yes --enable-static --enable-shared "
+
+sanity_check_paths = {
+    'files': ['bin/pango-view', 'lib/libpango-1.0.%s' % SHLIB_EXT, 'lib/libpangocairo-1.0.%s' % SHLIB_EXT,
+              'lib/libpangoft2-1.0.%s' % SHLIB_EXT, 'lib/libpangoxft-1.0.%s' % SHLIB_EXT],
+    'dirs':  [],
+}
+
+modextrapaths = {
+    'GI_TYPELIB_PATH': 'share',
+    'XDG_DATA_DIRS':   'share',
+}
+
+moduleclass = 'vis'

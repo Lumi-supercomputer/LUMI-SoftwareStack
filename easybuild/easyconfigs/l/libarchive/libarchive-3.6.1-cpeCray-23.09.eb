@@ -1,0 +1,57 @@
+# Possible further additions:
+# * libb2: Likely https://github.com/BLAKE2/libb2
+easyblock = 'CMakeMake'
+
+local_bzip2_version =        '1.0.8'         # http://www.bzip.org/downloads.html
+local_XZ_version =           '5.4.2'         # https://tukaani.org/xz/
+local_zlib_version =         '1.2.12'        # https://zlib.net/
+local_lz4_version =          '1.9.4'         # https://github.com/lz4/lz4/releases
+local_zstd_version =         '1.5.2'         # https://github.com/facebook/zstd/releases
+local_libb2_version =        '0.98.1'        # https://github.com/BLAKE2/libb2/releases
+local_libxml2_version =      '2.9.14'        # http://xmlsoft.org/sources/
+local_libarchive_version =   '3.6.1'         # https://github.com/libarchive/libarchive/releases
+
+name =    'libarchive'
+version = local_libarchive_version
+
+homepage = 'https://www.libarchive.org/'
+
+whatis = [
+    "Description: libarchive is a multi-format archive and compression library."
+]
+
+description = """
+libarchive is a multi-format archive and compression library..
+"""
+
+toolchain = {'name': 'cpeCray', 'version': '23.09'}
+toolchainopts = {'pic': True}
+
+sources = [ {
+              # https://www.libarchive.org/downloads/libarchive-3.3.3.tar.gz
+              # https://github.com/libarchive/libarchive/archive/v3.4.0.tar.gz
+              'download_filename': 'v%(version)s.tar.gz',
+              'filename':          SOURCELOWER_TAR_GZ,
+              'source_urls':       ['https://github.com/libarchive/libarchive/archive']
+            } ]
+
+builddependencies = [ # Create a reproducible build environment.
+    ('buildtools', '%(toolchain_version)s', '', True),
+]
+
+dependencies = [
+    ('bzip2',   local_bzip2_version),
+    ('XZ',      local_XZ_version),
+    ('zlib',    local_zlib_version),
+    ('lz4',     local_lz4_version),
+    ('zstd',    local_zstd_version),
+    ('libb2',   local_libb2_version),
+    ('libxml2', local_libxml2_version),
+]
+
+sanity_check_paths = {
+    'files': ['lib/libarchive.a', 'lib/libarchive.%s' % SHLIB_EXT],
+    'dirs':  ['bin', 'include', 'lib', 'share'],
+}
+
+moduleclass = 'vis'
