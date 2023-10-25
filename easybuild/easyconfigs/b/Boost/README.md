@@ -82,3 +82,9 @@ HPE-Cray has a sample build script for Boost in their
     Boost and Boost.mpi, the latter still a full library but with MPI support, as we don't
     have those levels of hierarchy in our toolchains. 
     
+
+### 1.82.0 from CPE 23.09 on
+
+  * Trivial port of the EasyConfigs for the regular version of 1.81.0
+    to follow the EasyBuild common toolchains version 2023a.
+

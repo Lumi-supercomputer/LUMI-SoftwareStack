@@ -81,7 +81,7 @@ local_Subversion_Version =   '1.14.2'        # https://subversion.apache.org/dow
 #
 
 local_Blosc_version =        '1.21.5'        # https://github.com/Blosc/c-blosc/releases
-local_Boost_version =        '1.81.0'        # https://www.boost.org/
+local_Boost_version =        '1.82.0'        # https://www.boost.org/
 local_Brotli_version =       '1.0.9'         # https://github.com/google/brotli/releases
 local_bzip2_version =        '1.0.8'         # http://www.bzip.org/downloads.html
 
