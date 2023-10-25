@@ -3,7 +3,7 @@ easyblock = 'ConfigureMake'
 
 local_FLAC_version =         '1.4.2'         # https://xiph.org/downloads/ or https://github.com/xiph/flac/releases
 #local_LAME_version =         '3.100'         # http://lame.sourceforge.net/
-local_libsndfile_version =   '1.2.0'         # https://github.com/libsndfile/libsndfile/releases
+local_libsndfile_version =   '1.2.2'         # https://github.com/libsndfile/libsndfile/releases
 local_libogg_version =       '1.3.5'         # https://www.xiph.org/downloads/ or https://github.com/xiph/ogg/releases
 local_libopus_version =      '1.3.1'         # http://opus-codec.org/downloads/
 local_libvorbis_version =    '1.3.7'         # https://xiph.org/downloads/ or https://github.com/xiph/vorbis/releases
@@ -44,13 +44,13 @@ docurls = [
     'Manual pages for the tools in section 1',
 ]
 
-toolchain = {'name': 'cpeAOCC', 'version': '23.09'}
+toolchain = {'name': 'cpeCray', 'version': '23.09'}
 toolchainopts = {'pic': True}
 
 # https://github.com/libsndfile/libsndfile/releases/download/1.1.0/libsndfile-1.1.0.tar.xz
 source_urls = ['https://github.com/libsndfile/libsndfile/releases/download/%(version)s/']
 sources =     [SOURCE_TAR_XZ]
-checksums =   ['0e30e7072f83dc84863e2e55f299175c7e04a5902ae79cfb99d4249ee8f6d60a']
+checksums =   ['3799ca9924d3125038880367bf1468e53a1b7e3686a934f098b7e1d286cdb80e']
 
 builddependencies = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),

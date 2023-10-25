@@ -20,3 +20,8 @@
   * The EasyConfig is a trivial update of the 1.6.37 one with a modification taken
     from the EasyBuilders one.
 
+
+### Version 1.6.39 from CPE 23.03 on
+
+  * The EasyConfig is a trivial update of the 1.6.38 one.
+

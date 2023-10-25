@@ -2,7 +2,7 @@
 easyblock = 'ConfigureMake'
 
 local_zlib_version =         '1.2.12'        # https://zlib.net/
-local_libpng_version =       '1.6.38'        # http://www.libpng.org/pub/png/libpng.html
+local_libpng_version =       '1.6.39'        # http://www.libpng.org/pub/png/libpng.html
 
 name =    'libpng'
 version = local_libpng_version
@@ -30,12 +30,12 @@ png_get_xxx() and png_set_xxx() accessor functions, which have existed for
 almost as long as libpng itself.
 """
 
-toolchain = {'name': 'cpeAOCC', 'version': '23.09'}
+toolchain = {'name': 'cpeAMD', 'version': '23.09'}
 toolchainopts = {'pic': True}
 
 source_urls = [SOURCEFORGE_SOURCE]
 sources =     [SOURCELOWER_TAR_GZ]
-checksums =   ['e2b5e1b4329650992c041996cf1269681b341191dc07ffed816c555769cceb77']
+checksums =   ['af4fb7f260f839919e5958e5ab01a275d4fe436d45442a36ee62f73e5beb75ba']
 
 builddependencies = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
