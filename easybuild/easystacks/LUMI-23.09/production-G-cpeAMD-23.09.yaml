@@ -1,6 +1,6 @@
 easyconfigs:
 # Block 1
-  - Blosc-1.21.2-cpeAMD-23.09.eb
+  - Blosc-1.21.5-cpeAMD-23.09.eb
   - Brotli-1.0.9-cpeAMD-23.09.eb
   - bzip2-1.0.8-cpeAMD-23.09.eb
   - DB-18.1.40-cpeAMD-23.09.eb
