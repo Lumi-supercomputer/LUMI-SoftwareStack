@@ -7,7 +7,7 @@ easyconfigs:
   - double-conversion-3.3.0-cpeCray-23.09.eb
   - expat-2.5.0-cpeCray-23.09.eb
   - FriBidi-1.0.12-cpeCray-23.09.eb
-  - gc-8.2.2-cpeCray-23.09.eb
+  - gc-8.2.4-cpeCray-23.09.eb
   - giflib-5.2.1-cpeCray-23.09.eb
   - GMP-6.2.1-cpeCray-23.09.eb
   - GSL-2.7.1-cpeCray-23.09-sequential.eb
