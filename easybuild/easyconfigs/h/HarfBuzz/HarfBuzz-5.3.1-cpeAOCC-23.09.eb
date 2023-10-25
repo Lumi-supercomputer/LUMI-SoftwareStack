@@ -2,13 +2,13 @@
 # Adapted by Kurt Lust (kurt.lust@uantwerpen.be) for the LUMI consortium.
 easyblock = 'ConfigureMake'
 
-local_cairo_version =        '1.17.4'        # https://www.cairographics.org/
-local_GLib_version =         '2.75.0'        # https://ftp.gnome.org/pub/GNOME/sources/glib/
-local_ICU_version =          '72.1'          # http://site.icu-project.org/home
-local_freetype_version =     '2.12.1'        # https://download.savannah.gnu.org/releases/freetype/
-local_GObject_version =      '1.74.0'        # https://github.com/GNOME/gobject-introspection/releases
+local_cairo_version =        '1.17.8'        # https://www.cairographics.org/
+local_GLib_version =         '2.77.1'        # https://ftp.gnome.org/pub/GNOME/sources/glib/
+local_ICU_version =          '73.2'          # http://site.icu-project.org/home
+local_freetype_version =     '2.13.0'        # https://download.savannah.gnu.org/releases/freetype/
+local_GObject_version =      '1.76.1'        # https://github.com/GNOME/gobject-introspection/releases
 
-local_craypython_version =   '3.9.4.2'
+local_craypython_version =  '3.10.10'
 
 local_HarfBuzz_version =     '5.3.1'          # https://www.freedesktop.org/software/harfbuzz/release/
 

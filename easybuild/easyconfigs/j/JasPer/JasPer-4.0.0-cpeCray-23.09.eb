@@ -3,7 +3,7 @@
 # in that case.
 easyblock = 'CMakeMake'
 
-local_libjpegturbo_version = '2.1.4'         # https://github.com/libjpeg-turbo/libjpeg-turbo/releases
+local_libjpegturbo_version = '2.1.5.1'       # https://github.com/libjpeg-turbo/libjpeg-turbo/releases
 local_JasPer_version =       '4.0.0'         # https://github.com/jasper-software/jasper/releases
 
 name =    'JasPer'

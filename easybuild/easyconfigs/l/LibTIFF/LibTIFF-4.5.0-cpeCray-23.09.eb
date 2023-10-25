@@ -18,12 +18,12 @@
 ##
 easyblock = 'ConfigureMake'
 
-local_libdeflate_version =   '1.15'          # https://github.com/ebiggers/libdeflate/releases
+local_libdeflate_version =   '1.18'          # https://github.com/ebiggers/libdeflate/releases
 local_XZ_version =           '5.4.2'         # https://tukaani.org/xz/
-local_zlib_version =         '1.2.12'        # https://zlib.net/
-local_zstd_version =         '1.5.2'         # https://github.com/facebook/zstd/releases
+local_zlib_version =         '1.2.13'        # https://zlib.net/
+local_zstd_version =         '1.5.5'         # https://github.com/facebook/zstd/releases
 local_giflib_version =       '5.2.1'         # https://sourceforge.net/projects/giflib/files/
-local_libjpegturbo_version = '2.1.4'         # https://github.com/libjpeg-turbo/libjpeg-turbo/releases
+local_libjpegturbo_version = '2.1.5.1'       # https://github.com/libjpeg-turbo/libjpeg-turbo/releases
 local_libtiff_version =      '4.5.0'         # https://download.osgeo.org/libtiff/
 
 name =    'LibTIFF'

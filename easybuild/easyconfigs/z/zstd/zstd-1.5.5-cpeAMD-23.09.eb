@@ -2,7 +2,7 @@
 easyblock = 'ConfigureMake'
 
 local_XZ_version =           '5.4.2'         # https://tukaani.org/xz/
-local_zlib_version =         '1.2.12'        # https://zlib.net/
+local_zlib_version =         '1.2.13'        # https://zlib.net/
 local_lz4_version =          '1.9.4'         # https://github.com/lz4/lz4/releases
 local_gzip_version =         '1.12'          # https://ftp.gnu.org/gnu/gzip/
 local_zstd_version =         '1.5.5'         # https://github.com/facebook/zstd/releases

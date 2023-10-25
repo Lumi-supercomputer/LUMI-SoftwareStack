@@ -3,7 +3,7 @@
 # NOTE: Should we be worried that it does not find libpsl?
 easyblock = 'ConfigureMake'
 
-local_zlib_version =         '1.2.12'        # https://zlib.net/
+local_zlib_version =         '1.2.13'        # https://zlib.net/
 local_Brotli_version =       '1.0.9'         # https://github.com/google/brotli/releases
 local_cURL_version =         '8.0.1'         # https://curl.haxx.se/download/
 

@@ -2,7 +2,7 @@
 # Adapted by Kurt Lust (kurt.lust@uantwerpen.be) for the LUMI consortium
 easyblock = 'ConfigureMake'
 
-local_zlib_version =         '1.2.12'        # https://zlib.net/
+local_zlib_version =         '1.2.13'        # https://zlib.net/
 local_Tcl_version =          '8.6.13'        # https://tcl.tk/
 
 name =    'Tcl'
