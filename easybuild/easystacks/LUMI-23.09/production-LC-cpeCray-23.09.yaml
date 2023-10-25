@@ -85,7 +85,7 @@ easyconfigs:
   - PROJ-9.1.1-cpeCray-23.09.eb
   - util-linux-2.38.1-cpeCray-23.09.eb
 # Block 7
-  - fontconfig-2.14.1-cpeCray-23.09.eb
+  - fontconfig-2.14.2-cpeCray-23.09.eb
   - GLib-2.75.0-cpeCray-23.09.eb
   - libgd-2.3.3-cpeCray-23.09.eb
   - X11-23.09-cpeCray-23.09.eb
