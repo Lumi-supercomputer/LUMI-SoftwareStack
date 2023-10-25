@@ -13,7 +13,7 @@ easyconfigs:
   - GSL-2.7.1-cpeAOCC-23.09-sequential.eb
   - GSL-2.7.1-cpeAOCC-23.09-OpenMP.eb
   - gzip-1.12-cpeAOCC-23.09.eb
-  - ICU-72.1-cpeAOCC-23.09.eb
+  - ICU-73.2-cpeAOCC-23.09.eb
   - libaec-1.0.6-cpeAOCC-23.09.eb
   - libb2-0.98.1-cpeAOCC-23.09.eb
   - libcerf-2.3-cpeAOCC-23.09.eb

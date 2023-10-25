@@ -46,3 +46,8 @@ Build problem with cpeGNU when using the 12.2.0 compilers:
 -   The regular binaries however take the ones in /opt/cray/pe/gcc-libs/ instead
     which on LUMI are currently the ones from GCC 11
     
+
+### 73.2 from CPE 23.09
+
+-   Trivial port of the 72.1 EasyConfig.
+
