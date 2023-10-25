@@ -9,7 +9,7 @@ local_util_version =         '2.38.1'        # https://mirrors.edge.kernel.org/p
 
 local_craypython_version =  '3.9.13.1'
 
-local_GObject_version =      '1.74.0'        # https://github.com/GNOME/gobject-introspection/releases
+local_GObject_version =      '1.76.1'        # https://github.com/GNOME/gobject-introspection/releases
 
 local_craypython_maj_min = '.'.join( local_craypython_version.split('.')[:2] )
 
@@ -39,11 +39,11 @@ docurls = [
     'Web-based documentation: https://developer.gnome.org/gi/',
 ]
 
-toolchain = {'name': 'cpeAMD', 'version': '23.09'}
+toolchain = {'name': 'cpeGNU', 'version': '23.09'}
 
 source_urls = [FTPGNOME_SOURCE]
 sources =     [SOURCELOWER_TAR_XZ]
-checksums =   ['347b3a719e68ba4c69ff2d57ee2689233ea8c07fc492205e573386779e42d653']
+checksums =   ['196178bf64345501dcdc4d8469b36aa6fe80489354efe71cb7cb8ab82a3738bf']
 
 builddependencies = [
     ('buildtools' ,       '%(toolchain_version)s', '',              True), # For Ninja, flex, bison

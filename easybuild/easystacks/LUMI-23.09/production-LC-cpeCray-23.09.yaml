@@ -94,7 +94,7 @@ easyconfigs:
 #  - FFmpeg-5.1.2-cpeCray-23.09.eb # Fails with CCE 15.0.0 with a compiler crash.
   - Tk-8.6.12-cpeCray-23.09.eb
 # Block 9
-  - GObject-Introspection-1.74.0-cpeCray-23.09-cray-python3.10.eb
+  - GObject-Introspection-1.76.1-cpeCray-23.09-cray-python3.10.eb
 # Block 10
   - HarfBuzz-5.3.1-cpeCray-23.09.eb
 # Block 11
