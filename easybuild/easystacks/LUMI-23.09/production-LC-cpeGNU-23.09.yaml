@@ -1,6 +1,6 @@
 easyconfigs:
 # Block 1
-  - Blosc-1.21.2-cpeGNU-23.09.eb
+  - Blosc-1.21.5-cpeGNU-23.09.eb
   - Brotli-1.0.9-cpeGNU-23.09.eb
   - bzip2-1.0.8-cpeGNU-23.09.eb
   - DB-18.1.40-cpeGNU-23.09.eb
