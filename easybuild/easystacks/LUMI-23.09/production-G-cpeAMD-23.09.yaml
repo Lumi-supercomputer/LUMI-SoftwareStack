@@ -74,7 +74,7 @@ easyconfigs:
   - Boost-1.82.0-cpeAMD-23.09.eb
   - gettext-0.21.1-cpeAMD-23.09.eb
   - libarchive-3.6.2-cpeAMD-23.09.eb
-  - LibTIFF-4.4.0-cpeAMD-23.09.eb
+  - LibTIFF-4.5.0-cpeAMD-23.09.eb
   - libxslt-1.1.37-cpeAMD-23.09.eb
   - Perl-5.36.0-cpeAMD-23.09.eb
 # Block 6
