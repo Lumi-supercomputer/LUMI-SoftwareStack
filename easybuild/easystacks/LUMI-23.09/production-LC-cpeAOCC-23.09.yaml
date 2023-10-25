@@ -98,7 +98,7 @@ easyconfigs:
 # Block 10
   - HarfBuzz-5.3.1-cpeAOCC-23.09.eb
 # Block 11
-  - Pango-1.50.12-cpeAOCC-23.09.eb
+  - Pango-1.50.14-cpeAOCC-23.09.eb
 # Some libraries from the apps section of before, and applications(s)
 #  - ELPA: Wait a bit, it looks like we need multiple versions and that it may need more testing.
   - METIS-5.1.0-cpeAOCC-23.09.eb

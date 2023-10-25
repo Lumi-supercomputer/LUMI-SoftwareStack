@@ -9,7 +9,7 @@ local_HarfBuzz_version =     '5.3.1'          # https://www.freedesktop.org/soft
 
 local_craypython_version =   '3.9.4.2'
 
-local_Pango_version =        '1.50.12'       # http://ftp.gnome.org/pub/GNOME/sources/pango/
+local_Pango_version =        '1.50.14'       # http://ftp.gnome.org/pub/GNOME/sources/pango/
 
 local_craypython_maj_min = '.'.join( local_craypython_version.split('.')[:2] )
 
@@ -46,7 +46,8 @@ toolchain = {'name': 'cpeGNU', 'version': '23.09'}
 
 source_urls = [FTPGNOME_SOURCE]
 sources =     [SOURCELOWER_TAR_XZ]
-checksums =   ['caef96d27bbe792a6be92727c73468d832b13da57c8071ef79b9df69ee058fe3']
+checksums =   ['
+']
 
 builddependencies = [
     ('buildtools' ,           '%(toolchain_version)s', '',              True), # For Ninja
