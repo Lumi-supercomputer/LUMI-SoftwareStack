@@ -5,7 +5,7 @@ easyconfigs:
   - bzip2-1.0.8-cpeCray-23.09.eb
   - DB-18.1.40-cpeCray-23.09.eb
   - double-conversion-3.3.0-cpeCray-23.09.eb
-  - expat-2.4.9-cpeCray-23.09.eb
+  - expat-2.5.0-cpeCray-23.09.eb
   - FriBidi-1.0.12-cpeCray-23.09.eb
   - gc-8.2.2-cpeCray-23.09.eb
   - giflib-5.2.1-cpeCray-23.09.eb

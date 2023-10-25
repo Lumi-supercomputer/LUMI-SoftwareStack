@@ -38,3 +38,7 @@
   * Trivial port of the EasyConfig, with one additional configopt ( `--without-docbook`)
     taken from the 2022b EasyBuilders recipes.
 
+
+### Version 2.5.0 from CPE 23.09 on
+
+  * Version bump to align with 2023a, trivial.
