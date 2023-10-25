@@ -12,7 +12,7 @@ local_x264_version =         '20230226'      # Just follow EasyBuild as the dist
 local_x265_version =         '3.5'           # http://download.videolan.org/pub/videolan/x265/
 local_zlib_version =         '1.2.12'        # https://zlib.net/
 
-local_FFmpeg_version =       '5.1.2'         # https://ffmpeg.org/download.html#releases
+local_FFmpeg_version =       '6.0'           # https://ffmpeg.org/download.html#releases
 
 name =    'FFmpeg'
 version = local_FFmpeg_version
@@ -56,7 +56,7 @@ toolchain = {'name': 'cpeGNU', 'version': '23.09'}
 
 source_urls = ['http://ffmpeg.org/releases/']
 sources =     [SOURCELOWER_TAR_BZ2]
-checksums =   ['39a0bcc8d98549f16c570624678246a6ac736c066cebdb409f9502e915b22f2b']
+checksums =   ['47d062731c9f66a78380e35a19aac77cebceccd1c7cc309b9c82343ffc430c3d']
 
 builddependencies = [
     ('buildtools', '%(toolchain_version)s', '', True), # For NASM, see remarks in the README.md
