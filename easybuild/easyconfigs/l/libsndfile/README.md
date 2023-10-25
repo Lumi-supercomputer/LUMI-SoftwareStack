@@ -71,3 +71,7 @@
     process currently used in the EasyBuilders versions.
 
 
+### Version 1.2.2 from CPE 23.09 on
+
+  * Trivial version bump of the 1.2.2 EasyConfig, again not yet with the CMake build process.
+
