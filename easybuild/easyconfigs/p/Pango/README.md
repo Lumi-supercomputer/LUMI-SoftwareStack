@@ -29,3 +29,8 @@
 
   * Trivial version bump of the 1.50.7 EasyConfig.
 
+
+### Version 1.50.14 from CPE 23.09 on
+
+  * Trivial version bump of the 1.50.12 EasyConfig.
+
