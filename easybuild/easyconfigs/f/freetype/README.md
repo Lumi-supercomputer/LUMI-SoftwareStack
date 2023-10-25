@@ -30,7 +30,7 @@
 
       * Brotli added.
 
-      * Can use harfbuzz but this was not added as a dependency as that requires a 
+      * Can use HarfBuzz but this was not added as a dependency as that requires a 
         complete reorganisation of the build process, and it is also a circular
         dependency.
 
@@ -38,3 +38,7 @@
         annoying dependencies, and there seems to be a circular dependency with
         freetype.
 
+
+### Version 2.13.0
+
+  * Trivial version bump of the 2.12.1 EasyConfig.

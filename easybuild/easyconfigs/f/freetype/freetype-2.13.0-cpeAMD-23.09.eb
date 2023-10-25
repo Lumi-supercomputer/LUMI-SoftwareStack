@@ -4,7 +4,7 @@ local_Brotli_version =       '1.0.9'         # https://github.com/google/brotli/
 local_bzip2_version =        '1.0.8'         # http://www.bzip.org/downloads.html
 local_zlib_version =         '1.2.12'        # https://zlib.net/
 local_libpng_version =       '1.6.38'        # http://www.libpng.org/pub/png/libpng.html
-local_freetype_version =     '2.12.1'        # https://download.savannah.gnu.org/releases/freetype/
+local_freetype_version =     '2.13.0'        # https://download.savannah.gnu.org/releases/freetype/
 
 name =    'freetype'
 version = local_freetype_version
@@ -36,12 +36,12 @@ docurls = [
    'Man page for freetype-config in section 1',
 ]
 
-toolchain = {'name': 'cpeGNU', 'version': '23.09'}
+toolchain = {'name': 'cpeAMD', 'version': '23.09'}
 toolchainopts = {'pic': True}
 
 source_urls = [GNU_SAVANNAH_SOURCE]
 sources =     [SOURCE_TAR_GZ]
-checksums =   ['efe71fd4b8246f1b0b1b9bfca13cfff1c9ad85930340c27df469733bbb620938']
+checksums =   ['a7aca0e532a276ea8d85bd31149f0a74c33d19c8d287116ef8f5f8357b4f1f80']
 
 builddependencies = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
