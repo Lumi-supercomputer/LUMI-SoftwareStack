@@ -32,6 +32,7 @@
   * Our EasyConfig is derived from the University of Antwerpen one which has more
     dependencies (that are used by some of the command line tools it seems).
 
+
 ### Version 4.4.0 for CPE 22.06
 
   * Trivial version bump of the 4.3.0 one.
@@ -42,3 +43,10 @@
   * Support for OpenGL is incomplete in this version as the libraries are not installed 
     everywhere.
 
+
+### Version 4.5.0 from CPE 23.09 on
+
+  * Trivial version bump of the 4.4.0 EasyConfig
+
+  * Support for OpenGL still incomplete.
+  

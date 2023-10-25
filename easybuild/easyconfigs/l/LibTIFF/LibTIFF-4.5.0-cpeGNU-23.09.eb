@@ -24,7 +24,7 @@ local_zlib_version =         '1.2.12'        # https://zlib.net/
 local_zstd_version =         '1.5.2'         # https://github.com/facebook/zstd/releases
 local_giflib_version =       '5.2.1'         # https://sourceforge.net/projects/giflib/files/
 local_libjpegturbo_version = '2.1.4'         # https://github.com/libjpeg-turbo/libjpeg-turbo/releases
-local_libtiff_version =      '4.4.0'         # https://download.osgeo.org/libtiff/
+local_libtiff_version =      '4.5.0'         # https://download.osgeo.org/libtiff/
 
 name =    'LibTIFF'
 version = local_libtiff_version
@@ -85,12 +85,12 @@ docurls = [
     'Web-based documentation for the library: http://simplesystems.org/libtiff/libtiff.html',
 ]
 
-toolchain = {'name': 'cpeCray', 'version': '23.09'}
+toolchain = {'name': 'cpeGNU', 'version': '23.09'}
 toolchainopts = {'pic': True}
 
 source_urls = ['https://download.osgeo.org/libtiff/']
 sources =     ['tiff-%(version)s.tar.gz']
-checksums =   ['917223b37538959aca3b790d2d73aa6e626b688e02dcda272aec24c2f498abed']
+checksums =   ['c7a1d9296649233979fa3eacffef3fa024d73d05d589cb622727b5b08c423464']
 
 builddependencies = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
