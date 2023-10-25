@@ -1,7 +1,7 @@
 # Contributed by Kurt Lust, LUMI project & UAntwerpen
 easyblock = 'CMakeMake'
 
-local_libjpegturbo_version = '2.1.4'         # https://github.com/libjpeg-turbo/libjpeg-turbo/releases
+local_libjpegturbo_version = '2.1.5.1'       # https://github.com/libjpeg-turbo/libjpeg-turbo/releases
 
 name =    'libjpeg-turbo'
 version = local_libjpegturbo_version
@@ -47,7 +47,7 @@ docurls = [
     'Man pages for the command line utilities cjpeg, djpeg, jpegtran, rdjpgcom and wrjpgcom',
 ]
 
-toolchain = {'name': 'cpeAOCC', 'version': '23.09'}
+toolchain = {'name': 'cpeCray', 'version': '23.09'}
 toolchainopts = {'pic': True}
 
 # https://github.com/libjpeg-turbo/libjpeg-turbo/archive/refs/tags/2.1.0.tar.gz
@@ -56,7 +56,7 @@ sources = {
     'filename':          SOURCELOWER_TAR_GZ,
     'source_urls':       ['https://github.com/libjpeg-turbo/libjpeg-turbo/archive/refs/tags/'],
 }
-checksums = ['a78b05c0d8427a90eb5b4eb08af25309770c8379592bb0b8a863373128e6143f']
+checksums = ['2fdc3feb6e9deb17adec9bafa3321419aa19f8f4e5dea7bf8486844ca22207bf']
 
 builddependencies = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True), # NASM and CMake

@@ -38,3 +38,8 @@
   * Trivial version bump of the 2.1.3 EasyConfig.
 
 
+### Version 2.1.5.1 from CPE 23.09 on
+
+  * Trivial version bump of the 2.1.4 EasyConfig.
+
+
