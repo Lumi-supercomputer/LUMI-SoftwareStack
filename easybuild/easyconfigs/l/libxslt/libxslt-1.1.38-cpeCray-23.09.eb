@@ -5,7 +5,7 @@
 easyblock = 'ConfigureMake'
 
 local_libxml2_version =      '2.9.14'        # http://xmlsoft.org/sources/
-local_libxslt_version =      '1.1.37'        # http://xmlsoft.org/sources/
+local_libxslt_version =      '1.1.38'        # http://xmlsoft.org/sources/
 
 name =    'libxslt'
 version = local_libxslt_version
@@ -38,12 +38,12 @@ docurls = [
     'Man pages for xsltproc, libxslt and libexslt',
 ]
 
-toolchain = {'name': 'cpeAOCC', 'version': '23.09'}
+toolchain = {'name': 'cpeCray', 'version': '23.09'}
 toolchainopts = {'pic': True}
 
 source_urls = ['https://download.gnome.org/sources/libxslt/%(version_major_minor)s/']
 sources =     [SOURCE_TAR_XZ]
-checksums =   ['3a4b27dc8027ccd6146725950336f1ec520928f320f144eb5fa7990ae6123ab4']
+checksums =   ['1f32450425819a09acaff2ab7a5a7f8a2ec7956e505d7beeb45e843d0e1ecab1']
 
 builddependencies = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
