@@ -4,7 +4,7 @@ easyblock = 'ConfigureMake'
 local_ICU_version =          '72.1'          # http://site.icu-project.org/home
 local_zlib_version =         '1.2.12'        # https://zlib.net/
 local_XZ_version =           '5.4.2'         # https://tukaani.org/xz/
-local_libxml2_version =      '2.9.14'        # http://xmlsoft.org/sources/
+local_libxml2_version =      '2.11.4'        # http://xmlsoft.org/sources/
 
 name =    'libxml2'
 version = local_libxml2_version
@@ -43,12 +43,12 @@ docurls = [
     'Man pages for the command line tools and libxml',
 ]
 
-toolchain = {'name': 'cpeGNU', 'version': '23.09'}
+toolchain = {'name': 'cpeCray', 'version': '23.09'}
 toolchainopts = {'pic': True}
 
 source_urls = ['https://download.gnome.org/sources/libxml2/%(version_major)s.%(version_minor)s/']
 sources =     [SOURCELOWER_TAR_XZ]
-checksums =   ['60d74a257d1ccec0475e749cba2f21559e48139efba6ff28224357c7c798dfee']
+checksums =   ['737e1d7f8ab3f139729ca13a2494fd17bf30ddb4b7a427cf336252cab57f57f7']
 
 dependencies = [
     ('ICU',  local_ICU_version),

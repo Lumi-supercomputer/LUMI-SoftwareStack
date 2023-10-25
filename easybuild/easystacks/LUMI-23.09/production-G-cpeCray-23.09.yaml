@@ -67,7 +67,7 @@ easyconfigs:
   - file-5.43-cpeCray-23.09.eb
   - libunistring-1.1-cpeCray-23.09.eb
   - libunwind-1.6.2-cpeCray-23.09.eb
-  - libxml2-2.9.14-cpeCray-23.09.eb
+  - libxml2-2.11.4-cpeCray-23.09.eb
   - wget-1.21.3-cpeCray-23.09.eb
   - zstd-1.5.2-cpeCray-23.09.eb
 # Block 5
