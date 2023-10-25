@@ -37,7 +37,7 @@ easyconfigs:
   - termcap-1.3.1-cpeAOCC-23.09.eb # Haven't found how to get rid of it for for Term::ReadLine::Gnu
   - x264-20230226-cpeAOCC-23.09.eb
   - x265-3.5-cpeAOCC-23.09.eb
-  - zlib-1.2.12-cpeAOCC-23.09.eb
+  - zlib-1.2.13-cpeAOCC-23.09.eb
 # Block 2
   - cURL-8.0.1-cpeAOCC-23.09.eb
   - FLAC-1.4.2-cpeAOCC-23.09.eb
