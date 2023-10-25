@@ -3,7 +3,7 @@ easyblock = 'ConfigureMake'
 local_libreadline_version =  '8.2'           # https://ftp.gnu.org/pub/gnu/readline/
 local_zlib_version =         '1.2.12'        # https://zlib.net/
 local_bzip2_version =        '1.0.8'         # http://www.bzip.org/downloads.html
-local_PCRE2_version =        '10.40'         # https://ftp.pcre.org/pub/pcre/
+local_PCRE2_version =        '10.42'         # https://ftp.pcre.org/pub/pcre/
 
 name =    'PCRE2'
 version = local_PCRE2_version
@@ -32,7 +32,7 @@ toolchainopts = {'pic': True}
 
 source_urls = ['https://github.com/PCRE2Project/%(namelower)s/releases/download/%(namelower)s-%(version)s']
 sources =     [SOURCELOWER_TAR_BZ2]
-checksums =   ['14e4b83c4783933dc17e964318e6324f7cae1bc75d8f3c79bc6969f00c159d68']
+checksums =   ['c33b418e3b936ee3153de2c61cc638e7e4fe3156022a5c77d0711bcbb9d64f1f']
 
 builddependencies = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
