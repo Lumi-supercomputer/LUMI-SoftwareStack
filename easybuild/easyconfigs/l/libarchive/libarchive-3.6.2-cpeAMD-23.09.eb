@@ -9,7 +9,7 @@ local_lz4_version =          '1.9.4'         # https://github.com/lz4/lz4/releas
 local_zstd_version =         '1.5.2'         # https://github.com/facebook/zstd/releases
 local_libb2_version =        '0.98.1'        # https://github.com/BLAKE2/libb2/releases
 local_libxml2_version =      '2.9.14'        # http://xmlsoft.org/sources/
-local_libarchive_version =   '3.6.1'         # https://github.com/libarchive/libarchive/releases
+local_libarchive_version =   '3.6.2'         # https://github.com/libarchive/libarchive/releases
 
 name =    'libarchive'
 version = local_libarchive_version
@@ -24,16 +24,12 @@ description = """
 libarchive is a multi-format archive and compression library..
 """
 
-toolchain = {'name': 'cpeGNU', 'version': '23.09'}
+toolchain = {'name': 'cpeAMD', 'version': '23.09'}
 toolchainopts = {'pic': True}
 
-sources = [ {
-              # https://www.libarchive.org/downloads/libarchive-3.3.3.tar.gz
-              # https://github.com/libarchive/libarchive/archive/v3.4.0.tar.gz
-              'download_filename': 'v%(version)s.tar.gz',
-              'filename':          SOURCELOWER_TAR_GZ,
-              'source_urls':       ['https://github.com/libarchive/libarchive/archive']
-            } ]
+source_urls = ['https://www.libarchive.org/downloads/']
+sources =     [SOURCE_TAR_GZ]
+checksums =   ['ba6d02f15ba04aba9c23fd5f236bb234eab9d5209e95d1c4df85c44d5f19b9b3']
 
 builddependencies = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
