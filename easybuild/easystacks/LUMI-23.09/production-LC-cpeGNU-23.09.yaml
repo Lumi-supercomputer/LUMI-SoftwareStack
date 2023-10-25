@@ -39,7 +39,7 @@ easyconfigs:
   - x265-3.5-cpeGNU-23.09.eb
   - zlib-1.2.12-cpeGNU-23.09.eb
 # Block 2
-  - cURL-7.86.0-cpeGNU-23.09.eb
+  - cURL-8.0.1-cpeGNU-23.09.eb
   - FLAC-1.4.2-cpeGNU-23.09.eb
   - gettext-0.21.1-cpeGNU-23.09-minimal.eb
   - JasPer-4.0.0-cpeGNU-23.09.eb

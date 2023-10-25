@@ -5,7 +5,7 @@ easyblock = 'ConfigureMake'
 
 local_zlib_version =         '1.2.12'        # https://zlib.net/
 local_Brotli_version =       '1.0.9'         # https://github.com/google/brotli/releases
-local_cURL_version =         '7.86.0'        # https://curl.haxx.se/download/
+local_cURL_version =         '8.0.1'         # https://curl.haxx.se/download/
 
 name =    'cURL'
 version = local_cURL_version
@@ -38,12 +38,12 @@ docurls = [
     'Man pages for the curl and curl-config commands (section 1) and the library functions (section 3)',
 ]
 
-toolchain = {'name': 'cpeGNU', 'version': '23.09'}
+toolchain = {'name': 'cpeAOCC', 'version': '23.09'}
 toolchainopts = {'pic': True}
 
 sources =     [SOURCELOWER_TAR_XZ]
 source_urls = ['http://curl.haxx.se/download/']
-checksums =   ['2d61116e5f485581f6d59865377df4463f2e788677ac43222b496d4e49fb627b']
+checksums =   ['0a381cd82f4d00a9a334438b8ca239afea5bfefcfa9a1025f2bf118e79e0b5f0']
 
 builddependencies = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
