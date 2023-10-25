@@ -88,7 +88,7 @@ local_bzip2_version =        '1.0.8'         # http://www.bzip.org/downloads.htm
 local_cairo_version =        '1.17.8'        # https://www.cairographics.org/
 local_CubeLib_version =      '4.8'           # https://www.scalasca.org/scalasca/software/cube-4.x/download.html
 local_CubeWriter_version =   '4.8'           # https://www.scalasca.org/scalasca/software/cube-4.x/download.html
-local_cURL_version =         '7.86.0'        # https://curl.haxx.se/download/
+local_cURL_version =         '8.0.1'         # https://curl.haxx.se/download/
 
 local_DB_version =           '18.1.40'       # https://www.oracle.com/database/technologies/related/berkeleydb-downloads.html
 local_double_conv_version =  '3.2.1'         # https://github.com/google/double-conversion/releases
