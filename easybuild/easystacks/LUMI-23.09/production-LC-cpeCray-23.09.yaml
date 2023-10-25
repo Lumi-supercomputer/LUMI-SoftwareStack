@@ -109,7 +109,7 @@ easyconfigs:
 # Some apps
   - lumi-CPEtools-1.0-cpeCray-23.09.eb
   - lumi-CPEtools-1.1-cpeCray-23.09.eb
-  - gnuplot-5.4.6-cpeCray-23.09.eb
+  - gnuplot-5.4.8-cpeCray-23.09.eb
  #  - VampirServer
 #  - Score-P
 

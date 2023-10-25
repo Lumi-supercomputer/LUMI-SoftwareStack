@@ -19,7 +19,7 @@ local_ncurses_version =      '6.4'           # https://ftp.gnu.org/pub/gnu/ncurs
 local_Pango_version =        '1.50.12'       # http://ftp.gnome.org/pub/GNOME/sources/pango/
 local_libpng_version =       '1.6.38'        # http://www.libpng.org/pub/png/libpng.html
 
-local_gnuplot_version =      '5.4.6'         # http://gnuplot.sourceforge.net/
+local_gnuplot_version =      '5.4.8'         # http://gnuplot.sourceforge.net/
 
 name =    'gnuplot'
 version = local_gnuplot_version
@@ -49,11 +49,11 @@ docurls = [
     'Manual page for gnuplot',
 ]
 
-toolchain = {'name': 'cpeGNU', 'version': '23.09'}
+toolchain = {'name': 'cpeAMD', 'version': '23.09'}
 
 source_urls = [('https://sourceforge.net/projects/gnuplot/files/gnuplot/%(version)s', 'download')]
 sources =     [SOURCE_TAR_GZ]
-checksums =   ['02fc27918200ed64d8f0c3b84fe81b95b59cd47ad99f270939ae497c19f27419']
+checksums =   ['931279c7caad1aff7d46cb4766f1ff41c26d9be9daf0bcf0c79deeee3d91f5cf']
 
 builddependencies = [
     ('buildtools',            '%(toolchain_version)s', '',                True), # For ninja, meson, pkg-config and for help2man to generate the man page.
@@ -70,7 +70,7 @@ dependencies = [
     ('X11',           '%(toolchain_version)s'),
 ]
 
-preconfigopts = 'LIBS="$LIBS -liconv"'
+preconfigopts = 'LIBS="$LIBS -liconv" LDFLAGS="$LDFLAGS -L$EBROOTFREETYPE/lib" '
 
 configopts = ' '
 
