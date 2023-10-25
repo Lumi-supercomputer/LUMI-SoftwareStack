@@ -38,3 +38,8 @@
 
 -   Trivial version bump of the EasyConfig for 20230222.
 
+
+### Version 20231022 using the system perl.
+
+-   Trivial version bump of the EasyConfig for 20231022.
+
