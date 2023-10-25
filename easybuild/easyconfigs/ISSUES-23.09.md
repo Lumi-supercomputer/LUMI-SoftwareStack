@@ -1,4 +1,10 @@
-# Issues for 23.03
+# Issues for 23.09
+
+-   Check if the new FFmpeg works with the Cray compilers (and AMD compilers?)
+
+
+
+## OLD TEXT
 
 -   With ncurses we're using 6.4 instead of the 6.3 from 2022b due to a bug in the processing of
     `--enable-pc-files --with-pkg-config-libdir` in 6.3.
