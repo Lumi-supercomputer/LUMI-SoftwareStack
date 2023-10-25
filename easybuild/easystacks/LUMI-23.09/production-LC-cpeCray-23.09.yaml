@@ -90,7 +90,7 @@ easyconfigs:
   - libgd-2.3.3-cpeCray-23.09.eb
   - X11-23.09-cpeCray-23.09.eb
 # Block 8
-  - cairo-1.17.4-cpeCray-23.09.eb
+  - cairo-1.17.8-cpeCray-23.09.eb
 #  - FFmpeg-5.1.2-cpeCray-23.09.eb # Fails with CCE 15.0.0 with a compiler crash.
   - Tk-8.6.12-cpeCray-23.09.eb
 # Block 9
