@@ -75,7 +75,7 @@ easyconfigs:
   - gettext-0.21.1-cpeCray-23.09.eb
   - libarchive-3.6.2-cpeCray-23.09.eb
   - LibTIFF-4.5.0-cpeCray-23.09.eb
-  - libxslt-1.1.37-cpeCray-23.09.eb
+  - libxslt-1.1.38-cpeCray-23.09.eb
   - Perl-5.36.0-cpeCray-23.09.eb
 # Block 6
 # TODO: New Boost.python.

@@ -18,7 +18,7 @@
     Antwerpen ones with extra sanity checks.
 
 
-### Version 1.1.37 from CPOE 22.12 on
+### Version 1.1.37 from CPE 22.12 on
 
   * Port of the 1.1.34 one, but with two changes made based on the version in the
     EasyBuilders repository:
@@ -27,4 +27,9 @@
       
       * Added the configuration options `--with-crypto=no --with-python=no` to ensure
         that the system Python and a potential sysstem libgcrypt would not be picked up.
+
+
+### Version 1.1.38 from CPE 23.09 on
+
+  * Trivial version bump of the 1.1.37 EasyConfig.
 

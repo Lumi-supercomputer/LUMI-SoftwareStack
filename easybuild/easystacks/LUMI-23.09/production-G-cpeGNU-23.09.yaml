@@ -75,7 +75,7 @@ easyconfigs:
   - gettext-0.21.1-cpeGNU-23.09.eb
   - libarchive-3.6.2-cpeGNU-23.09.eb
   - LibTIFF-4.5.0-cpeGNU-23.09.eb
-  - libxslt-1.1.37-cpeGNU-23.09.eb
+  - libxslt-1.1.38-cpeGNU-23.09.eb
   - Perl-5.36.0-cpeGNU-23.09.eb
 # Block 6
 # TODO: New Boost.python.
