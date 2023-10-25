@@ -41,8 +41,13 @@ of the library that SCons generates.
 
   * The EasyConfig is a trivial port of the 3.1.5 one.
   
+  
 ### 3.2.1 from CPE 22.12 on
 
   * The EasyConfig is a trivial port of the 3.2.0 one.
   
+
+### 3.3.0 from CPE 23.09 on
+
+  * Trivial version bump of the 3.2.1 one.
   
