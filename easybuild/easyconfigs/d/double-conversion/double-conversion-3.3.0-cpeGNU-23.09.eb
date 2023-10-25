@@ -1,6 +1,6 @@
 easyblock = 'CMakeMake'
 
-local_double_conv_version =  '3.2.1'         # https://github.com/google/double-conversion/releases
+local_double_conv_version =  '3.3.0'         # https://github.com/google/double-conversion/releases
 
 name =    'double-conversion'
 version = local_double_conv_version
@@ -20,14 +20,14 @@ extracted from the V8 JavaScript engine. The code has been refactored and
 improved so that it can be used more easily in other projects.
 """
 
-toolchain = {'name': 'cpeAMD', 'version': '23.09'}
+toolchain = {'name': 'cpeGNU', 'version': '23.09'}
 
 sources = [{
     'download_filename': 'v%(version)s.tar.gz',
     'filename':          SOURCE_TAR_GZ,
     'source_urls':       ['https://github.com/google/%(name)s/archive']
 }]
-checksums =   ['e40d236343cad807e83d192265f139481c51fc83a1c49e406ac6ce0a0ba7cd35']
+checksums =   ['04ec44461850abbf33824da84978043b22554896b552c5fd11a9c5ae4b4d296e']
 
 builddependencies = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True), # For CMake

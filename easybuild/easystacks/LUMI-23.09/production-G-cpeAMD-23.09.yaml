@@ -4,7 +4,7 @@ easyconfigs:
   - Brotli-1.0.9-cpeAMD-23.09.eb
   - bzip2-1.0.8-cpeAMD-23.09.eb
   - DB-18.1.40-cpeAMD-23.09.eb
-  - double-conversion-3.2.1-cpeAMD-23.09.eb
+  - double-conversion-3.3.0-cpeAMD-23.09.eb
   - expat-2.4.9-cpeAMD-23.09.eb
   - FriBidi-1.0.12-cpeAMD-23.09.eb
   - gc-8.2.2-cpeAMD-23.09.eb
