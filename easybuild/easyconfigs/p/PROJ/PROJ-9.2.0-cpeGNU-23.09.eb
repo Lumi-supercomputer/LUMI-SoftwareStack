@@ -6,7 +6,7 @@ local_cURL_version =         '7.86.0'        # https://curl.haxx.se/download/
 local_libtiff_version =      '4.4.0'         # https://download.osgeo.org/libtiff/
 local_SQLite_version =       '3.39.4'        # https://www.sqlite.org/
 
-local_PROJ_version =         '9.1.1'         # https://proj.org/download.html
+local_PROJ_version =         '9.2.0'         # https://proj.org/download.html
 
 name =    'PROJ'
 version = local_PROJ_version
@@ -37,12 +37,12 @@ a hundred different map projections and can transform coordinates between datums
 using all but the most obscure geodetic techniques.
 """
 
-toolchain = {'name': 'cpeAOCC', 'version': '23.09'}
+toolchain = {'name': 'cpeGNU', 'version': '23.09'}
 toolchainopts = {'pic': True, 'usempi': True}
 
 source_urls = ['http://download.osgeo.org/%(namelower)s/']
 sources =     [SOURCELOWER_TAR_GZ]
-checksums =   ['003cd4010e52bb5eb8f7de1c143753aa830c8902b6ed01209f294846e40e6d39']
+checksums =   ['dea816f5aa732ae6b2ee3977b9bdb28b1d848cf56a1aad8faf6708b89f0ed50e']
 
 builddependencies = [ # Create a reproducible build environment.
     ('buildtools',   '%(toolchain_version)s',   '', True),

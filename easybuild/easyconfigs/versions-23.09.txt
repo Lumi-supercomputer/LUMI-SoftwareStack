@@ -171,7 +171,7 @@ local_ParMETIS_version =     '4.0.3'         # https:/http://glaros.dtc.umn.edu/
 local_PCRE2_version =        '10.42'         # https://ftp.pcre.org/pub/pcre/
 local_PCRE_version =         '8.45'          # https://ftp.pcre.org/pub/pcre/
 local_Perl_version =         '5.36.1'        # https://www.perl.org/get.html
-local_PROJ_version =         '9.1.1'         # https://proj.org/download.html
+local_PROJ_version =         '9.2.0'         # https://proj.org/download.html
 local_pixman_version =       '0.42.2'        # https://www.cairographics.org/releases/
 
 local_SCOTCH6_version =      '6.1.3'         # https://gforge.inria.fr/projects/scotch/
