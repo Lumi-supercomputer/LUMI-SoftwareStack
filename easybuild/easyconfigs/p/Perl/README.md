@@ -77,3 +77,11 @@
     'buildopts': 'OPTIMIZE="-O2 -Wno-int-conversion" ',
     ```
   
+
+### Version 5.36.1 for CPE 23.09
+
+  * Updated the version of Perl to align with 2023a, but did not update the package
+    list due to the amount of work this takes. EasyBuild has changed its policy with
+    respect to additional packages which would change the way our users need to use the
+    Perl module.
+
