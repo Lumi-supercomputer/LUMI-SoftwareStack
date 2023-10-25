@@ -105,7 +105,7 @@ local_fontconfig_version =   '2.14.2'        # https://www.freedesktop.org/softw
 local_freetype_version =     '2.13.0'        # https://download.savannah.gnu.org/releases/freetype/
 local_fribidi_version =      '1.0.12'        # https://github.com/fribidi/fribidi/releases
 
-local_gc_version =           '8.2.2'         # http://hboehm.info/gc/gc_source/
+local_gc_version =           '8.2.4'         # http://hboehm.info/gc/gc_source/
 local_gdbm_version =         '1.23'          # https://ftp.gnu.org/gnu/gdbm/
 local_gettext_version =      '0.21.1'        # https://ftp.gnu.org/pub/gnu/gettext/
 local_giflib_version =       '5.2.1'         # https://sourceforge.net/projects/giflib/files/
