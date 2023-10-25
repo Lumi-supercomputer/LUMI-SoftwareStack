@@ -5,7 +5,7 @@ local_XZ_version =           '5.4.2'         # https://tukaani.org/xz/
 local_zlib_version =         '1.2.12'        # https://zlib.net/
 local_lz4_version =          '1.9.4'         # https://github.com/lz4/lz4/releases
 local_gzip_version =         '1.12'          # https://ftp.gnu.org/gnu/gzip/
-local_zstd_version =         '1.5.2'         # https://github.com/facebook/zstd/releases
+local_zstd_version =         '1.5.5'         # https://github.com/facebook/zstd/releases
 
 name =    'zstd'
 version = local_zstd_version
@@ -24,7 +24,7 @@ small data, called dictionary compression, and can create dictionaries
 from any sample set.
 """
 
-toolchain = {'name': 'cpeGNU', 'version': '23.09'}
+toolchain = {'name': 'cpeAOCC', 'version': '23.09'}
 toolchainopts = {'pic': True}
 
 sources =   [ {
@@ -34,7 +34,7 @@ sources =   [ {
                 'filename':          SOURCELOWER_TAR_GZ,
                 'source_urls':       ['https://github.com/facebook/zstd/archive/']
               } ]
-checksums =   ['f7de13462f7a82c29ab865820149e778cbfe01087b3a55b5332707abf9db4a6e']
+checksums =   ['98e9c3d949d1b924e28e01eccb7deed865eefebf25c2f21c702e5cd5b63b85e1']
 
 builddependencies = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
