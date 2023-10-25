@@ -21,7 +21,7 @@ easyconfigs:
   - libffi-3.4.4-cpeCray-23.09.eb
 #  - libidn-1.38-cpeCray-23.09.eb
   - libidn2-2.3.4-cpeCray-23.09.eb
-  - libjpeg-turbo-2.1.4-cpeCray-23.09.eb
+  - libjpeg-turbo-2.1.5.1-cpeCray-23.09.eb
   - libogg-1.3.5-cpeCray-23.09.eb
   - libopus-1.3.1-cpeCray-23.09.eb
   - libpsl-0.21.1-cpeCray-23.09.eb
