@@ -29,3 +29,10 @@
     but otherwise a port of the 1.12 one.
     
   * Did tell CMake to use `lib` instead of `lib64`.
+
+
+### Version 1.18 from CPE 23.09 on
+
+  * Trivial port of the 1.15 one.
+
+

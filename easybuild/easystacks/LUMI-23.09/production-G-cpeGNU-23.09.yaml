@@ -17,7 +17,7 @@ easyconfigs:
   - libaec-1.0.6-cpeGNU-23.09.eb
   - libb2-0.98.1-cpeGNU-23.09.eb
   - libcerf-2.3-cpeGNU-23.09.eb
-  - libdeflate-1.15-cpeGNU-23.09.eb
+  - libdeflate-1.18-cpeGNU-23.09.eb
   - libffi-3.4.4-cpeGNU-23.09.eb
 #  - libidn-1.38-cpeGNU-23.09.eb
   - libidn2-2.3.4-cpeGNU-23.09.eb

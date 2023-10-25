@@ -17,7 +17,7 @@ easyconfigs:
   - libaec-1.0.6-cpeAOCC-23.09.eb
   - libb2-0.98.1-cpeAOCC-23.09.eb
   - libcerf-2.3-cpeAOCC-23.09.eb
-  - libdeflate-1.15-cpeAOCC-23.09.eb
+  - libdeflate-1.18-cpeAOCC-23.09.eb
   - libffi-3.4.4-cpeAOCC-23.09.eb
 #  - libidn-1.38-cpeAOCC-23.09.eb
   - libidn2-2.3.4-cpeAOCC-23.09.eb
