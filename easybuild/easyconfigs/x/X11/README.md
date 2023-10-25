@@ -61,3 +61,10 @@ This is a bundle of X11 tools provided by EasyBuild.
     
   * Added xterm to the bundle.
 
+
+### Bundle for 23.09
+
+  * Regular packages taken from 2023a
+
+  * Updated the own additions
+
