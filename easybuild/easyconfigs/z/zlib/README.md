@@ -22,3 +22,11 @@
     of the CPE to complain. And the latter than causes misdetection of features in
     some configure scripts, leading to, e.g., the build of `cairo` to fail.
 
+
+### zlib 1.2.13 from CPE 23.09 on
+
+  * Port of 1.2.12, but the patch file is no longer needed as the problem has been corrected
+    in the zlib distribution.
+
+  
+  

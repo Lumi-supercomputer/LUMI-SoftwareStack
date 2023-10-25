@@ -1,7 +1,7 @@
 # Contributed by Kurt Lust, LUMI project & UAntwerpen
 easyblock = 'ConfigureMake'
 
-local_zlib_version =         '1.2.12'        # https://zlib.net/
+local_zlib_version =         '1.2.13'        # https://zlib.net/
 
 name =    'zlib'
 version = local_zlib_version
@@ -29,21 +29,12 @@ docurls = [
     'Manual page zlib (section 3)',
 ]
 
-toolchain = {'name': 'cpeGNU', 'version': '23.09'}
+toolchain = {'name': 'cpeCray', 'version': '23.09'}
 toolchainopts = {'pic': True}
 
-# Without the patch, version info is not correctly included in the shared libraries,
-# leading to problems with various system utilities and CPE compilers that in turn
-# can also cause configure to misdetect certain features and hence produced the wrong
-# configuration (happened with cairo).
-# It is a recognized bug so may not be needed anymore in a future version.
 source_urls = ['https://zlib.net/fossils']
-sources = [SOURCELOWER_TAR_GZ]
-patches = ['zlib-%(version)s_fix-CC-logic-in-configure.patch']
-checksums = [
-    '91844808532e5ce316b3c010929493c0244f3d37593afd6de04f71821d5136d9',  # zlib-1.2.12.tar.gz
-    'f35eb05334a4f8d7b40b6c5610a6369f654863b5fa1a19c2507888f918025238',  # zlib-1.2.12_fix-CC-logic-in-configure.patch
-]
+sources =     [SOURCELOWER_TAR_GZ]
+checksums =   ['b3a24de97a8fdbc835b9833169501030b8977031bcb54b3b3ac13740f846ab30']
 
 builddependencies = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
