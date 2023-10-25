@@ -29,3 +29,8 @@
 
   * Trivial port of the EasyConfig for 3.38.3.
 
+
+### Version 3.42.0 from CPE 23.09 on
+
+  * Trivial port of the EasyConfig fro 3.39.4.
+

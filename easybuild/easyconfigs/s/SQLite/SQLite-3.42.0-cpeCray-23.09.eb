@@ -15,7 +15,8 @@ easyblock = 'ConfigureMake'
 local_libreadline_version =  '8.2'           # https://ftp.gnu.org/pub/gnu/readline/
 local_Tcl_version =          '8.6.12'        # https://tcl.tk/
 
-local_SQLite_version =       '3.39.4'        # https://www.sqlite.org/
+local_SQLite_version =       '3.42.0'        # https://www.sqlite.org/
+
 name =    'SQLite'
 version = local_SQLite_version
 
@@ -41,14 +42,14 @@ SQLite source code is in the public-domain and is free to everyone to use for
 any purpose.
 """
 
-toolchain = {'name': 'cpeGNU', 'version': '23.09'}
+toolchain = {'name': 'cpeCray', 'version': '23.09'}
 toolchainopts = {'pic': True}
 
 # https://www.sqlite.org/2021/sqlite-autoconf-3350500.tar.gz
 local_filename_version = '%1d%02d%02d00' % (int(version.split('.')[0]), int(version.split('.')[1]), int(version.split('.')[2]))
-source_urls = ['https://www.sqlite.org/2022/']
+source_urls = ['https://www.sqlite.org/2023/']
 sources =     ['%%(namelower)s-autoconf-%s.tar.gz' % (local_filename_version)]
-checksums =   ['f31d445b48e67e284cf206717cc170ab63cbe4fd7f79a82793b772285e78fdbb']
+checksums =   ['7abcfd161c6e2742ca5c6c0895d1f853c940f203304a0b49da4e1eca5d088ca6']
 
 builddependencies = [ # Create a reproducible build environment.
     ('buildtools',   '%(toolchain_version)s',   '', True),
