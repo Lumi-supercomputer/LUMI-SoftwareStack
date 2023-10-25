@@ -23,3 +23,8 @@
 
   * Trivial port of 10.37, but with a switch to GitHub for sources.
 
+
+### Version 10.42 from CPE 23.09 on
+
+  * Trivial version bump of the 10.40 one.
+
