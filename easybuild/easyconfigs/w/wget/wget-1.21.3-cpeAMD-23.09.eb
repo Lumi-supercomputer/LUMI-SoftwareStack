@@ -1,10 +1,10 @@
 # Installation test before inclusion in the baselibs 2020a bundle.
 easyblock = 'ConfigureMake'
 
-local_zlib_version =         '1.2.12'        # https://zlib.net/
+local_zlib_version =         '1.2.13'        # https://zlib.net/
 local_libidn2_version =      '2.3.4'         # https://ftp.gnu.org/gnu/libidn/
 local_libpsl_version =       '0.21.1'        # https://github.com/rockdaboot/libpsl/releases
-local_PCRE2_version =        '10.40'         # https://ftp.pcre.org/pub/pcre/
+local_PCRE2_version =        '10.42'         # https://ftp.pcre.org/pub/pcre/
 local_wget_version =         '1.21.3'        # https://ftp.gnu.org/gnu/wget/
 
 name =    'wget'

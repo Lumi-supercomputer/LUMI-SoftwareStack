@@ -2,9 +2,9 @@
 # Adapted by Kurt Lust (kurt.lust@uantwerpen.be) for the LUMI consortium
 easyblock = 'CMakeMake'
 
-local_cURL_version =         '7.86.0'        # https://curl.haxx.se/download/
-local_libtiff_version =      '4.4.0'         # https://download.osgeo.org/libtiff/
-local_SQLite_version =       '3.39.4'        # https://www.sqlite.org/
+local_cURL_version =         '8.0.1'         # https://curl.haxx.se/download/
+local_libtiff_version =      '4.5.0'         # https://download.osgeo.org/libtiff/
+local_SQLite_version =       '3.42.0'        # https://www.sqlite.org/
 
 local_PROJ_version =         '9.2.0'         # https://proj.org/download.html
 

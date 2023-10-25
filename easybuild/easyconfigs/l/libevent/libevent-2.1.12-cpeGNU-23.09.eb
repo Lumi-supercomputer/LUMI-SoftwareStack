@@ -1,6 +1,6 @@
 easyblock = 'ConfigureMake'
 
-local_zlib_version =         '1.2.12'        # https://zlib.net/
+local_zlib_version =         '1.2.13'        # https://zlib.net/
 local_libevent_version =     '2.1.12'        # https://libevent.org/
 
 name =    'libevent'

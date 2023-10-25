@@ -5,7 +5,7 @@
 
 easyblock = 'ConfigureMake'
 
-local_zlib_version =         '1.2.12'        # https://zlib.net/
+local_zlib_version =         '1.2.13'        # https://zlib.net/
 local_bzip2_version =        '1.0.8'         # http://www.bzip.org/downloads.html
 local_XZ_version =           '5.4.2'         # https://tukaani.org/xz/
 local_file_version =         '5.43'          # ftp://ftp.astron.com/pub/file/

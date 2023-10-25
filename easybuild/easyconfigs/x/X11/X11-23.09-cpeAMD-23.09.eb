@@ -1,15 +1,15 @@
 easyblock = 'Bundle'
 
 local_bzip2_version =        '1.0.8'         # http://www.bzip.org/downloads.html
-local_fontconfig_version =   '2.14.1'        # https://www.freedesktop.org/software/fontconfig/release/
-local_freetype_version =     '2.12.1'        # https://download.savannah.gnu.org/releases/freetype/
+local_fontconfig_version =   '2.14.2'        # https://www.freedesktop.org/software/fontconfig/release/
+local_freetype_version =     '2.13.0'        # https://download.savannah.gnu.org/releases/freetype/
 local_intltool_version =     '0.51.0'        # https://launchpad.net/intltool/+download
 local_libpciaccess_version = '0.17'          # https://cgit.freedesktop.org/xorg/lib/libpciaccess/
-local_xorg_macros_version =  '1.19.3'        # https://cgit.freedesktop.org/xorg/util/macros
-local_zlib_version =         '1.2.12'        # https://zlib.net/
-local_PCRE2_version =        '10.40'         # https://ftp.pcre.org/pub/pcre/
+local_xorg_macros_version =  '1.20.0'        # https://cgit.freedesktop.org/xorg/util/macros
+local_zlib_version =         '1.2.13'        # https://zlib.net/
+local_PCRE2_version =        '10.42'         # https://ftp.pcre.org/pub/pcre/
 
-local_xterm_version =        '379c'          # https://github.com/ThomasDickey/xterm-snapshots/tags
+local_xterm_version =        '388c'          # https://github.com/ThomasDickey/xterm-snapshots/tags
 
 name =    'X11'
 version = '%(toolchain_version)s'

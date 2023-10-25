@@ -1,6 +1,6 @@
 easyblock = 'ConfigureMake'
 
-local_xorg_macros_version =  '1.19.3'        # https://cgit.freedesktop.org/xorg/util/macros
+local_xorg_macros_version =  '1.20.0'        # https://cgit.freedesktop.org/xorg/util/macros
 
 local_libpciaccess_version = '0.17'          # https://cgit.freedesktop.org/xorg/lib/libpciaccess/
 

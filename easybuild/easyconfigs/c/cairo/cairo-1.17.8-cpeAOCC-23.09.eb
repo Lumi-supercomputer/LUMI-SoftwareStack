@@ -1,12 +1,12 @@
 easyblock = 'ConfigureMake'
 
 local_bzip2_version =        '1.0.8'         # http://www.bzip.org/downloads.html
-local_expat_version =        '2.4.9'         # https://github.com/libexpat/libexpat/releases
-local_freetype_version =     '2.12.1'        # https://download.savannah.gnu.org/releases/freetype/
-local_GLib_version =         '2.75.0'        # https://ftp.gnome.org/pub/GNOME/sources/glib/
-local_libpng_version =       '1.6.38'        # http://www.libpng.org/pub/png/libpng.html
+local_expat_version =        '2.5.0'         # https://github.com/libexpat/libexpat/releases
+local_freetype_version =     '2.13.0'        # https://download.savannah.gnu.org/releases/freetype/
+local_GLib_version =         '2.77.1'        # https://ftp.gnome.org/pub/GNOME/sources/glib/
+local_libpng_version =       '1.6.39'        # http://www.libpng.org/pub/png/libpng.html
 local_pixman_version =       '0.42.2'        # https://www.cairographics.org/releases/
-local_zlib_version =         '1.2.12'        # https://zlib.net/
+local_zlib_version =         '1.2.13'        # https://zlib.net/
 
 local_cairo_version =        '1.17.8'        # https://www.cairographics.org/
 

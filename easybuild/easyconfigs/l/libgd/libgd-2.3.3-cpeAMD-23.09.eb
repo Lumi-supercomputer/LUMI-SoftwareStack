@@ -1,9 +1,9 @@
 easyblock = 'ConfigureMake'
 
-local_fontconfig_version =   '2.14.1'        # https://www.freedesktop.org/software/fontconfig/release/
-local_libjpegturbo_version = '2.1.4'         # https://github.com/libjpeg-turbo/libjpeg-turbo/releases
-local_libpng_version =       '1.6.38'        # http://www.libpng.org/pub/png/libpng.html
-local_zlib_version =         '1.2.12'        # https://zlib.net/
+local_fontconfig_version =   '2.14.2'        # https://www.freedesktop.org/software/fontconfig/release/
+local_libjpegturbo_version = '2.1.5.1'       # https://github.com/libjpeg-turbo/libjpeg-turbo/releases
+local_libpng_version =       '1.6.39'        # http://www.libpng.org/pub/png/libpng.html
+local_zlib_version =         '1.2.13'        # https://zlib.net/
 
 local_libgd_version =        '2.3.3'         # http://www.libgd.org/
 

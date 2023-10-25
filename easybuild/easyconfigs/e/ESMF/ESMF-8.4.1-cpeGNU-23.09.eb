@@ -2,7 +2,7 @@
 # Adapted by Kurt Lust (kurt.lust@uantwerpen.be) for the LUMI consortium
 easyblock = 'esmfcray'
 
-local_ESMF_version =         '8.4.1'         # https://github.com/esmf-org/esmf/releases
+local_ESMF_version =         '8.4.1'         # https://github.com/esmf-org/esmf/releases - Candidate for version bump if time left
 
 name =    'ESMF'
 version = local_ESMF_version

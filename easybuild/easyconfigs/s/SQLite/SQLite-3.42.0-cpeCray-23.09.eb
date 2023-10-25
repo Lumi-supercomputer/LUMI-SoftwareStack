@@ -13,7 +13,7 @@
 easyblock = 'ConfigureMake'
 
 local_libreadline_version =  '8.2'           # https://ftp.gnu.org/pub/gnu/readline/
-local_Tcl_version =          '8.6.12'        # https://tcl.tk/
+local_Tcl_version =          '8.6.13'        # https://tcl.tk/
 
 local_SQLite_version =       '3.42.0'        # https://www.sqlite.org/
 

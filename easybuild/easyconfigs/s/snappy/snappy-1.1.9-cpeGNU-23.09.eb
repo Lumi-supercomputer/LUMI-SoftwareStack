@@ -2,7 +2,7 @@ easyblock = 'CMakeMake'
 
 local_LZO_version =          '2.10'          # http://www.oberhumer.com/opensource/lzo/#download
 local_snappy_version =       '1.1.9'         # https://github.com/google/snappy/releases as there are compile problems with 1.1.8
-local_zlib_version =         '1.2.12'        # https://zlib.net/
+local_zlib_version =         '1.2.13'        # https://zlib.net/
 
 name =    'snappy'
 version = local_snappy_version

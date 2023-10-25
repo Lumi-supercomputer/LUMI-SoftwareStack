@@ -2,8 +2,8 @@ easyblock = 'ConfigureMake'
 
 local_ncurses_version =      '6.4'           # https://ftp.gnu.org/pub/gnu/ncurses/
 local_libreadline_version =  '8.2'           # https://ftp.gnu.org/pub/gnu/readline/
-local_zlib_version =         '1.2.12'        # https://zlib.net/
-local_libxslt_version =      '1.1.37'        # http://xmlsoft.org/sources/
+local_zlib_version =         '1.2.13'        # https://zlib.net/
+local_libxslt_version =      '1.1.38'        # http://xmlsoft.org/sources/
 local_gettext_version =      '0.21.1'        # https://ftp.gnu.org/pub/gnu/gettext/
 local_file_version =         '5.43'          # ftp://ftp.astron.com/pub/file/
 local_util_version =         '2.39'          # https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/

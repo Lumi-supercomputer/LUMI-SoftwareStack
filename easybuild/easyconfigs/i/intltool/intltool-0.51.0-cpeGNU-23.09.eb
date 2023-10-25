@@ -2,7 +2,7 @@ easyblock = 'ConfigureMake'
 
 local_intltool_version =     '0.51.0'        # https://launchpad.net/intltool/+download
 
-local_Perl_version =         '5.36.0'        # https://www.perl.org/get.html
+local_Perl_version =         '5.36.1'        # https://www.perl.org/get.html
 
 name =    'intltool'
 version = local_intltool_version

@@ -3,7 +3,7 @@ easyblock = 'ConfigureMake'
 
 local_ncurses_version =      '6.4'           # https://ftp.gnu.org/pub/gnu/ncurses/
 local_gettext_version =      '0.21.1'        # https://ftp.gnu.org/pub/gnu/gettext/
-local_libxml2_version =      '2.9.14'        # http://xmlsoft.org/sources/
+local_libxml2_version =      '2.11.4'        # http://xmlsoft.org/sources/
 
 name =    'gettext'
 version = local_gettext_version

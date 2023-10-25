@@ -12,7 +12,7 @@
 
 easyblock = 'ConfigureMake'
 
-local_expat_version =        '2.4.9'         # https://github.com/libexpat/libexpat/releases
+local_expat_version =        '2.5.0'         # https://github.com/libexpat/libexpat/releases
 local_UDUNITS_version =      '2.2.28'        # https://artifacts.unidata.ucar.edu/service/rest/repository/browse/downloads-udunits/
 
 name =    'UDUNITS'
