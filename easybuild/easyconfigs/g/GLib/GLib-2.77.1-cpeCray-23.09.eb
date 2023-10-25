@@ -10,7 +10,7 @@ local_libxml2_version =      '2.9.14'        # http://xmlsoft.org/sources/
 local_PCRE2_version =        '10.40'         # https://ftp.pcre.org/pub/pcre/
 local_util_version =         '2.38.1'        # https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/
 
-local_GLib_version =         '2.75.0'        # https://ftp.gnome.org/pub/GNOME/sources/glib/
+local_GLib_version =         '2.77.1'        # https://ftp.gnome.org/pub/GNOME/sources/glib/
 
 name =    'GLib'
 version = local_GLib_version
@@ -42,13 +42,13 @@ docpaths = [
     'share/gtk-doc/html/gio'
 ]
 
-toolchain = {'name': 'cpeAMD', 'version': '23.09'}
-toolchainopts = {'pic': True}
+toolchain = {'name': 'cpeCray', 'version': '23.09'}
+toolchainopts = {'pic': True, 'extra_cflags': '-Wno-unsupported-target-opt'}
 
 # Check on https://ftp.gnome.org/pub/GNOME/sources/glib/
 source_urls = [FTPGNOME_SOURCE]
 sources =     [SOURCELOWER_TAR_XZ]
-checksums =   ['6dde8e55cc4a2c83d96797120b08bcffb5f645b2e212164ae22d63c40e0e6360']
+checksums =   ['dce8d0c9e916d8c81a64436bd4ee4d6515a52dd3d157c994e1cdb9b3d6300a03']
 
 builddependencies = [
     # Python is required for building against GLib, at least when

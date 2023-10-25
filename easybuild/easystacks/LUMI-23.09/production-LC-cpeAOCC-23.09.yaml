@@ -86,7 +86,7 @@ easyconfigs:
   - util-linux-2.38.1-cpeAOCC-23.09.eb
 # Block 7
   - fontconfig-2.14.2-cpeAOCC-23.09.eb
-  - GLib-2.75.0-cpeAOCC-23.09.eb
+  - GLib-2.77.1-cpeAOCC-23.09.eb
   - libgd-2.3.3-cpeAOCC-23.09.eb
   - X11-23.09-cpeAOCC-23.09.eb
 # Block 8

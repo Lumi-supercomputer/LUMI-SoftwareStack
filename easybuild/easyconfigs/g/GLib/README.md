@@ -36,3 +36,8 @@
       
       * and trying the new fix_python_shebang_for option.
 
+
+### Version 2.77.1 from CPE 23.03 on
+
+  * Trivial version bump of the 2.75.0 one.
+
