@@ -76,7 +76,7 @@ easyconfigs:
   - libarchive-3.6.2-cpeGNU-23.09.eb
   - LibTIFF-4.5.0-cpeGNU-23.09.eb
   - libxslt-1.1.38-cpeGNU-23.09.eb
-  - Perl-5.36.0-cpeGNU-23.09.eb
+  - Perl-5.36.1-cpeGNU-23.09.eb
 # Block 6
 # TODO: New Boost.python.
   - intltool-0.51.0-cpeGNU-23.09.eb

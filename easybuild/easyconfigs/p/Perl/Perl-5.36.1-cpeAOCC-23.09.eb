@@ -1,4 +1,4 @@
-local_Perl_version =         '5.36.0'        # https://www.perl.org/get.html
+local_Perl_version =         '5.36.1'        # https://www.perl.org/get.html
 
 local_DB_version =           '18.1.40'       # https://www.oracle.com/database/technologies/related/berkeleydb-downloads.html
 local_expat_version =        '2.4.9'         # https://github.com/libexpat/libexpat/releases
@@ -29,7 +29,7 @@ toolchainopts = {'pic': True}
 
 source_urls = ['https://www.cpan.org/src/%(version_major)s.0']
 sources =     [SOURCELOWER_TAR_GZ]
-checksums =   ['e26085af8ac396f62add8a533c3a0ea8c8497d836f0689347ac5abd7b7a4e00a']
+checksums =   ['68203665d8ece02988fc77dc92fccbb297a83a4bb4b8d07558442f978da54cc1']
 
 builddependencies = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
