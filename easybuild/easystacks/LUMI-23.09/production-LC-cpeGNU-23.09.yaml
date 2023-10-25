@@ -5,7 +5,7 @@ easyconfigs:
   - bzip2-1.0.8-cpeGNU-23.09.eb
   - DB-18.1.40-cpeGNU-23.09.eb
   - double-conversion-3.3.0-cpeGNU-23.09.eb
-  - expat-2.4.9-cpeGNU-23.09.eb
+  - expat-2.5.0-cpeGNU-23.09.eb
   - FriBidi-1.0.12-cpeGNU-23.09.eb
   - gc-8.2.2-cpeGNU-23.09.eb
   - giflib-5.2.1-cpeGNU-23.09.eb
