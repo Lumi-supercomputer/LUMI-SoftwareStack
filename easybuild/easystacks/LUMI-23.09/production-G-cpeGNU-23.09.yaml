@@ -61,7 +61,7 @@ easyconfigs:
   #- PCRE
   - PCRE2-10.42-cpeGNU-23.09.eb
   - pixman-0.42.2-cpeGNU-23.09.eb
-  - SQLite-3.39.4-cpeGNU-23.09.eb
+  - SQLite-3.42.0-cpeGNU-23.09.eb
   - XZ-5.4.2-cpeGNU-23.09.eb
 # Block 4
   - file-5.43-cpeGNU-23.09.eb
