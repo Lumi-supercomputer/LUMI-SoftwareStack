@@ -44,3 +44,10 @@ target.
       * Required a correction of the sanity_check from the EasyBuilders recipes
         as `midl.h` is not installed.
 
+
+
+### 0.9.31 from CPE 23.09 on
+
+  * Trivial port of the 0.9.29 EasyConfig
+
+

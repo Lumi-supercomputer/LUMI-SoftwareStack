@@ -1,6 +1,6 @@
 easyblock = 'ConfigureMake'
 
-local_LMDB_version =         '0.9.29'        # https://github.com/LMDB/lmdb/releases
+local_LMDB_version =         '0.9.31'        # https://github.com/LMDB/lmdb/releases
 
 name =    'LMDB'
 version = local_LMDB_version
@@ -22,11 +22,11 @@ docurls = [
     'Man pages in section 1 for mdb_copy, mdb_dump, mdb_load and mdb_stat',
 ]
 
-toolchain = {'name': 'cpeCray', 'version': '23.09'}
+toolchain = {'name': 'cpeGNU', 'version': '23.09'}
 
 sources =     ['%(name)s_%(version)s.tar.gz']
 source_urls = ['https://github.com/LMDB/lmdb/archive/']
-checksums =   ['22054926b426c66d8f2bc22071365df6e35f3aacf19ad943bc6167d4cae3bebb']
+checksums =   ['dd70a8c67807b3b8532b3e987b0a4e998962ecc28643e1af5ec77696b081c9b0']
 
 builddependencies = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
