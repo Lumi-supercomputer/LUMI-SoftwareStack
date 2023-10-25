@@ -40,4 +40,10 @@
 
   * Trivial port of the EasyConfig of 1.72.0.
 
+
+### Version 1.76.1 from CPE 23.09 on
+
+  * Trivial port of the 1.74.0 EasyConfig.
+
+
   
