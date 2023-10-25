@@ -3,7 +3,7 @@
 easyblock = 'ConfigureMake'
 
 local_zlib_version =         '1.2.12'        # https://zlib.net/
-local_Tcl_version =          '8.6.12'        # https://tcl.tk/
+local_Tcl_version =          '8.6.13'        # https://tcl.tk/
 
 name =    'Tcl'
 version = local_Tcl_version
@@ -24,7 +24,7 @@ toolchain = {'name': 'cpeAOCC', 'version': '23.09'}
 
 source_urls = ['http://prdownloads.sourceforge.net/%(namelower)s']
 sources =     ['%(namelower)s%(version)s-src.tar.gz']
-checksums =   ['26c995dd0f167e48b11961d891ee555f680c175f7173ff8cb829f4ebcde4c1a6']
+checksums =   ['%']
 
 builddependencies = [ # Create a reproducible build environment.
     ('buildtools',   '%(toolchain_version)s',   '', True),

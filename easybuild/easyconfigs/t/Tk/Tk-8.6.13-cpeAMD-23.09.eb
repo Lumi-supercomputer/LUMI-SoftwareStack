@@ -1,10 +1,10 @@
 # contributed by Luca Marsella (CSCS)
 easyblock = 'ConfigureMake'
 
-local_Tcl_version =          '8.6.12'        # https://tcl.tk/
+local_Tcl_version =          '8.6.13'        # https://tcl.tk/
 local_zlib_version =         '1.2.12'        # https://zlib.net/
 
-local_Tk_version =           '8.6.12'        # https://tcl.tk/
+local_Tk_version =           '8.6.13'        # https://tcl.tk/
 
 name =    'Tk'
 version = local_Tk_version
@@ -23,14 +23,14 @@ can produce rich, native applications that run unchanged across Windows,
 Mac OS X, Linux and more.
 """
 
-toolchain = {'name': 'cpeAOCC', 'version': '23.09'}
+toolchain = {'name': 'cpeAMD', 'version': '23.09'}
 
 source_urls = ["https://prdownloads.sourceforge.net/tcl"]
 sources =     ['%(namelower)s%(version)s-src.tar.gz']
 patches =     ['Tk-8.6.4_different-prefix-with-tcl.patch']
 checksums =   [
-    '12395c1f3fcb6bed2938689f797ea3cdf41ed5cb6c4766eec8ac949560310630',  # tk8.6.12-src.tar.gz
-    '7a6daa8349393af3d340e774aebf07c7410c51e01bc654ceb3679877063b961d',  # Tk-8.6.4_different-prefix-with-tcl.patch
+    {'tk8.6.13-src.tar.gz': '2e65fa069a23365440a3c56c556b8673b5e32a283800d8d9b257e3f584ce0675'},
+    {'Tk-8.6.13_different-prefix-with-tcl.patch': 'e136ff60dfe7fc4b14d98af00cf89522fbfd106e75b0a9259f410a8bfa732534'},
 ]
 
 builddependencies = [ # Create a reproducible build environment.
