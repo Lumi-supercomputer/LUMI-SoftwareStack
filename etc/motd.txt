@@ -1,7 +1,7 @@
    .Announcements---------------------------------------------------.
 *  | !!!Important as there are breaking changes!!! Please check     |
-   | https://lumi-supercomputer.github.io/update-202308             |
- * | for changes to the configuration and policies after the August |
+   | https://lumi-supercomputer.github.io/update-202311             |
+ * | for changes to the configuration after the October-November    |
    | 2023 update.                                                   |
    |                                                                |
  * | NOTE: The default version of the LUMI software stack is        |
