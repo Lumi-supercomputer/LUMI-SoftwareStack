@@ -3,6 +3,11 @@
 -   Check if the new FFmpeg works with the Cray compilers (and AMD compilers?)
 
 
+To do later:
+
+-   Installing buildtools with byacc 20230521 did not work. Check what is wrong with 
+    that version for future installations?
+
 
 ## OLD TEXT
 

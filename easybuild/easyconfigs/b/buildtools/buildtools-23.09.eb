@@ -41,11 +41,11 @@ local_NASM_version =             '2.16.01'     # NASM       20200828 - Check on 
 local_Yasm_version =             '1.3.0'       # Yasm       20140810 - Check on https://yasm.tortall.net/Download.html
 local_gperf_version =            '3.1'         # gperf      20170105 - Check on https://ftp.gnu.org/gnu/gperf/
 local_sed_version =              '4.9'         # sed        20221106 - Check on https://ftp.gnu.org/gnu/sed/
-local_patchelf_version =         '0.18.0'      # patchelf   20230110 - Check on https://github.com/NixOS/patchelf/releases (newer than EB 2022b)
+local_patchelf_version =         '0.17.2'      # patchelf   20230110 - Check on https://github.com/NixOS/patchelf/releases
 local_Bison_version =            '3.8.2'       # Bison      20210925 - Check on https://ftp.gnu.org/gnu/bison/
 local_flex_version =             '2.6.4'       # flex       20170506 - Check on https://github.com/westes/flex/releases
-local_byacc_version =            '20230521'    # byacc      20230219 - Check on https://invisible-mirror.net/archives/byacc/ (newer than EB 2022b)
-local_re2c_version =             '3.1'         # re2c       20210127 - Check on https://github.com/skvadrik/re2c/releases
+local_byacc_version =            '20230219'    # byacc      20230219 - Check on https://invisible-mirror.net/archives/byacc/
+local_re2c_version =             '3.0'         # re2c       20210127 - Check on https://github.com/skvadrik/re2c/releases
 local_xxd_version =              '9.0.2059'    # vim        20230307 - Check on https://github.com/vim/vim/tags (newer than EB 2022b)
 
 homepage = 'http://www.gnu.org'
@@ -165,7 +165,7 @@ components = [
         }),
     ('byacc', local_byacc_version, {
         'sources':     [SOURCELOWER_TGZ],
-        'source_urls': ['ftp://ftp.invisible-island.net/byacc//'],
+        'source_urls': ['https://invisible-mirror.net/archives/byacc'],
         'checksums':   ['36b972a6d4ae97584dd186925fbbc397d26cb20632a76c2f52ac7653cd081b58'],
         'start_dir':   '%(namelower)s-%(version)s',
         'installopts': ' && mv %(installdir)s/bin/yacc %(installdir)s/bin/byacc && mv %(installdir)s/share/man/man1/yacc.1 %(installdir)s/share/man/man1/byacc.1',
@@ -179,7 +179,7 @@ components = [
     ('libtool', local_libtool_version, { # Uses M4
         'sources':     [SOURCELOWER_TAR_XZ],
         'source_urls': [GNU_SOURCE],
-        'checksums':   ['7c87a8c2c8c0fc9cd5019e402bed4292462d00a718a7cd5f11218153bf28b26f'],
+        'checksums':   ['4f7f217f057ce655ff22559ad221a0fd8ef84ad1fc5fcb6990cecc333aa1635d'],
         'start_dir':   '%(namelower)s-%(version)s'
         }),
     ('Autoconf', local_Autoconf_version, { # Uses M4
@@ -191,7 +191,7 @@ components = [
     ('makeinfo', local_makeinfo_version, { # Uses the system perl
         'sources':     ['texinfo-%(version)s.tar.xz'],
         'source_urls': ['https://ftpmirror.gnu.org/gnu/texinfo'],
-        'checksums':   ['f211ec3261383e1a89e4555a93b9d017fe807b9c3992fb2dff4871dae6da54ad'],
+        'checksums':   ['74b420d09d7f528e84f97aa330f0dd69a98a6053e7a4e01767eed115038807bf'],
         'start_dir':   'texinfo-%(version)s'
         }),
     ('Autoconf-archive', local_Autoconf_archive_version, { # Uses M4
@@ -238,7 +238,7 @@ components = [
     ('CMake', local_CMake_version, {
         'sources':     [SOURCELOWER_TAR_GZ],
         'source_urls': ['https://cmake.org/files/v%(version_major_minor)s'],
-        'checksums':   ['c026f22cb931dd532f648f087d587f07a1843c6e66a3dfca4fb0ea21944ed33c'],
+        'checksums':   ['08f71a106036bf051f692760ef9558c0577c42ac39e96ba097e7662bd4158d8e'],
         'start_dir':   '%(namelower)s-%(version)s',
         'configopts':  '-- -DCMAKE_USE_OPENSSL=1'
         }),
@@ -262,7 +262,7 @@ components = [
     ('NASM', local_NASM_version, {
         'sources':     [SOURCELOWER_TAR_XZ],
         'source_urls': ['http://www.nasm.us/pub/nasm/releasebuilds/%(version)s'],
-        'checksums':   ['3caf6729c1073bf96629b57cee31eeb54f4f8129b01902c73428836550b30a3f'],
+        'checksums':   ['c77745f4802375efeee2ec5c0ad6b7f037ea9c87c92b149a9637ff099f162558'],
         'start_dir':   '%(namelower)s-%(version)s'
         }),
     ('Yasm', local_Yasm_version, {
@@ -292,7 +292,7 @@ components = [
         # Download as http://doxygen.nl/files/doxygen-1.8.15.src.tar.gz
         'sources':       ['%(namelower)s-%(version)s.src.tar.gz'],
         'source_urls':   ['http://doxygen.nl/files/'],
-        'checksums':     ['297f8ba484265ed3ebd3ff3fe7734eb349a77e4f95c8be52ed9977f51dea49df'],
+        'checksums':     ['05e3d228e8384b5f3af9c8fd6246d22804acb731a3a24ce285c8986ed7e14f62'],
         'start_dir':     '%(namelower)s-%(version)s',
         }),
     ('xxd', local_xxd_version, { # Uses pkg-config
@@ -301,7 +301,7 @@ components = [
                            'filename'          : 'xxd-%(version)s.tar.gz',
                            'source_urls'       : ['https://github.com/vim/vim/archive/refs/tags'],
                        } ],
-        'checksums':   ['ca08fe6cac14d3cb37e6f1780e86e43ae83b9deacef81b102dfdecc697e584f2'],
+        'checksums':   ['5b20c2fed3844ffbd2bef51d2e6de8e5c07f9c3cfb84e2679a729b69f178f8d6'],
         'start_dir':   'vim-%(version)s/src/xxd',
         'files_to_copy': [ (['xxd'], 'bin') ],
         }),
