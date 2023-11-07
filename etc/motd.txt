@@ -2,7 +2,8 @@
 *  | !!!Important as there are breaking changes!!! Please check     |
    | https://lumi-supercomputer.github.io/update-202311             |
  * | for changes to the configuration after the October-November    |
-   | 2023 update.                                                   |
+   | 2023 update. Note also that there are known problems with      |
+ * | PrgEnv-cray and cray-mpich, see the notes linked above.        |
    |                                                                |
  * | NOTE: The default version of the LUMI software stack is        |
    | LUMI/22.08 while the default version of the Cray PE after      |
