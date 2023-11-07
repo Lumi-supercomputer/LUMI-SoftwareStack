@@ -43,7 +43,7 @@
 -   Trivial port of the 4.6.0 EasyConfig.
 
 
-### Version 4.8.1 for LUMI/23.09
+### Version 4.8.2 for LUMI/23.09
 
 -   Trivial port of the 4.7.1 EasyConfig.
 
