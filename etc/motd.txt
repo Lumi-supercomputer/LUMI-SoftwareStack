@@ -1,27 +1,20 @@
    .Announcements---------------------------------------------------.
 *  | !!!Important as there are breaking changes!!! Please check     |
-   | https://lumi-supercomputer.github.io/update-202308             |
- * | for changes to the configuration and policies after the August |
-   | 2023 update.                                                   |
+   | https://lumi-supercomputer.github.io/update-202311             |
+ * | for changes to the configuration after the October-November    |
+   | 2023 update. Note also that there are known problems with      |
+ * | PrgEnv-cray and cray-mpich, see the notes linked above.        |
    |                                                                |
  * | NOTE: The default version of the LUMI software stack is        |
    | LUMI/22.08 while the default version of the Cray PE after      |
-   | login and in CrayEnv is 22.12. The base libraries for the      |
-*  | LUMI/22.12 software stack are now available, using GCC version |
- * | 11 for cpeGNU as problems have been reported with GCC 12. The  |
-   | 23.03 stack currently only contains support for the Cray com-  |
-*  | piler as that version fixes important bugs from previous ver-  |
-   | sions.                                                         |
+*  | login and in CrayEnv is 23.09. Please move as soon as possible |
+   | from LUMI/22.08 to newer versions as 22.08 is not fully        |
+ * | functional anymore. In the next few weeks base libraries for   |
+   | 23.09 will be prepared and installed.                          |
   *|                                                                |
 *  | You can use the lumi-workspaces command (without loading an    |
    | additional module) to check your quota and allocations on      |
    | LUMI. Also check `module help lumi-tools` for more info.       | 
-*  |                                                                |
- * | LUMI/21.12 and 22.06 are hidden as they does not fully         |
-   | function and will not reappear. You can still load the modules |
-   | but at your own risk (and will get replacements instead). It   |
- * | is not possible to reliably do new installations in 21.12 and  |
-   | 22.06. 21.08 is removed from the system.                       |
 *  .Notes-----------------------------------------------------------.
    | Make sure one of the following modules is loaded to have the   |
  * | full LUMI experience:                                          |
@@ -29,5 +22,9 @@
    |   additional tools not installed by default in the OS          |
 *  | - LUMI: The extensible LUMI software stack that you can use    |
    |   as a basis for additional software installs with EasyBuild   |
-** |   and other tools.                                             |
+ * |   and other tools.                                             |
+*  | - spack: If you are an experienced Spack user and know how it  |
+   |   works. Spack is offered as-is. We do not do development or   |
+  *|   bug fixing in Spack but do offer a configuration compatible  |
+** |   with the Cray PE.                                            |
 ** `--*****-------------------***-----------------------*****-------'
