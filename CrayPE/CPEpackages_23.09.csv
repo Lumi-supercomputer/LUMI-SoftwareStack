@@ -9,7 +9,7 @@ ATOMS,1.1.6
 PALS,1.2.12
 ATP,3.15.1
 CCDB,5.0.1
-Cray-dininst,12.3.0
+cray-dyninst,12.3.0
 CTI,2.18.1
 gdb4hpc,4.15.1
 sanitizers4hpc,1.1.1
@@ -38,9 +38,9 @@ GCC12,12.2.0
 cray-python,3.10.10
 cray-R,4.2.1.2
 jemalloc,5.1.0.4
-AOCC,4.0.0
+AOCC,3.2.0
 ROCM,5.2.3
 intel,2023.1.0
 NVIDIA,22.7
-craype-targets,1.8.0
-EasyBuild,4.8.1
+craype-targets,1.11.0
+EasyBuild,4.8.2
