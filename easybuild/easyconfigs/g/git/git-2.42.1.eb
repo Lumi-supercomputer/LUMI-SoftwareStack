@@ -12,7 +12,7 @@ import os as local_os
 # SYSTEM toolchain.
 local_LUMI_version = local_os.environ['LUMI_STACK_CPE_VERSION']
 
-local_git_version =          '2.40.0'        # https://github.com/git/git/tags
+local_git_version =          '2.42.1'        # https://github.com/git/git/tags
 
 name =    'git'
 version = local_git_version
@@ -51,7 +51,7 @@ sources = {
     'filename':          SOURCELOWER_TAR_GZ,
     'source_urls':       ['https://github.com/git/git/archive']
 }
-checksums = ['60c06eb7ce840903169ed4872224b2409dd8d8a518e9df847c6dc0ef10d35d99']
+checksums = ['59222171748cafe549821b9ce9926face769ce058e5f4b90c32c9b708bb797b5']
 
 builddependencies = [
     ('buildtools', local_LUMI_version),

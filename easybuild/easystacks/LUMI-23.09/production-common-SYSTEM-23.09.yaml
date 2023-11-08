@@ -6,7 +6,7 @@ easyconfigs:
   - systools-23.09.eb
   - nano-7.2.eb
   - Vim-9.0.1392.eb
-  - git-2.42.0.eb
+  - git-2.42.1.eb
   - Subversion-1.14.2.eb
   - Eigen-3.4.0.eb
   - xorg-macros-1.20.0.eb

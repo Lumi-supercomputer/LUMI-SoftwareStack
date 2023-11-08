@@ -72,6 +72,7 @@ local_systools_tree_version =         '2.1.1'
 #
 # Some SYSTEM applications
 #
+local_git_version =          '2.42.1'        # https://github.com/git/git/tags
 local_nano_version =         '7.2'           # https://www.nano-editor.org/download.php
 local_Vim_version =          '9.0.2059'      # https://github.com/vim/vim/tags
 local_Subversion_Version =   '1.14.2'        # https://subversion.apache.org/download.cgi (not yet used)
