@@ -30,4 +30,6 @@
 ### Version 2.11.4 from CPE 23.09 on
 
   * Trivial version bump of the 2.9.14 EasyConfig.
+  
+  * But needed to explicitly enable static libraries in this version.
 

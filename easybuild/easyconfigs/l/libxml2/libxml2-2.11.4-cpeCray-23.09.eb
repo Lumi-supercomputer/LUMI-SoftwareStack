@@ -56,7 +56,7 @@ dependencies = [
     ('XZ',   local_XZ_version),
 ]
 
-configopts = 'CC="$CC" CXX="$CXX" --with-pic --without-python --with-zlib --with-lzma --with-icu'
+configopts = 'CC="$CC" CXX="$CXX" --enable-static --enable-shared --with-pic --without-python --with-zlib --with-lzma --with-icu'
 
 sanity_check_paths = {
     'files': [('lib/%(name)s.a', 'lib64/%(name)s.a'), ('lib/%(name)s.so', 'lib64/%(name)s.so')],
