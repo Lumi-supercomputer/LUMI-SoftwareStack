@@ -43,4 +43,7 @@
 ### Version 9.2.0 from 23.09 on
 
   * Version bump of the 9.2.0 EasyConfig
+  
+  * Needed to add an option to avoid generating errors on unused arguments as somehow 
+    some ROCm libraries get added that are not needed.
 
