@@ -77,7 +77,7 @@ components = [
                             'filename':    SOURCELOWER_TAR_BZ2,
                             'source_urls': ['https://github.com/logological/gpp/releases/download/%(version)s']
                          }],
-        'checksums':     ['49eb99d22af991e7f4efe2b21baa1196e9ab98c05b4b7ed56524a612c47b8fd3'],
+        'checksums':     ['343d33d562e2492ca9b51ff2cc4b06968a17a85fdc59d5d4e78eed3b1d854b70'],
         'start_dir':     'gpp-%(version)s',
         'preconfigopts': 'CFLAGS="-O2 -march=znver1" CXXFLAGS="-O2 -march=znver1" ',
         'installopts':   ' && mkdir -p %(installdir)s/share/licenses/%(name)s' +
@@ -89,7 +89,7 @@ components = [
                             'filename':          SOURCE_TAR_GZ,
                             'source_urls':       ['https://github.com/htop-dev/htop/archive/refs/tags']
                          }],
-        'checksums':     ['b5ffac1949a8daaabcffa659c0964360b5008782aae4dfa7702d2323cfb4f438'],
+        'checksums':     ['3829c742a835a0426db41bb039d1b976420c21ec65e93b35cd9bfd2d57f44ac8'],
         'start_dir':     'htop-%(version)s',
         'preconfigopts': './autogen.sh && LDFLAGS="-L$EBROOTSYSLIBS/lib" LIBS="$LIBS -ltinfo" CFLAGS="-O2 -march=znver1" CXXFLAGS="-O2 -march=znver1" ',
         # Core dumps when compiled with unicode support, there must be something wrong in
@@ -116,7 +116,7 @@ components = [
                             'filename':    '%(name)s-%(version)s.tgz',
                             'source_urls': ['http://mama.indstate.edu/users/ice/tree/src']
                          }],
-        'checksums':     ['7d693a1d88d3c4e70a73e03b8dbbdc12c2945d482647494f2f5bd83a479eeeaf'],
+        'checksums':     ['d3c3d55f403af7c76556546325aa1eca90b918cbaaf6d3ab60a49d8367ab90d5'],
         'start_dir':     'tree-%(version)s',
         'buildopts':     'CC="gcc" CFLAGS="-O2 -march=znver1 -ggdb -pedantic -Wall -DLINUX -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64"',
         'files_to_copy': [(['tree'], 'bin'), (['doc/tree.1'], 'share/man/man1'), (['LICENSE'], 'share/licenses/%(name)s')]
