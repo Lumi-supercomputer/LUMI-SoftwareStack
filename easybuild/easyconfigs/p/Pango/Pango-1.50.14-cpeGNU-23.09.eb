@@ -46,8 +46,7 @@ toolchain = {'name': 'cpeGNU', 'version': '23.09'}
 
 source_urls = [FTPGNOME_SOURCE]
 sources =     [SOURCELOWER_TAR_XZ]
-checksums =   ['
-']
+checksums =   ['1d67f205bfc318c27a29cfdfb6828568df566795df0cb51d2189cde7f2d581e8']
 
 builddependencies = [
     ('buildtools' ,           '%(toolchain_version)s', '',              True), # For Ninja
