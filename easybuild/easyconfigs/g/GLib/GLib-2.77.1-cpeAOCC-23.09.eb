@@ -8,7 +8,7 @@ local_libffi_version =       '3.4.4'         # https://sourceware.org/libffi/
 local_libiconv_version =     '1.17'          # https://ftp.gnu.org/pub/gnu/libiconv/
 local_libxml2_version =      '2.11.4'        # http://xmlsoft.org/sources/
 local_PCRE2_version =        '10.42'         # https://ftp.pcre.org/pub/pcre/
-local_util_version =         '2.39'          # https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/
+local_util_version =         '2.38.1'        # https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/
 
 local_GLib_version =         '2.77.1'        # https://ftp.gnome.org/pub/GNOME/sources/glib/
 

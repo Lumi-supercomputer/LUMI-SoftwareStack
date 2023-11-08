@@ -8,6 +8,8 @@ To do later:
 -   Installing buildtools with byacc 20230521 did not work. Check what is wrong with 
     that version for future installations?
 
+-   Upgrading to util-linux 2.39 did not work, have a look at it in the future.
+
 
 ## OLD TEXT
 

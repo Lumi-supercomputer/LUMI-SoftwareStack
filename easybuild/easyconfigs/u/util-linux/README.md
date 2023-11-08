@@ -33,7 +33,9 @@
   * Trivial version bump of the EasyConfig of 2.38.
 
 
-### 2.39 from CPE 23.09 on
+### **NO** 2.39 from CPE 23.09 on
 
   * Port of the 2.38.1 EasyConfig but with the patches of the EasyBuild version added.
+  
+  * Did not work so reverted to 2.38.1.
 

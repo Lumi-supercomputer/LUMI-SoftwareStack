@@ -6,7 +6,7 @@ local_zlib_version =         '1.2.13'        # https://zlib.net/
 local_libxslt_version =      '1.1.38'        # http://xmlsoft.org/sources/
 local_gettext_version =      '0.21.1'        # https://ftp.gnu.org/pub/gnu/gettext/
 local_file_version =         '5.43'          # ftp://ftp.astron.com/pub/file/
-local_util_version =         '2.39'          # https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/
+local_util_version =         '2.38.1'        # https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/
 
 name =    'util-linux'
 version = local_util_version
@@ -22,20 +22,12 @@ A set of Linux utilities and libraries used by Glib. Many of the commands
 are standard on Linux systems.
 """
 
-toolchain = {'name': 'cpeGNU', 'version': '23.09'}
+toolchain = {'name': 'cpeAMD', 'version': '23.09'}
 toolchainopts = {'pic': True}
 
 source_urls = ['%s/v%%(version_major_minor)s' % homepage]
-sources = [SOURCELOWER_TAR_GZ]
-patches = [
-    'util-linux-%(version)s_fix_waitpid.patch',
-    'util-linux-2.39-fix-build-centos7.patch'
-]
-checksums = [
-    {'util-linux-2.39.tar.gz': 'b1f597ad172a2ee17b0a7ae4be7ab7e1b1a6f9394ddbd3d8ec90ae4ed7333579'},
-    {'util-linux-2.39_fix_waitpid.patch': '99cbd4ee8293f3ffad4467e9f245d0da4e10a98b6599f5e5f9d4cb99c7eebbd2'},
-    {'util-linux-2.39-fix-build-centos7.patch': '21587513f0f5f5efe790396ac39450c7f30dd55063929bb430a77352ba99f57f'},
-]
+sources =     [SOURCELOWER_TAR_XZ]
+checksums =   ['60492a19b44e6cf9a3ddff68325b333b8b52b6c59ce3ebd6a0ecaa4c5117e84f']
 
 builddependencies = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
