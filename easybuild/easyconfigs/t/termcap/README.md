@@ -23,3 +23,6 @@ to find the required functionality in ncurses.
 
   * Note that this is a very primitive library. Its configure doesn't even pick up
     CFLAGS correctly so we feed it to make ourselves.
+
+  * From Clang 16 on the C standard needs to be set explicitly to c90 to avoid
+    error messages about features forbidden in C99 or newer.
