@@ -28,5 +28,5 @@ TODO: Problems on eiger likely because the configure process fails to find the p
 
 ### Version 1.17.8 from 23.09 on
 
-  * Trivial version bump of the 1.17.4 EasyConfig.
+  * Switched to a meson build based on the EasyBuilders EasyConfig.
 

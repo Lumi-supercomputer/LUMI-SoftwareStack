@@ -1,4 +1,4 @@
-easyblock = 'ConfigureMake'
+easyblock = 'MesonNinja'
 
 local_bzip2_version =        '1.0.8'         # http://www.bzip.org/downloads.html
 local_expat_version =        '2.5.0'         # https://github.com/libexpat/libexpat/releases
@@ -56,14 +56,17 @@ docpaths = [
 ]
 
 toolchain = {'name': 'cpeCray', 'version': '23.09'}
-toolchainopts = {'extra_cflags': '-Wno-unsupported-target-opt'}
 
-source_urls = ['http://cairographics.org/snapshots/']
-sources =     [SOURCE_TAR_XZ]
+source_urls = [
+    'https://cairographics.org/releases/',
+    'https://cairographics.org/snapshots/'
+]
+sources = [SOURCE_TAR_XZ]
 checksums = ['5b10c8892d1b58d70d3f0ba5b47863a061262fa56b9dc7944161f8c8b783bc64']
 
 builddependencies = [
-    ('buildtools', '%(toolchain_version)s', '', True)
+    ('buildtools',        '%(toolchain_version)s', '',              SYSTEM),
+    ('buildtools-python', '%(toolchain_version)s', '-systemPython', SYSTEM)
 ]
 
 dependencies = [
@@ -77,8 +80,7 @@ dependencies = [
     ('X11',      '%(toolchain_version)s'),
 ]
 
-# disable symbol lookup, which requires -lbfd, to avoid link issues with (non-PIC) libiberty.a provided by GCC
-configopts = "--enable-symbol-lookup=no --enable-gobject=yes --enable-svg=yes --enable-tee=yes --enable-xlib-xcb "
+configopts = "--default-library=both"  # static and shared library
 
 sanity_check_paths = {
     'files': ['bin/cairo-trace', 'lib/cairo/libcairo-trace.so', 'lib/cairo/libcairo-trace.a',
