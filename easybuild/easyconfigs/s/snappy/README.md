@@ -40,3 +40,10 @@ This README was developed starting with snappy 1.1.8 in the CPE 21.06.
 
   * Went to 1.1.9 but used the fix from the EasyBuilders EasyConfig to avoid the use
     of the Google tools
+
+  * for cpeAMD from 23.09 on (likely due to a change in behaviour of cmake or compiler 
+    wrappers) needed to turn off error messages about unused arguments as there were 
+    some -L lines added that were not used.
+    
+    
+    
