@@ -9,7 +9,7 @@ local_xorg_macros_version =  '1.20.0'        # https://cgit.freedesktop.org/xorg
 local_zlib_version =         '1.2.13'        # https://zlib.net/
 local_PCRE2_version =        '10.42'         # https://ftp.pcre.org/pub/pcre/
 
-local_xterm_version =        '388c'          # https://github.com/ThomasDickey/xterm-snapshots/tags
+local_xterm_version =        '388'           # https://github.com/ThomasDickey/xterm-snapshots/tags
 
 name =    'X11'
 version = '%(toolchain_version)s'
@@ -246,13 +246,13 @@ components = [ # List taken from the GCCcore 12.3.0 (202a) common toolchain with
 # Local additions
 #
     ('libXaw3d', '1.6.5', {  # 2023-05-13, https://www.x.org/releases/individual/lib/
-        'checksums': ['9f42b409e5a4a0d7a2c94595b31d17fc078e5e307d14389dbc396754c3a01fcc'],
+        'checksums': ['1123d80c58f45616ef18502081eeec5e92f20c7e7dd82a24f9e2e4f3c0e86dc7'],
     }),
     ('libdrm', '2.4.115', { # 2023-02-09 http://dri.freedesktop.org/libdrm/, used by Qt5
         'easyblock':     'MesonNinja',
         'sources':       [SOURCELOWER_TAR_XZ],
         'source_urls':   ['http://dri.freedesktop.org/libdrm/'],
-        'checksums':     ['3481ee4b6753b88e18856ea265cb84f2b0339ee8c3bbec966b156b38b5841833'],
+        'checksums':     ['554cfbfe0542bddb391b4e3e05bfbbfc3e282b955bd56218d21c0616481f65eb'],
         'preconfigopts': '',
     }),
     ('DBus', '1.15.8', {# 2023-08-21 http://dbus.freedesktop.org/releases/dbus
