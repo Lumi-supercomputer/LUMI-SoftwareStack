@@ -24,7 +24,7 @@ toolchain = {'name': 'cpeGNU', 'version': '23.09'}
 
 source_urls = ['http://prdownloads.sourceforge.net/%(namelower)s']
 sources =     ['%(namelower)s%(version)s-src.tar.gz']
-checksums =   ['%']
+checksums =   ['43a1fae7412f61ff11de2cfd05d28cfc3a73762f354a417c62370a54e2caf066']
 
 builddependencies = [ # Create a reproducible build environment.
     ('buildtools',   '%(toolchain_version)s',   '', True),

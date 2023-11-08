@@ -56,7 +56,7 @@ sources = {
     'filename':          SOURCELOWER_TAR_GZ,
     'source_urls':       ['https://github.com/libjpeg-turbo/libjpeg-turbo/archive/refs/tags/'],
 }
-checksums = ['2fdc3feb6e9deb17adec9bafa3321419aa19f8f4e5dea7bf8486844ca22207bf']
+checksums = ['61846251941e5791005fb7face196eec24541fce04f12570c308557529e92c75']
 
 builddependencies = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True), # NASM and CMake
