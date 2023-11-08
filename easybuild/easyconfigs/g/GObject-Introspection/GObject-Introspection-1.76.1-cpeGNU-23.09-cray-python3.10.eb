@@ -2,7 +2,7 @@
 # Adapted by Kurt Lust (kurt.lust@uantwerpen.be) for the LUMI consortium
 easyblock = 'MesonNinja'
 
-local_cairo_version =        '1.17.8'        # https://www.cairographics.org/
+local_cairo_version =        '1.17.4'        # https://www.cairographics.org/
 local_libffi_version =       '3.4.4'         # https://sourceware.org/libffi/
 local_GLib_version =         '2.77.1'        # https://ftp.gnome.org/pub/GNOME/sources/glib/
 local_util_version =         '2.38.1'        # https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/

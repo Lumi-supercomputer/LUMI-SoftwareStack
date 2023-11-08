@@ -11,7 +11,7 @@
 ##
 easyblock = 'ConfigureMake'
 
-local_cairo_version =        '1.17.8'        # https://www.cairographics.org/
+local_cairo_version =        '1.17.4'        # https://www.cairographics.org/
 local_libcerf_version =      '2.3'           # https://jugit.fz-juelich.de/mlz/libcerf/-/releases
 local_libgd_version =        '2.3.3'         # http://www.libgd.org/
 local_libjpegturbo_version = '2.1.5.1'       # https://github.com/libjpeg-turbo/libjpeg-turbo/releases

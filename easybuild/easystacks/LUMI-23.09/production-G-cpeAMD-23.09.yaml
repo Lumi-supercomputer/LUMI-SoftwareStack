@@ -90,7 +90,7 @@ easyconfigs:
   - libgd-2.3.3-cpeAMD-23.09.eb
   - X11-23.09-cpeAMD-23.09.eb
 # Block 8
-  - cairo-1.17.8-cpeAMD-23.09.eb
+  - cairo-1.17.4-cpeAMD-23.09.eb
 #  - FFmpeg-5.1.2-cpeAMD-23.09.eb
   - Tk-8.6.13-cpeAMD-23.09.eb
 # Block 9

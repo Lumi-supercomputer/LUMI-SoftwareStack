@@ -71,7 +71,7 @@ easyconfigs:
   - wget-1.21.3-cpeCray-23.09.eb
   - zstd-1.5.5-cpeCray-23.09.eb
 # Block 5
-  - Boost-1.82.0-cpeCray-23.09.eb
+###  - Boost-1.82.0-cpeCray-23.09.eb
   - gettext-0.21.1-cpeCray-23.09.eb
   - libarchive-3.6.2-cpeCray-23.09.eb
   - LibTIFF-4.5.0-cpeCray-23.09.eb
@@ -90,7 +90,7 @@ easyconfigs:
   - libgd-2.3.3-cpeCray-23.09.eb
   - X11-23.09-cpeCray-23.09.eb
 # Block 8
-  - cairo-1.17.8-cpeCray-23.09.eb
+  - cairo-1.17.4-cpeCray-23.09.eb
 #  - FFmpeg-5.1.2-cpeCray-23.09.eb
   - Tk-8.6.13-cpeCray-23.09.eb
 # Block 9

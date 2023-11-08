@@ -88,7 +88,7 @@ easyconfigs:
   - libgd-2.3.3-cpeGNU-23.09.eb
   - X11-23.09-cpeGNU-23.09.eb
 # Block 8
-  - cairo-1.17.8-cpeGNU-23.09.eb
+  - cairo-1.17.4-cpeGNU-23.09.eb
   - FFmpeg-6.0-cpeGNU-23.09.eb
   - Tk-8.6.13-cpeGNU-23.09.eb
 # Block 9
