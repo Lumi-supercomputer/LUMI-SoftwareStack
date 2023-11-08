@@ -5,7 +5,6 @@ easyblock = 'MesonNinja'
 
 local_gettext_version =      '0.21.1'        # https://ftp.gnu.org/pub/gnu/gettext/
 local_libffi_version =       '3.4.4'         # https://sourceware.org/libffi/
-local_libiconv_version =     '1.17'          # https://ftp.gnu.org/pub/gnu/libiconv/
 local_libxml2_version =      '2.11.4'        # http://xmlsoft.org/sources/
 local_PCRE2_version =        '10.42'         # https://ftp.pcre.org/pub/pcre/
 local_util_version =         '2.38.1'        # https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/
@@ -66,7 +65,6 @@ builddependencies = [
 dependencies = [
     ('libffi',     local_libffi_version),
     ('gettext',    local_gettext_version),
-    ('libiconv',   local_libiconv_version),
     ('libxml2',    local_libxml2_version),
     ('PCRE2',      local_PCRE2_version),
     ('util-linux', local_util_version),
@@ -76,7 +74,6 @@ dependencies = [
 preconfigopts = "export PYTHON=python3 && "
 
 configopts  = "--buildtype=release --default-library=both "
-configopts += "-Diconv=external "
 
 #parallel = 1 # For debugging
 

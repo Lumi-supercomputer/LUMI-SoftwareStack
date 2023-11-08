@@ -41,3 +41,4 @@
 
   * Trivial version bump of the 2.75.0 one.
 
+  * But it looks like the iconv flag is no longer supported, so remove this.
