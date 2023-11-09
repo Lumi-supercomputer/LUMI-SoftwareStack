@@ -41,3 +41,5 @@
 
   * Trivial version bump of the 5.4.6 EasyConfig.
 
+  * It turns out it now also needs libiconv as a dependency as that came previously in 
+    through another package that doesn't need it anymore.
