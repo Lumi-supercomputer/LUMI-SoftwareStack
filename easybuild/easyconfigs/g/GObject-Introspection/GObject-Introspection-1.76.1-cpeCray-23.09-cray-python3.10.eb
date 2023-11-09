@@ -46,8 +46,8 @@ sources =     [SOURCELOWER_TAR_XZ]
 checksums =   ['196178bf64345501dcdc4d8469b36aa6fe80489354efe71cb7cb8ab82a3738bf']
 
 builddependencies = [
-    ('buildtools' ,       '%(toolchain_version)s', '',              True), # For Ninja, flex, bison
-    ('buildtools-python', '%(toolchain_version)s', '-systemPython', True), # For Meson
+    ('buildtools' ,       '%(toolchain_version)s', '',                                        True), # For Ninja, flex, bison
+    ('buildtools-python', '%(toolchain_version)s', f'-cray-python{local_craypython_maj_min}', True), # For Meson
     ('cairo',             local_cairo_version),
 ]
 

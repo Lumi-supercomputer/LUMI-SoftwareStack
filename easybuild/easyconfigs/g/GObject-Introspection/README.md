@@ -43,7 +43,10 @@
 
 ### Version 1.76.1 from CPE 23.09 on
 
-  * Trivial port of the 1.74.0 EasyConfig.
+  * Port of the 1.74.0 EasyConfig.
 
-
+  * But needed to use a buildtools-python using the same version of cray-python
+    and with a newer version of Meson. It is not clear if it was a Python version
+    conflict or just a too old version of Meson that was causing problems, but
+    it is likely the former.
   
