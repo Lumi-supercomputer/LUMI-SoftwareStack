@@ -40,6 +40,7 @@ docurls = [
 ]
 
 toolchain = {'name': 'cpeAMD', 'version': '23.09'}
+toolchainopts={'extra_cflags': '-Qunused-arguments'}
 
 source_urls = [FTPGNOME_SOURCE]
 sources =     [SOURCELOWER_TAR_XZ]
