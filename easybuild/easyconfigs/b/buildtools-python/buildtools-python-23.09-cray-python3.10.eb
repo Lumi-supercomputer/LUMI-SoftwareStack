@@ -1,0 +1,147 @@
+# This easyconfig requires at least EasyBuild 3.9.4 due to a bug in the Bundle
+# EasyBlock in earlier versions. Or use the patched bundle.py of
+# https://github.com/easybuilders/easybuild-easyblocks/pull/1777 via --include-easyblocks
+#
+# NOTE: This module is developed at UAntwerp
+# NOTE: meson, which is included, requires python3 with setuptools installed in the OS.
+#
+# It is the first module we compile when starting a new toolchain.
+#
+# This bundle collects a number of GNU tools useful during the building process
+# and a few other tools.
+#
+# We do include a Flex and Bison even though they do contain libraries
+# for which some packages may want to use toolchain-specific versions. These
+# packages should then just assure that module is loaded after buildtools.
+#
+easyblock = 'Bundle'
+
+local_LUMI_version =        '23.09'
+
+local_craypython_version =  '3.10.10'
+local_system_pyshortver = '.'.join( local_craypython_version.split('.')[:2] )
+
+name =          'buildtools-python'
+version =       local_LUMI_version
+versionsuffix = f'-cray-python{local_system_pyshortver}'
+
+# Version info:
+# Note: Meson 0.61.5 is the last version with Python 3.6 support.
+local_Meson_cray_version =       '1.2.3'       # Meson      20220117 - Check on https://pypi.org/project/meson/#history
+local_SCons_cray_version =       '4.5.2'       # SCons      20220730 - Check on https://github.com/SCons/scons/releases, https://scons.org/pages/download.html
+
+homepage = 'http://www.gnu.org'
+
+whatis = [
+    "Description: An addition to buildtools with tools that require Python."
+    "Contains: Meson, SCons, using the Python provided by the OS"
+]
+
+description = """
+This bundle collects a number of standard tools that are often needed when
+building software. Many of them are GNU tools.
++ Meson %(meson)s                    - https://mesonbuild.com/Manual.html
++ SCons %(SCons)s                     - https://www.scons.org/
+These tools are all build against the system libraries and system Python and 
+have been used to build several of the %(ver)s packages.
+""" % {
+    'meson'           : local_Meson_cray_version,
+    'SCons'           : local_SCons_cray_version,
+    'ver'             : version,
+}
+
+toolchain = SYSTEM
+
+dependencies = [ ]
+
+builddependencies = [
+    ('buildtools', version),
+    #('syslibs',    version, '-static'),
+#    ('flex',  local_flex_version),   # For Doxygen
+#    ('Bison', local_Bison_version),  # For Doxygen
+]
+
+dependencies = [
+    (f'cray-python/{local_craypython_version}', EXTERNAL_MODULE),
+]
+
+default_easyblock = 'ConfigureMake'
+
+components = [
+    ('Meson', local_Meson_cray_version, { # Does require Ninja
+        'easyblock':         'PythonPackage',
+        'sources':           [SOURCELOWER_TAR_GZ],
+        'source_urls':       [PYPI_SOURCE],
+        'checksums':         ['4533a43c34548edd1f63a276a42690fce15bde9409bcf20c4b8fa3d7e4d7cac1'],
+        'start_dir':         '%(namelower)s-%(version)s',
+        'req_py_majver':     local_craypython_version.split('.')[0], # Used to let EasyBuild select the right system Python executable.
+        'req_py_minver':     local_craypython_version.split('.')[1], # Used to let EasyBuild select the right system Python executable.
+        'options':           {'modulename': 'mesonbuild'},
+        'use_pip':           False,
+        'download_dep_fail': True,
+        'sanity_pip_check':  False, 
+    }),
+    ('SCons', local_SCons_cray_version, {
+        'easyblock':         'PythonPackage',
+        'sources':           [SOURCE_TAR_GZ],
+        'source_urls':       [PYPI_SOURCE],
+        'checksums':         ['813360b2bce476bc9cc12a0f3a22d46ce520796b352557202cb07d3e402f5458'],
+        'start_dir':         '%(name)s-%(version)s',
+        'req_py_majver':     local_craypython_version.split('.')[0], # Used to let EasyBuild select the right system Python executable.
+        'req_py_minver':     local_craypython_version.split('.')[1], # Used to let EasyBuild select the right system Python executable.
+        'download_dep_fail': True,
+        'use_pip':           False,
+        'sanity_pip_check':  False,
+        'options':           {'modulename': False},
+        }),
+]
+#
+# Additions to consider:
+# - GNU coreutils: Not only for building, but several programs are used during the build process of some codes.
+#
+
+#parallel = 1
+
+postinstallcmds = [
+    # For make
+    'cd %(installdir)s/bin ; ln -s make gmake', # Some programs check for gmake first and fail if that version is too old.
+    # For CMake: Remove a dead link from cmake
+    'cd %(installdir)s/bin ; rm -f ccmake3',
+]
+
+sanity_check_paths = {
+    'files': # Meson
+             # SCons
+             ['bin/scons', 'bin/sconsign', 'bin/scons-configure-cache'], # scons-time is missing in SCons 4? Strange as there is a manual page for it.
+    'dirs':  [],
+}
+
+#sanity_check_commands = [
+#    # Meson
+#    'meson --version',
+#    # SCons
+#    'scons --help',
+#]
+
+modextrapaths = {
+    'PYTHONPATH': ['lib/python%s/site-packages' % local_system_pyshortver]
+}
+
+#
+# We set EBROOT and EBVERSION variables that correspond to each of the regular
+# EasyBuild packages that are replaced by this bundle.
+modextravars = {
+    'EBROOTMESON':                 '%(installdir)s',
+    'EBVERSIONMESON':              local_Meson_cray_version,
+    'EBROOTSCONS':                 '%(installdir)s',
+    'EBVERSIONSCONS':              local_SCons_cray_version,
+}
+
+moduleclass = 'devel'
+modluafooter = """
+extensions( "Meson/%(meson)s, SCons/%(SCons)s"
+          )
+"""  % {
+    'meson'           : local_Meson_cray_version,
+    'SCons'           : local_SCons_cray_version,
+}

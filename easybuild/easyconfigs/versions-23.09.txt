@@ -26,6 +26,7 @@ local_CMake_version =            '3.27.7'      # CMake      20231006 - Check on 
 local_Ninja_version =            '1.11.1'      # Ninja      20220830 - Check on https://ninja-build.org/
 # Note: Meson 0.61.5 is the last version with Python 3.6 support.
 local_Meson_version =            '0.61.5'      # Meson      20220117 - Check on https://pypi.org/project/meson/#history
+local_Meson_cray_version =       '1.2.3'       # Meson      20220117 - Check on https://pypi.org/project/meson/#history
 local_Doxygen_version =          '1.9.8'       # Doxygen    20230825 - Check on https://www.doxygen.nl/download.html (newer than EB 2022b)
 local_help2man_version =         '1.49.3'      # help2man   20221215 - Check on https://ftp.gnu.org/gnu/help2man/ (newer than EB 2022b)
 local_libtool_version =          '2.4.7'       # libtool    20120317 - Check on https://ftp.gnu.org/gnu/libtool/
@@ -41,6 +42,7 @@ local_flex_version =             '2.6.4'       # flex       20170506 - Check on 
 local_byacc_version =            '20230219'    # byacc      20230219 - Check on https://invisible-mirror.net/archives/byacc/ (20230521 failed to install)
 local_re2c_version =             '3.0'         # re2c       20210127 - Check on https://github.com/skvadrik/re2c/releases - 3.1 requires Python 3.7 or newer.
 local_SCons_version =            '4.4.0'       # SCons      20220730 - Check on https://github.com/SCons/scons/releases, https://scons.org/pages/download.html
+local_SCons_cray_version =       '4.5.2'       # SCons      20220730 - Check on https://github.com/SCons/scons/releases, https://scons.org/pages/download.html
 local_xxd_version =              '9.0.2059'    # vim        20230307 - Check on https://github.com/vim/vim/tags (newer than EB 2022b)
 
 #
@@ -86,7 +88,7 @@ local_Boost_version =        '1.82.0'        # https://www.boost.org/
 local_Brotli_version =       '1.0.9'         # https://github.com/google/brotli/releases
 local_bzip2_version =        '1.0.8'         # http://www.bzip.org/downloads.html
 
-local_cairo_version =        '1.17.8'        # https://www.cairographics.org/
+local_cairo_version =        '1.17.4'        # https://www.cairographics.org/
 local_CubeLib_version =      '4.8'           # https://www.scalasca.org/scalasca/software/cube-4.x/download.html
 local_CubeWriter_version =   '4.8'           # https://www.scalasca.org/scalasca/software/cube-4.x/download.html
 local_cURL_version =         '8.0.1'         # https://curl.haxx.se/download/

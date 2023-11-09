@@ -2,6 +2,8 @@ easyconfigs:
   - buildtools-23.09-bootstrap.eb
   - syslibs-23.09-static.eb
   - buildtools-23.09.eb
+  - buildtools-python-23.09-systemPython.eb
+  - buildtools-python-23.09-cray-python3.10.eb
   - systools-23.09.eb
   - lumi-CPEtools-1.0.eb
   - nano-7.2.eb

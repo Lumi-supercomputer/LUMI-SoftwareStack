@@ -20,8 +20,13 @@ The contents of the module evolved over time. It does contain a subset of:
 
 ## EasyConfigs
 
-### 22.12 and 23.03
+### 22.12 and 23.03 and 23.09
 
 -   Initial version directly derived from buildtools/22.08, leaving out all the
     components that are already in buildtools/22.12 or 23.03.
+
+
+### 23.09-cray-python3.10
+
+-   Newer versions of Meson, but needs cray-python to run.
 
