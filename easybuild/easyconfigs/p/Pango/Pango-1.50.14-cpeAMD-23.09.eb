@@ -1,7 +1,7 @@
 # This one does not yet work as HarBuzz >= 2.0 is needed for it....
 easyblock = 'MesonNinja'
 
-local_cairo_version =        '1.17.8'        # https://www.cairographics.org/
+local_cairo_version =        '1.17.4'        # https://www.cairographics.org/
 local_fribidi_version =      '1.0.12'        # https://github.com/fribidi/fribidi/releases
 local_GLib_version =         '2.77.1'        # https://ftp.gnome.org/pub/GNOME/sources/glib/
 local_GObject_version =      '1.76.1'        # https://github.com/GNOME/gobject-introspection/releases
@@ -49,9 +49,9 @@ sources =     [SOURCELOWER_TAR_XZ]
 checksums =   ['1d67f205bfc318c27a29cfdfb6828568df566795df0cb51d2189cde7f2d581e8']
 
 builddependencies = [
-    ('buildtools' ,           '%(toolchain_version)s', '',              True), # For Ninja
-    ('buildtools-python',     '%(toolchain_version)s', '-systemPython', True), # For Meson
-    ('GObject-Introspection', local_GObject_version,   '-cray-python' + local_craypython_maj_min),
+    ('buildtools' ,           '%(toolchain_version)s', '',                                        True), # For Ninja
+    ('buildtools-python',     '%(toolchain_version)s', f'-cray-python{local_craypython_maj_min}', True), # For Meson
+    ('GObject-Introspection', local_GObject_version,   f'-cray-python{local_craypython_maj_min}'),
 ]
 
 dependencies = [

@@ -42,7 +42,9 @@ docpaths = [
 ]
 
 toolchain = {'name': 'cpeAMD', 'version': '23.09'}
-toolchainopts = {'pic': True}
+toolchainopts = {'pic': True, 
+                 'extra_cflags': '-Qunused-arguments', 
+                 'extra_cxxflags': '-Qunused-arguments'}
 
 # Check on https://ftp.gnome.org/pub/GNOME/sources/glib/
 source_urls = [FTPGNOME_SOURCE]
