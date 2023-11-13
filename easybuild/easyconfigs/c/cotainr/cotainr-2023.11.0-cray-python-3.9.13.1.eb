@@ -1,7 +1,17 @@
 easyblock = 'Tarball'
 
+import os as local_os
+
+# The first line below is a dirty trick not very much loved by the EasyBuild developers but
+# it helps to make this EasyConfig indpendent of the LUMI software stack version as there is
+# no other reference to that version in the file that we can use since it relies on the
+# SYSTEM toolchain.
+local_LUMI_version_from_os = local_os.environ['LUMI_STACK_CPE_VERSION']
+local_craypython_version =  '3.9.13.1'
+versionsuffix = '-cray-python-' + local_craypython_version
+
 name =    'cotainr'
-version = '2023.10.0'
+version = '2023.11.0'
 
 homepage = 'https://github.com/DeiC-HPC/cotainr'
 
@@ -23,9 +33,13 @@ Apptainer/Singularity instead of cotainr.
 The software is provided by LUMI consortium partner DeiC.
 
 Note that this software requires a more recent Python then the system Python
-provided by the SUSE OS on LUMI. This module will load whatever version of
-cray-python is the default when the module is loaded.
-"""
+provided by the SUSE OS on LUMI. This module will load cray-python %(craypython_ver)s
+which is the version that comes with the %(lumi_stack)s of the HPE Cray
+Programming Environment and hence also the version used in LUMI/%(lumi_stack)s.
+""" % {
+    'lumi_stack':     local_LUMI_version_from_os,
+    'craypython_ver': local_craypython_version
+}
 
 docurls = [
     'Web-based documentation on https://cotainr.readthedocs.io/en/latest/'
@@ -40,12 +54,12 @@ sources = [ {
 toolchain = SYSTEM
 
 dependencies = [
-    ('cray-python', EXTERNAL_MODULE),
+    ('cray-python/' + local_craypython_version, EXTERNAL_MODULE),
 ]
 
 local_systems = """{
   "lumi-g": {
-    "base-image": "docker://rocm/dev-ubuntu-22.04:5.5.1-complete"
+    "base-image": "docker://rocm/dev-ubuntu-22.04:5.6.1-complete"
   },
   "lumi-c": {
     "base-image": "docker://ubuntu:22.04"
