@@ -105,9 +105,8 @@ easyconfigs:
   - SCOTCH-7.0.3-cpeGNU-23.09.eb  # Check if the EasyBlock needs an update!
   - ESMF-8.4.1-cpeGNU-23.09.eb
 # Some apps
-  - lumi-CPEtools-1.0-cpeGNU-23.09.eb
   - lumi-CPEtools-1.1-cpeGNU-23.09.eb
-##  - gnuplot-5.4.8-cpeGNU-23.09.eb
+  - gnuplot-5.4.8-cpeGNU-23.09.eb
 #  - VampirServer
 #  - Score-P
 
