@@ -40,6 +40,7 @@ docpaths = [
 ]
 
 toolchain = {'name': 'cpeCray', 'version': '23.09'}
+toolchainopts = {'extra_cxxflags': '-Wno-cast-function-type-strict'}
 
 # https://github.com/harfbuzz/harfbuzz/releases/download/4.2.1/harfbuzz-4.2.1.tar.xz
 source_urls = ['https://github.com/harfbuzz/harfbuzz/releases/download/%(version)s']
@@ -61,6 +62,7 @@ dependencies = [
 #preconfigopts = "./autogen.sh && "
 configopts = "--enable-introspection=yes --with-gobject=yes --enable-static --enable-shared --with-cairo "
 
+buildopts = "V=1"
 #parallel = 1
 
 sanity_check_paths = {
