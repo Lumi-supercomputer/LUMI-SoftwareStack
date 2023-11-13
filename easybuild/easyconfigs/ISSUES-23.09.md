@@ -1,5 +1,8 @@
 # Issues for 23.09
 
+-   Boost does not compile with cpeCray... For some reason it goes looking for
+    libunwind.so in the wrong compiler directory.
+
 -   Check if the new FFmpeg works with the Cray compilers (and AMD compilers?)
 
 
