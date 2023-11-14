@@ -42,3 +42,7 @@
   * Trivial version bump of the 2.75.0 one.
 
   * But it looks like the iconv flag is no longer supported, so remove this.
+  
+  * **Note:** Even though GLib itself installs fine with Clang 16, it looks like
+    using its header files causes problems reporting type cast errors that 
+    seem impossible to turn off.
