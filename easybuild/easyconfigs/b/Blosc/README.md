@@ -23,13 +23,21 @@
     option used by the default EasyConfig files.
 
 
-### Versiuon 1.21.1 from CPE 22.08 on
+### Version 1.21.1 from CPE 22.08 on
 
   * Minor version bump of the 1.22.1 EasyConfig.
 
 
-### Versiuon 1.21.2 from CPE 22.12 on
+### Version 1.21.2 from CPE 22.12 on
 
-  * Minor version bump of the 1.22.2 EasyConfig.
+  * Minor version bump of the 1.21.1 EasyConfig.
 
+
+### Version 1.21.5 from CPE 23.09 on
+
+  * Done before the package was even added to 2023a. The 1.21.3 version that was
+    used by EasyBuild for 2022b was even removed from the repository so likely contained
+    some annoying bugs.
+
+  * Trivial bump of the 1.21.2 EasyConfig.
   

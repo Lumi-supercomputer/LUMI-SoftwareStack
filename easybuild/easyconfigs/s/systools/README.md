@@ -67,5 +67,10 @@ The current content is
 
 -   Changing the layout of the EasyConfig a bit, also adding license information.
 
-  
+
+### 23.03
+
+-   Version bumps for GPP/htop/tree.
+
+
   

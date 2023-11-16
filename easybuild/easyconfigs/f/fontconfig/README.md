@@ -26,3 +26,9 @@
 ### Version 2.14.1 from CPE 22.12 on
 
   * Trivial version bump of the EasyConfig for version 2.14.0.
+
+
+### Version 2.14.2 from 23.09 on
+
+  * Trivial version bump of the EasyConfig for 2.14.1 to align with 2023a.
+

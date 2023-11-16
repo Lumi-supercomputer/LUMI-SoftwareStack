@@ -42,3 +42,7 @@ in EasyBuild.
   * FFmpeg 5.1.2 causes a compiler crash in CCE 15.0.0, but that issue seems to be
     resolved in 15.0.1.
 
+
+### Version 6.0 from 23.09 on
+
+  * Fairly trivial port of the 5.1.2 EasyConfig

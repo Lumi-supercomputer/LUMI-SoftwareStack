@@ -35,3 +35,11 @@
 
     The solution to the problem is to add `LDFLAGS="$LDFLAGS -L$EBROOTFREETYPE/lib"` to the
     `preconfigopts`.
+
+
+### Version 5.4.8 from CPE 23.09 on
+
+  * Trivial version bump of the 5.4.6 EasyConfig.
+
+  * It turns out it now also needs libiconv as a dependency as that came previously in 
+    through another package that doesn't need it anymore.

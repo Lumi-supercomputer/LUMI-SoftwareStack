@@ -25,3 +25,10 @@ of their configure scripts with autoconf.
   * **Install in partition/common** as it is fully processor-independent and
     only uses buildtools during the installation which is also installed in
     partition/common.
+
+
+### Version 1.20.0 from CPE 23.09 on
+
+  * Trivial version bump of our 1.19.3 EasyConfig.
+
+

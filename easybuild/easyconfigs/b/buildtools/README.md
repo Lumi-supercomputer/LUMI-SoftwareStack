@@ -120,3 +120,13 @@ Not included at the moment:
   * Note that we first tried with SCons 4.5.1 but that version was too new for some
     other packages. Serf in syslibs, e.g., failed.
 
+
+
+### 23.09
+
+  * Some components have been updated to the latest version, others (SCons and Meson) were kept
+    at the current version. Meson because it is the last version compatible with the system Python,
+    and SCons because we've had problems with other software at the previous update.
+    
+    Some packages also do not compile in newer versions on SUSE 15 as either the compiler is too
+    old or the system Python is no longer supported.

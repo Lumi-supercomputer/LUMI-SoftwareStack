@@ -1,0 +1,78 @@
+# Based on a CSCS EasyConfig file
+# Extended and adapted by Kurt Lust (kurt.lust@uantwerpen.be) for the LUMI consortium.
+easyblock = 'ConfigureMake'
+
+import os as local_os
+
+# The first line below is a dirty trick not very much loved by the EasyBuild developers but
+# it helps to make this EasyConfig indpendent of the LUMI software stack version as there is
+# no other reference to that version in the file that we can use since it relies on the
+# SYSTEM toolchain.
+local_LUMI_version = local_os.environ['LUMI_STACK_CPE_VERSION']
+
+local_Vim_version =          '9.0.2059'      # https://github.com/vim/vim/tags
+
+name =    'Vim'
+version = local_Vim_version
+
+homepage = 'http://www.vim.org'
+
+whatis = [
+    'Description: Vim is an advanced text editor that seeks to provide the power of the de-facto Unix editor \'Vi\', with a more complete feature set'
+    'The module provides a text-only version of vim, no GUI version.'
+]
+
+description = """
+Vim is a highly configurable text editor built to make creating and changing
+any kind of text very efficient. It is included as "vi" with most UNIX systems
+and with Apple OS X.
+
+Vim is rock stable and is continuously being developed to become even better.
+Among its features are:
+  * persistent, multi-level undo tree
+  * extensive plugin system
+  * support for hundreds of programming languages and file formats
+  * powerful search and replace
+  * integrates with many tools
+
+The module only provides a console version of vim, not a GUI version.
+"""
+
+toolchain = SYSTEM
+
+# https://github.com/vim/vim/archive/refs/tags/v8.2.4487.tar.gz
+sources = {
+    'download_filename': 'v%(version)s.tar.gz',
+    'filename':          SOURCELOWER_TAR_GZ,
+    'source_urls':       ['https://github.com/vim/vim/archive/refs/tags']
+}
+checksums = ['5b20c2fed3844ffbd2bef51d2e6de8e5c07f9c3cfb84e2679a729b69f178f8d6']
+
+builddependencies = [ # Create a reproducible build environment
+    ('buildtools', local_LUMI_version),
+    ('syslibs',    local_LUMI_version, '-static'), # for ncurses.
+]
+preconfigopts  = 'CFLAGS="-I\$EBROOTSYSLIBS/include" '
+preconfigopts += 'LIBS="-L\$EBROOTSYSLIBS/lib -lncurses" '
+
+configopts  = '--with-features=huge '
+configopts += '--enable-cscope '
+configopts += '--disable-selinux '
+configopts += '--enable-multibyte '
+configopts += '--disable-gui --without-x '
+configopts += '--enable-pythoninterp=yes --with-python-command=python2 '
+configopts += '--enable-python3interp=yes --with-python3-command=python3 '
+configopts += '--enable-luainterp=yes --with-lua-prefix=/usr '
+configopts += '--enable-perlinterp=yes '
+configopts += '--enable-tclinterp=yes --with-tclsh=/usr/bin/tclsh8.6 '
+
+sanity_check_paths = {
+    'files': ['bin/vim','bin/vimdiff'],
+    'dirs':  [],
+}
+
+sanity_check_commands = [
+    'vim --version'
+]
+
+moduleclass = 'tools'

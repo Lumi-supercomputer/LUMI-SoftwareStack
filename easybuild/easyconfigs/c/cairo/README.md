@@ -24,3 +24,13 @@
        building phase.
 
 TODO: Problems on eiger likely because the configure process fails to find the pthread library...
+
+
+### **NOT** Version 1.17.8 from 23.09 on
+
+  * Switched to a meson build based on the EasyBuilders EasyConfig.
+  
+  * However, compilation fails in cpeAMD and it is not clear why we don't
+    see a similar error with cpeCray as that uses an even newer and stricter
+    version of Clang.
+

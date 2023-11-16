@@ -26,3 +26,10 @@
   * The EasyConfig is a port from the 2.9.12 one but with a new download location as 
     the old download location doesn't contain the latest versions anymore.
 
+
+### Version 2.11.4 from CPE 23.09 on
+
+  * Trivial version bump of the 2.9.14 EasyConfig.
+  
+  * But needed to explicitly enable static libraries in this version.
+

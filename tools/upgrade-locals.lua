@@ -5,7 +5,7 @@ local args = {...}
 input_version = args[1]
 table.remove( args, 1 )
 
-if not string.find( input_version, 'versions%-%d%d%.%d%d%.txt' ) then
+if not string.find( input_version, 'versions%-%d%d%.%d%d%.txt' ) and not string.find( input_version, 'versions%-contrib%-%d%d%.%d%d%.txt' ) then
     io.stderr:write( 'ERROR: ' .. input_version .. ' is an unexpected name for the versions file\n' )
     os.exit( 1 )
 end

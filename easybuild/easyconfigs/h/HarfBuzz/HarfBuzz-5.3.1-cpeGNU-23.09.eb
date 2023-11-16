@@ -1,0 +1,87 @@
+# Based on the easyduilders recipe.
+# Adapted by Kurt Lust (kurt.lust@uantwerpen.be) for the LUMI consortium.
+easyblock = 'ConfigureMake'
+
+local_cairo_version =        '1.17.4'        # https://www.cairographics.org/
+local_GLib_version =         '2.77.1'        # https://ftp.gnome.org/pub/GNOME/sources/glib/
+local_ICU_version =          '73.2'          # http://site.icu-project.org/home
+local_freetype_version =     '2.13.0'        # https://download.savannah.gnu.org/releases/freetype/
+local_GObject_version =      '1.76.1'        # https://github.com/GNOME/gobject-introspection/releases
+
+local_craypython_version =  '3.10.10'
+
+local_HarfBuzz_version =     '5.3.1'          # https://www.freedesktop.org/software/harfbuzz/release/
+
+local_craypython_maj_min = '.'.join( local_craypython_version.split('.')[:2] )
+
+name =    'HarfBuzz'
+version = local_HarfBuzz_version
+
+homepage = 'http://www.freedesktop.org/wiki/Software/HarfBuzz'
+
+whatis = [
+    'Description: HarfBuzz is an OpenType text shaping engine',
+    'This module provides the command line tools and static and shared libraries'
+]
+
+description = """
+HarfBuzz is an OpenType text shaping engine.
+
+The current HarfBuzz codebase, formerly known as harfbuzz-ng, is versioned 1.x.x
+and is stable and under active maintenance. This is what is used in latest
+versions of Firefox, GNOME, ChromeOS, Chrome, LibreOffice, XeTeX, Android, and
+KDE, among other places.
+
+This module provides the command line tools and static and shared libraries.
+"""
+
+docpaths = [
+    'share/gtk-doc/html/harfbuzz',
+]
+
+toolchain = {'name': 'cpeGNU', 'version': '23.09'}
+
+# https://github.com/harfbuzz/harfbuzz/releases/download/4.2.1/harfbuzz-4.2.1.tar.xz
+source_urls = ['https://github.com/harfbuzz/harfbuzz/releases/download/%(version)s']
+sources =     [SOURCELOWER_TAR_XZ]
+checksums =   ['4a6ce097b75a8121facc4ba83b5b083bfec657f45b003cd5a3424f2ae6b4434d']
+
+builddependencies = [
+    ('buildtools',            '%(toolchain_version)s', '', True),
+    ('GObject-Introspection', local_GObject_version,   '-cray-python' + local_craypython_maj_min),
+]
+
+dependencies = [
+    ('GLib',     local_GLib_version),
+    ('ICU',      local_ICU_version),
+    ('cairo',    local_cairo_version),
+    ('freetype', local_freetype_version),
+]
+
+#preconfigopts = "./autogen.sh && "
+configopts = "--enable-introspection=yes --with-gobject=yes --enable-static --enable-shared --with-cairo "
+
+#parallel = 1
+
+sanity_check_paths = {
+    'files': ['lib/libharfbuzz.%s' % SHLIB_EXT, 'bin/hb-view'],
+    'dirs':  []
+}
+
+sanity_check_commands = [
+    'hb-ot-shape-closure --version',
+    'hb-shape --version',
+    'hb-subset --version',
+    'hb-view --version',
+    'pkg-config --libs harfbuzz-gobject',
+    'pkg-config --libs harfbuzz-icu',
+    'pkg-config --libs harfbuzz',
+    'pkg-config --libs harfbuzz-subset',
+]
+
+modextrapaths = {
+    'GI_TYPELIB_PATH': 'share',
+    'XDG_DATA_DIRS':   'share',
+}
+
+moduleclass = 'vis'

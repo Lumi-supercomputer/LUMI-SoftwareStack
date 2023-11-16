@@ -34,4 +34,8 @@
   * Trivial update of the EasyConfig, we did not check for new features that could be
     exploited via additional dependencies.
 
-  
+
+### Version 8.0.1 from CP 23.09 on
+
+  * Version bump to 8.0.1 to follow 2023a, but trivial for the EasyConfig.
+
