@@ -2,7 +2,7 @@
 
   * [GLib home as part ot the GTK project](https://www.gtk.org/)
 
-  * [GLib downloads (local_libiconv_version)](https://download.gnome.org/sources/glib/)
+  * [GLib downloads](https://download.gnome.org/sources/glib/)
 
 
 ## EasyBuild

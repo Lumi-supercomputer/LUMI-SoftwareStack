@@ -28,7 +28,7 @@ Documentation is inexistent.
 """
 
 toolchain = {'name': 'cpeCray', 'version': '23.09'}
-toolchainopts = {'pic': True}
+toolchainopts = {'pic': True, 'extra_cflags': '-Wno-error=implicit-function-declaration'}
 
 sources =     [SOURCE_TAR_GZ]
 source_urls = ['http://cairographics.org/releases/']
