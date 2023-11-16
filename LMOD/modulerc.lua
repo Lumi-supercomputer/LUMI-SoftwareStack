@@ -42,3 +42,8 @@ module_version( 'amd/5.2.3',  '5.0.2' )
 -- Solve a potential problem with the Cray PE cpe modules.
 module_version( 'rocm/5.2.3', '5.2.0' )
 module_version( 'amd/5.2.3',  '5.2.0' )
+
+-- Fix for the missing cray-mpich modules.
+module_version( 'cray-mpich/8.1.27', '8.1.18' )
+module_version( 'cray-mpich/8.1.27', '8.1.23' )
+module_version( 'cray-mpich/8.1.27', '8.1.25' )

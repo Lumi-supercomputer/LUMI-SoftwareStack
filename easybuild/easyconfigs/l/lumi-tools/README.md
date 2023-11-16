@@ -53,3 +53,7 @@ Sources:
 -   EasyConfig based on the 23.03 one. This version adds the `lumi-ldap-projectinfo` 
     and `lumi-ldap-userinfo` tools.
     
+   
+### Version 23.11
+
+-   No new commands to check so a trivial port of 23.04.
