@@ -40,6 +40,24 @@ local module_root = myFileName():match( '(.*/modules)/SoftwareStack/.*' )
 
 -- Prepend path with EasyBuild cross-installed tools
 prepend_path( 'MODULEPATH', pathJoin( module_root, 'easybuild/CrayEnv' ) )
+prepend_path( 'MODULEPATH', pathJoin( module_root, 'easybuild/container' ) )
+
+-- Detect if there is a user installation that we need to take into account, 
+-- and if so, enable user-installed container and CrayEnv modules.
+user_easybuild_modules = get_user_prefix_EasyBuild()
+if user_easybuild_modules ~= nil then
+    user_easybuild_modules = pathJoin( user_easybuild_modules, 'modules')
+    if isDir( user_easybuild_modules ) then
+        prepend_path( 'MODULEPATH', pathJoin( user_easybuild_modules, 'CrayEnv' ) )
+        prepend_path( 'MODULEPATH', pathJoin( user_easybuild_modules, 'container' ) )
+    else -- still set user_easybuild_modules to nil in case we would ever use it later in this file
+        user_easybuild_modules = nil
+    end
+end
+if os.getenv( '_LUMI_LMOD_DEBUG' ) ~= nil and user_easybuild_modules ~= nil then
+    LmodMessage( 'DEBUG: ' .. mode() .. ' ' .. myModuleFullName() .. ': Detected user module tree at ' .. user_easybuild_modules )
+end
+
 
 -- -------------------------------------------------------------------------
 --

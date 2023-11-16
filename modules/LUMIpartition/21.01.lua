@@ -7,39 +7,42 @@ family( 'LUMI_partition' )
 add_property("lmod","sticky")
 
 local node_description = {
-    C       = 'CPU compute',
-    G       = 'GPU compute',
-    D       = 'data visualisation',
-    L       = 'login and largemem (4TB)',
-    EAP     = 'early access platform',
-    common  = 'common binaries for all partitions',
-    CrayEnv = 'EasyBuild cross-installation in CrayEnv',
-    system  = 'EasyBuild system-wide cross-installation',
+    C         = 'CPU compute',
+    G         = 'GPU compute',
+    D         = 'data visualisation',
+    L         = 'login and largemem (4TB)',
+    -- EAP    = 'early access platform',
+    common    = 'common binaries for all partitions',
+    container = 'EasyBuild installation singularity wrapper modules', 
+    CrayEnv   = 'EasyBuild cross-installation in CrayEnv',
+    system    = 'EasyBuild system-wide cross-installation',
 }
 
 local node_spack_arch = {
-    C       = 'cray-sles15-zen3',
-    G       = 'cray-sles15-zen3',
-    D       = 'cray-sles15-zen2',
-    L       = 'cray-sles15-zen2',
-    EAP     = 'cray-sles15-zen2',
-    common  = 'cray-sles15-zen2',
-    CrayEnv = 'cray-sles15-zen2',
-    system  = 'cray-sles15-zen2',
+    C         = 'cray-sles15-zen3',
+    G         = 'cray-sles15-zen3',
+    D         = 'cray-sles15-zen2',
+    L         = 'cray-sles15-zen2',
+    -- EAP    = 'cray-sles15-zen2',
+    common    = 'cray-sles15-zen2',
+    container = 'cray-sles15-zen2',
+    CrayEnv   = 'cray-sles15-zen2',
+    system    = 'cray-sles15-zen2',
 }
 
 -- Special partitions are those that are created to install
 -- software in abnormal places and have no equivalent for
 -- user installations.
 local special_partition = {
-    C       = false,
-    G       = false,
-    D       = false,
-    L       = false,
-    EAP     = false,
-    common  = false,
-    CrayEnv = true,
-    system  = true,
+    C         = false,
+    G         = false,
+    D         = false,
+    L         = false,
+    -- EAP    = false,
+    common    = false,
+    container = true,
+    CrayEnv   = true,
+    system    = true,
 }
 
 -- Detect the root of the module tree from the position of this module
@@ -66,18 +69,15 @@ if os.getenv( '_LUMI_LMOD_DEBUG' ) ~= nil then
 end
 
 -- Detect if there is a user installation that we need to take into account.
-local user_easybuild_modules = nil
-if not special_partition[partition] then
-    user_easybuild_modules = get_user_prefix_EasyBuild()
-    if user_easybuild_modules ~= nil then
-        user_easybuild_modules = pathJoin( user_easybuild_modules, 'modules')
-        if not isDir( user_easybuild_modules ) then
-            user_easybuild_modules = nil
-        end
+user_easybuild_modules = get_user_prefix_EasyBuild()
+if user_easybuild_modules ~= nil then
+    user_easybuild_modules = pathJoin( user_easybuild_modules, 'modules')
+    if not isDir( user_easybuild_modules ) then
+        user_easybuild_modules = nil
     end
-    if os.getenv( '_LUMI_LMOD_DEBUG' ) ~= nil and user_easybuild_modules ~= nil then
-        LmodMessage( 'DEBUG: ' .. mode() .. ' ' .. myModuleFullName() .. ': Detected user module tree at ' .. user_easybuild_modules )
-    end
+end
+if os.getenv( '_LUMI_LMOD_DEBUG' ) ~= nil and user_easybuild_modules ~= nil then
+    LmodMessage( 'DEBUG: ' .. mode() .. ' ' .. myModuleFullName() .. ': Detected user module tree at ' .. user_easybuild_modules )
 end
 
 -- Find the version of craype-targets matching the current PE version
@@ -93,6 +93,21 @@ end
 
 whatis( 'Description: ' .. myModuleFullName() .. ' enables the ' .. stack_name_version .. ' software stack for the LUMI-' .. partition .. ' (' .. node_description[partition] .. ') partition.' )
 
+if special_partition[partition] then
+
+help( [[
+
+Description
+===========
+Enables installing software via EasyBuild from a LUMI partition that is available outside
+of the LUMI software stacks. This module is in particular for ]] .. node_description[partition] .. [[.
+
+This partition module is never loaded automatically and also not needed when running
+the software installed through it.
+]] )
+
+else
+
 help( [[
 
 Description
@@ -105,19 +120,28 @@ risk as not all software that may be enabled directly or indirectly through
 a partition module may work on other on other partitions.
 ]] )
 
+end -- if special_partition else
+
 setenv( 'LUMI_STACK_PARTITION', partition )
 
 -- Do not execute the following code if partition == 'common' or 'CrayEnv' or 'system' and mode() == 'spider'
 -- as we doe not want partition/common to show up in the output of ``module spider``.
 if ( ( partition ~= 'common' ) and not special_partition[partition] ) or ( mode() ~= 'spider' ) then
-    -- The Cray modules, may be possible to only activate them once cpe* is loaded
+
+    -- System modulefiles, or third-party components
+
     if isDir( '/usr/share/modulefiles' ) then
         prepend_path( 'MODULEPATH', '/usr/share/modulefiles' )
     end
     if isDir( '/usr/share/Modules/modulefiles' ) then
         prepend_path( 'MODULEPATH', '/usr/share/Modules/modulefiles' )
     end
-    prepend_path(     'MODULEPATH', '/opt/modulefiles' )
+
+    -- The Cray-specific modulefiles, may be possible to only activate them once cpe* is loaded
+
+    if isDir( '/opt/modulefiles' ) then -- Contains the amd and aocc modules for the PE, if installed
+        prepend_path(     'MODULEPATH', '/opt/modulefiles' )
+    end
     prepend_path(     'MODULEPATH', '/opt/cray/modulefiles' )
     if targets_version == nil then
         prepend_path(     'MODULEPATH', '/opt/cray/pe/lmod/modulefiles/craype-targets/default' )
@@ -128,16 +152,18 @@ if ( ( partition ~= 'common' ) and not special_partition[partition] ) or ( mode(
     prepend_path(     'MODULEPATH', '/opt/cray/pe/lmod/modulefiles/core' )
 
     -- Cray overwrite directories
+
     -- local cray_overwrite_core = pathJoin( module_root, 'CrayOverwrite', 'core' )
     -- if isDir( cray_overwrite_core ) then
     --     prepend_path( 'MODULEPATH', cray_overwrite_core )
     -- end
 
-    -- Configuration for EasyBuild to install in the requested partition (and maybe later for Spack)
+    -- Configuration for EasyBuild to install in the requested partition
+
     prepend_path(     'MODULEPATH', pathJoin( module_root, 'Infrastructure', stack_name_version, 'partition', partition ) )
     -- The modules of application software installed in the system. Make sure to also add the common ones.
     if partition == 'CrayEnv' then
-        -- CrayEnv partition: The system generic modules and the CrayEnv modules.
+        -- CrayEnv partition: The system generic modules, the CrayEnv modules, and container modules.
         prepend_path( 'MODULEPATH', pathJoin( module_root, 'easybuild', 'system' ) )
         prepend_path( 'MODULEPATH', pathJoin( module_root, 'easybuild', 'CrayEnv' ) )
     elseif special_partition[partition] then
@@ -147,14 +173,14 @@ if ( ( partition ~= 'common' ) and not special_partition[partition] ) or ( mode(
         prepend_path( 'MODULEPATH', pathJoin( module_root, 'easybuild', partition ) )
     else
         prepend_path( 'MODULEPATH', pathJoin( module_root, 'easybuild', 'system' ) )
-        if partition ~= 'common' then
-            prepend_path( 'MODULEPATH', pathJoin( module_root, 'manual',        stack_name_version, 'partition', 'common' ) )
-        end
-        prepend_path(     'MODULEPATH', pathJoin( module_root, 'manual',        stack_name_version, 'partition', partition ) )
-        if partition ~= 'common' then
-            prepend_path( 'MODULEPATH', pathJoin( module_root, 'spack',         stack_name_version, 'partition', 'common',  node_spack_arch['common'] ) )
-        end
-        prepend_path(     'MODULEPATH', pathJoin( module_root, 'spack',         stack_name_version, 'partition', partition, node_spack_arch[partition] ) )
+        -- if partition ~= 'common' then
+        --     prepend_path( 'MODULEPATH', pathJoin( module_root, 'manual',        stack_name_version, 'partition', 'common' ) )
+        -- end
+        -- prepend_path(     'MODULEPATH', pathJoin( module_root, 'manual',        stack_name_version, 'partition', partition ) )
+        -- if partition ~= 'common' then
+        --     prepend_path( 'MODULEPATH', pathJoin( module_root, 'spack',         stack_name_version, 'partition', 'common',  node_spack_arch['common'] ) )
+        -- end
+        -- prepend_path(     'MODULEPATH', pathJoin( module_root, 'spack',         stack_name_version, 'partition', partition, node_spack_arch[partition] ) )
         if partition ~= 'common' then
             prepend_path( 'MODULEPATH', pathJoin( module_root, 'easybuild',     stack_name_version, 'partition', 'common' ) )
         end
@@ -164,20 +190,28 @@ if ( ( partition ~= 'common' ) and not special_partition[partition] ) or ( mode(
     -- Software installed by the user using EasyBuild.
     -- For the special partitions user_easybuild_modules will always be nil so no need to test for those partitions specifically.
     if user_easybuild_modules ~= nil then
-        -- Note that we may be adding non-existent directories but Lmod does not have problems with that.
-        -- It is better to add them right away so that software installed with EasyBuild will appear right
-        -- away without first having to reload the partition module.
-        local user_common_dir = pathJoin( user_easybuild_modules, stack_name_version, 'partition', 'common' )
-        if partition ~= common then
-            prepend_path( 'MODULEPATH', user_common_dir )
+        if partition == 'CrayEnv' or partition == 'container' then
+
+            prepend_path( 'MODULEPATH', pathJoin( user_easybuild_modules, partition ) )
+
+        elseif not special_partition[partition] then
+
+            -- Note that we may be adding non-existent directories but Lmod does not have problems with that.
+            -- It is better to add them right away so that software installed with EasyBuild will appear right
+            -- away without first having to reload the partition module.
+            local user_common_dir = pathJoin( user_easybuild_modules, stack_name_version, 'partition', 'common' )
+            if partition ~= common then
+                prepend_path( 'MODULEPATH', user_common_dir )
+            end
+            local user_partition_dir = pathJoin( user_easybuild_modules, stack_name_version, 'partition', partition )
+            prepend_path( 'MODULEPATH', user_partition_dir )
+
         end
-        local user_partition_dir = pathJoin( user_easybuild_modules, stack_name_version, 'partition', partition )
-        prepend_path( 'MODULEPATH', user_partition_dir )
     end
 
 end
 
--- For the regular partitions (not common or CrayEnv os system) we preload some suitable target modules
+-- For the regular partitions (not common or CrayEnv or system or container) we preload some suitable target modules
 -- for those users that would use the PrgEnv modules rather than the cpeGNU/cpeCray/cpeAMD
 -- modules to compile code.
 if mode() == 'load' or mode() == 'show' then

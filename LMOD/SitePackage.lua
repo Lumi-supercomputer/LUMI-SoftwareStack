@@ -1,7 +1,8 @@
 -- LUMI Lmod customizations
 
 require("strict")
-local os = require("os")
+local os =   require("os")
+local lfs =  require("lfs")
 local dbg  = require("Dbg"):dbg()
 local hook = require("Hook")
 require("sandbox")
@@ -548,22 +549,156 @@ function is_LTS_LUMI_stack( stack_version )
 end
 
 
+--
+-- function get_container_repository_root()
+--
+-- Input arguments: None
+-- Output: The directory where the lumi container repository can be
+--         found (which should at least have the easybuild-sif-images subdirectory).
+-- On the system this would be /appl/local/containers, but we enable
+-- overwriting this to use a different repository for testing.
+--
+function get_container_repository_root()
+
+    local default_container_repository_root = '/appl/local/containers'
+    local lumi_container_repository_root =    os.getenv( 'LUMI_CONTAINER_REPOSITORY_ROOT' )
+
+    if lumi_container_repository_root == nil or lumi_container_repository_root == '' then
+        return default_container_repository_root
+    else
+        return lumi_container_repository_root
+    end
+
+end
+
+
+--
+-- function get_EB_container_repository()
+--
+-- Input arguments: None
+-- Output: The directory where the lumi container repository images to be used by
+--         EasyBuild can be found (basically to have the name of that subdirectory
+--         of the lumi container repository in only one place in the code).
+-- On the system this would be /appl/local/containers/easybuild-sif-images, but we
+-- enable overwriting the root part this to use a different repository for testing.
+--
+function get_EB_container_repository()
+
+    local container_repository_root = get_container_repository_root()
+
+    if container_repository_root == nil then
+        return nil
+    else
+        return pathJoin( container_repository_root, 'easybuild-sif-images' )
+    end
+
+end
+
+
+--
+-- function get_SIF_file( sif_file, package_name, installdir )
+--
+-- Input arguments:
+--  * Name of the SIF file
+--  * Name of the package (EasyBuild easyconfig)
+--  * Installation directory (can come from %(installdir)s in an EasyConfig)
+--
+-- Return value: The location of the SIF file
+-- 
+-- This routine checks first if the .sif file is present in the installation directory.
+-- If not, it computes the location from the name of the .sif file, the EasyBuild package name
+-- (in case we want to implement a structure like p/PyTorch), and whatever it gets from
+-- the get_EB_container_repository function.
+--
+function get_SIF_file( sif_file, package_name, installdir )
+
+    local SIF_in_installdir = pathJoin( installdir, sif_file )
+    local SIF_attributes = lfs.attributes( SIF_in_installdir )
+
+    if SIF_attributes ~= nil and SIF_attributes.mode == 'file' then
+        -- The SIF file is in the installation directory so return this.
+        return SIF_in_installdir
+    else
+        -- Return the SIF file in the repository.
+        -- We don't check if the file is really there at the moment.
+        return pathJoin( get_EB_container_repository(), sif_file )
+    end
+
+end
+
+--
+-- function convert_to_EBvar( package, prefix, postfix )
+--
+-- Input arguments:
+--  * package: Name of the package (EasyBuild-style)
+--  * prefix: Optional prefix for the generated variable name (can be nil)
+--  * postfix: Optional postfix for the generated variable name (cam be nil)
+--
+-- Return value: The name of the variable generated from the package, by turning
+-- all characters uppercase and replacing a hyphen with MIN, with they
+-- prefix in front and the postfix at the end of the string.
+--
+-- This is not yet a complete equivalent of the EasyBuild variable-from-packages
+-- generator, but it is a start for now.
+-- 
+function convert_to_EBvar( package, prefix, postfix )
+
+    return (prefix or '') .. package:upper():gsub(  '%-', 'MIN') .. (postfix or '')
+
+end
+
+--
+-- function create_container_vars( sif_file, package_name, installdir )
+--
+-- Input arguments:
+--  * sif_file: Name of the SIF file
+--  * package_name: Name of the package (EasyBuild easyconfig)
+--  * installdir: Installation directory (can come from %(installdir)s in an EasyConfig)
+--
+-- Return value: None. It simply calls a Lmod functions to set some environment
+-- variables.
+--
+function create_container_vars( sif_file, package_name, installdir )
+
+    local SIF_file = get_SIF_file( sif_file, package_name, installdir )    
+    local SIF_attributes = lfs.attributes( SIF_file )
+
+    if SIF_attributes ~= nil and ( SIF_attributes.mode == 'file' or SIF_attributes.mode == 'link' ) then
+        -- The SIF file exists so we can set the environment variables.
+        local varname = convert_to_EBvar( package_name, 'SIF' )
+        setenv( 'SIF',   SIF_file )
+        setenv( varname, SIF_file )
+    else
+        -- The SIF file does not exist.
+        if mode() == 'load' then
+            LmodError( 'ERROR: Cannot locate the singularity container file ' .. sif_file ..
+                       '. One potential cause is that it may have been removed from the system.' )
+        end
+    end
+
+end
+
+
 
 sandbox_registration{
-    ['get_hostname']              = get_hostname,
-    ['get_user_prefix_EasyBuild'] = get_user_prefix_EasyBuild,
-    ['detect_LUMI_partition']     = detect_LUMI_partition,
-    ['get_init_module_list']      = get_init_module_list,
-    ['get_CPE_component']         = get_CPE_component,
-    ['get_CPE_versions']          = get_CPE_versions,
-    ['get_EasyBuild_version']     = get_EasyBuild_version,
-    ['get_versionedfile']         = get_versionedfile,
-    ['get_motd']                  = get_motd,
-    ['get_fortune']               = get_fortune,
-    ['get_num_motd']              = get_num_motd,
-    ['set_num_motd']              = set_num_motd,
-    ['is_interactive']            = is_interactive,
-    ['is_LTS_LUMI_stack']         = is_LTS_LUMI_stack,
+    ['get_hostname']                  = get_hostname,
+    ['get_user_prefix_EasyBuild']     = get_user_prefix_EasyBuild,
+    ['detect_LUMI_partition']         = detect_LUMI_partition,
+    ['get_init_module_list']          = get_init_module_list,
+    ['get_CPE_component']             = get_CPE_component,
+    ['get_CPE_versions']              = get_CPE_versions,
+    ['get_EasyBuild_version']         = get_EasyBuild_version,
+    ['get_versionedfile']             = get_versionedfile,
+    ['get_motd']                      = get_motd,
+    ['get_fortune']                   = get_fortune,
+    ['get_num_motd']                  = get_num_motd,
+    ['set_num_motd']                  = set_num_motd,
+    ['is_interactive']                = is_interactive,
+    ['is_LTS_LUMI_stack']             = is_LTS_LUMI_stack,
+    ['get_container_repository_root'] = get_container_repository_root,
+    ['get_EB_container_repository']   = get_EB_container_repository,
+    ['get_SIF_file']                  = get_SIF_file,
+    ['create_container_vars']         = create_container_vars,
 }
 
 
@@ -857,5 +992,3 @@ hook.register( "SiteName",     site_name_hook )
 hook.register( "avail",        avail_hook )
 hook.register( "msgHook",      msg_hook )
 hook.register("isVisibleHook", is_visible_hook)
-
-

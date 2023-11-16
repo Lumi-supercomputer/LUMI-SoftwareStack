@@ -273,7 +273,7 @@ create_link "$installroot/$repo/modules/LUMIstack/$match_file" "$installroot/mod
 #
 make_dir "$installroot/modules/SystemPartition/LUMI/$stack_version/partition"
 match_file=$(match_module_version $stack_version $installroot/$repo/modules/LUMIpartition)
-for partition in "${partitions[@]}" common CrayEnv system
+for partition in "${partitions[@]}" common container CrayEnv system
 do
   	create_link "$installroot/$repo/modules/LUMIpartition/$match_file" "$installroot/modules/SystemPartition/LUMI/$stack_version/partition/$partition.lua"
 done
@@ -324,7 +324,7 @@ do
 
 done
 
-for partition in CrayEnv system
+for partition in CrayEnv container system
 do
 
     make_dir $installroot/modules/Infrastructure/LUMI/$stack_version/partition/$partition
@@ -365,6 +365,15 @@ do
     create_link $modsrc/EasyBuild-config/$module_file $(module_root_infra $stack_version $partition)/EasyBuild-user/LUMI.lua
 done
 
+for partition in container
+do
+    make_dir $(module_root_infra $stack_version $partition)/EasyBuild-production
+    make_dir $(module_root_infra $stack_version $partition)/EasyBuild-user
+
+    create_link $modsrc/EasyBuild-config/$module_file $(module_root_infra $stack_version $partition)/EasyBuild-production/LUMI.lua
+    create_link $modsrc/EasyBuild-config/$module_file $(module_root_infra $stack_version $partition)/EasyBuild-user/LUMI.lua
+done
+
 for partition in CrayEnv system
 do
     mkdir -p $(module_root_infra $stack_version $partition)/EasyBuild-production
@@ -372,7 +381,7 @@ do
 done
 
 module_file=$(match_module_version $stack_version $installroot/$repo/modules/EasyBuild-unlock)
-for partition in ${partitions[@]} common CrayEnv system
+for partition in ${partitions[@]} common container CrayEnv system
 do
     make_dir $(module_root_infra $stack_version $partition)/EasyBuild-unlock
 
@@ -505,9 +514,10 @@ fi
 #
 # Enable EasyBuild also for cross-installing by linking in the CrayEnv and system module directories
 #
-create_link $(module_root_eb $stack_version common)/EasyBuild $(module_root_infra $stack_version CrayEnv)/EasyBuild
-create_link $(module_root_eb $stack_version common)/EasyBuild $(module_root_infra $stack_version system)/EasyBuild
-
+for partition in container CrayEnv system
+do
+    create_link $(module_root_eb $stack_version common)/EasyBuild $(module_root_infra $stack_version $partition)/EasyBuild
+done
 
 ###############################################################################
 #
