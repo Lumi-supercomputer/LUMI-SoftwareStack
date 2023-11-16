@@ -550,23 +550,46 @@ end
 
 
 --
--- function get_container_repository()
+-- function get_container_repository_root()
 --
 -- Input arguments: None
--- Output: The directory where the lumi container repository can better
---         found (which should at least have the sif-images subdirectory).
--- On the system this would be /appl/local/containers/SIF, but we enable
+-- Output: The directory where the lumi container repository can be
+--         found (which should at least have the easybuild-sif-images subdirectory).
+-- On the system this would be /appl/local/containers, but we enable
 -- overwriting this to use a different repository for testing.
 --
-function get_container_repository()
+function get_container_repository_root()
 
-    local default_container_repository = '/appl/local/containers'
-    local lumi_container_repository =    os.getenv( 'LUMI_CONTAINER_REPOSITORY' )
+    local default_container_repository_root = '/appl/local/containers'
+    local lumi_container_repository_root =    os.getenv( 'LUMI_CONTAINER_REPOSITORY_ROOT' )
 
-    if lumi_container_repository == nil or lumi_container_repository == '' then
-        return default_container_repository
+    if lumi_container_repository_root == nil or lumi_container_repository_root == '' then
+        return default_container_repository_root
     else
-        return lumi_container_repository
+        return lumi_container_repository_root
+    end
+
+end
+
+
+--
+-- function get_EB_container_repository()
+--
+-- Input arguments: None
+-- Output: The directory where the lumi container repository images to be used by
+--         EasyBuild can be found (basically to have the name of that subdirectory
+--         of the lumi container repository in only one place in the code).
+-- On the system this would be /appl/local/containers/easybuild-sif-images, but we
+-- enable overwriting the root part this to use a different repository for testing.
+--
+function get_EB_container_repository()
+
+    local container_repository_root = get_container_repository_root()
+
+    if container_repository_root == nil then
+        return nil
+    else
+        return pathJoin( container_repository_root, 'easybuild-sif-images' )
     end
 
 end
@@ -585,7 +608,7 @@ end
 -- This routine checks first if the .sif file is present in the installation directory.
 -- If not, it computes the location from the name of the .sif file, the EasyBuild package name
 -- (in case we want to implement a structure like p/PyTorch), and whatever it gets from
--- the get_container_repository function.
+-- the get_EB_container_repository function.
 --
 function get_SIF_file( sif_file, package_name, installdir )
 
@@ -598,7 +621,7 @@ function get_SIF_file( sif_file, package_name, installdir )
     else
         -- Return the SIF file in the repository.
         -- We don't check if the file is really there at the moment.
-        return pathJoin( get_container_repository(), 'sif-images', sif_file )
+        return pathJoin( get_EB_container_repository(), sif_file )
     end
 
 end
@@ -640,7 +663,7 @@ function create_container_vars( sif_file, package_name, installdir )
     local SIF_file = get_SIF_file( sif_file, package_name, installdir )    
     local SIF_attributes = lfs.attributes( SIF_file )
 
-    if SIF_attributes ~= nil and SIF_attributes.mode == 'file' then
+    if SIF_attributes ~= nil and ( SIF_attributes.mode == 'file' or SIF_attributes.mode == 'link' ) then
         -- The SIF file exists so we can set the environment variables.
         local varname = convert_to_EBvar( package_name, 'SIF' )
         setenv( 'SIF',   SIF_file )
@@ -658,23 +681,24 @@ end
 
 
 sandbox_registration{
-    ['get_hostname']              = get_hostname,
-    ['get_user_prefix_EasyBuild'] = get_user_prefix_EasyBuild,
-    ['detect_LUMI_partition']     = detect_LUMI_partition,
-    ['get_init_module_list']      = get_init_module_list,
-    ['get_CPE_component']         = get_CPE_component,
-    ['get_CPE_versions']          = get_CPE_versions,
-    ['get_EasyBuild_version']     = get_EasyBuild_version,
-    ['get_versionedfile']         = get_versionedfile,
-    ['get_motd']                  = get_motd,
-    ['get_fortune']               = get_fortune,
-    ['get_num_motd']              = get_num_motd,
-    ['set_num_motd']              = set_num_motd,
-    ['is_interactive']            = is_interactive,
-    ['is_LTS_LUMI_stack']         = is_LTS_LUMI_stack,
-    ['get_container_repository']  = get_container_repository,
-    ['get_SIF_file']              = get_SIF_file,
-    ['create_container_vars']     = create_container_vars,
+    ['get_hostname']                  = get_hostname,
+    ['get_user_prefix_EasyBuild']     = get_user_prefix_EasyBuild,
+    ['detect_LUMI_partition']         = detect_LUMI_partition,
+    ['get_init_module_list']          = get_init_module_list,
+    ['get_CPE_component']             = get_CPE_component,
+    ['get_CPE_versions']              = get_CPE_versions,
+    ['get_EasyBuild_version']         = get_EasyBuild_version,
+    ['get_versionedfile']             = get_versionedfile,
+    ['get_motd']                      = get_motd,
+    ['get_fortune']                   = get_fortune,
+    ['get_num_motd']                  = get_num_motd,
+    ['set_num_motd']                  = set_num_motd,
+    ['is_interactive']                = is_interactive,
+    ['is_LTS_LUMI_stack']             = is_LTS_LUMI_stack,
+    ['get_container_repository_root'] = get_container_repository_root,
+    ['get_EB_container_repository']   = get_EB_container_repository,
+    ['get_SIF_file']                  = get_SIF_file,
+    ['create_container_vars']         = create_container_vars,
 }
 
 

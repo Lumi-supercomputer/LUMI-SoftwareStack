@@ -242,7 +242,7 @@ local system_toolchaindir =        pathJoin( SystemRepo_prefix, 'easybuild/toolc
 local system_hookdir =             pathJoin( SystemRepo_prefix, 'easybuild/hooks' )
 local system_installpath =         system_prefix
 
-local container_easyconfigdir =    pathJoin( get_container_repository(), 'LUMI-EasyBuild-containers' )
+local container_easyconfigdir =    pathJoin( get_container_repository_root(), 'LUMI-EasyBuild-containers' )
 
 local user_configdir =             pathJoin( user_prefix, 'UserRepo', 'easybuild/config' )
 local user_easyconfigdir =         pathJoin( user_prefix, 'UserRepo', 'easybuild/easyconfigs' )
@@ -258,7 +258,7 @@ local system_sourcepath =          pathJoin( system_prefix, 'sources/easybuild' 
 local system_containerpath =       pathJoin( system_prefix, 'containers' )
 local system_packagepath =         pathJoin( system_prefix, 'packages' )
 
-local system_SIFrepo =             pathJoin( get_container_repository(), 'sif-images' )
+local system_SIFrepo =             get_EB_container_repository()
 
 local user_sourcepath =            pathJoin( user_prefix,   'sources' )
 local user_containerpath =         pathJoin( user_prefix,   'containers' )

@@ -234,11 +234,20 @@ would not print it.
 true if that version is a LTS stack and returns false otherwise.
 
 
-### get_container_repository
+### get_container_repository_root
 
-``get_container_repository`` takes no input arguments. It returns the location of the container
-recipe which is taken from the ``LUMI_CONTAINER_REPOSITORY`` when defined or the default
+``get_container_repository_root`` takes no input arguments. It returns the location of the container
+recipe which is taken from the ``LUMI_CONTAINER_REPOSITORY_ROOT`` when defined or the default
 ``/appl/local/containers`` otherwise.
+
+
+### get_EB_container_repository
+
+``get_EB_container_repository`` takes no input arguments. It assembles the name of the
+directory of the container repository that EasyBuild should use from the result
+of ``get_container_repository_root``. Its main function is to have the name of the
+subdirectory in only one place of the code to have more flexibility to change it when
+needed.
 
 
 ### get_SIF_file
