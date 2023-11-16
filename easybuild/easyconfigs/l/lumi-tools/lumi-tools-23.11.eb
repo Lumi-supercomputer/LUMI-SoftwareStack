@@ -1,0 +1,132 @@
+# Contributed by Kurt Lust for the LUMI project
+
+easyblock = 'Bundle'
+
+local_allocations_version = '20230221'
+local_allocations_commit =  '17024f5'
+
+name =    'lumi-tools'
+version = '23.11'
+
+homepage = 'https://lumi-supercomputer.github.io/LUMI-EasyBuild-docs/l/lumi-tools/'
+
+whatis = [
+    'Description: Provides commands to check quota and allocations on LUMI.'
+]
+
+description = """
+This module provides several commands to check the state of your account:
+  * lumi-workspaces:       to print an overview of the quota and allocations for all your projects
+  * lumi-quota:            to check your quota
+  * lumi-allocations:      to check your remaining allocations
+  * lumi-check-quota:      to print a warning when you are over your quota
+  * lumi-ldap-projectinfo: to print LDAP information stored about projects on the system
+  * lumi-ldap-userinfo:    to print LDAP information stored about users on the system
+  
+The check of the allocations is currently done based on pre-stored data. That
+data is refreshed periodically, but the data can be out-of-date, especially
+if the scripts that build up the cache fail. Currently the tool is not
+able to show when the data was collected, so the results may be wrong without
+warning.
+
+The checks done by check-quota are also based on cached data that in principle
+is refreshed every hour.
+
+Note that cleaning up files may not have an immediate effect on the quota reported
+by any of these tools. The lumi-quota and lumi-workspaces tools talk directly to 
+Lustre but there may be some delay also in the results returned by Lustre. 
+The lumi-check-quota tool uses cached data that is refresed once an hour and even just
+after a refresh the result may not be fully accurate due to the possible delays
+in Lustre reporting.
+"""
+
+usage = """
+To quickly print an overview of quota and allocations, simply run
+  lumi-workspaces
+
+The lumi-quota command comes in three different forms:
+  * lumi-quota         : Shows your workspaces
+  * lumi-quota -v      : Detailed quota information
+  * lumi-quota -p prj  : Show quota of project prj
+
+To check all your remaining allocations, simply run
+  lumi-allocations
+To check only the allocations for a specific project , run
+  lumi-alllocations -p project_465000000
+(replacing the last argument with the project for which you want the result).
+
+lumi-allocations will also print the data at which the data and time at which the data
+was last gathered so you can know if the synchronisation might have failed.
+
+To only get the most important warnings about quota use and billing units for
+storage, run
+  lumi-check-quota
+  
+To get more detailed information about all your projects as retrieved periodically
+from the system and LDAP database:
+  lumi-ldap-projectinfo
+  
+To get more detailed information about your user account as retrieved periodically
+from the system and LDAP database:
+  lumi-ldap-userinfo
+  
+More detailed information is available via man pages.
+"""
+
+docurls = [
+    'Man pages in section 1, chech man lumi-tools',
+]
+
+software_license_urls = [
+    'https://github.com/Lumi-supercomputer/lumi-allocations/blob/main/LICENSE',
+]
+
+toolchain = SYSTEM
+
+
+components = [
+    ('lumi-allocations', local_allocations_version, {
+        'easyblock':    'Tarball',
+        'sources':      [{
+                            'filename': '%(name)s-%(version)s.tar.gz',
+                            'git_config': {
+                                'url':          'https://github.com/Lumi-supercomputer',
+                                'repo_name':    '%(name)s',
+                                'commit':       local_allocations_commit,
+                                'keep_git_dir': False,
+                            },
+                        }],
+        'install_type': 'merge',
+        'start_dir':    '%(namelower)s'
+    }),
+    ('LUMI-tools', version, {
+        'easyblock':    'ConfigureMake',
+        'sources':      [{   # https://github.com/Lumi-supercomputer/lumi-tools/archive/refs/tags/23.03.tar.gz
+                             'filename':          '%(name)s-%(version)s.tar.gz',
+                             'download_filename': '%(version)s.tar.gz',
+                             'source_urls':       ['https://github.com/Lumi-supercomputer/lumi-tools/archive/refs/tags'],
+                        }],
+        'start_dir':    '%(namelower)s-%(version)s',
+        'skipsteps':    'configure',
+        'installopts':  'PREFIX=%(installdir)s',
+    }),
+]
+
+sanity_check_paths = {
+    'files': ['bin/lumi-quota', 'bin/lumi-allocations', 'bin/lumi-workspaces', 'bin/lumi-ldap-projectinfo', 'bin/lumi-ldap-userinfo'],
+    'dirs':  ['share/man/man1']
+}
+
+sanity_check_commands = [
+    'lumi-workspaces -h', 
+    'lumi-quota -h',
+    'lumi-allocations -h',
+    'lumi-ldap-projectinfo -h',
+    'lumi-ldap-userinfo -h',
+]
+
+modluafooter = """
+add_property("lmod","sticky")
+"""
+
+moduleclass = 'tools'
