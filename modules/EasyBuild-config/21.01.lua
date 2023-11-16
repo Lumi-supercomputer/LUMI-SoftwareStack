@@ -202,7 +202,7 @@ if ( get_hostname():find( 'uan' ) ) then
     workdir = os.getenv( 'XDG_RUNTIME_DIR' )
     
     if workdir == nil then
-        cleandir = pathJoin( '/dev/shm', os.getenv( 'USER' ) )
+        cleandir = pathJoin( '/tmp', os.getenv( 'USER' ) )
         workdir = cleandir
     end
 
@@ -216,14 +216,14 @@ else
     if jobid ~= nil then
 
         -- Running in a Slurm job, use that to build a file name
-        cleandir = pathJoin( '/dev/shm', jobid )
+        cleandir = pathJoin( '/tmp', jobid )
         workdir = cleandir
 
     else
 
         -- This may happen in the future if there would be non-jobcontrolled interactive
         -- sessions on other parts of the system?
-        cleandir = pathJoin( '/dev/shm', user )
+        cleandir = pathJoin( '/tmp', user )
         workdir = cleandir
 
     end
