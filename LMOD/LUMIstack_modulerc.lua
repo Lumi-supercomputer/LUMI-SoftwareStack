@@ -36,6 +36,7 @@ if os.getenv( 'LUMI_LMOD_POWERUSER' ) == nil then
     hide_version( 'craype-accel-nvidia70' )
     hide_version( 'craype-accel-nvidia80' )
     hide_version( 'craype-accel-amd-gfx908' )
+    hide_version( 'craype-accel-amd-gfx940' )
     hide_version( 'craype-arm-grace' )
     hide_version( 'craype-x86-broadwell' )
     hide_version( 'craype-x86-skylake' )
