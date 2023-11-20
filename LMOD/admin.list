@@ -4,10 +4,6 @@ be freely used for educational and research purposes by non-profit institutions
 and US government agencies only. See http://glaros.dtc.umn.edu/gkhome/metis/parmetis/download
 for further information.
 
-ModuleExtensions/.*:
-Unfortunately due to problems with Cray LMOD this module does not yet have the desired effect.
-We are looking for a solution but don't expect anything soon.
-
 LUMI/21.12:
 The LUMI/21.12 software stack has reached the end of its supported life. The
 necessary compilers are no longer on the system but the module system as been tweaked
