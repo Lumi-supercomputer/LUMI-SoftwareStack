@@ -26,6 +26,8 @@ if os.getenv( 'LUMI_LMOD_POWERUSER' ) == nil then
     hide_version( 'cpeGNU/23.03' )
     hide_version( 'cpeAOCC/23.03' )
     hide_version( 'cpeAMD/23.03' )
+    -- partition/container module until the documentation is ready
+    hide_version( 'partition/container' )
 end
 
 if os.getenv( 'LUMI_STACK_NAME' ) ~= nil then
