@@ -26,6 +26,8 @@ if os.getenv( 'LUMI_LMOD_POWERUSER' ) == nil then
     hide_version( 'cpeGNU/23.03' )
     hide_version( 'cpeAOCC/23.03' )
     hide_version( 'cpeAMD/23.03' )
+    -- partition/container module until the documentation is ready
+    hide_version( 'partition/container' )
 end
 
 if os.getenv( 'LUMI_STACK_NAME' ) ~= nil then
@@ -35,10 +37,6 @@ if os.getenv( 'LUMI_STACK_NAME' ) ~= nil then
     hide_modulefile( '/opt/cray/pe/lmod/modulefiles/core/cpe/23.05.lua' )
     hide_modulefile( '/opt/cray/pe/lmod/modulefiles/core/cpe/23.09.lua' )
 end
-
--- The following modules do not work with Cray LMOD 8.3.1
-hide_version( 'ModuleExtensions/hide' )
-hide_version( 'ModuleExtensions/show' )
 
 -- Solve a problem for users who were previously using ROCm 5.0.2
 module_version( 'rocm/5.2.3', '5.0.2' )
