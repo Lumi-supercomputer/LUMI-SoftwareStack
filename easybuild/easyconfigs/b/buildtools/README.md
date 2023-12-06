@@ -17,6 +17,7 @@ these problems.
 ## Contents
 
 The contents of the module evolved over time. It does contain a subset of:
+
 * GNU Autoconf [version check](https://ftp.gnu.org/gnu/autoconf/)
 * GNU Autoconf-archive [version check](https://ftp.gnu.org/gnu/autoconf-archive/)
 * GNU Automake [version check](https://ftp.gnu.org/gnu/automake/)
@@ -41,6 +42,7 @@ The contents of the module evolved over time. It does contain a subset of:
 * xxd [version check: part of vim](https://github.com/vim/vim/tags)
 
 Not included at the moment:
+
 * git [version check](https://github.com/git/git/releases)
   (due to OS dependencies not present on Eiger)
 * pkg-config [version check](https://www.freedesktop.org/wiki/Software/pkg-config/):
