@@ -1,0 +1,207 @@
+easyblock = 'EB_rocmrpms'
+
+name = 'rocm'
+version = '5.6.1'
+
+homepage = 'https://docs.amd.com/'
+
+whatis = [
+    "Description: AMD ROCm is the first open-source software development platform for "
+    "HPC/Hyperscale-class GPU computing"
+]
+
+description = """
+AMD ROCm is the first open-source software development platform for
+HPC/Hyperscale-class GPU computing. AMD ROCm brings the UNIX philosophy of
+choice, minimalism and modular software development to GPU computing.
+"""
+
+description = """
+AMD ROCm is the first open-source software development platform for
+HPC/Hyperscale-class GPU computing. AMD ROCm brings the UNIX philosophy of
+choice, minimalism and modular software development to GPU computing.
+
+ROCm provides the tools required for the development of code using HIP, OpenCL
+and OpenMP programming models including tools for profiling and debugging.
+
+This is an experimental module provided for the convenience of the users.
+This is ROCm installed in a way it is not meant to be installed so we cannot
+offer any guarantee that this module will work properly with HPE Cray PE modules
+nor can we offer any support. Some parts are almost certain to be broken, at 
+least in a way that can lead to reduced performance, as ROCm tends to contain
+hidden hard-coded links to the regular installation directories. As the inner
+workings of the HPE Cray PE are not public and as the PE (at least the version
+22.08 on the system) has even never been tested with this version of ROCm 
+by HPE there is absolutely no guarantee that this module will play nice with,
+e.g., Cray MPICH.
+"""
+
+docurls = [
+    'PDF documentation in $EBROOTROCM/share/doc/rocgdb',
+    'PDF documentation in $EBROOTROCM/share/doc/roctracer',
+    'PDF documentation in $EBROOTROCM/share/doc/rocm_smi',
+    'PDF documentation in $EBROOTROCM/share/doc/amd-dbgapi',
+]
+
+toolchain = SYSTEM
+
+import os;
+local_lumi_stack_version = os.getenv('LUMI_STACK_VERSION', default='23.09')
+
+builddependencies = [
+    ('buildtools', local_lumi_stack_version, '', True),
+]
+
+index_url = 'https://repo.radeon.com/rocm/zyp/5.6.1/main/'
+gpu_archs = ['gfx90a']
+
+component_checksums = {
+    'amd-smi-lib'              : 'fbf3dcbce133b452f221ff375d243360ad43a70bec51ab7d21266f3dcea79998',
+    'comgr'                    : '723931c4354fc4493eb4e2a7926a6a3c5469379dff19232a52e9d4e6e0e7e4f8',
+    'half'                     : '33bbc4317fadf6a179d00186ffa767e61d03bf0604fb511baa77abd1508f6599',
+    'hip-devel'                : '376541c0a76fcddf71e38c96f37f84392aff5cb2fcbec76d70412af7267627ce',
+    'hip-doc'                  : '818d07c2996e6c997eeba2369a15a07b424e34308a8d4364800463945df5cbaa',
+    'hip-runtime-amd'          : 'f09ce0641fb278f26c37a705317449e089e07e8c08da263ac55c911ca284fa12',
+    'hip-samples'              : 'fba4f5fad8911a29e4919c7ba523e322a5506b464ec70eb34f51fe31058bc13c',
+    'hipblas'                  : '21035a439e2a1e73c77b1083d21b44e568bbe09d97e274d5250a071ef2cb51b9',
+    'hipblas-devel'            : '23e619a20f8049e005d3874a259d49710ca98ff47dad1c986432cd702f15950c',
+    'hipblaslt'                : '0565ef5f640433caf0fd74a30fbc950e755f04e3b178c93c810996cd54c5d530',
+    'hipblaslt-devel'          : '989af996df8f0deafb1cc24b7e72ba6872ab31be141fde4b8084803ac6ecef65',
+    'hipcc'                    : 'a32391c0ee3e63e2eba5085d40c0437aa56551b3d52c9b07b9bf748c2e91a677',
+    'hipcub-devel'             : '0fb3147570309d811b82b86527f44c4cabe8658be49dbc095366910aa0494d1f',
+    'hipfft'                   : '8c858c8613fe1f13d0f78984431235989cc65221805136c3406b7ba1b320dc66',
+    'hipfft-devel'             : '416ee378dda4c788883455ad4a94b4e6d6ee034e4f8a31002662168b730c43ac',
+    'hipfort-devel'            : 'e330616c1eff33e7ad4dcda21148733701c4a7667721c325d40094826a77dede',
+    'hipify-clang'             : '029c3acd506816706e5c89c906f7dfce019e8533d370a264319c8eaa3d987a03',
+    'hipsolver'                : '48c918b8f8505515f551b93a74b6c63681f119036eef9f8a17a68647c9a13b75',
+    'hipsolver-devel'          : '7cb431bdbac40562f18f4bb242106e7b57db2299da6c5b538c99d6a0ee9204d1',
+    'hipsparse'                : 'a13c16d3b2285f890fd0d770cd4d8d8ae183aaf2f037bb480b192a8538fa504f',
+    'hipsparse-devel'          : '236aa812830d8d0b677358ba24d0889c2c19d21b097e87945c4b9076cb4862d4',
+    'hsa-amd-aqlprofile'       : '956382a085356211a35cb24210764c4f5575ce4d3d842439e39cc94287004176',
+    'hsa-rocr'                 : '72e32e26fed1ff2d2af4613803dcc06d62560e1cc2c7293b3c2bb8b9a43dc8f3',
+    'hsa-rocr-devel'           : 'ec95460b3ad90bf44296f56a2eb095a84d61fb9d1fc6200305700a42ae6aaf01',
+    'hsakmt-roct-devel'        : 'd31575bafc83b0fae25ebddf076dd065e5190f2aa1c96500e3daa221f4866870',
+    'migraphx'                 : '1c01a555b5037f20f7fda9dc8c1482520407026aabca4616cdbf19f9a9a6da92',
+    'migraphx-devel'           : '3cb6e11b39ab6762ce989c1da045d72dfa99efaa64763dc480fde6e51bd7f07b',
+    'miopen-hip'               : 'c2944a2918c1338ebe882c64476ec5eed45b81a06c54daf2c79f850ede96a47a',
+    'miopen-hip-devel'         : 'ef7af14b14e5265fc888cde0cccd25aba5e75bf8bc346933ef28bba11ae60d1e',
+    'miopen-hip-gfx90a-104kdb' : '4ec64a6f6c4d016659efde3b3ff82f3502777f87fba73ab51a55894e1aa58528',
+    'miopen-hip-gfx90a-110kdb' : '0016a174930b153e7de5882b13eb1698e0a4a9372b291f8102ba4274149d23d5',
+    'mivisionx'                : 'd25218ca70a9c6e7502e4b60c14319dda5133120e8add319db0d56503349920a',
+    'openmp-extras-devel'      : 'e8ce4d6303a1f70291a12f8098d248cb1ff036de1ff590a788b68ac09609630b',
+    'openmp-extras-runtime'    : '655d9fb7375a5066a61b7b5807344aaddd3405485ed27b021f11b790b89604d0', 
+    'rccl'                     : 'ae5377327b61c4cf61eeae30017fe1d20bea25dd7b47eed7ad19b6160441c910',
+    'rccl-devel'               : '66b5cc63bbf5e411cc75ca8e1207465c965db75e218785348bbf400cd220e9a1',
+    'rocalution'               : 'e8c48d0384da472089ebe35c3dccb124d5519e50ff88ae2bf86dd23d8b4bfa71',
+    'rocalution-devel'         : '9f0b6dab57ec17425e7263225cab018c1e1b74d2df24a4fc2bc954d6794c352e',
+    'rocblas'                  : 'fd557ebf4ae5f1eaeb0dbad779b35134e277fa034c076dd4021bd649f041b022',
+    'rocblas-devel'            : 'b9545d6aa0db01e9999af1f402e332b2bee21e992315ee056149049805df1361',
+    'rocfft'                   : '67e346e22a04023328a7a3950aedbc15e0f877d362b2524076e61eacbf00007c',
+    'rocfft-devel'             : '59d5af053911337fa634fe4e04e651fd6e374f33f70d0962ee2be49255c00765',
+    'rocm-bandwidth-test'      : '6eae204fd19dc2b3a1b5f45632b8fdeaefa594141a0c952c391c0df659fac39f',
+    'rocm-clang-ocl'           : 'a94150cb9de8c0bbad8e1d139506f00f3f72e16bf32aa65639a1e1d7b3113ca5',
+    'rocm-cmake'               : '15dc3e5292aa9f20b7c651dffbe1c6bc72030d929aa678dea76da4fdd1f0bdb1',
+    'rocm-core'                : '3650f4d2af774e03c0ed8e2861c934073a0891bf690832719891d7cf7c13ff03',
+    'rocm-dbgapi'              : '1a259c7728733bebc223f5fa6f7415ed4303bb18cd388dbb9d1302425d3abcbd',
+    'rocm-debug-agent'         : '5abee8e6641c9c9b18e698116454b7a3449a87e8f7ad0fcfb4fa1aa2d7d48ed4',
+    'rocm-dev'                 : '236b983b4c8f60b5df1c87c4771425fd7cd096c9ce085c64b1c03c85ff9f8530',
+    'rocm-developer-tools'     : '0e57dbd337862ff19e2f7192488cb0655ccd28cdce3f017383847d5fb5e8feb1',
+    'rocm-device-libs'         : 'e919981830bc6e216fcb8ca12ac3545e3abbc54462f9164eb977ec2cf802117d',
+    'rocm-dkms'                : '79abb9e4f9a59198d7a5165b7f5db050bd76e48895d699c2e1f376e79de8c942',
+    'rocm-gdb'                 : '3200d228f5463006895969caebe639e9e4339791fe034d37f47db13259ca9056',
+    'rocm-hip-libraries'       : 'c8e9e5a0260e8cea0d7124ee0a1b28940b86beb9a8f3c459b4215016212865c0',
+    'rocm-hip-runtime'         : 'f83f16412ff0684587673c2c1d243e1dbf88bfbda200c1ffaf4478ac3e451906',
+    'rocm-hip-runtime-devel'   : '2671bc7db5c091fbb34e415467614f77c27182543f1f023bc463763eec146e04',
+    'rocm-hip-sdk'             : '482f86dcc125b625ec4897c42797383c91463b6001cff065ad774268ae72e345',
+    'rocm-language-runtime'    : '2451c54ccee298c49e15b41aa34fb81fb6b6a827c1802aab4608f40e1cabc9b7', 
+    'rocm-libs'                : '7c3834ad26ead9e894a9511afec5acf7ae62e19c5628775ade4b0d53565ce40b',
+    'rocm-llvm'                : 'f697c19d8c71056e64dbb780ee018c10a1f35eb3a14135a353ed6beb91c04b87',
+    'rocm-ml-libraries'        : '94219d23f522658a2c4129df7ff43871cc71a3c0e0df26010b2350ca00b1d0ba',
+    'rocm-ml-sdk'              : '874bf18d8f225408e156ffbd49b31d0da131a6d5e43470386a33cec10029f6f4',
+    'rocm-ocl-icd'             : 'fdf91f1981a56c297ee0168644f4be387693367677de90bf3ad51405cd0c1112',
+    'rocm-ocltst'              : 'ea19dfd6d035ad679c6f487b99c93331a56f3563eb2ead3daf002e285d4b3d5b',
+    'rocm-opencl'              : 'f38e7ef701ee6e6e5ffd71e36c474f3948f20c607b713fc7e84ed752a74899b1',
+    'rocm-opencl-devel'        : '612f003dbf1cc0170e095e07be8793c1cceb2683d0901f574534b0b942f4d732',
+    'rocm-opencl-runtime'      : '025e204920b2465961a9669480379da4512d82986d9e8b473f3edaeab8f060a0',
+    'rocm-opencl-sdk'          : '834ec2ac1c48967d08821e48b1a6c7d89ea9221a1f85c2908da9114ee3e67b9a',
+    'rocm-openmp-sdk'          : 'facf39e1665df62cdc5871682f7bfc4f6f68064634099f820c81449136ec1a39',
+    'rocm-smi-lib'             : '173cf9c3fe01b29f69c0d99d3475900869a73811a819e300c15c261bd801a825',
+    'rocm-utils'               : 'e90388d1bb4433c550c09897e4197dbae04d1cfc12a04ba107f177ebf3e8893c',
+    'rocm-validation-suite'    : '656f860fa2dba4c535f33c86bc5a5aded32a5b0955e56633267af7c276ced4f8', 
+    'rocminfo'                 : '8843e065826854365cf1b7c6256b5e176b911edfa8c4b91ce51b3983874d57fe',
+    'rocprim-devel'            : '5100a3b8d4d599f4185684719c05f82fe5caa5e4b113aece1187bff39bd85050',
+    'rocprofiler'              : '2a2394a3793b28fc1b436c1f8b7666bd468ec6ecd21b95072edf86aa628d5de1',
+    'rocprofiler-devel'        : 'ce32376475900f78787ece8031ecb186d81b79dfbdce73d6de0bf40f0409f2df',
+    'rocprofiler-docs'         : '5332000e00fae2b817cd6c2bf96ada43b173e80bb4c420481b2711807d6c63d1',
+    'rocprofiler-plugins'      : '15538252f2de78fcd12591ca6a4b2aa8635296950eef23a31d9135afb1f35cf8',
+    'rocprofiler-samples'      : 'f7d1eeaac7428fff5c03b43bc13f954260a21238359560fb91daac3b66aaba11',
+    'rocrand'                  : '9434f2fda332b8d2af23ec118d99f3f3f8137d91286af39da4b7bf02646929bd',
+    'rocrand-devel'            : '854da4e64c8cc9ad6fd2997facaf939eacf2c56da12e0246bd44af6e480f8e04',
+    'rocsolver'                : '383d89db2fdd084f360d5600580a0ef8bd069b9fdd32ce88b9328ae10ecd8d40',
+    'rocsolver-devel'          : '2da2cad319664f876789a59ab596806c0e794e9da9166e93b4bc602ad1bd4eb6',
+    'rocsparse'                : '12a034304bb5079741ef3b198a77446f01da0a6062d9225b1aad46887ecfa4c3',
+    'rocsparse-devel'          : '9f6e33657cd79c81010bff41d574538c72ae3d418a496b2274b1c97fefdb8275',
+    'rocthrust-devel'          : 'f3d1f3299c47c0885d247c9bd93ef81c4c0873edcbbe0314803abbae0a0ba779',
+    'roctracer'                : 'cba8a55374a1ec19861a6ae2b35eb1e68c42c37312c22b583980267f4397761c',
+    'roctracer-devel'          : 'a246fa7e7ff302ae21296f085732e9c3ad60a845b548eada7b65d8b6d800fe42',
+    'rocwmma-devel'            : 'a8c584e6a01c95d31ee239c265648e2a886bcc21e213d3d889ff66c4d34c0997',
+    'rocwmma-samples'          : '149d19040834421873b8569cd30a3d47444455a97cd5e6d8d18c3dfeeb6065aa',
+}
+
+postinstallcmds = [
+   ' '.join([
+       'cd %(installdir)s/lib;',
+       'find . -maxdepth 1 -type f -name "*.so*" -exec', 
+       'sh -c \'if file $0 | grep -q "dynamically"; then',
+       'patchelf --set-rpath "\$ORIGIN:\$ORIGIN/../llvm/lib:/opt/cray/pe/gcc-libs" $0;',
+       'fi\' {} \;',
+    ]),
+    ' '.join([
+       'cd %(installdir)s/lib/roctracer;',
+       'find . -maxdepth 1 -type f -name "*.so*" -exec',
+       'sh -c \'if file $0 | grep -q "dynamically"; then',
+       'patchelf --set-rpath "\$ORIGIN/../:\$ORIGIN/../../llvm/lib:/opt/cray/pe/gcc-libs" $0;',
+       'fi\' {} \;',
+    ]),
+]
+
+pkg_config = """
+rocm_prefix=%(installdir)s
+includedir=${rocm_prefix}/include
+lib64dir=${rocm_prefix}/lib64
+libdir=${rocm_prefix}/lib
+
+profiler_includedir=${rocm_prefix}/rocprofiler/include
+profiler_libdir=${rocm_prefix}/rocprofiler/lib
+profiler_tooldir=${rocm_prefix}/rocprofiler/tool
+profiler_bindir=${rocm_prefix}/rocprofiles/bin
+
+tracer_includedir=${rocm_prefix}/roctracer/include
+tracer_libdir=${rocm_prefix}/roctracer/lib
+tracer_tooldir=${rocm_prefix}/roctracer/tool
+
+gcclibs_rpath="-Wl,-rpath=/opt/cray/pe/gcc-libs"
+roclibs_rpath="-Wl,-rpath=${rocm_prefix}/lib"
+
+Cflags: -I${includedir} -I${profiler_includedir} -I${tracer_includedir} -D_HIP_PLATFORM_HCC_ -D__HIP_PLATFORM_AMD__
+Description: ROCm Toolkit
+Libs: -L${lib64dir} -L${libdir} -L${profiler_libdir} -L${profiler_tooldir} -L${tracer_libdir} -L${tracer_tooldir} ${gcclibs_rpath} ${roclibs_rpath} -lamdhip64
+Name: %(name)s-%(version)s
+Version: %(version)s
+"""
+
+modextravars = {
+  'CRAY_ROCM_VERSION'        : '%(version)s',
+  'CRAY_ROCM_DIR'            : '%(installdir)s',
+  'CRAY_ROCM_PREFIX'         : '%(installdir)s',
+  'XTPE_LINK_TYPE'           : 'dynamic',
+  'CRAYPE_LINK_TYPE'         : 'dynamic',
+}
+
+modluafooter = """
+append_path("PE_PRODUCT_LIST", "CRAY_ROCM")
+prepend_path("PKG_CONFIG_PATH", "/opt/cray/pe/gcc-libs/pkgconfig")
+prepend_path("PE_PKGCONFIG_LIBS", "rocm-%(version_major_minor)s")
+"""
+
+moduleclass = 'devel'
