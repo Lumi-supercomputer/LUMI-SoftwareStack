@@ -3,7 +3,7 @@ easyblock = 'EB_rocmrpms'
 name = 'rocm'
 version = '5.6.1'
 
-homepage = 'https://docs.amd.com/'
+homepage = 'https://www.amd.com/en/developer/resources/rocm-hub.html'
 
 whatis = [
     "Description: AMD ROCm is the first open-source software development platform for "
@@ -30,13 +30,14 @@ offer any guarantee that this module will work properly with HPE Cray PE modules
 nor can we offer any support. Some parts are almost certain to be broken, at 
 least in a way that can lead to reduced performance, as ROCm tends to contain
 hidden hard-coded links to the regular installation directories. As the inner
-workings of the HPE Cray PE are not public and as the PE (at least the version
-22.08 on the system) has even never been tested with this version of ROCm 
+workings of the HPE Cray PE are not public and as the PE (at least the versions
+up to 23.09 on the system) has even never been tested with this version of ROCm 
 by HPE there is absolutely no guarantee that this module will play nice with,
 e.g., Cray MPICH.
 """
 
 docurls = [
+    'Web-based documentation on https://rocm.docs.amd.com/en/docs-%(version)s/',
     'PDF documentation in $EBROOTROCM/share/doc/rocgdb',
     'PDF documentation in $EBROOTROCM/share/doc/roctracer',
     'PDF documentation in $EBROOTROCM/share/doc/rocm_smi',
