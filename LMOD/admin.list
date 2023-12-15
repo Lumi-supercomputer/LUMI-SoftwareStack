@@ -34,6 +34,18 @@ module there is no guarantee that it will integrate properly with HPE Cray PE mo
 or work correctly in that environment. Note that HPE Cray PE programming environments
 up to at least 23.02 have only been tested with ROCm version prior to 5.3 by HPE.
 
+rocm/5.6.1:
+The ROCm 5.6.1 module comes without warranty nor support as it is not installed in
+the regular directories as suggested by AMD, which may break links encoded in RPMs.
+It is also not officially supported by the driver version currently on the system
+(which we cannot update at the moment), and is also not officially supported by 
+HPE so problems with, e.g., GPU aware MPI may show up.
+
+amd/5.6.1:
+This module mimics the behaviour of the HPE CPE amd modules but cannot fully work
+in the same way, so problems may occur. Also check the instructions in the LUMI
+Software Library at https://lumi-supercomputer.github.io/LUMI-EasyBuild-docs/a/amd.
+
 Rust/1.60.0:
 The Rust 1.60.0 module is known to be faulty and will be removed from the system. As
 Rust is difficult to support and not a typical HPC language, it is removed from the
