@@ -18,4 +18,6 @@ easyconfigs:
 #  - rocm-5.3.3.eb
   - parallel-20231022.eb
   - lumi-CrayPath-0.1.eb
+  - rocm-5.6.1.eb
+  - amd-5.6.1.eb
   
