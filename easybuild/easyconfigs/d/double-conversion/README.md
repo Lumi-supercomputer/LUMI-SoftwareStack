@@ -2,7 +2,7 @@
 
   * [double-conversion on GitHub](https://github.com/google/double-conversion)
 
-      * [Releases on Git/hub](https://github.com/google/double-conversion/releases)
+      * [Releases on GitHub](https://github.com/google/double-conversion/releases)
 
 ## General information
 
