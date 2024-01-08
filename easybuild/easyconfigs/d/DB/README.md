@@ -9,7 +9,7 @@
 
   * [DB in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/d/DB)
 
-  * There is no support for DB in the EasyBuilders repository
+  * There is no support for DB in the CSCS repository
 
 
 ### Version 18.1.40 from CPE 21.06 onwards
