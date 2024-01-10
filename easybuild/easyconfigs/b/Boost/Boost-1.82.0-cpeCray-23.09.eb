@@ -4,7 +4,7 @@ easyblock = 'EB_BoostCPE'
 
 local_bzip2_version =        '1.0.8'         # http://www.bzip.org/downloads.html
 local_ICU_version =          '73.2'          # http://site.icu-project.org/home
-local_libunwind_version  =   '1.6.2'         # http://download.savannah.nongnu.org/releases/libunwind/
+#local_libunwind_version  =   '1.6.2'         # http://download.savannah.nongnu.org/releases/libunwind/
 local_zlib_version =         '1.2.13'        # https://zlib.net/
 local_zstd_version =         '1.5.5'         # https://github.com/facebook/zstd/releases
 
@@ -44,8 +44,9 @@ to the multithreaded versions.
 """
 
 toolchain = {'name': 'cpeCray', 'version': '23.09'}
-toolchainopts = {'usempi': True, 'pic': True, 'verbose': True, 'cstd': 'c++11',
-                 'extra_cxxflags':  '-L/opt/cray/pe/cce/16.0.1/cce-clang/x86_64/lib/x86_64-unknown-linux-gnu -Qunused-arguments'}
+toolchainopts = {'usempi': True, 'pic': True, 'verbose': True, 'cstd': 'c++11'}
+#toolchainopts = {'usempi': True, 'pic': True, 'verbose': True, 'cstd': 'c++11',
+#                 'extra_cxxflags':  '-Qunused-arguments'}
 
 # https://boostorg.jfrog.io/native/main/release/1.77.0/source/boost_1_77_0.tar.bz2
 source_urls = ['https://boostorg.jfrog.io/artifactory/main/release/%(version)s/source']
@@ -58,13 +59,15 @@ builddependencies = [ # Create a reproducible build environment.
 
 dependencies = [
     ('bzip2', local_bzip2_version),
-    ('libunwind', local_libunwind_version),
+    #('libunwind', local_libunwind_version),
     ('zlib',  local_zlib_version),
     ('zstd',  local_zstd_version),
     ('ICU',   local_ICU_version),
 ]
 
 configopts = '--without-libraries=python'
+
+prebuildopts = 'export CCC_OVERRIDE_OPTIONS="x--target=x86_64-pc-linux" && '
 
 # Also build boost_mpi - not needed as we already set use_mpi to True
 # boost_mpi = True

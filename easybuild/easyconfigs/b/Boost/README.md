@@ -88,3 +88,16 @@ HPE-Cray has a sample build script for Boost in their
   * Trivial port of the EasyConfigs for the regular version of 1.81.0
     to follow the EasyBuild common toolchains version 2023a.
 
+  * Except for cpe Cray 23.09 where some linking errors were generated. The solution turned
+    out to be a special Clang feature to inject options late in the process: Before building,
+    set
+    
+    ``` bash
+    export CCC_OVERRIDE_OPTIONS="x--target=x86_64-pc-linux"
+    ```
+
+    which for building Boost we do via `prebuildopts` in the EasyConfig.
+    
+    **It might be that similar linking errors (about not finding libunwind) are generated when
+    using Boost with this version of the compiler and the same workaround may be needed in that
+    case!**
