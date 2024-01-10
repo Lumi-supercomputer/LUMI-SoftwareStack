@@ -2,9 +2,9 @@
 
   * [Blosc home page](https://www.blosc.org/)
 
-  * [c-blosc GitHub repository](https://github.com/Blosc/c-blosc)
+  * [c-blosc GitHub repository (Blosc 1)](https://github.com/Blosc/c-blosc)
 
-      * [GitHub releases](https://github.com/Blosc/c-blosc/releases/tag/v1.21.0)
+      * [GitHub  Blosc 1](https://github.com/Blosc/c-blosc/releases/tag/v1.21.0)
 
 
 ## EasyBuild

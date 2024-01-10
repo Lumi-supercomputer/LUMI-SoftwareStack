@@ -11,4 +11,4 @@ application to third parties and provides business assurance.
 Please address your request for commercial licensing to 
 berkeleydb-info_us@oracle.com.
 
-The [full licensing information can be found on the Oracle DB licensing page](https://www.oracle.com/database/technologies/related/berkeleydb/berkeleydb-licensing.html).
+The [full licensing information can be found on the Oracle Berkeley DB licensing page](https://www.oracle.com/database/technologies/related/berkeleydb/berkeleydb-licensing.html).
