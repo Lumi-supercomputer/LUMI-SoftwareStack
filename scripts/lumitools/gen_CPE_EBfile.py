@@ -99,7 +99,7 @@ elif local_partition == 'EAP':
 elif local_partition == 'D':
     cray_targets = [
         'craype-x86-rome',
-        # 'craype-accel-nvidia80', # Does not work as cudatoolkit/11.0 is not installed.
+        # 'craype-accel-nvidia80', # It appears we can only load this module after loading cudatoolkit or nvhpc
         'craype-accel-host',
         'craype-network-ofi'
     ]
