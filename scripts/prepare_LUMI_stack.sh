@@ -103,8 +103,8 @@ fi
 if [ -n "$SINGULARITY_CONTAINER" ]
 then
 	partitions=( 'C' 'G' 'L' )
-	cpeGNU=( 'common:C:G:L' )
-    cpeCray=( 'common:C:G:L' )
+	cpeGNU=( 'C:G:L' )
+    cpeCray=( 'C:G:L' )
     cpeAMD=( 'G' )
     declare -A cpeENV=( ['cpeGNU']=$cpeGNU ['cpeCray']=$cpeCray ['cpeAMD']=$cpeAMD )
 elif [[ -d '/appl/lumi' ]]
