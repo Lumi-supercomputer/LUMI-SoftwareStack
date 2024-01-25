@@ -72,4 +72,12 @@ use.
 
   * Trivial port of the 22.08 version (the later one without cURL).
 
+### 23.09
 
+  * Rather trivial port of the 23.03 version
+  
+### 23.12
+
+  * Trivial port of the 23.09 version with version updates
+  
+ 
