@@ -67,7 +67,7 @@ better to avoid bugs also).
 | [GPP](https://github.com/logological/gpp/releases)     | | |
 | [htop](https://github.com/htop-dev/htop/releases)      | | |
 | [libtree](https://github.com/haampie/libtree/releases) | [EB libtree](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/libtree) | [CSCS libtree](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/l/libtree) |
-| [tree](http://mama.indstate.edu/users/ice/tree/src)    | | |
+| [tree](https://gitlab.com/OldManProgrammer/unix-tree/-/tags)    | | |
 
 
 ## Other packages that we try to build against the SYSTEM toolchain
