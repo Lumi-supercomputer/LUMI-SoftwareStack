@@ -13,12 +13,13 @@
 # Mappings used by this module:
 #
 # - Define the mapping between cpe* module and compiler module.
-map_cpe_compilermodule = {
-    'cpeCray': 'cce',
-    'cpeGNU':  'gcc',
-    'cpeAOCC': 'aocc',
-    'cpeAMD':  'amd'
-    }
+#   Had to move this in the routine as from 23.12 on, gcc-native is used instead of gcc.
+#map_cpe_compilermodule = {
+#    'cpeCray': 'cce',
+#    'cpeGNU':  'gcc',
+#    'cpeAOCC': 'aocc',
+#    'cpeAMD':  'amd'
+#    }
 # - Define the mapping between cpe* module and PE compiler package (the packages s used
 #   in the CPEpackages_*.csv files)
 map_cpe_compilerpackage = {
@@ -138,7 +139,24 @@ def gen_CPE_EBfile( CPEmodule, PEversion, CPEpackages_dir, EBfile_dir ):
 
     import os
     import csv
-
+    
+    #
+    # Build the compiler map as it has now become version-dependent
+    #
+    if float( PEversion ) < 23.12 :
+        map_cpe_compilermodule = {
+            'cpeCray': 'cce',
+            'cpeGNU':  'gcc',
+            'cpeAOCC': 'aocc',
+            'cpeAMD':  'amd'
+            }
+    else :
+        map_cpe_compilermodule = {
+            'cpeCray': 'cce',
+            'cpeGNU':  'gcc-native',
+            'cpeAOCC': 'aocc',
+            'cpeAMD':  'amd'
+            }
     #
     # Read the .csv file with toolchain data.
     #
