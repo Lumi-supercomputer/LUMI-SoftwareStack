@@ -121,3 +121,11 @@ Not included at the moment:
     
     Some packages also do not compile in newer versions on SUSE 15 as either the compiler is too
     old or the system Python is no longer supported.
+    
+    
+### 23.12
+
+  * Trivial port with version updates.
+  
+  * re2c stuck at 3.0 as version 3.1 requires Python 3.7 or newer.
+
