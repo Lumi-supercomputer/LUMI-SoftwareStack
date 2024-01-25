@@ -100,7 +100,14 @@ fi
 # Define some "constants".
 #
 
-if [[ -d '/appl/lumi' ]]
+if [ -n "$SINGULARITY_CONTAINER" ]
+then
+	partitions=( 'C' 'G' 'L' )
+	cpeGNU=( 'common:C:G:L' )
+    cpeCray=( 'common:C:G:L' )
+    cpeAMD=( 'G' )
+    declare -A cpeENV=( ['cpeGNU']=$cpeGNU ['cpeCray']=$cpeCray ['cpeAMD']=$cpeAMD )
+elif [[ -d '/appl/lumi' ]]
 then
 	#partitions=( 'C' 'G' 'D' 'L' 'EAP' )
 	#cpeGNU=( 'common:C:G:D:L:EAP' )
