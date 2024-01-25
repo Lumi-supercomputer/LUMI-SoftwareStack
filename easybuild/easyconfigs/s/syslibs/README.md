@@ -73,6 +73,7 @@ use.
 
   * Trivial port of the 22.08 version (the later one without cURL).
 
+### 23.09
 
 ### 23.09
 
@@ -83,3 +84,8 @@ use.
     https://github.com/green-green-avk/build-proot-android/blob/master/make-talloc-static.sh.
 
     This is done specifically for use in proot which we want to be a fully static executable.
+  
+### 23.12 / 24.03
+
+  * Trivial port of the 23.09 version with version updates
+  
