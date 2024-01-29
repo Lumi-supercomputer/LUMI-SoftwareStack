@@ -105,8 +105,7 @@ then
 	partitions=( 'C' 'G' 'L' )
 	cpeGNU=( 'C:G:L' )
     cpeCray=( 'C:G:L' )
-    cpeAMD=( 'G' )
-    declare -A cpeENV=( ['cpeGNU']=$cpeGNU ['cpeCray']=$cpeCray ['cpeAMD']=$cpeAMD )
+    declare -A cpeENV=( ['cpeGNU']=$cpeGNU ['cpeCray']=$cpeCray )
 elif [[ -d '/appl/lumi' ]]
 then
 	#partitions=( 'C' 'G' 'D' 'L' 'EAP' )
