@@ -36,6 +36,7 @@ if os.getenv( 'LUMI_STACK_NAME' ) ~= nil then
     hide_modulefile( '/opt/cray/pe/lmod/modulefiles/core/cpe/23.03.lua' )
     hide_modulefile( '/opt/cray/pe/lmod/modulefiles/core/cpe/23.05.lua' )
     hide_modulefile( '/opt/cray/pe/lmod/modulefiles/core/cpe/23.09.lua' )
+    hide_modulefile( '/opt/cray/pe/lmod/modulefiles/core/cpe/23.12.lua' )
 end
 
 -- Solve a problem for users who were previously using ROCm 5.0.2
