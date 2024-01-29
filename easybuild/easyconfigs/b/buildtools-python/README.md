@@ -22,3 +22,7 @@ Links for quick checking for version updates:
 
 -   Newer versions of Meson, but needs cray-python to run.
 
+
+### 23.12-cray-python3.11
+
+-   Uses up-to-date versions of Meson and scons.
