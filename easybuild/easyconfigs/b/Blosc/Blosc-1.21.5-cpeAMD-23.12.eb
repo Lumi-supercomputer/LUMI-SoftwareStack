@@ -42,10 +42,20 @@ builddependencies = [
     ('buildtools', '%(toolchain_version)s', '', True),
 ]
 
+postinstallcmds = [
+    'mkdir -p %(installdir)s/share/licenses/%(name)s',
+    'cd ../c-blosc-%(version)s && cp LICENSE.txt README.md FAQ.md THANKS.rst %(installdir)s/share/licenses/%(name)s',   
+    'cd ../c-blosc-%(version)s && cp -r LICENSES %(installdir)s/share/licenses/%(name)s',   
+]
+
 sanity_check_paths = {
     'files': ['include/blosc-export.h', 'include/blosc.h', 'lib/libblosc.a',
               'lib/libblosc.%s' % SHLIB_EXT],
     'dirs':  [],
 }
+
+sanity_check_commands = [
+    'pkg-config --libs blosc', 
+]
 
 moduleclass = 'lib'

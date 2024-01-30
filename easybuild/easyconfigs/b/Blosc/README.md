@@ -40,4 +40,5 @@
     some annoying bugs.
 
   * Trivial bump of the 1.21.2 EasyConfig.
-  
+
+  * From 23.12 on: Added license information to the installation.
