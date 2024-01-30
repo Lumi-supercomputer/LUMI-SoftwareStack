@@ -55,10 +55,21 @@ cluster).
 
   * Straightforward port of the 2.37.0 EasyConfig file.
   
+
 ### git 2.40.0 for 22.12/23.03
 
-  * Straightforward port of the 2.40.0 EasyConfig file.
+  * Straightforward port of the 2.37.2 EasyConfig file.
   
   * Decided to not yet include git-lfs in the module itself as the latter is still 
     installed from binaries and needs some additional treatment in `postinstallcmds`.
+
+
+### git 2.42.1 for 23.09
+
+  * Straightforward port of the 2.40.0 EasyConfig.
+  
+  
+### git 2.43 for 23.12
+
+  * Straightforward port of the 2.42.1 EasyConfig.
 
