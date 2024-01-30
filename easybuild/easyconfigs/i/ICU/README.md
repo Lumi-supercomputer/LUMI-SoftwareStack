@@ -51,3 +51,14 @@ Build problem with cpeGNU when using the 12.2.0 compilers:
 
 -   Trivial port of the 72.1 EasyConfig.
 
+
+### 74.2 from CPE 23.12
+
+-   Trivial port of the 73.2 EasyConfig
+
+-   The license information was not found in the downloaded files so it has not
+    been copied to the installation directories.
+    
+-   The installation procedure of the package itself actually wants to copy the 
+    LICENSE file also, which failed as it is a link to nowhere in 74.2, so we
+    generate an empty one via `prebuildopts`.
