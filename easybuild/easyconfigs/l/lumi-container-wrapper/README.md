@@ -31,3 +31,7 @@ version of cray-python that is already loaded when the module is loaded.
 
 -   The EasyConfigs are a trivial port of the ones developed before.
 
+
+### Version 0.3.2
+
+-   Trivial update of the 0.3.1 EasyConfig
