@@ -27,10 +27,12 @@ There is a difference in settings:
     However, we do keep the the ``-mcmodel=large`` flag as it was likely added from
     experiences that are still valid.
 
+
 ### Differences between toolchains
 
   * ``cpeAMD`` generates an unused option warning when ``-mcmodel=large`` is used so
     it is omitted from the options in the ``cpeAMD`` version.
+
 
 ### Version 6.2.1 from CPE 21.06 on
 
@@ -42,3 +44,9 @@ There is a difference in settings:
     
   * We still have problems with cpeAMD.
 
+
+### Version 6.3.0 from CPE 23.12 on
+
+  * Started as a straightforward port of the 6.2.1 EasyConfigs.
+  
+  * Added copying of the licenses to the installation directory.
