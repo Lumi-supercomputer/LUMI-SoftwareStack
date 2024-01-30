@@ -26,3 +26,5 @@
     one and a bug report was submitted. We also modified the home page to a new one.
 
   * Switched to the modified way of specifying checksums from 22.12 on.
+
+  * From 23.12 on: We now also copy the LICENSE file.
