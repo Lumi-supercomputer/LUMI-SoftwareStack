@@ -42,3 +42,5 @@
 ### Version 2.5.0 from CPE 23.09 on
 
   * Version bump to align with 2023a, trivial.
+
+  * For LUMI/23.12: Add license information to the installation.
