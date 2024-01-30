@@ -25,9 +25,15 @@
     probably because they were included as build dependencies and EasyBuild didn't
     set all variables, but this is not sure.
 
+
 ### Subversion 1.14.2 for SYSTEM in LUMI/22.06
 
   * Straightforward port from the 1.14.1 EasyConfig
 
   * Added checksum to robustify the installation on LUMI.
 
+
+### Subversion 1.14.3 from LUMI/23.12 on
+
+  * Reworked a bit to make the EasyConfig independent of the particular
+    LUMI stack.
