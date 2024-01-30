@@ -21,3 +21,5 @@
   * There are now versions with OpenMP enabled and without. When in doubt which one to use: One
     should never combine code compiled with the OpenMP version of LibSci with code with the 
     sequential version (or likely any code compiled without OpenMP) as this causes runtime crashed.
+
+  * From LUMI/23.12 on: Also copy license information to the installation directories.
