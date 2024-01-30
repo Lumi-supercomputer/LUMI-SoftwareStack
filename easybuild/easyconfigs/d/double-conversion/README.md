@@ -51,3 +51,9 @@ of the library that SCons generates.
 
   * Trivial version bump of the 3.2.1 one.
   
+  * LUMI/23.12:
+  
+      * Moved from 'lib64' to 'lib' for consistency
+      
+      * Added license information.
+      
