@@ -6,11 +6,13 @@
 
   * [Alternative gzip home page at gzip.org](https://www.gzip.org/)
 
+
 ## EasyBuild
 
   * [gzip support in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/g/gzip)
 
   * There is no gzip in the CSCS repository
+
 
 #### 1.10 from CPE 21.06 on
 
@@ -25,10 +27,17 @@
         for all Cray environments.
       * Disable the warning via extra_cflags which is what we have done here.
 
+
 ### 1.12 from CPE 22.06 on
 
   * Trivial port of the EasyConfig.
 
   * The extra flag to deal with problems with zen3 optimisation is no longer needed.
 
+
+### 1.13 from 23.12 on
+
+  * Trivial port of the 1.12 EasyConfig.
+  
+  * But added copying of the license information to the installation directories.
 

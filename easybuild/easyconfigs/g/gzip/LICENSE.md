@@ -7,3 +7,6 @@ or (at your option) any later version.
 
 See also the
 [COPYING file in the gzip source repository](https://git.savannah.gnu.org/cgit/gzip.git/tree/COPYING).
+
+From version 1.13 on, the license information is also available in
+`$EBROOTGZIP/share/licenses/gzip` after loading the `gzip` module.
