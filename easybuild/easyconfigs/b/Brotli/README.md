@@ -17,3 +17,13 @@
   * The EasyConfig file is based on one from the University of Antwerpen which itself
     is based on a standard EasyBuilders recipe.
 
+
+### Version 1.1.0 from 23.12 on
+
+  * Reworked the EasyConfig to have two configure-build steps, one for shared and one 
+    for static libraries, as the static library is no longer built automatically with 
+    a different name.
+    
+  * And also needed to change the sanity check for that.
+  
+  * While we were at it, we also copied the LICENSE file to share/licenses
