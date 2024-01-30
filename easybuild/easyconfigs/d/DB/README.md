@@ -18,3 +18,6 @@
     documentation updates.
 
   * For LUMI/22.12: Switch to the improved way of specifying checksums.
+
+  * For LUMI/23.12: Added the license file and examples to the installation and do
+    more sanity checks.

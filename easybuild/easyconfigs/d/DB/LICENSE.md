@@ -12,3 +12,6 @@ Please address your request for commercial licensing to
 berkeleydb-info_us@oracle.com.
 
 The [full licensing information can be found on the Oracle Berkeley DB licensing page](https://www.oracle.com/database/technologies/related/berkeleydb/berkeleydb-licensing.html).
+
+From LUMI/23.12 on, a copy of the license can also be found in
+`$EBROOTDB/share/licenses/DB` after loading the module.
