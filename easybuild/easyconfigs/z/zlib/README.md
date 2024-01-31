@@ -29,4 +29,10 @@
     in the zlib distribution.
 
   
+### zlib 1.3.1 from CPE 23.12 on
+
+  * Swithced to a CMakeMake build process to work around issues with the Cray compiler 
+    that only generated static libraries.
   
+  * Now also copying license information to the installation directories.
+
