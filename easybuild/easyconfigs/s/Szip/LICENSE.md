@@ -15,3 +15,6 @@ which may occur in two sets of circumstances:
 
 More information is also available in the 
 ["Szip Copyright and License Statement, as Distributed in the HDF Source Code" page](https://support.hdfgroup.org/doc_resource/SZIP/Commercial_szip.html).
+
+From LUMI/23.12 on, some information can also be found in
+`$EBROOTSZIP/share/licenses/Szip` after loading the `Szip` module.
