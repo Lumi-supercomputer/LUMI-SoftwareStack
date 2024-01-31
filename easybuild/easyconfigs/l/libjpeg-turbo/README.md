@@ -43,3 +43,10 @@
   * Trivial version bump of the 2.1.4 EasyConfig.
 
 
+### Version 3.0.2 from CPE 23.12 on
+
+  * Trivial version bump of the 2.1.5.1 EasyConfig.
+  
+  * But now also copy the license information to the installation directories.
+  
+  * And also improved the sanity checks a bit.
