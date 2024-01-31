@@ -22,3 +22,5 @@
 
   * The EasyConfig is a trivial version bump of the 1.9.3 one.
 
+  * For 23.12: Add license information to the installation directories.
+ 
