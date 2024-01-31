@@ -27,11 +27,3 @@
   
   * Added license information to the installation.
  
- 
- 
- postinstallcmds = [
-    'mkdir -p %(installdir)s/share/licenses/%(name)s',
-    'cd ../%(namelower)s-v%(version)s-* && cp AUTHORS CHANGELOG.md LICENSE.txt README.md README.SZIP THANKS %(installdir)s/share/licenses/%(name)s',   
-]
-
- 
