@@ -1,0 +1,48 @@
+easyblock = 'ConfigureMake'
+
+local_Lzip_version =         '1.24'          # http://download.savannah.gnu.org/releases/lzip/
+
+name =    'Lzip'
+version = local_Lzip_version
+
+homepage = 'https://www.nongnu.org/lzip/'
+
+whatis = [
+    "Description: Lzip is a lossless data compressor with a user interface similar to the one of gzip or bzip2",
+]
+
+description = """
+Lzip is a lossless data compressor with a user interface
+similar to the one of gzip or bzip2. Lzip can compress about as fast as gzip
+(lzip -0) or compress most files more than bzip2 (lzip -9). Decompression
+speed is intermediate between gzip and bzip2. Lzip is better than gzip
+and bzip2 from a data recovery perspective. Lzip has been designed,
+written, and tested with great care to replace gzip and bzip2 as the
+standard general-purpose compressed format for unix-like systems.
+"""
+
+toolchain = {'name': 'cpeAMD', 'version': '23.12'}
+toolchainopts = {'pic': True}
+
+# https://download.savannah.gnu.org/releases/lzip/lzip-1.22.tar.gz
+source_urls = ['https://download.savannah.gnu.org/releases/lzip']
+sources =     [SOURCELOWER_TAR_GZ]
+checksums =   ['d42659229b10e066eeb6e81eb673cdd893b672e512d26719c2d95975556ca56c']
+
+builddependencies = [ # Create a reproducible build environment.
+    ('buildtools', '%(toolchain_version)s', '', True),
+]
+
+postinstallcmds = [
+    'mkdir -p %(installdir)s/share/licenses/%(name)s',
+    'cp AUTHORS ChangeLog COPYING NEWS README %(installdir)s/share/licenses/%(name)s',   
+]
+
+sanity_check_paths = {
+    'files': ['bin/lzip', 'share/man/man1/lzip.1'],
+    'dirs':  [],
+}
+
+sanity_check_commands = [True, ('lzip', '--version')]
+
+moduleclass = 'tools'
