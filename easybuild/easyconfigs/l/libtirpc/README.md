@@ -19,5 +19,13 @@
   
 ### Version 1.3.3 from CPE 22.12 on
 
-  * The EasyConfig is a straightforward port of the 1.3.2. one.
+  * The EasyConfig is a straightforward port of the 1.3.2 one.
 
+
+### Version 1.3.4 from CPE 23.12 on
+
+  * The EasyConfig is a straightforward port of the 1.3.3 one.
+  
+  * We now also copy the license information to the installation directories.
+
+  * Needed to configure with `--disable-symvers` for the Cray compiler./
