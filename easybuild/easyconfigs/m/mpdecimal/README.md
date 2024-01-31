@@ -20,3 +20,12 @@
 ### Version 2.5.1 from CPE 21.06 on
 
   * The EasyConfig is a direct port of the one of the University of Antwerpen.
+
+  
+### Version 4.0.0 from CVPE 23.12 on
+
+  * Trivial port of the EasyConfig for 2.5.1.
+  
+  * Now also copy some license information to the installation directories.
+  
+  * Improved sanity checks.
