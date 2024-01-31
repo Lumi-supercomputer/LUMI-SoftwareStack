@@ -26,4 +26,9 @@ versions on the home page so we simply follow the state in EasyBuild.
   * Trivial port of the EasyConfig for 20210414, but with a change to the location
     where we copy the licensing information.
 
-  
+
+### Version 20231019 from CPE 23.12 on
+
+  * Trivial port of the EasyConfig for 20230226, but we started using Python f-strings
+    and also worked a bit on the sanity checks.
+
