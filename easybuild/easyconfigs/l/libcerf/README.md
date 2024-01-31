@@ -20,10 +20,19 @@
   * **NOTE: The build process also uses Perl which is currently taken from the system
     to avoid having to build an incomplete Perl that early in the build cycle.**
 
+
 ### Version 2.1 from CPE 22.06 on
 
   * Trivial update of the EasyConfig.
 
+
 ### Version 2.3 from CPE 22.12 on
 
   * Trivial update of the EasyConfig.
+
+  
+### Version 2.4 from CPE 23.12 on
+
+  * Trivial port of the EasyConfig for 2.3.
+  
+  * Tried to build static libraries also but that didn't work.
