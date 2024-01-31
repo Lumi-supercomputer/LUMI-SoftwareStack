@@ -50,4 +50,4 @@ target.
 
   * Trivial port of the 0.9.29 EasyConfig
 
-
+  * For 23.12: Added license information to the installation directories.
