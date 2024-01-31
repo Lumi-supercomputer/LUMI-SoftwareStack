@@ -16,8 +16,10 @@
     University of Antwerpen. It is a straightforward configure - make - make
     install process.
     
-## TODO
-
-  * Currently the flag `-match=native` is added. It might be possible to prevent
-    this with `--enable-native=no`. Try this out and implement in the next version
-    to ensure proper cross-compiling.
+  * For LUMI/23.12: 
+  
+      * Copy the license information to the installation directories,
+        and improved sanity checks.
+        
+      * Use `--enable-native=no` to avoid adding `-march=native` to the compiler
+        flags to improve cross-compiling.
