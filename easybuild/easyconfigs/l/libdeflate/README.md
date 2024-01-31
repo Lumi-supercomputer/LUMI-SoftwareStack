@@ -36,3 +36,8 @@
   * Trivial port of the 1.15 one.
 
 
+### Version 1.19 from CPE 23.12 on
+
+  * Trivial port of the 1.18 EasyConfig.
+  
+  * Added license information to the installation directories.
