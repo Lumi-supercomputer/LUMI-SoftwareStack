@@ -54,3 +54,5 @@
     
     It may or may not be solved by patching the `*.map` files in the `package` subdirectory
     but we have no idea how to do this.
+
+  * For LUMI/23.12: Also add license information to the installation directories.
