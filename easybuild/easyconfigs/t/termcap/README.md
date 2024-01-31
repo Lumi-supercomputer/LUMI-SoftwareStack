@@ -26,3 +26,6 @@ to find the required functionality in ncurses.
 
   * From Clang 16 on the C standard needs to be set explicitly to c90 to avoid
     error messages about features forbidden in C99 or newer.
+    
+  * From LUMI/23.12 on: Also copy license information to the installation directories.
+
