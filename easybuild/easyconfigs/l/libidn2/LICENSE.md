@@ -11,3 +11,5 @@ and the
 [COPYING.v3](https://git.savannah.gnu.org/cgit/libidn.git/tree/COPYINGv3)
 files referred to.
 
+From version 2.3.7 on, this information is also available in 
+`$EBROOTLIBIDN2/share/licenses/libidn2` after loading the `libidn2` module.

@@ -22,5 +22,13 @@
 
 ### Version 2.3.4 from CPE 22.12 on
 
-  * Trivial port of the 3.4.2 EasyConfig.
+  * Trivial port of the 3.3.2 EasyConfig.
 
+
+### Version 2.3.7 from CPE 23.12 on
+
+  * Trivial port of the 2.3.4 EasyConfig.
+  
+  * But now also copy the license information to the installation directories.
+  
+  * A bit more thorough sanity checks.
