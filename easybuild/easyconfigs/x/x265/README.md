@@ -23,3 +23,5 @@
 
       * We did delete the numactl-devel OS dependency used in Antwerpen even
         though it may have a positive influence on the performance.
+
+  * For LUMI/23.12 and later: Also added license information to the installation directories.
