@@ -37,4 +37,11 @@
 
   * Trivial version update of the EasyConfig.
 
+
+### Version 5.45 from CPE 23.12 on
+
+  * Started from a port of the 5.43 one.
   
+  * But added a static library.
+  
+  * And copied license information to the installation directories.
