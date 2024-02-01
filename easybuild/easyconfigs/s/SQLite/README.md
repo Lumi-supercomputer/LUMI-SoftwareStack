@@ -32,5 +32,13 @@
 
 ### Version 3.42.0 from CPE 23.09 on
 
-  * Trivial port of the EasyConfig fro 3.39.4.
+  * Trivial port of the EasyConfig for 3.39.4.
+
+
+### Version 3.45.2 from CPE 23.12 on
+
+  * Trivial port of the EasyConfig for 3.42.0.
+  
+  * Checked for license information, but there is no information that we can copy
+    to the installation directories.
 
