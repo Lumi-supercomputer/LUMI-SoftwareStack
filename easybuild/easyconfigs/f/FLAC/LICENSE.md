@@ -18,3 +18,6 @@ and the
 [COPYING.GPL](https://github.com/xiph/flac/blob/master/COPYING.GPL) and
 [COPYING.LGPL](https://github.com/xiph/flac/blob/master/COPYING.LGPL)
 files on the FLAC GitHub.
+
+From version 1.4.3 on, the license information can also be found in
+`$EBROOTFLAC/share/licenses/FLAC` after loading the `FLAC` module.

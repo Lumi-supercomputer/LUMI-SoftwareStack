@@ -39,3 +39,11 @@
   * The EasyConfig is a trivial update of the 1.3.4 one but we copied the improved
     sanity check from the EasyBuilders one.
 
+
+### Version 1.4.3 from CPE 23.12 on
+
+  * Started from the 1.4.2 EasyConfig.
+  
+  * Improved the sanity checks
+  
+  * Added license information to the installation.
