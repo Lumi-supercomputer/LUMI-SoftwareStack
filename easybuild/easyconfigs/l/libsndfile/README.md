@@ -75,3 +75,5 @@
 
   * Trivial version bump of the 1.2.2 EasyConfig, again not yet with the CMake build process.
 
+  * For LUMI/23.12: Improved sanity checks and copying of the license information to the installation
+    directories.
