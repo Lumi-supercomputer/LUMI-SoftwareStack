@@ -1,0 +1,68 @@
+easyblock = 'ConfigureMake'
+
+local_XZ_version =           '5.4.6'         # https://tukaani.org/xz/
+local_libunwind_version  =   '1.8.0'         # http://download.savannah.nongnu.org/releases/libunwind/
+
+name =    'libunwind'
+version = local_libunwind_version
+
+homepage = 'https://www.nongnu.org/libunwind/'
+
+whatis = [
+    'Description: Efficient C programming interface to determine the call-chain of a program'
+]
+
+description = """
+Libunwind is define a portable and efficient C programming interface (API) to
+determine the call-chain of a program. The API additionally provides the means
+to manipulate the preserved (callee-saved) state of each call-frame and to
+resume execution at any point in the call-chain (non-local goto). The API
+supports both local (same-process) and remote (across-process) operation. As
+such, the API is useful in a number of applications
+
+- exception handling: the libunwind API makes it trivial to implement the
+  stack-manipulation aspects of exception handling.
+
+- debuggers: the libunwind API makes it trivial for debuggers to generate the
+  call-chain (backtrace) of the threads in a running program.
+
+- introspection: it is often useful for a running thread to determine its
+  call-chain. For example, this is useful to display error messages (to show how
+  the error came about) and for performance monitoring/analysis.
+
+- efficient setjmp(): With libunwind, it is possible to implement an extremely
+  efficient version of setjmp(). Effectively, the only context that needs to be
+  saved consists of the stack-pointer(s).
+"""
+
+docurls = [
+    'Documentation: https://www.nongnu.org/libunwind/docs.html'
+]
+
+toolchain = {'name': 'cpeCray', 'version': '23.12'}
+
+# https://github.com/libunwind/libunwind/releases/download/v1.8.0/libunwind-1.8.0.tar.gz
+sources =     [SOURCE_TAR_GZ]
+source_urls = ['https://github.com/libunwind/libunwind/releases/download/v%(version)s']
+checksums =   ['b6b3df40a0970c8f2865fb39aa2af7b5d6f12ad6c5774e266ccca4d6b8b72268']
+
+builddependencies = [
+    ('buildtools', '%(toolchain_version)s', '', True),
+]
+
+dependencies = [
+    ('XZ', local_XZ_version),
+]
+
+preconfigopts = 'export LIBS="$LIBS -llzma" && export CFLAGS="$CFLAGS -fuse-ld=bfd -fno-common" && '
+
+sanity_check_paths = {
+    'files': ['lib/libunwind%s.%s' % (x, y) for x in ['', '-coredump', '-generic', '-ptrace', '-setjmp', '-x86_64'] for y in ['a', SHLIB_EXT]] +
+             ['include/libunwind%s.h' % x for x in ['', '-common', '-coredump', '-dynamic', '-ptrace', '-x86_64']] +
+             ['include/unwind.h'],
+    'dirs':  ['lib/pkgconfig']
+}
+
+sanity_check_commands = ['pkg-config --libs libunwind%s ' % x for x in ['', '-coredump', '-generic', '-ptrace', '-setjmp']]
+
+moduleclass = 'lib'
