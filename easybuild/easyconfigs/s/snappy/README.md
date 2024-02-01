@@ -45,5 +45,11 @@ This README was developed starting with snappy 1.1.8 in the CPE 21.06.
     wrappers) needed to turn off error messages about unused arguments as there were 
     some -L lines added that were not used.
     
-    
-    
+
+### Version 1.1.10 from CPE 23.12 on
+
+  * Started from the 1.1.9 EasyConfig. Moved to a separate build directory.
+  
+  * Now also copy license information to the installation directories.
+  
+  * Needed an additional compiler flag for cpeCray to work around a code problem.
