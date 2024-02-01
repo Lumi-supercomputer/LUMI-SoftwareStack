@@ -39,3 +39,9 @@
 
   * Version bump to 8.0.1 to follow 2023a, but trivial for the EasyConfig.
 
+
+### Version 8.6.0 from CPE 23.12 on
+
+  * Started from a version bump of the 8.0.1 EasyConfig.
+  
+  * New dependency: libpsl.
