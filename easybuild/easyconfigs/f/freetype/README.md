@@ -42,3 +42,11 @@
 ### Version 2.13.0
 
   * Trivial version bump of the 2.12.1 EasyConfig.
+
+  
+### Version 2.13.2 from CPE 23.12 on
+
+  * Trivial version bump of the 2.13.0 EasyConfig
+  
+  * Added the license information to the installation directories.
+
