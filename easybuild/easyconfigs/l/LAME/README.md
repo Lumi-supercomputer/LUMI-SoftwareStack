@@ -14,4 +14,9 @@
 ### version 3.100 from CPE 21.06 on
 
   * The EasyConfig is based on the EasyBuilders one with documentation from the
-    University of Antwerpen.
+    University of Antwerpen.\
+    
+  * For 23.12, the sanity checks were improved and the license information is copied
+    to the installation directories.
+    
+  * For CCE 17: Needed to add a link flag to work around problems with versioned symbols.
