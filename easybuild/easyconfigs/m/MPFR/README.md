@@ -27,3 +27,11 @@
 
   * The easyConfig is a trivial port of the 4.1.0 one.
 
+
+### Version 4.2.1 from CPE 23.12 on
+
+  * The EasConfig builds upon the 4.2.0 one, but now also copies the license information 
+    to the installation directories.
+
+  * Note that there are  still tests that fail for cpeCray so for now the testing has 
+    been turned off.
