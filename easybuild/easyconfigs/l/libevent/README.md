@@ -18,3 +18,5 @@
 
   * The EasyConfig was derived from the EasyBuilder one with some input from the
     University of Antwerpen one and additional checks.
+
+  * For LUMI/23.12: Adding license information to the installation directories.
