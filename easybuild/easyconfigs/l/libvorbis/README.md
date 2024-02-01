@@ -26,3 +26,9 @@
 
   * The EasyConfig is a combination of the EasyBuilders one and the University
     of Antwerpen one which predates the EasyBuilders one.
+
+  * For 23.12:
+  
+      * Improved sanity checks
+      
+      * Copied the license information to the installation directories.
