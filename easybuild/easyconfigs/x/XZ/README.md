@@ -21,3 +21,10 @@
     we assume the bug will be fixed by now.
 
     
+### Version 5.4.6 from CPE 23.12 on
+
+  * Started from the 5.4.2 EasyConfig.
+  
+  * Added more sanity checks.
+  
+  * Added license information to the installation directories.
