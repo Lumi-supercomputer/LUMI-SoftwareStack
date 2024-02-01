@@ -22,5 +22,6 @@
 
 ### 8.3 from CPE 22.12 on
 
-  *  The EasyConfig is a trivial port of the 8.1.2 one.
+  * The EasyConfig is a trivial port of the 8.1.2 one.
 
+  * For 23.12: Also copy the license information to the installation directories.
