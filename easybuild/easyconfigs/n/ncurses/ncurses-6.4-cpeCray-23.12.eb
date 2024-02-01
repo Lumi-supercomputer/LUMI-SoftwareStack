@@ -12,7 +12,7 @@ pads and color and multiple highlights and forms characters and function-key
 mapping, and has all the other SYSV-curses enhancements over BSD Curses."""
 
 toolchain = {'name': 'cpeCray', 'version': '23.12'}
-toolchainopts = {'optarch': True, 'pic': True}
+toolchainopts = {'optarch': True, 'pic': True, 'extra_cflags': '-Wl,--undefined-version'}
 
 source_urls = [GNU_SOURCE]
 sources =     [SOURCE_TAR_GZ]
@@ -22,7 +22,7 @@ builddependencies = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
 ]
 
-local_common_configopts  = "--with-shared --enable-overwrite --without-ada --enable-symlinks "
+local_common_configopts  = "--with-shared --enable-overwrite --without-ada --enable-symlinks --with-versioned-syms "
 local_common_configopts += "--with-termlib --enable-termcap " # The latter cannot be combined with --with-ticlib
 local_common_configopts += "--enable-pc-files --with-pkg-config-libdir=%(installdir)s/lib/pkgconfig "
 # More complete setup that interfers even more with system binaries:
