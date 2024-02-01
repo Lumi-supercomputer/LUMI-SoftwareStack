@@ -18,4 +18,8 @@
 
   * Trivial port of the 1.16 EasyConfig.
 
-
+  * For LUMI/23.12:
+  
+      * Improved sanity checks
+      
+      * Copy license information to the installation directories.
