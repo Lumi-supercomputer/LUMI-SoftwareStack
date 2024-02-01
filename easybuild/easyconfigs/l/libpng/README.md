@@ -25,3 +25,11 @@
 
   * The EasyConfig is a trivial update of the 1.6.38 one.
 
+
+### Version 1.6.41 from CPE 23.12 on
+
+  * Started from the 1.6.39 EasyConfig.
+  
+  * Improved the sanity checks.
+  
+  * Added license information to the installation directories.
