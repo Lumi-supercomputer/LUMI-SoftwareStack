@@ -23,3 +23,6 @@
 
   * Added an additional sanity check from 21.12 on that will likely guarantee that the
     XML data file used by the version 2 libraries can be found.
+
+  * For 23.12: Adding license information to the installation directories.
+
