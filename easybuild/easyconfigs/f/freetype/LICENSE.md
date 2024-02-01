@@ -13,3 +13,6 @@ FreeType comes with two licenses from which you can choose the one which fits yo
 
 This information can be found on the 
 ["FreeType licenses" page](https://freetype.org/license.html)
+
+From version 2.13.2 on, some license information is also available in
+`$EBROOTFREETYPE/share/licenses/freetype` after loading the `freetype` module.
