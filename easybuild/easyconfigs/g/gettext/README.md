@@ -26,3 +26,14 @@
     These repositories provide an in-between version that uses a libxml2 produced with
     EasyBuild rather than the internal one used in the ``-minimal`` configuration and
     hence also uses zlib.
+
+    
+### gettext 0.22.4 from 23.12 on
+
+  * Started from the configirations for 0.21.1
+  
+      * Changed the minimal version to one without even ncurses as it looks like libreadline 
+        is then also needed.
+  
+  * But added license information to the installation.
+    
