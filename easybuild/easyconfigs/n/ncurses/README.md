@@ -56,3 +56,6 @@
     but we have no idea how to do this.
 
   * For LUMI/23.12: Also add license information to the installation directories.
+  
+  * For LUMI/23.12: Needed to add a linker flag for cpeCray as it looks like there are errors
+    in some script that adds versions that cause linking to fail.
