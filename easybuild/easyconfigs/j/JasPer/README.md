@@ -32,3 +32,13 @@
   * Trivial version bump of the EasyConfig, but we did copy the improved sanity check
     from the EasyBuilders version.
 
+
+### Version 4.1.2 from CPE 23.12 on
+
+  * Reworked the EasyConfig a lot:
+  
+      * Generating both static and shared libraries.
+      
+      * Improved sanity checks
+      
+      * Copy license information to the installation directories.
