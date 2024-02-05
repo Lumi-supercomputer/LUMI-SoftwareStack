@@ -46,7 +46,7 @@ dependencies = [
     ('PCRE2',   local_PCRE2_version),
     # OS dependency should be preferred if the os version is more recent then this version,
     # it's nice to have an up to date openssl for security reasons
-    ('OpenSSL', '1.1', '', SYSTEM), # Needed for now in the container.
+    #('OpenSSL', '1.1', '', SYSTEM), # Needed for now in the container.
     # ('OpenSSL', '1.0.1s'),
     # OS dependency should be preferred if the os version is more recent then this version,
     # it's nice to have an up to date gnutls for security reasons
@@ -54,7 +54,7 @@ dependencies = [
 ]
 
 osdependencies = [
-#    ('openssl-devel', 'libssl-dev', 'libopenssl-devel'),
+    ('openssl-devel', 'libssl-dev', 'libopenssl-devel'),
     # Optionally, you can use gnutls (default) instead of OpenSSL.
     # Do not forget to comment out configopts in that case.
     # osdependencies = [('gnutls-devel', 'gnutls-dev', 'libgnutls-devel')]
