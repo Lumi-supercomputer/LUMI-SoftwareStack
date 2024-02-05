@@ -31,3 +31,5 @@
 
   * Trivial port of the EasyConfig
 
+  * From 23.12 on, license information was added to the installation directories.
+
