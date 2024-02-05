@@ -33,3 +33,10 @@
   
   * But needed to explicitly enable static libraries in this version.
 
+
+### Version 2.12.5 from CPE 23.12 on
+
+  * Trivial version bump of the 2.11.4 EasyConfig.
+  
+  * But added license information to the installation directories.
+
