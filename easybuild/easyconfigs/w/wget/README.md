@@ -28,9 +28,11 @@
         for all Cray environments.
       * Disable the warning via extra_cflags which is what we have done here.
 
+
 ### Version 1.21.2 for 21.12
 
   * Trivial port
+
 
 ### Version 1.21.3 for CPE 22.06
 
@@ -38,5 +40,12 @@
 
   * Added libpsl as a dependency. We do not use libmetalink though, and it looks
     like at least Red Hat linux wants to get rid of libmetalink.
+
+
+### Version 1.21.4 from CPE 23.12 on
+
+  * Trivial port of the 1.21.3 EasyConfig.
+  
+  * But added license information to the installation directories.
 
 
