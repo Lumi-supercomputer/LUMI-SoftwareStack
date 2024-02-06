@@ -68,4 +68,28 @@ in releases of the Cray PE:
     Not developed yet.
 
 
+## Breaking changes in Cray PE 23.12
+
+-   23.12 switched to using a SUSE gcc build and therefore also changed the name of
+    the compiler module to `gcc-native`.
+    
+-   Cray LibSci: The environment variable `CRAY_LIBSCI_PREFIX_DIR` no longer exists.
+    Instead, `CRAY_PE_LIBSCI_PREFIX_DIR` is now used.
+    
+    This has consequences in multiple places:
+    
+    -   This needs to be changed in the extral module files in `easybuild/config` in
+        this repository and hence in the script that generates those files:
+        `scripts/lumitools/gen_EB_external_modules_from_CPEdef.py`.
+        
+    -   In EasyBuild itself, the file `easybuild/toolchains/linalg/libsci.py` also needs
+        to be patched.
+        
+        After line 68 and 69, where `CRAY_LIBSCI_PREFIX_DIR` is read, one can add, e.g.,
+        
+        ``` Python
+        if root is None: # New variable name from 23.12 on.
+            env_var = 'CRAY_PE_LIBSCI_PREFIX_DIR'
+            root = os.getenv(env_var, None)
+        ```
 
