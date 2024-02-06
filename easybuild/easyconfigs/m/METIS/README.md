@@ -27,4 +27,4 @@ The 5.1.0 release is from 2013.
 
     It uses the default EasyBuild METIS EasyBlock.
 
-
+  * For 23.12: Add license information to the installation directories.
