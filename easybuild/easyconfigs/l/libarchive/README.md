@@ -31,3 +31,13 @@
   * Trivial version bump of the 3.6.1 EasyConfig
 
   * But aligned the sources with those used by EasyBuild.
+
+  
+### Version 3.7.2 from CPE 23.12 on
+
+  * Trivial version bump of the 3.7.2 EasyConfig.
+  
+  * But now also copying license information to the installation directories.
+  
+  * And with improved sanity checks.
+
