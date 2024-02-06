@@ -39,3 +39,10 @@
   
   * Did not work so reverted to 2.38.1.
 
+
+### Version 2.39.3 from CPE 23.12 on
+
+  * Version bump of 2.38.1
+  
+  * Added license information to the installation directories.
+
