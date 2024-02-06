@@ -22,3 +22,6 @@ for the CrayEnv software stack.
 -   The EasyConfig build upon the 1.0 one but with some important changes as there
     is now a tool that should only be installed in partition/G. So there are now
     makefile targets and additional variables for the Makefile.
+
+-   For LUMI/23.12: Also add license information to the installation directories.
+
