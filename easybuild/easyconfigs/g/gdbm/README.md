@@ -16,9 +16,12 @@
   * The EasyConfig is derived from the University of Antwerpen one as that one
     is more complete in terms of dependencies.
 
+
 ### Version 1.23 from CPE 22.06 on
 
   * Trivial version bump of the EasyConfig, but we removed unnecessary variables
     from the EasyConfig accidentally left in when copying from the UAntwerpen
     repository.
+
+  * From LUMI/23.12 on, we also add license information to the installation directories.
 
