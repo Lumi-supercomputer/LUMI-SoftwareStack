@@ -50,3 +50,13 @@
 
   * Support for OpenGL still incomplete.
   
+
+### Version 4.6.0 from CPE 23.12 on
+
+  * Trivial version bump of the 4.5.0 EasyConfig,
+  
+  * but now also copy license information to the installation directories.
+  
+  * The list of included executables has also changed so we needed to adapt the sanity 
+    checks.
+
