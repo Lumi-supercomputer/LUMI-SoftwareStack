@@ -32,3 +32,11 @@
 
   * Trivial version bump of the EasyConfig for 2.14.1 to align with 2023a.
 
+
+### Version 2.15.0 from CPE 23.12 on
+
+  * Trivial version bump of the EasyConfig for 2.14.2
+  
+  * But added license information to the installation directories.
+
+  * Enabled both static and shared libraries.
