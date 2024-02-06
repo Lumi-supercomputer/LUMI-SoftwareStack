@@ -20,3 +20,6 @@
 
   * Added a better sanity check from CPE 22.12 on.
 
+  * From LUMI/23.12 on, we also add license information to the installation directories
+    and improved the sanity checks.
+
