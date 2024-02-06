@@ -40,3 +40,7 @@
   * Trivial port of the EasyConfig of 1.2.2, but with some improvements to the
     sanity check borrowed from the EasyBuilders version. 
   
+  * From LUMI/23.12 on, we also add license information to the installation directories.
+  
+  * For 23.12 we also extended the sanity checks a bit.
+  
