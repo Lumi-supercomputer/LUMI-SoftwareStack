@@ -19,3 +19,6 @@ Source: the [ParMETIS download page](http://glaros.dtc.umn.edu/gkhome/metis/parm
 Note that according to the [LUMI Conditions of Use](https://www.lumi-supercomputer.eu/lumi-general-terms-of-use_1-0/)
 it is the User's responsibility to respect the software license terms. When loading the ParMETIS modules
 on LUMI, a warning about the licensing conditions is shown to inform User's of the license.
+
+From LUMI/23.12 on, some license information can also be found in
+`$EBROOTPARMETIS/share/licenses/ParMETIS` after loading the `ParMETIS` module.
