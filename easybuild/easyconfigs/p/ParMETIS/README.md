@@ -30,3 +30,5 @@ The 4.0.3 release is from 2013.
     from the way the Cray TPSL script does the job. The latter does seen to use
     METIS during the build.
 
+  * For LUMI/23.12: Add license information to the installation directories.
+
