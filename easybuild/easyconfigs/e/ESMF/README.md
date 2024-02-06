@@ -46,3 +46,10 @@ Note that ESMF uses a custom EasyBlock which needs adaptations for Cray systems.
 
   * Trivial version bump of the 8.3.0 EasyConfig
 
+
+### Version 8.6.0 from CPE 23.12 on
+
+  * Trivial version bump of the 8.4.1 EasyConfig.
+  
+  * But added license information to the installation directories.
+
