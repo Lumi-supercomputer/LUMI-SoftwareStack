@@ -46,3 +46,6 @@
   * **Note:** Even though GLib itself installs fine with Clang 16, it looks like
     using its header files causes problems reporting type cast errors that 
     seem impossible to turn off.
+
+  * There are problems in LUMI/23.12 with the GNU compilers also.
+
