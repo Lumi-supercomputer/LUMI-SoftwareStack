@@ -27,4 +27,4 @@
 
   * Trivial version bump of the 8.6.12 EasyConfig
 
-
+  * For LUMI/23.12: Added the license information to the installation directories.
