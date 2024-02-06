@@ -42,8 +42,14 @@
 
 ### Version 9.2.0 from 23.09 on
 
-  * Version bump of the 9.2.0 EasyConfig
+  * Version bump of the 9.1.1 EasyConfig
   
   * Needed to add an option to avoid generating errors on unused arguments as somehow 
     some ROCm libraries get added that are not needed.
 
+
+### Version 9.3.0 from 23.12 on
+
+  * Version bump of the 9.2.0 EasyConfig, but moving to the `lib` directory for uniformity.
+
+  * Adding licensense information to the installation directories.
