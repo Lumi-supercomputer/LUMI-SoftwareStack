@@ -101,3 +101,15 @@ HPE-Cray has a sample build script for Boost in their
     **It might be that similar linking errors (about not finding libunwind) are generated when
     using Boost with this version of the compiler and the same workaround may be needed in that
     case!**
+
+    
+### 1.84.0 from CPE 23.12 on
+
+  * Trivial port of the EasyConfigs for the regular version of 1.82.0, but now also 
+    copying the license file to the installation directories.
+
+
+
+
+    
+    
