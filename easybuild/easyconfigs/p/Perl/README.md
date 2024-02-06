@@ -88,3 +88,13 @@
   * Clang 16 based compilers are more picky and also no longer accept C90 by default, 
     so we needed to set special options for several packages.
 
+
+### Version 5.38.2 from CPE 23.12 on
+
+  * Started from ports of the 5.36.1 EasyConfigs.
+  
+  * Some clean-up of dependencies for the `-bare` configurations.
+  
+  * Now also copying license information to the installation directories.
+
+
