@@ -33,3 +33,13 @@
 
   * Trivial version bump of the 1.1.37 EasyConfig.
 
+
+### Version 1.1.39 from CPE 23.12 on
+
+  * Trivial version bump of the 1.1.38 EasyConfig,
+  
+  * but we now also copy the license information to the installation directories.
+
+  * We also ensured both static and shared libraries are built and adapted the
+    sanity checks accordingly.
+
