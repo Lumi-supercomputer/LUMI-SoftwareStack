@@ -71,6 +71,6 @@
 
   * Tried a fairly trivial update and that seemed OK for cpeGNU.
 
-  * 7.0.3 does not yet work with cpeCray. Maybe the `Makefile.inc` file needs more changes, or
-    the custom EasyBlock may need more changes.
+  * For some reason, to get it to work with cpeCray, we needed to add definitions for FLEX
+    and BISON to Makefile.inc. It is not clear why this was not needed for the other toolchains.
 
