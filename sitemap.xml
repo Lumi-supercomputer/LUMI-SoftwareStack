@@ -2,97 +2,97 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://Lumi-supercomputer.github.io/LUMI-SoftwareStack/</loc>
-         <lastmod>2023-06-19</lastmod>
+         <lastmod>2024-02-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://Lumi-supercomputer.github.io/LUMI-SoftwareStack/CrayPEToolchain/</loc>
-         <lastmod>2023-06-19</lastmod>
+         <lastmod>2024-02-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://Lumi-supercomputer.github.io/LUMI-SoftwareStack/CrayPE_integration/</loc>
-         <lastmod>2023-06-19</lastmod>
+         <lastmod>2024-02-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://Lumi-supercomputer.github.io/LUMI-SoftwareStack/SitePackage/</loc>
-         <lastmod>2023-06-19</lastmod>
+         <lastmod>2024-02-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://Lumi-supercomputer.github.io/LUMI-SoftwareStack/configurations/</loc>
-         <lastmod>2023-06-19</lastmod>
+         <lastmod>2024-02-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://Lumi-supercomputer.github.io/LUMI-SoftwareStack/directory_structure/</loc>
-         <lastmod>2023-06-19</lastmod>
+         <lastmod>2024-02-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://Lumi-supercomputer.github.io/LUMI-SoftwareStack/easybuild_setup/</loc>
-         <lastmod>2023-06-19</lastmod>
+         <lastmod>2024-02-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://Lumi-supercomputer.github.io/LUMI-SoftwareStack/failed_experiments/</loc>
-         <lastmod>2023-06-19</lastmod>
+         <lastmod>2024-02-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://Lumi-supercomputer.github.io/LUMI-SoftwareStack/files_used/</loc>
-         <lastmod>2023-06-19</lastmod>
+         <lastmod>2024-02-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://Lumi-supercomputer.github.io/LUMI-SoftwareStack/module_setup/</loc>
-         <lastmod>2023-06-19</lastmod>
+         <lastmod>2024-02-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://Lumi-supercomputer.github.io/LUMI-SoftwareStack/procedures/</loc>
-         <lastmod>2023-06-19</lastmod>
+         <lastmod>2024-02-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://Lumi-supercomputer.github.io/LUMI-SoftwareStack/start_on_LUMI_pilot/</loc>
-         <lastmod>2023-06-19</lastmod>
+         <lastmod>2024-02-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://Lumi-supercomputer.github.io/LUMI-SoftwareStack/whats_new/</loc>
-         <lastmod>2023-06-19</lastmod>
+         <lastmod>2024-02-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://Lumi-supercomputer.github.io/LUMI-SoftwareStack/Toolchains/cpeAMD/</loc>
-         <lastmod>2023-06-19</lastmod>
+         <lastmod>2024-02-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://Lumi-supercomputer.github.io/LUMI-SoftwareStack/Toolchains/cpeAOCC/</loc>
-         <lastmod>2023-06-19</lastmod>
+         <lastmod>2024-02-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://Lumi-supercomputer.github.io/LUMI-SoftwareStack/Toolchains/cpeCray/</loc>
-         <lastmod>2023-06-19</lastmod>
+         <lastmod>2024-02-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://Lumi-supercomputer.github.io/LUMI-SoftwareStack/Toolchains/cpeGNU/</loc>
-         <lastmod>2023-06-19</lastmod>
+         <lastmod>2024-02-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://Lumi-supercomputer.github.io/LUMI-SoftwareStack/Toolchains/toolchain_common/</loc>
-         <lastmod>2023-06-19</lastmod>
+         <lastmod>2024-02-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://Lumi-supercomputer.github.io/LUMI-SoftwareStack/Toolchains/toolchain_cpe_common/</loc>
-         <lastmod>2023-06-19</lastmod>
+         <lastmod>2024-02-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>
