@@ -1,3 +1,4 @@
+#DOC This is the version of EasyBuild used for the 22.06 and 22.08 software stacks.
 easyblock = 'EB_EasyBuildMetaLUMI'
 
 name =    'EasyBuild'
