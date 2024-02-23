@@ -1,7 +1,8 @@
-easyblock = 'EB_EasyBuildMeta'
+#DOC This is the version of EasyBuild used for the 21.12 software stack.
+easyblock = 'EB_EasyBuildMetaLUMI'
 
 name =    'EasyBuild'
-version = '4.4.2'
+version = '4.5.3'
 
 homepage = 'https://easybuilders.github.io/easybuild'
 
@@ -41,11 +42,11 @@ toolchain = SYSTEM
 
 source_urls = [
     # easybuild-framework
-    'https://files.pythonhosted.org/packages/3f/b3/00819590aae375c96f0acc0526163fe0422be0feec2ed04dc6722d0f0559/',
+    'https://files.pythonhosted.org/packages/4a/12/63a8d8f4f7132da62a3d81f7f385ef2b88fd41536007bf2939ea6d8f7639/',
     # easybuild-easyblocks
-    'https://files.pythonhosted.org/packages/6e/bf/c29680ac2d2364955e71096f9732b2bc40647d0c1d7ab9c262a35efd9a1d/',
+    'https://files.pythonhosted.org/packages/8a/7b/bbda3cd4f5c0aa0364e2f4392330e94e3d73c0c6dae703832e9a6ac7ab6c/',
     # easybuild-easyconfigs
-    'https://files.pythonhosted.org/packages/6c/d9/960d38512f3b921b06ae8c41def16930044a1f9d8732dcb9aa311438469f/',
+    'https://files.pythonhosted.org/packages/07/78/41bcf3f94068a49a1d66f65711c95be02b1affeefb457e393601376ae335/',
 ]
 sources = [
     'easybuild-framework-%(version)s.tar.gz',
@@ -56,10 +57,9 @@ patches = [
     'EasyBuild-4.4.2_keyring_DBus.patch',
 ]
 checksums = [
-    '1e6580f210bc742ee1518d0a85389b32199b692de80548c80e93fa2a1a32dd01',  # easybuild-framework-4.4.2.tar.gz
-    '4918f13ffcd97c8b9eb0a10517bdc5b28f67c3602882d4be0bee3afc401fd78c',  # easybuild-easyblocks-4.4.2.tar.gz
-    '6ec2fa4d9116d45298318f31292726b6f6d1257580cff82138904c69ab38bc46',  # easybuild-easyconfigs-4.4.2.tar.gz
-    'd823213811e610fae568dbb0d010b4460f75e23902ed56dddca892f3dc0c9976',  # EasyBuild-4.4.2_keyring_DBus.patch
+    '67fc32ae51bd421a94f8ad764b71d806e01ed87548d58fb1a99b81719337b8ad',  # easybuild-framework-4.5.3.tar.gz
+    '2ff3d075f305e18fa6a40dcd8a4d963c3487668232f70945e32bdaa871bb8707',  # easybuild-easyblocks-4.5.3.tar.gz
+    'b8677a153f702142512f492eaf2388e54c5638c3d8966eb5456cb54cc4ef2a9f',  # easybuild-easyconfigs-4.5.3.tar.gz
 ]
 
 # order matters a lot, to avoid having dependencies auto-resolved (--no-deps easy_install option doesn't work?)
@@ -68,6 +68,26 @@ checksums = [
 allow_system_deps = [('Python', SYS_PYTHON_VERSION)]
 
 local_pyshortver = '.'.join(SYS_PYTHON_VERSION.split('.')[:2])
+
+exts_defaultclass = 'PythonPackage'
+exts_filter = ("python3 -c 'import %(ext_name)s'", '')
+exts_default_options = {
+    'download_dep_fail': True,
+    'sanity_pip_check':  False,
+    'source_urls':       [PYPI_SOURCE],
+    'use_pip':           False,
+}
+
+exts_list = [
+    ('click',             '7.1.2',    {}),    # archspec 0.1.3 is incompatible with more recent versions of click
+    ('archspec',          '0.1.3',    {}),
+    ('colorama',          '0.4.4',    {}),
+    ('commonmark',        '0.9.1',    {}),
+    ('dataclasses',       '0.8',      {}),
+    ('Pygments',          '2.11.2',   {}),
+    ('typing_extensions', '3.10.0.2', {}), # The 4.0.x versions did not install, maybe due to the lack of pip?
+    ('rich',              '11.2.0',   {}),
+]
 
 sanity_check_paths = {
     'files': ['bin/eb'],
