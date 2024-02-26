@@ -1,5 +1,7 @@
 easyblock = 'EB_EasyBuildMetaLUMI'
 
+local_LUMI_version =        '23.09'
+
 name =    'EasyBuild'
 version = '4.8.2'
 
@@ -102,3 +104,9 @@ modextravars = {
 }
 
 moduleclass = 'tools'
+
+modluafooter= f"""
+if not ( isloaded("EasyBuild-tools/{local_LUMI_version}") ) then
+    load("EasyBuild-tools/{local_LUMI_version}")
+end
+"""
