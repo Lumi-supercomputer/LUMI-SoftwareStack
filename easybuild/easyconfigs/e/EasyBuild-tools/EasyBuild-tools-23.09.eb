@@ -1,0 +1,96 @@
+# Additional tools that EasyBuild expects in the operating system
+# but are not available on LUMI, and are not a good match for
+# "buildtools" either as they are not really related to typical
+# build processes of software.
+#
+#DOC Contains p7zip.
+
+easyblock = 'Bundle'
+
+import os as local_os
+
+local_LUMI_version =        '23.09'
+
+name =    'EasyBuild-tools'
+version = local_LUMI_version
+
+# Version info:
+local_makeinfo_version =         '7.0.3'       # texinfo    20230326 - Check on https://gnu.askapache.com/texinfo/ (newr than EB 2022b)
+local_p7zip_version =            '17.05'       # 20240220 - Check on https://github.com/p7zip-project/p7zip/releases
+
+homepage = '(none)'
+
+whatis = [
+    'Description: A bundle of tools that EasyBuild wants from the OS but are missing on LUMI.',
+    'Contains: p7zip'
+]
+
+description = f"""
+This bundle collects a number of tools that EasyBuild expects from the OS but
+are missing on LUMI.
++ p7zip {local_p7zip_version} - https://github.com/p7zip-project/p7zip
+These tools are all build against the system libraries
+"""
+
+toolchain = SYSTEM
+
+dependencies = []
+
+builddependencies = []
+
+osdependencies = []
+
+default_easyblock = 'ConfigureMake'
+
+components = [
+    ('p7zip', local_p7zip_version, {
+        'easyblock':     'MakeCp',
+        'sources':       [ { 'download_filename' : 'v%(version)s.tar.gz',
+                             'filename'          : SOURCE_TAR_GZ,
+                             'source_urls'       : ['https://github.com/p7zip-project/p7zip/archive/refs/tags'],
+                         } ],
+        'checksums':     [{f'p7zip-{local_p7zip_version}.tar.gz': 'd2788f892571058c08d27095c22154579dfefb807ebe357d145ab2ddddefb1a6'}],
+        'start_dir':     '%(namelower)s-%(version)s',
+        'prebuildopts':  'cp makefile.linux_amd64 makefile.linux &&',
+        'buildopts':     'all3 CC="gcc" CXX="g++" OPTFLAGS="-O2 -march=znver1"',
+        'files_to_copy': [
+                             (['bin/7za', 'bin/7zr', 'bin/7zCon.sfx'],           'bin'),     # stand-alone binaries
+                             (['bin/7z', 'bin/7z.%s' % SHLIB_EXT, 'bin/Codecs'], 'libexec'), # 7z requires 7z.so plugin in same directory
+                             (['ChangeLog', 'DOC/copying.txt', 'DOC/License.txt'], 'share/licenses/%(name)s'), # License information
+                         ],
+    }),
+]
+
+postinstallcmds = [
+    # p7zip: Create the 7z script in the bin directory.
+    'echo \'#!/bin/sh\n%(installdir)s/libexec/7z $@\' > %(installdir)s/bin/7z',
+    'chmod +x %(installdir)s/bin/7z',  # set execution bits according to current umask
+]
+
+sanity_check_paths = {
+    'files': # p7zip
+             ['bin/7z', 'bin/7za', 'bin/7zCon.sfx', 'bin/7zr', 'libexec/7z', 'libexec/7z.%s' % SHLIB_EXT],
+    'dirs':  # p7zip
+             ['libexec/Codecs'],
+}
+
+sanity_check_commands = [
+    # p7zip
+    '7z --help',
+    '7z x || test $? -gt 0',
+    '! 7z i | grep -q "Can\'t load" ',
+]
+
+#
+# We set EBROOT and EBVERSION variables that correspond to each of the regular
+# EasyBuild packages that are replaced by this bundle.
+modextravars = {
+    'EBROOTP7ZIP':                 '%(installdir)s',
+    'EBVERSIONP7ZIP':              local_p7zip_version,
+}
+
+moduleclass = 'tools'
+modluafooter = f"""
+extensions( "p7zip/{local_p7zip_version}"
+          )
+"""
