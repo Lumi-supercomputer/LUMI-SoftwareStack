@@ -1,5 +1,7 @@
-#DOC This is the version of EasyBuild used for the 23.09 software stack.
+# Built with EasyBuild version 4.8.2 on 2024-02-26_17-08-55
 easyblock = 'EB_EasyBuildMetaLUMI'
+
+local_LUMI_version =        '23.09'
 
 name =    'EasyBuild'
 version = '4.8.2'
@@ -103,3 +105,9 @@ modextravars = {
 }
 
 moduleclass = 'tools'
+
+modluafooter= f"""
+if not ( isloaded("EasyBuild-tools/{local_LUMI_version}") ) then
+    load("EasyBuild-tools/{local_LUMI_version}")
+end
+"""
