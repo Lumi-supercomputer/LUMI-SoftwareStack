@@ -1,4 +1,3 @@
-# Built with EasyBuild version 4.8.2 on 2024-02-26_14-17-22
 # Additional tools that EasyBuild expects in the operating system
 # but are not available on LUMI, and are not a good match for
 # "buildtools" either as they are not really related to typical

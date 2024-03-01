@@ -1,0 +1,2 @@
+# EasyBuild-tools user information
+
