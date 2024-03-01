@@ -1,4 +1,3 @@
-# Built with EasyBuild version 4.8.2 on 2024-02-26_17-08-55
 easyblock = 'EB_EasyBuildMetaLUMI'
 
 local_LUMI_version =        '23.09'
