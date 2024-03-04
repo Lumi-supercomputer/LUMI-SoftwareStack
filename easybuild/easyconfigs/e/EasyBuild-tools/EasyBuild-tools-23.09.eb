@@ -82,15 +82,17 @@ sanity_check_commands = [
 ]
 
 #
-# We set EBROOT and EBVERSION variables that correspond to each of the regular
-# EasyBuild packages that are replaced by this bundle.
-modextravars = {
-    'EBROOTP7ZIP':                 '%(installdir)s',
-    'EBVERSIONP7ZIP':              local_p7zip_version,
-}
+# Unlike with buildtools, we cannot set individual environment variables here
+# for each included package unless we also exclude them in the EasyBuild configiration
+# with --allow-loaded-modules. The error message from EasyBuild is actually confusing
+# as it will complain using module names of modules that are loaded (and may be excluded
+# with --allow-loaded-modules) rather than claiming that it found, e.g., a p7zip.
+#modextravars = {
+#    'EBROOTP7ZIP':                 '%(installdir)s',
+#    'EBVERSIONP7ZIP':              local_p7zip_version,
+#}
 
 moduleclass = 'tools'
 modluafooter = f"""
-extensions( "p7zip/{local_p7zip_version}"
-          )
+extensions( "p7zip/{local_p7zip_version}" )
 """
