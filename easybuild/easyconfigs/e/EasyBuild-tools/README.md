@@ -5,6 +5,13 @@ processing some EasyConfigs, biut are not installed on LUMI. To avoid circular
 dependencies it should not contain anything that EasyBuild needs for its own
 bare installation and to install this module.
 
+Note that whereas some of our bundles do include EBROOT environment variables
+for each of the matching components, we don't do so for modules that can be loaded
+when EasyBuild is run as it complicates the configuration of EasyBuild. One should
+then also allow those modules that are suggested to exist by those EBROOT environment
+variables to be loaded while EasyBuild runs.
+
+
 ## Contents
 
 | Package   | Remarks      | Version link |
