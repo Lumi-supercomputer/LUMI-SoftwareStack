@@ -1,0 +1,284 @@
+easyblock = 'EB_rocmrpms'
+
+name = 'rocm'
+version = '5.4.6'
+
+homepage = 'https://docs.amd.com/'
+
+whatis = [
+    "Description: AMD ROCm is the first open-source software development platform for "
+    "HPC/Hyperscale-class GPU computing"
+]
+
+description = """
+AMD ROCm is the first open-source software development platform for
+HPC/Hyperscale-class GPU computing. AMD ROCm brings the UNIX philosophy of
+choice, minimalism and modular software development to GPU computing.
+"""
+
+description = """
+AMD ROCm is the first open-source software development platform for
+HPC/Hyperscale-class GPU computing. AMD ROCm brings the UNIX philosophy of
+choice, minimalism and modular software development to GPU computing.
+
+ROCm provides the tools required for the development of code using HIP, OpenCL
+and OpenMP programming models including tools for profiling and debugging.
+
+This is an experimental module provided for the convenience of the users.
+This is ROCm installed in a way it is not meant to be installed so we cannot
+offer any guarantee that this module will work properly with HPE Cray PE modules
+nor can we offer any support. Some parts are almost certain to be broken, at
+least in a way that can lead to reduced performance, as ROCm tends to contain
+hidden hard-coded links to the regular installation directories. As the inner
+workings of the HPE Cray PE are not public and as the PE (at least the version
+22.08 on the system) has even never been tested with this version of ROCm
+by HPE there is absolutely no guarantee that this module will play nice with,
+e.g., Cray MPICH.
+"""
+
+docurls = [
+    'PDF documentation in $EBROOTROCM/share/doc/rocgdb',
+    'PDF documentation in $EBROOTROCM/share/doc/roctracer',
+    'PDF documentation in $EBROOTROCM/share/doc/rocm_smi',
+    'PDF documentation in $EBROOTROCM/share/doc/amd-dbgapi',
+]
+
+toolchain = SYSTEM
+
+import os;
+local_lumi_stack_version = os.getenv('LUMI_STACK_VERSION', default='23.09')
+
+builddependencies = [
+    ('buildtools', local_lumi_stack_version, '', True),
+]
+
+index_url = 'https://repo.radeon.com/rocm/zyp/5.4.6/main/'
+gpu_archs = ['gfx90a']
+
+component_checksums = {
+    'comgr'                    : 'b290da42297adb3191fafd53259942708ee2c043d0ed15c3f856583fdb2172c6',
+    'half'                     : '0de0c7fbcfde4d4a4cd9052bfe2831cafa4f332e70f3ee57b1587bf1d07d561e',
+    'hip-devel'                : '984428f758a09fad1f6d9a92de033dcc28f27223a76736113d7b35ad0435481f',
+    'hip-doc'                  : '34bf53eafc3f04db151ee69acfbad03e48a5a40a323c9cf763b50ad4a26420b7',
+    'hip-runtime-amd'          : '8e2111eef228249e0a61e4699f2ac6dd7bfa3979ba6ed985d9f389ac13e0e3f7',
+    'hip-samples'              : 'e63f1c4447c43b0a25b8f392a66aa1271709968fdbab1bb600d84b86694287b4',
+    'hipblas'                  : '81424f33a6434f7924f7e712719d24e58efe36e7231a5fe944c4af87c67421bb',
+    'hipblas-devel'            : 'afccb3fd543b1126c6398e2d77b04ae683da495d95af438a56b4bf7e03c8241f',
+    'hipcub-devel'             : 'f8838ad013cfa05365a3ed90e177e59f4fed9afc272432c8d22b6e320ef62ea5',
+    'hipfft'                   : '381ca013978d0c72fd815b92c0cd91acb7fc58331d104426866f418c933c09e4',
+    'hipfft-devel'             : '37f1e3d169e484f4e566ef38d87aadd4d77a6d12882ae6082ac8a728cb7ee0f1',
+    'hipfort-devel'            : 'c66b032c262452eafb41c76e57cacac2edd17b357891fa03f9df3b11ff830fc3',
+    'hipify-clang'             : '23cac0b01e880bbbfefab2e5979dbc179cbd9475576b6243112b5ff62219ffd4',
+    'hipsolver'                : 'e6768b61d1dcd7d3876422bb05faf2544aeda215979eafdc2c1c2a355f7216b3',
+    'hipsolver-devel'          : '4b6a9214ea1f8c2378dc9fb33374ce15084a71ddcf926509bef990b6e30b07de',
+    'hipsparse'                : '75e96cae387d71126ae62b4f75b6c3a34a0b8430420a7edfbf8cd1057f167335',
+    'hipsparse-devel'          : 'f78e392f94c28d1f66c8367226456c4e87ce941608d0c25e28f3914ea5cb4d31',
+    'hsa-amd-aqlprofile'       : 'ed744c6dc265085b99ce126ace38c87bfd47a2aaec9ed6ff6fc0293c2cd6a643',
+    'hsa-rocr'                 : '1b10e2c192f553e6a4c6cd09539ae555baa10bd6d0c772ad543235157f76d5fd',
+    'hsa-rocr-devel'           : '4ae56c8c034db3be45622724b156d3ae325c76cfc01f185f37e82e552cf9895a',
+    'hsakmt-roct-devel'        : 'dd1d68a8d92caa422837663ade5c4342799a0fa44823dcfaa1908f9e696260e6',
+    'migraphx'                 : '0bec6c1637858bab300ba6077130310396d436415c278299505b0dd2e0c68b07',
+    'migraphx-devel'           : '65ee30ea8a9b36b611b3d38931f758ffb39b1f441db4a5c4abed96a38041fb7e',
+    'miopen-hip'               : '51f392565bacf49fb609f56667a336b68b94e796405e59da9f290eb86e4919e1',
+    'miopen-hip-devel'         : '763daa825982c82fe572232e776d357f8abcaa19cd9c1d1a0713d9309bb2ecd4',
+    'miopen-hip-gfx90a-104kdb' : 'c1519c8eade9a66b3f33cebaf574f8962c57a0bc6d7c4303d3f0b3719f4497ad',
+    'miopen-hip-gfx90a-110kdb' : '231406a360a94cb6a0edc3710050e939d3c58ca4ac2bf192df9a27d5cc4c65bc',
+    'miopengemm'               : '8734756a6a3990a4e2f412947cac8222c54f8cd903225ea2a72057839dad4006',
+    'miopengemm-devel'         : '6c3c94794dc5229b7da01dc642becc209aeb6e8db977d0bc270465eb1f7f714d',
+    'mivisionx'                : 'c3e9326d410646f2e9c278e17a31f01e059970039a8b6350c164e5f557255338',
+    'openmp-extras-devel'      : 'd7be616a9c1c31814b617022781f1e456e261be562b6e5443b9caa9a8669fc3e',
+    'openmp-extras-runtime'    : '5a04d98a1371b8ca8e1648e724b6740bccb4bc720535a4d969aafc2f829533ac',
+    'rccl'                     : 'd01780bfe454ebdfdd42c5556ac8ec43efef5fea6fedb4e35bd933c1460bef93',
+    'rccl-devel'               : '1b59112d521396fd45e644536eeda11a58d0c2afb13b24eee8f6549994b485bd',
+    'rocalution'               : '6912f1cbae82ba33c33c1a5b9fd9dcabce1b7036adfaaae39d290a83540a0ba4',
+    'rocalution-devel'         : '13c1ebe9571fc3d7f688b94004948d7ab51411c34744e943d3e2ee31e48e5ee6',
+    'rocblas'                  : '19af51321c7c35eb15f4b01dcc709077591d557d362721b274fe68415d9a554c',
+    'rocblas-devel'            : '8875afcc570f6032d531dbb068a9592cd1de205de90e67a75ea0886c18d2df27',
+    'rocfft'                   : 'd6b0584af8c2c071019e0fbf5ed2108049b4d0b4f32ad85fef4c06b1e01f0f4f',
+    'rocfft-devel'             : 'b2f7ed7d1505d593be6d22fc54cc1762cf733fdccd3c3d13eb33ec827e451532',
+    'rocm-bandwidth-test'      : '05feb71f26f877be7caffb2bcb1f29a1930ea1ae0655ac882144ff5e3d810bc3',
+    'rocm-clang-ocl'           : '8078e2943b0730dad610c8c510b6817c379bc4363bd1e7036dab44b6c6152482',
+    'rocm-cmake'               : 'e93fd9c71580779c76228079a994346fa018a0b0868ea7fc8ad623d541c86734',
+    'rocm-core'                : '5a2e681666074ee218176ea247f7fadaeaad548a72c85f10ef5aabdb761df519',
+    'rocm-dbgapi'              : 'cc34c697067b325159e34a82f4eecdb5e3ef539dfeb5058c40d9904b939cb097',
+    'rocm-debug-agent'         : '6ea260e8f4094349d75fc7c3cf7c64aa1fe3341f23d9812583c8cd2d252dbca8',
+    'rocm-dev'                 : '12544080f1f2c73db10c1c00f5ccdb9a1a38d8d9eb85e1251b12d4caa7b56615',
+    'rocm-developer-tools'     : 'a2c278bcbb8ab519e6a3899adb7e3fbe0de72209042f924744097561d11debab',
+    'rocm-device-libs'         : '4548cc799e7ce48170f75c9b76345394088461c36a601ee722c0108338e03b24',
+    'rocm-dkms'                : '72cce6eefee271b8fe922cc0f8abcdb15cf86d394acddca6a7a03979dfb0173b',
+    'rocm-gdb'                 : 'ab9099ef334542ba8bfe615e0d91ac1c5aed43f3c377996de3c5a8825c7801dc',
+    'rocm-hip-libraries'       : '31df8f5e64352e4f495a7e632e6aee81750511cf6ad05061c93d8878b28d5f9e',
+    'rocm-hip-runtime'         : '1f197ee6fb59193d324e45a9572e6a575e9f7c176c5c8538a591aec0a83bc84a',
+    'rocm-hip-runtime-devel'   : 'b396d495fd34845f5d9877bc93701e5a97470ff55a9525309e7f1039e4c1671f',
+    'rocm-hip-sdk'             : '60791ed2b85b5ed9bbad8f29b368606a74364eaf2edf79eaaacd5a619f8876ae',
+    'rocm-language-runtime'    : 'f44fff457e240f3ea40d31cbaf4d1b24593c5d289c9912fe5dd476e22030176d',
+    'rocm-libs'                : '44a5fa0b0e298f8ce966caf2093bd774d99ae3098eb61b263cb285cab74fdecb',
+    'rocm-llvm'                : 'ab3a6f90a52b0ab586f1c75e6147c57dba39f659fa847616757758d0576ca17c',
+    'rocm-ml-libraries'        : 'c55618bb831b4e234acca9b1d16148526f5e4b1dcdd140beccb38e8235c6460d',
+    'rocm-ml-sdk'              : '30f3625f2c05dc0cbd68f3dc2367bb7fe7438a8fb212c0750445a0aaa2e5c901',
+    'rocm-ocl-icd'             : '061431f86cf21a817c55a6af1b9b6fe8075f592e68a892c6f9303db66102305f',
+    'rocm-ocltst'              : '3be867e3295a2f340852b4490ef54dd657d05d9e226b9e0061d1f5ae5903c3b7',
+    'rocm-opencl'              : '33bbd5800106b257c792e2f6192ccb6a197642eef729b2b6830f1fb5704e003f',
+    'rocm-opencl-devel'        : 'b6e9be02f6510304d330e36148997a474ee2d0b344e328ca36204b19a3cd989f',
+    'rocm-opencl-runtime'      : 'f4dca4e1cb3e13a689eb0c4ae484d855f27feff21afbb587df7253eda6dba968',
+    'rocm-opencl-sdk'          : 'ab06d41a2b4e219bdb24d53543edcd00543f02f95f81b2f61ddd2aaf7acf2093',
+    'rocm-openmp-sdk'          : 'ed058822b520ce2e08fb37fb9535b85ed2d5f8f15d025b3a45a2e60b696ca9b5',
+    'rocm-smi-lib'             : '240d27272591546893f043e3e21be49588113b25e38f1fe3b782e31daf7ff27c',
+    'rocm-utils'               : '91bcbf5c67aa8ece15f306e719b0e58a71b42f41c7d5fbfc78b6c994630abcd5',
+    'rocm-validation-suite'    : '747924c270beca9b2cad7db5202f5bb56c7b4aa5137d5f7469fa4b87f7bd7922',
+    'rocminfo'                 : '3e78675aa9ec9eeec5e4c34fc52f376a97dada994718bc48a76f93d455b3656a',
+    'rocmtools-dev'            : '9bbb419a2e9886904eaf4c819ea6f97aa46a91bf3bee3ad98114c03d5931a5f5',
+    'rocprim-devel'            : '7b80dbe7e2d32ac9449c45d591cacb38ca51dff3de728e920f02b02b623dcc08',
+    'rocprofiler-dev'          : 'd844c2ebaae727cd4a9ec41ed90e2da485ca84850c7e12129260c283a56350a3',
+    'rocrand'                  : '1e18d765ee0985ce4bfeed4b0d5549a65280d6781beaa7e3eaaf15e7fb5ada45',
+    'rocrand-devel'            : '6887b766cc848264b080b593dc94f736c93ea0df876a4a2134e635d276931c6c',
+    'rocsolver'                : '661bbfb8b912d1a1e97838139b74d794f683f16857b792638412ca71388283b6',
+    'rocsolver-devel'          : '31cbdd7b56b531b0cd4d9e260f755bd30262bfbe9c0d0b43ffd0a2e10b9b2f27',
+    'rocsparse'                : '1e594af313433b12184fff289aeb0a6fbd20d46dd36f4e21f0d508f7a06918c0',
+    'rocsparse-devel'          : '5b3ad951c5dbb7bcc521f56c81e0c129667feac1d948c4c0b56fa58948a627ae',
+    'rocthrust-devel'          : 'ec24a8150b192e40ce4359d836cc6922ccacf53d7adbaa771cba90ac9deafa5f',
+    'roctracer-dev'            : 'dfaf2bd545ecefae4dcf41deb07df9b96130496e2cfa415050a10580a1ddb6a1',
+    'rocwmma-devel'            : '03fc4da0f40e2a57613c3587e02a3a6adf84fcef250787614d97797abc266ce1',
+    'rocwmma-samples'          : 'ba8ac9ae480e984219f351888be3e860156603b84cc49c982de7242bc424da49',
+}
+
+pkg_config = """
+rocm_prefix=%(installdir)s
+includedir=${rocm_prefix}/include
+lib64dir=${rocm_prefix}/lib64
+libdir=${rocm_prefix}/lib
+
+profiler_includedir=${rocm_prefix}/rocprofiler/include
+profiler_libdir=${rocm_prefix}/rocprofiler/lib
+profiler_tooldir=${rocm_prefix}/rocprofiler/tool
+profiler_bindir=${rocm_prefix}/rocprofiles/bin
+
+tracer_includedir=${rocm_prefix}/roctracer/include
+tracer_libdir=${rocm_prefix}/roctracer/lib
+tracer_tooldir=${rocm_prefix}/roctracer/tool
+
+roclibs_rpath="-Wl,-rpath=${rocm_prefix}/lib"
+
+Cflags: -I${includedir} -I${profiler_includedir} -I${tracer_includedir} -D_HIP_PLATFORM_HCC_ -D__HIP_PLATFORM_AMD__
+Description: ROCm Toolkit
+Libs: -L${lib64dir} -L${libdir} -L${profiler_libdir} -L${profiler_tooldir} -L${tracer_libdir} -L${tracer_tooldir} ${roclibs_rpath} -lamdhip64
+Name: %(name)s-%(version)s
+Version: %(version)s
+"""
+
+#
+# As we only unpack the RPMs, some scripts that creates symbolic links
+# are not executed. Missing symlinks for CMake modules sometimes create problem
+# at configure time. However, tracking all the missing links can be quite 
+# difficult. The strategy here is: 
+#   - use a list of all symlinks extracted from a proper rocm installation
+#   - delete all existing symbolic links
+#   - recreate the full set of links from the list
+#
+local_symlinks = {
+  'hip/cmake/FindHIP/run_hipcc.cmake'                            : '../../../lib/cmake/hip/FindHIP/run_hipcc.cmake',
+  'hip/cmake/FindHIP/run_make2cmake.cmake'                       : '../../../lib/cmake/hip/FindHIP/run_make2cmake.cmake',
+  'hip/cmake/FindHIP.cmake'                                      : '../../lib/cmake/hip/FindHIP.cmake',
+  'hip/lib/cmake/hip/hip-config-version.cmake'                   : '../../../../lib/cmake/hip/hip-config-version.cmake',
+  'hip/lib/cmake/hip/hip-config.cmake'                           : '../../../../lib/cmake/hip/hip-config.cmake',
+  'hip/lib/cmake/hip/hip-targets-relwithdebinfo.cmake'           : '../../../../lib/cmake/hip/hip-targets-relwithdebinfo.cmake',
+  'hip/lib/cmake/hip/hip-targets.cmake'                          : '../../../../lib/cmake/hip/hip-targets.cmake',
+  'hip/lib/cmake/hip-lang/hip-lang-config-version.cmake'         : '../../../../lib/cmake/hip-lang/hip-lang-config-version.cmake',
+  'hip/lib/cmake/hip-lang/hip-lang-config.cmake'                 : '../../../../lib/cmake/hip-lang/hip-lang-config.cmake',
+  'hip/lib/cmake/hip-lang/hip-lang-targets-relwithdebinfo.cmake' : '../../../../lib/cmake/hip-lang/hip-lang-targets-relwithdebinfo.cmake',
+  'hip/lib/cmake/hip-lang/hip-lang-targets.cmake'                : '../../../../lib/cmake/hip-lang/hip-lang-targets.cmake',
+  'hipblas/lib/cmake/hipblas-config-version.cmake'               : '../../../lib/cmake/hipblas/hipblas-config-version.cmake',
+  'hipblas/lib/cmake/hipblas-config.cmake'                       : '../../../lib/cmake/hipblas/hipblas-config.cmake',
+  'hipblas/lib/cmake/hipblas-targets-release.cmake'              : '../../../lib/cmake/hipblas/hipblas-targets-release.cmake',
+  'hipblas/lib/cmake/hipblas-targets.cmake'                      : '../../../lib/cmake/hipblas/hipblas-targets.cmake',
+  'hipfft/lib/cmake/hipfft-config-version.cmake'                 : '../../../lib/cmake/hipfft/hipfft-config-version.cmake',
+  'hipfft/lib/cmake/hipfft-config.cmake'                         : '../../../lib/cmake/hipfft/hipfft-config.cmake',
+  'hipfft/lib/cmake/hipfft-targets-release.cmake'                : '../../../lib/cmake/hipfft/hipfft-targets-release.cmake',
+  'hipfft/lib/cmake/hipfft-targets.cmake'                        : '../../../lib/cmake/hipfft/hipfft-targets.cmake',
+  'hiprand/lib/cmake/hiprand-config-version.cmake'               : '../../../lib/cmake/hiprand/hiprand-config-version.cmake',
+  'hiprand/lib/cmake/hiprand-config.cmake'                       : '../../../lib/cmake/hiprand/hiprand-config.cmake',
+  'hiprand/lib/cmake/hiprand-targets-release.cmake'              : '../../../lib/cmake/hiprand/hiprand-targets-release.cmake',
+  'hiprand/lib/cmake/hiprand-targets.cmake'                      : '../../../lib/cmake/hiprand/hiprand-targets.cmake',
+  'hipsolver/lib/cmake/hipsolver-config-version.cmake'           : '../../../lib/cmake/hipsolver/hipsolver-config-version.cmake',
+  'hipsolver/lib/cmake/hipsolver-config.cmake'                   : '../../../lib/cmake/hipsolver/hipsolver-config.cmake',
+  'hipsolver/lib/cmake/hipsolver-targets-release.cmake'          : '../../../lib/cmake/hipsolver/hipsolver-targets-release.cmake',
+  'hipsolver/lib/cmake/hipsolver-targets.cmake'                  : '../../../lib/cmake/hipsolver/hipsolver-targets.cmake',
+  'hipsparse/lib/cmake/hipsparse-config-version.cmake'           : '../../../lib/cmake/hipsparse/hipsparse-config-version.cmake',
+  'hipsparse/lib/cmake/hipsparse-config.cmake'                   : '../../../lib/cmake/hipsparse/hipsparse-config.cmake',
+  'hipsparse/lib/cmake/hipsparse-targets-release.cmake'          : '../../../lib/cmake/hipsparse/hipsparse-targets-release.cmake',
+  'hipsparse/lib/cmake/hipsparse-targets.cmake'                  : '../../../lib/cmake/hipsparse/hipsparse-targets.cmake',
+  'rccl/lib/cmake/rccl-config-version.cmake'                     : '../../../lib/cmake/rccl/rccl-config-version.cmake',
+  'rccl/lib/cmake/rccl-config.cmake'                             : '../../../lib/cmake/rccl/rccl-config.cmake',
+  'rccl/lib/cmake/rccl-targets-noconfig.cmake'                   : '../../../lib/cmake/rccl/rccl-targets-noconfig.cmake',
+  'rccl/lib/cmake/rccl-targets.cmake'                            : '../../../lib/cmake/rccl/rccl-targets.cmake',
+  'rocalution/lib/cmake/rocalution-config-version.cmake'         : '../../../lib/cmake/rocalution/rocalution-config-version.cmake',
+  'rocalution/lib/cmake/rocalution-config.cmake'                 : '../../../lib/cmake/rocalution/rocalution-config.cmake',
+  'rocalution/lib/cmake/rocalution-targets-release.cmake'        : '../../../lib/cmake/rocalution/rocalution-targets-release.cmake',
+  'rocalution/lib/cmake/rocalution-targets.cmake'                : '../../../lib/cmake/rocalution/rocalution-targets.cmake',
+  'rocblas/lib/cmake/rocblas-config-version.cmake'               : '../../../lib/cmake/rocblas/rocblas-config-version.cmake',
+  'rocblas/lib/cmake/rocblas-config.cmake'                       : '../../../lib/cmake/rocblas/rocblas-config.cmake',
+  'rocblas/lib/cmake/rocblas-targets-release.cmake'              : '../../../lib/cmake/rocblas/rocblas-targets-release.cmake',
+  'rocblas/lib/cmake/rocblas-targets.cmake'                      : '../../../lib/cmake/rocblas/rocblas-targets.cmake',
+  'rocfft/lib/cmake/rocfft-config-version.cmake'                 : '../../../lib/cmake/rocfft/rocfft-config-version.cmake',
+  'rocfft/lib/cmake/rocfft-config.cmake'                         : '../../../lib/cmake/rocfft/rocfft-config.cmake',
+  'rocfft/lib/cmake/rocfft-targets-release.cmake'                : '../../../lib/cmake/rocfft/rocfft-targets-release.cmake',
+  'rocfft/lib/cmake/rocfft-targets.cmake'                        : '../../../lib/cmake/rocfft/rocfft-targets.cmake',
+  'rocprim/lib/cmake/rocprim-config-version.cmake'               : '../../../lib/cmake/rocprim/rocprim-config-version.cmake',
+  'rocprim/lib/cmake/rocprim-config.cmake'                       : '../../../lib/cmake/rocprim/rocprim-config.cmake',
+  'rocprim/lib/cmake/rocprim-targets.cmake'                      : '../../../lib/cmake/rocprim/rocprim-targets.cmake',
+  'rocrand/lib/cmake/rocrand-config-version.cmake'               : '../../../lib/cmake/rocrand/rocrand-config-version.cmake',
+  'rocrand/lib/cmake/rocrand-config.cmake'                       : '../../../lib/cmake/rocrand/rocrand-config.cmake',
+  'rocrand/lib/cmake/rocrand-targets-release.cmake'              : '../../../lib/cmake/rocrand/rocrand-targets-release.cmake',
+  'rocrand/lib/cmake/rocrand-targets.cmake'                      : '../../../lib/cmake/rocrand/rocrand-targets.cmake',
+  'rocsolver/lib/cmake/rocsolver-config-version.cmake'           : '../../../lib/cmake/rocsolver/rocsolver-config-version.cmake',
+  'rocsolver/lib/cmake/rocsolver-config.cmake'                   : '../../../lib/cmake/rocsolver/rocsolver-config.cmake',
+  'rocsolver/lib/cmake/rocsolver-targets-release.cmake'          : '../../../lib/cmake/rocsolver/rocsolver-targets-release.cmake',
+  'rocsolver/lib/cmake/rocsolver-targets.cmake'                  : '../../../lib/cmake/rocsolver/rocsolver-targets.cmake',
+  'rocsparse/lib/cmake/rocsparse-config-version.cmake'           : '../../../lib/cmake/rocsparse/rocsparse-config-version.cmake',
+  'rocsparse/lib/cmake/rocsparse-config.cmake'                   : '../../../lib/cmake/rocsparse/rocsparse-config.cmake',
+  'rocsparse/lib/cmake/rocsparse-targets-release.cmake'          : '../../../lib/cmake/rocsparse/rocsparse-targets-release.cmake',
+  'rocsparse/lib/cmake/rocsparse-targets.cmake'                  : '../../../lib/cmake/rocsparse/rocsparse-targets.cmake',
+}
+
+postinstallcmds = [
+    'find %(installdir)s -name "*.cmake" -type l -delete',
+] + [
+    f'cd %(installdir)s; ln -s {target} {link}' for link, target in local_symlinks.items()
+] + [
+   ' '.join([
+       'cd %(installdir)s/lib;',
+       'find . -maxdepth 1 -type f -name "*.so*" -exec',
+       'sh -c \'if file $0 | grep -q "dynamically"; then',
+       'patchelf --set-rpath "\$ORIGIN:\$ORIGIN/../llvm/lib" $0;',
+       'fi\' {} \;',
+    ])
+] + [
+    ' '.join([
+      f'cd %(installdir)s/lib/{dir};',
+       'find . -maxdepth 1 -type f -name "*.so*" -exec',
+       'sh -c \'if file $0 | grep -q "dynamically"; then',
+       'patchelf --set-rpath "\$ORIGIN/../:\$ORIGIN/../../llvm/lib" $0;',
+       'fi\' {} \;',
+    ]) for dir in ['roctracer', 'rocmtools', 'rocprofiler']
+]
+
+modextravars = {
+  'CRAY_ROCM_VERSION'         : '%(version)s',
+  'CRAY_ROCM_DIR'             : '%(installdir)s',
+  'CRAY_ROCM_PREFIX'          : '%(installdir)s',
+  'XTPE_LINK_TYPE'            : 'dynamic',
+  'CRAYPE_LINK_TYPE'          : 'dynamic',
+  'CRAY_AMD_COMPILER_PREFIX'  : '%(installdir)s',
+  'CRAY_AMD_COMPILER_VERSION' : '5.4.6',
+}
+
+modextrapaths = {
+  'LD_LIBRARY_PATH' : 'llvm/lib',
+}
+
+modluafooter = """
+append_path("PE_PRODUCT_LIST", "CRAY_ROCM")
+prepend_path("PE_PKGCONFIG_LIBS", "rocm-%(version_major_minor)s")
+"""
+
+moduleclass = 'devel'
