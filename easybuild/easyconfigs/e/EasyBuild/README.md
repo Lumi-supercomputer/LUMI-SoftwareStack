@@ -47,3 +47,4 @@
 
 -   Trivial port of the 4.7.1 EasyConfig.
 
+-   In a later update we added support for loading `EasyBuild-tools` if available.
