@@ -648,17 +648,20 @@ function convert_to_EBvar( package, prefix, postfix )
 end
 
 --
--- function create_container_vars( sif_file, package_name, installdir )
+-- function create_container_vars( sif_file, package_name, installdir, bind )
 --
 -- Input arguments:
 --  * sif_file: Name of the SIF file
 --  * package_name: Name of the package (EasyBuild easyconfig)
 --  * installdir: Installation directory (can come from %(installdir)s in an EasyConfig)
+--  * bindpath: Optional argument. When not nil, we'll check for a user-software directory or
+--    user-software.squashfs file and mount that one on /software in the container, then
+--    set the SINGULARITY_BIND environment variable,
 --
 -- Return value: None. It simply calls a Lmod functions to set some environment
 -- variables.
 --
-function create_container_vars( sif_file, package_name, installdir )
+function create_container_vars( sif_file, package_name, installdir, bind )
 
     local SIF_file = get_SIF_file( sif_file, package_name, installdir )    
     local SIF_attributes = lfs.attributes( SIF_file )
@@ -674,6 +677,27 @@ function create_container_vars( sif_file, package_name, installdir )
             LmodError( 'ERROR: Cannot locate the singularity container file ' .. sif_file ..
                        '. One potential cause is that it may have been removed from the system.' )
         end
+    end
+
+    if bind ~= nil then
+
+        local user_software_squashfs_attributes = lfs.attributes( pathJoin( installdir, 'user-software.squashfs' ) )
+        local user_software_dir_attributes =      lfs.attributes( pathJoin( installdir, 'user-software' ) )
+
+        if user_software_squashfs_attributes ~= nil and ( user_software_squashfs_attributes.mode == 'file' or user_software_squashfs_attributes.mode == 'link' ) then
+
+            setenv( 'SINGULARITY_BIND', bind .. ',' .. pathJoin( installdir, 'user-software.squashfs') .. ':/user-software:image-src=/' )
+
+        elseif user_software_dir_attributes ~= nil and ( user_software_dir_attributes.mode == 'directory' or user_software_dir_attributes.mode == 'link' ) then
+
+            setenv( 'SINGULARITY_BIND', bind .. ',' .. pathJoin( installdir, 'user-software') .. ':/user-software' )
+
+        else -- No user-software as either a squashfs file or a directory
+
+            setenv( 'SINGULARITY_BIND', bind )
+
+        end
+
     end
 
 end
