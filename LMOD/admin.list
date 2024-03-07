@@ -23,8 +23,9 @@ These containers should be fine with the ROCm driver on LUMI, but interfacing
 with the Cray PE outside the container may not work as expected.
 
 rocm/5.[5-7].*singularity.*:
-The ROCm version in these containers is not supported byt the ROCm driver on LUMI,
-so some features might be broken.
+The ROCm version in these containers is not supported by the ROCm driver on LUMI,
+so some features might be broken. Some problems we know of are documented on
+https://lumi-supercomputer.github.io/LUMI-EasyBuild-docs/r/rocm/
 
 rocm/5.2.5:
 This module is not installed the way it is intended by AMD. Hence some parts of ROCm may
@@ -70,6 +71,8 @@ the ROCm driver on the system, so some features may be broken. These containers,
 when offered through the LUMI Software Library, are offered as a convenience but
 without guarantee that the LUMI User Support Team can fix all problems with them
 due to the mismatch between ROCM driver and libraries versions.
+We have observed problems, see the ROCm page in the LUMI Software Library:
+https://lumi-supercomputer.github.io/LUMI-EasyBuild-docs/r/rocm/
 
 Rust/1.60.0:
 The Rust 1.60.0 module is known to be faulty and will be removed from the system. As
