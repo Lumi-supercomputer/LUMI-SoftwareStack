@@ -23,10 +23,10 @@ Early Access Platform can compile their code from the login node.
 
 -   [ROCm 5.3.3 documentation](https://rocm.docs.amd.com/en/docs-5.3.3/)
 
-
-### ROCm 5.6.1
+### ROCm 5.4.6 and 5.6.1
 
 -   Unpacked from RPMs but with an additional step to set the RPATH of the libraries
     and avoid using the system rocm libraries if the module is not loaded.
 
+-   [ROCm 5.4.6 documentation](https://rocm.docs.amd.com/en/docs-5.4.3/)
 -   [ROCm 5.6.1 documentation](https://rocm.docs.amd.com/en/docs-5.6.1/)
