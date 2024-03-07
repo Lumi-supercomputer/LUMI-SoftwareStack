@@ -14,9 +14,18 @@ is "Recompile with 22.08 or newer".
 LUMI/22.06:
 The LUMI/22.06 software stack has reached the end of its supported life. The
 necessary compilers are no longer on the system but the module system as been tweaked
-to load other modules so that software installed with 21.12 may still work. However,
+to load other modules so that software installed with 22.06 may still work. However,
 we do no longer support running that software and the default answer to a complaint
 is "Recompile with 22.08 or newer". 
+
+rocm/5.4.*singularity.*:
+These containers should be fine with the ROCm driver on LUMI, but interfacing
+with the Cray PE outside the container may not work as expected.
+
+rocm/5.[5-7].*singularity.*:
+The ROCm version in these containers is not supported by the ROCm driver on LUMI,
+so some features might be broken. Some problems we know of are documented on
+https://lumi-supercomputer.github.io/LUMI-EasyBuild-docs/r/rocm/
 
 rocm/5.2.5:
 This module is not installed the way it is intended by AMD. Hence some parts of ROCm may
@@ -34,17 +43,36 @@ module there is no guarantee that it will integrate properly with HPE Cray PE mo
 or work correctly in that environment. Note that HPE Cray PE programming environments
 up to at least 23.02 have only been tested with ROCm version prior to 5.3 by HPE.
 
+rocm/5.4.6:
+This module is not installed the way it is intended by AMD. Hence some parts of ROCm may
+be broken or offer slower than expected performance and there is nothing the LUMI
+User Support Team can do about that. As the module is also not an official HPE Cray 
+module there is no guarantee that it will integrate properly with HPE Cray PE modules
+or work correctly in that environment. Officially supported ROCm versions for the
+HPE Cray PE version 23.09 or 5.2 on the OS version on LUMI and 5.5 on the newer
+OS version, so likely everything is mostly fine.
+
 rocm/5.6.1:
 The ROCm 5.6.1 module comes without warranty nor support as it is not installed in
 the regular directories as suggested by AMD, which may break links encoded in RPMs.
 It is also not officially supported by the driver version currently on the system
-(which we cannot update at the moment), and is also not officially supported by 
-HPE so problems with, e.g., GPU aware MPI may show up.
+(which we cannot update at the moment), and is also not officially supported by HPE.
+We have observed problems, see the ROCm page in the LUMI Software Library:
+https://lumi-supercomputer.github.io/LUMI-EasyBuild-docs/r/rocm/
 
 amd/5.6.1:
 This module mimics the behaviour of the HPE CPE amd modules but cannot fully work
 in the same way, so problems may occur. Also check the instructions in the LUMI
 Software Library at https://lumi-supercomputer.github.io/LUMI-EasyBuild-docs/a/amd.
+
+.*/.*%-rocm%-5.[5-7].*%-singularity%-.*:
+These containers are based on newer versions of ROCm than officially supported by
+the ROCm driver on the system, so some features may be broken. These containers,
+when offered through the LUMI Software Library, are offered as a convenience but
+without guarantee that the LUMI User Support Team can fix all problems with them
+due to the mismatch between ROCM driver and libraries versions.
+We have observed problems, see the ROCm page in the LUMI Software Library:
+https://lumi-supercomputer.github.io/LUMI-EasyBuild-docs/r/rocm/
 
 Rust/1.60.0:
 The Rust 1.60.0 module is known to be faulty and will be removed from the system. As
