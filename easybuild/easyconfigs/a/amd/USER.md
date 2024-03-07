@@ -23,3 +23,8 @@ automatically linked, you need to load the corresponding `rocm` module.
 ```
 module load rocm/5.6.1
 ```
+
+We do not provide a similar module for `rocm/5.4.6`. Instead, it is sufficient to
+load the `rocm/5.4.6` module after loading the `PrgEnv-amd` module (or `cpeAMD` in
+the LUMI stacks). The necessary environment variables for the compiler wrappers
+are already defined in the `rocm/5.4.6` module.
