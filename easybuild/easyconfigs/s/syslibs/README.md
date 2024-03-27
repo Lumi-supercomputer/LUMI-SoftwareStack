@@ -18,6 +18,7 @@ Currently included are:
   * file [version check](http://ftp.astron.com/pub/file/)
   * PCRE2 [version check](https://github.com/PhilipHazel/pcre2/releases)
   * SQLite3 (limited configuration, but enough for, e.g., subversion) [version check](https://www.sqlite.org/)
+  * talloc [version check](https://www.samba.org/ftp/talloc/) (From a revision of 23.09 on.)
 
 For those libraries that are present on SUSE Linux, we tried to take the same versions
 as much as possible for optimal compatibility with other files that the libraries might
@@ -73,3 +74,12 @@ use.
   * Trivial port of the 22.08 version (the later one without cURL).
 
 
+### 23.09
+
+  * At the start a trivial port of the 23.09 version.
+  
+  * Later talloc was added to the package to be able to add PRoot to systools.
+    We developed a build procedure for a static version based on
+    https://github.com/green-green-avk/build-proot-android/blob/master/make-talloc-static.sh.
+
+    This is done specifically for use in proot which we want to be a fully static executable.

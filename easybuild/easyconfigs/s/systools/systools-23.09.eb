@@ -9,13 +9,14 @@ homepage = '(none)'
 
 whatis = [
     "Description: A number of small and popular tools that just make life easier.",
-    "Contains: gpp, htop, tree",
+    "Contains: gpp, htop, tree, proot",
 ]
 
 local_systools_GPP_version =          '2.28'
 local_systools_htop_version =         '3.2.2'
 local_systools_libtree_version =      '3.1.1'
 local_systools_tree_version =         '2.1.1'
+local_systools_PRoot_version =        '5.4.0'        # https://github.com/proot-me/proot/releases
 
 description = f"""
 This module provides a number of popular tools to view and manage Linux processes
@@ -51,6 +52,15 @@ Overview of included tools:
   + tree (version {local_systools_tree_version}): a recursive directory listing command that produces a depth indented
     listing of files, which is colorized ala dircolors if the LS_COLORS environment
     variable is set and output is to tty.
+    
+  + PRoot (version {local_systools_PRoot_version}) is a user-space implementation of chroot, mount --bind, and 
+    binfmt_misc. This means that users don't need any privileges or setup to do 
+    things like using an arbitrary directory as the new root filesystem, making 
+    files accessible somewhere else in the filesystem hierarchy, or executing 
+    programs built for another CPU architecture transparently through QEMU 
+    user-mode.
+
+    It is provided in this module mainly for use with singularity.
 """
 
 docurls = [
@@ -59,6 +69,7 @@ docurls = [
     'htop: Man page in section 1 (man 1 htop)',
     'libtree: Man page in section 1 (man 1 libtree)',
     'tree: Man page in section 1 (man 1 tree)',
+    'PRoot: Web-based documentation on: https://proot-me.github.io/',
 ]
 
 toolchain = SYSTEM
@@ -78,7 +89,7 @@ components = [
                             'source_urls': ['https://github.com/logological/gpp/releases/download/%(version)s']
                          }],
         'checksums':     ['343d33d562e2492ca9b51ff2cc4b06968a17a85fdc59d5d4e78eed3b1d854b70'],
-        'start_dir':     'gpp-%(version)s',
+        'start_dir':     '%(namelower)s-%(version)s',
         'preconfigopts': 'CFLAGS="-O2 -march=znver1" CXXFLAGS="-O2 -march=znver1" ',
         'installopts':   ' && mkdir -p %(installdir)s/share/licenses/%(name)s' +
                          ' && cp COPYING COPYING.LESSER NEWS THANKS %(installdir)s/share/licenses/%(name)s'
@@ -90,7 +101,7 @@ components = [
                             'source_urls':       ['https://github.com/htop-dev/htop/archive/refs/tags']
                          }],
         'checksums':     ['3829c742a835a0426db41bb039d1b976420c21ec65e93b35cd9bfd2d57f44ac8'],
-        'start_dir':     'htop-%(version)s',
+        'start_dir':     '%(name)s-%(version)s',
         'preconfigopts': './autogen.sh && LDFLAGS="-L$EBROOTSYSLIBS/lib" LIBS="$LIBS -ltinfo" CFLAGS="-O2 -march=znver1" CXXFLAGS="-O2 -march=znver1" ',
         # Core dumps when compiled with unicode support, there must be something wrong in
         # our ncursesw library.
@@ -106,7 +117,7 @@ components = [
                             'source_urls':       ['https://github.com/haampie/libtree/archive/refs/tags']
                          }],
         'checksums':     ['6148436f54296945d22420254dd78e1829d60124bb2f5b9881320a6550f73f5c'],
-        'start_dir':     'libtree-%(version)s',
+        'start_dir':     '%(name)s-%(version)s',
         'buildopts':     'CC="gcc" CFLAGS="-O2 -march=znver1" LDFLAGS="-static"',
         'files_to_copy': [(['libtree'], 'bin'), (['doc/libtree.1'], 'share/man/man1'), (['LICENSE'], 'share/licenses/%(name)s')]
     }),
@@ -117,9 +128,25 @@ components = [
                             'source_urls': ['http://mama.indstate.edu/users/ice/tree/src']
                          }],
         'checksums':     ['d3c3d55f403af7c76556546325aa1eca90b918cbaaf6d3ab60a49d8367ab90d5'],
-        'start_dir':     'tree-%(version)s',
+        'start_dir':     '%(name)s-%(version)s',
         'buildopts':     'CC="gcc" CFLAGS="-O2 -march=znver1 -ggdb -pedantic -Wall -DLINUX -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64"',
         'files_to_copy': [(['tree'], 'bin'), (['doc/tree.1'], 'share/man/man1'), (['LICENSE'], 'share/licenses/%(name)s')]
+    }),
+    ('PRoot', local_systools_PRoot_version, {
+        'sources':       [ { # https://github.com/haampie/libtree/archive/refs/tags/v3.1.1.tar.gz
+                            'download_filename': 'v%(version)s.zip',
+                            'filename':          SOURCELOWER_ZIP,
+                            'source_urls':       ['https://github.com/proot-me/proot/archive/refs/tags']
+                         }],
+        'checksums':     ['8812f3a6c224bdd6a316f13689377e7543e7e3cebcdef6ec98827abee60fa327'],
+        'start_dir':     '%(namelower)s-%(version)s/src',
+        'skipsteps':     [ 'configure' ],
+        'prebuildopts':  'sed -e "s/.*GIT_.*//" -i GNUmakefile && ',
+        'buildopts':     'proot V=1 CFLAGS="-O2 -march=znver1" VERSION="%(version)s"',
+        'installopts':   'V=1 PREFIX="%(installdir)s"' +
+                         ' && mkdir -p %(installdir)s/share/licenses/%(name)s' +
+                         ' && cd ..'
+                         ' && cp AUTHORS CHANGELOG.rst COPYING README.rst %(installdir)s/share/licenses/%(name)s',
     }),
 ]
 
@@ -127,7 +154,8 @@ sanity_check_paths = {
     'files': ['bin/gpp', 'share/man/man1/gpp.1', 'share/licenses/GPP/COPYING', 'share/licenses/GPP/COPYING.LESSER'] +
              ['bin/htop', 'share/man/man1/htop.1', 'share/licenses/htop/COPYING'] +
              ['bin/libtree', 'share/man/man1/libtree.1', 'share/licenses/libtree/LICENSE'] +
-             ['bin/tree', 'share/man/man1/tree.1', 'share/licenses/tree/LICENSE'],
+             ['bin/tree', 'share/man/man1/tree.1', 'share/licenses/tree/LICENSE'] +
+             ['bin/proot', 'share/licenses/PRoot/COPYING'],
     'dirs':  []
 }
 
@@ -136,11 +164,12 @@ sanity_check_commands = [
     'htop --version',
     'libtree --help',
     'libtree -v -p %(installdir)s/bin/libtree',
-    'tree --version'
+    'tree --version',
+    'proot --version'
 ]
 
 modluafooter = f"""
-extensions( "GPP/{local_systools_GPP_version}, htop/{local_systools_htop_version}, libtree/{local_systools_libtree_version}, tree/{local_systools_tree_version}" )
+extensions( "GPP/{local_systools_GPP_version}, htop/{local_systools_htop_version}, libtree/{local_systools_libtree_version}, tree/{local_systools_tree_version}, PRoot/{local_systools_PRoot_version}" )
 """
 
 moduleclass = 'tools'

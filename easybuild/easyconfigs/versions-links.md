@@ -58,6 +58,7 @@ better to avoid bugs also).
 | [PCRE2](https://github.com/PhilipHazel/pcre2/releases) | [SUSE pcre2](https://software.opensuse.org/search?utf8=%E2%9C%93&baseproject=ALL&q=PCRE2) |
 | [Serf](https://serf.apache.org/download) | ? |
 | [SQLite3](https://www.sqlite.org/) | ? |
+| [talloc](https://www.samba.org/ftp/talloc/) | ? |
 
 
 ## systools bundle
@@ -68,6 +69,7 @@ better to avoid bugs also).
 | [htop](https://github.com/htop-dev/htop/releases)      | | |
 | [libtree](https://github.com/haampie/libtree/releases) | [EB libtree](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/libtree) | [CSCS libtree](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/l/libtree) |
 | [tree](http://mama.indstate.edu/users/ice/tree/src)    | | |
+| [talloc](https://github.com/proot-me/proot/releases)   | | |
 
 
 ## Other packages that we try to build against the SYSTEM toolchain
