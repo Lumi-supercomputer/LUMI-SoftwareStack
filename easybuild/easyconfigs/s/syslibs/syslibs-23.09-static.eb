@@ -30,6 +30,7 @@ local_syslibs_file_version =         '5.44'          # http://ftp.astron.com/pub
 local_syslibs_PCRE2_version =        '10.42'         # https://github.com/PhilipHazel/pcre2/releases
 local_syslibs_Serf_version =         '1.3.9'         # https://serf.apache.org/download
 local_syslibs_SQLite3_version =      '3.41.0'        # https://www.sqlite.org/
+local_syslibs_talloc_version =       '2.4.2'         # https://www.samba.org/ftp/talloc/
 
 description = """
 This module provides a number of libraries that are mostly also found on the
@@ -124,6 +125,12 @@ Overview of included libraries:
     any purpose.
 
     NOTE: This is not a full-featured build but serves to build svn
+  + Talloc (version %(talloc)s) is a hierarchical, reference counted memory pool 
+    system with destructors. It is the core memory allocator used in Samba.
+
+    This module does not provide talloc in the traditional way. Instead it provides
+    a static library only, and without Python support. It is derived from instructions
+    to build a static talloc library for Android. 
 """ % {
     'ncurses':      local_syslibs_ncurses_version,
     'libreadline':  local_syslibs_libreadline_version,
@@ -138,6 +145,7 @@ Overview of included libraries:
     'PCRE2':        local_syslibs_PCRE2_version,
     'Serf':         local_syslibs_Serf_version,
     'SQLite3':      local_syslibs_SQLite3_version,
+    'talloc':       local_syslibs_talloc_version,
 }
 
 docurls = [
@@ -363,6 +371,21 @@ components = [
         'configopts':    '--enable-static --disable-shared',
         'parallel':      1,
     }),
+    ('talloc', local_syslibs_talloc_version, {
+        'easyblock':   'ConfigureMake',
+        # https://www.sqlite.org/2022/sqlite-autoconf-3370200.tar.gz
+        'sources':       [SOURCELOWER_TAR_GZ],
+        'source_urls':   ['https://www.samba.org/ftp/talloc'],
+        'checksums':     ['85ecf9e465e20f98f9950a52e9a411e14320bc555fa257d87697b7e7a9b1d8a6'],
+        'start_dir':     '%(namelower)s-%(version)s',
+        'preconfigopts': 'CC="gcc" CFLAGS="-O2 -march=znver1" ',
+        'configopts':    '--disable-python --disable-rpath',
+    }),
+]
+
+postinstallcmds = [
+    f'cd %(builddir)s/talloc-{local_syslibs_talloc_version}/bin/default ; /usr/bin/ar rcs %(installdir)s/lib/libtalloc.a talloc.c.*.o',
+    '/bin/rm %(installdir)s/lib/libtalloc.so*'
 ]
 
 sanity_check_paths = {
@@ -400,7 +423,9 @@ sanity_check_paths = {
              ['lib/pkgconfig/libpcre2-%s.pc' % x for x in ['posix', '8', '16', '32']] +
              ['include/pcre2.h', 'include/pcre2posix.h'] +
              # SQLite3
-             ['bin/sqlite3', 'include/sqlite3ext.h', 'include/sqlite3.h', 'lib/libsqlite3.a'],
+             ['bin/sqlite3', 'include/sqlite3ext.h', 'include/sqlite3.h', 'lib/libsqlite3.a'] +
+             # talloc
+             ['include/talloc.h', 'lib/libtalloc.a', 'lib/pkgconfig/talloc.pc'],
     'dirs':  # ncurses
              ['include/ncursesw'] +
              # lz4
@@ -444,7 +469,9 @@ sanity_check_commands = [
     'pkg-config --libs libpcre2-%s' % x for x in ['posix', '8', '16', '32']] + [
     # SQLite3
     'sqlite3 -version',
-    'pkg-config --libs sqlite3' ]
+    'pkg-config --libs sqlite3' ] + [
+    # talloc
+    'pkg-config --libs talloc' ]
 
 modextravars = {
     'CURL_INCLUDES':                '%(installdir)s/include', # Bad idea to add the variables below as they confuse get_software_libdir
@@ -475,6 +502,9 @@ modextravars = {
     'EBVERSIONPCRE2':               local_syslibs_PCRE2_version,
     'EBROOTSQLITE3':                '%(installdir)s',
     'EBVERSIONSQLITE3':             local_syslibs_SQLite3_version,
+    'EBROOTSTALLOC':                 '%(installdir)s',
+    'EBVERSIONTALLOC':              local_syslibs_talloc_version,
 }
+
 
 moduleclass = 'lib'
