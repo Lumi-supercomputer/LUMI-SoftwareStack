@@ -31,6 +31,14 @@ The current content is
 
     -   [tree web page](http://mama.indstate.edu/users/ice/tree/)
 
+-   PRoot
+
+    -   [PRoot home page](https://proot-me.github.io/)
+        
+    -   [PRoot on GitHub](https://github.com/proot-me/proot)
+        
+        -   [PRoot GitHub releases](https://github.com/proot-me/proot/releases)
+
 
 ## EasyBuild
 
@@ -72,5 +80,18 @@ The current content is
 
 -   Version bumps for GPP/htop/tree.
 
+
+### 23.09
+
+-   Version bumps for GPP/htop/tree.
+
+-   In a revised edition we also provided the proot command for use with singularity.
+
+    -   We went for build that is fully static except for libc taken from the system to
+        be as independent from anything else as possible. The procedure in the EasyConfig
+        is a LUST development.
+        
+    -   Needed to fix the Makefile as the warnings about it not being a git repository
+        caused EasyBuild to stop the build.
 
   
