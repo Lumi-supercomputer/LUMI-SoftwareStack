@@ -2,6 +2,8 @@
 
 Extensive user documentation for cotainr is available on
 [ReadTheDocs](https://cotainr.readthedocs.io/en/latest/).
+There is also [some LUMI-specific information](https://docs.lumi-supercomputer.eu/software/containers/singularity/#building-containers-using-the-cotainr-tool) on the 
+[Singularity page in the main LUMI documentation](https://docs.lumi-supercomputer.eu/software/containers/singularity).
 
 The cotainr package is developed by the LUMI consortium member DeiC (Denmark).
 
