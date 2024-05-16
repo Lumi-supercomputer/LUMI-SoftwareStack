@@ -67,14 +67,15 @@ class EB_Score_minus_P_minus_CPE(ConfigureMake):
             # since 2024/03 releases: --with-nocross-compiler-suite=(cray|gcc|ibm|intel|oneapi|nvhpc|pgi|clang|aocc|amdclang)
             comp_opts = {
                 # assume that system toolchain uses a system-provided GCC
-                toolchain.SYSTEM: 'gcc',
-                toolchain.AOCC: 'aocc',
-                toolchain.CCE: 'cray',
-                toolchain.GCC: 'gcc',
-                toolchain.IBMCOMP: 'ibm',
+                toolchain.SYSTEM:    'gcc',
+                toolchain.AMD:       'amdclang',
+                toolchain.AOCC:      'aocc',
+                toolchain.CCE:       'cray',
+                toolchain.GCC:       'gcc',
+                toolchain.IBMCOMP:   'ibm',
                 toolchain.INTELCOMP: 'intel',
-                toolchain.NVHPC: 'nvhpc',
-                toolchain.PGI: 'pgi',
+                toolchain.NVHPC:     'nvhpc',
+                toolchain.PGI:       'pgi',
             }
             nvhpc_since = {
                 'Score-P': '8.0',
