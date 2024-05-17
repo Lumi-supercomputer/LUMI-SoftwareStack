@@ -1,19 +1,20 @@
    .Announcements---------------------------------------------------.
-*  | !!!Important as there are breaking changes!!! Please check     |
-   | https://lumi-supercomputer.github.io/update-202311             |
- * | for changes to the configuration after the October-November    |
-   | 2023 update. There is now a workaround for some of the         |
-  *| with the cray-mpich modules, see the notes above.              |
-   |                                                                |
- * | NOTE: The default version of the LUMI software stack is        |
-   | LUMI/22.08 while the default version of the Cray PE after      |
-*  | login and in CrayEnv is 23.09. Please move as soon as possible |
-   | from LUMI/22.08 to newer versions as 22.08 is not fully        |
- * | functional anymore. Many base libraries for 23.09 have already |
-   | been installed with a few more to follow, and we are now       |
-*  | porting some of the recipes for user-installable software as   |
-   | we expect that versions before 23.09 will not be supportable   |
-   | after the next big system update.                              |
+*  | The default version of the LUMI software stack will switch     |
+   | to 23.09 to align with the current default version of the Cray |
+ * | PE and because it is likely the only current stack that we     |
+   | will still be able to support after the next major system      |
+  *| update. If your project ends after the end of August this      |
+   | year, we encourage you to switch to LUMI/23.09 if you're using |
+ * | the LUMI stacks, spack/23.09 if you're using Spack, or the     |
+   | default 23.09 compilers in CrayEnv or the bare system. Feel    |
+*  | free to contact support if you feel some software supported    |
+   | by us in 22.08 or 22.12 is not yet in 23.09 as now there is    |
+ * | still time to do something about it. You can keep using the    |
+   | older stacks until the system update, but please make sure you |
+   | explicitly use LUMI/22.08 and not LUMI without version when    |
+ * | you load the LUMI stack or the behaviour will change. The      |
+   | projected date for the switch of the default for LUMI is       |
+   | July 9, 2024.                                                  |
   *|                                                                |
 *  | You can use the lumi-workspaces command (without loading an    |
    | additional module) to check your quota and allocations on      |
