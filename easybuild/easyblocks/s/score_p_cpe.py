@@ -33,9 +33,14 @@ implemented as an easyblock.
 @author: Christian Feld (Juelich Supercomputing Centre)
 @author: Jan André Reuter (Juelich Supercomputing Centre)
 """
+# As we are still running Python 3.6, we can still use LooseVersion from
+# distutils. Which we need as we still use some older versions of EasyBuild
+# that do not yet contain LooseVersion in easybuild.tools.
+#from easybuild.tools import LooseVersion
+from distutils.version import LooseVersion
+
 import easybuild.tools.toolchain as toolchain
 from easybuild.easyblocks.generic.configuremake import ConfigureMake
-from easybuild.tools import LooseVersion
 from easybuild.tools.build_log import EasyBuildError
 from easybuild.tools.environment import unset_env_vars
 from easybuild.tools.modules import get_software_root, get_software_libdir
