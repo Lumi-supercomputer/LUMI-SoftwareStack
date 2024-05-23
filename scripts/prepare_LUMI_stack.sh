@@ -112,7 +112,7 @@ then
     #cpeCray=( 'common:C:G:D:L' )
     #cpeAOCC=( 'common:C:D:L' )
     #cpeAMD=( 'G' )
-	partitions=( 'C' 'G' 'L' )
+	partitions=( 'C' 'G' 'L' 'D' )
 	cpeGNU=( 'common:C:G:L' )
     cpeCray=( 'common:C:G:L' )
     cpeAOCC=( 'common:C:L' )

@@ -186,6 +186,10 @@ if ( ( partition ~= 'common' ) and not special_partition[partition] ) or ( mode(
         if partition ~= 'common' then
             prepend_path( 'MODULEPATH', pathJoin( module_root, 'easybuild',     stack_name_version, 'partition', 'common' ) )
         end
+        -- Partition D is built on top of partition L
+        if partition == 'D' then
+            prepend_path( 'MODULEPATH', pathJoin( module_root, 'easybuild',     stack_name_version, 'partition', 'L' ) )
+        end
         prepend_path(     'MODULEPATH', pathJoin( module_root, 'easybuild',     stack_name_version, 'partition', partition ) )
     end
 
@@ -209,6 +213,10 @@ if ( ( partition ~= 'common' ) and not special_partition[partition] ) or ( mode(
             prepend_path( 'MODULEPATH', pathJoin( user_easybuild_modules, 'container' ) )  -- User containers always available in partition/{common|L|C|G}
             if partition ~= common then
                 prepend_path( 'MODULEPATH', pathJoin( user_easybuild_modules, stack_name_version, 'partition', 'common' ) ) -- We shouldn't add common twice.
+            end
+            -- Partition D is built on top of partition L
+            if partition == 'D' then
+                prepend_path( 'MODULEPATH', pathJoin( user_easybuild_modules, stack_name_version, 'partition', 'L' ) )
             end
             prepend_path( 'MODULEPATH', pathJoin( user_easybuild_modules, stack_name_version, 'partition', partition ) )
 
