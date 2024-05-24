@@ -1,5 +1,5 @@
 easyconfigs:
-  - lumi-tools-23.09.eb
+  - lumi-tools-24.05.eb
   - lumi-vnc-20230110.eb
   - lumio-ext-tools-1.0.0.eb
   - lumio-1.0.0.eb 
