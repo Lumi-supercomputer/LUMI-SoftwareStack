@@ -28,3 +28,7 @@ Links for quick checking for version updates:
 -   Stuck to the same versions of Meson and SCons as for 23.09 to minimize problems.
 
 
+### 24.03-cray-python-11
+
+-   Updated Meson and SCons to the latest versions at the time of development of the
+    EasyConfig.
