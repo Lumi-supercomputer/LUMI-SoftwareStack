@@ -48,3 +48,12 @@
 -   Trivial port of the 4.7.1 EasyConfig.
 
 -   In a later update we added support for loading `EasyBuild-tools` if available.
+
+
+### Version 4.9.1 for LUMI/23.12 and 24.03
+
+-   Trivial port of the 4.7.1 EasyConfig
+
+-   At first removed support for loading `EasyBuild-tools` as the reason for it is  
+    no longer there (MATLAB installation done differently). 
+
