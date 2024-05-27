@@ -127,3 +127,10 @@ Not included at the moment:
 
   * Minimal version updates, only CMake was updated as there it is important to have the 
     latest.
+    
+
+### 24.03
+
+  * Total refresh of 23.12, except for those packages where newer versions offer compile problems
+    with the current system compiler on LUM<I.
+
