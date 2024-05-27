@@ -94,4 +94,10 @@ The current content is
     -   Needed to fix the Makefile as the warnings about it not being a git repository
         caused EasyBuild to stop the build.
 
+
+
+### 23.12
+
+-   Version bump of `htop`, but otherwise similar as the 23.09 one with the `proot` 
+    command.
   
