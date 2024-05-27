@@ -1,0 +1,88 @@
+easyblock = 'ConfigureMake'
+
+local_ncurses_version =      '6.4'           # https://ftp.gnu.org/pub/gnu/ncurses/
+local_libreadline_version =  '8.2'           # https://ftp.gnu.org/pub/gnu/readline/
+local_libiconv_version =     '1.17'          # https://ftp.gnu.org/pub/gnu/libiconv/
+local_gettext_version =      '0.22.4'        # https://ftp.gnu.org/pub/gnu/gettext/
+local_gdbm_version =         '1.23'          # https://ftp.gnu.org/gnu/gdbm/
+
+name =    'gdbm'
+version = local_gdbm_version
+
+homepage = 'http://puszcza.gnu.org.ua/software/gdbm/'
+
+whatis = [
+    'Description: GNU dbm is a library of database functions that use extensible hashing and works similar to the standard UNIX dbm functions.',
+]
+
+description = """
+GNU dbm (or GDBM, for short) is a library of database functions that use
+extensible hashing and work similar to the standard UNIX dbm. These routines
+are provided to a programmer needing to create and manipulate a hashed
+database.
+
+The basic use of GDBM is to store key/data pairs in a data file. Each key
+must be unique and each key is paired with only one data item.
+
+The library provides primitives for storing key/data pairs, searching and
+retrieving the data by its key and deleting a key along with its data. It
+also support sequential iteration over all key/data pairs in a database.
+
+For compatibility with programs using old UNIX dbm function, the package
+also provides traditional dbm and ndbm interfaces.
+
+This module provides static and shared liberaries.
+"""
+
+docurls = [
+    'Web-based documentation: http://puszcza.gnu.org.ua/software/gdbm/manual/gdbm.html',
+    'Support for the info command (info gdbm)',
+    'man pages for gdbmtool. gdbm_dump and gdbm_load in section 1 and for the API as gdbm in section 3',
+]
+
+toolchain = {'name': 'cpeCray', 'version': '24.03'}
+toolchainopts = {'pic': True}
+#toolchainopts = {'pic': True, 'precise': True}
+
+# ftp://ftp.gnu.org/gnu/gdbm/gdbm-1.18.1.tar.gz
+sources =     [SOURCELOWER_TAR_GZ]
+source_urls = [GNU_SOURCE]
+checksums =   ['74b1081d21fff13ae4bd7c16e5d6e504a4c26f7cde1dca0d963a484174bbcacd']
+
+builddependencies = [
+    ('buildtools', '%(toolchain_version)s', '', True),
+    ('libiconv',   local_libiconv_version),
+    ('gettext',    local_gettext_version), # Really a build dependency? It doesn't seem to link to it.
+]
+
+dependencies = [
+    ('ncurses',     local_ncurses_version),
+    ('libreadline', local_libreadline_version),
+]
+
+# Note there is also libintl but that is part of the GNU C library so we son\'t use our own.
+configopts = '--enable-libgdbm-compat --with-libiconv-prefix=$EBROOTLIBICONV'
+
+postinstallcmds = [
+    'mkdir -p %(installdir)s/share/licenses/%(name)s',
+    'cp AUTHORS ChangeLog COPYING NEWS NOTE-WARNING README THANKS %(installdir)s/share/licenses/%(name)s',   
+]
+
+sanity_check_paths = {
+    'files': ['lib/libgdbm%s.%s' % (x, y)  for x in [ '', '_compat'] for y in ['a', 'la', SHLIB_EXT]] +
+             ['include/%s.h' % x for x in ['dbm', 'gdbm', 'ndbm']] +
+             ['bin/gdbmtool', 'bin/gdbm_dump', 'bin/gdbm_load'],
+    'dirs':  ['share/info', 'share/man', 'share/locale'],
+}
+
+sanity_check_commands = [
+    'gdbmtool -V',
+    'gdbm_dump -V',
+    'gdbm_load -V',
+]
+
+modextrapaths = {
+    'INFOPATH' : 'share/info',
+}
+
+moduleclass = 'devel'
