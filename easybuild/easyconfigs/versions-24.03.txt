@@ -36,7 +36,7 @@ local_xxd_version =              '9.1.0447'    # vim        20240124 - Check on 
 local_Meson_version =            '0.61.5'      # Meson      20220117 - Check on https://pypi.org/project/meson/#history
 local_Meson_cray_version =       '1.4.0'       # Meson      20240312 - Check on https://pypi.org/project/meson/#history
 local_SCons_version =            '4.4.0'       # SCons      20220730 - Check on https://github.com/SCons/scons/releases, https://scons.org/pages/download.html
-local_SCons_cray_version =       '4.7.0'       # SCons      20231120 - Check on https://github.com/SCons/scons/releases, https://scons.org/pages/download.html
+local_SCons_cray_version =       '4.7.0'       # SCons      20240318 - Check on https://github.com/SCons/scons/releases, https://scons.org/pages/download.html
 
 #
 # syslibs bundle
@@ -63,7 +63,8 @@ local_syslibs_talloc_version =       '2.4.2'         # https://www.samba.org/ftp
 local_systools_GPP_version =          '2.28'
 local_systools_htop_version =         '3.3.0'
 local_systools_libtree_version =      '3.1.1'
-local_systools_tree_version =         '2.1.1'
+local_systools_PRoot_version =        '5.4.0'        # https://github.com/proot-me/proot/releases
+local_systools_tree_version =         '2.1.1'        # https://gitlab.com/OldManProgrammer/unix-tree/-/tags
 
 #
 # Some SYSTEM applications
