@@ -48,4 +48,4 @@
 
 ### nano 8.0 for 23.12 and 24.03
 
-
+  * Trivial version bump from 7.2.

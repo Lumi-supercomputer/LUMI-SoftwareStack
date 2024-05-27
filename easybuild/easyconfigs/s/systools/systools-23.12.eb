@@ -15,7 +15,7 @@ whatis = [
 local_systools_GPP_version =          '2.28'
 local_systools_htop_version =         '3.3.0'
 local_systools_libtree_version =      '3.1.1'
-local_systools_tree_version =         '2.1.1'
+local_systools_tree_version =         '2.1.1'        # https://gitlab.com/OldManProgrammer/unix-tree/-/tags
 local_systools_PRoot_version =        '5.4.0'        # https://github.com/proot-me/proot/releases
 
 description = f"""
@@ -123,12 +123,12 @@ components = [
     }),
     ('tree', local_systools_tree_version, {
         'easyblock':     'MakeCp',
-        'sources':       [ { # http://mama.indstate.edu/users/ice/tree/src/tree-1.8.0.tgz
-                            'filename':    '%(name)s-%(version)s.tgz',
-                            'source_urls': ['http://mama.indstate.edu/users/ice/tree/src']
+        'sources':       [ { # https://gitlab.com/OldManProgrammer/unix-tree/-/archive/2.1.1/unix-tree-2.1.1.tar.bz2
+                            'filename':    'unix-tree-%(version)s.tgz',
+                            'source_urls': ['https://gitlab.com/OldManProgrammer/unix-tree/-/archive/%(version)s']
                          }],
-        'checksums':     ['d3c3d55f403af7c76556546325aa1eca90b918cbaaf6d3ab60a49d8367ab90d5'],
-        'start_dir':     '%(name)s-%(version)s',
+        'checksums':     ['bcd2a0327ad40592a9c43e09a4d2ef834e6f17aa9a59012a5fb1007950b5eced'],
+        'start_dir':     'unix-tree-%(version)s',
         'buildopts':     'CC="gcc" CFLAGS="-O2 -march=znver1 -ggdb -pedantic -Wall -DLINUX -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64"',
         'files_to_copy': [(['tree'], 'bin'), (['doc/tree.1'], 'share/man/man1'), (['LICENSE'], 'share/licenses/%(name)s')]
     }),
