@@ -15,7 +15,7 @@ local_makeinfo_version =         '7.1'         # texinfo    20231018 - Check on 
 local_Autoconf_version =         '2.72'        # Autoconf   20231222 - Check on https://ftp.gnu.org/gnu/autoconf/
 local_Autoconf_archive_version = '2023.02.20'  # Autoconf-Archive 20230220 - check on https://ftp.gnu.org/gnu/autoconf-archive/
 local_Automake_version =         '1.16.5'      # Automake   20211003 - Check on https://ftp.gnu.org/gnu/automake/
-local_CMake_version =            '3.28.1'      # CMake      20231214 - Check on https://cmake.org/download/ (newer than EB 2022b)
+local_CMake_version =            '3.29.3'      # CMake      20240507 - Check on https://cmake.org/download/ (newer than EB 2022b)
 local_Ninja_version =            '1.11.1'      # Ninja      20220830 - Check on https://ninja-build.org/
 # Note: Meson 0.61.5 is the last version with Python 3.6 support.
 local_Meson_version =            '0.61.5'      # Meson      20220117 - Check on https://pypi.org/project/meson/#history
