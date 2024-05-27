@@ -67,4 +67,3 @@ module_version( 'cray-mpich/8.1.27', '8.1.18' )
 module_version( 'cray-mpich/8.1.27', '8.1.23' )
 module_version( 'cray-mpich/8.1.27', '8.1.25' )
 
-
