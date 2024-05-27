@@ -83,3 +83,11 @@ use.
     https://github.com/green-green-avk/build-proot-android/blob/master/make-talloc-static.sh.
 
     This is done specifically for use in proot which we want to be a fully static executable.
+    
+    
+### 23.12 and 24.03
+
+  * Trivial port of the new 23.09 one (with `talloc`) with updates of several packages.
+
+  * Stuck to ncurses 6.4 as 6.5 didn't generate the regular ncurses library anymore and
+    compiling readline 8.2 hence failed.
