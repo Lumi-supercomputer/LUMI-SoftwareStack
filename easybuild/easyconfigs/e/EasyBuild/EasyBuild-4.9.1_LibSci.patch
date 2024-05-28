@@ -1,0 +1,16 @@
+Patch: In CPE 23.12, the environment variable CRAY_LIBSCI_PREFIX_DIR changed to
+CRAY_PE_LIBSCI_PREFIX_DIR.
+By Kurt Lust, kurt.lust@uantwerpen.be for the LUMI consortium.
+diff -Nau easybuild/toolchains/linalg/libsci.py.orig easybuild/toolchains/linalg/libsci.py
+--- easybuild/toolchains/linalg/libsci.py.orig	2024-05-28 15:55:54
++++ easybuild/toolchains/linalg/libsci.py	2024-05-28 15:57:29
+@@ -68,6 +68,9 @@
+             env_var = 'CRAY_LIBSCI_PREFIX_DIR'
+             root = os.getenv(env_var, None)
+             if root is None:
++                env_var = 'CRAY_PE_LIBSCI_PREFIX_DIR'
++                root = os.getenv(env_var, None)
++            if root is None:
+                 if required:
+                     raise EasyBuildError("Failed to determine install prefix for %s via $%s", name, env_var)
+             else:
