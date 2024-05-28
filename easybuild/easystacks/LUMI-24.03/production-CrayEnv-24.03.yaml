@@ -3,7 +3,7 @@ easyconfigs:
   - syslibs-24.03-static.eb
   - buildtools-24.03.eb
   - buildtools-python-24.03-systemPython.eb
-  - buildtools-python-24.03-cray-python3.10.eb
+  - buildtools-python-24.03-cray-python3.11.eb
   - systools-24.03.eb
   - lumi-CPEtools-1.0.eb
   - nano-8.0.eb
