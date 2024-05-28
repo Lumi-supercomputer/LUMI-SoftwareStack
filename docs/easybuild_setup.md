@@ -219,6 +219,20 @@ The following settings are made through environment variables:
     but it ensures that files produced by this option will not end up in our GitHub
     repository.
 
+  * `EASYBUILD_BUILDPATH` and `EASYBUILD_TMPDIR` are determined by the following strategy:
+
+     1. If the environment variable `EBU_WORKDIR` is set, that one is used as the base
+        for the directory names.
+
+     2. If we detect we are running in a singularity container, `/tmp/$USER` is used as
+        the base for the directory names.
+
+     3. If we are on a login node, we try to use $XDG_RUNTIME_DIR, and if that environment
+        variable isn't set, we try in `/tmp`.
+
+     4. Finally, if we are on a compute node we construct a subdirectory in `/tmp` based
+        on the Slurm job ID or user name.
+
 
 ### The EasyBuild-user mode
 
@@ -289,13 +303,27 @@ The following settings are made through environment variables:
 
     So currently the additional search paths in user mode are empty. 
 
+  * `EASYBUILD_BUILDPATH` and `EASYBUILD_TMPDIR` are determined by the following strategy:
+
+     1. If the environment variable `EBU_WORKDIR` is set, that one is used as the base
+        for the directory names.
+
+     2. If we detect we are running in a singularity container, `/tmp/$USER` is used as
+        the base for the directory names.
+
+     3. If we are on a login node, we try to use $XDG_RUNTIME_DIR, and if that environment
+        variable isn't set, we try in `/tmp`.
+
+     4. Finally, if we are on a compute node we construct a subdirectory in `/tmp` based
+        on the Slurm job ID or user name.
+
 There are two regular configuration files:
 
  1. The system ``easybuild-production.cfg`` is always read. In the current
     implementation it is assumed to be present.
 
  2. The user ``easybuild-user.cfg``(in ``UserRepo/easybuild/config`` in the user
-    direcgtory) is read next and meant for user-specific settings that should be
+    directory) is read next and meant for user-specific settings that should be
     read for all LUMI software stacks.
 
  3. Then the system ``easybuild-production-LUMI-yy.mm.cfg`` is read after, hence can be used

@@ -194,7 +194,22 @@ local CPE_version =           lumi_stack_version:gsub( '.dev', '' )  -- Drop .de
 
 local workdir
 local cleandir = nil
-if ( get_hostname():find( 'uan' ) ) then
+local ebu_workdir = os.getenv( 'EBU_WORKDIR' ) or nil
+if ( ebu_workdir ~= nil ) then
+    
+    -- Work directory given by the user in the EBU_WORKDIR environment variable,
+    -- use that instead of the default strategies.
+
+    cleandir = ebu_workdir
+    workdir = ebu_workdir
+
+elseif ( isFile( '/.singularity.d/Singularity' ) ) then
+
+    -- We're in a singularity container. Count on a writable /tmp but not workding XDG_RUNTIME_DIR or so.
+    cleandir = pathJoin( '/tmp', os.getenv( 'USER' ) )
+    workdir = cleandir
+
+elseif ( get_hostname():find( 'uan' ) ) then
 
     -- We are running on the login nodes so we can use XDG_RUNTIME_DIR
     -- which is cleaned automatically at the end of the session
@@ -618,6 +633,11 @@ The module assumes the following environment variables:
   * EBU_USER_PREFIX: Prefix for the EasyBuild user installation. The default
     is $HOME/EasyBuild.
 
+The following environment variables are optional:
+  * EBU_WORKDIR: Directory to use for the EasyBuild build dir and tmp dir. 
+    The default is to use either $XDG_RUNTIME_DIR (outside a container on the login
+    nodes of LUMI) or a subdirectory in /tmp.
+
 The following user-specific directories and files are used by this module:
   * Directory for user EasyConfig files:      ]] .. user_easyconfigdir .. '\n' .. [[
   * EasyBuild user configuration files:       ]] .. user_configdir .. '\n' .. [[
@@ -694,6 +714,11 @@ the software stack it is needed to re-load this module (if it is not done automa
 After loading the module, it is possible to simply use the eb command without further
 need for long command line arguments to specify the configuration.
 
+The following environment variables are optional:
+  * EBU_WORKDIR: Directory to use for the EasyBuild build dir and tmp dir. 
+    The default is to use either $XDG_RUNTIME_DIR (outside a container on the login
+    nodes of LUMI) or a subdirectory in /tmp.
+
 ]]
 
 else
@@ -722,6 +747,11 @@ the modules are stored.
 
 After loading the module, it is possible to simply use the eb command without further
 need for long command line arguments to specify the configuration.
+
+The following environment variables are optional:
+  * EBU_WORKDIR: Directory to use for the EasyBuild build dir and tmp dir. 
+    The default is to use either $XDG_RUNTIME_DIR (outside a container on the login
+    nodes of LUMI) or a subdirectory in /tmp.
 
 ]]
 
