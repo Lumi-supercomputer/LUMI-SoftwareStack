@@ -1,5 +1,5 @@
 # These are the packages we want to install
-mkdocs-material==9.5.24
+mkdocs-material==9.5.25
 pymdown-extensions==10.8.1
 mkdocs-git-revision-date-localized-plugin==1.2.5
 mkdocs-redirects==1.2.1
@@ -35,9 +35,9 @@ pytz==2024.1
 PyYAML==6.0.1
 pyyaml_env_tag==0.1
 regex==2024.5.15
-requests==2.31.0
+requests==2.32.2
 setuptools==70.0.0
 six==1.16.0
 smmap==5.0.1
 urllib3==2.2.1
-watchdog==4.0.0
+watchdog==4.0.1
