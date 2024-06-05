@@ -36,7 +36,7 @@ software_license_urls = [
     'https://www.sourceware.org/bzip2/manual/manual.html',
 ]
 
- = {'name': 'cpeGNU', 'version': '23.12'}
+toolchain = {'name': 'cpeGNU', 'version': '23.12'}
 toolchainopts = {'pic': True}
 
 source_urls = ['https://sourceware.org/pub/%(name)s/']
