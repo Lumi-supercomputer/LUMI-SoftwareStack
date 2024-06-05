@@ -36,3 +36,4 @@
 
   * Trivial port of the 8.2.2 EasyConfig.
 
+  * For LUMI/23.12, license information was added to the installation.
