@@ -32,3 +32,8 @@
   * The extra flag to deal with problems with zen3 optimisation is no longer needed.
 
   * For LUMI/23.12 license information was added to the installation.
+
+
+### 1.13 from LUMI/24.03 on
+
+  * Trivial port of the EasyConfig for 1.12 in LUMI/23.12. 
