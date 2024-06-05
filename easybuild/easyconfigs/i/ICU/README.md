@@ -51,3 +51,5 @@ Build problem with cpeGNU when using the 12.2.0 compilers:
 
 -   Trivial port of the 72.1 EasyConfig.
 
+-   For LUMI/23.12, license information was added to the installation.
+
