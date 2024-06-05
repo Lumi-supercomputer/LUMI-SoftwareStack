@@ -19,3 +19,10 @@
 
   * From CPE 23.12 on, license information was added and the sanity checks were improved.
     The libraries were also moved from lib64 to lib.
+
+
+### Version 1.1.0 from CPE 24.03 on
+
+  * Library names have changed for the static version so needed a revision of the build
+    process.
+ 
