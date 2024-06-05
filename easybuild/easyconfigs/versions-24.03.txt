@@ -104,7 +104,7 @@ local_fontconfig_version =   '2.15.0'        # https://www.freedesktop.org/softw
 local_freetype_version =     '2.13.2'        # https://download.savannah.gnu.org/releases/freetype/
 local_fribidi_version =      '1.0.13'        # https://github.com/fribidi/fribidi/releases
 
-local_gc_version =           '8.2.4'         # http://hboehm.info/gc/gc_source/
+local_gc_version =           '8.2.6'         # http://hboehm.info/gc/gc_source/
 local_gdbm_version =         '1.23'          # https://ftp.gnu.org/gnu/gdbm/
 local_gettext_version =      '0.22.4'        # https://ftp.gnu.org/pub/gnu/gettext/
 local_giflib_version =       '5.2.1'         # https://sourceforge.net/projects/giflib/files/
@@ -126,7 +126,7 @@ local_JasPer_version =       '4.1.2'         # https://github.com/jasper-softwar
 local_LAME_version =         '3.100'         # http://lame.sourceforge.net/
 local_libaec_version =       '1.1.2'         # https://gitlab.dkrz.de/k202009/libaec/-/tags
 local_libarchive_version =   '3.7.2'         # https://github.com/libarchive/libarchive/releases
-local_libatomic_version =    '7.8.0'         # https://github.com/ivmai/libatomic_ops/releases (with gc)
+local_libatomic_version =    '7.8.2'         # https://github.com/ivmai/libatomic_ops/releases (with gc)
 local_libb2_version =        '0.98.1'        # https://github.com/BLAKE2/libb2/releases
 local_libcerf_version =      '2.4'           # https://jugit.fz-juelich.de/mlz/libcerf/-/releases
 local_libdeflate_version =   '1.19'          # https://github.com/ebiggers/libdeflate/releases
