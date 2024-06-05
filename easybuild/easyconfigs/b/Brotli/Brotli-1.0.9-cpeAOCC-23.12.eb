@@ -38,9 +38,27 @@ builddependencies = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
 ]
 
+# Uniform directory structure with software installed with ConfigureMake.
+configopts = '-DCMAKE_INSTALL_LIBDIR=lib'
+
+postinstallcmds = [
+    'mkdir -p %(installdir)s/share/licenses/%(name)s',
+    'cd ../%(namelower)s-%(version)s && cp CONTRIBUTING.md LICENSE README README.md %(installdir)s/share/licenses/%(name)s',   
+]
+
 sanity_check_paths = {
-    'files': ['bin/brotli', 'lib64/libbrotlicommon-static.a', 'lib64/libbrotlicommon.%s' % SHLIB_EXT],
-    'dirs':  ['lib64/pkgconfig'],
+    'files': ['bin/brotli'] +
+             ['lib/libbrotli%s.%s'        % (x, SHLIB_EXT) for x in ['common', 'dec', 'enc']] +
+             ['lib/libbrotli%s-static.%s' % (x, 'a')       for x in ['common', 'dec', 'enc']] +
+             ['share/licenses/%(name)s/LICENSE'],
+    'dirs':  ['lib/pkgconfig'],
 }
+
+sanity_check_commands = [
+    'pkg-config --libs libbrotlicommon',    
+    'pkg-config --libs libbrotlidec',    
+    'pkg-config --libs libbrotlienc',
+    'brotli -h',
+]
 
 moduleclass = 'lib'
