@@ -27,10 +27,12 @@ There is a difference in settings:
     However, we do keep the the ``-mcmodel=large`` flag as it was likely added from
     experiences that are still valid.
 
+
 ### Differences between toolchains
 
   * ``cpeAMD`` generates an unused option warning when ``-mcmodel=large`` is used so
     it is omitted from the options in the ``cpeAMD`` version.
+
 
 ### Version 6.2.1 from CPE 21.06 on
 
@@ -41,4 +43,11 @@ There is a difference in settings:
     and there are multiple such tables.
     
   * We still have problems with cpeAMD.
+
+  * For LUMI/23.12, license information was added to the installation.
+
+
+### Version 6.3.0 from LUMI/24.03 on
+
+  * Straightforward port of the 6.2.1 EasyConfig for LUMI/23.12.
 
