@@ -97,7 +97,7 @@ local_double_conv_version =  '3.3.0'         # https://github.com/google/double-
 local_Eigen_version =        '3.4.0'         # https://gitlab.com/libeigen/eigen/-/releases
 local_ELPA_version =         '2021.11.001'   # Synchronized with CSCS and same version in EasyBuild 2022a
 local_ESMF_version =         '8.4.1'         # https://github.com/esmf-org/esmf/releases - Candidate for version bump if time left
-local_expat_version =        '2.5.0'         # https://github.com/libexpat/libexpat/releases
+local_expat_version =        '2.6.2'         # https://github.com/libexpat/libexpat/releases
 
 local_file_version =         '5.43'          # ftp://ftp.astron.com/pub/file/
 local_FFmpeg_version =       '6.0'           # https://ffmpeg.org/download.html#releases
