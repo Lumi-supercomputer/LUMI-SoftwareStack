@@ -1,0 +1,45 @@
+easyblock = 'ConfigureMake'
+
+local_gzip_version =         '1.13'          # https://ftp.gnu.org/gnu/gzip/
+
+name =    'gzip'
+version = local_gzip_version
+
+homepage = 'http://www.gnu.org/software/gzip/'
+
+whatis = [
+    "Description: gzip provides the gzip data compression programs",
+]
+
+description = """
+gzip (GNU zip) is a popular data compression program as a replacement for compress
+"""
+
+software_license_urls = [
+    'https://www.gnu.org/licenses/gpl.html',
+]
+
+toolchain = {'name': 'cpeAMD', 'version': '24.03'}
+toolchainopts = {'pic': True}
+
+source_urls = [GNU_SOURCE]
+sources =     [SOURCE_TAR_XZ]
+checksums =   ['7454eb6935db17c6655576c2e1b0fabefd38b4d0936e0f87f48cd062ce91a057']
+
+builddependencies = [ # Create a reproducible build environment.
+    ('buildtools', '%(toolchain_version)s', '', True),
+]
+
+postinstallcmds = [
+    'mkdir -p %(installdir)s/share/licenses/%(name)s',
+    'cp AUTHORS COPYING NEWS README THANKS %(installdir)s/share/licenses/%(name)s',   
+]
+
+sanity_check_paths = {
+    'files': ['bin/gunzip', 'bin/gzip', 'bin/uncompress', 'share/licenses/gzip/COPYING'],
+    'dirs':  [],
+}
+
+sanity_check_commands = [True, ('gzip', '--version')]
+
+moduleclass = 'tools'
