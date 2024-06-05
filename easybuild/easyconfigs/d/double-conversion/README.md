@@ -51,3 +51,5 @@ of the library that SCons generates.
 
   * Trivial version bump of the 3.2.1 one.
   
+  * Added additional license info from CPE 23.12 on.
+  
