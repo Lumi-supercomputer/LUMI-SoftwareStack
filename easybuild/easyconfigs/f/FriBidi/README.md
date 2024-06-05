@@ -19,3 +19,5 @@
 
   * Trivial port of the 1.0.10 EasyConfig.
 
+  * For LUMI/23.12, we added license information and improved the sanity checks.
+
