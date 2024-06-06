@@ -21,7 +21,10 @@
   * There is no support for libogg in the CSCS repository
 
 
-### 1.3.4 from CPE 21.06 on
+### 1.3.5 from CPE 21.06 on
 
   * The EasyConfig is a mix of the one from the EasyBuilders repository and the
     one developed before there was official support at the University of Antwerpen.
+
+  * For LUMI/23.12, license information was added to the installation and sanity checks
+    were improved.
