@@ -20,3 +20,8 @@
 
   * For LUMI/23.12, license information was added to the installation and the sanity
     checks were improved.
+
+
+### Version 1.4 from LUMI/24.03 on
+
+  * The EasyConfig is a trivial port of the one for version 1.3.1 for LUMI/23.12.
