@@ -18,4 +18,5 @@
 
 -   We did improve the sanity check however.
 
+-   For LUMI/23.12, license information was added to the installation.
   
