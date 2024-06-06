@@ -22,5 +22,13 @@
 
 ### Version 2.3.4 from CPE 22.12 on
 
-  * Trivial port of the 3.4.2 EasyConfig.
+  * Trivial port of the 2.3.2 EasyConfig.
+  
+  
+### Version 2.3.7 from LUMI/23.12 on
+
+  * Trivial port of the 2.3.4 EasycConfig for LUMI/23.09, but added license information 
+    to the installation.
+
+  * Needed to upgrade to this version for compatibility with CCE 17.
 
