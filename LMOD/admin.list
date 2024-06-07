@@ -4,19 +4,17 @@ be freely used for educational and research purposes by non-profit institutions
 and US government agencies only. See http://glaros.dtc.umn.edu/gkhome/metis/parmetis/download
 for further information.
 
-LUMI/21.12:
-The LUMI/21.12 software stack has reached the end of its supported life. The
-necessary compilers are no longer on the system but the module system as been tweaked
-to load other modules so that software installed with 21.12 may still work. However,
-we do no longer support running that software and the default answer to a complaint
-is "Recompile with 22.08 or newer". 
+LUMI/22.08:
+The LUMI/22.08 is approaching end-of-life fast. It will likely not work anymore
+after the system updated planned for late August and early September. If your
+project is still active after that system update, we encourage you to switch
+to LUMI/23.09. See also the mail on the users mailing list of May 21.
 
-LUMI/22.06:
-The LUMI/22.06 software stack has reached the end of its supported life. The
-necessary compilers are no longer on the system but the module system as been tweaked
-to load other modules so that software installed with 22.06 may still work. However,
-we do no longer support running that software and the default answer to a complaint
-is "Recompile with 22.08 or newer". 
+LUMI/22.12:
+The LUMI/22.12 is approaching end-of-life fast. It will likely not work anymore
+after the system updated planned for late August and early September. If your
+project is still active after that system update, we encourage you to switch
+to LUMI/23.09. See also the mail on the users mailing list of May 21.
 
 rocm/5.4.*singularity.*:
 These containers should be fine with the ROCm driver on LUMI, but interfacing
