@@ -5,3 +5,5 @@ The versions of mpdecimal on LUMI are licensed under the
 
 The license is available in the LICENSE.txt file in the source downloads.
 
+From LUMI/23.12 on, the LICENSE.txt file can also be found in the directory
+`$EBROOTMPDECIMAL/share/licenses/mpdecimal` after loading the module.
