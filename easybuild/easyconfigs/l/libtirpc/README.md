@@ -21,3 +21,8 @@
 
   * The EasyConfig is a straightforward port of the 1.3.2. one.
 
+  * For LUMI/23.12, license information was added to the installation and the
+    sanity checks were improved.
+    
+    For clang-based compilers we used `--disable-symvers` as using that causes
+    a failure with CCE when linking.
