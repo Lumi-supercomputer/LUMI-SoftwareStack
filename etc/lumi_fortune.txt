@@ -36,13 +36,13 @@ https://lumi-supercomputer.eu/user-support/need-help/. Please don't recycle an
 old ticket for a new request but fill in the form again. This ensures the
 proper handling of your request. LUMI user support is active on workdays
 from 8am till 6 pm central-European time so covers the regular 9-to-5 business
-hours in all countries of EuroHPC.
+hours in allmost all countries of EuroHPC.
 
 =====
 
 LUMI is an abbreviation of Large Unified Modern Infrastructure. The LUMI
 consortium countries are Finland, Belgium, the Czech Republic, Denmark, Estonia,
-Iceland, Norway, Poland, Sweden, and Switzerland.
+Iceland, Norway, Poland, Sweden, Switzerland and The Netherlands.
 
 LUMI means snow in Finnish. Snow has also inspired the look of the LUMI data
 center.
@@ -77,7 +77,7 @@ on the target modules that are loaded. All compilers on LUMI except for the
 gcc implementation provided by the operating system support proper 
 optimizations for the zen2 and zen3 processors. The zen3 architectures is 
 the core architecture of the AMD Epyc Milan CPUs in the LUMI-C compute nodes 
-and the AMD Epyc Trento CPUs in the LUMI-G compute nodes. (Except for
+and the AMD EPYC Trento CPUs in the LUMI-G compute nodes. (Except for
 gcc 10.3.0 that still lacks full zen3 support.) You may get get a little 
 extra performance by optimising for zen3 specifically. The CrayEnv environment
 will automatically load the best target CPU, network and accelerator target
@@ -97,10 +97,10 @@ environment: Clean the environment using "module purge", load the cpe/yy.mm
 module of your choice, and then load the PrgEnv module of your choice in its
 default version. You have to use different module load statements though
 for the cpe and PrgEnv module as the cpe module only takes full effect at the
-next module load command. E.g., to load the 22.08 version of PrgEnv-cray:
+next module load command. E.g., to load the 23.09 version of PrgEnv-cray:
 $ ml CrayEnv
 $ module purge
-$ module load cpe/22.08
+$ module load cpe/23.09
 $ module load PrgEnv-cray
 
 =====
@@ -109,8 +109,8 @@ The interconnect on LUMI after the update of late June and early July 2022
 does not support UCX, so craype-network-ucx and cray-mpich-ucx no longer
 work as before or will fall back to (slow) TCP communication.
 
-For technical people: only libfabric with the so-called cassini provider are
-supported for high performance communication.
+For technical people: Only libfabric with the so-called cassini(CXI) provider 
+are supported for high performance communication.
 
 ====
 
@@ -122,3 +122,10 @@ This LUMI project number actually also corresponds to the project group
 assigned to your project. It is easy to see to which project(s) you belong
 by running the groups command or the lumi-workspaces command or the
 lumi-ldap-userinfo command on the command line.
+
+====
+
+On LUMI, it is not possible to use ssh to reach the compute nodes. All 
+connections to the compute nodes have to be made through the resource 
+manager, so you have to use srun instead. See also
+https://docs.lumi-supercomputer.eu/runjobs/scheduled-jobs/interactive/
