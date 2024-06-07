@@ -54,3 +54,9 @@
     
     It may or may not be solved by patching the `*.map` files in the `package` subdirectory
     but we have no idea how to do this.
+
+  * For LUMI/23.12, license information was added to the installation.
+  
+    We've also made the EasyConfigs more uniform. Note though that for the Clang-based
+    compilers we omit `--with-versioned-syms` as that causes errors during the build
+    process.
