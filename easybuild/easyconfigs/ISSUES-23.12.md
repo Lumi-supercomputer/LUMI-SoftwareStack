@@ -6,3 +6,5 @@
 
 -   Needed to update libidn2 to 2.3.7 as 2.3.4 did not compile with the 23.12 Cray 
     compiler.
+    
+-   No x265 yet for Clang-based compilers.
