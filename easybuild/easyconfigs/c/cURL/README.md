@@ -39,3 +39,4 @@
 
   * Version bump to 8.0.1 to follow 2023a, but trivial for the EasyConfig.
 
+  * Fro LUMI 23.12/ license information was added.
