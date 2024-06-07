@@ -50,4 +50,4 @@ target.
 
   * Trivial port of the 0.9.29 EasyConfig
 
-
+  * For LUMI/23.12, additional license information was added to the installation.
