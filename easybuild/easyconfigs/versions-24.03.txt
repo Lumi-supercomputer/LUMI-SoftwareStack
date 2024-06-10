@@ -121,7 +121,7 @@ local_HarfBuzz_version =     '8.3.0'          # https://www.freedesktop.org/soft
 local_ICU_version =          '74.1'          # http://site.icu-project.org/home
 local_intltool_version =     '0.51.0'        # https://launchpad.net/intltool/+download
 
-local_JasPer_version =       '4.1.2'         # https://github.com/jasper-software/jasper/releases
+local_JasPer_version =       '4.0.0'         # https://github.com/jasper-software/jasper/releases
 
 local_LAME_version =         '3.100'         # http://lame.sourceforge.net/
 local_libaec_version =       '1.1.2'         # https://gitlab.dkrz.de/k202009/libaec/-/tags
