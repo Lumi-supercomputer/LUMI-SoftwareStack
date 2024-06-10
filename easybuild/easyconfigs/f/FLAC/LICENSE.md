@@ -18,3 +18,6 @@ and the
 [COPYING.GPL](https://github.com/xiph/flac/blob/master/COPYING.GPL) and
 [COPYING.LGPL](https://github.com/xiph/flac/blob/master/COPYING.LGPL)
 files on the FLAC GitHub.
+
+From LUMI/23.12 on, these files can also be found in the
+`$EBROOTFLAC/share/licenses/FLAC` directory after loading the module.
