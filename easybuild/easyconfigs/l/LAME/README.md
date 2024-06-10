@@ -15,3 +15,11 @@
 
   * The EasyConfig is based on the EasyBuilders one with documentation from the
     University of Antwerpen.
+
+  * For LUMI/23.12, license information was added to the EasyConfig.
+  
+    The EasyConfig for the Cray compiler also needed a fix: Adding 
+    `-Wl,--undefined-version` to `LDFLAGS`, as otherwise linking failed with undefined
+    version symbols which is really a bug in LAME, not in the Cray compiler, which
+    follows what recent versions of Clang od, i.e., run the linker with `--no-undefined-symbols`
+    as a default.
