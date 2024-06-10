@@ -57,6 +57,4 @@
 
   * For LUMI/23.12, license information was added to the installation.
   
-    We've also made the EasyConfigs more uniform. Note though that for the Clang-based
-    compilers we omit `--with-versioned-syms` as that causes errors during the build
-    process.
+    For some reason, `--with-versioned-syms` now gives problems with the Cray compiler.

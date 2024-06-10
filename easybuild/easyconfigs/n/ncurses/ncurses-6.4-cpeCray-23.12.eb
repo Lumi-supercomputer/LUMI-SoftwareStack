@@ -30,10 +30,11 @@ builddependencies = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
 ]
 
+# NOTE: --with-versioned-syms does not work for this version of the Cray compiler with this version of ncurses...
 local_common_configopts  = "--with-shared --enable-overwrite --without-ada --enable-symlinks "
-local_common_configopts += "--with-termlib --enable-termcap " # The latter cannot be combined with --with-ticlib
 local_common_configopts += "--enable-pc-files --with-pkg-config-libdir=%(installdir)s/lib/pkgconfig "
-# More complete setup that interfers even more with system binaries:
+#local_common_configopts += "--with-termlib --enable-termcap " # The latter cannot be combined with --with-ticlib
+# More complete setup that interferes even more with system binaries:
 #local_common_configopts  = '--without-shared --with-normal --with-termlib --with-ticlib  --enable-overwrite'
 #local_common_configopts += '--without-ada --enable-symlinks --with-versioned-syms '
 #local_common_configopts += '--enable-pc-files --with-pkg-config-libdir=%(installdir)s/lib/pkgconfig '
@@ -44,13 +45,10 @@ configopts = [
     local_common_configopts + "--enable-ext-colors --enable-widec --includedir=%(installdir)s/include/ncursesw/",
 ]
 
-# Symlink libtinfo to libncurses
-# NOT NEEDED WITH THE MODIFIED OPTIONS THAT WE TOOK.
-# libncurses with this configopts has all the symbols from libtinfo, but some packages look for libtinfo specifically
-#postinstallcmds = ['cd %(installdir)s/lib && for l in libncurses{.,_,w}*; do ln -s "${l}" "${l/ncurses/tinfo}"; done']
-
-
+# Symlink libtinfo to libncurses (since it can handle the API) so it doesn't get picked up from the OS
 postinstallcmds = [
+    '(cd %(installdir)s/lib && ln -s libncurses.so libtinfo.so)',
+    '(cd %(installdir)s/lib && ln -s libncurses.a  libtinfo.a)',
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
     'cp ANNOUNCE AUTHORS COPYING MANIFEST NEWS README %(installdir)s/share/licenses/%(name)s',   
 ]
