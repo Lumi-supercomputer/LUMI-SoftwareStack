@@ -106,7 +106,7 @@ local_fribidi_version =      '1.0.13'        # https://github.com/fribidi/fribid
 
 local_gc_version =           '8.2.6'         # http://hboehm.info/gc/gc_source/
 local_gdbm_version =         '1.23'          # https://ftp.gnu.org/gnu/gdbm/
-local_gettext_version =      '0.22.4'        # https://ftp.gnu.org/pub/gnu/gettext/
+local_gettext_version =      '0.22'          # https://ftp.gnu.org/pub/gnu/gettext/
 local_giflib_version =       '5.2.1'         # https://sourceforge.net/projects/giflib/files/
 # GLib restricted to 2.77.1 due to the version requirements for Meson.
 local_GLib_version =         '2.77.1'        # https://ftp.gnome.org/pub/GNOME/sources/glib/
