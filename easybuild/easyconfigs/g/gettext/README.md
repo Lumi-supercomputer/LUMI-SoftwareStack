@@ -34,3 +34,8 @@
   * Trivial port of the EasyConfig for 0.21.
   
   * LUMI/23.12: Added license information to the installation.
+
+  
+### Version 0.22 for LUMI/24.03
+
+  * Trivial port of the EasyConfigs for 0.21.1 for LUMI/23.12.
