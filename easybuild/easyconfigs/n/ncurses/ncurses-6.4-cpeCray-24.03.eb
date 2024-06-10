@@ -30,8 +30,10 @@ builddependencies = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
 ]
 
+preconfigopts = 'LDFLAGS="$LDFLAGS -Wl,--undefined-version" '
+
 # NOTE: --with-versioned-syms does not work for this version of the Cray compiler with this version of ncurses...
-local_common_configopts  = "--with-shared --enable-overwrite --without-ada --enable-symlinks "
+local_common_configopts  = "--with-shared --enable-overwrite --without-ada --enable-symlinks --with-versioned-syms "
 local_common_configopts += "--enable-pc-files --with-pkg-config-libdir=%(installdir)s/lib/pkgconfig "
 #local_common_configopts += "--with-termlib --enable-termcap " # The latter cannot be combined with --with-ticlib
 # More complete setup that interferes even more with system binaries:
