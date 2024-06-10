@@ -41,3 +41,7 @@
 
   * For LUMI/23.12: License information was added to the installation.
   
+
+### Version 1.4.3 from LUMI/24.03 on
+
+  * Trivial port of the EasyConfig for 1.4.2 for LUMI/23.12
