@@ -57,4 +57,6 @@
 
   * For LUMI/23.12, license information was added to the installation.
   
-    For some reason, `--with-versioned-syms` now gives problems with the Cray compiler.
+    The behaviour of the linker has changed in the Cray compiler and it now produces an error
+    if the version script defines versions for symbols with exact matches that are not present.
+    So we needed to add `-Wl,--undefined-version` to the linker options to work around this issue.
