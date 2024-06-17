@@ -13,3 +13,8 @@
     toolchain 2023b as 2.3.4 did not compile with the Cray compiler. 
     
 -   No x265 yet for Clang-based compilers.
+
+-   libevent does not offer support for OpenSSL as it did not compile in the test setup
+    used to prepare the toolchain. 
+
+    
