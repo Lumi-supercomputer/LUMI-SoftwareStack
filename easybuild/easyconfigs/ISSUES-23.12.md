@@ -24,3 +24,7 @@
 
 -   zlib is already version 1.3.1 rather than 1.2.13 used in 23.09 due to compilation
     problems with the CCE compiler.
+
+-   libevent does not offer support for OpenSSL as it did not compile in the test setup
+    used to prepare the toolchain. 
+   
