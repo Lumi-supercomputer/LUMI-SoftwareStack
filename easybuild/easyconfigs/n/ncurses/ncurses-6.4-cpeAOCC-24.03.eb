@@ -1,4 +1,7 @@
 # contributed by Luca Marsella (CSCS)
+# Modified by Kurt Lust for the LUMI consortium.
+
+easyblock = 'ConfigureMake'
 
 local_ncurses_version =      '6.4'           # https://ftp.gnu.org/pub/gnu/ncurses/
 
@@ -30,23 +33,34 @@ builddependencies = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
 ]
 
-local_common_configopts  = "--with-shared --enable-overwrite --without-ada --enable-symlinks --with-versioned-syms "
+
+local_common_configopts  = "--with-shared --with-normal --with-debug --enable-overwrite --without-ada --enable-symlinks "
+#local_common_configopts += "--with-termlib --enable-termcap " # The latter cannot be combined with --with-ticlib
+#local_common_configopts += "--disable-leaks --disable-root-environ --enable-getcap --enable-getcap-cache --enable-hard-tabs --enable-termcap --with-termlib --with-trace --without-cxx-binding " # Set of options based on package/ncurses.sym
+local_common_configopts += "--disable-leaks --disable-root-environ --disable-termcap --enable-getcap --enable-getcap-cache --enable-hard-tabs --enable-termcap --with-termlib --with-trace" # Set of options based on package/ncurses.sym
+local_common_configopts += "--with-cxx-binding " # Just to be sure
+#local_common_configopts += "--with-pthread --enable-reentrant --enable-weak-symbols" # Is this the trick to get the SUSE TW symbols included? Or should we delete --with-pthread and only use --enable-reentrant?
+#local_common_configopts += "--enable-reentrant --enable-weak-symbols" # Is this the trick to get the SUSE TW symbols included? Or should we delete --with-pthread and only use --enable-reentrant?
 local_common_configopts += "--enable-pc-files --with-pkg-config-libdir=%(installdir)s/lib/pkgconfig "
-# More complete setup that interfers even more with system binaries:
-#local_common_configopts  = '--without-shared --with-normal --with-termlib --with-ticlib  --enable-overwrite'
-#local_common_configopts += '--without-ada --enable-symlinks --with-versioned-syms '
-#local_common_configopts += '--enable-pc-files --with-pkg-config-libdir=%(installdir)s/lib/pkgconfig '
+
 configopts = [
     # default build
-    local_common_configopts,
+    #local_common_configopts + "--with-versioned-syms=%(builddir)s/ncurses-%(version)s/package/ncursest.map ",
     # the UTF-8 enabled version (ncursesw)
-    local_common_configopts + "--enable-ext-colors --enable-widec --includedir=%(installdir)s/include/ncursesw/",
+    #local_common_configopts + "--enable-ext-colors --enable-widec --includedir=%(installdir)s/include/ncursesw/" + "--with-versioned-syms=%(builddir)s/ncurses-%(version)s/package/ncursestw.map ",
+    # default build
+    local_common_configopts + "--with-versioned-syms",
+    # the UTF-8 enabled version (ncursesw)
+    local_common_configopts + "--enable-ext-colors --enable-widec --includedir=%(installdir)s/include/ncursesw/ " + "--with-versioned-syms",
 ]
 
-# Symlink libtinfo to libncurses (since it can handle the API) so it doesn't get picked up from the OS
+# Symlink libtinfo to libncurses
+# NOT NEEDED WITH THE MODIFIED OPTIONS THAT WE TOOK.
+# libncurses with this configopts has all the symbols from libtinfo, but some packages look for libtinfo specifically
+#postinstallcmds = ['cd %(installdir)s/lib && for l in libncurses{.,_,w}*; do ln -s "${l}" "${l/ncurses/tinfo}"; done']
+
+
 postinstallcmds = [
-    '(cd %(installdir)s/lib && ln -s libncurses.so libtinfo.so)',
-    '(cd %(installdir)s/lib && ln -s libncurses.a  libtinfo.a)',
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
     'cp ANNOUNCE AUTHORS COPYING MANIFEST NEWS README %(installdir)s/share/licenses/%(name)s',   
 ]
@@ -59,7 +73,7 @@ sanity_check_paths = {
              ['lib/lib%s%s.a' % (x, y) for x in local_libs for y in ['', '_g', 'w', 'w_g']] +
              ['lib/lib%s%s.%s' % (x, y, SHLIB_EXT) for x in local_libs for y in ['', 'w']] +
              ['lib/libncurses++%s.a' % x for x in ['', 'w']] +
-             ['lib/pkgconfig/%s%s.pc' % (x, y) for x in ['form', 'menu', 'ncurses', 'ncurses++', 'panel'] for y in ['', 'w']] + 
+             ['lib/pkgconfig/%s%s.pc' % (x, y) for x in local_libs for y in ['', 'w']] + 
              [f'share/licenses/{name}/COPYING'],
     'dirs':  ['include', 'include/ncursesw'],
 }
@@ -67,12 +81,11 @@ sanity_check_paths = {
 sanity_check_commands = [
     'infocmp -V',
     'ncurses6-config --version',
-    'ncurses6-config --version',
     'tabs -V',
     'tic -V',
     'toe -V',
     'tput -V',
     'tset -V',
-] + [ 'pkg-config --libs %s%s' % (x, y) for x in ['form', 'menu', 'ncurses', 'ncurses++', 'panel'] for y in ['', 'w'] ]
+] + [ 'pkg-config --libs %s%s' % (x, y) for x in local_libs for y in ['', 'w'] ]
 
 moduleclass = 'devel'
