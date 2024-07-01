@@ -45,5 +45,5 @@ This README was developed starting with snappy 1.1.8 in the CPE 21.06.
     wrappers) needed to turn off error messages about unused arguments as there were 
     some -L lines added that were not used.
     
-    
+  * From LUMI/23.12 onwards, license information was added to the license.
     
