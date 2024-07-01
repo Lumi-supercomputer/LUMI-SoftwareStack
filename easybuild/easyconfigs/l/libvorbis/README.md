@@ -26,3 +26,7 @@
 
   * The EasyConfig is a combination of the EasyBuilders one and the University
     of Antwerpen one which predates the EasyBuilders one.
+
+  * From LUMI/23.12 onwards, license information was added to the installation and 
+    the sanity checks were improved.
+    
