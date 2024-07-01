@@ -27,3 +27,7 @@
 
   * The easyConfig is a trivial port of the 4.1.0 one.
 
+  * From LUMI/23.12 onwards, license information was added to the installationb.
+
+  * Had to disable tests for cpeCray/23.12 as 3 tests failed (in addition to two tests
+    that are skipped with clang-based compilers).
