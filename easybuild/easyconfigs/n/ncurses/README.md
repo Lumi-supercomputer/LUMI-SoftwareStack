@@ -48,12 +48,8 @@
     
   * Tried a few new options in the EasyConfig.
   
-  * Did not succeed in solving the compatibility problem with the `gdb` from SUSE which 
-    expects some very old version symbols that are not even included anymore with the
-    `--with-versioned-syms` flag.
-    
-    It may or may not be solved by patching the `*.map` files in the `package` subdirectory
-    but we have no idea how to do this.
+  * Did not succeed in solving the compatibility problem with the `gdb` from SUSE when 
+    working on LUMI/22.12.
 
   * For LUMI/23.12, license information was added to the installation.
   
