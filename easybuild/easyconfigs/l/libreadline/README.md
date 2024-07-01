@@ -20,7 +20,8 @@
   * The EasyConfig is a trivial port of the 8.1 one.
 
 
-### 8.3 from CPE 22.12 on
+### 8.2 from CPE 22.12 on
 
   *  The EasyConfig is a trivial port of the 8.1.2 one.
 
+  * From LUMI/23.12 onwards, license information was added to the installation.
