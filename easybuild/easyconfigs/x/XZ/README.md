@@ -20,4 +20,4 @@
   * Trivial version bump of the 5.2.5 EasyConfig with removal of the patch as
     we assume the bug will be fixed by now.
 
-    
+  * For LUMI/23.12, license information was added to the installation.
