@@ -34,3 +34,5 @@
 
   * Trivial port of the EasyConfig fro 3.39.4.
 
+  * software_license_urls was added for LUMI/23.12, but the license information is not
+    included in the downloaded sources.

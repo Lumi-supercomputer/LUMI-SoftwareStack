@@ -28,3 +28,4 @@
 
   * Trivial version bump of the 10.40 one.
 
+  * For LUMI/23.12, license information was added to the installation.

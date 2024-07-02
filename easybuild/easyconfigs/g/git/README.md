@@ -42,9 +42,11 @@ cluster).
     additional packages that provide the necessary tools. This is not yet finished
     on LUMI though as more packages are missing than on eiger.
 
+
 ### git 2.35.1 for LUMI/21.12
 
   * Straightforward port of the 2.33.1 EasyConfig file
+
 
 ### git 2.37.0 for LUMI/22.06
 
@@ -55,10 +57,26 @@ cluster).
 
   * Straightforward port of the 2.37.0 EasyConfig file.
   
+
 ### git 2.40.0 for 22.12/23.03
 
-  * Straightforward port of the 2.40.0 EasyConfig file.
+  * Straightforward port of the 2.37.2 EasyConfig file.
   
   * Decided to not yet include git-lfs in the module itself as the latter is still 
     installed from binaries and needs some additional treatment in `postinstallcmds`.
 
+
+### git 2.42.1 for 23.09
+
+  * Straightforward port of the 2.40.0 EasyConfig file.
+
+
+### git 2.43.4 for 23.09
+
+  * Straightforward port of the 2.42.1 EasyConfig file.
+
+
+### git 2.45.1 for 24.03
+
+  * Straightforward port of the 2.43.4 EasyConfig file.
+  

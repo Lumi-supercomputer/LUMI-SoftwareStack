@@ -1,0 +1,53 @@
+# Adapted by Kurt Lust (kurt.lust@uantwerpen.be) for the LUMI consortium
+easyblock = 'ConfigureMake'
+
+local_libtirpc_version =     '1.3.3'         # https://sourceforge.net/projects/libtirpc/files/libtirpc/
+
+name =    'libtirpc'
+version = local_libtirpc_version
+
+homepage = 'https://sourceforge.net/projects/libtirpc/'
+
+whatis = [
+    'Description: Libtirpc is a port of Suns Transport-Independent RPC library to Linux.'
+]
+
+description = """
+Libtirpc is a port of Suns Transport-Independent RPC library to Linux. It's
+being developed by the Bull GNU/Linux NFSv4 project.
+"""
+
+software_license_urls = [
+    'https://git.linux-nfs.org/?p=steved/libtirpc.git;a=blob_plain;f=COPYING;hb=0fb94eef5062d2657d75eee686fa47238fafa312' # For version 1.3.3
+]
+
+toolchain = {'name': 'cpeAMD', 'version': '23.12'}
+
+source_urls = [SOURCEFORGE_SOURCE]
+sources =     [SOURCE_TAR_BZ2]
+checksums =   ['6474e98851d9f6f33871957ddee9714fdcd9d8a5ee9abb5a98d63ea2e60e12f3']
+
+configopts = '--enable-static --enable-shared --disable-gssapi --disable-symvers'
+
+builddependencies = [ # Create a reproducible build environment.
+    ('buildtools',   '%(toolchain_version)s',   '', True),
+]
+
+postinstallcmds = [
+    'mkdir -p %(installdir)s/share/licenses/%(name)s',
+    'cp AUTHORS ChangeLog COPYING NEWS README THANKS %(installdir)s/share/licenses/%(name)s',   
+]
+
+sanity_check_paths = {
+    'files': ['lib/libtirpc.%s' % (x,) for x in ['a', SHLIB_EXT]] +
+             [ f'share/licenses/{name}/COPYING'],
+    'dirs':  ['include/tirpc', 'lib'],
+}
+
+sanity_check_commands = [
+   'pkg-config --libs libtirpc',
+]
+
+modextrapaths = {'CPATH': 'include/tirpc'}
+
+moduleclass = 'lib'
