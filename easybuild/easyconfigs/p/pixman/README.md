@@ -15,3 +15,6 @@
 
   * The EasyConfig is derived from the University of Antwerpen one which itself
     is a variant of the default EasyBuilders one.
+
+  * From LUMI/23.12 on, license information was added to the installation.
+    
