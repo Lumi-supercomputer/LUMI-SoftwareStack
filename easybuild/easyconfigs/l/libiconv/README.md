@@ -18,4 +18,5 @@
 
   * Trivial port of the 1.16 EasyConfig.
 
+  * For LUMI/23.12, license information was added to the installation.
 
