@@ -25,3 +25,4 @@
 
   * Trivial update of the EasyConfig file for 1.0.
 
+  * For LUMI/23.12, license information was added to the installation.
