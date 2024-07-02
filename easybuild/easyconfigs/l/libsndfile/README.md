@@ -73,5 +73,8 @@
 
 ### Version 1.2.2 from CPE 23.09 on
 
-  * Trivial version bump of the 1.2.2 EasyConfig, again not yet with the CMake build process.
+  * Trivial version bump of the 1.2.0 EasyConfig, again not yet with the CMake build process.
+
+  * For LUMI/23.12, license information was added to the installation.
+
 
