@@ -37,4 +37,4 @@
 
   * Trivial version update of the EasyConfig.
 
-  
+  * For LUMI/23.12, version information was added to the installation.
