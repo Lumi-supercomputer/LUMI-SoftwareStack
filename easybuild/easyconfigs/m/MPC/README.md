@@ -34,4 +34,6 @@
 
   * The EasyConfig is a straightforward port of the 1.2.1 one.
 
+  * For LUMI/23.12, license information was added to the installation.
+
     
