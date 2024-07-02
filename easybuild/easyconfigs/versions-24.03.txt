@@ -195,7 +195,7 @@ local_x264_version =         '20230226'      # Just follow EasyBuild as the dist
 local_x265_version =         '3.5'           # http://download.videolan.org/pub/videolan/x265/
 local_xorg_macros_version =  '1.20.0'        # https://cgit.freedesktop.org/xorg/util/macros
 local_xterm_version =        '388'           # https://github.com/ThomasDickey/xterm-snapshots/tags
-local_XZ_version =           '5.4.2'         # https://tukaani.org/xz/
+local_XZ_version =           '5.4.4'         # https://tukaani.org/xz/
 
 local_zlib_version =         '1.3.1'         # https://zlib.net/
 local_zstd_version =         '1.5.5'         # https://github.com/facebook/zstd/releases
