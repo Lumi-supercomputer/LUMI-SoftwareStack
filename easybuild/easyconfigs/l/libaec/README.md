@@ -16,3 +16,5 @@
 
   * But switched to CMake as this is now the main configuration tool for
     libaec.
+
+  * From LUMI/23.12 on, license information was added to the installation.

@@ -48,3 +48,17 @@
 -   Trivial port of the 4.7.1 EasyConfig.
 
 -   In a later update we added support for loading `EasyBuild-tools` if available.
+
+
+### Version 4.9.1 for LUMI/23.12 and 24.03
+
+-   Started as a trivial port of the 4.8.2 EasyConfig
+
+-   At first removed support for loading `EasyBuild-tools` as the reason for it is  
+    no longer there (MATLAB installation done differently). 
+
+-   Needed to modify `libsci.py` in `toolchains/linalg` in the framework as it should
+    now check `CRAY_PE_LIBSCI_PREFIX_DIR` instead of `CRAY_LIBSCI_PREFIX_DIR`. For now
+    we check for both so that the same EasyConfig can also be used to install EasyBuild
+    for older versions of the Cray PE.
+

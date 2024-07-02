@@ -22,3 +22,4 @@
 
   * The EasyConfig is a trivial version bump of the 1.9.3 one.
 
+  * For LUMI/23.12, license information was added to the installation.

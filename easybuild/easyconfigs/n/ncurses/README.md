@@ -48,9 +48,22 @@
     
   * Tried a few new options in the EasyConfig.
   
-  * Did not succeed in solving the compatibility problem with the `gdb` from SUSE which 
-    expects some very old version symbols that are not even included anymore with the
-    `--with-versioned-syms` flag.
+  * Did not succeed in solving the compatibility problem with the `gdb` from SUSE when 
+    working on LUMI/22.12.
+
+  * For LUMI/23.12, license information was added to the installation.
+  
+    The behaviour of the linker has changed in the Cray compiler and it now produces an error
+    if the version script defines versions for symbols with exact matches that are not present.
+    So we needed to add `-Wl,--undefined-version` to the linker options to work around this issue.
     
-    It may or may not be solved by patching the `*.map` files in the `package` subdirectory
-    but we have no idea how to do this.
+    We also did further work on trying to figure out how to get the proper version symbols in the
+    libraries. We are now using a different set of options and also dropped the application-specific
+    EasyBlock as that only added stuff in the background which is misleading while experimenting.
+    The problem appears to be that NCURSEST/NCURSESTW symbols are used in the SUSE libraries, which
+    should stand for the threaded version, yet the libraries have the names of the unthreaded
+    versions, so it looks like some renaming may have taken place.
+    
+    We have tried with `--enable-weak-symbols` which should not add the `t` to the file name but
+    haven't gotten it to work yet. It may need some special flags for the compiler and/or linker
+    to work as expected.

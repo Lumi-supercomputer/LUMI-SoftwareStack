@@ -42,4 +42,6 @@
 
   * Trivial version bump of the 2.1.4 EasyConfig.
 
+  * For LUMI/23.12, license information was added to the installation.
+
 

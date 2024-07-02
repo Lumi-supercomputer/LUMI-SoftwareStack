@@ -65,11 +65,11 @@ better to avoid bugs also).
 
 | Package | EasyBuild | CSCS |
 |:--------|:-----------|:-----|
-| [GPP](https://github.com/logological/gpp/releases)     | | |
-| [htop](https://github.com/htop-dev/htop/releases)      | | |
-| [libtree](https://github.com/haampie/libtree/releases) | [EB libtree](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/libtree) | [CSCS libtree](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/l/libtree) |
-| [tree](http://mama.indstate.edu/users/ice/tree/src)    | | |
-| [talloc](https://github.com/proot-me/proot/releases)   | | |
+| [GPP](https://github.com/logological/gpp/releases)           | | |
+| [htop](https://github.com/htop-dev/htop/releases)            | | |
+| [libtree](https://github.com/haampie/libtree/releases)       | [EB libtree](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/libtree) | [CSCS libtree](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/l/libtree) |
+| [tree](https://gitlab.com/OldManProgrammer/unix-tree/-/tags) | | |
+| [proot](https://github.com/proot-me/proot/releases)          | | |
 
 
 ## Other packages that we try to build against the SYSTEM toolchain
@@ -91,7 +91,7 @@ better to avoid bugs also).
 | [blosc](https://github.com/Blosc/c-blosc/releases) | [EB Blosc](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/b/Blosc) | [CSCS Blosc](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/b/Blosc) |
 | [Boost](https://www.boost.org/) | [EB Boost](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/b/Boost) | / | [Use .tar.bz2](https://boostorg.jfrog.io/artifactory/main/release/) |
 | [Brotli](https://github.com/google/brotli/releases) | [EB Brotli](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/b/Brotli) | / |
-| [bzip2](http://www.bzip.org/downloads.html) | [EB bzip2](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/b/bzip2) | [CSCS bzip2](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/b/bzip2) |
+| [bzip2](https://sourceware.org/pub/bzip2/) | [EB bzip2](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/b/bzip2) | [CSCS bzip2](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/b/bzip2) |
 | [cairo](https://www.cairographics.org/) | [EB cairo](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/c/cairo) | [CSCS cairo](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/c/cairo) |
 | [CubeLib](https://www.scalasca.org/scalasca/software/cube-4.x/download.html) | [EB CubeLib](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/c/CubeLib) | [CSCS CubeLib](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/c/CubeLib) |
 | [CubeWriter](https://www.scalasca.org/scalasca/software/cube-4.x/download.html) | [EB CubeWriter](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/c/CubeWriter) | [CSCS CubeWriter](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/c/CubeWriter) |
