@@ -7,4 +7,5 @@ Libsndfile is released under the
 See also the
 [COPYING file in the GitHub repository](https://github.com/libsndfile/libsndfile/blob/master/COPYING).
 
-
+From LUMI/23.12 on, the `COPYING` file can also be found in the
+`$EBROOTLIBSNDFILE/share/licenses/libsndfile` subdirectory after loading the module.
