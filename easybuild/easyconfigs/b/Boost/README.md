@@ -2,6 +2,12 @@
 
   * [Boost web site](https://www.boost.org/)
 
+  * [Boost on GitHub](https://github.com/boostorg/boost)
+  
+      * [GitHub releases](https://github.com/boostorg/boost/releases)
+      
+  * [Boost downloads that we use](https://boostorg.jfrog.io/artifactory/main/release/)
+
 
 ## EasyBuild
 
