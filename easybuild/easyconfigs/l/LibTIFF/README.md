@@ -50,3 +50,4 @@
 
   * Support for OpenGL still incomplete.
   
+  * For LUMI/23.12, license information was added to the installation.
