@@ -170,7 +170,7 @@ local_Pango_version =        '1.50.14'       # http://ftp.gnome.org/pub/GNOME/so
 local_ParMETIS_version =     '4.0.3'         # https:/http://glaros.dtc.umn.edu/gkhome/metis/parmetis/download
 local_PCRE2_version =        '10.42'         # https://ftp.pcre.org/pub/pcre/
 local_PCRE_version =         '8.45'          # https://ftp.pcre.org/pub/pcre/
-local_Perl_version =         '5.36.1'        # https://www.perl.org/get.html
+local_Perl_version =         '5.38.0'        # https://www.perl.org/get.html
 local_PROJ_version =         '9.2.0'         # https://proj.org/download.html
 local_pixman_version =       '0.42.2'        # https://www.cairographics.org/releases/
 
