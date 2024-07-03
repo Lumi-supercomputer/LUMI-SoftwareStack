@@ -33,3 +33,5 @@
 
   * Trivial version bump of the 1.1.37 EasyConfig.
 
+  * For LUMI/23.12, license information was added to the installation, and we also 
+    build both shared and static libraries.
