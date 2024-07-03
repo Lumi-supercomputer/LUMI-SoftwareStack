@@ -32,4 +32,13 @@
 
   * But aligned the sources with those used by EasyBuild.
 
-  * For LUMI/23.12, license information was added to the installation.
+  * For LUMI/23.12, license information was added to the installation and
+    the sanity checks were improved.
+
+  
+### 3.7.2 ffrom LUMI/24.03 on
+
+  * Almost trivial version bump of the 3.7.2 EasyConfig for LUMI/23.12
+  
+  * But there is now one additional executable in the package, so sanity checks were 
+    updated.
