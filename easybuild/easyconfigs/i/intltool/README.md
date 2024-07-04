@@ -29,3 +29,6 @@ of certain X11 libraries.
   * On eiger the Perl package XML::Parser is actually installed in the system Perl
     so we may be able to build without the EasyBuild Perl as a dependency. However,
     for now we avoid this as we do not know what the situation on LUMI will be.
+
+  * From LUMI/23.12 on, license information is included in the installation.
+    
