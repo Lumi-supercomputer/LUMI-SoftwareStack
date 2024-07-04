@@ -17,4 +17,4 @@
 -   libevent does not offer support for OpenSSL as it did not compile in the test setup
     used to prepare the toolchain. 
 
-    
+-   The X11 module for cpeGNU currently does not contain xterm due to build errors.
