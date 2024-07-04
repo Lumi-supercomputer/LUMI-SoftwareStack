@@ -20,3 +20,4 @@
 
   * Added a better sanity check from CPE 22.12 on.
 
+  * For LUMI/23.12, license information was added to the installation.
