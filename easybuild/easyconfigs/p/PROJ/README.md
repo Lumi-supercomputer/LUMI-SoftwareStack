@@ -4,6 +4,10 @@
 
       * [Download from the PROJ web site](https://proj.org/download.html)
 
+  * [PROJ on GitHub](https://github.com/OSGeo/PROJ)
+
+      * [GitHub releases](https://github.com/OSGeo/PROJ/releases)
+
 
 ## EasyBuild
 
@@ -47,3 +51,4 @@
   * Needed to add an option to avoid generating errors on unused arguments as somehow 
     some ROCm libraries get added that are not needed.
 
+  * Fro LUMI/23.12, license information was added to the installation.
