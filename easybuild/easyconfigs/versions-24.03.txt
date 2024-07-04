@@ -194,7 +194,7 @@ local_x264_commit =          'baee400f'      # Just follow EasyBuild as the dist
 local_x264_version =         '20230226'      # Just follow EasyBuild as the distribution is currently a mess
 local_x265_version =         '3.5'           # http://download.videolan.org/pub/videolan/x265/
 local_xorg_macros_version =  '1.20.0'        # https://cgit.freedesktop.org/xorg/util/macros
-local_xterm_version =        '388'           # https://github.com/ThomasDickey/xterm-snapshots/tags
+local_xterm_version =        '389c'          # https://github.com/ThomasDickey/xterm-snapshots/tags
 local_XZ_version =           '5.4.4'         # https://tukaani.org/xz/
 
 local_zlib_version =         '1.3.1'         # https://zlib.net/
