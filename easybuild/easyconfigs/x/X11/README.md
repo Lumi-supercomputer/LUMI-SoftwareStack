@@ -70,3 +70,8 @@ This is a bundle of X11 tools provided by EasyBuild.
   
       * DBUS 1.15.8 failed to configure so stuck to the older version.
 
+
+### Bundle for 23.12
+
+  * Copy of the one for 23.09.
+  
