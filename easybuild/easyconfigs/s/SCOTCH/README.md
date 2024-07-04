@@ -77,3 +77,8 @@
     and BISON to Makefile.inc. It is not clear why this was not needed for the other toolchains.
 
   * For LUMI/23.12, license information was added to the installation.
+
+
+### Version 7.0.4 fro LUMI/24.03
+
+  * Trivial version update from the 7.0.3 EasyConfig for LUMI/23.12.
