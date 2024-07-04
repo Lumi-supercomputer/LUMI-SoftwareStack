@@ -18,7 +18,8 @@ This module already contains a lot of packages based on the default
 EasyBuild perl configuration.
 
 From this version on, we only include a minimal number of packages to
-speed up development of a new software stack.
+speed up development of a new software stack. Over time, Perl-packages-*
+modules may be made available with additional packages.
 """
 
 software_license_urls = [
