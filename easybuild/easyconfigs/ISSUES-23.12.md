@@ -8,6 +8,9 @@
 -   For expat we don't follow 23.09 as there are so many CVEs for this package that
     we chose to use the newest version available at the time of building the stack
     to ensure maximum security.
+    
+-   FFmpeg was upgraded to 6.1.1 instead of kept at 6.0 due to build problems that 
+    were solved by upgrading.
 
 -   Needed to update libidn2 to 2.3.7 as 2.3.4 did not compile with the 23.12 Cray 
     compiler.
