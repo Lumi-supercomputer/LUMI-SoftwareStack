@@ -74,4 +74,15 @@ This is a bundle of X11 tools provided by EasyBuild.
 ### Bundle for 23.12
 
   * Copy of the one for 23.09.
+
+
+### Bundle for 24.03
+
+  * Regular packages taken from 2023b
   
+  * Updated the own additions
+  
+      * DBUS was still at 1.15.8 so didn't try again.
+
+  * xterm missing in the cpeGNU version due to build problems.
+
