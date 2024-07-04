@@ -1,6 +1,6 @@
 local_Perl_version =         '5.38.0'        # https://www.perl.org/get.html
 
-local_zlib_version =         '1.3.1'         # https://zlib.net/
+local_expat_version =        '2.6.2'         # https://github.com/libexpat/libexpat/releases
 
 name =          'Perl'
 version =       local_Perl_version
@@ -38,6 +38,7 @@ builddependencies = [ # Create a reproducible build environment.
 ]
 
 dependencies = [
+    ('expat',       local_expat_version),        # for XML::Parser
 ]
 
 osdependencies = [
@@ -104,6 +105,14 @@ exts_list = [
         'source_tmpl': 'Data-Dumper-%(version)s.tar.gz',
         'source_urls': ['https://cpan.metacpan.org/authors/id/N/NW/NWCLARK/'],
         'checksums': ['e42736890b7dae1b37818d9c5efa1f1fdc52dec04f446a33a4819bf1d4ab5ad3'],
+    }),
+    #
+    # Own additions
+    #
+    ('XML::Parser', '2.46', { # Needed for intltool. See if this works without all dependencies...
+        'source_tmpl': 'XML-Parser-%(version)s.tar.gz',
+        'source_urls': ['https://cpan.metacpan.org/authors/id/T/TO/TODDR'],
+        'checksums': ['d331332491c51cccfb4cb94ffc44f9cd73378e618498d4a37df9e043661c515d'],
     }),
 ]
 
