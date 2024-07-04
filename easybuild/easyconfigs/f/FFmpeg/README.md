@@ -46,3 +46,10 @@ in EasyBuild.
 ### Version 6.0 from 23.09 on
 
   * Fairly trivial port of the 5.1.2 EasyConfig
+
+  
+### Version 6.1.1 from 23.12 on
+
+  * Trivial version bump of 6.0.
+  
+  * But we added license information to the installation directories.
