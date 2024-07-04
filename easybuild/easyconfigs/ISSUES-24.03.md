@@ -8,6 +8,9 @@
 -   For expat we don't follow the EasyBuild common toolchain 2023b as there are so 
     many CVEs for this package that we chose to use the newest version available at 
     the time of building the stack to ensure maximum security.
+    
+-   FFmpeg version is newer than in the EasyBuild common toolchain 2023b to avoid
+    build problems that we experienced.
 
 -   Using libidn2 2.3.7 rather than the 2.3.4 version used in the EasyBuild common 
     toolchain 2023b as 2.3.4 did not compile with the Cray compiler. 
