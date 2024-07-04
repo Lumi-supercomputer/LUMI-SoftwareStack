@@ -9,3 +9,6 @@ or later. If those parts get used the GPL applies to all of FFmpeg.
 
 |More information is available on the 
 ["FFmpeg License and Legal Considerations" page](https://ffmpeg.org/legal.html)
+
+From LUMI/23.12, various files explaining the license can be found in
+`$EBROOTFFMPEG/share/licenses/FFmpeg` after loading the module.
