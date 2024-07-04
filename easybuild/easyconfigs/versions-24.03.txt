@@ -100,7 +100,7 @@ local_expat_version =        '2.6.2'         # https://github.com/libexpat/libex
 local_file_version =         '5.43'          # ftp://ftp.astron.com/pub/file/
 local_FFmpeg_version =       '6.1.1'         # https://ffmpeg.org/download.html#releases
 local_FLAC_version =         '1.4.3'         # https://xiph.org/downloads/ or https://github.com/xiph/flac/releases
-local_fontconfig_version =   '2.15.0'        # https://www.freedesktop.org/software/fontconfig/release/
+local_fontconfig_version =   '2.14.2'        # https://www.freedesktop.org/software/fontconfig/release/
 local_freetype_version =     '2.13.2'        # https://download.savannah.gnu.org/releases/freetype/
 local_fribidi_version =      '1.0.13'        # https://github.com/fribidi/fribidi/releases
 
