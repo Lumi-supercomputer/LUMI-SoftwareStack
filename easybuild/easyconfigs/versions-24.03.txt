@@ -191,7 +191,7 @@ local_util_version =         '2.39.3'        # https://mirrors.edge.kernel.org/p
 local_wget_version =         '1.21.4'        # https://ftp.gnu.org/gnu/wget/
 
 local_x264_commit =          'baee400f'      # Just follow EasyBuild as the distribution is currently a mess
-local_x264_version =         '20230226'      # Just follow EasyBuild as the distribution is currently a mess
+local_x264_version =         '20231019'      # Just follow EasyBuild as the distribution is currently a mess
 local_x265_version =         '3.5'           # http://download.videolan.org/pub/videolan/x265/
 local_xorg_macros_version =  '1.20.0'        # https://cgit.freedesktop.org/xorg/util/macros
 local_xterm_version =        '389c'          # https://github.com/ThomasDickey/xterm-snapshots/tags
