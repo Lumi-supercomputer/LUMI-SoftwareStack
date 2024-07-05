@@ -20,8 +20,10 @@
 
   * Currently tested with cpeGNU and cpeCray only.
 
-     * cpeCVray needs '-Wno-unsupported-target-opt' or the compilation fails in the
+     * cpeCray needs '-Wno-unsupported-target-opt' or the compilation fails in the
        building phase.
+
+  * For LUMI/23.12, license information was added to the software installations.
 
 TODO: Problems on eiger likely because the configure process fails to find the pthread library...
 
