@@ -165,7 +165,7 @@ local_MPFR_version =         '4.2.0'         # https://ftp.gnu.org/gnu/mpfr/
 
 local_ncurses_version =      '6.4'           # https://ftp.gnu.org/pub/gnu/ncurses/
 
-local_Pango_version =        '1.50.14'       # http://ftp.gnome.org/pub/GNOME/sources/pango/
+local_Pango_version =        '1.51.0'        # http://ftp.gnome.org/pub/GNOME/sources/pango/
 local_ParMETIS_version =     '4.0.3'         # https:/http://glaros.dtc.umn.edu/gkhome/metis/parmetis/download
 local_PCRE2_version =        '10.42'         # https://ftp.pcre.org/pub/pcre/
 local_PCRE_version =         '8.45'          # https://ftp.pcre.org/pub/pcre/
