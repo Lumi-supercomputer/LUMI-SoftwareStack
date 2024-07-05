@@ -34,3 +34,4 @@
 
   * Trivial version bump of the 1.50.12 EasyConfig.
 
+  * For LUMI/23.12, license information was added to the installation.
