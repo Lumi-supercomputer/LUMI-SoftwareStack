@@ -1,6 +1,8 @@
 # cairo instructions
 
   * [cairo web site](https://www.cairographics.org/)
+  
+  * [cairo via the cgit interface](https://cgit.freedesktop.org/cairo/)
 
 
 ## EasyBuild
@@ -36,3 +38,12 @@ TODO: Problems on eiger likely because the configure process fails to find the p
     see a similar error with cpeCray as that uses an even newer and stricter
     version of Clang.
 
+
+### Version 1.18.0 for LUMI/24.03
+
+  * Started from the EasyConfig for 1.17.4 in LUMI/24.03.
+  
+  * However, we now have to switch to a MesonNinja build proces which has completely 
+    different configuration options.
+  
+  
