@@ -47,7 +47,7 @@ software_license_urls = [
     f'https://gitlab.gnome.org/GNOME/pango/-/blob/{version}/COPYING?ref_type=tags',
 ]
 
-toolchain = {'name': 'cpeGNU', 'version': '23.12'}
+toolchain = {'name': 'cpeCray', 'version': '23.12'}
 
 source_urls = [FTPGNOME_SOURCE]
 sources =     [SOURCELOWER_TAR_XZ]
