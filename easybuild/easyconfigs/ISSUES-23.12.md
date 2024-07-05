@@ -11,6 +11,9 @@
     
 -   FFmpeg was upgraded to 6.1.1 instead of kept at 6.0 due to build problems that 
     were solved by upgrading.
+    
+-   HarfBuzz was updated to 8.2.2 as version 5.3.1 did not compile with the Cray
+    compiler due to stricter type cast checkings of that compiler.
 
 -   Needed to update libidn2 to 2.3.7 as 2.3.4 did not compile with the 23.12 Cray 
     compiler.
