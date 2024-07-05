@@ -46,3 +46,8 @@
 
   * For LUMI/23.12, license information was added to the installation and the sanity checks
     were improved.
+
+    
+### Version 5.4.10 for LUMI/24.03
+
+  * Trivial version bump of the 5.4.8 EasyConfig for LUMI/23.12.
