@@ -117,7 +117,7 @@ local_GObject_version =      '1.76.1'        # https://github.com/GNOME/gobject-
 local_GSL_version =          '2.7.1'         # https://ftp.gnu.org/gnu/gsl/
 local_gzip_version =         '1.12'          # https://ftp.gnu.org/gnu/gzip/
 
-local_HarfBuzz_version =     '5.3.1'          # https://www.freedesktop.org/software/harfbuzz/release/
+local_HarfBuzz_version =     '8.2.2'          # https://www.freedesktop.org/software/harfbuzz/release/
 
 local_ICU_version =          '73.2'          # http://site.icu-project.org/home
 local_intltool_version =     '0.51.0'        # https://launchpad.net/intltool/+download
