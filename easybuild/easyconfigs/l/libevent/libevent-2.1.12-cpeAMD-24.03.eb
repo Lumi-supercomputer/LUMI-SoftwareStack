@@ -44,7 +44,6 @@ dependencies = [
     ('zlib', local_zlib_version),
 ]
 
-osdependencies = [
 #osdependencies = [
 #    ('openssl-devel', 'libssl-dev', 'libopenssl-devel'),
 #]
