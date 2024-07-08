@@ -4,6 +4,14 @@ be freely used for educational and research purposes by non-profit institutions
 and US government agencies only. See http://glaros.dtc.umn.edu/gkhome/metis/parmetis/download
 for further information.
 
+LUMI/21.12:
+This software stack which has been deprecated for a while will be removed from
+the system at the next system upgrade.
+
+LUMI/22.06:
+This software stack which has been deprecated for a while will be removed from
+the system at the next system upgrade.
+
 LUMI/22.08:
 The LUMI/22.08 is approaching end-of-life fast. It will likely not work anymore
 after the system updated planned for late August and early September. If your
