@@ -1,21 +1,20 @@
    .Announcements---------------------------------------------------.
-*  | The default version of the LUMI software stack will switch     |
-   | to 23.09 to align with the current default version of the Cray |
- * | PE and because it is likely the only current stack that we     |
-   | will still be able to support after the next major system      |
-  *| update. If your project ends after the end of August this      |
-   | year, we encourage you to switch to LUMI/23.09 if you're using |
- * | the LUMI stacks, spack/23.09 if you're using Spack, or the     |
-   | default 23.09 compilers in CrayEnv or the bare system. Feel    |
-*  | free to contact support if you feel some software supported    |
-   | by us in 22.08 or 22.12 is not yet in 23.09 as now there is    |
- * | still time to do something about it. You can keep using the    |
-   | older stacks until the system update, but please make sure you |
-   | explicitly use LUMI/22.08 and not LUMI without version when    |
- * | you load the LUMI stack or the behaviour will change. The      |
-   | projected date for the switch of the default for LUMI is       |
-   | July 9, 2024.                                                  |
-  *|                                                                |
+*  | The default version of the LUMI software stack is now 23.09    |
+   | to align with the current default version of the Cray PE and   |
+ * | and because it is likely the only current stack that we will   |
+   | still be able to support after the next major system update.   |
+  *| If your project ends after the end of August this year, we     |
+   | encourage you to switch to LUMI/23.09 if you're using the LUMI |
+ * | stacks, spack/23.09 if you're using Spack, or the default      |
+   | 23.09 compilers in CrayEnv or the bare system. Feel free to    |
+*  | contact support if you feel some software supported by us in   |
+   | 22.08 or 22.12 is not yet in 23.09 as now there is still time  |
+ * | to do something about it. We are talking to the authors of     |
+   | cotainr and lumi-container-wrapper to provide updated          |
+   | versions. You can keep using the older stacks until the system |
+*  | update, but please make sure you explicitly use LUMI/22.08 and |
+   | not LUMI without version when you load the LUMI stack.         |
+ * |                                                                |
 *  | You can use the lumi-workspaces command (without loading an    |
    | additional module) to check your quota and allocations on      |
    | LUMI. Also check `module help lumi-tools` for more info.       | 
