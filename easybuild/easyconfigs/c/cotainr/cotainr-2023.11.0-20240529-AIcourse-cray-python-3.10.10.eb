@@ -1,0 +1,90 @@
+easyblock = 'Tarball'
+
+import os as local_os
+
+# The first line below is a dirty trick not very much loved by the EasyBuild developers but
+# it helps to make this EasyConfig indpendent of the LUMI software stack version as there is
+# no other reference to that version in the file that we can use since it relies on the
+# SYSTEM toolchain.
+local_LUMI_version_from_os = local_os.environ['LUMI_STACK_CPE_VERSION']
+local_craypython_version =  '3.10.10'
+
+name =          'cotainr'
+version =       '2023.11.0'
+versionsuffix = '-20240529-AIcourse-cray-python-' + local_craypython_version
+
+homepage = 'https://github.com/DeiC-HPC/cotainr'
+
+whatis = [
+    'Description: cotainr is a tool that helps making Singularity/Apptainer containers.'
+]
+description = f""""
+cotainr is a tool that helps making Singularity/Apptainer containers.
+It runs entirely in user space, i.e. you don’t need root/sudo priviledges 
+(or fake them) to use cotainr. It makes it a lot easier to build 
+Singularity/Apptainer containers for certain HPC use cases.
+
+In order to achieve this, the scope of cotainr is deliberately limited - focus 
+is on making it easy to build reasonably performant containers for common HPC 
+use cases. If you need a general purpose solution for building containers that 
+achieve the absolute maximum performance, you should stick with 
+Apptainer/Singularity instead of cotainr.
+
+The software is provided by LUMI consortium partner DeiC.
+
+Note that this software requires a more recent Python then the system Python
+provided by the SUSE OS on LUMI. This module will load cray-python {local_craypython_version}
+which is the version that comes with the {local_LUMI_version_from_os}of the HPE Cray
+Programming Environment and hence also the version used in LUMI/{local_LUMI_version_from_os}.
+
+This version uses the images that were also used in the AI course given by
+LUST in Copenhagen in May 2024. The following base images are available:
+-   lumi-c: Base image for LUMI-C based on Ubuntu 22.04
+-   lumi-g: Base image based on the ROCm container version 5.6.1 provided by
+    LUST in /appl/local/containers/sif-images
+-   lumi-g-classic: The base image offered as lumi-g in previous versions of
+    this tool.
+"""
+
+docurls = [
+    'Web-based documentation on https://cotainr.readthedocs.io/en/latest/'
+]
+
+sources = [ {
+  'filename':          '%(name)s-%(version)s.tar.gz',
+  'download_filename': '%(version)s.tar.gz',
+  'source_urls':       ['https://github.com/DeiC-HPC/cotainr/archive/refs/tags'],
+} ]
+
+toolchain = SYSTEM
+
+dependencies = [
+    ('cray-python/' + local_craypython_version, EXTERNAL_MODULE),
+]
+
+local_systems = """{
+  "lumi-g": {
+    "base-image": "/appl/local/containers/sif-images/lumi-rocm-rocm-5.6.1.sif"
+  },
+  "lumi-g-classic": {
+    "base-image": "docker://rocm/rocm-terminal:5.3"
+  },
+  "lumi-c": {
+    "base-image": "docker://ubuntu:22.04"
+  }
+}"""
+
+postinstallcmds = [  # Use a bash HERE document to create the systems.json file.
+    'cd %(installdir)s/ ; cat >systems.json <<EOF\n' + local_systems + '\nEOF\n'
+]
+
+sanity_check_paths = {
+    'files': ['bin/cotainr', 'systems.json'],
+    'dirs':  ['cotainr'],
+}
+
+sanity_check_commands = [
+    'cotainr --help'
+]
+
+moduleclass = "tools"
