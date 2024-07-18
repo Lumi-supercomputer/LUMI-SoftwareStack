@@ -8,12 +8,8 @@
  * | stacks, spack/23.09 if you're using Spack, or the default      |
    | 23.09 compilers in CrayEnv or the bare system. Feel free to    |
 *  | contact support if you feel some software supported by us in   |
-   | 22.08 or 22.12 is not yet in 23.09 as now there is still time  |
- * | to do something about it. We are talking to the authors of     |
-   | cotainr and lumi-container-wrapper to provide updated          |
-   | versions. You can keep using the older stacks until the system |
-*  | update, but please make sure you explicitly use LUMI/22.08 and |
-   | not LUMI without version when you load the LUMI stack.         |
+  *| 22.08 or 22.12 is not yet in 23.09 as now there is still time  |
+   | to do something about it.                                      |
  * |                                                                |
 *  | You can use the lumi-workspaces command (without loading an    |
    | additional module) to check your quota and allocations on      |
