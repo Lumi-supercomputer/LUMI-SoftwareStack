@@ -84,7 +84,8 @@ sanity_check_paths = {
 }
 
 sanity_check_commands = [
-    'cotainr --help'
+    'cotainr --help',
+    'cotainr info',
 ]
 
 moduleclass = "tools"
