@@ -25,7 +25,7 @@ craype-dl-plugin-py3,22.12.1
 craypkg-gen,1.3.31
 craype,2.7.30
 cpe-prgenv,8.5.0
-cray-lmod,8.7.31
+cray-lmod,8.7.32
 modules,3.2.11.7
 HDF5,1.12.2.9
 NetCDF,4.9.0.9
