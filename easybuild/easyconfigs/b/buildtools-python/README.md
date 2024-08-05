@@ -22,7 +22,3 @@ Links for quick checking for version updates:
 
 -   Newer versions of Meson, but needs cray-python to run.
 
--   These were removed again for now as it turns out that when building without
-    `pip` essential metadata is missing from the packages, while when running
-    with `pip`, the `--no build-isolation` option causes a failure when the package
-    builds the metadata, while it is not clear yet what exactly is missing.
