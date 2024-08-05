@@ -135,6 +135,6 @@ moduleclass = 'tools'
 
 #modluafooter= f"""
 #if not ( isloaded("EasyBuild-tools/{local_LUMI_version}") ) then
-#    load("EasyBuild-tools/{local_LUMI_version}")
+#    try_load("EasyBuild-tools/{local_LUMI_version}")
 #end
 #"""
