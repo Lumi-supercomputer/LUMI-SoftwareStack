@@ -117,13 +117,6 @@ components = [
         }),
 ]
 
-postinstallcmds = [
-    # For make
-    'cd %(installdir)s/bin ; ln -s make gmake', # Some programs check for gmake first and fail if that version is too old.
-    # For CMake: Remove a dead link from cmake
-    'cd %(installdir)s/bin ; rm -f ccmake3',
-]
-
 sanity_check_paths = {
     'files': # Meson
              # SCons
