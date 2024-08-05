@@ -37,6 +37,8 @@ local_Meson_version =            '0.61.5'      # Meson      20220117 - Check on 
 local_Meson_cray_version =       '1.4.0'       # Meson      20240312 - Check on https://pypi.org/project/meson/#history
 local_SCons_version =            '4.4.0'       # SCons      20220730 - Check on https://github.com/SCons/scons/releases, https://scons.org/pages/download.html
 local_SCons_cray_version =       '4.7.0'       # SCons      20240318 - Check on https://github.com/SCons/scons/releases, https://scons.org/pages/download.html
+local_wheel_cray_version     =   '0.44.0'      # wheel      20240824 - Check on https://pypi.org/project/wheel/#history
+local_flit_core_cray_version =   '3.9.0'       # flit_core  20230314 - Check on https://pypi.org/project/flit-core/#history
 
 #
 # syslibs bundle
