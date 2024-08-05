@@ -37,27 +37,17 @@ whatis = [
 ]
 
 description = """
-This bundle collects a number of standard tools that are often needed when
-building software. Many of them are GNU tools.
-+ Meson %(meson)s                    - https://mesonbuild.com/Manual.html
-+ SCons %(SCons)s                     - https://www.scons.org/
-These tools are all build against the system libraries and system Python and 
-have been used to build several of the %(ver)s packages.
-""" % {
-    'meson'           : local_Meson_version,
-    'SCons'           : local_SCons_version,
-    'ver'             : version,
-}
+This bundle collects a number of python-based build tools.
++ Meson {local_Meson_cray_version}    - https://mesonbuild.com/Manual.html
++ SCons {local_SCons_cray_version}    - https://www.scons.org/
+In this module, they are built against the system Python which limits the
+versions we can support. 
+"""
 
 toolchain = SYSTEM
 
-dependencies = [ ]
-
 builddependencies = [
     ('buildtools', version),
-    #('syslibs',    version, '-static'),
-#    ('flex',  local_flex_version),   # For Doxygen
-#    ('Bison', local_Bison_version),  # For Doxygen
 ]
 
 osdependencies = [
@@ -92,19 +82,6 @@ components = [
         'options':           {'modulename': False}
         }),
 ]
-#
-# Additions to consider:
-# - GNU coreutils: Not only for building, but several programs are used during the build process of some codes.
-#
-
-#parallel = 1
-
-postinstallcmds = [
-    # For make
-    'cd %(installdir)s/bin ; ln -s make gmake', # Some programs check for gmake first and fail if that version is too old.
-    # For CMake: Remove a dead link from cmake
-    'cd %(installdir)s/bin ; rm -f ccmake3',
-]
 
 sanity_check_paths = {
     'files': # Meson
@@ -135,10 +112,7 @@ modextravars = {
 }
 
 moduleclass = 'devel'
-modluafooter = """
-extensions( "Meson/%(meson)s, SCons/%(SCons)s"
+modluafooter = f"""
+extensions( "Meson/{local_Meson_version}, SCons/{local_SCons_version}"
           )
-"""  % {
-    'meson'           : local_Meson_version,
-    'SCons'           : local_SCons_version,
-}
+"""
