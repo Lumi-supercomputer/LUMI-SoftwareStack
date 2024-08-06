@@ -41,12 +41,14 @@ if os.getenv( 'LUMI_STACK_NAME' ) ~= nil then
 end
 
 -- Solve a problem for users who were previously using ROCm 5.0.2
-module_version( 'rocm/5.2.3', '5.0.2' )
-module_version( 'amd/5.2.3',  '5.0.2' )
+module_version( 'rocm/6.0.3', '5.0.2' )
+module_version( 'amd/6.0.3',  '5.0.2' )
 
 -- Solve a potential problem with the Cray PE cpe modules.
-module_version( 'rocm/5.2.3', '5.2.0' )
-module_version( 'amd/5.2.3',  '5.2.0' )
+module_version( 'rocm/6.0.3', '5.2.0' )
+module_version( 'amd/6.0.3',  '5.2.0' )
+module_version( 'rocm/6.0.3', '5.2.3' )
+module_version( 'amd/6.0.3',  '5.2.3' )
 
 -- Fix for the missing cray-mpich modules.
 module_version( 'cray-mpich/8.1.27', '8.1.18' )
