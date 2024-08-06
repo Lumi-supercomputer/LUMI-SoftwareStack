@@ -2,7 +2,7 @@
 # packages, largely based on the EasyBuild 2022b toolchain as 2023a was not yet available
 # when development started.
 local_LUMI_version =        '24.03'
-local_craypython_version =  '3.11.5'
+local_craypython_version =  '3.11.7'
 local_EasyBuild_version =   '4.9.1'
 
 #
