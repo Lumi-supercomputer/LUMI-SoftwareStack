@@ -18,7 +18,7 @@ easyblock = 'Bundle'
 
 local_LUMI_version =        '24.03'
 
-local_craypython_version =  '3.11.5'
+local_craypython_version =  '3.11.7'
 local_system_pyshortver = '.'.join( local_craypython_version.split('.')[:2] )
 
 name =          'buildtools-python'
@@ -75,7 +75,7 @@ components = [
         'easyblock':         'PythonPackage',
         'sources':           [SOURCELOWER_TAR_GZ],
         'source_urls':       [PYPI_SOURCE],
-        'checksums':         ['cd1196f3faee2b31968d626e1731c94f99cbdb67cf5a46e4f5656cbee7738873'],
+        'checksums':         ['a29c3f2817e95ab89aa4660681ad547c0e9547f20e75b0562fe7723c9a2a9d49'],
         'start_dir':         '%(namelower)s-%(version)s',
         'req_py_majver':     local_craypython_version.split('.')[0], # Used to let EasyBuild select the right system Python executable.
         'req_py_minver':     local_craypython_version.split('.')[1], # Used to let EasyBuild select the right system Python executable.
@@ -87,7 +87,7 @@ components = [
         'easyblock':         'PythonPackage',
         'sources':           [SOURCELOWER_TAR_GZ],
         'source_urls':       [PYPI_SOURCE],
-        'checksums':         ['4533a43c34548edd1f63a276a42690fce15bde9409bcf20c4b8fa3d7e4d7cac1'],
+        'checksums':         ['8fd6630c25c27f1489a8a0392b311a60481a3c161aa699b330e25935b750138d'],
         'start_dir':         '%(namelower)s-%(version)s',
         'req_py_majver':     local_craypython_version.split('.')[0], # Used to let EasyBuild select the right system Python executable.
         'req_py_minver':     local_craypython_version.split('.')[1], # Used to let EasyBuild select the right system Python executable.
@@ -100,7 +100,7 @@ components = [
         'easyblock':         'PythonPackage',
         'sources':           [SOURCE_TAR_GZ],
         'source_urls':       [PYPI_SOURCE],
-        'checksums':         ['813360b2bce476bc9cc12a0f3a22d46ce520796b352557202cb07d3e402f5458'],
+        'checksums':         ['d8b617f6610a73e46509de70dcf82f76861b79762ff602d546f4e80918ec81f3'],
         'start_dir':         '%(name)s-%(version)s',
         'req_py_majver':     local_craypython_version.split('.')[0], # Used to let EasyBuild select the right system Python executable.
         'req_py_minver':     local_craypython_version.split('.')[1], # Used to let EasyBuild select the right system Python executable.
