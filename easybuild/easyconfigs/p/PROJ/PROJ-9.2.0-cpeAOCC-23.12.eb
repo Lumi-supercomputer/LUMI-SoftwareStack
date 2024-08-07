@@ -3,7 +3,9 @@
 easyblock = 'CMakeMake'
 
 local_cURL_version =         '8.0.1'         # https://curl.haxx.se/download/
+local_googletest_version = '1.13.0'          # https://github.com/google/googletest/releases
 local_libtiff_version =      '4.5.0'         # https://download.osgeo.org/libtiff/
+local_nlohmannjson_version = '3.11.3'        # https://github.com/nlohmann/json/releases
 local_SQLite_version =       '3.42.0'        # https://www.sqlite.org/
 
 local_PROJ_version =         '9.2.0'         # https://proj.org/download.html
@@ -51,16 +53,21 @@ checksums =   ['dea816f5aa732ae6b2ee3977b9bdb28b1d848cf56a1aad8faf6708b89f0ed50e
 
 builddependencies = [ # Create a reproducible build environment.
     ('buildtools',   '%(toolchain_version)s',   '', True),
+    ('googletest',   local_googletest_version),
+    ('nlohmann-json', local_nlohmannjson_version),
 ]
 
 dependencies = [
-    ('LibTIFF', local_libtiff_version),
-    ('SQLite',  local_SQLite_version),
-    ('cURL',    local_cURL_version),
+    ('LibTIFF',       local_libtiff_version),
+    ('SQLite',        local_SQLite_version),
+    ('cURL',          local_cURL_version),
 ]
 
 # build twice, once for static, once for shared libraries
-configopts = ['-DBUILD_SHARED_LIBS=ON', '-DBUILD_SHARED_LIBS=OFF']
+configopts = [
+    '-DCMAKE_INSTALL_LIBDIR=lib -DBUILD_SHARED_LIBS=OFF', 
+    '-DCMAKE_INSTALL_LIBDIR=lib -DBUILD_SHARED_LIBS=ON'
+]
 
 postinstallcmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
