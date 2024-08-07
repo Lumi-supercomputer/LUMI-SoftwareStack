@@ -27,8 +27,10 @@ versionsuffix = f'-cray-python{local_system_pyshortver}'
 
 # Version info:
 # Note: Meson 0.61.5 is the last version with Python 3.6 support.
-local_Meson_cray_version =       '1.2.3'       # Meson      20220117 - Check on https://pypi.org/project/meson/#history
-local_SCons_cray_version =       '4.5.2'       # SCons      20220730 - Check on https://github.com/SCons/scons/releases, https://scons.org/pages/download.html
+local_Meson_cray_version     =    '1.2.3'       # Meson      20220117 - Check on https://pypi.org/project/meson/#history
+local_SCons_cray_version     =    '4.5.2'       # SCons      20220730 - Check on https://github.com/SCons/scons/releases, https://scons.org/pages/download.html
+local_wheel_cray_version     =    '0.40.0'      # wheel      20230314 - Check on https://pypi.org/project/wheel/#history
+local_flit_core_cray_version =    '3.9.0'       # flit_core  20230314 - Check on https://pypi.org/project/flit-core/#history
 
 homepage = 'http://www.gnu.org'
 
@@ -52,13 +54,8 @@ have been used to build several of the %(ver)s packages.
 
 toolchain = SYSTEM
 
-dependencies = [ ]
-
 builddependencies = [
     ('buildtools', version),
-    #('syslibs',    version, '-static'),
-#    ('flex',  local_flex_version),   # For Doxygen
-#    ('Bison', local_Bison_version),  # For Doxygen
 ]
 
 dependencies = [
@@ -68,7 +65,31 @@ dependencies = [
 default_easyblock = 'ConfigureMake'
 
 components = [
-    ('Meson', local_Meson_cray_version, { # Does require Ninja
+   ('flit_core', local_flit_core_cray_version, {
+        'easyblock':         'PythonPackage',
+        'sources':           [SOURCELOWER_TAR_GZ],
+        'source_urls':       [PYPI_SOURCE],   
+        'checksums':         ['72ad266176c4a3fcfab5f2930d76896059851240570ce9a98733b658cb786eba'],
+        'start_dir':         '%(namelower)s-%(version)s',
+        'req_py_majver':     local_craypython_version.split('.')[0], # Used to let EasyBuild select the right system Python executable.
+        'req_py_minver':     local_craypython_version.split('.')[1], # Used to let EasyBuild select the right system Python executable.
+        'use_pip':           True,
+        'download_dep_fail': True,
+        'sanity_pip_check':  False,
+   }),
+   ('wheel', local_wheel_cray_version, {
+        'easyblock':         'PythonPackage',
+        'sources':           [SOURCELOWER_TAR_GZ],
+        'source_urls':       [PYPI_SOURCE],
+        'checksums':         ['cd1196f3faee2b31968d626e1731c94f99cbdb67cf5a46e4f5656cbee7738873'],
+        'start_dir':         '%(namelower)s-%(version)s',
+        'req_py_majver':     local_craypython_version.split('.')[0], # Used to let EasyBuild select the right system Python executable.
+        'req_py_minver':     local_craypython_version.split('.')[1], # Used to let EasyBuild select the right system Python executable.
+        'use_pip':           True,
+        'download_dep_fail': True,
+        'sanity_pip_check':  False,
+   }), 
+   ('Meson', local_Meson_cray_version, { # Does require Ninja
         'easyblock':         'PythonPackage',
         'sources':           [SOURCELOWER_TAR_GZ],
         'source_urls':       [PYPI_SOURCE],
@@ -77,7 +98,7 @@ components = [
         'req_py_majver':     local_craypython_version.split('.')[0], # Used to let EasyBuild select the right system Python executable.
         'req_py_minver':     local_craypython_version.split('.')[1], # Used to let EasyBuild select the right system Python executable.
         'options':           {'modulename': 'mesonbuild'},
-        'use_pip':           False,
+        'use_pip':           True,
         'download_dep_fail': True,
         'sanity_pip_check':  False, 
     }),
@@ -90,23 +111,10 @@ components = [
         'req_py_majver':     local_craypython_version.split('.')[0], # Used to let EasyBuild select the right system Python executable.
         'req_py_minver':     local_craypython_version.split('.')[1], # Used to let EasyBuild select the right system Python executable.
         'download_dep_fail': True,
-        'use_pip':           False,
+        'use_pip':           True,
         'sanity_pip_check':  False,
         'options':           {'modulename': False},
         }),
-]
-#
-# Additions to consider:
-# - GNU coreutils: Not only for building, but several programs are used during the build process of some codes.
-#
-
-#parallel = 1
-
-postinstallcmds = [
-    # For make
-    'cd %(installdir)s/bin ; ln -s make gmake', # Some programs check for gmake first and fail if that version is too old.
-    # For CMake: Remove a dead link from cmake
-    'cd %(installdir)s/bin ; rm -f ccmake3',
 ]
 
 sanity_check_paths = {
@@ -116,12 +124,12 @@ sanity_check_paths = {
     'dirs':  [],
 }
 
-#sanity_check_commands = [
-#    # Meson
-#    'meson --version',
-#    # SCons
-#    'scons --help',
-#]
+sanity_check_commands = [
+    # Meson
+    'meson --version',
+    # SCons
+    'scons --help',
+]
 
 modextrapaths = {
     'PYTHONPATH': ['lib/python%s/site-packages' % local_system_pyshortver]
@@ -135,13 +143,16 @@ modextravars = {
     'EBVERSIONMESON':              local_Meson_cray_version,
     'EBROOTSCONS':                 '%(installdir)s',
     'EBVERSIONSCONS':              local_SCons_cray_version,
+    'EBROOTWHEEL':                 '%(installdir)s',
+    'EBVERSIONWHEEL':              local_wheel_cray_version,
 }
 
 moduleclass = 'devel'
 modluafooter = """
-extensions( "Meson/%(meson)s, SCons/%(SCons)s"
+extensions( "Meson/%(meson)s, SCons/%(SCons)s, wheel/%(wheel)s"
           )
 """  % {
     'meson'           : local_Meson_cray_version,
     'SCons'           : local_SCons_cray_version,
+    'wheel'           : local_wheel_cray_version,
 }
