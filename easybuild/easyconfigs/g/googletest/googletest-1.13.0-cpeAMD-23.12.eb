@@ -1,0 +1,57 @@
+easyblock = 'CMakeMake'
+
+local_googletest_version = '1.13.0'          # https://github.com/google/googletest/releases
+
+name =    'googletest'
+version = local_googletest_version
+
+homepage = 'https://github.com/google/googletest'
+
+whatis = [
+    'Description: GoogleTest is Google’s C++ testing and mocking framework.',
+]
+
+description = """
+GoogleTest is Google’s C++ testing and mocking framework.
+"""
+
+docurls = ['https://google.github.io/googletest/']
+
+software_license_urls = [f'https://github.com/google/googletest/blob/v{version}/LICENSE']
+
+toolchain = {'name': 'cpeAMD', 'version': '23.12'}
+
+sources = [{
+    'download_filename': 'v%(version)s.tar.gz',
+    'filename':          SOURCE_TAR_GZ,
+    'source_urls':       ['https://github.com/google/googletest/archive/refs/tags/']
+}]
+checksums = ['ad7fdba11ea011c1d925b3289cf4af2c66a352e18d4c7264392fead75e919363']
+
+builddependencies = [
+    ('buildtools', '%(toolchain_version)s', '', True),
+]
+
+# build twice, once for static, once for shared libraries
+configopts = [
+    '-DCMAKE_INSTALL_LIBDIR=lib -DBUILD_SHARED_LIBS=OFF', 
+    '-DCMAKE_INSTALL_LIBDIR=lib -DBUILD_SHARED_LIBS=ON'
+]
+
+postinstallcmds = [
+    'mkdir -p %(installdir)s/share/licenses/%(name)s',
+    'cd ../%(namelower)s-%(version)s && cp CONTRIBUTING.md CONTRIBUTORS LICENSE README.md %(installdir)s/share/licenses/%(name)s',   
+]
+
+sanity_check_paths = {
+    'files': ['lib/lib%s.%s' % (local_lib, local_ext) for local_lib in ['gmock', 'gmock_main', 'gtest', 'gtest_main']
+              for local_ext in ['a', SHLIB_EXT]] +
+             [f'share/licenses/{name}/LICENSE'] ,
+    'dirs':  ['include/gmock', 'include/gtest'],
+}
+
+sanity_check_commands = [
+    'pkg-config --libs %s' % local_lib for local_lib in ['gmock', 'gmock_main', 'gtest', 'gtest_main']
+]
+
+moduleclass = 'tools'
