@@ -1,4 +1,7 @@
    .Announcements---------------------------------------------------.
+ * | IMPORTANT: Maintenance 19/08-09/09, see                        |
+ * | https://www.lumi-supercomputer.eu/lumi-service-status/         |
+   |                                                                |
 *  | The default version of the LUMI software stack is now 23.09    |
    | to align with the current default version of the Cray PE and   |
  * | and because it is likely the only current stack that we will   |
