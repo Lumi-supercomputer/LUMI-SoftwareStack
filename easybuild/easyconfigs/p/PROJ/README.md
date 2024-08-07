@@ -51,4 +51,12 @@
   * Needed to add an option to avoid generating errors on unused arguments as somehow 
     some ROCm libraries get added that are not needed.
 
-  * Fro LUMI/23.12, license information was added to the installation.
+  * For LUMI/23.12, license information was added to the installation, and the 
+    installation of the libraries is done in `lib` rather than `lib64`. Moreover,
+    `nlohmann-json` was added as a dependency to enable using an external one,
+    and `googletest` was added to the build dependencies as it turned out it was
+    auto-downloaded otherwise during the build.
+    
+    Note that contrary to what is done in the EasyBuilders repository, we made
+    `nlohmann-json` a build dependency as it is only some header files and no
+    library or other stuff that is needed when running.
