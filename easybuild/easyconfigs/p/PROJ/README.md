@@ -60,3 +60,9 @@
     Note that contrary to what is done in the EasyBuilders repository, we made
     `nlohmann-json` a build dependency as it is only some header files and no
     library or other stuff that is needed when running.
+
+
+### Version 9.3.1 from LUMI/24.03 on
+
+*   Version bump of the 9.2.0 EasyConfig for LUMI/23.12.
+
