@@ -21,4 +21,11 @@
 -   The EasyConfig was taken from the EasyBuilders repository and adapted to 
     the LUMI way of documenting modules and software licecenses, etc.
     
+    
+### Version 1.14.0 for CPE 24.03
+
+-   Direct port of the 1.13.0 EasyConfig for LUMI/23.12.
+
+
+
 
