@@ -114,6 +114,7 @@ local_GLib_version =         '2.78.1'        # https://ftp.gnome.org/pub/GNOME/s
 local_GMP_version =          '6.3.0'         # https://ftp.gnu.org/gnu/gmp/
 local_gnuplot_version =      '5.4.10'        # http://gnuplot.sourceforge.net/
 local_GObject_version =      '1.78.1'        # https://github.com/GNOME/gobject-introspection/releases
+local_googletest_version =   '1.14.0'        # https://github.com/google/googletest/releases
 local_GSL_version =          '2.7.1'         # https://ftp.gnu.org/gnu/gsl/
 local_gzip_version =         '1.13'          # https://ftp.gnu.org/gnu/gzip/
 
@@ -166,13 +167,14 @@ local_mpdecimal_version =    '2.5.1'         # https://www.bytereef.org/mpdecima
 local_MPFR_version =         '4.2.0'         # https://ftp.gnu.org/gnu/mpfr/
 
 local_ncurses_version =      '6.4'           # https://ftp.gnu.org/pub/gnu/ncurses/
+local_nlohmannjson_version = '3.11.3'        # https://github.com/nlohmann/json/releases
 
 local_Pango_version =        '1.51.0'        # http://ftp.gnome.org/pub/GNOME/sources/pango/
 local_ParMETIS_version =     '4.0.3'         # https:/http://glaros.dtc.umn.edu/gkhome/metis/parmetis/download
 local_PCRE2_version =        '10.42'         # https://ftp.pcre.org/pub/pcre/
 local_PCRE_version =         '8.45'          # https://ftp.pcre.org/pub/pcre/
 local_Perl_version =         '5.38.0'        # https://www.perl.org/get.html
-local_PROJ_version =         '9.2.0'         # https://proj.org/download.html
+local_PROJ_version =         '9.3.1'         # https://proj.org/download.html
 local_pixman_version =       '0.42.2'        # https://www.cairographics.org/releases/
 
 local_SCOTCH6_version =      '6.1.3'         # https://gforge.inria.fr/projects/scotch/
