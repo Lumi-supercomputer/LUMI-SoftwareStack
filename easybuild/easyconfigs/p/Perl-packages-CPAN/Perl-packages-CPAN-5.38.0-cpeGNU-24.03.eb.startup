@@ -1,0 +1,89 @@
+# The goal of this EasyConfig is simply to create the correct structure and module file
+# for installing more Perl extensions so that after this,
+# eb Perl-packages-CPAN-5.38.0-cpeGNU-24.03.eb --skip --rebuild
+# can be used and we don't need to restart from scratch whenever a build fails.
+#
+# postinstallcmds is used to ensure that some structure to fool the sanity checks is
+# present so that it is possible to use eb --skip-extensions to create a fake module and
+# then eb --rebuild --skip, as otherwise we need a successful build or have to start
+# over allover again.
+#
+easyblock = 'PerlBundle'
+
+local_Perl_version =         '5.38.0'        # https://www.perl.org/get.html
+
+local_DB_version =           '18.1.40'       # https://www.oracle.com/database/technologies/related/berkeleydb-downloads.html
+local_libreadline_version =  '8.2'           # https://ftp.gnu.org/pub/gnu/readline/
+local_ncurses_version =      '6.4'           # https://ftp.gnu.org/pub/gnu/ncurses/
+local_termcap_version =      '1.3.1'         # https://ftp.gnu.org/gnu/termcap/
+local_zlib_version =         '1.3.1'         # https://zlib.net/
+local_libxml2_version =      '2.11.5'        # http://xmlsoft.org/sources/
+
+name =          'Perl-packages-CPAN'
+version =       local_Perl_version
+
+homepage = 'http://www.perl.org/'
+
+whatis = [
+    "Description: PERL 5 interpreter (Practical Extraction and Report Language)"
+]
+
+description = """
+PERL 5, Larry Wall's Practical Extraction and Report Language.
+
+This module already contains a lot of packages based on the default
+EasyBuild perl configuration.
+"""
+
+software_license_urls = [
+    'https://dev.perl.org/licenses/',
+]
+
+toolchain = {'name': 'cpeGNU', 'version': '24.03'}
+toolchainopts = {'pic': True}
+
+builddependencies = [ # Create a reproducible build environment.
+    ('buildtools', '%(toolchain_version)s', '', True),
+]
+
+dependencies = [
+    ('Perl',        local_Perl_version),
+    ('zlib',        local_zlib_version),         # for Net::SSLeay
+    ('ncurses',     local_ncurses_version),      # for Term::ReadLine::Gnu
+    ('libreadline', local_libreadline_version),  # for Term::ReadLine::Gnu
+    ('DB',          local_DB_version),           # for DB_File
+    ('termcap',     local_termcap_version),      # for Term::ReadLine::Gnu
+    ('libxml2',     local_libxml2_version),      # for XML::LibXML
+#    ('OpenSSL', '1.1', '', SYSTEM), # To test in the container.
+]
+
+osdependencies = [
+    ('openssl-devel', 'libssl-dev', 'libopenssl-devel'), # required for Net::SSLeay
+]
+
+#skipsteps = ['test']
+
+# Specials for cpeGNU:
+# - Net::SSLeay
+# - Set::IntervalTree
+# !! order of extensions is important !!
+# extensions updated on 2023-10-18 in Perl-bundle-CPAN
+exts_list = [
+    #
+    # From Perl-bundle-CPAN for 5.38.0
+    #
+    ('Config::General', '2.65', {
+        'source_tmpl': 'Config-General-%(version)s.tar.gz',
+        'source_urls': ['https://cpan.metacpan.org/authors/id/T/TL/TLINDEN'],
+        'checksums': ['4d6d5754be3a9f30906836f0cc10e554c8832e14e7a1341efb15b05d706fc58f'],
+    }),
+]
+
+postinstallcmds = [ # Ensure the proper directory structure is present to keep sanity checks happy
+    f'mkdir -p %(installdir)s/lib/perl5/{local_Perl_version}',
+    f'mkdir -p %(installdir)s/lib/perl5/site_perl{local_Perl_version}',
+    'mkdir -p %(installdir)s/bin',
+    'mkdir -p %(installdir)s/man/man1',
+]
+
+moduleclass = 'lang'
