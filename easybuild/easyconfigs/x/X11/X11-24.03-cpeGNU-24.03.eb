@@ -108,13 +108,20 @@ components = [ # List taken from the GCCcore 13.2.0 (2023b) common toolchain wit
     ('xtrans', '1.5.0', {  # 2023-06-03
         'checksums': ['a806f8a92f879dcd0146f3f1153fdffe845f2fc0df9b1a26c19312b7b0a29c86'],
     }),
-    ('libxkbcommon', '1.6.0', {  # 2023-10-08
+    ('libxkbcommon', '1.5.0', {  # 2023-01-02
         'easyblock': 'MesonNinja',
         'sources': [SOURCE_TAR_XZ],
-        'checksums': ['0edc14eccdd391514458bc5f5a4b99863ed2d651e4dd761a90abf4f46ef99c2b'],
+        'checksums': ['560f11c4bbbca10f495f3ef7d3a6aa4ca62b4f8fb0b52e7d459d18a26e46e017'],
         'preconfigopts': '',
         'configopts': '-Denable-wayland=false -Denable-docs=false ',
     }),
+#    ('libxkbcommon', '1.6.0', {  # 2023-10-08
+#        'easyblock': 'MesonNinja',
+#        'sources': [SOURCE_TAR_XZ],
+#        'checksums': ['0edc14eccdd391514458bc5f5a4b99863ed2d651e4dd761a90abf4f46ef99c2b'],
+#        'preconfigopts': '',
+#        'configopts': '-Denable-wayland=false -Denable-docs=false ',
+#    }),
     ('libX11', '1.8.7', {  # 2023-10-03
         'checksums': ['793ebebf569f12c864b77401798d38814b51790fce206e01a431e5feb982e20b'],
     }),
