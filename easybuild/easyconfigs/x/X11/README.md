@@ -80,6 +80,9 @@ This is a bundle of X11 tools provided by EasyBuild.
 
   * Regular packages taken from 2023b
   
+      * Had to fall back to xkbcommon 1.5 as somehow (could be due to an old
+        meson) 1.6 tried to install some files in system directories.
+  
   * Updated the own additions
   
       * DBUS was still at 1.15.8 so didn't try again.
