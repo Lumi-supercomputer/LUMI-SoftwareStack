@@ -79,6 +79,9 @@ dependencies = [
     ('X11',      '%(toolchain_version)s'),
 ]
 
+preconfigopts = 'module unload rocm && '
+prebuildopts  = 'module unload rocm && '
+
 # disable symbol lookup, which requires -lbfd, to avoid link issues with (non-PIC) libiberty.a provided by GCC
 # The next line comes from the EasyBuilders EasyConfig.
 configopts  = "--enable-symbol-lookup=no --enable-gobject=yes --enable-svg=yes --enable-tee=yes --enable-xlib-xcb "
