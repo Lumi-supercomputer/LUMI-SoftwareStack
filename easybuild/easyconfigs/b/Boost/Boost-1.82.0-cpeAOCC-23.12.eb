@@ -68,6 +68,9 @@ dependencies = [
 
 configopts = '--without-libraries=python'
 
+# Investigate compiler crash with serial compilation
+parallel = 1
+
 # Also build boost_mpi - not needed as we already set use_mpi to True
 # boost_mpi = True
 
