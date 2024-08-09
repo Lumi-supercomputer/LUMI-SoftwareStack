@@ -10,6 +10,7 @@ easyconfigs:
   - gc-8.2.4-cpeAOCC-23.09.eb
   - giflib-5.2.1-cpeAOCC-23.09.eb
   - GMP-6.2.1-cpeAOCC-23.09.eb
+  - googletest-1.13.0-cpeAOCC-23.09.eb
   - GSL-2.7.1-cpeAOCC-23.09-sequential.eb
   - GSL-2.7.1-cpeAOCC-23.09-OpenMP.eb
   - gzip-1.12-cpeAOCC-23.09.eb

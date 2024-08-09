@@ -10,6 +10,7 @@ easyconfigs:
   - gc-8.2.4-cpeGNU-23.09.eb
   - giflib-5.2.1-cpeGNU-23.09.eb
   - GMP-6.2.1-cpeGNU-23.09.eb
+  - googletest-1.13.0-cpeGNU-23.09.eb
   - GSL-2.7.1-cpeGNU-23.09-sequential.eb
   - GSL-2.7.1-cpeGNU-23.09-OpenMP.eb
   - gzip-1.12-cpeGNU-23.09.eb
@@ -89,7 +90,7 @@ easyconfigs:
   - X11-23.09-cpeGNU-23.09.eb
 # Block 8
   - cairo-1.17.4-cpeGNU-23.09.eb
-  - FFmpeg-6.0-cpeGNU-23.09.eb
+#  - FFmpeg-6.0-cpeGNU-23.09.eb
   - Tk-8.6.13-cpeGNU-23.09.eb
 # Block 9
   - GObject-Introspection-1.76.1-cpeGNU-23.09-cray-python3.10.eb
