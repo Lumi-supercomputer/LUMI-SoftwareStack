@@ -10,6 +10,7 @@ easyconfigs:
   - gc-8.2.4-cpeGNU-23.12.eb
   - giflib-5.2.1-cpeGNU-23.12.eb
   - GMP-6.2.1-cpeGNU-23.12.eb
+  - googletest-1.13.0-cpeGNU-23.12.eb
   - GSL-2.7.1-cpeGNU-23.12-sequential.eb
   - GSL-2.7.1-cpeGNU-23.12-OpenMP.eb
   - gzip-1.12-cpeGNU-23.12.eb
@@ -31,6 +32,7 @@ easyconfigs:
   - LZO-2.10-cpeGNU-23.12.eb
   - mpdecimal-2.5.1-cpeGNU-23.12.eb
   - ncurses-6.4-cpeGNU-23.12.eb
+  - nlohmann-json-3.11.3-cpeGNU-23.12.eb
   - Szip-2.1.1-cpeGNU-23.12.eb
   - termcap-1.3.1-cpeGNU-23.12.eb # Haven't found how to get rid of it for for Term::ReadLine::Gnu
   - x264-20230226-cpeGNU-23.12.eb
@@ -97,7 +99,6 @@ easyconfigs:
 # Block 11
   - Pango-1.50.14-cpeGNU-23.12.eb
 # Some libraries from the apps section of before, and applications(s)
-#  - ELPA: Wait a bit, it looks like we need multiple versions and that it may need more testing.
   - METIS-5.1.0-cpeGNU-23.12.eb
   - ParMETIS-4.0.3-cpeGNU-23.12.eb
   - SCOTCH-6.1.3-cpeGNU-23.12.eb
