@@ -2004,11 +2004,14 @@ exts_list = [
         'source_urls': ['https://cpan.metacpan.org/authors/id/P/PL/PLICEASE'],
         'checksums': ['73b45244f0b5c36e5332c33569b82a1ab2c33e263f1d00785d2003bcaec68db3'],
     }),
-    ('XML::LibXML', '2.0207', {
-        'source_tmpl': 'XML-LibXML-%(version)s.tar.gz',
-        'source_urls': ['https://cpan.metacpan.org/authors/id/S/SH/SHLOMIF/'],
-        'checksums': ['903436c9859875bef5593243aae85ced329ad0fb4b57bbf45975e32547c50c15'],
-    }),
+#    ('XML::LibXML', '2.0207', {
+#        'source_tmpl': 'XML-LibXML-%(version)s.tar.gz',
+#        'source_urls': ['https://cpan.metacpan.org/authors/id/S/SH/SHLOMIF/'],
+#        'checksums': ['903436c9859875bef5593243aae85ced329ad0fb4b57bbf45975e32547c50c15'],
+#        # Workaround to inject an additional compiler option to ignore an error about
+#        # incompatible pointer types.
+#        'buildopts': 'OPTIMIZE="-O2 -Wno-incompatible-function-pointer-types" ',
+#    }),
 #    ('Alien::Base', '2.78', {
 #        'source_tmpl': 'Alien-Build-%(version)s.tar.gz',
 #        'source_urls': ['https://cpan.metacpan.org/authors/id/P/PL/PLICEASE/'],
