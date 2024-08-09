@@ -5,3 +5,6 @@ x265 is distributed under the
 (with commercial licenses available for use that violates the GPL).
 A copy of the GPL is also provided in the
 [COPYING file in the source repository](https://bitbucket.org/multicoreware/x265_git/src/master/COPYING).
+
+From LUMI/23.12 on, the COPYING file can also be found in the directory
+`$EBROOTX265/share/licenses/x265` after loading the module.

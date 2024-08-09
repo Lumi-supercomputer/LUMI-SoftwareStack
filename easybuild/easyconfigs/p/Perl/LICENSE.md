@@ -13,3 +13,6 @@ Perl packages included in the modules of the central software stack on LUMI
 are all taken from [CPAN](https://www.cpan.org/). However, each package may
 have its own license and it is impossible to name them all, so in
 principle you have to check before using a Perl package.
+
+From LUMI/23.12 on, some license information for the main Perl package can also be 
+found in `$EBROOT/share/licenses/Perl` after loading the module.

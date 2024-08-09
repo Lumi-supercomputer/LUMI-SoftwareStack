@@ -7,3 +7,6 @@ or (at your option) any later version.
 
 See also the
 [COPYING file in the gzip source repository](https://git.savannah.gnu.org/cgit/gzip.git/tree/COPYING).
+
+From LUMI/23.12 on, the COPYING file can also be found in the directory
+`$EBROOTGZIP/share/licenses/gzip` after loading the module.

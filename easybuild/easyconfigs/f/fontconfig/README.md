@@ -32,3 +32,5 @@
 
   * Trivial version bump of the EasyConfig for 2.14.1 to align with 2023a.
 
+  * From LUMI/23.12 on, license information is included in the software installation 
+    and both shared and static builds are explicitly enabled.

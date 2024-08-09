@@ -18,3 +18,9 @@
 
   * The EasyConfig was derived from the EasyBuilder one with some input from the
     University of Antwerpen one and additional checks.
+
+  * For LUMI/23.12, license information was added to the installation.
+  
+  * In LUMI/23.12 and 24.03, we needed to disable support for OpenSSL as it failed 
+    to compile when preparing the build in containers.
+    

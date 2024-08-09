@@ -20,3 +20,6 @@
 
   * Trivial version bump of the 1.5.0 EasyConfig, but edited a bit to make it more
     uniform.
+
+  * For LUMI/23.12, license information was added to the installation.
+  

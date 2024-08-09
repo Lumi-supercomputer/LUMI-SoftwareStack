@@ -4,11 +4,13 @@
 
       * [GitHub releases](https://github.com/BLAKE2/libb2/releases)
 
+
 ## EasyBuild
 
   * There is no support in the EasyBuilders repository
 
   * There is no support in the CSCS repository
+
 
 ### Version 0.98.1
 
@@ -16,8 +18,5 @@
     University of Antwerpen. It is a straightforward configure - make - make
     install process.
     
-## TODO
-
-  * Currently the flag `-match=native` is added. It might be possible to prevent
-    this with `--enable-native=no`. Try this out and implement in the next version
-    to ensure proper cross-compiling.
+  * For LUMI/23.12, added license information to the installation, and added
+    the  `--enable-native=no` to ensure proper cross-compiling.

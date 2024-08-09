@@ -2,6 +2,12 @@
 
   * [Boost web site](https://www.boost.org/)
 
+  * [Boost on GitHub](https://github.com/boostorg/boost)
+  
+      * [GitHub releases](https://github.com/boostorg/boost/releases)
+      
+  * [Boost downloads that we use](https://boostorg.jfrog.io/artifactory/main/release/)
+
 
 ## EasyBuild
 
@@ -101,3 +107,8 @@ HPE-Cray has a sample build script for Boost in their
     **It might be that similar linking errors (about not finding libunwind) are generated when
     using Boost with this version of the compiler and the same workaround may be needed in that
     case!**
+    
+
+### 1.83.0 for LUMI/24.03
+
+  * Trivial port of the EasyConfig for version 1.82.0 in LUMI/23.12.

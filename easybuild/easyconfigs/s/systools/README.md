@@ -29,7 +29,11 @@ The current content is
 
 -   tree
 
-    -   [tree web page](http://mama.indstate.edu/users/ice/tree/)
+    -   [New tree repository](https://gitlab.com/OldManProgrammer/unix-tree)
+    
+        -   [tags for download](https://gitlab.com/OldManProgrammer/unix-tree/-/tags)
+
+    -   [Old tree web page](http://mama.indstate.edu/users/ice/tree/)
 
 -   PRoot
 
@@ -94,4 +98,13 @@ The current content is
     -   Needed to fix the Makefile as the warnings about it not being a git repository
         caused EasyBuild to stop the build.
 
+
+
+### 23.12 and 24.03
+
+-   Version bump of `htop`, but otherwise similar as the 23.09 one with the `proot` 
+    command.
+    
+-   Did have to change the download location for the `tree` command though which also 
+    led to a slightly different build process.
   

@@ -7,3 +7,6 @@ and
 These licenses make the library free to use, share, and improve, and allow you 
 to pass on the result. The GNU licenses give freedoms, but also set firm restrictions 
 on the use with non-free programs.
+
+From LUMI/23.12 on, the license information can also be found in
+`$EBROOTGMP/share/licenses/GMP` after loading the module.

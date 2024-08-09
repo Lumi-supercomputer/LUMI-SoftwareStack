@@ -4,6 +4,10 @@
 
       * [Download from the PROJ web site](https://proj.org/download.html)
 
+  * [PROJ on GitHub](https://github.com/OSGeo/PROJ)
+
+      * [GitHub releases](https://github.com/OSGeo/PROJ/releases)
+
 
 ## EasyBuild
 
@@ -46,4 +50,19 @@
   
   * Needed to add an option to avoid generating errors on unused arguments as somehow 
     some ROCm libraries get added that are not needed.
+
+  * For LUMI/23.12, license information was added to the installation, and the 
+    installation of the libraries is done in `lib` rather than `lib64`. Moreover,
+    `nlohmann-json` was added as a dependency to enable using an external one,
+    and `googletest` was added to the build dependencies as it turned out it was
+    auto-downloaded otherwise during the build.
+    
+    Note that contrary to what is done in the EasyBuilders repository, we made
+    `nlohmann-json` a build dependency as it is only some header files and no
+    library or other stuff that is needed when running.
+
+
+### Version 9.3.1 from LUMI/24.03 on
+
+*   Version bump of the 9.2.0 EasyConfig for LUMI/23.12.
 
