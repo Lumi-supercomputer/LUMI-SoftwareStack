@@ -121,3 +121,9 @@ Not included at the moment:
     
     Some packages also do not compile in newer versions on SUSE 15 as either the compiler is too
     old or the system Python is no longer supported.
+    
+
+### 23.12
+
+  * Minimal version updates, only CMake was updated as there it is important to have the 
+    latest.

@@ -17,3 +17,5 @@
   * The EasyConfig file is based on one from the University of Antwerpen which itself
     is based on a standard EasyBuilders recipe.
 
+  * From CPE 23.12 on, license information was added and the sanity checks were improved.
+    The libraries were also moved from lib64 to lib.

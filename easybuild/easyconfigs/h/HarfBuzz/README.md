@@ -36,3 +36,9 @@
 
   * Trivial port of the 4.2.1 EasyConfig.
 
+### Version 8.2.2 from LUMI/23.12 on
+
+  * Almost trivial port of the 5.3.1 EasyConfig for 22.12, but added license 
+    information. 
+    
+  * Upgraded already for LUMI/23.12 as this version compiles with the Cray compiler.

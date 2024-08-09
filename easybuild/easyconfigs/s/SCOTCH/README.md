@@ -63,6 +63,8 @@
     EasyBlock.
 
   * From 22.12 on: Link to the homepage changed to the new one.
+  
+  * For LUMI/23.12, license information was added to the installation.
 
 
 ### Version 7.0.3 from CPE 22.12 on
@@ -74,3 +76,4 @@
   * For some reason, to get it to work with cpeCray, we needed to add definitions for FLEX
     and BISON to Makefile.inc. It is not clear why this was not needed for the other toolchains.
 
+  * For LUMI/23.12, license information was added to the installation.

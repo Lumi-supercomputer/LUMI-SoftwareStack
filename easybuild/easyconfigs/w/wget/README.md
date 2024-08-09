@@ -39,4 +39,4 @@
   * Added libpsl as a dependency. We do not use libmetalink though, and it looks
     like at least Red Hat linux wants to get rid of libmetalink.
 
-
+  * For LUMI/23.12, license information was added to the installation.

@@ -14,3 +14,5 @@
 ### Version 2.1.1. from CPE 21.06 on
 
   * Our EasyConfig is derived from the standard EasyBuilders files.
+
+  * For LUMI/23.12, license information was added to the installation.

@@ -31,3 +31,5 @@
   * Trivial version bump of the 3.6.1 EasyConfig
 
   * But aligned the sources with those used by EasyBuild.
+
+  * For LUMI/23.12, license information was added to the installation.

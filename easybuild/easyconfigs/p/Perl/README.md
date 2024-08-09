@@ -88,3 +88,4 @@
   * Clang 16 based compilers are more picky and also no longer accept C90 by default, 
     so we needed to set special options for several packages.
 
+  * For LUMI/23.12, the license information for the main Perl package was added to the installation.

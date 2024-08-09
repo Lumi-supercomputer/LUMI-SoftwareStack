@@ -46,3 +46,4 @@ Note that ESMF uses a custom EasyBlock which needs adaptations for Cray systems.
 
   * Trivial version bump of the 8.3.0 EasyConfig
 
+  * For LUMI/23.12, license information was added to the installation.

@@ -43,3 +43,6 @@
 
   * It turns out it now also needs libiconv as a dependency as that came previously in 
     through another package that doesn't need it anymore.
+
+  * For LUMI/23.12, license information was added to the installation and the sanity checks
+    were improved.

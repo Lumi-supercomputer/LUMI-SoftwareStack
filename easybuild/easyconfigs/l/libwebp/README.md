@@ -39,4 +39,5 @@
 
   * Trivial port of the EasyConfig of 1.2.2, but with some improvements to the
     sanity check borrowed from the EasyBuilders version. 
-  
+
+  * For LUMI/23.12, license information was added to the installation.

@@ -30,4 +30,6 @@
       
   * But added the `--disable-exec-static-tramp` that is also used in the EasyBuilders
     EasyConfig.
+    
+  * From LUMI/23.12 on, license information was added to the installation.
 

@@ -39,3 +39,5 @@
   * The EasyConfig is a trivial update of the 1.3.4 one but we copied the improved
     sanity check from the EasyBuilders one.
 
+  * For LUMI/23.12: License information was added to the installation.
+  

@@ -5,3 +5,6 @@ see [the COPYING.LIB file in the source repository](https://git.savannah.gnu.org
 
 The iconv program and the documentation are under GPL, see 
 the [COPYING file in the source repository](https://git.savannah.gnu.org/gitweb/?p=libiconv.git;a=blob_plain;f=COPYING;hb=HEAD).
+
+From LUMI/23.12 on, these files can also be found in the subdirectory
+`$EBROOTLIBICONV/share/licenses/libiconv` after loading the module.

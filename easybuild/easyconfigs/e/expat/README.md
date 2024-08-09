@@ -42,3 +42,11 @@
 ### Version 2.5.0 from CPE 23.09 on
 
   * Version bump to align with 2023a, trivial.
+
+
+### Version 2.6.2 from CPE 23.12 on
+
+  * One of the few packages that we upgraded between 23.09 and 23.12 due to security 
+    concerns.
+
+  * Starting from a trivial port, but adding more license info to the installation.

@@ -14,3 +14,6 @@ for general information, and the
 [COPYING](https://git.savannah.gnu.org/gitweb/?p=libunistring.git;a=blob_plain;f=COPYING;hb=HEAD) and
 [COPYING.LIB](https://git.savannah.gnu.org/gitweb/?p=libunistring.git;a=blob_plain;f=COPYING.LIB;hb=HEAD)
 files in the same repository for the specific license texts.
+
+From LUMI/23.12 on, these files can also be found in the
+`$EBROOTLIBUNISTRING/sghare/licenses/libunistring` subdirectory after loading the module.
