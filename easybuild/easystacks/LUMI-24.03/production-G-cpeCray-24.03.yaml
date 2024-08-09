@@ -12,7 +12,7 @@ easyconfigs:
   - GMP-6.3.0-cpeCray-24.03.eb
   - googletest-1.14.0-cpeCray-24.03.eb
   - GSL-2.7.1-cpeCray-24.03-sequential.eb
-  - GSL-2.7.1-cpeCray-24.03-OpenMP.eb
+#  - GSL-2.7.1-cpeCray-24.03-OpenMP.eb # Does not compile...
   - gzip-1.13-cpeCray-24.03.eb
   - ICU-74.1-cpeCray-24.03.eb
   - libaec-1.0.6-cpeCray-24.03.eb

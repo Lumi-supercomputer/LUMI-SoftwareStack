@@ -103,7 +103,7 @@ easyconfigs:
 # - SCOTCH-7.0.4-cpeAMD-24.03.eb  # Check if the EasyBlock needs an update!
 #  - ESMF-8.6.0-cpeAMD-24.03.eb
 # Some apps
-  - lumi-CPEtools-1.1-cpeAMD-24.03.eb
+#  - lumi-CPEtools-1.1-cpeAMD-24.03.eb # Does not build properly at the moment.
 #  - VampirServer
 #  - Score-P
 #
