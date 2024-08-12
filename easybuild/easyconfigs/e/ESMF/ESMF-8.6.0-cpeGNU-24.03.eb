@@ -44,6 +44,10 @@ mpicomm = 'mpiuni'
 preconfigopts = 'ESMF_F90COMPILEOPTS="$F90FLAGS" '
 prebuildopts = 'ESMF_F90COMPILEOPTS="$F90FLAGS" '
 
+builddependencies = [ # Create a reproducible build environment.
+    ('buildtools', '%(toolchain_version)s', '', True),
+]
+
 dependencies = [
     ('cray-hdf5', EXTERNAL_MODULE),
     ('cray-netcdf', EXTERNAL_MODULE),

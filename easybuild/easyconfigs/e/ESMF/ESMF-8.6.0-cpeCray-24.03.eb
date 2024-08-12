@@ -23,7 +23,7 @@ software_license_urls = [
 ]
 
 toolchain = {'name': 'cpeCray', 'version': '24.03'}
-toolchainopts = {'usempi': True}
+toolchainopts = {'usempi': True, 'extra_cflags': '-Wno-error=implicit-function-declaration'}
 
 # https://github.com/esmf-org/esmf/archive/refs/tags/v8.3.0.tar.gz
 sources = [
@@ -40,6 +40,10 @@ checksums = [
 ]
 
 mpicomm = 'mpiuni'
+
+builddependencies = [ # Create a reproducible build environment.
+    ('buildtools', '%(toolchain_version)s', '', True),
+]
 
 dependencies = [
     ('cray-hdf5', EXTERNAL_MODULE),
