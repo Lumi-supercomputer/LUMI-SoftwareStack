@@ -26,10 +26,8 @@
             It is likely that it includes code that is only activated on GPU systems as 
             it compiled OK on the CPU-only nodes.
     
-    -   cpeAMD: OK except for
+    -   cpeAMD: OK, with one remark:
     
         -   Fails at libjpeg-turbo during testing, but simply removed those 2 tests 
             (out of 500+ that are OK).
-        
-        -   Boost also not built yet
 
