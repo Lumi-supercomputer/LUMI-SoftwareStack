@@ -24,7 +24,8 @@ software_license_urls = [
 ]
 
 toolchain = {'name': 'cpeAOCC', 'version': '24.03'}
-toolchainopts = {'pic': True}
+toolchainopts = {'pic': True,      # Doesn't make sense here but needed to imitate the behaviour of the baselibs build.
+                 'extra_cxxflags': '-Wno-error=sign-compare'} 
 
 sources = [{
     'download_filename': '%(version)s.tar.gz',
