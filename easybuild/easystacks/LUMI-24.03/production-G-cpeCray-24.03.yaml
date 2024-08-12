@@ -101,10 +101,9 @@ easyconfigs:
   - ParMETIS-4.0.3-cpeCray-24.03.eb
   - SCOTCH-6.1.3-cpeCray-24.03.eb
   - SCOTCH-7.0.4-cpeCray-24.03.eb
-  - ESMF-8.6.0-cpeCray-24.03.eb
+#  - ESMF-8.6.0-cpeCray-24.03.eb
 # Some apps
   - lumi-CPEtools-1.1-cpeCray-24.03.eb
-  - gnuplot-5.4.10-cpeCray-24.03.eb
 #  - VampirServer
 #  - Score-P
 #
@@ -113,7 +112,7 @@ easyconfigs:
 # Line 1: Extensions for Perl
 #
 # With block 4
-  - Perl-packages-CPAN-5.38.0-cpeCray-24.03.eb
+#  - Perl-packages-CPAN-5.38.0-cpeCray-24.03.eb
 #
 # Line 2: Gnome graphics
 #
