@@ -50,11 +50,16 @@
 ### Version 3.0.1 for LUMI/24.03
 
   * Trivial version bump of the 2.1.5.1 EasyConfig for LUMI/23.12.
+  
+  * 12-bit support turned on again as the CMake problem that occured is gone.
 
   * Note that two tests still fail with cpeCray. Since the 588 other tests passed,
     we decided to simply edit those tests out of the CMake `CTestTestfile.cmake`
     file so that we would still notice other failures if they would pop up in 
     newer versions.
+    
+    These tests now also fail with cpeAOCC and cpeAMD, so it is likely an issue
+    with libjpeg-turbo with recent Clang compilers, so we take the same measures.
     
     The failure is likely caused by slightly different FP rounding behaviour for the
     chosen options in the Cray compiler than other compilers.
