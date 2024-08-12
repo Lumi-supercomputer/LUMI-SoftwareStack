@@ -3,7 +3,7 @@
 # to .bashrc on the TDS and then you can initialise the test software installation
 # for the TDS with `init-lumi-tds`
 #
-function init-lumi-tds { # Re-)initialize the shared software installation on the TDS.
+function init-tds { # Re-)initialize the shared software installation on the TDS.
 
     ###################################################################
     #
@@ -13,7 +13,7 @@ function init-lumi-tds { # Re-)initialize the shared software installation on th
 
     # Place of the installation
     # installroot="$HOME/LUMI"
-    installroot="/project/project_462000008/LUMI"
+    local installroot="/project/project_462000008/LUMI"
 
     # Our matching LUMI-user
     export EBU_USER_PREFIX="/project/project_462000008/$USER/LUMI-user"
@@ -27,7 +27,7 @@ function init-lumi-tds { # Re-)initialize the shared software installation on th
     export LUMI_OVERWRITE_PARTITION='L'
 
     # LMOD to use
-    installroot_lmod="/opt/cray/pe/lmod/lmod"
+    local installroot_lmod="/opt/cray/pe/lmod/lmod"
 
 
     ###################################################################
@@ -51,7 +51,7 @@ function init-lumi-tds { # Re-)initialize the shared software installation on th
     mpaths="/appl/lumi/modules/SoftwareStack /appl/lumi/modules/StyleModifiers /appl/lumi/modules/init-LUMI-SoftwareStack"
 
     # Correct the path in some variables read from the system file.
-    sysroot='/appl/lumi'
+    local sysroot='/appl/lumi'
     mpaths="${mpaths//$sysroot/$installroot}"
     export LMOD_PACKAGE_PATH="$installroot/LUMI-SoftwareStack/LMOD"
     export LMOD_RC="$installroot/LUMI-SoftwareStack/LMOD/lmodrc.lua"
