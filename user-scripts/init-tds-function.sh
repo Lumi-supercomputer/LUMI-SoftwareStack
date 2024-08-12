@@ -1,7 +1,7 @@
 # Suggestion: add
-# [ -f /project/project_462000008/LUMI/LUMI-SoftwareStack/user-scripts/init-lumi-tds-function.sh ] && source /project/project_462000008/LUMI/LUMI-SoftwareStack/user-scripts/init-lumi-tds-function.sh
+# [ -f /project/project_462000008/LUMI/LUMI-SoftwareStack/user-scripts/init-tds-function.sh ] && source /project/project_462000008/LUMI/LUMI-SoftwareStack/user-scripts/init-tds-function.sh
 # to .bashrc on the TDS and then you can initialise the test software installation
-# for the TDS with `init-lumi-tds`
+# for the TDS with `init-tds`
 #
 function init-tds { # Re-)initialize the shared software installation on the TDS.
 
