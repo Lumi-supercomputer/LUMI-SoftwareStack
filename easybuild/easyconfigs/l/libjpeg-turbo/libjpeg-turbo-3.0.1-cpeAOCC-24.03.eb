@@ -66,10 +66,9 @@ builddependencies = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True), # NASM and CMake
 ]
 
-# Note: In 2.0.14 with the CMake from the 2019b build set, 12-bit support causes a failure
-# during the configure step in CMakeLists.txt (wrong number of arguments for the
-# add_bittest macro).
-configopts = '-G"Unix Makefiles" -DWITH_JPEG7=1 -DWITH_JPEG8=1 -DWITH_12BIT=0 -DCMAKE_INSTALL_LIBDIR:PATH=lib'
+configopts = '-G"Unix Makefiles" -DWITH_JPEG7=1 -DWITH_JPEG8=1 -DWITH_12BIT=1 -DCMAKE_INSTALL_LIBDIR:PATH=lib'
+
+pretestopts = 'sed -e \'/djpeg12-.*-3x2-float-prog-cmp/d\' -i CTestTestfile.cmake && '
 runtest = "test"
 
 postinstallcmds = [
