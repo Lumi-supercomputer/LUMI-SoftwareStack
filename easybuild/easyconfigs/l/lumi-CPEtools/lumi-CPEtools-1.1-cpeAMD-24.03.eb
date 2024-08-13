@@ -29,7 +29,7 @@ toolchain = {'name': 'cpeAMD', 'version': '24.03'}
 # without MPI or OpenMP support, though it would probably still work if these
 # are set to true as usually it does no harm to compile with the MPI wrappers
 # or OpenMP options enabled even if the sources don't use these.
-toolchainopts = {'usempi': False,'openmp': False}
+toolchainopts = {'usempi': False, 'openmp': False, 'extra_cxxflags': '-std=c++11'}
 
 # Downloading from GitHub releases..
 # https://github.com/Lumi-supercomputer/lumi-CPEtools/archive/refs/tags/1.1.tar.gz
@@ -41,16 +41,21 @@ sources = [{
 checksums = ['ffc3bea3a7842fc2be48beefce900caa7c74fbe14989330b82c55c7bc99a4ada']
 
 builddependencies = [
-    ('buildtools', '%(toolchain_version)s', '', SYSTEM), # For make
+    # Something in buildtools causes a failure of the AMD linker...
+    #('buildtools', '%(toolchain_version)s', '', SYSTEM), # For make
+]
+
+dependencies = [
+    ('rocm/6.0.3', EXTERNAL_MODULE),
 ]
 
 import os as local_os
 local_partition = local_os.getenv('LUMI_STACK_PARTITION')
 
-prebuildopts = 'cd src ; '
-buildopts  = 'CC=cc MPICC=cc CFLAGS="-O2" OMPFLAG="-fopenmp" CXX=CC MPICXX=CC CXXFLAGS="-O2" '
+prebuildopts = 'module list ; module load amd rocm ; cd src ; '
+buildopts  = 'CC=cc MPICC=cc CFLAGS="-O2" OMPFLAG="-fopenmp" CXX=CC MPICXX=CC CXXFLAGS="-O2 -std=c++11" '
 buildopts += 'DEFINES="-D_GNU_SOURCE=" ROCMDEFINES="-D__HIP_PLATFORM_AMD__" '
-buildopts += 'LIBS="" ROCMLIBS="-L${ROCM_PATH}/lib -lamdhip64" '
+buildopts += 'LIBS="" ROCMLIBS="-L$ROCM_PATH/lib -lamdhip64" '
 
 if local_partition == 'G':
     buildopts += 'exe_cpu exe_gpu'
