@@ -39,9 +39,9 @@ local optarch = {
     G =         'x86-trento',
     D =         'x86-rome',
     -- EAP =    'x86-rome',
-    container = 'x86-rome', -- This is really a dummy as we do not want ot use the Cray PE here.
-    CrayEnv =   'x86-rome', -- This is really a dummy as we do not want ot use the Cray PE here.
-    system  =   'x86-rome', -- This is really a dummy as we do not want ot use the Cray PE here.
+    container = 'x86-rome', -- This is really a dummy as we do not want to use the Cray PE here.
+    CrayEnv =   'x86-rome', -- This is really a dummy as we do not want to use the Cray PE here.
+    system  =   'x86-rome', -- This is really a dummy as we do not want to use the Cray PE here.
 }
 
 -- Special partitions are those that are created to install
@@ -209,10 +209,11 @@ elseif ( isFile( '/.singularity.d/Singularity' ) ) then
     cleandir = pathJoin( '/tmp', os.getenv( 'USER' ) )
     workdir = cleandir
 
-elseif ( get_hostname():find( 'uan' ) ) then
+elseif ( get_hostname():find( 'uan' ) ) or ( get_hostname():find( 'ln' ) ) then
 
     -- We are running on the login nodes so we can use XDG_RUNTIME_DIR
     -- which is cleaned automatically at the end of the session
+    -- Note: uan are the login nodes of LUMI, ln of snowflake (the TDS)
 
     workdir = os.getenv( 'XDG_RUNTIME_DIR' )
     
@@ -253,6 +254,7 @@ local system_configdir =           pathJoin( SystemRepo_prefix, 'easybuild/confi
 local system_easyconfigdir =       pathJoin( SystemRepo_prefix, 'easybuild/easyconfigs' )
 local system_easybuild_contrib =   pathJoin( system_prefix,     'LUMI-EasyBuild-contrib/easybuild/easyconfigs' )
 local system_easyblockdir =        pathJoin( SystemRepo_prefix, 'easybuild/easyblocks' )
+local system_easyblock_contrib =   pathJoin( system_prefix,     'LUMI-EasyBuild-contrib/easybuild/easyblocks' )
 local system_toolchaindir =        pathJoin( SystemRepo_prefix, 'easybuild/toolchains' )
 local system_hookdir =             pathJoin( SystemRepo_prefix, 'easybuild/hooks' )
 local system_installpath =         system_prefix
@@ -263,6 +265,7 @@ local user_configdir =             pathJoin( user_prefix, 'UserRepo', 'easybuild
 local user_easyconfigdir =         pathJoin( user_prefix, 'UserRepo', 'easybuild/easyconfigs' )
 local user_easybuild_contrib =     pathJoin( user_prefix, 'LUMI-EasyBuild-contrib/easybuild/easyconfigs' )
 local user_easyblockdir =          pathJoin( user_prefix, 'UserRepo', 'easybuild/easyblocks' )
+local user_easyblock_contrib =     pathJoin( user_prefix, 'LUMI-EasyBuild-contrib/easybuild/easyblocks' )
 local user_installpath =           user_prefix
 
 local configdir =     mod_mode == 'user' and user_configdir     or system_configdir
@@ -292,23 +295,23 @@ local tmpdir =                     pathJoin( workdir, 'easybuild', 'tmp' )
  
 local system_installpath_software =         pathJoin( system_prefix, 'SW',                      stack,                 partition_name,              'EB' )
 local system_installpath_modules =          pathJoin( system_prefix, 'modules', mod_prefix,     'LUMI', stack_version, 'partition', partition_name )
-local system_repositorypath =               pathJoin( system_prefix, 'mgmt',    'ebrepo_files', stack,                partition )
+local system_repositorypath =               pathJoin( system_prefix, 'mgmt',    'ebfiles_repo', stack,                partition )
 
 local user_installpath_software =           pathJoin( user_prefix,   'SW',                      stack,                 partition_name )
 local user_installpath_modules =            pathJoin( user_prefix,   'modules',                 'LUMI', stack_version, 'partition', partition_name )
-local user_repositorypath =                 pathJoin( user_prefix,   'ebrepo_files',            stack,                 partition )
+local user_repositorypath =                 pathJoin( user_prefix,              'ebfiles_repo', stack,                 partition )
 
 local prod_special_installpath_software =   pathJoin( system_prefix, 'SW',                      stack,                                              'EB' )
 local prod_special_installpath_modules =    pathJoin( system_prefix, 'modules', mod_prefix,     stack )
-local prod_special_repositorypath =         pathJoin( system_prefix, 'mgmt',    'ebrepo_files', stack )
+local prod_special_repositorypath =         pathJoin( system_prefix, 'mgmt',    'ebfiles_repo', stack )
 
 local infra_special_installpath_software =  pathJoin( system_prefix, 'SW',                      stack,                                              'EB' )
 local infra_special_installpath_modules =   pathJoin( system_prefix, 'modules', mod_prefix,     'LUMI', stack_version, 'partition', partition_name )
-local infra_special_repositorypath =        pathJoin( system_prefix, 'mgmt',    'ebrepo_files', stack )
+local infra_special_repositorypath =        pathJoin( system_prefix, 'mgmt',    'ebfiles_repo', stack )
 
 local user_special_installpath_software =   pathJoin( user_prefix,   'SW',                      stack )
 local user_special_installpath_modules =    pathJoin( user_prefix,   'modules',                 stack )
-local user_special_repositorypath =         pathJoin( user_prefix,   'mgmt',    'ebrepo_files', stack )
+local user_special_repositorypath =         pathJoin( user_prefix,              'ebfiles_repo', stack )
 
 local installpath_software = mod_mode == 'user' and user_installpath_software or system_installpath_software
 local installpath_modules =  mod_mode == 'user' and user_installpath_modules  or system_installpath_modules
@@ -354,6 +357,15 @@ local suffix_modules_path =       ''
 
 local easyblocks = { pathJoin( system_easyblockdir, '*/*.py' ) }
 if mod_mode == 'user' then
+    -- Add contributed EasyBlocks
+    if isDir( user_easyblock_contrib ) then
+        -- User has a clone of LUMI-EasyBuild-contrib, use that one
+        table.insert( easyblocks, pathJoin( user_easyblock_contrib, '*/*.py' ) )
+    else
+        table.insert( easyblocks, pathJoin( system_easyblock_contrib, '*/*.py' ) )
+    end
+
+    -- Add user EasyBlocks
     table.insert( easyblocks, pathJoin( user_easyblockdir, '*/*.py' ) )
 end
 
@@ -403,7 +415,7 @@ end
 --   + If the partition is not the common one, we need to add that user repository
 --     directory also.
 if mod_mode == 'user' and partition_name ~=  'common' then
-    table.insert( robot_paths, pathJoin( user_prefix, 'ebrepo_files', stack, common_partition ) )
+    table.insert( robot_paths, pathJoin( user_prefix, 'ebfiles_repo', stack, common_partition ) )
 end
 
 --   + Always included: the system repository for the software stack, but be careful
@@ -418,7 +430,7 @@ end
 --     directory also. Special partitions however do not use the common
 --     partition.
 if partition_name ~=  'common' and not special_partition[partition_name] then
-    table.insert( robot_paths, pathJoin( system_prefix, 'mgmt', 'ebrepo_files', stack, common_partition ) )
+    table.insert( robot_paths, pathJoin( system_prefix, 'mgmt', 'ebfiles_repo', stack, common_partition ) )
 end
 
 --   + Now add the user easyconfig directory
@@ -534,6 +546,11 @@ setenv( 'EASYBUILD_OPTARCH', optarch[partition_name] )
 -- Set LUMI_EASYBUILD_MODE to be used in hooks to only execute certain hooks in production mode.
 setenv( 'LUMI_EASYBUILD_MODE', myModuleName():gsub( 'EasyBuild%-', '' ) )
 
+-- Limit the load on the login nodes
+if ( get_hostname():find( 'uan' ) ) or ( get_hostname():find( 'ln' ) ) then
+    setenv( 'EASYBUILD_PARALLEL', '16' )
+end
+
 --
 -- Add the tools to the search path for executables
 --
@@ -578,23 +595,30 @@ set_shell_function( 'clear-eb', bash_clear_eb, csh_clear_eb )
 
 if ( mode() == 'load' or mode() == 'show' ) and mod_mode == 'user' then
 
-  if not isDir( user_repositorypath )       then execute{ cmd='/usr/bin/mkdir -p ' .. user_repositorypath,       modeA={'load'} } end
-  if not isDir( user_sourcepath )           then execute{ cmd='/usr/bin/mkdir -p ' .. user_sourcepath,           modeA={'load'} } end
-  if not isDir( user_easyconfigdir )        then execute{ cmd='/usr/bin/mkdir -p ' .. user_easyconfigdir,        modeA={'load'} } end
-  if not isDir( user_easyblockdir )         then
-      execute{ cmd='/usr/bin/mkdir -p ' .. user_easyblockdir, modeA={'load'} }
-      -- Need to copy a dummy file here or eb --show-config will complain.
-      execute{ cmd='/usr/bin/cp -r ' .. pathJoin( system_easyblockdir, '00') .. ' ' .. user_easyblockdir, modeA={'load'} }
-  end
-  if not isDir( user_configdir )            then execute{ cmd='/usr/bin/mkdir -p ' .. user_configdir,            modeA={'load'} } end
-  if not isDir( user_installpath_software ) then execute{ cmd='/usr/bin/mkdir -p ' .. user_installpath_software, modeA={'load'} } end
-  if not isDir( user_installpath_modules )  then
-    execute{ cmd='/usr/bin/mkdir -p ' .. user_installpath_modules,  modeA={'load'} }
-    -- We've just created the directory so it was not yet in the MODULEPATH.
-    -- Add it and leave it to the software stack module which will find it when
-    -- it does an unload to remove the directory from the MODULEPATH.
-    prepend_path( 'MODULEPATH', user_installpath_modules )
-  end
+    local new_repositorydir = pathJoin( user_prefix, 'ebfiles_repo' )
+    if not isDir( new_repositorydir ) then
+        local old_repositorypath = pathJoin( user_prefix, 'ebrepo_files' )
+        if isDir( old_repositorypath ) then
+            execute{ cmd='cd ' .. user_prefix .. ' && mv ebrepo_files ebfiles_repo && ln -s ebfiles_repo ebrepo_files', modeA={'load'} }
+        end
+    end
+    if not isDir( user_repositorypath )       then execute{ cmd='/usr/bin/mkdir -p ' .. user_repositorypath,       modeA={'load'} } end
+    if not isDir( user_sourcepath )           then execute{ cmd='/usr/bin/mkdir -p ' .. user_sourcepath,           modeA={'load'} } end
+    if not isDir( user_easyconfigdir )        then execute{ cmd='/usr/bin/mkdir -p ' .. user_easyconfigdir,        modeA={'load'} } end
+    if not isDir( user_easyblockdir )         then
+        execute{ cmd='/usr/bin/mkdir -p ' .. user_easyblockdir, modeA={'load'} }
+        -- Need to copy a dummy file here or eb --show-config will complain.
+        execute{ cmd='/usr/bin/cp -r ' .. pathJoin( system_easyblockdir, '00') .. ' ' .. user_easyblockdir, modeA={'load'} }
+    end
+    if not isDir( user_configdir )            then execute{ cmd='/usr/bin/mkdir -p ' .. user_configdir,            modeA={'load'} } end
+    if not isDir( user_installpath_software ) then execute{ cmd='/usr/bin/mkdir -p ' .. user_installpath_software, modeA={'load'} } end
+    if not isDir( user_installpath_modules )  then
+        execute{ cmd='/usr/bin/mkdir -p ' .. user_installpath_modules,  modeA={'load'} }
+        -- We've just created the directory so it was not yet in the MODULEPATH.
+        -- Add it and leave it to the software stack module which will find it when
+        -- it does an unload to remove the directory from the MODULEPATH.
+        prepend_path( 'MODULEPATH', user_installpath_modules )
+    end
 
 end
 
