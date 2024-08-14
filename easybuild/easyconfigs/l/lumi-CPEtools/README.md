@@ -26,3 +26,13 @@ for the CrayEnv software stack.
 -   For the recompile of 23.09 with ROCm 6 we needed to make the same changes
     as for 23.12, described below.
 
+-   The cpeAMD version required changes to compile in 23.12:
+
+    -   The `rocm` module now needs to be loaded explicitly to have acces to the
+        HIP runtime libraries and header files.
+        
+    -   Needed to unload the accellerator module as we do use OpenMP but do not want
+        to use OpenMP offload.
+        
+    -   There is a problem when linking with the AMD compilers of code that uses ROCm
+        libraries when `LIBRARY_PATH` is set.
