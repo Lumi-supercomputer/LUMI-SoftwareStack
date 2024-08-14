@@ -86,17 +86,18 @@ easyconfigs:
 # Block 7
   - fontconfig-2.14.2-cpeCray-23.12.eb
   - GLib-2.77.1-cpeCray-23.12.eb
+# Block 8
   - libgd-2.3.3-cpeCray-23.12.eb
   - X11-23.12-cpeCray-23.12.eb
-# Block 8
+# Block 9
   - cairo-1.17.4-cpeCray-23.12.eb
 #  - FFmpeg-5.1.2-cpeCray-23.12.eb
   - Tk-8.6.13-cpeCray-23.12.eb
-# Block 9
-  - GObject-Introspection-1.76.1-cpeCray-23.12-cray-python3.11.eb
 # Block 10
-  - HarfBuzz-8.2.2-cpeCray-23.12.eb
+  - GObject-Introspection-1.76.1-cpeCray-23.12-cray-python3.11.eb
 # Block 11
+  - HarfBuzz-8.2.2-cpeCray-23.12.eb
+# Block 12
   - Pango-1.50.14-cpeCray-23.12.eb
 # Some libraries from the apps section of before, and applications(s)
 #  - ELPA: Wait a bit, it looks like we need multiple versions and that it may need more testing.
