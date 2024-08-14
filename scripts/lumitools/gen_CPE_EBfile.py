@@ -203,15 +203,22 @@ def gen_CPE_EBfile( CPEmodule, PEversion, CPEpackages_dir, EBfile_dir ):
     #
     # Do we need to add ROCm?
     #
-    if CPEmodule != 'cpeAMD':
-        if 'ROCM' in package_versions:
-            rocm_version = package_versions['ROCM']
-        else:
-            # The routine to generate an EB file shouldn't have been called in the first place...
-            rocm_version = '0.0.0'
-        EBfile_add = EBfile_extra % { 'rocm_version': rocm_version }
+    if 'ROCM' in package_versions:
+        rocm_version = package_versions['ROCM']
+        work = rocm_version.split('.')
+        rocm_compare = int(work[0])*10000 + int(work[1])*100 + int(work[2])
     else:
-        EBfile_add = ''
+        # The routine to generate an EB file shouldn't have been called in the first place...
+        rocm_version = '0.0.0'
+        rocm_compare = 0
+    
+    if CPEmodule == 'cpeAMD':
+        if rocm_compare >= 60000:
+            EBfile_add = EBfile_extra % { 'rocm_version': rocm_version }
+        else:
+            EBfile_add = ''
+    else:
+        EBfile_add = EBfile_extra % { 'rocm_version': rocm_version }
 
     #
     # Open the CPE-specific EasyConfig file
