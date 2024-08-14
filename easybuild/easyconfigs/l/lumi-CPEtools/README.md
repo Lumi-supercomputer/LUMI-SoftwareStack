@@ -36,3 +36,6 @@ for the CrayEnv software stack.
         
     -   There is a problem when linking with the AMD compilers of code that uses ROCm
         libraries when `LIBRARY_PATH` is set.
+
+-   It looks like the compiler wrappers have changed in 24.03 as unloading the accelerator
+    target module in the cpeAMD version was no longer needed.
