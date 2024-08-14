@@ -47,7 +47,8 @@ builddependencies = [
 import os as local_os
 local_partition = local_os.getenv('LUMI_STACK_PARTITION')
 
-prebuildopts = 'cd src ; '
+start_dir = 'src'
+
 buildopts  = 'CC=cc MPICC=cc CFLAGS="-O2" OMPFLAG="-fopenmp" CXX=CC MPICXX=CC CXXFLAGS="-O2" '
 buildopts += 'DEFINES="-D_GNU_SOURCE=" ROCMDEFINES="-D__HIP_PLATFORM_AMD__" '
 buildopts += 'LIBS="" ROCMLIBS="-L${ROCM_PATH}/lib -lamdhip64" '
