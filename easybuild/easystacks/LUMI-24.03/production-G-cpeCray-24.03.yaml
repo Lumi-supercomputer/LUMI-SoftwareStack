@@ -87,14 +87,15 @@ easyconfigs:
   - util-linux-2.39.3-cpeCray-24.03.eb
 # Block 7
   - fontconfig-2.14.2-cpeCray-24.03.eb
+# Block 8
   - libgd-2.3.3-cpeCray-24.03.eb
   - X11-24.03-cpeCray-24.03.eb
-# Block 8
+# Block 9
 #  - FFmpeg-6.1.1-cpeCray-24.03.eb
   - Tk-8.6.13-cpeCray-24.03.eb
-# Block 9
 # Block 10
 # Block 11
+# Block 12
 # Some libraries from the apps section of before, and applications(s)
 #  - ELPA: Wait a bit, it looks like we need multiple versions and that it may need more testing.
   - METIS-5.1.0-cpeCray-24.03.eb
@@ -118,13 +119,13 @@ easyconfigs:
 #
 # With block 7
   - GLib-2.78.1-cpeCray-24.03.eb
-# With block 8
-  - cairo-1.18.0-cpeCray-24.03.eb
 # With block 9
-  - GObject-Introspection-1.78.1-cpeCray-24.03-cray-python3.11.eb
+  - cairo-1.18.0-cpeCray-24.03.eb
 # With block 10
-  - HarfBuzz-8.2.2-cpeCray-24.03.eb
+  - GObject-Introspection-1.78.1-cpeCray-24.03-cray-python3.11.eb
 # With block 11
+  - HarfBuzz-8.2.2-cpeCray-24.03.eb
+# With block 12
   - Pango-1.51.0-cpeCray-24.03.eb
 # With apps (as they depend on other low-priority packages)
   - gnuplot-5.4.10-cpeCray-24.03.eb
