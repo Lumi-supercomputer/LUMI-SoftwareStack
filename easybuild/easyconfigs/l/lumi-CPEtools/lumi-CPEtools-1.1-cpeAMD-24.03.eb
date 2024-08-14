@@ -41,8 +41,7 @@ sources = [{
 checksums = ['ffc3bea3a7842fc2be48beefce900caa7c74fbe14989330b82c55c7bc99a4ada']
 
 builddependencies = [
-    # Something in buildtools causes a failure of the AMD linker...
-    #('buildtools', '%(toolchain_version)s', '', SYSTEM), # For make
+    ('buildtools', '%(toolchain_version)s', '', SYSTEM), # For make
 ]
 
 dependencies = [
@@ -52,7 +51,9 @@ dependencies = [
 import os as local_os
 local_partition = local_os.getenv('LUMI_STACK_PARTITION')
 
-prebuildopts = 'module list ; module load amd rocm ; cd src ; '
+start_dir = 'src'
+
+prebuildopts = 'unset LIBRARY_PATH && '
 buildopts  = 'CC=cc MPICC=cc CFLAGS="-O2" OMPFLAG="-fopenmp" CXX=CC MPICXX=CC CXXFLAGS="-O2 -std=c++11" '
 buildopts += 'DEFINES="-D_GNU_SOURCE=" ROCMDEFINES="-D__HIP_PLATFORM_AMD__" '
 buildopts += 'LIBS="" ROCMLIBS="-L$ROCM_PATH/lib -lamdhip64" '
