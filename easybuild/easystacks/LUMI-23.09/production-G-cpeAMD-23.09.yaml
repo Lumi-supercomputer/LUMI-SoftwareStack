@@ -106,7 +106,7 @@ easyconfigs:
 # - SCOTCH-7.0.3-cpeAMD-23.09.eb  # Check if the EasyBlock needs an update!
 #  - ESMF-8.4.1-cpeAMD-23.09.eb
 # Some apps
-#  - lumi-CPEtools-1.1-cpeAMD-23.09.eb # Now needs the ROCm module?
+  - lumi-CPEtools-1.1-cpeAMD-23.09.eb # Now needs the ROCm module?
 #  - VampirServer
 #  - Score-P
 

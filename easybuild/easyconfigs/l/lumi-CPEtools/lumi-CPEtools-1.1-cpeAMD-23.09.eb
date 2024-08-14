@@ -44,10 +44,16 @@ builddependencies = [
     ('buildtools', '%(toolchain_version)s', '', SYSTEM), # For make
 ]
 
+dependencies = [
+    ('rocm/6.0.3', EXTERNAL_MODULE),
+]
+
 import os as local_os
 local_partition = local_os.getenv('LUMI_STACK_PARTITION')
 
-prebuildopts = 'cd src ; '
+istart_dir = 'src'
+
+prebuildopts = 'module unload craype-accel-amd-gfx90a && unset LIBRARY_PATH && '
 buildopts  = 'CC=cc MPICC=cc CFLAGS="-O2" OMPFLAG="-fopenmp" CXX=CC MPICXX=CC CXXFLAGS="-O2" '
 buildopts += 'DEFINES="-D_GNU_SOURCE=" ROCMDEFINES="-D__HIP_PLATFORM_AMD__" '
 buildopts += 'LIBS="" ROCMLIBS="-L${ROCM_PATH}/lib -lamdhip64" '
