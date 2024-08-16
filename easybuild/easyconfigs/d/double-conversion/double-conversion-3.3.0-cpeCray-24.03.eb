@@ -43,6 +43,10 @@ separate_build_dir = False
 
 build_type = 'Release'
 
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+
 # Build static lib, static lib with -fPIC and shared lib
 configopts = [
     '-DCMAKE_INSTALL_LIBDIR=lib',
