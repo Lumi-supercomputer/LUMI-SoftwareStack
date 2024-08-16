@@ -1,18 +1,25 @@
    .Announcements---------------------------------------------------.
- * | IMPORTANT: Maintenance 19/08-09/09, see                        |
- * | https://www.lumi-supercomputer.eu/lumi-service-status/         |
+ * | IMPORTANT: Check the post-maintenance updates on               |
+ * | https://lumi-supercomputer.github.io/update-202409/            |
    |                                                                |
-*  | The default version of the LUMI software stack is now 23.09    |
-   | to align with the current default version of the Cray PE and   |
- * | and because it is likely the only current stack that we will   |
-   | still be able to support after the next major system update.   |
-  *| If your project ends after the end of August this year, we     |
-   | encourage you to switch to LUMI/23.09 if you're using the LUMI |
- * | stacks, spack/23.09 if you're using Spack, or the default      |
-   | 23.09 compilers in CrayEnv or the bare system. Feel free to    |
-*  | contact support if you feel some software supported by us in   |
-  *| 22.08 or 22.12 is not yet in 23.09 as now there is still time  |
-   | to do something about it.                                      |
+ * | NOTE: The default version of the LUMI software stack is        |
+   | LUMI/23.09 while the default version of the Cray PE after      |
+*  | login and in CrayEnv is 24.03. Please move as soon as possible |
+   | from LUMI/23.09 or earlier to (preferably) 24.03 as older      |
+  *| versions are not fully supported. In the next few weeks, base  |
+   | libraries for 23.12 and 24.03 will be prepared and installed.  |
+ * | The update has more impact than expected as when we advised    |
+   | to switch to 23.09, the plan was to install ROCm 5.7 on the    |
+*  | system, but as HPE completed ROCm 6 support in time for the    |
+*  | system update, ROCm 6.0.3 was installed. The downside of this  |
+   | is that it is only fully supported in the 24.03 programming    |
+  *| environment, so that contrary to our expectations, we cannot   |
+   | fully support 23.09 either.                                    |
+ * |                                                                |
+   | As several people of the LUST are busy preparing an updated    |
+ * | software stack as that may be the only solution to several of  |
+  *| user's issues, support response times to software problems     |
+   | will be longer than usual.                                     | 
  * |                                                                |
 *  | You can use the lumi-workspaces command (without loading an    |
    | additional module) to check your quota and allocations on      |
