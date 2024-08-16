@@ -4,81 +4,91 @@ be freely used for educational and research purposes by non-profit institutions
 and US government agencies only. See http://glaros.dtc.umn.edu/gkhome/metis/parmetis/download
 for further information.
 
-LUMI/21.12:
-This software stack which has been deprecated for a while will be removed from
-the system at the next system upgrade.
-
-LUMI/22.06:
-This software stack which has been deprecated for a while will be removed from
-the system at the next system upgrade.
-
 LUMI/22.08:
-The LUMI/22.08 is approaching end-of-life fast. It will likely not work anymore
-after the system updated planned for late August and early September. If your
-project is still active after that system update, we encourage you to switch
-to LUMI/23.09. See also the mail on the users mailing list of May 21.
+The LUMI/22.08 is approaching end-of-life fast. We expect problems after the
+system update of the summer of 2024, and in some cases, the only solution may
+be to rebuild with LUMI/24.03 once that version is installed and contains the
+necessary packages.
 
 LUMI/22.12:
-The LUMI/22.12 is approaching end-of-life fast. It will likely not work anymore
-after the system updated planned for late August and early September. If your
-project is still active after that system update, we encourage you to switch
-to LUMI/23.09. See also the mail on the users mailing list of May 21.
+The LUMI/22.12 is approaching end-of-life fast. We expect problems after the
+system update of the summer of 2024, and in some cases, the only solution may
+be to rebuild with LUMI/24.03 once that version is installed and contains the
+necessary packages.
 
-rocm/5.4.*singularity.*:
+LUMI/23.03:
+The LUMI/23.03 is approaching end-of-life fast. We expect problems after the
+system update of the summer of 2024, and in some cases, the only solution may
+be to rebuild with LUMI/24.03 once that version is installed and contains the
+necessary packages.
+
+LUMI/23.09:
+Though before the summer-of-2024 system update we expected to be capable to
+support this LUMI stack longer, the choice for ROCm 6.0 rather than 5.7 may
+cause problems that we cannot fix and may require updating to 24.03.
+
+LUMI/23.12:
+The version of the Cray PE on which this stack is based, was meant to be used
+with ROCm 5.7 instead of 6.0 and full compatibility with the current system
+is not guaranteed.
+
+rocm/5.[6-7].*singularity.*:
 These containers should be fine with the ROCm driver on LUMI, but interfacing
 with the Cray PE outside the container may not work as expected.
 
-rocm/5.[5-7].*singularity.*:
+rocm/5.[4-5].*singularity.*:
 The ROCm version in these containers is not supported by the ROCm driver on LUMI,
-so some features might be broken. Some problems we know of are documented on
-https://lumi-supercomputer.github.io/LUMI-EasyBuild-docs/r/rocm/
+so some features might be broken.
 
 rocm/5.2.5:
-This module is not installed the way it is intended by AMD. Hence some parts of ROCm may
-be broken or offer slower than expected performance and there is nothing the LUMI
-User Support Team can do about that. As the module is also not an official HPE Cray 
-module there is no guarantee that it will integrate properly with HPE Cray PE modules
-or work correctly in that environment. It may be safer to simply use rocm/5.2.3 which
-is provided by HPE unless you are hit by specific bugs in that version.
-
-rocm/5.3.3:
-This module is not installed the way it is intended by AMD. Hence some parts of ROCm may
-be broken or offer slower than expected performance and there is nothing the LUMI
-User Support Team can do about that. As the module is also not an official HPE Cray 
-module there is no guarantee that it will integrate properly with HPE Cray PE modules
-or work correctly in that environment. Note that HPE Cray PE programming environments
-up to at least 23.02 have only been tested with ROCm version prior to 5.3 by HPE.
-
-rocm/5.4.6:
-This module is not installed the way it is intended by AMD. Hence some parts of ROCm may
-be broken or offer slower than expected performance and there is nothing the LUMI
-User Support Team can do about that. As the module is also not an official HPE Cray 
-module there is no guarantee that it will integrate properly with HPE Cray PE modules
-or work correctly in that environment. Officially supported ROCm versions for the
-HPE Cray PE version 23.09 or 5.2 on the OS version on LUMI and 5.5 on the newer
-OS version, so likely everything is mostly fine.
-
-rocm/5.6.1:
 The ROCm 5.6.1 module comes without warranty nor support as it is not installed in
 the regular directories as suggested by AMD, which may break links encoded in RPMs.
 It is also not officially supported by the driver version currently on the system
 (which we cannot update at the moment), and is also not officially supported by HPE.
-We have observed problems, see the ROCm page in the LUMI Software Library:
-https://lumi-supercomputer.github.io/LUMI-EasyBuild-docs/r/rocm/
+When we observe problems, we'll document then on the ROCm page in the LUMI Software 
+Library: https://lumi-supercomputer.github.io/LUMI-EasyBuild-docs/r/rocm/
+
+rocm/5.3.3:
+The ROCm 5.6.1 module comes without warranty nor support as it is not installed in
+the regular directories as suggested by AMD, which may break links encoded in RPMs.
+It is also not officially supported by the driver version currently on the system
+(which we cannot update at the moment), and is also not officially supported by HPE.
+When we observe problems, we'll document then on the ROCm page in the LUMI Software 
+Library: https://lumi-supercomputer.github.io/LUMI-EasyBuild-docs/r/rocm/
+
+rocm/5.4.6:
+The ROCm 5.6.1 module comes without warranty nor support as it is not installed in
+the regular directories as suggested by AMD, which may break links encoded in RPMs.
+It is also not officially supported by the driver version currently on the system
+(which we cannot update at the moment), and is also not officially supported by HPE.
+When we observe problems, we'll document then on the ROCm page in the LUMI Software 
+Library: https://lumi-supercomputer.github.io/LUMI-EasyBuild-docs/r/rocm/
+
+rocm/5.6.1:
+This module is not installed the way it is intended by AMD. Hence some parts of ROCm may
+be broken or offer slower than expected performance and there is nothing the LUMI
+User Support Team can do about that. As the module is also not an official HPE Cray 
+module there is no guarantee that it will integrate properly with HPE Cray PE modules
+or work correctly in that environment. 
 
 amd/5.6.1:
 This module mimics the behaviour of the HPE CPE amd modules but cannot fully work
 in the same way, so problems may occur. Also check the instructions in the LUMI
 Software Library at https://lumi-supercomputer.github.io/LUMI-EasyBuild-docs/a/amd.
 
-.*/.*%-rocm%-5.[5-7].*%-singularity%-.*:
-These containers are based on newer versions of ROCm than officially supported by
+.*/.*%-rocm%-5.[2-5].*%-singularity%-.*:
+These containers are based on older versions of ROCm than officially supported by
 the ROCm driver on the system, so some features may be broken. These containers,
 when offered through the LUMI Software Library, are offered as a convenience but
 without guarantee that the LUMI User Support Team can fix all problems with them
 due to the mismatch between ROCM driver and libraries versions.
-We have observed problems, see the ROCm page in the LUMI Software Library:
-https://lumi-supercomputer.github.io/LUMI-EasyBuild-docs/r/rocm/
+
+.*/.*%-rocm%-5.[5-7].*%-singularity%-.*:
+Though this container is based on a version of ROCm that is officially supported
+by the ROCm driver on the system, we cannot exclude that there will be problems
+when, e.g., the container integrates with the Cray PE as it may be trying to
+link to libraries that were meant to be used with a different version of ROCm.
+In particular, we expect that mpi4py may produce warnings.
 
 Rust/1.60.0:
 The Rust 1.60.0 module is known to be faulty and will be removed from the system. As
