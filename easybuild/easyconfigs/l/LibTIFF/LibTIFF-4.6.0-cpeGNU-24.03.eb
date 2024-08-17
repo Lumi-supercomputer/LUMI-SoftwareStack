@@ -109,9 +109,9 @@ dependencies = [
     ('libjpeg-turbo', local_libjpegturbo_version),
 ]
 
-preconfigopts = 'module unload rocm && '
-
-prebuildopts = 'module unload rocm && '
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
 
 postinstallcmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
