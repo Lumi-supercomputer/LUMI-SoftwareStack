@@ -52,6 +52,10 @@ builddependencies = [ # Create a reproducible build environment.
 
 start_dir = 'source'
 
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+
 #installopts = ' && cp ../COPYING %(installdir)s'
 
 postinstallcmds = [
