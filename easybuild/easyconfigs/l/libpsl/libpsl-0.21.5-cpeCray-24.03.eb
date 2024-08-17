@@ -36,6 +36,10 @@ builddependencies = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
 ]
 
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+
 postinstallcmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
     'cp AUTHORS COPYING LICENSE NEWS README %(installdir)s/share/licenses/%(name)s',   
