@@ -62,3 +62,6 @@
   * When compiling with cpeGNU in partition/G, we needed to unload rocm as it was trying 
     to link with ROCm while producing an error when running.
  
+  * Ensuring that in the whole chain of dependencies no unnecessary libraries are picked 
+    up, turned out to be essential for `cpeAMD`.
+ 
