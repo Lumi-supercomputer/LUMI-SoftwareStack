@@ -66,6 +66,11 @@ osdependencies = [
 ]
 
 # dependencies = [('OpenSSL', '1.1.0e')]
+
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+
 # configopts = "--with-ssl=$EBROOTOPENSSL"
 configopts  = "--with-zlib=$EBROOTZLIB --with-openssl"
 #configopts += '--with-nghttp2 '           # Does not yet work at UAntwerp, requires an external library

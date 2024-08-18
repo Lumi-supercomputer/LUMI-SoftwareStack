@@ -45,6 +45,12 @@ osdependencies = [
     ('groff'),                                           # build dependency only
 ]
 
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+pretestopts = preconfigopts
+preinstallopts = preconfigopts
+
 #skipsteps = ['test']
 
 # !! order of extensions is important !!

@@ -46,6 +46,11 @@ builddependencies = [
     ('gettext',    local_gettext_version,  '-minimal'),
 ]
 
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+preinstallopts = preconfigopts
+
 postinstallcmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
     'cp AUTHORS ChangeLog COPYING* NOTES README THANKS %(installdir)s/share/licenses/%(name)s',   

@@ -63,6 +63,10 @@ dependencies = [
     ('expat', local_expat_version),
 ]
 
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+
 parallel = 1
 
 postinstallcmds = [
