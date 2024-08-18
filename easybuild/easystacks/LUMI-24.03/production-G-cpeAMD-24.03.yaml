@@ -75,7 +75,7 @@ easyconfigs:
   - Boost-1.83.0-cpeAMD-24.03.eb
   - gettext-0.22-cpeAMD-24.03.eb
   - libarchive-3.7.2-cpeAMD-24.03.eb
-  #- LibTIFF-4.6.0-cpeAMD-24.03.eb # Problem when running executables?
+  - LibTIFF-4.6.0-cpeAMD-24.03.eb
   - libxslt-1.1.38-cpeAMD-24.03.eb
   - Perl-5.38.0-cpeAMD-24.03.eb
 # Block 6
