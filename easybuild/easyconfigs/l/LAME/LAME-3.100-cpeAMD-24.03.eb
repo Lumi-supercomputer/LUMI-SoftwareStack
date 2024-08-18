@@ -69,7 +69,11 @@ dependencies = [
     ('ncurses',    local_ncurses_version)
 ]
 
-preconfigopts = "autoconf && "
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+
+preconfigopts += 'autoconf && '
 
 # configure is broken: add workaround to find libncurses...
 configure_cmd_prefix = "FRONTEND_LDADD='-L${EBROOTNCURSES}/lib' "

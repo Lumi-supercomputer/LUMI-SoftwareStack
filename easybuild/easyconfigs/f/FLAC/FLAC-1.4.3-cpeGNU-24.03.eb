@@ -60,6 +60,11 @@ dependencies = [
     ('libogg', local_libogg_version),
 ]
 
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+preinstallopts = preconfigopts
+
 # We donb't have xmns so we turn this off to avoid the warning during the configure
 # step.
 configopts = '--enable-static --enable-shared --disable-xmms-plugin'

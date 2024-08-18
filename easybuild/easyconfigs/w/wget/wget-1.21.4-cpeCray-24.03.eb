@@ -65,8 +65,13 @@ osdependencies = [
     # osdependencies = [('gnutls-devel', 'gnutls-dev', 'libgnutls-devel')]
 ]
 
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+preinstallopts = preconfigopts
+
 # make sure pkg-config picks up system packages (OpenSSL & co)
-preconfigopts = "export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/usr/lib64/pkgconfig:/usr/lib/pkgconfig:/usr/lib/x86_64-linux-gnu/pkgconfig && "
+preconfigopts += "export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/usr/lib64/pkgconfig:/usr/lib/pkgconfig:/usr/lib/x86_64-linux-gnu/pkgconfig && "
 configopts =    '--with-ssl=openssl '
 
 postinstallcmds = [

@@ -49,6 +49,11 @@ dependencies = [
     ('libxml2', local_libxml2_version),
 ]
 
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+preinstallopts = preconfigopts
+
 postinstallcmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
     'cd ../%(namelower)s-%(version)s && cp COPYING NEWS README.md %(installdir)s/share/licenses/%(name)s',   
