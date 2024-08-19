@@ -48,6 +48,12 @@ dependencies = [
     ('MPFR', local_MPFR_version),
 ]
 
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+pretestopts = preconfigopts
+preinstallopts = preconfigopts
+
 # The configopts below are not really needed as they are either the defaults or the
 # libraries are found in other ways.
 configopts = '--enable-static --enable-shared --with-gmp="$EBROOTGMP" --with-mpfr="$EBROOTMPFR"'
