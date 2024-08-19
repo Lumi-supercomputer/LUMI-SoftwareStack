@@ -37,6 +37,12 @@ builddependencies = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
 ]
 
+# Doesn't need MPI or ROCm, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+pretestopts = preconfigopts
+preinstallopts = preconfigopts
+
 configopts = "--with-pic"
 
 postinstallcmds = [
