@@ -264,7 +264,10 @@ components = [ # List taken from the GCCcore 13.2.0 (2023b) common toolchain wit
         'sources':       [SOURCELOWER_TAR_XZ],
         'source_urls':   ['http://dri.freedesktop.org/libdrm/'],
         'checksums':     ['3bf55363f76c7250946441ab51d3a6cc0ae518055c0ff017324ab76cdefb327a'],
-        'preconfigopts': '',
+        'preconfigopts':  'module unload cray-libsci cray-mpich xpmem && ',
+        'prebuildopts':   'module unload cray-libsci cray-mpich xpmem && ',
+        'pretestopts':    'module unload cray-libsci cray-mpich xpmem && ',
+        'preinstallopts': 'module unload cray-libsci cray-mpich xpmem && ',
     }),
     ('DBus', '1.15.4', {# 2023-02-08 http://dbus.freedesktop.org/releases/dbus
         'sources':     [SOURCELOWER_TAR_XZ],
