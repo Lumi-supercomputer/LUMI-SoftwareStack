@@ -48,6 +48,10 @@ builddependencies = [ # Create a reproducible build environment.
 
 separate_build_dir = True
 
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+
 configopts = '-DLIB_MAN=OFF' # Otherwise pod2html is needed.
 
 postinstallcmds = [

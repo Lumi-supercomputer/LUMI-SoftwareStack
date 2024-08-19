@@ -1,3 +1,7 @@
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+
 easyblock = 'CMakeMake'
 
 local_Blosc_version =        '1.21.5'        # https://github.com/Blosc/c-blosc/releases

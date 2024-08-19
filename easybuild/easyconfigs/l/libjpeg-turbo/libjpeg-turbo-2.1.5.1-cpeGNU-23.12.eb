@@ -66,7 +66,12 @@ builddependencies = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True), # NASM and CMake
 ]
 
-# Note: In 2.0.14 with the CMake from the 2019b build set, 12-bit support causes a failure
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+pretestopts = preconfigopts
+
+ Note: In 2.0.14 with the CMake from the 2019b build set, 12-bit support causes a failure
 # during the configure step in CMakeLists.txt (wrong number of arguments for the
 # add_bittest macro).
 configopts = '-G"Unix Makefiles" -DWITH_JPEG7=1 -DWITH_JPEG8=1 -DWITH_12BIT=0'
