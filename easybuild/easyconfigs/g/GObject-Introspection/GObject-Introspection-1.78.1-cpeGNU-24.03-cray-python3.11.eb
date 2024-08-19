@@ -63,7 +63,12 @@ dependencies = [
     ('util-linux', local_util_version),
 ]
 
-preconfigopts = "env GI_SCANNER_DISABLE_CACHE=true "
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+preinstallopts = preconfigopts
+
+preconfigopts += "env GI_SCANNER_DISABLE_CACHE=true "
 
 postinstallcmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',

@@ -74,14 +74,18 @@ dependencies = [
     ('util-linux', local_util_version),
 ]
 
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+preinstallopts = preconfigopts
+
 # avoid using hardcoded path to Python binary in build step
 # Also need to unload rocm as otherwise it tries to link the hip libraries also,
 # likely for no reason at all.
-preconfigopts = "module unload rocm && export PYTHON=python3 && CC='gcc-12' "
+preconfigopts += "export PYTHON=python3 && CC='gcc-13' "
 
 configopts  = "--buildtype=release --default-library=both "
 
-prebuildopts = "module unload rocm && "
 #parallel = 1 # For debugging
 
 #postinstallcmds = ["sed -i -e 's|#!.*python[0-9.]*$|#!/usr/bin/env python|' %(installdir)s/bin/*"]

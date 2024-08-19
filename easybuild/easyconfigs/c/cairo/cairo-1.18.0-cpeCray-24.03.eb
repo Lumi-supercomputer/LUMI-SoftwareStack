@@ -86,6 +86,11 @@ dependencies = [
     ('X11',      '%(toolchain_version)s'),
 ]
 
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+preinstallopts = preconfigopts
+
 configopts  = '--default-library=both'
 
 postinstallcmds = [
