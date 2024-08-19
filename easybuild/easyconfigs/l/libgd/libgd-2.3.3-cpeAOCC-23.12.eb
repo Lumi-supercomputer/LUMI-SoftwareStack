@@ -54,6 +54,11 @@ dependencies = [
     ('zlib',          local_zlib_version),
 ]
 
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+preinstallopts = preconfigopts
+
 configopts  = "--with-fontconfig=$EBROOTFONTCONFIG --with-jpeg=$EBROOTLIBJPEGMINTURBO "
 configopts += "--with-png=$EBROOTLIBPNG --with-zlib=$EBROOTZLIB"
 

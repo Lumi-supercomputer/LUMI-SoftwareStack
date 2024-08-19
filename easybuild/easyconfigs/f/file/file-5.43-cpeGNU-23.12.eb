@@ -58,6 +58,11 @@ dependencies = [
     ('XZ',    local_XZ_version),
 ]
 
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+prebuildopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+pretestopts = prebuildopts
+preinstallopts = prebuildopts
+
 postinstallcmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
     'cp AUTHORS ChangeLog COPYING NEWS README.md %(installdir)s/share/licenses/%(name)s',   

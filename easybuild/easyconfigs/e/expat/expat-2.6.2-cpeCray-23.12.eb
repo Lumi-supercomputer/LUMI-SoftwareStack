@@ -44,6 +44,10 @@ builddependencies = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
 ]
 
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+
 # Since expat 2.2.6, docbook2X is needed to produce manpage of xmlwf.
 # Docbook2X needs XML-Parser and XML-Parser needs expat.
 # -> circular dependency. "--without-docbook" breaks this circle.

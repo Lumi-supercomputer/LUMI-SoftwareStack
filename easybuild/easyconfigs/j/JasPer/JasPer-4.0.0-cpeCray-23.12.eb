@@ -58,8 +58,6 @@ sources = {
 }
 checksums = ['977c4c2e4210f4e37313cd2232d99e73d57ab561917b3c060bcdd5e83a0a13f1']
 
-separate_build_dir = True
-
 builddependencies = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
 ]
@@ -67,6 +65,12 @@ builddependencies = [ # Create a reproducible build environment.
 dependencies = [
     ('libjpeg-turbo', local_libjpegturbo_version),
 ]
+
+separate_build_dir = True
+
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
 
 local_configopts  = '-DJAS_ENABLE_DOC=0 '  # No PDFLaTeX on our systems.
 local_configopts += '-DJAS_ENABLE_OPENGL=0 '

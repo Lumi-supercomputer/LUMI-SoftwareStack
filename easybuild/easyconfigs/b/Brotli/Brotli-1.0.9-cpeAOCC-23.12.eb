@@ -38,6 +38,10 @@ builddependencies = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
 ]
 
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+
 # Uniform directory structure with software installed with ConfigureMake.
 configopts = '-DCMAKE_INSTALL_LIBDIR=lib'
 
