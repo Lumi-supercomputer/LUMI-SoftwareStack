@@ -21,3 +21,17 @@
     used to prepare the toolchain. 
 
 -   The X11 module for cpeGNU currently does not contain xterm due to build errors.
+
+
+## To do for a following release
+
+-   Build ParMETIS as both a static and shared library with OpenMP support, see
+
+    -   [ParMETIS GitHub build instructions](https://github.com/KarypisLab/ParMETIS/blob/main/BUILD.txt
+    
+    -   [Arher2 docs]( https://docs.archer2.ac.uk/software-libraries/metis/)
+    
+    It doesn't work according to the documentation with the EasyBlock.
+
+    And for cpeAMD, compiling with OpenMP enabled does not yet work.
+
