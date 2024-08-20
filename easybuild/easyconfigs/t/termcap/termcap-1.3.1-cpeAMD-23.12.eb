@@ -49,6 +49,10 @@ builddependencies = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
 ]
 
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+
 # termcap configure doesn't pick up the C flags so we feed them directly to make.
 buildopts = 'CFLAGS="$CFLAGS"'
 
