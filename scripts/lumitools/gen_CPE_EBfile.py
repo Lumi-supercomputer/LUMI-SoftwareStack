@@ -13,12 +13,13 @@
 # Mappings used by this module:
 #
 # - Define the mapping between cpe* module and compiler module.
-map_cpe_compilermodule = {
-    'cpeCray': 'cce',
-    'cpeGNU':  'gcc',
-    'cpeAOCC': 'aocc',
-    'cpeAMD':  'amd'
-    }
+#   Had to move this in the routine as from 23.12 on, gcc-native is used instead of gcc.
+#map_cpe_compilermodule = {
+#    'cpeCray': 'cce',
+#    'cpeGNU':  'gcc',
+#    'cpeAOCC': 'aocc',
+#    'cpeAMD':  'amd'
+#    }
 # - Define the mapping between cpe* module and PE compiler package (the packages s used
 #   in the CPEpackages_*.csv files)
 map_cpe_compilerpackage = {
@@ -98,7 +99,7 @@ elif local_partition == 'EAP':
 elif local_partition == 'D':
     cray_targets = [
         'craype-x86-rome',
-        # 'craype-accel-nvidia80', # Does not work as cudatoolkit/11.0 is not installed.
+        # 'craype-accel-nvidia80', # It appears we can only load this module after loading cudatoolkit or nvhpc
         'craype-accel-host',
         'craype-network-ofi'
     ]
@@ -138,7 +139,24 @@ def gen_CPE_EBfile( CPEmodule, PEversion, CPEpackages_dir, EBfile_dir ):
 
     import os
     import csv
-
+    
+    #
+    # Build the compiler map as it has now become version-dependent
+    #
+    if float( PEversion ) < 23.12 :
+        map_cpe_compilermodule = {
+            'cpeCray': 'cce',
+            'cpeGNU':  'gcc',
+            'cpeAOCC': 'aocc',
+            'cpeAMD':  'amd'
+            }
+    else :
+        map_cpe_compilermodule = {
+            'cpeCray': 'cce',
+            'cpeGNU':  'gcc-native',
+            'cpeAOCC': 'aocc',
+            'cpeAMD':  'amd'
+            }
     #
     # Read the .csv file with toolchain data.
     #
@@ -185,15 +203,22 @@ def gen_CPE_EBfile( CPEmodule, PEversion, CPEpackages_dir, EBfile_dir ):
     #
     # Do we need to add ROCm?
     #
-    if CPEmodule != 'cpeAMD':
-        if 'ROCM' in package_versions:
-            rocm_version = package_versions['ROCM']
-        else:
-            # The routine to generate an EB file shouldn't have been called in the first place...
-            rocm_version = '0.0.0'
-        EBfile_add = EBfile_extra % { 'rocm_version': rocm_version }
+    if 'ROCM' in package_versions:
+        rocm_version = package_versions['ROCM']
+        work = rocm_version.split('.')
+        rocm_compare = int(work[0])*10000 + int(work[1])*100 + int(work[2])
     else:
-        EBfile_add = ''
+        # The routine to generate an EB file shouldn't have been called in the first place...
+        rocm_version = '0.0.0'
+        rocm_compare = 0
+    
+    if CPEmodule == 'cpeAMD':
+        if rocm_compare >= 60000:
+            EBfile_add = EBfile_extra % { 'rocm_version': rocm_version }
+        else:
+            EBfile_add = ''
+    else:
+        EBfile_add = EBfile_extra % { 'rocm_version': rocm_version }
 
     #
     # Open the CPE-specific EasyConfig file
