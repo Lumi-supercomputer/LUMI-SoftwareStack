@@ -71,7 +71,7 @@ preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
 prebuildopts = preconfigopts
 pretestopts = preconfigopts
 
- Note: In 2.0.14 with the CMake from the 2019b build set, 12-bit support causes a failure
+# Note: In 2.0.14 with the CMake from the 2019b build set, 12-bit support causes a failure
 # during the configure step in CMakeLists.txt (wrong number of arguments for the
 # add_bittest macro).
 configopts = '-G"Unix Makefiles" -DWITH_JPEG7=1 -DWITH_JPEG8=1 -DWITH_12BIT=0'
