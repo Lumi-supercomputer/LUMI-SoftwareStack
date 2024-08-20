@@ -48,6 +48,11 @@ dependencies = [
     ('bzip2',       local_bzip2_version),
 ]
 
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+preinstallopts = preconfigopts
+
 configopts  = "--with-pic --disable-cpp --enable-newline-is-any "
 configopts += "--enable-pcre2-16 --enable-pcre2-32 "
 configopts += "--enable-jit "
