@@ -73,7 +73,7 @@ dependencies = [
 preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
 prebuildopts = preconfigopts
 
-preconfigopts += 'autoconf && '
+preconfigopts += 'autoconf && LDFLAGS="$LDFLAGS -Wl,--undefined-version" '
 
 # configure is broken: add workaround to find libncurses...
 configure_cmd_prefix = "FRONTEND_LDADD='-L${EBROOTNCURSES}/lib' "
