@@ -36,7 +36,7 @@ easyconfigs:
   - Szip-2.1.1-cpeCray-23.12.eb
   - termcap-1.3.1-cpeCray-23.12.eb # Haven't found how to get rid of it for for Term::ReadLine::Gnu
   - x264-20230226-cpeCray-23.12.eb
-#  - x265-3.5-cpeCray-23.12.eb
+  - x265-3.5-cpeCray-23.12.eb
   - zlib-1.3.1-cpeCray-23.12.eb
 # Block 2
   - cURL-8.0.1-cpeCray-23.12.eb
@@ -92,7 +92,7 @@ easyconfigs:
   - X11-23.12-cpeCray-23.12.eb
 # Block 9
   - cairo-1.17.4-cpeCray-23.12.eb
-#  - FFmpeg-5.1.2-cpeCray-23.12.eb # Fails with CCE 16.0.0 with a compiler crash.
+  - FFmpeg-5.1.2-cpeCray-23.12.eb # Fails with CCE 16.0.0 with a compiler crash.
   - Tk-8.6.13-cpeCray-23.12.eb
 # Block 10
   - GObject-Introspection-1.76.1-cpeCray-23.12-cray-python3.11.eb
