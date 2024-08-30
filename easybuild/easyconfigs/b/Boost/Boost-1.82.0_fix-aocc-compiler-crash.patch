@@ -1,0 +1,12 @@
+--- boost_1_82_0/boost/url/impl/segments_view.ipp       2023-04-10 16:47:40.000000000 +0300
++++ boost_1_82_0.new/boost/url/impl/segments_view.ipp   2024-08-30 14:48:47.670386834 +0300
+@@ -27,7 +27,7 @@
+ segments_view::
+ segments_view(
+     string_view s)
+-    : segments_view(
++    : segments_base(
+         parse_path(s).value(
+             BOOST_URL_POS))
+ {
+
