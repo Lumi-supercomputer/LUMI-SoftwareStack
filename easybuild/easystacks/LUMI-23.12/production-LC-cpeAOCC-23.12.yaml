@@ -72,7 +72,7 @@ easyconfigs:
   - wget-1.21.3-cpeAOCC-23.12.eb
   - zstd-1.5.5-cpeAOCC-23.12.eb
 # Block 5
-#  - Boost-1.82.0-cpeAOCC-23.12.eb  # Makes AOCC 4.1.0 crash
+  - Boost-1.82.0-cpeAOCC-23.12.eb  # Makes AOCC 4.1.0 crash
   - gettext-0.21.1-cpeAOCC-23.12.eb
   - libarchive-3.6.2-cpeAOCC-23.12.eb
   - LibTIFF-4.5.0-cpeAOCC-23.12.eb
