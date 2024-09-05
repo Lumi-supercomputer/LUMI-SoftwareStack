@@ -35,7 +35,7 @@ A sample EasyConfig is provided in the
 -   Trivial port of the EasyConfig for 2023.01.0-cray-python-3.9.12.1
 
 
-### Version 2023.11.0-20240529-AIcourse CrayEnv
+### Version 2023.11.0-20240529-AIcourse for CrayEnv
 
 -   Port of the EasyConfig for 2023.01.0 for CrayEnv, updating to a newer
     version of `cotainr` and changing the base image for `lumi-g` (keeping the old one
@@ -47,3 +47,8 @@ A sample EasyConfig is provided in the
 -   Modification of 2023.11.0-cray-python-3.9.13.1 for the Cray Python version of 23.09,
     and with the base images used in the AI course of May 2024 in Copenhagen.
 
+### Version 2023.11.0-20240909 for CrayEnv
+
+-   Port of the EasyConfig for 2023.11.0-20240529-AIcourse for CrayEnv, updating the base
+    image for `lumi-g` to rocm-6.0.3. The previous `lumi-g` and `lumi-g-classic` are
+    removed due to lack of official support for the ROCm 5.x based environments.
