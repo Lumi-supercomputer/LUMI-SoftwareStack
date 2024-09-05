@@ -32,10 +32,6 @@ The following base images are available:
 -   lumi-c: Base image for LUMI-C based on Ubuntu 22.04
 -   lumi-g: Base image based on the ROCm container version 6.0.3 provided by
     LUST in /appl/local/containers/sif-images
--   lumi-g-rocm5_6: Legacy base image based on the ROCm container version 5.6.1
-    provided by LUST in /appl/local/containers/sif-images
--   lumi-g-rocm5_3: Legacy base image based on ROCm version 5.3
-    (Previously lumi-g-classic)
 """
 
 docurls = [
@@ -58,16 +54,12 @@ local_systems = """{
   "lumi-g": {
     "base-image": "/appl/local/containers/sif-images/lumi-rocm-rocm-6.0.3.sif"
   },
-  "lumi-g-rocm5_6": {
-    "base-image": "/appl/local/containers/sif-images/lumi-rocm-rocm-5.6.1.sif"
-  },
-  "lumi-g-rocm5_3": {
-    "base-image": "docker://rocm/rocm-terminal:5.3"
-  },
   "lumi-c": {
     "base-image": "docker://ubuntu:22.04"
   }
 }"""
+
+modloadmsg = """Warning: The lumi-g system has been upgraded to rocm-6.0.3 as of the 09/09/2024 maintenance."""
 
 postinstallcmds = [ # Use a bash HERE document to create the systems.json file.
     'cd %(installdir)s/ ; cat >systems.json <<EOF\n' + local_systems + '\nEOF\n'
