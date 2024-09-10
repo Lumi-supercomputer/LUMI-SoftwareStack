@@ -59,6 +59,10 @@ osdependencies = [
 #    ('libssh2-devel'),
 ]
 
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+
 # dependencies = [('OpenSSL', '1.1.0e')]
 # configopts = "--with-ssl=$EBROOTOPENSSL"
 configopts  = "--with-zlib=$EBROOTZLIB --with-openssl"

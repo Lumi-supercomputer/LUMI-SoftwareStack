@@ -64,6 +64,10 @@ dependencies = [
     ('libjpeg-turbo', local_libjpegturbo_version),
 ]
 
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+
 configopts  = '-DJAS_ENABLE_DOC=0 '  # No PDFLaTeX on our systems.
 configopts += '-DJAS_ENABLE_OPENGL=0 '
 configopts += '-DJAS_ENABLE_LIBJPEG=1 '
