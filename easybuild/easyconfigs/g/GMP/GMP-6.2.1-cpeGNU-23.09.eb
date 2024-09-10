@@ -52,6 +52,12 @@ toolchainopts = {
 source_urls = [GNU_SOURCE]
 sources =     [SOURCELOWER_TAR_BZ2]
 
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+pretestopts = preconfigopts
+preinstallopts = preconfigopts
+
 # enable C++ interface
 configopts = '--enable-cxx'
 
