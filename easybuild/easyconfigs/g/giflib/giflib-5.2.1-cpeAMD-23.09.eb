@@ -31,6 +31,10 @@ builddependencies = [ # Create a reproducible build environment.
 # No configure
 skipsteps = ['configure']
 
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+prebuildopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+preinstallopts = prebuildopts
+
 # Override CXX and CFLAGS variables from Makefile
 buildopts = 'CC="$CC" CFLAGS="$CXXFLAGS"'
 

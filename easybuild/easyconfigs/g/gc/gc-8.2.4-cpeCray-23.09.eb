@@ -38,7 +38,12 @@ checksums = [
     {'libatomic_ops-7.8.0.tar.gz': '15676e7674e11bda5a7e50a73f4d9e7d60452271b8acf6fd39a71fefdf89fa31'}, 
 ]
 
-preconfigopts = "ln -s %(builddir)s/libatomic_ops*/ libatomic_ops && "
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+preinstallopts = preconfigopts
+
+preconfigopts += "ln -s %(builddir)s/libatomic_ops*/ libatomic_ops && "
 
 configopts = '--enable-static --enable-threads=posix'
 

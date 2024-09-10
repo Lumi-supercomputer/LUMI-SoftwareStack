@@ -42,7 +42,12 @@ builddependencies = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
 ]
 
-preconfigopts = "ln -s %(builddir)s/libatomic_ops*/ libatomic_ops && "
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+preinstallopts = preconfigopts
+
+preconfigopts += "ln -s %(builddir)s/libatomic_ops*/ libatomic_ops && "
 
 configopts = '--enable-static --enable-threads=posix'
 
