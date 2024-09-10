@@ -46,7 +46,7 @@ builddependencies = [ # Create a reproducible build environment.
 preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
 prebuildopts = preconfigopts
 
- We'll install everything in lib rather than lib64 so as to do the same as for most
+# We'll install everything in lib rather than lib64 so as to do the same as for most
 # other basic libraries installed by EasyBuild in our software stack.
 configopts = '--disable-multi-os-directory --disable-exec-static-tramp'
 
