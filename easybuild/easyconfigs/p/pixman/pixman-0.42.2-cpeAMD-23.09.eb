@@ -42,6 +42,11 @@ dependencies = [
     ('libpng', local_libpng_version),
 ]
 
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+preinstallopts = preconfigopts
+
 configopts = '--enable-gnuplot ' # Should be possible to use without first installing GNUplot?
 
 sanity_check_paths = {
