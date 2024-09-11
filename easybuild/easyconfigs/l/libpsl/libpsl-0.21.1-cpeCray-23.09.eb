@@ -31,6 +31,10 @@ builddependencies = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
 ]
 
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+
 sanity_check_paths = {
     'files': ['lib/libpsl.%s' % x for x in ['a', 'la', SHLIB_EXT]] +
              ['bin/psl', 'lib/pkgconfig/libpsl.pc'],

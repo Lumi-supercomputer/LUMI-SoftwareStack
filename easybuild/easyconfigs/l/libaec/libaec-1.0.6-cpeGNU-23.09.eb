@@ -47,6 +47,10 @@ sources =     [SOURCELOWER_TAR_BZ2]
 source_urls = ['https://gitlab.dkrz.de/k202009/libaec/-/archive/v%(version)s/']
 checksums =   ['9b89db38ced9d7c9ddb172236f87ba8e8dbb9840a88f43ee9e1def410f1413ac']
 
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+
 configopts = '-DAEC_FUZZING=OFF ' # OFF is the default, this is just to stress we use the default configuration.
 
 sanity_check_paths = {

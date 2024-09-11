@@ -79,6 +79,10 @@ dependencies = [
     ('gettext',  local_gettext_version,  '-minimal'),
 ]
 
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+
 #configopts = '--disable-nls --disable-xz --disable-xzdec' # Use this if there is no gettext. xz and xzdec are two executables the require gettext.
 
 sanity_check_paths = {

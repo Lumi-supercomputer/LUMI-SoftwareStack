@@ -5,6 +5,13 @@
 
 -   Check if the new FFmpeg works with the Cray compilers (and AMD compilers?)
 
+-   For a recompile with ROCm 6.0.3, the graphcs chain starting from Harfbuzz
+    does no longer compile with cpeAMD due to the strict error checking of newer
+    versions of Clang. The problems are basically the same as with cpeCray.
+
+-   For a recompile with ROCm 6.0.3, lumi-CPEtools no longer compiles properly
+    with cpeAMD with gpu_check failing.
+
 
 To do later:
 

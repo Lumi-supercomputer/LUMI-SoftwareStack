@@ -60,6 +60,11 @@ dependencies = [
     ('libreadline', local_libreadline_version),
 ]
 
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+preinstallopts = preconfigopts
+
 # Note there is also libintl but that is part of the GNU C library so we son\'t use our own.
 configopts = '--enable-libgdbm-compat --with-libiconv-prefix=$EBROOTLIBICONV'
 

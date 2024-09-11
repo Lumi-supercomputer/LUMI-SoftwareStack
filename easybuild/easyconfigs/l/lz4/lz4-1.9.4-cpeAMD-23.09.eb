@@ -33,6 +33,11 @@ builddependencies = [ # Create a reproducible build environment.
 
 skipsteps = ['configure']
 
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+prebuildopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+pretestopts = prebuildopts
+preinstallopts = prebuildopts
+
 installopts = "PREFIX=%(installdir)s"
 
 runtest = 'check'

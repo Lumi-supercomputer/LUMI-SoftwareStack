@@ -59,6 +59,11 @@ sanity_check_paths = {
     'dirs':  []
 }
 
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+prebuildopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+pretestopts = prebuildopts
+preinstallopts = prebuildopts
+
 sanity_check_commands = [
     'file --version',
     'pkg-config --libs libmagic',

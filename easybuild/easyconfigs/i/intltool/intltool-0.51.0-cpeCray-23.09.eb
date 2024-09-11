@@ -52,6 +52,11 @@ dependencies = [
     ('Perl', local_Perl_version),  # Already contains XML::Parser in our setup
 ]
 
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+preinstallopts = preconfigopts
+
 sanity_check_paths = {
     'files': ['bin/intltool%s' % x for x in ['-extract', '-merge', '-prepare', '-update', 'ize']],
     'dirs':  []

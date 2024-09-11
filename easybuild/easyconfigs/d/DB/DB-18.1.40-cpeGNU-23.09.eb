@@ -47,6 +47,10 @@ osdependencies = [
     ('openssl-devel', 'libssl-dev', 'libopenssl-devel'),
 ]
 
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+
 sanity_check_paths = {
     'files': ['bin/db_%s' % x for x in ['archive', 'checkpoint', 'convert', 'deadlock', 'dump', 'hotbackup',
                                         'load', 'log_verify', 'printlog', 'recover', 'replicate', 'stat',

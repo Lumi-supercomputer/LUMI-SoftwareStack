@@ -3,6 +3,7 @@
 easyblock = 'CMakeMake'
 
 local_cURL_version =         '8.0.1'         # https://curl.haxx.se/download/
+local_googletest_version = '1.13.0'          # https://github.com/google/googletest/releases
 local_libtiff_version =      '4.5.0'         # https://download.osgeo.org/libtiff/
 local_SQLite_version =       '3.42.0'        # https://www.sqlite.org/
 
@@ -46,6 +47,7 @@ checksums =   ['dea816f5aa732ae6b2ee3977b9bdb28b1d848cf56a1aad8faf6708b89f0ed50e
 
 builddependencies = [ # Create a reproducible build environment.
     ('buildtools',   '%(toolchain_version)s',   '', True),
+    ('googletest',   local_googletest_version),
 ]
 
 dependencies = [
@@ -53,6 +55,11 @@ dependencies = [
     ('SQLite',  local_SQLite_version),
     ('cURL',    local_cURL_version),
 ]
+
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+preinstallopts = preconfigopts
 
 # build twice, once for static, once for shared libraries
 configopts = ['-DBUILD_SHARED_LIBS=ON', '-DBUILD_SHARED_LIBS=OFF']

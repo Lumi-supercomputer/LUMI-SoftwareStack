@@ -26,3 +26,7 @@ to find the required functionality in ncurses.
 
   * From Clang 16 on the C standard needs to be set explicitly to c90 to avoid
     error messages about features forbidden in C99 or newer.
+
+  * To recompile with ROCm 6.0 in 23.09 an additional toolchainopt was needed
+    to force the compiler to use the C90 standard.
+

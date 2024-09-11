@@ -52,6 +52,11 @@ builddependencies = [ # Create a reproducible build environment.
     ('buildtools',   '%(toolchain_version)s',   '', True), # For CMake
 ]
 
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci rocm craype-accel-amd-gfx90a && '
+prebuildopts = preconfigopts
+preinstallopts = preconfigopts
+
 # To better check the log files, do a verbose build.
 buildopts = 'VERBOSE=1'
 

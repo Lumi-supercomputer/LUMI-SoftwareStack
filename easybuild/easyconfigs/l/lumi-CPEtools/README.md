@@ -22,3 +22,7 @@ for the CrayEnv software stack.
 -   The EasyConfig build upon the 1.0 one but with some important changes as there
     is now a tool that should only be installed in partition/G. So there are now
     makefile targets and additional variables for the Makefile.
+
+-   For the recompile of 23.09 with ROCm 6 we needed to make the same changes
+    as for 23.12, described below.
+
