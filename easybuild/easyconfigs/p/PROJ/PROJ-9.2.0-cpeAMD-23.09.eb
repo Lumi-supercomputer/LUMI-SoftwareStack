@@ -56,6 +56,11 @@ dependencies = [
     ('cURL',    local_cURL_version),
 ]
 
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+preinstallopts = preconfigopts
+
 # build twice, once for static, once for shared libraries
 configopts = ['-DBUILD_SHARED_LIBS=ON', '-DBUILD_SHARED_LIBS=OFF']
 
