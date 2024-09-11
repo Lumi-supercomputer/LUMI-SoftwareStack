@@ -51,7 +51,7 @@ dependencies = [
 import os as local_os
 local_partition = local_os.getenv('LUMI_STACK_PARTITION')
 
-istart_dir = 'src'
+start_dir = 'src'
 
 prebuildopts = 'module unload craype-accel-amd-gfx90a && unset LIBRARY_PATH && '
 buildopts  = 'CC=cc MPICC=cc CFLAGS="-O2" OMPFLAG="-fopenmp" CXX=CC MPICXX=CC CXXFLAGS="-O2" '
