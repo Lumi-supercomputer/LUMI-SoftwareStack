@@ -96,7 +96,9 @@ easyconfigs:
 # Block 9
   - GObject-Introspection-1.76.1-cpeAMD-23.09-cray-python3.10.eb
 # Block 10
+####  - HarfBuzz-5.3.1-cpeAMD-23.09.eb  # Does not compile with the more recent Clang versions
 # Block 11
+####  - Pango-1.50.14-cpeAMD-23.09.eb
 # Some libraries from the apps section of before, and applications(s)
 #  - ELPA: Wait a bit, it looks like we need multiple versions and that it may need more testing.
   - METIS-5.1.0-cpeAMD-23.09.eb

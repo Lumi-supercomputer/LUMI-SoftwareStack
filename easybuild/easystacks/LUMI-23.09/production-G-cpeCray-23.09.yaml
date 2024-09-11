@@ -49,7 +49,7 @@ easyconfigs:
   - libpng-1.6.39-cpeCray-23.09.eb
   - libreadline-8.2-cpeCray-23.09.eb
   - libvorbis-1.3.7-cpeCray-23.09.eb
-#  - MPFR-4.2.0-cpeCray-23.09.eb # As GMP does not build
+  - MPFR-4.2.0-cpeCray-23.09.eb
   - snappy-1.1.9-cpeCray-23.09.eb
   - Tcl-8.6.13-cpeCray-23.09.eb
   - UDUNITS-2.2.28-cpeCray-23.09.eb
@@ -57,7 +57,7 @@ easyconfigs:
   - freetype-2.13.0-cpeCray-23.09.eb
   - libiconv-1.17-cpeCray-23.09.eb
   - libsndfile-1.2.2-cpeCray-23.09.eb
-#  - MPC-1.3.1-cpeCray-23.09.eb # As GMP and MPFR do not build.
+  - MPC-1.3.1-cpeCray-23.09.eb 
   #- PCRE
   - PCRE2-10.42-cpeCray-23.09.eb
   - pixman-0.42.2-cpeCray-23.09.eb
