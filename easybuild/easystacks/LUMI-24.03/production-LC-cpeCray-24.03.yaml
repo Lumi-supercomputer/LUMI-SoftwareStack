@@ -113,7 +113,7 @@ easyconfigs:
 # Line 1: Extensions for Perl
 #
 # With block 4
-  - Perl-packages-CPAN-5.38.0-cpeCray-24.03.eb # May need a step-by-step install, I've seen it fail...
+  #- Perl-packages-CPAN-5.38.0-cpeCray-24.03.eb # May need a step-by-step install, I've seen it fail...
 #
 # Line 2: Gnome graphics
 #
