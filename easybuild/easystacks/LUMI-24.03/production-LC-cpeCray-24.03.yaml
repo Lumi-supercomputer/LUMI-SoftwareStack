@@ -91,7 +91,7 @@ easyconfigs:
   - libgd-2.3.3-cpeCray-24.03.eb
   - X11-24.03-cpeCray-24.03.eb
 # Block 9
-  - FFmpeg-6.1.1-cpeCray-24.03.eb # Fails with CCE 16.0.0 with a compiler crash.
+  - FFmpeg-6.1.1-cpeCray-24.03.eb
   - Tk-8.6.13-cpeCray-24.03.eb
 # Block 10
 # Block 11
