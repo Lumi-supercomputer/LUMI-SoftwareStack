@@ -52,8 +52,13 @@ toolchainopts = {'usempi': True, 'pic': True, 'verbose': False}
 
 # https://boostorg.jfrog.io/native/main/release/1.77.0/source/boost_1_77_0.tar.bz2
 source_urls = ['https://boostorg.jfrog.io/artifactory/main/release/%(version)s/source']
-sources =     ['%(namelower)s_%(version_major)s_%(version_minor)s_0.tar.bz2']
-checksums =   ['6478edfe2f3305127cffe8caf73ea0176c53769f4bf1585be237eb30798c3b8e']
+sources = ['%(namelower)s_%(version_major)s_%(version_minor)s_0.tar.bz2']
+patches = ['Boost-1.83.0_fix-aocc-compiler-crash.patch']
+
+checksums = [
+    '6478edfe2f3305127cffe8caf73ea0176c53769f4bf1585be237eb30798c3b8e', # boost_1_83_0.tar.bz2
+    '64c00e6c2e0263b86cce0c5c6318e54258ea57537d7a9c02108845a4635dc120', # Boost-1.83.0_fix-aocc-compiler-crash.patch
+]
 
 builddependencies = [ # Create a reproducible build environment.
     ('buildtools',   '%(toolchain_version)s',   '', True),
