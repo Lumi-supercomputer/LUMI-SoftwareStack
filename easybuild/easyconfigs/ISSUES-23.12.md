@@ -20,8 +20,6 @@
     
 -   MPFR has three failed tests with cpeCray.
     
--   No x265 yet for Clang-based compilers.
-
 -   zlib is already version 1.3.1 rather than 1.2.13 used in 23.09 due to compilation
     problems with the CCE compiler.
 
