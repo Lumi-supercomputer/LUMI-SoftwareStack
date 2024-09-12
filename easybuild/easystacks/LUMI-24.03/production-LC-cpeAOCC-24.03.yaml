@@ -37,7 +37,7 @@ easyconfigs:
   - Szip-2.1.1-cpeAOCC-24.03.eb
   - termcap-1.3.1-cpeAOCC-24.03.eb # Haven't found how to get rid of it for for Term::ReadLine::Gnu
   - x264-20231019-cpeAOCC-24.03.eb
-#  - x265-3.5-cpeAOCC-24.03.eb
+  - x265-3.5-cpeAOCC-24.03.eb
   - zlib-1.3.1-cpeAOCC-24.03.eb
 # Block 2
   - cURL-8.3.0-cpeAOCC-24.03.eb
@@ -91,7 +91,7 @@ easyconfigs:
   - libgd-2.3.3-cpeAOCC-24.03.eb
   - X11-24.03-cpeAOCC-24.03.eb
 # Block 9
-#  - FFmpeg-6.1.1-cpeAOCC-24.03.eb
+  - FFmpeg-6.1.1-cpeAOCC-24.03.eb
   - Tk-8.6.13-cpeAOCC-24.03.eb
 # Block 10
 # Block 11
