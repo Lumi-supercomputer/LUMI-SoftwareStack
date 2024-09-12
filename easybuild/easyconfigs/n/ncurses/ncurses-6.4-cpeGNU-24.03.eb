@@ -33,6 +33,11 @@ builddependencies = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
 ]
 
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+pretestopts = preconfigopts
+preinstallopts = preconfigopts
 
 local_common_configopts  = "--with-shared --with-normal --with-debug --enable-overwrite --without-ada --enable-symlinks "
 #local_common_configopts += "--with-termlib --enable-termcap " # The latter cannot be combined with --with-ticlib
@@ -58,7 +63,6 @@ configopts = [
 # NOT NEEDED WITH THE MODIFIED OPTIONS THAT WE TOOK.
 # libncurses with this configopts has all the symbols from libtinfo, but some packages look for libtinfo specifically
 #postinstallcmds = ['cd %(installdir)s/lib && for l in libncurses{.,_,w}*; do ln -s "${l}" "${l/ncurses/tinfo}"; done']
-
 
 postinstallcmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',

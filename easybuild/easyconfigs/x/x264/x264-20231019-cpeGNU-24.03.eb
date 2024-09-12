@@ -32,11 +32,15 @@ toolchainopts = {'pic': True}
 
 source_urls = [f'https://code.videolan.org/videolan/x264/-/archive/{local_x264_commit}/']
 sources =     [{'download_filename': f'x264-{local_x264_commit}.tar.gz', 'filename': SOURCE_TAR_GZ}]
-checksums =   ['bf6a61dcc7e1f4e623a44f09de02e843f06e7ec14f807557b43130fc84287f29']
+checksums =   ['f32bdcd8edaae7686f5aba9d4421d07c1d01e5c3c10c2a87c8f3131bddb59905']
 
 builddependencies = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True), # USes NASM
 ]
+
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
 
 configopts = " --enable-shared --enable-static"
 

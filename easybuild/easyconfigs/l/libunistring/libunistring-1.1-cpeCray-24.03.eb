@@ -50,6 +50,11 @@ dependencies = [
 
 parallel = 1
 
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+preinstallopts = preconfigopts
+
 sanity_check_paths = {
     'files': ['lib/libunistring.a', 'lib/libunistring.%s' % SHLIB_EXT] +
              ['include/uni%s.h' % x for x in ['case', 'conv', 'ctype', 'lbrk', 'name', 'norm',

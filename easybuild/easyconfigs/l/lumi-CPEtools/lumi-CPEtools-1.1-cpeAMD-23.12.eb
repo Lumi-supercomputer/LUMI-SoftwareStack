@@ -44,6 +44,10 @@ builddependencies = [
     ('buildtools', '%(toolchain_version)s', '', SYSTEM), # For make
 ]
 
+dependencies = [
+    ('rocm/6.0.3', EXTERNAL_MODULE),
+]
+
 import os as local_os
 local_partition = local_os.getenv('LUMI_STACK_PARTITION')
 

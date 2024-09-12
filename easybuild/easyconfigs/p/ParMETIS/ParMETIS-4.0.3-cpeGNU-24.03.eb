@@ -43,7 +43,7 @@ software_license_urls = [
 ]
 
 toolchain = {'name': 'cpeGNU', 'version': '24.03'}
-toolchainopts = {'usempi': True, 'pic': True}
+toolchainopts = {'usempi': True, 'openmp': True, 'pic': True}
 
 source_urls = [
     'http://glaros.dtc.umn.edu/gkhome/fetch/sw/parmetis',
@@ -55,6 +55,11 @@ checksums = ['f2d9a231b7cf97f1fee6e8c9663113ebf6c240d407d3c118c55b3633d6be6e5f']
 builddependencies = [ # Create a reproducible build environment.
     ('buildtools',   '%(toolchain_version)s',   '', True), # For CMake
 ]
+
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci rocm craype-accel-amd-gfx90a && '
+prebuildopts = preconfigopts
+preinstallopts = preconfigopts
 
 # To better check the log files, do a verbose build.
 buildopts = 'VERBOSE=1'

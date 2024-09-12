@@ -82,8 +82,12 @@ dependencies = [
 default_easyblock = 'ConfigureMake'
 
 default_component_specs = {
-    'sources':       [SOURCE_TAR_GZ],
-    'start_dir':     '%(name)s-%(version)s',
+    'sources':        [SOURCE_TAR_GZ],
+    'start_dir':      '%(name)s-%(version)s',
+    'preconfigopts':  'module unload cray-libsci cray-mpich rocm xpmem && ',
+    'prebuildopts':   'module unload cray-libsci cray-mpich rocm xpmem && ',
+    'pretestopts':    'module unload cray-libsci cray-mpich rocm xpmem && ',
+    'preinstallopts': 'module unload cray-libsci cray-mpich rocm xpmem && ',
 }
 
 components = [ # List taken from the GCCcore 13.2.0 (2023b) common toolchain with own additions at the end
@@ -112,7 +116,7 @@ components = [ # List taken from the GCCcore 13.2.0 (2023b) common toolchain wit
         'easyblock': 'MesonNinja',
         'sources': [SOURCE_TAR_XZ],
         'checksums': ['560f11c4bbbca10f495f3ef7d3a6aa4ca62b4f8fb0b52e7d459d18a26e46e017'],
-        'preconfigopts': '',
+        #'preconfigopts': '',
         'configopts': '-Denable-wayland=false -Denable-docs=false ',
     }),
 #    ('libxkbcommon', '1.6.0', {  # 2023-10-08
@@ -238,7 +242,7 @@ components = [ # List taken from the GCCcore 13.2.0 (2023b) common toolchain wit
         'sources': [SOURCE_TAR_XZ],
         'checksums': ['7a3dba1bec7dc7191432da021242d17c9cf6c89690e6c57b0de048ff8c9d2ae3'],
         # required to overrule parent preconfigopts that runs autogen.sh if configure script is missing
-        'preconfigopts': '',
+        #'preconfigopts': '',
     }),
     ('printproto', '1.0.5', {  # 2011-01-06
         'checksums': ['e8b6f405fd865f0ea7a3a2908dfbf06622f57f2f91359ec65d13b955e49843fc'],
@@ -260,7 +264,10 @@ components = [ # List taken from the GCCcore 13.2.0 (2023b) common toolchain wit
         'sources':       [SOURCELOWER_TAR_XZ],
         'source_urls':   ['http://dri.freedesktop.org/libdrm/'],
         'checksums':     ['3bf55363f76c7250946441ab51d3a6cc0ae518055c0ff017324ab76cdefb327a'],
-        'preconfigopts': '',
+        'preconfigopts':  'module unload cray-libsci cray-mpich xpmem && ',
+        'prebuildopts':   'module unload cray-libsci cray-mpich xpmem && ',
+        'pretestopts':    'module unload cray-libsci cray-mpich xpmem && ',
+        'preinstallopts': 'module unload cray-libsci cray-mpich xpmem && ',
     }),
     ('DBus', '1.15.4', {# 2023-02-08 http://dbus.freedesktop.org/releases/dbus
         'sources':     [SOURCELOWER_TAR_XZ],

@@ -57,6 +57,11 @@ dependencies = [ # zlib, also used in the EasyBuilders version, comes in via lib
     ('libxml2', local_libxml2_version),
 ]
 
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+preinstallopts = preconfigopts
+
 # Make sure it doesn't pick up OS installed libgcrypt or Python
 configopts = '--enable-static --enable-shared --with-crypto=no --with-python=no '
 

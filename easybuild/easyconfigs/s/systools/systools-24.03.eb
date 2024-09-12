@@ -33,18 +33,6 @@ Overview of included tools:
     GPP is Free Software. It is distributed under the terms of the GNU Lesser
     General Public Licence.
 
-  + htop (version {local_systools_htop_version}): an interactive process viewer for Unix/Linux.
-
-    Note that by default, htop will not show the load of individual cores as you may be used from
-    many other sites. However, given that there are 256 virtual cores on most nodes, this produces
-    visual overload for may. It is still possible to change the settings in htop by going into the
-    settings screen using "SHFIT-S" and then changing the meters, e.g., adding
-    "CPUS (1-4/8): first half in 4 shorter columns" to the first half and
-    "CPUS (5-8/8): second half in 4 shorter columns" to the second.
-
-    This configuration will be stored in ~/.config/htop/htoprc, so you can also copy settings
-    from another user by exchanging that file.
-    
   + libtree (version {local_systools_libtree_version}) is a tool that turns ldd into a tree, explains why
     shared libraries are found and why not and optionally deploys executables and
     dependencies into a single directory.
@@ -65,7 +53,7 @@ Overview of included tools:
 
 docurls = [
     'GPP:  Web-based documentation on: https://files.nothingisreal.com/software/gpp/gpp.html',
-    'GPP:  Mal page in section 1 (man 1 gpp)',
+    'GPP:  Man page in section 1 (man 1 gpp)',
     'htop: Man page in section 1 (man 1 htop)',
     'libtree: Man page in section 1 (man 1 libtree)',
     'tree: Man page in section 1 (man 1 tree)',
@@ -94,21 +82,21 @@ components = [
         'installopts':   ' && mkdir -p %(installdir)s/share/licenses/%(name)s' +
                          ' && cp COPYING COPYING.LESSER NEWS THANKS %(installdir)s/share/licenses/%(name)s'
     }),
-    ('htop', local_systools_htop_version, {
-        'sources':       [ {
-                            'download_filename': '%(version)s.tar.gz',
-                            'filename':          SOURCE_TAR_GZ,
-                            'source_urls':       ['https://github.com/htop-dev/htop/archive/refs/tags']
-                         }],
-        'checksums':     ['1e5cc328eee2bd1acff89f860e3179ea24b85df3ac483433f92a29977b14b045'],
-        'start_dir':     '%(name)s-%(version)s',
-        'preconfigopts': './autogen.sh && LDFLAGS="-L$EBROOTSYSLIBS/lib" LIBS="$LIBS -ltinfo" CFLAGS="-O2 -march=znver1" CXXFLAGS="-O2 -march=znver1" ',
-        # Core dumps when compiled with unicode support, there must be something wrong in
-        # our ncursesw library.
-        'configopts':    '--disable-unicode',
-        'installopts':   ' && mkdir -p %(installdir)s/share/licenses/%(name)s' +
-                         ' && cp COPYING %(installdir)s/share/licenses/%(name)s'
-    }),
+    #('htop', local_systools_htop_version, {
+    #    'sources':       [ {
+    #                        'download_filename': '%(version)s.tar.gz',
+    #                        'filename':          SOURCE_TAR_GZ,
+    #                        'source_urls':       ['https://github.com/htop-dev/htop/archive/refs/tags']
+    #                     }],
+    #    'checksums':     ['1e5cc328eee2bd1acff89f860e3179ea24b85df3ac483433f92a29977b14b045'],
+    #    'start_dir':     '%(name)s-%(version)s',
+    #    'preconfigopts': './autogen.sh && LDFLAGS="-L$EBROOTSYSLIBS/lib" LIBS="$LIBS -ltinfo" CFLAGS="-O2 -march=znver1" CXXFLAGS="-O2 -march=znver1" ',
+    #    # Core dumps when compiled with unicode support, there must be something wrong in
+    #    # our ncursesw library.
+    #    'configopts':    '--disable-unicode',
+    #    'installopts':   ' && mkdir -p %(installdir)s/share/licenses/%(name)s' +
+    #                     ' && cp COPYING %(installdir)s/share/licenses/%(name)s'
+    #}),
     ('libtree', local_systools_libtree_version, {
         'easyblock':     'MakeCp',
         'sources':       [ { # https://github.com/haampie/libtree/archive/refs/tags/v3.1.1.tar.gz
@@ -169,7 +157,7 @@ sanity_check_commands = [
 ]
 
 modluafooter = f"""
-extensions( "GPP/{local_systools_GPP_version}, htop/{local_systools_htop_version}, libtree/{local_systools_libtree_version}, tree/{local_systools_tree_version}, PRoot/{local_systools_PRoot_version}" )
+extensions( "GPP/{local_systools_GPP_version}, libtree/{local_systools_libtree_version}, tree/{local_systools_tree_version}, PRoot/{local_systools_PRoot_version}" )
 """
 
 moduleclass = 'tools'
