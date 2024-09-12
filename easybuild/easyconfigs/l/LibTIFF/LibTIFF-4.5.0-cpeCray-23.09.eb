@@ -104,6 +104,10 @@ dependencies = [
     ('libjpeg-turbo', local_libjpegturbo_version),
 ]
 
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+
 sanity_check_paths = {
     'files': ['bin/tiffinfo'],
     'dirs':  [],

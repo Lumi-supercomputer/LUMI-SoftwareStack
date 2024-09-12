@@ -54,6 +54,10 @@ dependencies = [
     ('zlib',   local_zlib_version),
 ]
 
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+
 configopts = '--enable-freetype-config --with-harfbuzz=no'
 
 maxparallel = 1

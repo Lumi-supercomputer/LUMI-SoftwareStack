@@ -41,6 +41,11 @@ builddependencies = [
     ('gettext',    local_gettext_version,  '-minimal'),
 ]
 
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+preinstallopts = preconfigopts
+
 sanity_check_paths = {
     'files': ['bin/iconv', 'include/iconv.h', 'include/libcharset.h', 'include/localcharset.h',
               'lib/libcharset.a', 'lib/libcharset.%s' % SHLIB_EXT, 'lib/libiconv.%s' % SHLIB_EXT],

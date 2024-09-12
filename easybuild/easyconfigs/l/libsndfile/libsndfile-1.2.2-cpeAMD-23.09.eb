@@ -64,6 +64,10 @@ dependencies = [
 #    ( 'LAME',      local_LAME_version),
 ]
 
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+
 configopts  = '--disable-alsa --disable-sqlite --disable-octave '
 configopts += '--disable-mpeg '
 configopts += '--enable-static --enable-shared '

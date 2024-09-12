@@ -23,6 +23,9 @@ for the CrayEnv software stack.
     is now a tool that should only be installed in partition/G. So there are now
     makefile targets and additional variables for the Makefile.
 
+-   For the recompile of 23.09 with ROCm 6 we needed to make the same changes
+    as for 23.12, described below.
+
 -   The cpeAMD version required changes to compile in 23.12:
 
     -   The `rocm` module now needs to be loaded explicitly to have acces to the

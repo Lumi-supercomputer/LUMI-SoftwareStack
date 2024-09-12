@@ -48,6 +48,12 @@ dependencies = [
     ('GMP',         local_GMP_version),
 ]
 
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+pretestopts = preconfigopts
+preinstallopts = preconfigopts
+
 runtest = 'check' # Time-consuming, 5 times the build time.
 
 # copy libmpfr.so* to <installdir>/lib to make sure that it  is picked up by tests

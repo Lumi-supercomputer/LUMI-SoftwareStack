@@ -70,8 +70,13 @@ dependencies = [
     ('util-linux', local_util_version),
 ]
 
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+preinstallopts = preconfigopts
+
 # avoid using hardcoded path to Python binary in build step
-preconfigopts = "export PYTHON=python3 && "
+preconfigopts += "export PYTHON=python3 && "
 
 configopts  = "--buildtype=release --default-library=both "
 

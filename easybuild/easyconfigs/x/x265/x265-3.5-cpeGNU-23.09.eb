@@ -17,7 +17,7 @@ x265 is a free software library and application for encoding video streams into
 the H.265 AVC compression format, and is released under the terms of the
 GNU GPL. It is developed by the VideoLAN organization.
 
-This module provides the encodign tool x265 and static and shared libraries.
+This module provides the encoding tool x265 and static and shared libraries.
 """
 
 examples = """
@@ -45,6 +45,10 @@ builddependencies = [ # Create a reproducible build environment.
 #osdependencies = [
 #    ('numactl-devel'), # Optional dependency, but can benefit from libnuma and its header file
 #]
+
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
 
 start_dir = 'source'
 

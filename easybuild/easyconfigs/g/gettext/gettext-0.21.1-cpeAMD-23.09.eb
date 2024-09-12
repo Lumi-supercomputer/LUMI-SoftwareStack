@@ -59,7 +59,12 @@ dependencies = [
     ('ncurses', local_ncurses_version),
 ]
 
-configopts = "--without-emacs --with-libxml2-prefix=$EBROOTLIBXML2"
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+pretestopts = preconfigopts
+preinstallopts = preconfigopts
 
+configopts = "--without-emacs --with-libxml2-prefix=$EBROOTLIBXML2"
 
 moduleclass = 'vis'

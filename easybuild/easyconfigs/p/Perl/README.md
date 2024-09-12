@@ -88,6 +88,10 @@
   * Clang 16 based compilers are more picky and also no longer accept C90 by default, 
     so we needed to set special options for several packages.
 
+  * Needed to add additional flags to some packages with `cpeAMD` when that toolchain
+    is configured with ROCm 6.0.3 (for recompilation after the system update of the
+    summer of 2024).
+
   * For LUMI/23.12, the license information for the main Perl package was added to the installation.
 
   

@@ -9,11 +9,19 @@ module_version( 'ModuleLabel/label', 'default' )
 
 -- Hide the TCL version of the rocm/6.0.3 module that is loaded by default
 -- rather than the one in /opt/cray/pe/lmod/modulefiles/core
+--
+-- Outcommented as not in the MODULEPATH on the system anyway:
 -- hide_modulefile( '/opt/modulefiles/rocm/6.0.3' )
 -- hide_modulefile( '/opt/modulefiles/amd/6.0.3' )
 -- hide_modulefile( '/opt/modulefiles/aocc/3.2.0' )
 -- hide_modulefile( '/opt/modulefiles/aocc/4.1.0' )
-hide_modulefile( '/opt/cray/modulefiles/rocm/5.7.0' )
+--
+-- Outcommented as it has been removed by the sysadmins:
+-- hide_modulefile( '/opt/cray/modulefiles/rocm/5.7.0' )
+--
+-- A faulty LUA modulefile
+-- Outcommented as it is removed from the system by the sysadmins
+-- hide_modulefile( '/opt/cray/modulefiles/rocm/5.7.0' )
 
 if os.getenv( 'LUMI_LMOD_POWERUSER' ) == nil then
     -- Some CPE modules that should be hidden from unexperienced users
@@ -38,8 +46,6 @@ if os.getenv( 'LUMI_LMOD_POWERUSER' ) == nil then
     hide_version( 'cpeGNU/23.03' )
     hide_version( 'cpeAOCC/23.03' )
     hide_version( 'cpeAMD/23.03' )
-    -- Empty rocm module that actually just loads 6.0.3
-    hide_version( 'rocm/5.7.0' )
 end
 
 if os.getenv( 'LUMI_STACK_NAME' ) ~= nil then
@@ -57,14 +63,33 @@ module_version( 'rocm/6.0.3', '5.0.2' )
 module_version( 'amd/6.0.3',  '5.0.2' )
 
 -- Solve a potential problem with the Cray PE cpe modules.
-module_version( 'rocm/6.0.3', '5.2.0' )
-module_version( 'amd/6.0.3',  '5.2.0' )
+-- For the ROCm version as it was on the system in the period before the
+-- August 2024 update:
 module_version( 'rocm/6.0.3', '5.2.3' )
 module_version( 'amd/6.0.3',  '5.2.3' )
+-- For cpe/22.08
+module_version( 'rocm/6.0.3', '5.1.0' )
+module_version( 'amd/6.0.3',  '5.1.0' )
+-- For cpe/22.12 and cpe/23.03
+module_version( 'rocm/6.0.3', '5.2.0' )
+module_version( 'amd/6.0.3',  '5.2.0' )
+-- For cpe/23.09:
+module_version( 'rocm/6.0.3', '5.5.1' )
+module_version( 'amd/6.0.3',  '5.5.1' )
+-- For cpe/23.12:
+module_version( 'rocm/6.0.3', '5.7.0' )
+module_version( 'amd/6.0.3',  '5.7.0' )
+-- For cpe/24.03
+module_version( 'rocm/6.0.3', '6.0.0' )
+module_version( 'amd/6.0.3',  '6.0.0' )
 
--- Fix for the missing cray-mpich modules.
+-- Fix for the missing cray-mpich modules or modules that are not fully functional
+-- anymore.
+-- cpe/22.08: to cray-mpich from cpe/23.09
 module_version( 'cray-mpich/8.1.27', '8.1.18' )
+-- cpe/22.12: to cray-mpich from cpe/23.09
 module_version( 'cray-mpich/8.1.27', '8.1.23' )
+-- cpe/23.03: to cray-mpich from cpe/23.09
 module_version( 'cray-mpich/8.1.27', '8.1.25' )
 
 
