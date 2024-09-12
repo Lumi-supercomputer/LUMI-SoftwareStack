@@ -54,7 +54,7 @@ Overview of included tools:
 docurls = [
     'GPP:  Web-based documentation on: https://files.nothingisreal.com/software/gpp/gpp.html',
     'GPP:  Man page in section 1 (man 1 gpp)',
-    'htop: Man page in section 1 (man 1 htop)',
+    #'htop: Man page in section 1 (man 1 htop)',
     'libtree: Man page in section 1 (man 1 libtree)',
     'tree: Man page in section 1 (man 1 tree)',
     'PRoot: Web-based documentation on: https://proot-me.github.io/',
@@ -140,7 +140,7 @@ components = [
 
 sanity_check_paths = {
     'files': ['bin/gpp', 'share/man/man1/gpp.1', 'share/licenses/GPP/COPYING', 'share/licenses/GPP/COPYING.LESSER'] +
-             ['bin/htop', 'share/man/man1/htop.1', 'share/licenses/htop/COPYING'] +
+             #['bin/htop', 'share/man/man1/htop.1', 'share/licenses/htop/COPYING'] +
              ['bin/libtree', 'share/man/man1/libtree.1', 'share/licenses/libtree/LICENSE'] +
              ['bin/tree', 'share/man/man1/tree.1', 'share/licenses/tree/LICENSE'] +
              ['bin/proot', 'share/licenses/PRoot/COPYING'],
@@ -149,7 +149,7 @@ sanity_check_paths = {
 
 sanity_check_commands = [
     'gpp --version',
-    'htop --version',
+    #'htop --version',
     'libtree --help',
     'libtree -v -p %(installdir)s/bin/libtree',
     'tree --version',
