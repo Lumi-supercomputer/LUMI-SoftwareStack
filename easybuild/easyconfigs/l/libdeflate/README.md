@@ -34,5 +34,11 @@
 ### Version 1.18 from CPE 23.09 on
 
   * Trivial port of the 1.15 one.
+  
+  * For LUMI/23.12, license information was added to the installation.
 
+  
+### Version 1.19 from LUMI/24.03 on
 
+  * Trivial port of the 1.18 EasyConfig for LUMI/23.12, and version sync with the 
+    2023b common toolchain.

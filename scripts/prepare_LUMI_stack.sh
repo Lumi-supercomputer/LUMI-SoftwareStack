@@ -100,7 +100,13 @@ fi
 # Define some "constants".
 #
 
-if [[ -d '/appl/lumi' ]]
+if [ -n "$SINGULARITY_CONTAINER" ]
+then
+	partitions=( 'C' 'G' 'L' )
+	cpeGNU=( 'C:G:L' )
+    cpeCray=( 'C:G:L' )
+    declare -A cpeENV=( ['cpeGNU']=$cpeGNU ['cpeCray']=$cpeCray )
+elif [[ -d '/appl/lumi' ]]
 then
 	#partitions=( 'C' 'G' 'D' 'L' 'EAP' )
 	#cpeGNU=( 'common:C:G:D:L:EAP' )
@@ -401,17 +407,33 @@ EB_tardir=$installroot/sources/easybuild/e/EasyBuild
 
 pushd $EB_tardir
 
-echo -e "\n## Downloading EasyBuild...\n"
+echo -e "\n## Downloading EasyBuild to $PWD...\n"
 
-EBF_file="easybuild-framework-${EBversion}.tar.gz"
+EBmajor=$(cut -d '.' -f 1,1 <<< "$EBversion")
+EBminor=$(cut -d '.' -f 2,2 <<< "$EBversion")
+EBpatch=$(cut -d '.' -f 3,3 <<< "$EBversion")
+
+EBnewFormat=false
+if (( EBmajor >= 5 )) 
+then
+    EBnewFormat=true
+elif (( EBmajor == 4 )) && (( EBminor >= 10 ))
+then
+    EBnewFormat=true
+elif (( EBmajor == 4 )) && (( EBminor == 9 )) && (( EBpatch >= 2 )) 
+then
+    EBnewFormat=true
+fi
+
+$EBnewFormat && eval EBF_file="easybuild_framework-${EBversion}.tar.gz" || eval EBF_file="easybuild-framework-${EBversion}.tar.gz"
 EBF_url="https://pypi.python.org/packages/source/e/easybuild-framework"
 [[ -f $EBF_file ]] || curl -L -O $EBF_url/$EBF_file
 
-EBB_file="easybuild-easyblocks-${EBversion}.tar.gz"
+$EBnewFormat && eval EBB_file="easybuild_easyblocks-${EBversion}.tar.gz" || eval EBB_file="easybuild-easyblocks-${EBversion}.tar.gz"
 EBB_url="https://pypi.python.org/packages/source/e/easybuild-easyblocks"
 [[ -f $EBB_file ]] || curl -L -O $EBB_url/$EBB_file
 
-EBC_file="easybuild-easyconfigs-${EBversion}.tar.gz"
+$EBnewFormat && eval EBC_file="easybuild_easyconfigs-${EBversion}.tar.gz" || eval EBC_file="easybuild-easyconfigs-${EBversion}.tar.gz"
 EBC_url="https://pypi.python.org/packages/source/e/easybuild-easyconfigs"
 [[ -f $EBC_file ]] || curl -L -O $EBC_url/$EBC_file
 
@@ -469,17 +491,17 @@ then
 
     make_dir $workdir/easybuild
 
-    pushd easybuild-framework-$EBversion
+    pushd ${EBF_file%.tar.gz}
     python3 setup.py install --prefix=$workdir/easybuild
-    cd ../easybuild-easyblocks-$EBversion
+    cd ../${EBB_file%.tar.gz}
     python3 setup.py install --prefix=$workdir/easybuild
     popd
 
     #
     # - Clean up files that are not needed anymore
     #
-    rm -rf easybuild-framework-$EBversion
-    rm -rf easybuild-easyblocks-$EBversion
+    rm -rf ${EBF_file%.tar.gz}
+    rm -rf ${EBB_file%.tar.gz}
 
     #
     # - Activate that install

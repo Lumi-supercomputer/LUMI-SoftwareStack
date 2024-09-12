@@ -1,0 +1,91 @@
+# This one does not yet work as HarBuzz >= 2.0 is needed for it....
+easyblock = 'MesonNinja'
+
+local_cairo_version =        '1.18.0'        # https://www.cairographics.org/
+local_fribidi_version =      '1.0.13'        # https://github.com/fribidi/fribidi/releases
+local_GLib_version =         '2.78.1'        # https://ftp.gnome.org/pub/GNOME/sources/glib/
+local_GObject_version =      '1.78.1'        # https://github.com/GNOME/gobject-introspection/releases
+local_HarfBuzz_version =     '8.2.2'          # https://www.freedesktop.org/software/harfbuzz/release/
+
+local_craypython_version =  '3.11.5'
+
+local_Pango_version =        '1.51.0'        # http://ftp.gnome.org/pub/GNOME/sources/pango/
+
+local_craypython_maj_min = '.'.join( local_craypython_version.split('.')[:2] )
+
+name =    'Pango'
+version = local_Pango_version
+
+homepage = 'http://www.pango.org/'
+
+whatis = [
+    'Description: Text layout and rendering library',
+    'This module provides a command line utility and static and shared libraries'
+]
+
+description = """
+Pango is a library for laying out and rendering of text, with an emphasis on
+internationalization.  Pango can be used anywhere that text layout is needed,
+though most of the work on Pango so far has been done in the context of the GTK+
+widget toolkit. Pango forms the core of text and font handling for GTK+-2.x.
+
+This module provides a command line utility pango-view and static and shared
+libraries.
+"""
+
+docurls = [
+    'Web based documentation: https://developer.gnome.org/pango/unstable/',
+    'Man page for pango-view',
+]
+
+docpaths = [
+    'share/gtk-doc/html/pango'
+]
+
+software_license_urls = [
+    'https://www.gnu.org/licenses/old-licenses/lgpl-2.0.html',
+    f'https://gitlab.gnome.org/GNOME/pango/-/blob/{version}/COPYING?ref_type=tags',
+]
+
+toolchain = {'name': 'cpeAOCC', 'version': '24.03'}
+
+source_urls = [FTPGNOME_SOURCE]
+sources =     [SOURCELOWER_TAR_XZ]
+checksums =   ['74efc109ae6f903bbe6af77eaa2ac6094b8ee245a2e23f132a7a8f0862d1a9f5']
+
+builddependencies = [
+    ('buildtools' ,           '%(toolchain_version)s', '',                                        True), # For Ninja
+    ('buildtools-python',     '%(toolchain_version)s', f'-cray-python{local_craypython_maj_min}', True), # For Meson
+    ('GObject-Introspection', local_GObject_version,   f'-cray-python{local_craypython_maj_min}'),
+]
+
+dependencies = [
+    ('FriBidi',  local_fribidi_version),
+    ('X11',      '%(toolchain_version)s'),
+    ('GLib',     local_GLib_version),
+    ('cairo',    local_cairo_version),
+    ('HarfBuzz', local_HarfBuzz_version),
+]
+
+configopts = "--buildtype=release --default-library=both "
+# Old configopts:
+# configopts = "--disable-silent-rules --enable-introspection=yes --enable-static --enable-shared "
+
+postinstallcmds = [
+    'mkdir -p %(installdir)s/share/licenses/%(name)s',
+    'cd %(start_dir)s && cp COPYING NEWS README.md %(installdir)s/share/licenses/%(name)s',   
+]
+
+sanity_check_paths = {
+    'files': ['bin/pango-view', 'lib/libpango-1.0.%s' % SHLIB_EXT, 'lib/libpangocairo-1.0.%s' % SHLIB_EXT,
+              'lib/libpangoft2-1.0.%s' % SHLIB_EXT, 'lib/libpangoxft-1.0.%s' % SHLIB_EXT,
+              f'share/licenses/{name}/COPYING'],
+    'dirs':  [],
+}
+
+modextrapaths = {
+    'GI_TYPELIB_PATH': 'share',
+    'XDG_DATA_DIRS':   'share',
+}
+
+moduleclass = 'vis'

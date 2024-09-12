@@ -1,0 +1,68 @@
+# Contributed by Kurt Lust, LUMI project & UAntwerpen
+easyblock = 'CMakeMake'
+
+local_Brotli_version =       '1.0.9'         # https://github.com/google/brotli/releases
+
+name =    'Brotli'
+version = local_Brotli_version
+
+homepage = 'https://github.com/google/brotli'
+
+whatis = [
+    "Description: brotli is a lossless compression technique used by browsers and web servers and better than zlib"
+]
+
+description = """
+Brotli is a generic-purpose lossless compression algorithm that compresses data
+using a combination of a modern variant of the LZ77 algorithm, Huffman coding
+currently available general-purpose compression methods. It is similar in speed
+with deflate but offers more dense compression.
+
+The specification of the Brotli Compressed Data Format is defined in RFC 7932.
+
+Brotli is open-sourced under the MIT License, see the LICENSE file.
+"""
+
+toolchain = {'name': 'cpeAMD', 'version': '23.12'}
+toolchainopts = {'pic': True}
+
+sources = [ {
+              'download_filename': 'v%(version)s.tar.gz',
+              'filename':          SOURCELOWER_TAR_GZ,
+              'source_urls':       ['https://github.com/google/brotli/archive']
+            } ]
+source_urls = []
+checksums =   ['f9e8d81d0405ba66d181529af42a3354f838c939095ff99930da6aa9cdf6fe46']
+
+builddependencies = [ # Create a reproducible build environment.
+    ('buildtools', '%(toolchain_version)s', '', True),
+]
+
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+
+# Uniform directory structure with software installed with ConfigureMake.
+configopts = '-DCMAKE_INSTALL_LIBDIR=lib'
+
+postinstallcmds = [
+    'mkdir -p %(installdir)s/share/licenses/%(name)s',
+    'cd ../%(namelower)s-%(version)s && cp CONTRIBUTING.md LICENSE README README.md %(installdir)s/share/licenses/%(name)s',   
+]
+
+sanity_check_paths = {
+    'files': ['bin/brotli'] +
+             ['lib/libbrotli%s.%s'        % (x, SHLIB_EXT) for x in ['common', 'dec', 'enc']] +
+             ['lib/libbrotli%s-static.%s' % (x, 'a')       for x in ['common', 'dec', 'enc']] +
+             ['share/licenses/%(name)s/LICENSE'],
+    'dirs':  ['lib/pkgconfig'],
+}
+
+sanity_check_commands = [
+    'pkg-config --libs libbrotlicommon',    
+    'pkg-config --libs libbrotlidec',    
+    'pkg-config --libs libbrotlienc',
+    'brotli -h',
+]
+
+moduleclass = 'lib'

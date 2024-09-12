@@ -45,5 +45,13 @@ This README was developed starting with snappy 1.1.8 in the CPE 21.06.
     wrappers) needed to turn off error messages about unused arguments as there were 
     some -L lines added that were not used.
     
-    
-    
+  * From LUMI/23.12 onwards, license information was added to the license.
+
+
+### 1.1.10 for LUMI/24.03
+
+  * Started from the EasyConfig for 1.1.9 for LUMI/23.12, but the patch was no longer needed.
+  
+  * Needed to add a flag for the Cray and AOCC/AMD compilers as the code uses an unsafe comparision of 
+    integers that caused an error on those compilers.
+

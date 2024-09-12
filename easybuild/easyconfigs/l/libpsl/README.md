@@ -18,4 +18,9 @@
 
 -   We did improve the sanity check however.
 
-  
+-   For LUMI/23.12, license information was added to the installation.
+
+
+### Version 0.21.5 from LUMI/24.03 on
+
+-   Trivial port of the EasyConfig for version 0.21.1 for LUMI/23.12.

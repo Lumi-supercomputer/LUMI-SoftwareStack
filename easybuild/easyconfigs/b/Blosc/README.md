@@ -41,3 +41,7 @@
 
   * Trivial bump of the 1.21.2 EasyConfig.
   
+  * From CPE 23.12 on: Adding information about the license.
+  
+  * From CPE 23.12 on, switching to installing in lib instead of lib64 for more uniformity.
+  

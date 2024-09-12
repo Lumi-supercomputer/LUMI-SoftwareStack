@@ -129,6 +129,8 @@ class EB_EasyBuildMetaLUMI(PythonPackage):
                     os.remove(setuptools_pth)
                 except OSError as err:
                     raise EasyBuildError("Failed to remove %s: %s", setuptools_pth, err)
+                
+        super(EB_EasyBuildMetaLUMI, self).post_install_step()
 
     def sanity_check_step(self):
         """Custom sanity check for EasyBuild."""

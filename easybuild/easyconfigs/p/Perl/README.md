@@ -92,3 +92,12 @@
     is configured with ROCm 6.0.3 (for recompilation after the system update of the
     summer of 2024).
 
+  * For LUMI/23.12, the license information for the main Perl package was added to the installation.
+
+  
+### Version 5.38.0 for LUMI/24.03
+
+  * The EasyConfig is an update of the one for 5.36.1 for LUMI/23.12.
+  
+  * Some clean-up of dependencies for the -bare configurations.
+

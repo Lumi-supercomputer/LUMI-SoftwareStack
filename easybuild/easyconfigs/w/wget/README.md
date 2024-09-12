@@ -39,4 +39,9 @@
   * Added libpsl as a dependency. We do not use libmetalink though, and it looks
     like at least Red Hat linux wants to get rid of libmetalink.
 
+  * For LUMI/23.12, license information was added to the installation.
 
+
+### Version 1.21.4 for LUMI/24.03
+
+  * Trivial port of the EasyConfig for version 1.21.3 in LUMI/23.12.

@@ -50,3 +50,15 @@
 
   * Support for OpenGL still incomplete.
   
+  * For LUMI/23.12, license information was added to the installation.
+
+
+### Versuib 4.6.0 from LUMI/24.03 on
+
+  * Almost trivial version bump of the EasyConfig for 4.6.0 in LUMI/23.12.
+  
+  * The list of included executables has also changed so we needed to adapt the sanity checks.
+
+  * When compiling with cpeGNU in partition/G, we needed to unload rocm as it was trying 
+    to link with ROCm while producing an error when running.
+ 

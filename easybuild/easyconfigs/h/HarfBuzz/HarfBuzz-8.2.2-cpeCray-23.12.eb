@@ -1,0 +1,105 @@
+# Based on the easyduilders recipe.
+# Adapted by Kurt Lust (kurt.lust@uantwerpen.be) for the LUMI consortium.
+easyblock = 'ConfigureMake'
+
+local_cairo_version =        '1.17.4'        # https://www.cairographics.org/
+local_GLib_version =         '2.77.1'        # https://ftp.gnome.org/pub/GNOME/sources/glib/
+local_ICU_version =          '73.2'          # http://site.icu-project.org/home
+local_freetype_version =     '2.13.0'        # https://download.savannah.gnu.org/releases/freetype/
+local_GObject_version =      '1.76.1'        # https://github.com/GNOME/gobject-introspection/releases
+
+local_craypython_version =  '3.11.5'
+
+local_HarfBuzz_version =     '8.2.2'          # https://www.freedesktop.org/software/harfbuzz/release/
+
+local_craypython_maj_min = '.'.join( local_craypython_version.split('.')[:2] )
+
+name =    'HarfBuzz'
+version = local_HarfBuzz_version
+
+homepage = 'http://www.freedesktop.org/wiki/Software/HarfBuzz'
+
+whatis = [
+    'Description: HarfBuzz is an OpenType text shaping engine',
+    'This module provides the command line tools and static and shared libraries'
+]
+
+description = """
+HarfBuzz is an OpenType text shaping engine.
+
+The current HarfBuzz codebase, formerly known as harfbuzz-ng, is versioned 1.x.x
+and is stable and under active maintenance. This is what is used in latest
+versions of Firefox, GNOME, ChromeOS, Chrome, LibreOffice, XeTeX, Android, and
+KDE, among other places.
+
+This module provides the command line tools and static and shared libraries.
+"""
+
+docpaths = [
+    'share/gtk-doc/html/harfbuzz',
+]
+
+software_license_urls = [
+    f'https://github.com/harfbuzz/harfbuzz/blob/{version}/COPYING',
+]
+
+toolchain = {'name': 'cpeCray', 'version': '23.12'}
+toolchainopts = {'extra_cxxflags': '-Wno-cast-function-type-strict -Wno-cast-function-type'}
+
+# https://github.com/harfbuzz/harfbuzz/releases/download/4.2.1/harfbuzz-4.2.1.tar.xz
+source_urls = ['https://github.com/harfbuzz/harfbuzz/releases/download/%(version)s']
+sources =     [SOURCELOWER_TAR_XZ]
+checksums =   ['e433ad85fbdf57f680be29479b3f964577379aaf319f557eb76569f0ecbc90f3']
+
+builddependencies = [
+    ('buildtools',            '%(toolchain_version)s', '', True),
+    ('GObject-Introspection', local_GObject_version,   '-cray-python' + local_craypython_maj_min),
+]
+
+dependencies = [
+    ('GLib',     local_GLib_version),
+    ('ICU',      local_ICU_version),
+    ('cairo',    local_cairo_version),
+    ('freetype', local_freetype_version),
+]
+
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+preinstallopts = preconfigopts
+
+#preconfigopts += "./autogen.sh && "
+configopts = "--enable-introspection=yes --with-gobject=yes --enable-static --enable-shared --with-cairo "
+
+#buildopts = "V=1"
+buildopts = 'V=1 CXXFLAGS="-fno-rtti -O2 -fno-exceptions -fno-threadsafe-statics -fvisibility-inlines-hidden -std=c++11 -Wno-error=cast-function-type-strict"'
+buildopts = 'V=1 CXXFLAGS="-fno-rtti -O2 -fno-exceptions -fno-threadsafe-statics -fvisibility-inlines-hidden -Wno-error=cast-function-type-strict"'
+parallel = 1
+
+postinstallcmds = [
+    'mkdir -p %(installdir)s/share/licenses/%(name)s',
+    'cd %(start_dir)s && cp AUTHORS ChangeLog COPYING README THANKS %(installdir)s/share/licenses/%(name)s',   
+]
+
+sanity_check_paths = {
+    'files': ['lib/libharfbuzz.%s' % SHLIB_EXT, 'bin/hb-view', f'share/licenses/{name}/COPYING'],
+    'dirs':  []
+}
+
+sanity_check_commands = [
+    'hb-ot-shape-closure --version',
+    'hb-shape --version',
+    'hb-subset --version',
+    'hb-view --version',
+    'pkg-config --libs harfbuzz-gobject',
+    'pkg-config --libs harfbuzz-icu',
+    'pkg-config --libs harfbuzz',
+    'pkg-config --libs harfbuzz-subset',
+]
+
+modextrapaths = {
+    'GI_TYPELIB_PATH': 'share',
+    'XDG_DATA_DIRS':   'share',
+}
+
+moduleclass = 'vis'

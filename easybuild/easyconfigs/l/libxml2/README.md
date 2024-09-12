@@ -33,3 +33,5 @@
   
   * But needed to explicitly enable static libraries in this version.
 
+  * For LUMI/23.12, license information was added to the installation.
+

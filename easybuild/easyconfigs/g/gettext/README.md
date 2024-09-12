@@ -11,6 +11,7 @@
 
   * [gettext support in the CSCS repository](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/g/gettext)
 
+
 ### gettext 0.21 from 21.06 on
 
   * This repository provides 2 configurations of gettext
@@ -26,3 +27,15 @@
     These repositories provide an in-between version that uses a libxml2 produced with
     EasyBuild rather than the internal one used in the ``-minimal`` configuration and
     hence also uses zlib.
+
+
+### Version 0.21.1 from LUMI/22.12 on
+
+  * Trivial port of the EasyConfig for 0.21.
+  
+  * LUMI/23.12: Added license information to the installation.
+
+  
+### Version 0.22 for LUMI/24.03
+
+  * Trivial port of the EasyConfigs for 0.21.1 for LUMI/23.12.

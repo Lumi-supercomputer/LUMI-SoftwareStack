@@ -39,3 +39,11 @@
 
   * Version bump to 8.0.1 to follow 2023a, but trivial for the EasyConfig.
 
+  * Fro LUMI 23.12/ license information was added.
+
+
+### Version 8.3.0 for LUMI/24.03
+
+  * Started from a version bump of the 8.0.1 EasyConfig for LUMI/23.12.
+  
+  * New dependency: libpsl.

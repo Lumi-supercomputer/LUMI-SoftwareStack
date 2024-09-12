@@ -17,3 +17,6 @@ There is no support for Lzip in EasyBuild
 ### Version 1.23 from CPE 21.12 on
 
   * The EasyConfig is a trivial port of the previous one.
+
+  * For LUMI/23.12, license information was added to the installation.
+  
