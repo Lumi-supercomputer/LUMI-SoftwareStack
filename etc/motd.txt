@@ -5,11 +5,9 @@
 *  | NOTE: The default version of both the Cray PE and LUMI stack   |
    | is now 24.03 and this is also the only version of the Cray PE  |
   *| officially supported on the current system. We recommend       |
-   | moving to 24.03 when possible. Base libraries for 24.03 are    |
-  *| already on the system and much user-installable software is    |
-   | already available also.                                        |
- * |                                                                |
-  *| Base libraries for 23.12 will also be made available soon.     |
+   | moving to 24.03 when possible. Base libraries for 24.03 and    |
+  *| 23.12 are already on the system and much user-installable      |
+   | software for 24.03 is already available also.                  |
 *  |                                                                |
    | Unfortunately, due to the late decision to move directly to    |
 *  | ROCm 6.0 rather than the originally planned 5.7, we are not    |
