@@ -13,7 +13,7 @@
 *  | ROCm 6.0 rather than the originally planned 5.7, we are not    |
   *| able to keep our promise of fully supporting 23.09 also. We    |
   *| did test many of the build recipes and tried to fix problems   |
-   | when possible, but a recompile of GPU software will be needed. |
+   | when possible, but a recompile of GPU software may be needed.  |
  * |                                                                |
    | Expect longer answer times as usual to very technical tickets  |
    | as there is still a lot of development work to do.             | 
