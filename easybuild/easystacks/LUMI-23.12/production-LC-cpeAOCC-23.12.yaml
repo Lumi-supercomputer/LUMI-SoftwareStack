@@ -93,7 +93,7 @@ easyconfigs:
   - X11-23.12-cpeAOCC-23.12.eb
 # Block 9
   - cairo-1.17.4-cpeAOCC-23.12.eb
-  - FFmpeg-5.1.2-cpeAOCC-23.12.eb
+  - FFmpeg-6.1.1-cpeAOCC-23.12.eb
   - Tk-8.6.13-cpeAOCC-23.12.eb
 # Block 10
   - GObject-Introspection-1.76.1-cpeAOCC-23.12-cray-python3.11.eb

@@ -2,24 +2,21 @@
  * | IMPORTANT: Check the post-maintenance updates on               |
  * | https://lumi-supercomputer.github.io/update-202409/            |
    |                                                                |
- * | NOTE: The default version of the LUMI software stack is        |
-   | LUMI/23.09 while the default version of the Cray PE after      |
-*  | login and in CrayEnv is 24.03. Please move as soon as possible |
-   | from LUMI/23.09 or earlier to (preferably) 24.03 as older      |
-  *| versions are not fully supported. In the next few weeks, base  |
-   | libraries for 23.12 and 24.03 will be prepared and installed.  |
- * | The update has more impact than expected as when we advised    |
-   | to switch to 23.09, the plan was to install ROCm 5.7 on the    |
-*  | system, but as HPE completed ROCm 6 support in time for the    |
-*  | system update, ROCm 6.0.3 was installed. The downside of this  |
-   | is that it is only fully supported in the 24.03 programming    |
-  *| environment, so that contrary to our expectations, we cannot   |
-   | fully support 23.09 either.                                    |
+*  | NOTE: The default version of both the Cray PE and LUMI stack   |
+   | is now 24.03 and this is also the only version of the Cray PE  |
+  *| officially supported on the current system. We recommend       |
+   | moving to 24.03 when possible. Base libraries for 24.03 and    |
+  *| 23.12 are already on the system and much user-installable      |
+   | software for 24.03 is already available also.                  |
+*  |                                                                |
+   | Unfortunately, due to the late decision to move directly to    |
+*  | ROCm 6.0 rather than the originally planned 5.7, we are not    |
+  *| able to keep our promise of fully supporting 23.09 also. We    |
+  *| did test many of the build recipes and tried to fix problems   |
+   | when possible, but a recompile of GPU software will be needed. |
  * |                                                                |
-   | As several people of the LUST are busy preparing an updated    |
- * | software stack as that may be the only solution to several of  |
-  *| user's issues, support response times to software problems     |
-   | will be longer than usual.                                     | 
+   | Expect longer answer times as usual to very technical tickets  |
+   | as there is still a lot of development work to do.             | 
  * |                                                                |
 *  | You can use the lumi-workspaces command (without loading an    |
    | additional module) to check your quota and allocations on      |
