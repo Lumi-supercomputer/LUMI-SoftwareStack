@@ -33,3 +33,9 @@ version of cray-python that is already loaded when the module is loaded.
 
 -   Note: The 0.3.2 distribution was meant for the Finnish national systems and lacks
     the proper configuration file for LUMI so was skipped.
+
+
+### VErsion 0.3.3
+
+-   Version for SUSE 15 SP5. Trivial update otherwise with some refinements.
+    

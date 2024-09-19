@@ -1,0 +1,111 @@
+easyblock = 'Binary'
+
+import os as local_os
+
+# The first line below is a dirty trick not very much loved by the EasyBuild developers but
+# it helps to make this EasyConfig indpendent of the LUMI software stack version as there is
+# no other reference to that version in the file that we can use since it relies on the
+# SYSTEM toolchain.
+local_LUMI_version_from_os = local_os.environ['LUMI_STACK_CPE_VERSION']
+
+local_craypython_version =  '3.11.7'  # 24.03 default version
+
+name =          'lumi-container-wrapper'
+version =       '0.3.3'
+versionsuffix = '-cray-python-' + local_craypython_version
+
+homepage = 'https://github.com/CSCfi/hpc-container-wrapper'
+
+whatis = [
+    'Description: Tool for wrapping a software environment in an Apptainer/Singularity containerm, also know as tykky.'
+]
+
+description = f"""
+The lumi-container-wrapper module provides a tool to create Conda and
+Python package installations using an existing container. The basic idea is to
+install software through a container, convert this into a filesystem image and
+mount this filesystem image when running the container.
+
+The main goal is to reduce the number of files on disk, and reduce the IO load
+when programs are started. If you are not running on a parallel filesystem
+with a lot of users and load, these points might not be that relevant. Tykky
+is developed and tested only on Lustre (the filesystem used on LUMI) so benefits
+might be different on other parallel filesystems.
+
+The tool originally started as a way to package conda installations using containers,
+as they cause a significant load on the filesystem. The idea being that using the
+tool should be very simple and as similar as possible to an un-containerized
+installation (drop in replacement for the majority of cases). This means that we
+try to hide the container as much as possible from the end-user.
+
+This version of the module will use cray-python/{local_craypython_version}, the default version
+for this LUMI/{local_LUMI_version_from_os} stack. This version of cray-python will be uninstalled when
+the LUMI/{local_LUMI_version_from_os} stack and the corresponding Cray Programming Environment version
+{local_LUMI_version_from_os} is removed, so if you use the wrapper with pip-containerize to build a
+Python installation on top of the LUMI Python installations, you will have to 
+rebuild the wrapper at that time. To that end the requirements.txt file is saved 
+in the share subdirectory of the directory in which you created the wrapper.
+
+Note that this version has switched to openSUSE LEAP 15.5 as the basis for
+the wrapped conda and pip installations to align with the operating system
+version of LUMI after the August 2024 upgrade of the system.
+
+The tool is developed by Henrik Nortamo at CSC and known on the Finnish national
+systems as tykky.
+"""
+
+usage = """
+Initialize new conda environment:
+
+  conda-containerize new --prefix /path/to_install conda_env.yaml
+
+Update already existing environment:
+
+  conda-containerize update --post-install post.sh /path/to_install
+
+Initialize new python environment with pip requirements to install:
+
+  pip-containerize new --prefix /path/to_install req.txt
+
+To start your environment simply run the program from bin/ subdirectory of the installation directory.
+"""
+
+docurls = [
+    'Web-based documentation on https://docs.lumi-supercomputer.eu/software/installing/container-wrapper/'
+]
+
+toolchain = SYSTEM
+
+# https://github.com/CSCfi/hpc-container-wrapper/archive/refs/tags/v0.3.3.tar.gz
+sources = [{
+    'filename':    '%(namelower)s-%(version)s.tar.gz', # .zip not supported by EasyBuild in this scenario.
+    'git_config':  { # https://github.com/CSCfi/hpc-container-wrapper
+        'url':       'https://github.com/CSCfi',
+        'repo_name': 'hpc-container-wrapper',
+        'tag':       'v%(version)s'
+    },
+    'extract_cmd': 'tar --strip-components=1 -xf %s'
+}]
+checksums = ['9c2e1bee01f4d6621af8e3de5791e664edb34bd5fe77ccf65f17fb540e970ee2']
+
+dependencies = [
+    (f'cray-python/{local_craypython_version}', EXTERNAL_MODULE),
+]
+
+extract_sources = 'True'
+
+buildininstalldir = 'True'
+
+#install_cmd = 'sed -e "s|leap:15.4|leap:15.5|" -i configs/lumi.yaml && bash install.sh lumi'
+install_cmd = 'bash install.sh lumi'
+
+postinstallcmds = [
+    'mkdir -p %(installdir)s/share/licenses/%(name)s && cp LICENCE.txt README.md %(installdir)s/share/licenses/%(name)s'
+]
+
+sanity_check_paths = {
+    'files': ['bin/conda-containerize', 'bin/pip-containerize', 'share/licenses/%(name)s/LICENCE.txt'],
+    'dirs':  ['bin', 'frontends'],
+}
+
+moduleclass = 'tools'
