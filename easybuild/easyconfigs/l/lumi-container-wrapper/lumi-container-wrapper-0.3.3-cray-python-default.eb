@@ -1,0 +1,105 @@
+easyblock = 'Binary'
+
+name =          'lumi-container-wrapper'
+version =       '0.3.3'
+versionsuffix = '-cray-python-default'
+
+homepage = 'https://github.com/CSCfi/hpc-container-wrapper'
+
+whatis = [
+    'Description: Tool for wrapping a software environment in an Apptainer/Singularity containerm, also know as tykky.'
+    'Info: This version uses whatever cray-python module already loaded, or will load the default cray-python module'
+]
+
+description = """
+The lumi-container-wrapper module provides a tool to create Conda and
+Python package installations using an existing container. The basic idea is to
+install software through a container, convert this into a filesystem image and
+mount this filesystem image when running the container.
+
+The main goal is to reduce the number of files on disk, and reduce the IO load
+when installations are started. If you are not running on a parallel filesystem
+with a lot of users and load, these points might not be that relevant. Tykky
+is developed and tested only on Lustre (the filesystem used on LUMI) so benefits
+might be different on other parallel filesystems.
+
+The tool originally started as a way to package conda installations using container,
+as they cause a significant load on the filesystem. The idea being that using the
+tool should be very simple and as similar as possible to an un-containerized
+installation (drop in replacement for the majority of cases). This means that we
+try to hide the container as much as possible from the end-user.
+
+This version of the module will use whatever version of cray-python is already
+loaded, or load the default version. Note that the default version of cray-python
+will change over time as other versions of the Cray Programming Environment become
+the default version. Versions of cray-python also are uninstalled when the 
+corresponding version of the Cray Programming Environment is removed from the system,
+so wrappers made with pip-containerize will stop working at that point and will 
+need to be regenerated with another version of cray-python. You can recover the
+requirements.txt file in that case from the share subdirectory of the directory
+in which you build the wrapper.
+
+Note that this version has switched to openSUSE LEAP 15.5 as the basis for
+the wrapped conda and pip installations to align with the operating system
+version of LUMI after the August 2024 upgrade of the system.
+
+The tool is developed by Henrik Nortamo at CSC and known on the Finnish national
+systems as tykky.
+"""
+
+usage = """
+Initialize new conda environment:
+
+  conda-containerize new --prefix /path/to_install conda_env.yaml
+
+Update already existing environment:
+
+  conda-containerize update --post-install post.sh /path/to_install
+
+Initialize new python environment with pip requirements to install:
+
+  pip-containerize new --prefix /path/to_install req.txt
+
+To start your environment simply run the program from bin/ subdirectory of the installation directory.
+"""
+
+docurls = [
+    'Web-based documentation on https://docs.lumi-supercomputer.eu/software/installing/container-wrapper/'
+]
+
+toolchain = SYSTEM
+
+sources = [{
+#    'download_filename': 'v%(version)s.tar.gz',
+#    'source_urls':       ['https://github.com/CSCfi/hpc-container-wrapper/archive/refs/tags']
+    'filename':          '%(namelower)s-%(version)s.tar.gz',
+    'git_config': {
+    	'url':       'https://github.com/CSCfi',
+        'repo_name': 'hpc-container-wrapper',
+        'tag':       'v%(version)s'
+    },
+    'extract_cmd': 'tar --strip-components=1 -xf %s'
+}]
+checksums = ['9c2e1bee01f4d6621af8e3de5791e664edb34bd5fe77ccf65f17fb540e970ee2']
+
+dependencies = [
+    ('cray-python', EXTERNAL_MODULE),
+]
+
+extract_sources = 'True'
+
+buildininstalldir = 'True'
+
+#install_cmd = 'sed -e "s|leap:15.4|leap:15.5|" -i configs/lumi.yaml && bash install.sh lumi'
+install_cmd = 'bash install.sh lumi'
+
+postinstallcmds = [
+    'mkdir -p %(installdir)s/share/licenses/%(name)s && cp LICENCE.txt README.md %(installdir)s/share/licenses/%(name)s'
+]
+
+sanity_check_paths = {
+    'files': ['bin/conda-containerize', 'bin/pip-containerize', 'share/licenses/%(name)s/LICENCE.txt'],
+    'dirs':  ['bin', 'frontends'],
+}
+
+moduleclass = 'tools'
