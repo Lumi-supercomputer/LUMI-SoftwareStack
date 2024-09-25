@@ -45,13 +45,13 @@ More information
 --
 -- Check the spider mode
 --
-local full_spider = os.getenv( '_LUMI_FULL_SPIDER' ) or 0
+local full_spider = os.getenv( 'LUMI_FULL_SPIDER' ) or 0
 
 --
 -- Only make the MODULEPATH change visible to LMOD when loading, unloading or 
 -- showing a module to avoid interfereing with, e.g., module spider.
 -- With the exception that it can always be make visible to LMOD if 
--- _LUMI_FULL_SPIDER is set to a value different than 0.
+-- LUMI_FULL_SPIDER is set to a value different than 0.
 --
 
 if mode() == 'load' or mode() == 'unload' or mode() == 'show' or tonumber(full_spider) ~= 0 then

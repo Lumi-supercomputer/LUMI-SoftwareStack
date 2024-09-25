@@ -14,13 +14,19 @@ Loading this module enables a search through all installed modules with the modu
 spider command, also inclusing software installed through the spack modules and
 some local software stacks.
 
+You can obtain the same effect by simply setting LUMI_FULL_SPIDER to a nonzero value:
+export LUMI_FULL_SPIDER=1
+which may be the best way if you always want module spider to index all
+software. This prevents the re-generation of the cache files whenever
+this module is loaded or unloaded.
+
 Note that this will considerably slow down some module spider and module available
 commands, which is why this is not turned on by default.
 ]] )
 
 -- Use pushenv to restore the value that a user may have set before when unloading
 -- this module.
-pushenv( '_LUMI_FULL_SPIDER', 1 )
+pushenv( 'LUMI_FULL_SPIDER', 1 )
 
 -- Clear the Lmod cache when loading or unloading the module
 execute{ cmd='/usr/bin/rm -rf ~/.cache/lmod', modeA={'load','unload'} } 
