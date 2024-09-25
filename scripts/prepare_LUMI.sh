@@ -107,6 +107,14 @@ do
 done
 
 #
+# Check for a Spack setup
+#
+if [ -d "$installroot/spack/etc/modules/spack" ]
+then
+    create_link "$installroot/spack/etc/modules/spack"  "$installroot/modules/SoftwareStack/spack"
+fi
+
+#
 # Link the style modules
 #
 # We simply link the directory.
