@@ -14,30 +14,36 @@ by the CrayEnv, LUMI or spack software stacks on LUMI, though those modules will
 not be automatically unloaded. Try at your own risk.
 
 The LUMI User Support Team (LUST) is not managing the software made available by
-this module, nor can LUST make any changes or corrections. Support for these
-packages is provided by the CSC service desk, see https://docs.csc.fi/support/contact/.
+this module, nor can LUST make any changes or corrections. All support requests 
+will be forwarded to CSC and handled at their discretion. Though they are committed
+to supporting their software collection, the level of support may depend on 
+how your project came onto LUMI as they receive no EuroHPC funding for supporting
+this collection.
 
 The software provided by this module is not discoverable with module spider
-unless the module is loaded.
+unless this module is loaded or ModuleFullSpider/on is loaded.
 
 
 More information
 ================
  - Overview: https://docs.csc.fi/apps/by_system/#lumi
- - Site contact: Help for the software made available by this module is provided
-   by the CSC service desk (https://docs.csc.fi/support/contact/) and not by
-   the LUMI User Support Team
-   
+ - Site contact: Help requests for the software made available by this module 
+   will be forwarded by LUST to CSC. Please specify in your request that you
+   are using software from the CSC software collection.
+
 ]] )
 
-
+--
+-- Check the spider mode
+--
+local full_spider = os.getenv( '_LUMI_FULL_SPIDER' ) or 0
 
 --
 -- Only make the MODLEPATH change visible to LMOD when loading, unloading or 
 -- showing a module to avoid interfereing with, e.g., module spider.
 --
 
-if mode() == 'load' or mode() == 'unload' or mode() == 'show' then
+if mode() == 'load' or mode() == 'unload' or mode() == 'show' or full_spider ~= 0 then
     prepend_path( 'MODULEPATH', '/appl/local/csc/modulefiles' )
 end
 
@@ -47,5 +53,5 @@ end
 
 if mode() == 'load' then
     LmodMessage( 'This software collection is provided and supported by CSC.\n' ..
-                 'Run `module help CSC` for more information about support.' )
+                 'Run `module help LocalStack/CSC` for more information about support.' )
 end
