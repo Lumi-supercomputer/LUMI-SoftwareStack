@@ -550,6 +550,28 @@ end
 
 
 --
+-- function is_full_spider()
+--
+-- Input arguments: None
+-- Output value: True if "full spider" mode is on, false otherwise.
+--
+function is_full_spider()
+
+    local full_spider_1 = os.getenv( 'LUMI_FULL_SPIDER' )   -- Value set by the user overwrites everything
+    local full_spider_2 = os.getenv( '_LUMI_FULL_SPIDER' )  -- Mechanism used by the module.
+
+    if ( full_spider_1 ~= nil ) then
+        return ( tonumber( full_spider_1 ) ~=  0 )
+    elseif ( full_spider_2 ~= nil ) then
+        return ( tonumber( full_spider_2 ) ~=  0 )
+    else -- This leaves room for yet another mechanism.
+        return false
+    end
+
+end
+
+
+--
 -- function get_container_repository_root()
 --
 -- Input arguments: None
@@ -719,6 +741,7 @@ sandbox_registration{
     ['set_num_motd']                  = set_num_motd,
     ['is_interactive']                = is_interactive,
     ['is_LTS_LUMI_stack']             = is_LTS_LUMI_stack,
+    ['is_full_spider']                = is_full_spider,
     ['get_container_repository_root'] = get_container_repository_root,
     ['get_EB_container_repository']   = get_EB_container_repository,
     ['get_SIF_file']                  = get_SIF_file,
