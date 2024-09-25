@@ -22,10 +22,8 @@ commands, which is why this is not turned on by default.
 -- this module.
 pushenv( '_LUMI_FULL_SPIDER', 1 )
 
--- Clear the Lmod cache
-if mode() == 'load' or mode() == 'unload' then
-    execute{ cmd='/usr/bin/rm -rf ~/.cache/lmod', modeA={'load','unload'} } 
-end
+-- Clear the Lmod cache when loading or unloading the module
+execute{ cmd='/usr/bin/rm -rf ~/.cache/lmod', modeA={'load','unload'} } 
 
 if os.getenv( '_LUMI_LMOD_DEBUG' ) ~= nil then
     LmodMessage( 'DEBUG: ' .. myModuleFullName() .. ', mode ' .. mode() .. ': Exiting' )
