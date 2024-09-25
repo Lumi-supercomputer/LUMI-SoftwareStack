@@ -40,21 +40,14 @@ More information
    
 ]] )
 
-
-
---
--- Check the spider mode
---
-local full_spider = os.getenv( 'LUMI_FULL_SPIDER' ) or 0
-
 --
 -- Only make the MODULEPATH change visible to LMOD when loading, unloading or 
 -- showing a module to avoid interfereing with, e.g., module spider.
 -- With the exception that it can always be make visible to LMOD if 
--- LUMI_FULL_SPIDER is set to a value different than 0.
+-- specifically requested through criteria coded in SitePackage.lua.
 --
 
-if mode() == 'load' or mode() == 'unload' or mode() == 'show' or tonumber(full_spider) ~= 0 then
+if mode() == 'load' or mode() == 'unload' or mode() == 'show' or is_full_spider() then
     prepend_path( 'MODULEPATH', '/appl/local/quantum/modulefiles' )
 end
 
@@ -64,5 +57,5 @@ end
 
 if mode() == 'load' then
     LmodMessage( 'This software collection is provided and supported by Quantum Computing team of CSC.\n' ..
-                 'Run `module help LocalStack/quantum` for more information about support.' )
+                 'Run `module help ' .. myModuleName() .. '` for more information about support.' )
 end

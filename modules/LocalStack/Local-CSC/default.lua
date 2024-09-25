@@ -5,6 +5,7 @@
 whatis( 'Description: Makes the CSC-managed local software collection available, see https://docs.csc.fi/apps/by_system/#lumi' )
 
 help( [[
+
 Description
 ===========
 This module makes a software collection available managed and supported by CSC.
@@ -34,18 +35,13 @@ More information
 ]] )
 
 --
--- Check the spider mode
---
-local full_spider = os.getenv( 'LUMI_FULL_SPIDER' ) or 0
-
---
 -- Only make the MODULEPATH change visible to LMOD when loading, unloading or 
 -- showing a module to avoid interfereing with, e.g., module spider.
 -- With the exception that it can always be make visible to LMOD if 
--- LUMI_FULL_SPIDER is set to a value different than 0.
+-- specifically requested through criteria coded in SitePackage.lua.
 --
 
-if mode() == 'load' or mode() == 'unload' or mode() == 'show' or tonumber(full_spider) ~= 0 then
+if mode() == 'load' or mode() == 'unload' or mode() == 'show' or is_full_spider() then
     prepend_path( 'MODULEPATH', '/appl/local/csc/modulefiles' )
 end
 
@@ -55,5 +51,5 @@ end
 
 if mode() == 'load' then
     LmodMessage( 'This software collection is provided and supported by CSC.\n' ..
-                 'Run `module help LocalStack/CSC` for more information about support.' )
+                 'Run `module help ' .. myModuleName() .. '` for more information about support.' )
 end
