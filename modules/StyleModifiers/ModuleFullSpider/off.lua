@@ -21,7 +21,7 @@ module cache.
 
 -- Use pushenv to restore the value that a user may have set before when unloading
 -- this module.
-pushenv( 'LUMI_FULL_SPIDER', 0 )
+pushenv( '_LUMI_FULL_SPIDER', 0 )
 
 -- Clear the Lmod cache when loading or unloading the module
 execute{ cmd='/usr/bin/rm -rf ~/.cache/lmod', modeA={'load','unload'} } 

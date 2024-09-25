@@ -18,7 +18,9 @@ You can obtain the same effect by simply setting LUMI_FULL_SPIDER to a nonzero v
 export LUMI_FULL_SPIDER=1
 which may be the best way if you always want module spider to index all
 software. This prevents the re-generation of the cache files whenever
-this module is loaded or unloaded.
+this module is loaded or unloaded. This environment varialble also overwrites
+the effect of the ]] .. myModuleName() .. [[ modules and guarantees a more 
+consistent behaviour across multiple shells.
 
 Note that this will considerably slow down some module spider and module available
 commands, which is why this is not turned on by default.
@@ -26,7 +28,7 @@ commands, which is why this is not turned on by default.
 
 -- Use pushenv to restore the value that a user may have set before when unloading
 -- this module.
-pushenv( 'LUMI_FULL_SPIDER', 1 )
+pushenv( '_LUMI_FULL_SPIDER', 1 )
 
 -- Clear the Lmod cache when loading or unloading the module
 execute{ cmd='/usr/bin/rm -rf ~/.cache/lmod', modeA={'load','unload'} } 
