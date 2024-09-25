@@ -101,7 +101,10 @@ create_link "$installroot/$repo/modules/CrayEnv.lua"  "$installroot/modules/Soft
 #
 # Link the local software collections modules
 #
-create_link "$installroot/$repo/modules/LocalStack"  "$installroot/modules/SoftwareStack/LocalStack"
+for dir in $(/bin/ls -1 $installroot/$repo/modules/LocalStack)
+do
+    create_link "$installroot/$repo/modules/LocalStack/$dir"  "$installroot/modules/SoftwareStack/$dir"
+done
 
 #
 # Link the style modules
