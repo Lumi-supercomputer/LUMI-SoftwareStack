@@ -12,7 +12,8 @@ Description
 ===========
 Loading this module disables a search through all installed modules with the module
 spider command, excluding software installed through the spack modules and
-local software stacks.
+local software stacks, unless it is overwritten by setten the environment
+variable `LUMI_FULL_SPIDER` to a nonzero value.
 
 Loading this module, or not loading any ]] .. myModuleName() .. [[ module at all, may
 significantly speed up module spider or module avail when it needs to rebuild the

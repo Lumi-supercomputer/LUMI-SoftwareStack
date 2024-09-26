@@ -12,14 +12,14 @@ This module makes a software collection available managed and supported by CSC.
 
 There is no guarantee that this software works together with software provided
 by the CrayEnv, LUMI or spack software stacks on LUMI, though those modules will
-not be automatically unloaded. Try at your own risk.
+not be automatically unloaded. Try the combination at your own risk.
 
 The LUMI User Support Team (LUST) is not managing the software made available by
 this module, nor can LUST make any changes or corrections. All support requests 
-will be forwarded to CSC and handled at their discretion. Though they are committed
-to supporting their software collection, the level of support may depend on 
-how your project came onto LUMI as they receive no EuroHPC funding for supporting
-this collection.
+will be forwarded LUST to CSC and handled at their discretion. Though they are 
+committed to supporting their software collection, the level of support may depend  
+on how your project came onto LUMI as they receive no EuroHPC funding for
+supporting this collection.
 
 The software provided by this module is not discoverable with module spider
 unless this module is loaded or ModuleFullSpider/on is loaded.
