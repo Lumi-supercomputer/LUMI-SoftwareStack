@@ -2,6 +2,12 @@
 -- making them findable for the module spider command if the module
 -- is not loaded to avoid interfering with the LUST software stack.
 
+-- We make the module sticky just as other stacks, but cannot unload other
+-- stacks as some modules in the CSC collection load the LUMI stack (e.g., 
+-- some gromacs modules installed with EasyBuild).
+-- family( 'LUMI_SoftwareStack' )
+add_property("lmod","sticky")
+
 whatis( 'Description: Makes the CSC-managed local software collection available, see https://docs.csc.fi/apps/by_system/#lumi' )
 
 help( [[
@@ -51,5 +57,7 @@ end
 
 if mode() == 'load' then
     LmodMessage( 'This software collection is provided and supported by CSC.\n' ..
-                 'Run `module help ' .. myModuleName() .. '` for more information about support.' )
+                 'Run `module help ' .. myModuleName() .. '` for more information about support.\n' ..
+                 'Not all software may be compatible with software in other stacks,\n' ..
+                 'so mix at your own risk.' )
 end

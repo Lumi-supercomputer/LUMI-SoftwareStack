@@ -2,6 +2,13 @@
 -- without making them findable for the module spider command if the module
 -- is not loaded to avoid interfering with the LUST software stack.
 
+-- We make the module sticky just as other stacks, but for now do not yet
+-- make it part of the LUMI_SoftwareStack family as that would cause trouble
+-- if software in the Local-quantum collection would in turn try to load
+-- software from the LUMI modules.
+-- family( 'LUMI_SoftwareStack' )
+add_property("lmod","sticky")
+
 whatis( 'Description: Makes the local software collection managed by the quantum computing team of CSC available' )
 whatis( 'Keyword: Helmi' )
 
@@ -13,7 +20,7 @@ quantum computing team of CSC for users experimenting on Helmi.
 
 Note that Helmi is not a EuroHPC JU resource, so being eligible for access to
 LUMI does not mean that you are also eligible for access to Helmi. The
-LUST does not handle access to Helmi not can it provide any information about
+LUST does not handle access to Helmi nor can it provide any information about
 this.
 
 There is no guarantee that this software works together with software provided
@@ -57,5 +64,7 @@ end
 
 if mode() == 'load' then
     LmodMessage( 'This software collection is provided and supported by Quantum Computing team of CSC.\n' ..
-                 'Run `module help ' .. myModuleName() .. '` for more information about support.' )
+                 'Run `module help ' .. myModuleName() .. '` for more information about support.\n' ..
+                 'Not all software may be compatible with software in other stacks,\n' ..
+                 'so mix at your own risk.' )
 end
