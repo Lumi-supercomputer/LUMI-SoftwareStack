@@ -18,10 +18,13 @@ Description
 This module makes a software collection available managed and supported by the
 quantum computing team of CSC for users experimenting on Helmi.
 
-Note that Helmi is not a EuroHPC JU resource, so being eligible for access to
-LUMI does not mean that you are also eligible for access to Helmi. The
-LUST does not handle access to Helmi nor can it provide any information about
-this.
+Note that Helmi is not a EuroHPC JU resource, but a resource for users from 
+Finnish higher-education institutions and research institutes only. As some
+of the software is only meant to access Helmi, not all software in this
+stack is relevant for all LUMI users.
+
+Note that the LUMI User Support Team does not handle access to Helmi nor 
+can it provide any information about this. Please consult https://fiqci.fi/.
 
 There is no guarantee that this software works together with software provided
 by the CrayEnv, LUMI or spack software stacks on LUMI, though those modules will
