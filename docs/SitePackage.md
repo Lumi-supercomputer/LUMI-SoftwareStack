@@ -234,6 +234,12 @@ would not print it.
 true if that version is a LTS stack and returns false otherwise.
 
 
+### is_full_spider
+
+``is_full_spider`` takes no arguments. It returns `true` if a full indexing of all stacks in
+the spider cache is preferred, and `false` otherwise.
+
+
 ### get_container_repository_root
 
 ``get_container_repository_root`` takes no input arguments. It returns the location of the container
