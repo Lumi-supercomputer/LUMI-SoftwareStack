@@ -1,11 +1,14 @@
 import os
 import re
+import stat
 
 from easybuild.easyblocks.generic.bundle import Bundle
 from easybuild.tools.build_log import EasyBuildError
-from easybuild.tools.filetools import download_file, mkdir, write_file, read_file, symlink, apply_regex_substitutions
+from easybuild.tools.filetools import download_file, mkdir, write_file, read_file, symlink, adjust_permissions, apply_regex_substitutions
 from easybuild.tools.systemtools import get_shared_lib_ext
+from easybuild.tools.run import run_cmd
 from easybuild.framework.easyconfig import CUSTOM
+from easybuild.tools import LooseVersion
 
 class EB_rocmrpms(Bundle):
 
@@ -16,15 +19,15 @@ class EB_rocmrpms(Bundle):
         """
         rpm_regex = r'<a href=\"(.*.rpm)\">.*'
         version_regex = r'\s*([\d.]+(%s|-sles[\d]+))' % self.version.replace('.', '0')
-        name_regex = r'((^[a-zA-Z]+)((-)?([a-zA-Z]+))+(.*kdb)?)?.*'
-        
+        name_regex = r'((^[a-zA-Z]+)((-)?([a-zA-Z]+))+(.*kdb)?(_gfx\d+)?)?.*'
+
         index = []
         for match in re.finditer(rpm_regex, index_content, re.MULTILINE):
             rpm = match.group(1)
             name = re.search(name_regex, rpm).group(1)
             version = re.search(version_regex, rpm).group(1)
             index.append((name, version, rpm))
-        
+
         return index
 
     def _process_component(self, name, version, rpm):
@@ -54,7 +57,7 @@ class EB_rocmrpms(Bundle):
             'cd ' + self.builddir,
             'rm -rf ' + component_dir,
         ]
-        
+
         component_cfgs = {
             'easyblock'       : 'Binary',
             'source_urls'     : [self.cfg.get('index_url')],
@@ -65,11 +68,11 @@ class EB_rocmrpms(Bundle):
             }],
             'install_cmd': ' && '.join(install_cmds),
         }
- 
+
         if self.cfg.get('component_checksums'):
             checksum = self.cfg.get('component_checksums').get(name)
             if checksum:
-                component_cfgs['checksums'] = [checksum]            
+                component_cfgs['checksums'] = [checksum]
 
         component = (name, version, component_cfgs)
 
@@ -88,6 +91,7 @@ class EB_rocmrpms(Bundle):
             'extra_components'    : [None, 'Additional components to be added to the compoents list', CUSTOM],
             'gpu_archs'           : [None, 'List of GPU architecture used to filter miopen compiled for specific a architecture', CUSTOM],
             'component_checksums' : [None, 'Checksums of the ROCm RPMs', CUSTOM],
+            'postinstall_script'  : [None, 'The content of a script to run after installation', CUSTOM],
         })
 
         return Bundle.extra_options(extra_vars=extra_vars)
@@ -106,7 +110,7 @@ class EB_rocmrpms(Bundle):
         if not download_file('', index_url, index_path):
             raise EasyBuildError("Failed to download index")
 
-        exclude = ['hip-runtime-nvidia', 'rdc', 'atmi']
+        exclude = ['hip-runtime-nvidia', 'rdc', 'atmi', 'hipcc-nvidia']
         if self.cfg.get('exclude_packages'):
             exclude += self.cfg.get('exclude_packages')
 
@@ -127,13 +131,25 @@ class EB_rocmrpms(Bundle):
             if name.startswith('miopen-opencl'):
                 self.log.debug('%s excluded, only miopen-hip is supported', rpm)
                 continue
+            if '-debuginfo' in name:
+                self.log.debug('%s excluded (debuginfo variant)', rpm)
+                continue;
+            if '-asan' in name:
+                self.log.debug('%s excluded (ASAN variant)', rpm)
+                continue;
+            if '-rpath' in name:
+                self.log.debug('%s excluded (RPATH variant)', rpm)
+                continue;
+            if ('-test' in name or 'unittests' in name) and 'bandwidth' not in name:
+                self.log.debug('%s excluded (test package)', rpm)
+                continue;
 
             # This apply to miopenkernels and miopen-hip packages. It allow to
             # filter out package that we don't need
             if self.cfg.get('gpu_archs') and 'gfx' in name:
                 should_exclude = True
                 for arch in self.cfg.get('gpu_archs'):
-                    if arch in name:
+                    if arch in name or arch in name + 'a':
                         should_exclude = False
                         break
                 if should_exclude:
@@ -168,7 +184,7 @@ class EB_rocmrpms(Bundle):
             write_file(pkgconfig_file, pkgconfig_content)
             os.symlink(pkgconfig_file, os.path.join(pkgconfig_dir, 'rocm.pc'))
             self.log.info(f'pkg-config file written: %s\n\n%s', pkgconfig_file, pkgconfig_content)
-        
+
         amd_bins = ['clang', 'clang++', 'clang-cl', 'clang-cpp', 'flang', 'lld']
 
         symlinks_dsts = ['bin/amd%s' % x for x in amd_bins]
@@ -188,15 +204,30 @@ class EB_rocmrpms(Bundle):
             os.symlink(os.path.join(self.installdir, src),
                        os.path.join(self.installdir, dst))
 
+        if self.cfg.get('postinstall_script'):
+            self.log.info('Running post-install script...')
+            postinstall_script = os.path.join(self.builddir, 'postinstall.sh')
+
+            write_file(postinstall_script, self.cfg.get('postinstall_script'))
+            adjust_permissions(postinstall_script, stat.S_IXUSR)
+            run_cmd(postinstall_script, log_all=True, simple=True)
+
+            self.log.info('Finished running post-install script')
+
     def make_module_extra(self, *args, **kwargs):
         """Extra statements to include in module file: update $PYTHONPATH."""
         txt = super(EB_rocmrpms, self).make_module_extra(*args, **kwargs)
 
         self.log.info('Adding ROCm specific environment variable to module')
         txt += self.module_generator.set_environment('ROCM_PATH', self.installdir)
-        txt += self.module_generator.set_environment('HIP_PATH', os.path.join(self.installdir, 'hip'))
-        txt += self.module_generator.set_environment('HIP_LIB_PATH', os.path.join(self.installdir, 'hip/lib'))
-        txt += self.module_generator.set_environment('HSA_PATH', os.path.join(self.installdir, 'hsa'))
+        """
+        Since ROCm 6, the transition to the new directory structure is completed
+        These environement variable interfere with the compiler search for ROCm
+        """
+        if LooseVersion(self.version) < LooseVersion('6'):
+            txt += self.module_generator.set_environment('HIP_PATH', os.path.join(self.installdir, 'hip'))
+            txt += self.module_generator.set_environment('HIP_LIB_PATH', os.path.join(self.installdir, 'hip/lib'))
+            txt += self.module_generator.set_environment('HSA_PATH', os.path.join(self.installdir, 'hsa'))
 
         return txt
 
@@ -215,3 +246,5 @@ class EB_rocmrpms(Bundle):
         }
 
         super(EB_rocmrpms, self).sanity_check_step(custom_paths=custom_paths)
+
+
