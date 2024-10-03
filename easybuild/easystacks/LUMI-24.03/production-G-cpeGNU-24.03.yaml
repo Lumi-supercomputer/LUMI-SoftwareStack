@@ -103,6 +103,7 @@ easyconfigs:
   - SCOTCH-6.1.3-cpeGNU-24.03.eb
   - SCOTCH-7.0.4-cpeGNU-24.03.eb  # Check if the EasyBlock needs an update!
   - ESMF-8.6.0-cpeGNU-24.03.eb
+  - SuiteSparse-5.13.0-cpeGNU-24.03-OpenMP.eb
 # Some apps
   - lumi-CPEtools-1.1-cpeGNU-24.03.eb
 #  - VampirServer
