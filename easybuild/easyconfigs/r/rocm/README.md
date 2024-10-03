@@ -24,23 +24,29 @@ Early Access Platform can compile their code from the login node.
 -   [ROCm 5.3.3 documentation](https://rocm.docs.amd.com/en/docs-5.3.3/)
 
 
-### ROCm 5.4.6 and 5.6.1
+### ROCm 5.4.6, 5.6.1 and 6.2.2
 
--   Unpacked from RPMs but with an additional step to set the RPATH of the libraries
-    and avoid using the system rocm libraries if the module is not loaded.
+-   Unpacked from RPMs but with an additional step to set the RPATH of the
+    libraries and avoid using the system rocm libraries if the module is not
+    loaded.
 
--   The 5.4.6 module was developed at a later time as the 5.6.1 module and was made
-    to work around some problems we observed with 5.6.1 at that time. The 5.4.6 version
-    was chosen as this at that time was the latest version of ROCm officially supported
-    on the driver on the system at that time. 
+-   The 5.4.6 and 6.2.2 modules were developed at a later time as the 5.6.1
+    module and were made to work around some problems we observed with 5.6.1 at
+    that time. The 6.2.2 version was chosen as this at that time was the latest
+    version of ROCm officially supported on the driver on the system at that
+    time. 
     
-    One difference with the 5.6.1 version is
-    that there is no equivalent `amd` module. Instead some additional environment modules
-    are set in the `rocm/5.4.6` module so that if you load it AFTER loading the
-    `PrgEnv-amd` module, the compiler wrappers would still use the compilers from
-    `rocm/5.4.6`.
+    One difference with the 5.6.1 version is that there is no equivalent `amd`
+    module. Instead some additional environment variables are set in the
+    `rocm/5.4.6` and `6.2.2` modules so that if you load it AFTER loading the
+    `PrgEnv-amd` module, the compiler wrappers would still use the compilers
+    from `rocm/5.4.6` or `6.2.2`.
+
+-   The 6.2.2 version is not compatible with CCE 17.x due to a LLVM
+    incompatibility. 
 
 -   Documentation:
     
 		-   [ROCm 5.4.6 documentation](https://rocm.docs.amd.com/en/docs-5.4.3/)
 		-   [ROCm 5.6.1 documentation](https://rocm.docs.amd.com/en/docs-5.6.1/)
+        -   [ROCm 6.2.2 documantation](https://rocm.docs.amd.com/en/docs-6.2.2/)
