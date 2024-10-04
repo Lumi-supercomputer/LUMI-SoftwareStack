@@ -59,8 +59,6 @@ local_systems = """{
   }
 }"""
 
-modloadmsg = """Warning: The lumi-g system has been upgraded to rocm-6.0.3 as of the 09/09/2024 maintenance."""
-
 postinstallcmds = [ # Use a bash HERE document to create the systems.json file.
     'cd %(installdir)s/ ; cat >systems.json <<EOF\n' + local_systems + '\nEOF\n'
 ]
