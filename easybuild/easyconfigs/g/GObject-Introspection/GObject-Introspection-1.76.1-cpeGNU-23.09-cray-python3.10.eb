@@ -58,7 +58,12 @@ dependencies = [
     ('util-linux', local_util_version),
 ]
 
-preconfigopts = "env GI_SCANNER_DISABLE_CACHE=true "
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+preinstallopts = preconfigopts
+
+preconfigopts += "env GI_SCANNER_DISABLE_CACHE=true "
 
 sanity_check_paths = {
     'files': ['bin/g-ir-%s' % x for x in ['annotation-tool', 'compiler', 'generate', 'scanner']] +

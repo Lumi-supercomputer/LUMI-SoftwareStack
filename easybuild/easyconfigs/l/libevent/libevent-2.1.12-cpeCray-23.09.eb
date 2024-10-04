@@ -44,6 +44,10 @@ osdependencies = [
     ('openssl-devel', 'libssl-dev', 'libopenssl-devel'),
 ]
 
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+
 sanity_check_paths = {
     'files': ['bin/event_rpcgen.py', 'include/event.h', 'include/event2/event.h'] +
              ['lib/libevent%s.%s' % (x,y) for x in ['', '_core', '_extra', '_openssl', '_pthreads'] for y in ['a', 'la', SHLIB_EXT]] +

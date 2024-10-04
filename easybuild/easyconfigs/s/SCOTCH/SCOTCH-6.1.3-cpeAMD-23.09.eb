@@ -63,4 +63,10 @@ dependencies = [
     ('zlib',  local_zlib_version),
 ]
 
+# Doesn't need ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci rocm && '
+prebuildopts = preconfigopts
+pretestopts = preconfigopts
+preinstallopts = preconfigopts
+
 moduleclass = 'math'

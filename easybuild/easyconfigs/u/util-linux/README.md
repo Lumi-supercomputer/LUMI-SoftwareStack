@@ -32,10 +32,20 @@
 
   * Trivial version bump of the EasyConfig of 2.38.
 
+  * For LUMI/23.12, license information was added to the installation.
+
 
 ### **NO** 2.39 from CPE 23.09 on
 
   * Port of the 2.38.1 EasyConfig but with the patches of the EasyBuild version added.
   
   * Did not work so reverted to 2.38.1.
+
+
+### Version 2.39.3 from LUMI/24.03 on
+
+  * Version bump of 2.38.1 for LUMI/23.12
+  
+  * The bugs that hit us in 2.39 seem to be fixed without any patches that have since 
+    been developed by the EasyBuild community, so we deviate from 2023b.
 

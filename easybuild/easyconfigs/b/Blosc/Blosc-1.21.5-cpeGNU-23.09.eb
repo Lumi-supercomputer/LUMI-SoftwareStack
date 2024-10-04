@@ -38,6 +38,10 @@ sources = [ { 'filename': SOURCELOWER_TAR_GZ,
               'source_urls': ['https://github.com/Blosc/c-blosc/archive/'] } ]
 checksums =   ['32e61961bbf81ffea6ff30e9d70fca36c86178afd3e3cfa13376adec8c687509']
 
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+
 builddependencies = [
     ('buildtools', '%(toolchain_version)s', '', True),
 ]

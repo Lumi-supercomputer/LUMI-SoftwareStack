@@ -12,11 +12,22 @@
 
 ## EasyBuild
 
-  * There is no support for MPC in the EasyBuilders repository
+  * There is no support for mpdecimal in the EasyBuilders repository
 
-  * There is no support for MPC in the CSCS repository
+  * There is no support for mpdecimal in the CSCS repository
 
 
 ### Version 2.5.1 from CPE 21.06 on
 
   * The EasyConfig is a direct port of the one of the University of Antwerpen.
+  
+  * For LUMI/23.12, license information was added to the installation.
+
+
+### Version 4.0.0 from LUMI/24.03 on
+
+  * Trivial port of the EasyConfig for 2.5.1 for LUMI/23.12.
+    The license file has changed though.
+  
+  * Improved sanity checks as the installation now also prepares files
+    for `pkg-config`.

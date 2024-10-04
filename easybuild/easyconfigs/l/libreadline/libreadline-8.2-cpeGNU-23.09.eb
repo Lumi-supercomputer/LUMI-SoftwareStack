@@ -53,6 +53,10 @@ dependencies = [
     ('ncurses', local_ncurses_version),
 ]
 
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+
 # for the termcap symbols, use EB ncurses
 buildopts = "SHLIB_LIBS='-lncurses'"
 

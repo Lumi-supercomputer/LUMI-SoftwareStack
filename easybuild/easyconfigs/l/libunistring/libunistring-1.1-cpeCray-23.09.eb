@@ -48,6 +48,11 @@ dependencies = [
     ('libiconv', local_libiconv_version),
 ]
 
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+preinstallopts = preconfigopts
+
 parallel = 1
 
 sanity_check_paths = {

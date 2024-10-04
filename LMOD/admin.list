@@ -95,3 +95,21 @@ The Rust 1.60.0 module is known to be faulty and will be removed from the system
 Rust is difficult to support and not a typical HPC language, it is removed from the
 pre-installed central software stack and we try to offer occasional support via the
 contributed EasyBuild recipes.
+
+spack/22.08.*:
+Spack modules based on the 22.08 programming environment will be removed from the system
+soon as this programming environment doesn't function well anymore. Please prepare to
+rebuild with a newer version (preferably 24.03 as soon as a spack setup based on this
+version becomes available).
+
+spack/23.03.*:
+Spack modules based on the 23.03 programming environment will be removed from the system
+soon as this programming environment doesn't function well anymore. Please prepare to
+rebuild with a newer version (preferably 24.03 as soon as a spack setup based on this
+version becomes available).
+
+spack/23.09:
+The Spack module based on the 23.09 programming environment is deprecated as we cannot
+guarantee that the compiler and MPI library will work on the updated LUMI system. The
+stack will be removed when we are confident that a spack setup based on 24.03 is in
+a sufficient state to be used and has been available for some time.

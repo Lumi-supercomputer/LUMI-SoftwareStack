@@ -22,3 +22,20 @@ for the CrayEnv software stack.
 -   The EasyConfig build upon the 1.0 one but with some important changes as there
     is now a tool that should only be installed in partition/G. So there are now
     makefile targets and additional variables for the Makefile.
+
+-   For the recompile of 23.09 with ROCm 6 we needed to make the same changes
+    as for 23.12, described below.
+
+-   The cpeAMD version required changes to compile in 23.12:
+
+    -   The `rocm` module now needs to be loaded explicitly to have acces to the
+        HIP runtime libraries and header files.
+        
+    -   Needed to unload the accellerator module as we do use OpenMP but do not want
+        to use OpenMP offload.
+        
+    -   There is a problem when linking with the AMD compilers of code that uses ROCm
+        libraries when `LIBRARY_PATH` is set.
+
+-   It looks like the compiler wrappers have changed in 24.03 as unloading the accelerator
+    target module in the cpeAMD version was no longer needed.

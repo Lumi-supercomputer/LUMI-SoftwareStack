@@ -42,3 +42,11 @@
 ### Version 2.13.0
 
   * Trivial version bump of the 2.12.1 EasyConfig.
+
+  * From LUMI/23.12 onwards, license information was added to the installation.
+
+
+### Version 2.13.2 from LUMI/24.03 on
+
+  * Trivial port of the EasyConfig for version 2.13.0 for LUMI/23.12.
+

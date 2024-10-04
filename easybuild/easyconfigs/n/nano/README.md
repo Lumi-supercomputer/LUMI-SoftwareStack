@@ -24,20 +24,28 @@
 
   * Hence we developed new EasyConfig files that uses a ncurses module
 
+
 ### nano 6.2 for LUMI/21.12 and later
 
   * A trivial port of the 5.9 one. No new options were added to the EasyConfig.
+
 
 ### nano 6.3 for LUMI/22.06 and later
 
   * A trivial upgrade from 6.2. No new options were added to the EasyConfig.
 
+
 ### nano 6.4 for LUMI/22.08 and later
  
   * A trivial upgrade from 6.3. No new options were added to the EasyConfig.
 
-### nano 7.2 for 22.11/23.02
+
+### nano 7.2 for 22.11/23.03/23.09
 
   * Trivial version bump from 6.4, but we did explicitly enable posix threading
     even though that seems to be the default.
 
+
+### nano 8.0 for 23.12 and 24.03
+
+  * Trivial version bump from 7.2.

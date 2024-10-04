@@ -32,3 +32,5 @@
   * Trivial version bump of the EasyConfig, but we did copy the improved sanity check
     from the EasyBuilders version.
 
+  * For LUMI/23.12, license information was added to the installation and the sanity checks
+    were improved.

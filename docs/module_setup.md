@@ -157,6 +157,48 @@
     the system defaults or whatever the user may have set through environment variables.
 
 
+### Note about `module spider`
+
+  * As we don't use a system-wide spider cache at the moment, `module spider` and 
+    `module avail` can be very slow if the user cache needs to be generated.
+
+    This is partly also caused by the very high number of spack-generated modules on
+    the system that are also in Tcl, causing a double slowdown.
+
+  * Solution: The spack modules and modules enabling the local software stacks that
+    are not maintained by LUST have a mechanism that makes `MODULEPATH` changes invisible
+    to the Lmod spider operation. This mechanism is partly implemented in `SitePackage.lua`
+    via the `is full_spider()` function, so that the criteria can change over time without
+    having to change all the modules that are impacted.
+
+  * Current criteria:
+
+      * The user can set the environment variable `LUMI_FULL_SPIDER` which overwrites 
+        everything: If set to a nonzero value, the spack and local stack modules will
+        be included when rebuilding the cache, if set to 0 they are not.
+
+      * There is also a mechanism via modules that actually use the `_LUMI_FULL_SPIDER`
+        environment variable.
+
+          * Loading `ModuleFullSpider/on` will set `_LUMI_FULL_SPIDER` to indicate a
+            full indexing including Spack and local stacks, and will clear the cache.
+
+          * Loading `ModuleFullSpider/off` will set `_LUMI_FULL_SPIDER` to indicate to
+            not do a full indexing including Spack and local stacks, and will clear the cache.
+
+          * Unloading any of these two modules will also clear the cache to force a rebuild.
+  
+  * Note that the behaviour may be a bit inconsistent if you have multiple active shells as
+    the cache is shared between shells.
+
+    Setting the environment variable `LUMI_FULL_SPIDER` in the `.profile` file is the best idea,
+    but it will only take effect the next time the cache needs to be rebuild.
+
+  * Note that when loading one of the spack or local stack enabling modules, the modules in that
+    spack or local stack will be searched by `module spider`, even when they are not yet in the 
+    cache.
+
+
 ### The common software subdirectories
 
   * We have a set of subdirectories for each of the 4 LUMI partitions on which the

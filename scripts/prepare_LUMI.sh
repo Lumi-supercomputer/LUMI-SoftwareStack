@@ -99,6 +99,22 @@ fi
 create_link "$installroot/$repo/modules/CrayEnv.lua"  "$installroot/modules/SoftwareStack/CrayEnv.lua"
 
 #
+# Link the local software collections modules
+#
+for dir in $(/bin/ls -1 $installroot/$repo/modules/LocalStack)
+do
+    create_link "$installroot/$repo/modules/LocalStack/$dir"  "$installroot/modules/SoftwareStack/$dir"
+done
+
+#
+# Check for a Spack setup
+#
+if [ -d "$installroot/spack/etc/modules/spack" ]
+then
+    create_link "$installroot/spack/etc/modules/spack"  "$installroot/modules/SoftwareStack/spack"
+fi
+
+#
 # Link the style modules
 #
 # We simply link the directory.

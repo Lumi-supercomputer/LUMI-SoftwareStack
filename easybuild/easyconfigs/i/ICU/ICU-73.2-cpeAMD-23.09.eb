@@ -30,6 +30,10 @@ builddependencies = [ # Create a reproducible build environment.
 
 start_dir = 'source'
 
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+
 sanity_check_paths = {
     'files': ['lib/libicu%s.%s' % (x, SHLIB_EXT) for x in ['data', 'i18n', 'io', 'test', 'tu', 'uc']],
     'dirs':  ['bin', 'include/unicode', 'share/icu', 'share/man'],

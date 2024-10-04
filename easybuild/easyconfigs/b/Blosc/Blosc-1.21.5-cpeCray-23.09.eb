@@ -42,6 +42,10 @@ builddependencies = [
     ('buildtools', '%(toolchain_version)s', '', True),
 ]
 
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+
 sanity_check_paths = {
     'files': ['include/blosc-export.h', 'include/blosc.h', 'lib/libblosc.a',
               'lib/libblosc.%s' % SHLIB_EXT],

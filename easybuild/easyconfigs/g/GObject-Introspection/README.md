@@ -49,4 +49,8 @@
     and with a newer version of Meson. It is not clear if it was a Python version
     conflict or just a too old version of Meson that was causing problems, but
     it is likely the former.
-  
+
+
+### Version 1.78.1 for LUMI/24.03
+
+  * Trivial port of the EasyConfig for version 1.76.1 in LUMI/23.12.

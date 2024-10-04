@@ -19,3 +19,7 @@ See also the
 and
 [COPYING.GPL](https://gitlab.gnome.org/GNOME/gobject-introspection/-/blob/main/COPYING.GPL)
 files in the source repository.
+
+From LUMI/23.12 on. the license can also be found in the directory
+`$EBROOTGOBJECTMININTROSPECTION/share/licenses/GObject-Introspection` after loading 
+the module.

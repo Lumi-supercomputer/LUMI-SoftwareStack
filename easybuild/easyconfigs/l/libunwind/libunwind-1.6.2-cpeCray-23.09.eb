@@ -53,7 +53,12 @@ dependencies = [
     ('XZ', local_XZ_version),
 ]
 
-preconfigopts = 'export LIBS="$LIBS -llzma" && export CFLAGS="$CFLAGS -fuse-ld=bfd -fno-common" && '
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+preinstallopts = preconfigopts
+
+preconfigopts += 'export LIBS="$LIBS -llzma" && export CFLAGS="$CFLAGS -fuse-ld=bfd -fno-common" && '
 
 sanity_check_paths = {
     'files': ['include/libunwind.h', 'lib/libunwind.%s' % SHLIB_EXT],

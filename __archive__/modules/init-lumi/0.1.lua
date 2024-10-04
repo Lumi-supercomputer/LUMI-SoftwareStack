@@ -37,6 +37,7 @@ local repo =  myFileName():match( '.*/modules/init%-(.*)/init%-lumi/.*' )
 -- Add additionsl directories to the MODULEPATH
 -- (could be moved to /etc/cray-pe.d/cray-pe-configuration.sh)
 --
+prepend_path( 'MODULEPATH', pathJoin( LUMI_root, 'modules/LocalStack' ) )
 prepend_path( 'MODULEPATH', pathJoin( LUMI_root, 'modules/easybuild/system' ) )
 
 -- Setting defaults and visibility, note that this is a PATH-style variable

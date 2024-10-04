@@ -13,3 +13,6 @@ FreeType comes with two licenses from which you can choose the one which fits yo
 
 This information can be found on the 
 ["FreeType licenses" page](https://freetype.org/license.html)
+
+From LUMI/23.12 on, all license information can also be found in the
+`$EBROOTFREETYPE/share/licenses/freetype` subdirectory after loading the module.

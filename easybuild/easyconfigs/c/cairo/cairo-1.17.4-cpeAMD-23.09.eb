@@ -75,6 +75,11 @@ dependencies = [
     ('X11',      '%(toolchain_version)s'),
 ]
 
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+preinstallopts = preconfigopts
+
 # disable symbol lookup, which requires -lbfd, to avoid link issues with (non-PIC) libiberty.a provided by GCC
 configopts = "--enable-symbol-lookup=no --enable-gobject=yes --enable-svg=yes --enable-tee=yes --enable-xlib-xcb "
 

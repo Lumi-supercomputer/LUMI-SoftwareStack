@@ -550,6 +550,28 @@ end
 
 
 --
+-- function is_full_spider()
+--
+-- Input arguments: None
+-- Output value: True if "full spider" mode is on, false otherwise.
+--
+function is_full_spider()
+
+    local full_spider_1 = os.getenv( 'LUMI_FULL_SPIDER' )   -- Value set by the user overwrites everything
+    local full_spider_2 = os.getenv( '_LUMI_FULL_SPIDER' )  -- Mechanism used by the module.
+
+    if ( full_spider_1 ~= nil ) then
+        return ( tonumber( full_spider_1 ) ~=  0 )
+    elseif ( full_spider_2 ~= nil ) then
+        return ( tonumber( full_spider_2 ) ~=  0 )
+    else -- This leaves room for yet another mechanism.
+        return false
+    end
+
+end
+
+
+--
 -- function get_container_repository_root()
 --
 -- Input arguments: None
@@ -719,6 +741,7 @@ sandbox_registration{
     ['set_num_motd']                  = set_num_motd,
     ['is_interactive']                = is_interactive,
     ['is_LTS_LUMI_stack']             = is_LTS_LUMI_stack,
+    ['is_full_spider']                = is_full_spider,
     ['get_container_repository_root'] = get_container_repository_root,
     ['get_EB_container_repository']   = get_EB_container_repository,
     ['get_SIF_file']                  = get_SIF_file,
@@ -805,6 +828,10 @@ local mapT =
         [ EB_prefix .. '/modules/CrayEnv']        = 'EasyBuild managed user software for CrayEnv',
         [ EB_prefix .. '/modules/container']      = 'EasyBuild managed user-installed container modules',
         [ EB_prefix .. '/modules/' .. stack_name] = 'EasyBuild managed user software for software stack _STACK_ on _PARTITION_',
+        -- Other stacks
+        ['modules/LocalStack']                    = 'Local software collections (non-LUST)',
+        ['/appl/local/csc/modulefiles']           = 'Local software collection managed by CSC',
+        ['/appl/local/quantum/modulefiles']       = 'Software for the Helmi quantum computer (non-LUST)',
      },
     PEhierarchy = {
 --        ['/testview$']                            = 'Activate environments',
@@ -850,6 +877,10 @@ local mapT =
         [ EB_prefix .. '/modules/CrayEnv']        = 'EasyBuild managed user software for CrayEnv',
         [ EB_prefix .. '/modules/container']      = 'EasyBuild managed user-installed container modules',
         [ EB_prefix .. '/modules/' .. stack_name] = 'EasyBuild managed user software for software stack _STACK_ on _PARTITION_',
+        -- Other stacks
+        ['modules/LocalStack']                    = 'Local software collections (non-LUST)',
+        ['/appl/local/csc/modulefiles']           = 'Local software collection managed by CSC',
+        ['/appl/local/quantum/modulefiles']       = 'Software for the Helmi quantum computer (non-LUST)',
      },
 }
 
