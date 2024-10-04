@@ -955,18 +955,25 @@ end
 -- have the name of a Cray PE component.
 --
 local visibility_exceptions = {
-    ['cpe/restore-defaults'] = true,
-    ['craype-hugepages2M']   = true,
-    ['craype-hugepages4M']   = true,
-    ['craype-hugepages8M']   = true,
-    ['craype-hugepages16M']  = true,
-    ['craype-hugepages32M']  = true,
-    ['craype-hugepages64M']  = true,
-    ['craype-hugepages128M'] = true,
-    ['craype-hugepages256M'] = true,
-    ['craype-hugepages512M'] = true,
-    ['craype-hugepages1G']   = true,
-    ['craype-hugepages2G']   = true,
+    ['cpe/restore-defaults']  = true,
+    ['craype-hugepages2M']    = true,
+    ['craype-hugepages4M']    = true,
+    ['craype-hugepages8M']    = true,
+    ['craype-hugepages16M']   = true,
+    ['craype-hugepages32M']   = true,
+    ['craype-hugepages64M']   = true,
+    ['craype-hugepages128M']  = true,
+    ['craype-hugepages256M']  = true,
+    ['craype-hugepages512M']  = true,
+    ['craype-hugepages1G']    = true,
+    ['craype-hugepages2G']    = true,
+    ['perftools-lite-events'] = true,
+    ['perftools-lite-gpu']    = true,
+    ['perftools-lite-hbm']    = true,
+    ['perftools-lite-loops']  = true,
+    ['perftools-lite']        = true,
+    ['perftools-preload']     = true,
+    ['perftools']             = true,
 }
 
 local function is_visible_hook( modT )

@@ -108,10 +108,10 @@ def gen_CPE_VisibilityHookData( CPEpackages_dir, VisibilityHookData_dir, version
     #
     # Open the CPE-specific modulerc file
     #
-    print( 'Installing in: %s' % VisibilityHookData_dir )
+    print( 'Installing in the directory: %s' % VisibilityHookData_dir )
     extdeffile = 'CPEmodules_%s.lua' % version_stack.replace( '.', '_' )
     extdeffileanddir = os.path.join( VisibilityHookData_dir, extdeffile )
-    print( 'Generating %s...' % extdeffileanddir )
+    print( 'Generating the file %s...' % extdeffileanddir )
     fileH = open( extdeffileanddir, 'w' )
 
     fileH.write( '-- Module versions for the CPE in a format that can be processed with the LUA require function.\n' +
@@ -125,22 +125,25 @@ def gen_CPE_VisibilityHookData( CPEpackages_dir, VisibilityHookData_dir, version
     write_package( fileH, 'cpe-prgenv',           'PrgEnv-cray',              package_versions )
     write_package( fileH, 'cpe-prgenv',           'PrgEnv-gnu',               package_versions )
     write_package( fileH, 'cpe-prgenv',           'PrgEnv-aocc',              package_versions )
-    write_package( fileH, 'cpe-prgenv',           'PrgEnv-intel',             package_versions )
-    write_package( fileH, 'cpe-prgenv',           'PrgEnv-nvidia',            package_versions )
-    write_package( fileH, 'cpe-prgenv',           'PrgEnv-nvhpc',             package_versions, minv='22.06' )
+    write_package( fileH, 'cpe-prgenv',           'PrgEnv-amd',               package_versions, minv='22.08' )
+    #write_package( fileH, 'cpe-prgenv',           'PrgEnv-intel',             package_versions )
+    #write_package( fileH, 'cpe-prgenv',           'PrgEnv-nvidia',            package_versions )
+    #write_package( fileH, 'cpe-prgenv',           'PrgEnv-nvhpc',             package_versions, minv='22.06' )
     write_package( fileH, 'cpe-prgenv',           'PrgEnv-gnu-amd',           package_versions, minv='22.08' )
     write_package( fileH, 'cpe-prgenv',           'PrgEnv-cray-amd',          package_versions, minv='22.08' )
 
     write_package( fileH, 'CCE',                  'cce',                      package_versions )
-    write_package( fileH, 'GCC',                  'gcc',                      package_versions )
+    write_package( fileH, 'GCC',                  'gcc',                      package_versions, maxv='23.11' )
+    write_package( fileH, 'GCC',                  'gcc-native',               package_versions, minv='23.12' )
     write_package( fileH, 'AOCC',                 'aocc',                     package_versions )
     write_package( fileH, 'ROCM',                 'amd',                      package_versions )
-    write_package( fileH, 'intel',                'intel',                    package_versions )
+    #write_package( fileH, 'intel',                'intel',                    package_versions )
 
     write_package( fileH, 'CCE',                  'cce-mixed',                package_versions, minv='22.06' )
-    write_package( fileH, 'GCC',                  'gcc_mixed',                package_versions, minv='22.06' )
-    write_package( fileH, 'AOCC',                 'aocc_mixed',               package_versions, minv='22.06' )
-    write_package( fileH, 'ROCM',                 'amd_mixed',                package_versions, minv='22.06' )
+    write_package( fileH, 'GCC',                  'gcc-mixed',                package_versions, minv='22.06', maxv='23.11' )
+    write_package( fileH, 'GCC',                  'gcc-native-mixed',         package_versions, minv='23.12' )
+    write_package( fileH, 'AOCC',                 'aocc-mixed',               package_versions, minv='22.06' )
+    write_package( fileH, 'ROCM',                 'amd-mixed',                package_versions, minv='22.06' )
 
     write_package( fileH, 'ROCM',                 'rocm',                     package_versions )
 
@@ -150,9 +153,11 @@ def gen_CPE_VisibilityHookData( CPEpackages_dir, VisibilityHookData_dir, version
     write_package( fileH, 'gdb4hpc',              'gdb4hpc',                  package_versions )
     write_package( fileH, 'perftools',            'perftools-base',           package_versions )
     write_package( fileH, 'valgrind4hpc',         'valgrind4hpc',             package_versions )
+    write_package( fileH, 'sanitizers4hpc',       'sanitizers4hpc',           package_versions, minv='22.08' )
 
     write_package( fileH, 'MPICH',                'cray-mpich',               package_versions )
     write_package( fileH, 'MPICH',                'cray-mpich-abi',           package_versions )
+    write_package( fileH, 'mrnet',                'cray-mrnet',               package_versions )
     write_package( fileH, 'PMI',                  'cray-pmi',                 package_versions )
     write_package( fileH, 'PMI',                  'cray-pmi-lib',             package_versions, maxv='22.06' )
     write_package( fileH, 'OpenSHMEMX',           'cray-openshmemx',          package_versions )
@@ -182,9 +187,9 @@ def gen_CPE_VisibilityHookData( CPEpackages_dir, VisibilityHookData_dir, version
     write_package( fileH, 'cray-R',               'cray-R',                   package_versions )
     write_package( fileH, 'craype-dl-plugin-py3', 'craype-dl-plugin-py3',     package_versions )
 
-    # Grenoble-only?
-    write_package( fileH, 'PALS',                 'cray-pals',                package_versions )
-    write_package( fileH, 'PALS',                 'cray-libpals',             package_versions )
+    # Grenoble-only. Hide on LUMI
+    #write_package( fileH, 'PALS',                 'cray-pals',                package_versions )
+    #write_package( fileH, 'PALS',                 'cray-libpals',             package_versions )
 
     #
     # Close the file and terminate

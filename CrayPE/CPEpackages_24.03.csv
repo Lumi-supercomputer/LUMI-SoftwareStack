@@ -1,10 +1,11 @@
 Package,Version
 CCE,17.0.1
 MPICH,8.1.29
-MPIxlate,1.0.3
+MPIxlate,1.0.4
 DSMML,0.3.0
 PMI,6.1.14
 OpenSHMEMX,11.7.1
+mrnet,5.1.2
 ATOMS,1.1.6
 PALS,1.2.12
 ATP,3.15.3
@@ -29,7 +30,7 @@ cray-lmod,8.7.32
 modules,3.2.11.7
 HDF5,1.12.2.11
 NetCDF,4.9.0.11
-parallel-netcdf,1.12.3.9
+parallel-netcdf,1.12.3.11
 iobuf,2.0.10
 GCC,13.2
 cray-python,3.11.7
