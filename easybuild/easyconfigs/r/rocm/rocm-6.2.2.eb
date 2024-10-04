@@ -183,6 +183,8 @@ component_checksums = {
 }
 
 postinstall_script = """
+echo "gfx90a" > %(installdir)s/bin/target.lst
+
 pushd %(installdir)s/lib
 
 find . -maxdepth 1 -type f -name "*.so*" -exec sh -c '
