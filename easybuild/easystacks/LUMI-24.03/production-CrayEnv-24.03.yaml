@@ -17,5 +17,4 @@ easyconfigs:
   - parallel-20240522.eb
   - lumi-CrayPath-0.1.eb
   - rocm-6.2.2.eb
-#  - amd-5.6.1.eb
   
