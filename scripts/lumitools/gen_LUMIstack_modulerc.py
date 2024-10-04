@@ -1,5 +1,5 @@
 #
-# gen_CPE_modulerc( CPEpackages_dir, modulerc_file, version )
+# gen_LUMIstack_modulerc( CPEpackages_dir, modulerc_file, version )
 #
 # Input arguments
 #   * CPEpackages_dir : Directory with the CPE definitinon files (in .csv format)
@@ -134,7 +134,7 @@ def gen_LUMIstack_modulerc( CPEpackages_dir, modulerc_file, version_stack, versi
     write_package( fileH, 'cpe-prgenv',           'PrgEnv-cray',              package_versions )
     write_package( fileH, 'cpe-prgenv',           'PrgEnv-gnu',               package_versions )
     write_package( fileH, 'cpe-prgenv',           'PrgEnv-aocc',              package_versions )
-    write_package( fileH, 'cpe-prgenv',           'PrgEnv-amd',               package_versions )
+    write_package( fileH, 'cpe-prgenv',           'PrgEnv-amd',               package_versions, minv='22.08' )
     #write_package( fileH, 'cpe-prgenv',           'PrgEnv-intel',             package_versions )
     #write_package( fileH, 'cpe-prgenv',           'PrgEnv-nvidia',            package_versions )
     #write_package( fileH, 'cpe-prgenv',           'PrgEnv-nvhpc',             package_versions, minv='22.06' )
@@ -142,15 +142,17 @@ def gen_LUMIstack_modulerc( CPEpackages_dir, modulerc_file, version_stack, versi
     write_package( fileH, 'cpe-prgenv',           'PrgEnv-cray-amd',          package_versions, minv='22.08' )
 
     write_package( fileH, 'CCE',                  'cce',                      package_versions )
-    write_package( fileH, 'GCC',                  'gcc',                      package_versions )
+    write_package( fileH, 'GCC',                  'gcc',                      package_versions, maxv='23.11' )
+    write_package( fileH, 'GCC',                  'gcc-native',               package_versions, minv='23.12' )
     write_package( fileH, 'AOCC',                 'aocc',                     package_versions )
     write_package( fileH, 'ROCM',                 'amd',                      package_versions )
     #write_package( fileH, 'intel',                'intel',                    package_versions )
 
     write_package( fileH, 'CCE',                  'cce-mixed',                package_versions, minv='22.06' )
-    write_package( fileH, 'GCC',                  'gcc_mixed',                package_versions, minv='22.06' )
-    write_package( fileH, 'AOCC',                 'aocc_mixed',               package_versions, minv='22.06' )
-    write_package( fileH, 'ROCM',                 'amd_mixed',                package_versions, minv='22.06' )
+    write_package( fileH, 'GCC',                  'gcc-mixed',                package_versions, minv='22.06', maxv='23.11' )
+    write_package( fileH, 'GCC',                  'gcc-native-mixed',         package_versions, minv='23.12' )
+    write_package( fileH, 'AOCC',                 'aocc-mixed',               package_versions, minv='22.06' )
+    write_package( fileH, 'ROCM',                 'amd-mixed',                package_versions, minv='22.06' )
 
     write_package( fileH, 'ROCM',                 'rocm',                     package_versions )
 
@@ -160,9 +162,11 @@ def gen_LUMIstack_modulerc( CPEpackages_dir, modulerc_file, version_stack, versi
     write_package( fileH, 'gdb4hpc',              'gdb4hpc',                  package_versions )
     write_package( fileH, 'perftools',            'perftools-base',           package_versions )
     write_package( fileH, 'valgrind4hpc',         'valgrind4hpc',             package_versions )
+    write_package( fileH, 'sanitizers4hpc',       'sanitizers4hpc',           package_versions, minv='22.08' )
 
     write_package( fileH, 'MPICH',                'cray-mpich',               package_versions )
     write_package( fileH, 'MPICH',                'cray-mpich-abi',           package_versions )
+    write_package( fileH, 'mrnet',                'cray-mrnet',               package_versions )
     write_package( fileH, 'PMI',                  'cray-pmi',                 package_versions )
     write_package( fileH, 'PMI',                  'cray-pmi-lib',             package_versions, maxv='22.06' )
     write_package( fileH, 'OpenSHMEMX',           'cray-openshmemx',          package_versions )
