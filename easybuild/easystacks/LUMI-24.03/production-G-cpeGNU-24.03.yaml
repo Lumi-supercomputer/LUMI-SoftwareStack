@@ -11,8 +11,8 @@ easyconfigs:
   - giflib-5.2.1-cpeGNU-24.03.eb
   - GMP-6.3.0-cpeGNU-24.03.eb
   - googletest-1.14.0-cpeGNU-24.03.eb
-#  - GSL-2.7.1-cpeGNU-24.03-sequential.eb
-#  - GSL-2.7.1-cpeGNU-24.03-OpenMP.eb
+  - GSL-2.7.1-cpeGNU-24.03-sequential.eb
+  - GSL-2.7.1-cpeGNU-24.03-OpenMP.eb
   - gzip-1.13-cpeGNU-24.03.eb
   - ICU-74.1-cpeGNU-24.03.eb
   - libaec-1.0.6-cpeGNU-24.03.eb
