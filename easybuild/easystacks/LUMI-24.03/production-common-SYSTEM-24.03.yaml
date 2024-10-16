@@ -1,6 +1,7 @@
 easyconfigs:
   - buildtools-24.03-bootstrap.eb
   - syslibs-24.03-static.eb
+  - syslibs-24.03-static-ncurses-6.5.eb
   - buildtools-24.03.eb
   - buildtools-python-24.03-systemPython.eb
   - buildtools-python-24.03-cray-python3.11.eb
