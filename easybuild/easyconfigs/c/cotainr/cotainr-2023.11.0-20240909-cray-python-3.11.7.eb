@@ -1,4 +1,4 @@
-#DOC cotainr for CrayEnv with the ROCm system image updated to maintenance september 2024
+#DOC cotainr for LUMI/24.03 with the ROCm system image updated to maintenance september 2024
 easyblock = 'Tarball'
 
 local_craypython_version =  '3.11.7'
