@@ -1,18 +1,17 @@
-#DOC cotainr for LUMI/24.03 with the ROCm system image updated after the maintenance of September 2024
+#DOC cotainr update for CrayEnv optimised for the state of LUMI after the September 2024 system maintenance.
 easyblock = 'Tarball'
 
 local_craypython_version =  '3.11.7'
 
 name =          'cotainr'
-version =       '2023.11.0'
-versionsuffix = f'-20240909-cray-python-{local_craypython_version}'
+version =       '2024.10.0'
+versionsuffix = f'-cray-python-{local_craypython_version}'
 
 homepage = 'https://github.com/DeiC-HPC/container-builder'
 
 whatis = [
     'Description: cotainr is a tool that helps making Singularity/Apptainer containers.'
 ]
-
 description = """"
 cotainr is a tool that helps making Singularity/Apptainer containers.
 It runs entirely in user space, i.e. you don’t need root/sudo priviledges 
@@ -73,6 +72,7 @@ sanity_check_paths = {
 
 sanity_check_commands = [
     'cotainr --help',
+    'cotainr --version',
     'cotainr info',
 ]
 

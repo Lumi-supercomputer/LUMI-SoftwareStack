@@ -1,4 +1,4 @@
-#DOC cotainr for CrayEnv with the ROCm system image updated to maintenance september 2024
+#DOC cotainr for LUMI/24.03 with the ROCm system image updated after the maintenance of September 2024
 easyblock = 'Tarball'
 
 name =          'cotainr'

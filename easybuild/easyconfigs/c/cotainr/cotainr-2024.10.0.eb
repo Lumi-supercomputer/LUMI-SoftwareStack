@@ -1,4 +1,4 @@
-#DOC cotainr for CrayEnv with the ROCm system image updated to maintenance september 2024
+#DOC cotainr update for CrayEnv optimised for the state of LUMI after the September 2024 system maintenance.
 easyblock = 'Tarball'
 
 name =          'cotainr'
@@ -69,6 +69,7 @@ sanity_check_paths = {
 
 sanity_check_commands = [
     'cotainr --help',
+    'cotainr --version',
     'cotainr info',
 ]
 
