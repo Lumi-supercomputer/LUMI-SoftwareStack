@@ -1,4 +1,6 @@
 #DOC cotainr update for CrayEnv optimised for the state of LUMI after the September 2024 system maintenance.
+#DOC
+#DOC [Online documentation for this version of cotainr](https://cotainr.readthedocs.io/en/2024.10.0/)
 easyblock = 'Tarball'
 
 local_craypython_version =  '3.11.7'
@@ -37,7 +39,7 @@ The following base images are available:
 """
 
 docurls = [
-    'Web-based documentation on https://cotainr.readthedocs.io/en/latest/'
+    f'Web-based documentation on https://cotainr.readthedocs.io/en/{version}/'
 ]
 
 sources = [ {
