@@ -1,3 +1,6 @@
+#DOC This version is the first version that creates the same endpoints for rclone 
+#DOC as the tools in Open OnDemand or the web-based credential management service, i.e.,
+#DOC lumi-46YXXXXXX-private and lumi-46YXXXXXX-public.
 easyblock = 'MakeCp'
 
 local_lumi_conf_version = '1.0.0'
