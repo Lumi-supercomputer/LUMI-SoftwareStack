@@ -1,0 +1,95 @@
+easyblock = 'MakeCp'
+
+local_lumi_conf_version = '1.0.0'
+
+name =    'lumio'
+version = '2.0.0'
+
+homepage = 'https://github.com/Lumi-supercomputer/LUMI-O-tools'
+
+whatis = [ 
+    'Description: Basic tooling for LUMI-O. Provides the lumio-conf authentication script + rclone,s3cmd and restic' 
+]
+
+description = """
+This module provides the command "lumio-conf" to authenticate to LUMI-O.
+
+It also provides the tools rclone, s3cmd and restic for moving data to/from LUMI-O
+by loading a suitable lumio-ext-tools module. 
+""" 
+
+usage = """
+Authenticate to LUMI-O
+    lumio-conf     
+
+The script will prompt you for project information and authentication keys which can be 
+found from https://auth.lumidata.eu. If the keys expire (max duration for keys is 168h),
+rerun the command.
+
+By default it will create configuration files for rclone and s3cmd. However, with the
+--configure-only argument you can give a comma-separated list of tools to configure for.
+Choices are rclone, s3cmd, aws and boto3. Or you can use "all" to generate configs for
+all these tools.
+
+For rclone, two remotes are configured and stored in the regular rclone configuration
+file: lumi-46YXXXXXX-public and lumi-46YXXXXXX-private. Data pushed to 
+lumi-46YXXXXXX-private gets a private ACL, data pushed through lumi-46YXXXXXX-public
+a public one and that data is accessible through the URL
+https://<Project number>.lumidata.eu/<bucket_name>/<object>.
+
+For s3cmd, the configuration file is stored in the non-default file 
+~/.s3cfg-lumi-46YXXXXXX which you can select with the "-c" command line flag of
+s3cmd, and the default configuration file ~/.s3cfg is also overwritten with the same
+file.
+
+To use restic, set the repository to s3:https://lumidata.eu/ and assign then access and secret
+key to the environment variables AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY respectively 
+
+    export AWS_ACCESS_KEY_ID=<MY_ACCESS_KEY>
+    export AWS_SECRET_ACCESS_KEY=<MY_SECRET_ACCESS_KEY>
+    restic -r s3:https://lumidata.eu/<bucket> init
+
+https://lumidata.eu/ is also the s3 API endpoint for e.g raw API calls (not recommended)
+"""
+
+toolchain = SYSTEM
+
+dependencies =   [
+    ('lumio-ext-tools','1.0.0')
+]
+
+sources = [ 
+    { # Sources for the LICENSE file
+        'download_filename': f'v{local_lumi_conf_version}.tar.gz',
+        'filename':          f'lumio-conf-{local_lumi_conf_version}-sources.tar.gz',
+        'source_urls':       ['https://github.com/Lumi-supercomputer/LUMI-O-tools/archive/refs/tags/'],
+    },
+    { # https://github.com/Lumi-supercomputer/LUMI-O-tools/releases/download/v1.0.0/lumio-conf
+        'download_filename': 'lumio-conf',
+        'filename':          f'lumio-conf-{local_lumi_conf_version}',
+        'source_urls':       [f'https://github.com/Lumi-supercomputer/LUMI-O-tools/releases/download/v{local_lumi_conf_version}/'],
+        'extract_cmd':       f'cp %s LUMI-O-tools-{local_lumi_conf_version}/lumio-conf',    
+    }
+]
+
+skipsteps = ['build']
+
+files_to_copy = [
+    (['lumio-conf'], 'bin'),
+    (['LICENSE'],    'share/licenses/lumio'),
+]
+
+postinstallcmds = [
+    'chmod ugo+x %(installdir)s/bin/lumio-conf',
+]
+
+sanity_check_paths= {
+    'files': ['bin/lumio-conf'],
+    'dirs':  []
+}
+
+sanity_check_commands = [
+    'lumio-conf --help',
+]
+
+moduleclass='tools'
