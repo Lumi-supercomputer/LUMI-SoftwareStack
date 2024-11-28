@@ -53,8 +53,3 @@ A sample EasyConfig is provided in the
     image for `lumi-g` to rocm-6.0.3. The previous `lumi-g` and `lumi-g-classic` are
     removed due to lack of official support for the ROCm 5.x based environments.
     
-
-### Version 2024.10.0 for CrayEnv and corresponding version for LUMI/24.03
-
--   Trivial ports. This version has some bug fixes, but also updated documentation 
-    that fully reflects the state of LUMI after the September 2024 system update. 
