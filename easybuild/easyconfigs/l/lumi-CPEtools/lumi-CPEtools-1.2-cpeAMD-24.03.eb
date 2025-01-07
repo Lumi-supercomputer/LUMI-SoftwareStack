@@ -82,7 +82,7 @@ components = [
                            'filename':          'lumi-CPEtools-%(version)s.tar.gz',
                            'source_urls':       ['https://github.com/Lumi-supercomputer/%(name)s/archive/refs/tags']
                          }],
-        'checksums':     [{ f'lumi-CPEtools-{version}.tar.gz': 'a33bea1420a43fd7da7510ad80fb1c33a6a69501a34e86650d50679acdb0f8a3' }],
+        'checksums':     [{ f'lumi-CPEtools-{version}.tar.gz': '89e1a01d9ecd30da53c70d866aa4a2d60853e16b2cc2da4b23589742f8d84e86' }],
         'start_dir':     '%(name)s-%(version)s',
         'prebuildopts':  'cd src && unset LIBRARY_PATH && ', # Cannot do the directory change via start_dir as otherwise the bin etc directories are not found in the copy step. 
         'buildopts':     local_CPEtools_buildopts,
