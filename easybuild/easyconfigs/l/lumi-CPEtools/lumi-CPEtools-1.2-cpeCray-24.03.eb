@@ -18,8 +18,8 @@ applications of various types and with core affinity and to show which Cray PE
 libraries are used by an executable. It may be enhanced with additional 
 features in the future.
 
-Sources can be accessed after loading the module in the directory
-$EBROOTLUMIMINCPETOOLS/src.
+Sources for all but hpcat can be accessed after loading the module in the 
+directory $EBROOTLUMIMINCPETOOLS/src.
 """
 
 docurls = [
@@ -86,7 +86,7 @@ components = [
         'start_dir':     '%(name)s-%(version)s',
         'prebuildopts':  'cd src && ', # Cannot do this via start_dir as otherwise the bin etc directories are not found in the copy step. 
         'buildopts':     local_CPEtools_buildopts,
-        'files_to_copy': [ 'bin', 'man', 'src', 'README.md' ],
+        'files_to_copy': [ 'bin', 'man', 'src', 'README.md', (['LICENSE'], 'share/licenses/lumi-CPEtools') ],
         }),    
     ( 'hpcat', local_hpcat_version, {
         'sources':       [{ # HPCAT 0.4: https://github.com/HewlettPackard/hpcat/archive/refs/tags/v0.4.tar.gz
@@ -121,7 +121,7 @@ local_exe = [ 'serial_check', 'omp_check', 'mpi_check', 'hybrid_check', 'xldd', 
 if local_partition == 'G': 
     local_exe += [ 'gpu_check', 'hpcat.so' ]
 
-local_files = [ 'share/licenses/hpcat/LICENSE' ]
+local_files = [ 'share/licenses/lumi-CPEtools/LICENSE', 'share/licenses/hpcat/LICENSE' ]
 if local_partition == 'G':
     local_files += [ 'lib/hpcathip.so' ]
 
