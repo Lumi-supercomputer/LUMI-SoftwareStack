@@ -4,6 +4,8 @@ lumi-CPEtools is developed by the LUST team.
 
 -   [lumi-CPEtools on GitHub](https://github.com/Lumi-supercomputer/lumi-CPEtools)
 
+-   The [hpcat utility from HPE](https://github.com/HewlettPackard/hpcat) on GitHub
+
 
 ## EasyBuild
 
