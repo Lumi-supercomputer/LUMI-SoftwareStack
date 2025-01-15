@@ -106,6 +106,7 @@ easyconfigs:
   - SuiteSparse-5.13.0-cpeCray-24.03-OpenMP.eb
 # Some apps
   - lumi-CPEtools-1.1-cpeCray-24.03.eb
+  - lumi-CPEtools-1.2-cpeCray-24.03.eb
 #  - VampirServer
 #  - Score-P
 #

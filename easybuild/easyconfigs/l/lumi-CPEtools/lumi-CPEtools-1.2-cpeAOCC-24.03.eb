@@ -1,0 +1,145 @@
+easyblock = 'Bundle'
+
+local_CPEtools_version = '1.2'
+local_hpcat_version =    '0.4'
+
+name =    'lumi-CPEtools'
+version = local_CPEtools_version
+
+homepage = 'https://www.lumi-supercomputer.eu'
+
+whatis = [
+    'Description: Various programs to experiment with starting processes and core affinity and analyse executables.',
+]
+
+description = """
+The LUMI-CPEtools module provides various programs to experiment with starting
+applications of various types and with core affinity and to show which Cray PE
+libraries are used by an executable. It may be enhanced with additional 
+features in the future.
+
+Sources for all but hpcat can be accessed after loading the module in the 
+directory $EBROOTLUMIMINCPETOOLS/src.
+"""
+
+docurls = [
+    "Man pages, start with man lumi-CPEtools",
+]
+
+toolchain = {'name': 'cpeAOCC', 'version': '24.03'}
+# Note: The Makefile is designed to work with the compiler variables as defined
+# when usempi and openmp are both false, as the module contains code with and
+# without MPI or OpenMP support, though it would probably still work if these
+# are set to true as usually it does no harm to compile with the MPI wrappers
+# or OpenMP options enabled even if the sources don't use these.
+toolchainopts = {'usempi': False,'openmp': False}
+
+builddependencies = [
+    ('buildtools', '%(toolchain_version)s', '', SYSTEM), # For make
+]
+
+import os as local_os
+local_partition = local_os.getenv('LUMI_STACK_PARTITION')
+
+start_dir = 'src'
+
+#
+# Options for lumi-CPEtools
+#
+local_CPEtools_buildopts  = 'CC=cc MPICC=cc CFLAGS="-O2" OMPFLAG="-fopenmp" CXX=CC MPICXX=CC CXXFLAGS="-O2" '
+local_CPEtools_buildopts += 'DEFINES="-D_GNU_SOURCE=" ROCMDEFINES="-D__HIP_PLATFORM_AMD__" '
+local_CPEtools_buildopts += 'LIBS="" ROCMLIBS="-L${ROCM_PATH}/lib -lamdhip64" '
+
+if local_partition == 'G':
+    local_CPEtools_buildopts += 'exe_cpu exe_gpu'
+else:
+    local_CPEtools_buildopts += 'exe_cpu'
+
+#
+# Options for hpcat
+#   
+local_hpcat_prebuildopts  = 'sed -i -e \'s|-O3|$(CFLAGS)|\' -e \'s|mpicc|$(CC)|\' -e \'s|gcc|$(CC)|\' Makefile && '
+local_hpcat_prebuildopts += 'sed -i -e \'s|-lhwloc|-Wl,/usr/lib64/libhwloc.so.15|\' -e \'s|-L. ||\' Makefile && '
+if local_partition == 'G':
+    local_hpcat_prebuildopts += 'module unload craype-accel-amd-gfx90a && '
+
+if local_partition == 'G':
+    local_hpcat_buildopts = 'all amd'
+else:
+    local_hpcat_buildopts = 'all'
+
+local_hpcat_files_to_copy = [ (['hpcat'], 'bin'), (['LICENSE'], 'share/licenses/hpcat') ]
+if local_partition == 'G': 
+    local_hpcat_files_to_copy += [ (['hpcathip.so'], 'lib') ]
+
+
+default_easyblock = 'MakeCp'
+
+components = [ 
+    ('lumi-CPEtools', local_CPEtools_version, { 
+        'sources':       [{ # https://github.com/Lumi-supercomputer/lumi-CPEtools/archive/refs/tags/1.2.tar.gz
+                           'download_filename': '%(version)s.tar.gz',
+                           'filename':          'lumi-CPEtools-%(version)s.tar.gz',
+                           'source_urls':       ['https://github.com/Lumi-supercomputer/%(name)s/archive/refs/tags']
+                         }],
+        'checksums':     [{ f'lumi-CPEtools-{version}.tar.gz': '89e1a01d9ecd30da53c70d866aa4a2d60853e16b2cc2da4b23589742f8d84e86' }],
+        'start_dir':     '%(name)s-%(version)s',
+        'prebuildopts':  'cd src && ', # Cannot do this via start_dir as otherwise the bin etc directories are not found in the copy step. 
+        'buildopts':     local_CPEtools_buildopts,
+        'files_to_copy': [ 'bin', 'man', 'src', 'README.md', (['LICENSE'], 'share/licenses/lumi-CPEtools') ],
+        }),    
+    ( 'hpcat', local_hpcat_version, {
+        'sources':       [{ # HPCAT 0.4: https://github.com/HewlettPackard/hpcat/archive/refs/tags/v0.4.tar.gz
+                           'download_filename': 'v%(version)s.tar.gz',
+                           'filename':          '%(name)s-%(version)s.tar.gz',
+                           'source_urls':       ['https://github.com/HewlettPackard/hpcat/archive/refs/tags']
+                         },{ # Missing header files for hwloc from https://lumidata.eu/462000008:missing-libraries-headers/hwloc-devel-15SP5.tar.bz2
+                             'filename':    'hwloc-devel-15SP5.tar.bz2',
+                             'source_urls': ['https://lumidata.eu/462000008:missing-libraries-headers'],
+                             'extract_cmd': 'cd %(name)s-%(version)s && tar xvf %s',
+                         }],
+        'checksums':     [
+                           { f'hpcat-{local_hpcat_version}.tar.gz': 'dfad8649a5cc75c07deabbd5682b22fe0fdd650de14b382cccc5244a27b439ab' },
+                           { 'hwloc-devel-15SP5.tar.bz2':           '3ca23fcaca9ba05e44e6816076230f356e658648b7e1747241f4bd3632011582' }
+                         ],
+        'start_dir':     '%(name)s-%(version)s',
+        'prebuildopts':  local_hpcat_prebuildopts, 
+        'buildopts':     local_hpcat_buildopts,
+        'files_to_copy': local_hpcat_files_to_copy,
+        })
+]
+
+if local_partition == 'G': 
+    # Postinstall for hpcat
+    postinstallcmds = [ 'cd %(installdir)s/bin && ln -s %(installdir)s/lib/hpcathip.so' ]
+    
+#
+# Sanity checks
+#
+
+local_exe = [ 'serial_check', 'omp_check', 'mpi_check', 'hybrid_check', 'xldd', 'hpcat' ] 
+if local_partition == 'G': 
+    local_exe += [ 'gpu_check', 'hpcat.so' ]
+
+local_files = [ 'share/licenses/lumi-CPEtools/LICENSE', 'share/licenses/hpcat/LICENSE' ]
+if local_partition == 'G':
+    local_files += [ 'lib/hpcathip.so' ]
+
+sanity_check_paths = {
+    'files': [ 'bin/%s' % x for x in [ 'serial_check', 'omp_check', 'mpi_check', 'hybrid_check', 'xldd' ] ] +
+             local_files,
+    'dirs':  [ 'man/man1', 'src' ]
+}
+
+sanity_check_commands = [
+    'xldd --help',
+    'serial_check',
+    'OMP_NUM_THREADS=4 omp_check',
+    'mpi_check',
+    'OMP_NUM_THREADS=4 hybrid_check',
+    'hpcat --version',
+]
+if local_partition == 'G': 
+    sanity_check_commands += [ 'gpu_check -h' ]
+
+moduleclass = 'devel'
