@@ -32,9 +32,13 @@ The version of the Cray PE on which this stack is based, was meant to be used
 with ROCm 5.7 instead of 6.0 and full compatibility with the current system
 is not guaranteed.
 
+rocm/6.[1-2].*singularity.*:
+These containers should be fine with the ROCm driver on LUMI, but interfacing
+with the Cray PE outside the container may not alsways work as expected.
+
 rocm/5.[6-7].*singularity.*:
 These containers should be fine with the ROCm driver on LUMI, but interfacing
-with the Cray PE outside the container may not work as expected.
+with the Cray PE outside the container may not alsways work as expected.
 
 rocm/5.[4-5].*singularity.*:
 The ROCm version in these containers is not supported by the ROCm driver on LUMI,
@@ -94,7 +98,14 @@ when offered through the LUMI Software Library, are offered as a convenience but
 without guarantee that the LUMI User Support Team can fix all problems with them
 due to the mismatch between ROCM driver and libraries versions.
 
-.*/.*%-rocm%-5.[5-7].*%-singularity%-.*:
+.*/.*%-rocm%-5.[6-7].*%-singularity%-.*:
+Though this container is based on a version of ROCm that is officially supported
+by the ROCm driver on the system, we cannot exclude that there will be problems
+when, e.g., the container integrates with the Cray PE as it may be trying to
+link to libraries that were meant to be used with a different version of ROCm.
+In particular, we expect that mpi4py may produce warnings.
+
+.*/.*%-rocm%-6.[1-2].*%-singularity%-.*:
 Though this container is based on a version of ROCm that is officially supported
 by the ROCm driver on the system, we cannot exclude that there will be problems
 when, e.g., the container integrates with the Cray PE as it may be trying to
