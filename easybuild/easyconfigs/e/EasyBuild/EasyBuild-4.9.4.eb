@@ -1,0 +1,142 @@
+easyblock = 'EB_EasyBuildMetaLUMI'
+
+name =    'EasyBuild'
+version = '4.9.4'
+
+homepage = 'https://easybuilders.github.io/easybuild'
+
+whatis = [
+    "Description: EasyBuild is a software build and installation framework written in Python that allows you to install software in a structured, repeatable and robust way."
+]
+
+description = """
+EasyBuild is a software build and installation framework
+written in Python that allows you to install software in a structured,
+repeatable and robust way.
+"""
+
+usage = """
+See the documentation on readthedocs. Only the documentation of the latest
+version is readily available.
+
+The EasyBuild module on LUMI should be used through the EasyBuild-user or
+EasyBuild-production modules. These modules ensure that EasyBuild is properly
+configured to install software on LUMI.
+  * Installing software that is common to all partitions: First load the
+    appropriate LUMI software stack module and the hidden partition/common module
+    and then load either EasyBuild-user or EasyBuild-production (the latter for
+    system managers only) module.
+  * Installing software for a specific partition works in the same way, but then
+    by loading the appropriate partition module. It is best to compile software on
+    a node of that partition as cross-compiling may not always work as some packages
+    have the nasty habit to add compiler options that conflict with the requirements
+    of cross-compiling.
+"""
+
+docurls = [
+    "Web-based documentation on https://easybuild.readthedocs.io/"
+]
+
+toolchain = SYSTEM
+
+source_urls = [
+    # easybuild-framework
+    'https://files.pythonhosted.org/packages/bd/25/512d9e895a86f4df198274e8a5f6868406d97cc75da9acc5797f78139b52/',
+    # easybuild-easyblocks
+    'https://files.pythonhosted.org/packages/d7/b0/b9289c78fafc21c5c01b225aeee89c69914166742e5f80955d49ed8f9722/',
+    # easybuild-easyconfigs
+    'https://files.pythonhosted.org/packages/ed/2c/7b2b22235ffe9310a93cbfef06fb3723466aa8ccc4aca4888b59433e55a6/',
+]
+
+# note: subdirectory for each unpacked source tarball is renamed because custom easyblock in older EasyBuild version
+# that is used for installing EasyBuild with EasyBuild expects subdirectories with '-' rather than '_';
+# see also https://github.com/easybuilders/easybuild-easyblocks/pull/3358
+sources = [
+    {
+        'filename': 'easybuild_framework-%(version)s.tar.gz',
+        'extract_cmd': "tar xfvz %s && mv easybuild_framework-%(version)s easybuild-framework-%(version)s",
+    },
+    {
+        'filename': 'easybuild_easyblocks-%(version)s.tar.gz',
+        'extract_cmd': "tar xfvz %s && mv easybuild_easyblocks-%(version)s easybuild-easyblocks-%(version)s",
+    },
+    {
+        'filename': 'easybuild_easyconfigs-%(version)s.tar.gz',
+        'extract_cmd': "tar xfvz %s && mv easybuild_easyconfigs-%(version)s easybuild-easyconfigs-%(version)s",
+    },
+]
+
+patches = [
+    'EasyBuild-4.9.4_keyring_DBus.patch',
+    'EasyBuild-4.9.4_fix-riscv-toolchain-opts-typo.patch'
+]
+
+checksums = [
+    {'easybuild_framework-4.9.4.tar.gz':   '5b380a2e3a359f64f06789c390200b922a840f6b10b441e5163696a34bd9bc27'},
+    {'easybuild_easyblocks-4.9.4.tar.gz':  '1272f1e294090caafde8cbda72ae344ef400fdd161163781f67b3cffe761dd62'},
+    {'easybuild_easyconfigs-4.9.4.tar.gz': 'beee4e098f5fee18f2029d6a0b893549aba26e075b147cc0008cb16fd4c8d982'},
+    {'EasyBuild-4.9.4_keyring_DBus.patch': 'c03ed4c3a46d1854b9ea4b6070c7d4f48917bb84d2345ff9e34e4f253dc5ebfa'},
+    {'EasyBuild-4.9.4_fix-riscv-toolchain-opts-typo.patch': '602d9abfdd90f435bdc877b1d2710a17ae577c790914e7bf61428dc7073ad1b6'},
+]
+
+# order matters a lot, to avoid having dependencies auto-resolved (--no-deps easy_install option doesn't work?)
+# EasyBuild is a (set of) Python packages, so it depends on Python
+# usually, we want to use the system Python, so no actual Python dependency is listed
+allow_system_deps = [('Python', SYS_PYTHON_VERSION)]
+
+local_pyshortver = '.'.join(SYS_PYTHON_VERSION.split('.')[:2])
+
+exts_defaultclass = 'PythonPackage'
+exts_filter = (f"/usr/bin/python{local_pyshortver} -c 'import %(ext_name)s'", '')
+exts_default_options = {
+    'download_dep_fail': True,
+    'sanity_pip_check':  False,
+    'source_urls':       [PYPI_SOURCE],
+    'use_pip':           False,
+}
+
+exts_list = [
+    ('click',             '7.1.2',    {}), # archspec 0.1.3 is incompatible with more recent versions of click
+    ('archspec',          '0.1.3',    {}),
+    ('colorama',          '0.4.4',    {}),
+    ('commonmark',        '0.9.1',    {}),
+    ('dataclasses',       '0.8',      {}),
+    ('Pygments',          '2.11.2',   {}),
+    ('typing_extensions', '3.10.0.2', {}), # The 4.0.x versions did not install, maybe due to the lack of pip?
+    ('rich',              '11.2.0',   {}),
+    # Trying to install PyYAML but it installs in the wrong directory. Tests pass but 
+    # when you try to use it afterwards, Python fails to find it.
+    ('PyYAML',            '5.4.1',    {'modulename': 'yaml'}), # Needed for easystack support in containers that do not yet provide the package.
+]
+
+postinstallcmds = [ # Robustify a number of commands.
+    f'sed -i -e \'s|bin/python3|bin/python{local_pyshortver} -E|\' -e \'s|import sys|import sys\\nsys.path.append("%(installdir)s/lib/python{local_pyshortver}/site-packages")|\' %(installdir)s/bin/archspec',
+    f'sed -i -e \'s|bin/python3|bin/python{local_pyshortver} -E|\' -e \'s|import sys|import sys\\nsys.path.append("%(installdir)s/lib/python{local_pyshortver}/site-packages")|\' %(installdir)s/bin/cmark',
+    f'sed -i -e \'s|bin/python3|bin/python{local_pyshortver} -E|\' -e \'s|import sys|import sys\\nsys.path.append("%(installdir)s/lib/python{local_pyshortver}/site-packages")|\' %(installdir)s/bin/pygmentize',
+    f'sed -i -e \'s|^PYTHON=.*|export PYTHONPATH="%(installdir)s/lib/python{local_pyshortver}/site-packages:%(installdir)s/lib64/python{local_pyshortver}/site-packages"\\nPYTHON=|\' -e \'s|for python_cmd in|for python_cmd in "/usr/bin/python{local_pyshortver}"|\' %(installdir)s/bin/eb',
+]
+
+sanity_check_paths = {
+    'files': ['bin/eb'],
+    'dirs':  [f'lib/python{local_pyshortver}/site-packages'],
+}
+
+sanity_check_commands = [
+    'unset PYTHONPATH && archspec --version',
+    'unset PYTHONPATH && cmark -h',
+    'unset PYTHONPATH && pygmentize -V',
+    'unset PYTHONPATH && eb --version',
+]
+
+# Set Python 3 for EasyBuild: Not needed as we hard-coded it.
+#modextravars = {
+#    'EB_PYTHON': f'/usr/bin/python{local_pyshortver}',
+#}
+
+moduleclass = 'tools'
+
+#modluafooter= f"""
+#if not ( isloaded("EasyBuild-tools/{local_LUMI_version}") ) then
+#    try_load("EasyBuild-tools/{local_LUMI_version}")
+#end
+#"""
