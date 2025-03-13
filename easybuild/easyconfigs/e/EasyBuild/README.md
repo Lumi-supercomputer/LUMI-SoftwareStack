@@ -97,3 +97,13 @@
 -   The module however still sets `PYTHONPATH` as (1) this is difficult to turn off, it is 
     one of those variables generated automatically by EasyBuild if it finds a certain directory,
     and (2) it is still needed when using EasyBuild as a library.
+
+    
+### Version 4.9.4 for LUMI/24.11
+
+-   Trivial port of the 4.9.2 EasyConfig.
+
+-   The patch for LibSci was not needed anymore, and the one for keyring has been modified 
+    a bit.
+
+    
