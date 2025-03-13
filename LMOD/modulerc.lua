@@ -31,10 +31,12 @@ if os.getenv( 'LUMI_LMOD_POWERUSER' ) == nil then
     hide_version( 'cpe-cuda/23.09' )
     hide_version( 'cpe-cuda/23.12' )
     hide_version( 'cpe-cuda/24.03' )
+    hide_version( 'cpe-cuda/24.11' )
     hide_version( 'PrgEnv-nvhpc/8.3.3' )
     hide_version( 'PrgEnv-nvidia/8.3.3' )
     hide_version( 'PrgEnv-nvhpc/8.4.0' )
     hide_version( 'PrgEnv-nvidia/8.4.0' )
+    hide_version( 'PrgEnv-nvidia/8.6.0' )
     -- Tool modules in CrayEnv and LUMI that should be hidden from unexperienced users
     hide_version( 'buildtools/22.08-minimal' )
     hide_version( 'buildtools/22.12-bootstrap' )
@@ -42,6 +44,7 @@ if os.getenv( 'LUMI_LMOD_POWERUSER' ) == nil then
     hide_version( 'buildtools/23.09-bootstrap' )
     hide_version( 'buildtools/23.12-bootstrap' )
     hide_version( 'buildtools/24.03-bootstrap' )
+    hide_version( 'buildtools/24.11-bootstrap' )
     -- Some cpe* modules for which we have no software yet
     hide_version( 'cpeGNU/23.03' )
     hide_version( 'cpeAOCC/23.03' )
@@ -56,6 +59,7 @@ if os.getenv( 'LUMI_STACK_NAME' ) ~= nil then
     hide_modulefile( '/opt/cray/pe/lmod/modulefiles/core/cpe/23.09.lua' )
     hide_modulefile( '/opt/cray/pe/lmod/modulefiles/core/cpe/23.12.lua' )
     hide_modulefile( '/opt/cray/pe/lmod/modulefiles/core/cpe/24.03.lua' )
+    hide_modulefile( '/opt/cray/pe/lmod/modulefiles/core/cpe/24.11.lua' )
 end
 
 -- Solve a problem for users who were previously using ROCm 5.0.2
@@ -91,5 +95,6 @@ module_version( 'cray-mpich/8.1.27', '8.1.18' )
 module_version( 'cray-mpich/8.1.27', '8.1.23' )
 -- cpe/23.03: to cray-mpich from cpe/23.09
 module_version( 'cray-mpich/8.1.27', '8.1.25' )
+
 
 
