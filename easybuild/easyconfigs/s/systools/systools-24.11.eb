@@ -13,7 +13,7 @@ whatis = [
 ]
 
 local_systools_GPP_version =          '2.28'
-local_systools_htop_version =         '3.4.0'
+local_systools_htop_version =         '3.3.0'
 local_systools_libtree_version =      '3.1.1'
 local_systools_tree_version =         '2.2.1'        # https://gitlab.com/OldManProgrammer/unix-tree/-/tags
 local_systools_PRoot_version =        '5.4.0'        # https://github.com/proot-me/proot/releases
@@ -74,9 +74,9 @@ docurls = [
 
 toolchain = SYSTEM
 
-dependencies = [
+builddependencies = [
     ('buildtools', local_LUMI_version),
-    ('syslibs',    local_LUMI_version, '-static-ncurses-6.5'), # for libreadline
+    ('syslibs',    local_LUMI_version, '-static'), # for libreadline
 ]
 
 
@@ -128,7 +128,7 @@ components = [
                             'filename':    'unix-tree-%(version)s.tgz',
                             'source_urls': ['https://gitlab.com/OldManProgrammer/unix-tree/-/archive/%(version)s']
                          }],
-        'checksums':     ['bcd2a0327ad40592a9c43e09a4d2ef834e6f17aa9a59012a5fb1007950b5eced'],
+        'checksums':     ['70d9c6fc7c5f4cb1f7560b43e2785194594b9b8f6855ab53376f6bd88667ee04'],
         'start_dir':     'unix-tree-%(version)s',
         'buildopts':     'CC="gcc" CFLAGS="-O2 -march=znver1 -ggdb -pedantic -Wall -DLINUX -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64"',
         'files_to_copy': [(['tree'], 'bin'), (['doc/tree.1'], 'share/man/man1'), (['LICENSE'], 'share/licenses/%(name)s')]
