@@ -107,4 +107,9 @@ The current content is
     
 -   Did have to change the download location for the `tree` command though which also 
     led to a slightly different build process.
-  
+ 
+ 
+ ### 24.11
+ 
+-   We did not bump the version of `htop` as 3.4.0 gave segmentation violations.
+
