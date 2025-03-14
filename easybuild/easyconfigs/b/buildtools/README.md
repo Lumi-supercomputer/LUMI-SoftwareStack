@@ -134,3 +134,8 @@ Not included at the moment:
   * Total refresh of 23.12, except for those packages where newer versions offer compile problems
     with the current system compiler on LUM<I.
 
+
+### 24.11
+
+  * Trivial port of the 24.03 EasyConfig with just a lot of version updates.
+
