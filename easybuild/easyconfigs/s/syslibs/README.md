@@ -91,3 +91,10 @@ use.
 
   * Stuck to ncurses 6.4 as 6.5 didn't generate the regular ncurses library anymore and
     compiling readline 8.2 hence failed.
+    
+    
+### 24.09
+
+  * A fairly trivial update of 24.03, now with ncurses 6.5 which we also used in a later version
+    of the 24.03 module and was needed for `htop`.
+
