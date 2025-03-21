@@ -1,5 +1,26 @@
+-- -----------------------------------------------------------------------------
+--
+-- Initialisations
+--
+
 family( 'LUMI_SoftwareStack' )
 add_property("lmod","sticky")
+
+-- Detect the directory of LMOD configuration files from LMOD_PACKAGE_PATH
+-- as that variable has to be set anyway for the LUMI module system to work
+-- as we rely on SitePackage.lua, and this file does rely on the
+-- detect_LUMI_partition function defined in SitePackage.lua.
+-- NOTE: Change this code if the LMOD configuration would be stored elsewhere!
+local LMOD_root = os.getenv( 'LMOD_PACKAGE_PATH' )
+if LMOD_root == nil then
+    LmodError( 'Failed to get the value of LMOD_PACKAGE_PATH' )
+end
+
+
+-- -----------------------------------------------------------------------------
+--
+-- Help information
+--
 
 whatis( 'CrayEnv restores the typical Cray Environment rather than using one of the LUMI software stacks.' )
 
@@ -18,6 +39,15 @@ The environment is not yet fully functional as it relies on a module restore
 to load a particular PrgEnv and Lmod does not support the format used by
 the TCL Environment Modules implementation to store those environments.
 ]==] )
+
+
+
+-- -------------------------------------------------------------------------
+--
+-- Enable CrayEnv_modulerc.lua
+--
+prepend_path( 'LMOD_MODULERCFILE', pathJoin( LMOD_root, 'CrayEnv_modulerc.lua' ) )
+
 
 -- -------------------------------------------------------------------------
 --
