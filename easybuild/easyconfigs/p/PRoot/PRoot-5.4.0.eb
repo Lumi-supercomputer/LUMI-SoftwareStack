@@ -1,0 +1,101 @@
+# Developed by Kurt Lust (kurt.lust@uantwerpen.be) for use by the LUMI consortium
+#
+#DOC This easyconfig is meant to be installed in the central software stack in
+#DOC `partition/container` to make it possible to do a container build from EasyBuild
+#DOC while still storing the container in `partition/container`. It has minimal build
+#DOC dependencies, using only the system gcc and system make, as that is all what is
+#DOC available in `partition/container`.
+#
+easyblock = 'Bundle'
+
+import os as local_os
+
+# The first line below is a dirty trick not very much loved by the EasyBuild developers but
+# it helps to make this EasyConfig independent of the LUMI software stack version as there is
+# no other reference to that version in the file that we can use since it relies on the
+# SYSTEM toolchain.
+local_LUMI_version = local_os.environ['LUMI_STACK_CPE_VERSION']
+
+local_PRoot_version =             '5.4.0'         #  https://github.com/proot-me/proot/releases
+local_syslibs_talloc_version =       '2.4.3'         # https://www.samba.org/ftp/talloc/
+
+name =    'PRoot'
+version = local_PRoot_version
+
+homepage = 'https://proot-me.github.io/'
+
+whatis = [
+    'Description: PRoot is a user-space implementation of chroot, mount --bind, and binfmt_misc.'
+]
+
+description = """
+PRoot is a user-space implementation of chroot, mount --bind, and 
+binfmt_misc. This means that users don't need any privileges or setup to do 
+things like using an arbitrary directory as the new root filesystem, making 
+files accessible somewhere else in the filesystem hierarchy, or executing 
+programs built for another CPU architecture transparently through QEMU 
+user-mode.
+
+It is provided in this module mainly for use with singularity, and in 
+particular, to be able to develop EasyConfig files that use the unprivileged
+proot build process to modify an existing container and then create a
+matching module to ease the use of the container.
+"""
+
+toolchain = SYSTEM
+
+builddependencies = [
+    #('buildtools', local_LUMI_version), # Want to build in partition/container where we cannot use buildtools.
+]
+
+default_easyblock = 'ConfigureMake'
+
+components = [
+    ('talloc', local_syslibs_talloc_version, {
+        'easyblock':   'ConfigureMake',
+        # https://www.sqlite.org/2022/sqlite-autoconf-3370200.tar.gz
+        'sources':       [SOURCELOWER_TAR_GZ],
+        'source_urls':   ['https://www.samba.org/ftp/talloc'],
+        'checksums':     ['dc46c40b9f46bb34dd97fe41f548b0e8b247b77a918576733c528e83abd854dd'],
+        'start_dir':     '%(namelower)s-%(version)s',
+        'preconfigopts': 'CC="gcc" CFLAGS="-O2 -march=znver1" ',
+        'configopts':    '--disable-python --disable-rpath',
+        'installopts':   ' && cd %(builddir)s/talloc-%(version)s/bin/default ' +
+                         ' && /usr/bin/ar rcs %(installdir)s/lib/libtalloc.a talloc.c.*.o ' +
+                         ' && /bin/rm %(installdir)s/lib/libtalloc.so*',
+    }),
+    ('PRoot', local_PRoot_version, {
+        'easyblock':    'ConfigureMake',
+        # Source code https://github.com/proot-me/proot/archive/refs/tags/v5.4.0.zip
+        'sources':      [ {
+                           'download_filename': 'v%(version)s.zip',
+                           'filename':          SOURCELOWER_ZIP,
+                           'source_urls':       ['https://github.com/proot-me/proot/archive/refs/tags']
+                        } ],
+        'checksums':    ['8812f3a6c224bdd6a316f13689377e7543e7e3cebcdef6ec98827abee60fa327'],
+        'start_dir':    '%(namelower)s-%(version)s/src',
+        'skipsteps':    [ 'configure' ],
+        'prebuildopts': 'sed -e "s/.*GIT_.*//" -i GNUmakefile && ' +
+                        'PKG_CONFIG_PATH="%(installdir)s/lib/pkgconfig" ',
+        'buildopts':    'proot V=1 CC="gcc" CFLAGS="-O2 -march=znver1" VERSION="%(version)s"',
+        'installopts':  'V=1 PREFIX="%(installdir)s" ' +
+                        '&& mkdir -p %(installdir)s/share/licenses/PRoot && cd .. && cp AUTHORS CHANGELOG.rst COPYING README.rst %(installdir)s/share/licenses/PRoot',
+    })
+]
+
+# Remove talloc as we don't need it anymore; it is statically linked into proot.
+postinstallcmds = [
+    '/bin/rm -r %(installdir)s/lib %(installdir)s/include'
+]
+
+
+sanity_check_paths = {
+    'files': [ 'bin/proot', 'share/licenses/PRoot/COPYING' ],
+    'dirs':  [ ]
+}
+
+sanity_check_commands = [
+    'proot --version'
+]
+
+moduleclass = 'tools'
