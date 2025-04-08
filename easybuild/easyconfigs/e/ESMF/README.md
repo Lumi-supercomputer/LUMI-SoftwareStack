@@ -59,3 +59,22 @@ Note that ESMF uses a custom EasyBlock which needs adaptations for Cray systems.
     (as it caused a problem) so there may be some support for GPU acceleration.
     
     The cpeCray version does not yet build on LUMI-G.
+
+  * Later on, we added an MPI version with heavily reworked EasyBlock that can still
+    compile the older versions.
+
+      * PIO was requested by a user but is still missing
+      
+      * Note that the OS should be Unicos rather than Linux to enable the automatic 
+        configuration of the compilers. The autodetect does this right, but be careful
+        not to overwrite.
+        
+      * Somehow the behaviour for ESMF_OPTLEVEL changed with the updated EasyBlock, 
+        but it is not clear why. We solved this by adding a parameter to set the optimisation
+        level (and set it to 2 which is what the code did automatically before).
+        
+      * Also changed the easyblock to honour `preconfigopts`. `prebuildops` was honoured,
+        but `preconfigopts` not and that lead to misleading information from `make info`
+        which is what happens during the configure phase.
+
+      

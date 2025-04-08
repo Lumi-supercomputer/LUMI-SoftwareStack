@@ -40,6 +40,7 @@ checksums = [
 ]
 
 mpicomm = 'mpiuni'
+optlevel = '2'   # Has to be a string
 
 builddependencies = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
