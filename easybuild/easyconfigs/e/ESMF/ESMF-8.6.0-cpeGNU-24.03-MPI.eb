@@ -17,7 +17,10 @@ whatis = [
 description = """
 The Earth System Modeling Framework (ESMF) is software for building and coupling weather,
 climate, and related models.
- """
+
+This module provides the parallel (MPI) version. PIO support is disabled as it didn't
+compile properly.
+"""
 
 software_license_urls = [
     f'https://github.com/esmf-org/esmf/blob/v{version}/LICENSE',
@@ -46,8 +49,8 @@ optlevel = '2'   # Has to be a string
 
 # Check when compiling a new version if this is still needed.
 # It was done to work around issues with recent versions of gfortran.
-preconfigopts = 'ESMF_F90COMPILEOPTS="$F90FLAGS" '
-prebuildopts  = 'ESMF_F90COMPILEOPTS="$F90FLAGS" '
+preconfigopts = 'ESMF_F90COMPILEOPTS="$F90FLAGS"'
+prebuildopts  = 'ESMF_F90COMPILEOPTS="$F90FLAGS"'
 
 builddependencies = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
