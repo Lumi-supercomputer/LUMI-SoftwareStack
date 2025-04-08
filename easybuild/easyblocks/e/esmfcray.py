@@ -24,8 +24,10 @@
 ##
 """
 EasyBuild support for building and installing ESMF, implemented as an easyblock
+Adapted for Cray system
 
 @author: Kenneth Hoste (Ghent University)
+@author: Kurt Lust (University of Antwerp and LUMI User Support Team)
 """
 import os
 
@@ -47,6 +49,7 @@ class esmfcray(ConfigureMake):
         """Add extra easyconfig parameters for ESMF."""
         extra_vars = {
             'mpicomm': [None, "Set MPI communicator (ESMF_COMM)", CUSTOM],
+            'usepio':  [None, "Use PIO - internal, external, OFF or None (ESMF_PIO)", CUSTOM]
         }
         return EasyBlock.extra_options(extra_vars)
 
@@ -66,6 +69,17 @@ class esmfcray(ConfigureMake):
         else:
             compiler = comp_family.lower()
         env.setvar('ESMF_COMPILER', compiler)
+        
+        # Use Cray compiler wrappers
+        env.setvar('ESMF_PREPROCESSOR', 'ftn')
+        env.setvar('ESMF_F90COMPILER',  'ftn')
+        env.setvar('ESMF_CXXCOMPILER',  'CC')
+        env.setvar('ESMF_CXXLIMKER',    'CC')
+        env.setvar('ESMF_CCOMPILER',    'cc')
+        env.setvar('ESMF_CLIMKER',      'cc')
+        
+        # Cray systems run Linux
+        env.setvar('ESMF_OS', 'Linux')
 
         # specify MPI communications library
         if self.cfg.get('mpicomm', None):
@@ -104,6 +118,10 @@ class esmfcray(ConfigureMake):
                 netcdf_libs.append('-lnetcdf_c++4')
 
             env.setvar('ESMF_NETCDF_LIBS', ' '.join(netcdf_libs))
+            
+        # specify PIO
+        if not self.cfg.get('usepio', None) is None:
+            env.setvar('ESMF_PIO', self.cfg['usepio'])
 
         # 'make info' provides useful debug info
         cmd = "make info"
