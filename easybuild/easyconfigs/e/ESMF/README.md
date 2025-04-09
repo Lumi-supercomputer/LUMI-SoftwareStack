@@ -86,7 +86,9 @@ Note that ESMF uses a custom EasyBlock which needs adaptations for Cray systems.
     compile the older versions.
 
       * PIO required a more extensive configuration of netCDF then the default 
-        EasyBlock (from which our custom block was derived) can give.
+        EasyBlock (from which our custom block was derived) can give. We decided
+        to update the EasyBlock as it had no consequences for building the other
+        24.03 configurations.
       
       * Note that the OS should be Unicos rather than Linux to enable the automatic 
         configuration of the compilers. The autodetect does this right, but be careful

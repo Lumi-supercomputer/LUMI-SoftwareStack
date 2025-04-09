@@ -44,26 +44,6 @@ checksums = [
     '3851627f07c32a7da55d99072d619942bd3a1d9dd002e1557716158e7aacdaf4',  # ESMF-6.1.1_libopts.patch
 ]
 
-mpicomm  = 'mpi'     # System mpi, see build_config/Unicos.gfortran.default
-usepio   = 'internal'
-optlevel = '2'       # Has to be a string
-
-# PIO does not want to build unless a full NetCDF configuration is given, even
-# though that is not needed with the Cray compiler wrappers.
-local_export_opts = ' && '.join( [
-    'export ESMF_NETCDF="split"'
-    'export NETCDF_INSTALL_ROOT="${NETCDF_DIR}/"',
-    'export NETCDF_FORTRAN_INSTALL_ROOT="${NETCDF_DIR}/"',
-    'export ESMF_NETCDF_INCLUDE="${NETCDF_DIR}/include/"',
-    'export ESMF_NETCDF_LIBPATH="${NETCDF_DIR}/lib/"',
-])
-
-# Check when compiling a new version if this is still needed.
-# It was done to work around issues with recent versions of gfortran.
-preconfigopts   = local_export_opts + ' && '
-prebuildopts    = local_export_opts + ' && '
-preinstallopts  = local_export_opts + ' && '
-
 builddependencies = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
 ]
@@ -72,6 +52,10 @@ dependencies = [
     ('cray-hdf5',   EXTERNAL_MODULE),
     ('cray-netcdf', EXTERNAL_MODULE),
 ]
+
+mpicomm  = 'mpi'     # System mpi, see build_config/Unicos.gfortran.default
+usepio   = 'internal'
+optlevel = '2'       # Has to be a string
 
 postinstallcmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',

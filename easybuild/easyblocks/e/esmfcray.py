@@ -120,7 +120,25 @@ class esmfcray(ConfigureMake):
         # specify netCDF
         netcdf = get_software_root('netCDF')
         if netcdf:
-            env.setvar('ESMF_NETCDF', 'user')
+
+            cray_netcdf = None
+            for env_var in ('CRAY_NETCDF_PREFIX', 'CRAY_NETCDF_HDF5PARALLEL_PREFIX'):
+                cray_netcdf = os.getenv(env_var, None)
+                if cray_netcdf is not None:
+                    self.log.debug("Detected Cray netCDF library prefix %s via $%s: %s", env_var, cray_netcdf)
+                    break
+
+            if cray_netcdf is not None:
+                # Detected a Cray netCDF library, set some additional variables as
+                # otherwise building PIO and possibly other internal packages fails
+                env.setvar('ESMF_NETCDF', 'split')
+                env.setvar('ESMF_NETCDF_INCLUDE', '${NETCDF_DIR}/include/')
+                env.setvar('ESMF_NETCDF_LIBPATH', '${NETCDF_DIR}/lib/')
+            else:
+                # Likely a regular EasyBuild-installed netCDF library
+                env.setvar('ESMF_NETCDF', 'user')
+            
+            # Code to build ESMF_NETCDF_LIBS also works for the Cray version.
             netcdf_libs = ['-L%s/lib' % netcdf, '-lnetcdf']
 
             # Fortran
