@@ -74,6 +74,9 @@ class esmfcray(ConfigureMake):
             # will be set automatically.
             env.setvar('ESMF_OS', 'Unicos')
             self.log.info( "CPE toolchains detected, setting ESMF_OS to Unicos for Cray-specific configuration" )
+            # Note: With the current supported toolchains GCC, CCE and AOCC, the generic code 
+            # for non-Cray systems also works, so we could simplify, but this may be more
+            # future-proof.
             if comp_family in [toolchain.GCC]:
                 compiler = 'gfortran'
             elif comp_family in [toolchain.CCE]:

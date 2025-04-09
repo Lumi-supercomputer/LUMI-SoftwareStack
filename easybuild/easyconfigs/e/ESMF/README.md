@@ -7,6 +7,28 @@
       * [GitHub releases](https://github.com/esmf-org/esmf/releases)
 
 
+## General build instructions
+
+ESMF does not use a configure script. The configure phase can be skipped (though this is not
+done in the EasyConfig as the configure phase will still be used to set environment variables
+through an EasyBlock).
+
+Configuration is done through a large set of environment variables that are picked up by the
+Makefile of the ESMF code. It does call CMake for 3rd party codes that are provided internally,
+e.g., the PIO IO library. 
+
+The combination of OS and compiler selected through `ESMF_` environment variables (though the
+code does a good job at detecting the OS environment) determines which configuration subdirectory
+of `build_config` will be used. That subdirectory contains a long file with definitions that will
+be included in the Makefile and tries to set defaults, and some system-specific small include
+files.
+
+The `make info` command will show how the Makefile interprets those environment variables.
+It is also called when doing a build, so if a ConfigureMake process would be used rather
+than the custom EasyBlock, setting environment variables through `prebuildopts` and 
+`preinstallopts`, one could skip the configure step alltogether.
+
+
 ## EasyBuild
 
   * [ESMF support in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/e/ESMF)
@@ -63,7 +85,8 @@ Note that ESMF uses a custom EasyBlock which needs adaptations for Cray systems.
   * Later on, we added an MPI version with heavily reworked EasyBlock that can still
     compile the older versions.
 
-      * PIO was requested by a user but is still missing
+      * PIO required a more extensive configuration of netCDF then the default 
+        EasyBlock (from which our custom block was derived) can give.
       
       * Note that the OS should be Unicos rather than Linux to enable the automatic 
         configuration of the compilers. The autodetect does this right, but be careful
