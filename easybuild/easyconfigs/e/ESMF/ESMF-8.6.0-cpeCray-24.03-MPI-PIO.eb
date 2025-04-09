@@ -1,12 +1,13 @@
 # contributed by Luca Marsella (CSCS), Theofilos Manitaras (CSCS)
 # Adapted by Kurt Lust (kurt.lust@uantwerpen.be) for the LUMI consortium
+#DOC ESMF compiled with support for MPICH and PIO. 
 easyblock = 'esmfcray'
 
 local_ESMF_version =         '8.6.0'         # https://github.com/esmf-org/esmf/releases - Candidate for version bump if time left
 
 name =          'ESMF'
 version =       local_ESMF_version
-versionsuffix = '-MPI'
+versionsuffix = '-MPI-PIO'
 
 homepage = 'http://sourceforge.net/projects/esmf'
 
@@ -18,16 +19,16 @@ description = """
 The Earth System Modeling Framework (ESMF) is software for building and coupling weather,
 climate, and related models.
 
-This module provides the parallel (MPI) version. PIO support is disabled as it didn't
-compile properly.
+This module provides the parallel (MPI) version. PIO support is also enabled but this 
+required some dirty tricks, so no guarantee for future support.
 """
 
 software_license_urls = [
     f'https://github.com/esmf-org/esmf/blob/v{version}/LICENSE',
 ]
 
-toolchain = {'name': 'cpeGNU', 'version': '24.03'}
-toolchainopts = {'usempi': True, 'openmp': True, 'gfortran9-compat': True}
+toolchain = {'name': 'cpeCray', 'version': '24.03'}
+toolchainopts = {'usempi': True, 'openmp': True}
 
 # https://github.com/esmf-org/esmf/archive/refs/tags/v8.3.0.tar.gz
 sources = [
@@ -43,14 +44,25 @@ checksums = [
     '3851627f07c32a7da55d99072d619942bd3a1d9dd002e1557716158e7aacdaf4',  # ESMF-6.1.1_libopts.patch
 ]
 
-mpicomm  = 'mpi' # System mpi, see build_config/Unicos.gfortran.default
-usepio   = 'OFF'
-optlevel = '2'   # Has to be a string
+mpicomm  = 'mpi'     # System mpi, see build_config/Unicos.gfortran.default
+usepio   = 'internal'
+optlevel = '2'       # Has to be a string
+
+# PIO does not want to build unless a full NetCDF configuration is given, even
+# though that is not needed with the Cray compiler wrappers.
+local_export_opts = ' && '.join( [
+    'export ESMF_NETCDF="split"'
+    'export NETCDF_INSTALL_ROOT="${NETCDF_DIR}/"',
+    'export NETCDF_FORTRAN_INSTALL_ROOT="${NETCDF_DIR}/"',
+    'export ESMF_NETCDF_INCLUDE="${NETCDF_DIR}/include/"',
+    'export ESMF_NETCDF_LIBPATH="${NETCDF_DIR}/lib/"',
+])
 
 # Check when compiling a new version if this is still needed.
 # It was done to work around issues with recent versions of gfortran.
-preconfigopts = 'ESMF_F90COMPILEOPTS="$F90FLAGS"'
-prebuildopts  = 'ESMF_F90COMPILEOPTS="$F90FLAGS"'
+preconfigopts   = local_export_opts + ' && '
+prebuildopts    = local_export_opts + ' && '
+preinstallopts  = local_export_opts + ' && '
 
 builddependencies = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
