@@ -1,5 +1,6 @@
 # contributed by Luca Marsella (CSCS), Theofilos Manitaras (CSCS)
 # Adapted by Kurt Lust (kurt.lust@uantwerpen.be) for the LUMI consortium
+#DOC ESMF compiled in mpiuni mode, without support for MPI.
 easyblock = 'esmfcray'
 
 local_ESMF_version =         '8.6.0'         # https://github.com/esmf-org/esmf/releases - Candidate for version bump if time left

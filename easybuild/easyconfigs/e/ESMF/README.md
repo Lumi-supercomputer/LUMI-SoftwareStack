@@ -80,7 +80,8 @@ Note that ESMF uses a custom EasyBlock which needs adaptations for Cray systems.
   * It seems that on the GPU nodes, some code is compiled that is otherwise not compiled
     (as it caused a problem) so there may be some support for GPU acceleration.
     
-    The cpeCray version does not yet build on LUMI-G.
+  * The cpeCray version does not compile on LUMI-G when the accelerator target module
+    is loaded, so that module is unloaded when compiling for `partition/G`.
 
   * Later on, we added an MPI version with heavily reworked EasyBlock that can still
     compile the older versions.

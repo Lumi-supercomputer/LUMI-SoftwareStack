@@ -1,5 +1,6 @@
 # contributed by Luca Marsella (CSCS), Theofilos Manitaras (CSCS)
 # Adapted by Kurt Lust (kurt.lust@uantwerpen.be) for the LUMI consortium
+#DOC ESMF compiled in mpiuni mode, without support for MPI.
 easyblock = 'esmfcray'
 
 local_ESMF_version =         '8.6.0'         # https://github.com/esmf-org/esmf/releases - Candidate for version bump if time left
@@ -39,9 +40,6 @@ checksums = [
     '3851627f07c32a7da55d99072d619942bd3a1d9dd002e1557716158e7aacdaf4',  # ESMF-6.1.1_libopts.patch
 ]
 
-mpicomm = 'mpiuni'
-optlevel = '2'   # Has to be a string
-
 builddependencies = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
 ]
@@ -50,6 +48,17 @@ dependencies = [
     ('cray-hdf5', EXTERNAL_MODULE),
     ('cray-netcdf', EXTERNAL_MODULE),
 ]
+
+import os as local_os
+local_LUMI_partition = local_os.getenv('LUMI_STACK_PARTITION')
+
+mpicomm  = 'mpiuni'
+optlevel = '2'   # Has to be a string
+
+if local_LUMI_partition == 'G': 
+    preconfigopts  = 'module unload craype-accel-amd-gfx90a && '
+    prebuildopts   = 'module unload craype-accel-amd-gfx90a && '
+    preinstallopts = 'module unload craype-accel-amd-gfx90a && '
 
 postinstallcmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
