@@ -1,12 +1,14 @@
 # contributed by Luca Marsella (CSCS), Theofilos Manitaras (CSCS)
 # Adapted by Kurt Lust (kurt.lust@uantwerpen.be) for the LUMI consortium
-#DOC ESMF compiled in mpiuni mode, without support for MPI.
+#DOC ESMF compiled with support for MPICH and PIO. 
+#DOC It also uses netCDF with the parallel HDF5 back-end.
 easyblock = 'esmfcray'
 
 local_ESMF_version =         '8.6.0'         # https://github.com/esmf-org/esmf/releases - Candidate for version bump if time left
 
-name =    'ESMF'
-version = local_ESMF_version
+name =          'ESMF'
+version =       local_ESMF_version
+versionsuffix = '-MPI-PIO'
 
 homepage = 'http://sourceforge.net/projects/esmf'
 
@@ -17,14 +19,17 @@ whatis = [
 description = """
 The Earth System Modeling Framework (ESMF) is software for building and coupling weather,
 climate, and related models.
- """
+
+This module provides the parallel (MPI) version. PIO support is also enabled but this 
+required some dirty tricks, so no guarantee for future support.
+"""
 
 software_license_urls = [
     f'https://github.com/esmf-org/esmf/blob/v{version}/LICENSE',
 ]
 
-toolchain = {'name': 'cpeCray', 'version': '24.03'}
-toolchainopts = {'usempi': True, 'extra_cflags': '-Wno-error=implicit-function-declaration'}
+toolchain = {'name': 'cpeGNU', 'version': '24.03'}
+toolchainopts = {'usempi': True, 'openmp': True}
 
 # https://github.com/esmf-org/esmf/archive/refs/tags/v8.3.0.tar.gz
 sources = [
@@ -45,20 +50,29 @@ builddependencies = [ # Create a reproducible build environment.
 ]
 
 dependencies = [
-    ('cray-hdf5', EXTERNAL_MODULE),
-    ('cray-netcdf', EXTERNAL_MODULE),
+    ('cray-hdf5-parallel',       EXTERNAL_MODULE),
+    ('cray-netcdf-hdf5parallel', EXTERNAL_MODULE),
 ]
 
-import os as local_os
-local_LUMI_partition = local_os.getenv('LUMI_STACK_PARTITION')
+mpicomm  = 'mpi'     # System mpi, see build_config/Unicos.gfortran.default
+usepio   = 'internal'
+optlevel = '2'       # Has to be a string
 
-mpicomm  = 'mpiuni'
-optlevel = '2'   # Has to be a string
+# PIO does not want to build unless a full NetCDF configuration is given, even
+# though that is not needed with the Cray compiler wrappers.
+local_export_opts = ' && '.join( [
+    'export ESMF_NETCDF="split"'
+    #'export NETCDF_INSTALL_ROOT="${NETCDF_DIR}/"',
+    #'export NETCDF_FORTRAN_INSTALL_ROOT="${NETCDF_DIR}/"',
+    'export ESMF_NETCDF_INCLUDE="${NETCDF_DIR}/include/"',
+    'export ESMF_NETCDF_LIBPATH="${NETCDF_DIR}/lib/"',
+])
 
-if local_LUMI_partition == 'G': 
-    preconfigopts  = 'module unload craype-accel-amd-gfx90a && '
-    prebuildopts   = 'module unload craype-accel-amd-gfx90a && '
-    preinstallopts = 'module unload craype-accel-amd-gfx90a && '
+# Check when compiling a new version if this is still needed.
+# It was done to work around issues with recent versions of gfortran.
+preconfigopts   = local_export_opts + ' && '
+prebuildopts    = local_export_opts + ' && '
+preinstallopts  = local_export_opts + ' && '
 
 postinstallcmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',

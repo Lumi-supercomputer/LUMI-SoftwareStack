@@ -1,5 +1,6 @@
 # contributed by Luca Marsella (CSCS), Theofilos Manitaras (CSCS)
 # Adapted by Kurt Lust (kurt.lust@uantwerpen.be) for the LUMI consortium
+#DOC ESMF compiled in mpiuni mode, without support for MPI.
 easyblock = 'esmfcray'
 
 local_ESMF_version =         '8.6.0'         # https://github.com/esmf-org/esmf/releases - Candidate for version bump if time left
@@ -40,9 +41,12 @@ checksums = [
 ]
 
 mpicomm = 'mpiuni'
+optlevel = '2'   # Has to be a string
 
-preconfigopts = 'ESMF_F90COMPILEOPTS="$F90FLAGS" '
-prebuildopts = 'ESMF_F90COMPILEOPTS="$F90FLAGS" '
+# Check when compiling a new version if this is still needed.
+# It was done to work around issues with recent versions of gfortran.
+preconfigopts = 'ESMF_F90COMPILEOPTS="$F90FLAGS"'
+prebuildopts  = 'ESMF_F90COMPILEOPTS="$F90FLAGS"'
 
 builddependencies = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),

@@ -7,6 +7,28 @@
       * [GitHub releases](https://github.com/esmf-org/esmf/releases)
 
 
+## General build instructions
+
+ESMF does not use a configure script. The configure phase can be skipped (though this is not
+done in the EasyConfig as the configure phase will still be used to set environment variables
+through an EasyBlock).
+
+Configuration is done through a large set of environment variables that are picked up by the
+Makefile of the ESMF code. It does call CMake for 3rd party codes that are provided internally,
+e.g., the PIO IO library. 
+
+The combination of OS and compiler selected through `ESMF_` environment variables (though the
+code does a good job at detecting the OS environment) determines which configuration subdirectory
+of `build_config` will be used. That subdirectory contains a long file with definitions that will
+be included in the Makefile and tries to set defaults, and some system-specific small include
+files.
+
+The `make info` command will show how the Makefile interprets those environment variables.
+It is also called when doing a build, so if a ConfigureMake process would be used rather
+than the custom EasyBlock, setting environment variables through `prebuildopts` and 
+`preinstallopts`, one could skip the configure step alltogether.
+
+
 ## EasyBuild
 
   * [ESMF support in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/e/ESMF)
@@ -58,4 +80,27 @@ Note that ESMF uses a custom EasyBlock which needs adaptations for Cray systems.
   * It seems that on the GPU nodes, some code is compiled that is otherwise not compiled
     (as it caused a problem) so there may be some support for GPU acceleration.
     
-    The cpeCray version does not yet build on LUMI-G.
+  * The cpeCray version does not compile on LUMI-G when the accelerator target module
+    is loaded, so that module is unloaded when compiling for `partition/G`.
+
+  * Later on, we added an MPI version with heavily reworked EasyBlock that can still
+    compile the older versions.
+
+      * PIO required a more extensive configuration of netCDF then the default 
+        EasyBlock (from which our custom block was derived) can give. We decided
+        to update the EasyBlock as it had no consequences for building the other
+        24.03 configurations.
+      
+      * Note that the OS should be Unicos rather than Linux to enable the automatic 
+        configuration of the compilers. The autodetect does this right, but be careful
+        not to overwrite.
+        
+      * Somehow the behaviour for ESMF_OPTLEVEL changed with the updated EasyBlock, 
+        but it is not clear why. We solved this by adding a parameter to set the optimisation
+        level (and set it to 2 which is what the code did automatically before).
+        
+      * Also changed the easyblock to honour `preconfigopts`. `prebuildops` was honoured,
+        but `preconfigopts` not and that lead to misleading information from `make info`
+        which is what happens during the configure phase.
+
+      

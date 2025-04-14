@@ -24,8 +24,10 @@
 ##
 """
 EasyBuild support for building and installing ESMF, implemented as an easyblock
+Adapted for Cray system
 
 @author: Kenneth Hoste (Ghent University)
+@author: Kurt Lust (University of Antwerp and LUMI User Support Team)
 """
 import os
 
@@ -34,6 +36,7 @@ import easybuild.tools.toolchain as toolchain
 from easybuild.easyblocks.generic.configuremake import ConfigureMake
 from easybuild.framework.easyblock import EasyBlock
 from easybuild.framework.easyconfig import CUSTOM
+from easybuild.tools.build_log import EasyBuildError
 from easybuild.tools.modules import get_software_root
 from easybuild.tools.run import run_cmd
 from easybuild.tools.systemtools import get_shared_lib_ext
@@ -46,7 +49,9 @@ class esmfcray(ConfigureMake):
     def extra_options():
         """Add extra easyconfig parameters for ESMF."""
         extra_vars = {
-            'mpicomm': [None, "Set MPI communicator (ESMF_COMM)", CUSTOM],
+            'mpicomm':  [None, "Set MPI communicator (ESMF_COMM)", CUSTOM],
+            'usepio':   [None, "Use PIO - internal, external, OFF or None (ESMF_PIO)", CUSTOM],
+            'optlevel': [None, "Debug build or optimisation level: g, 0-4 (ESMF_BOPT and ESMF_OPTLEVEL)", CUSTOM]
         }
         return EasyBlock.extra_options(extra_vars)
 
@@ -60,13 +65,42 @@ class esmfcray(ConfigureMake):
         env.setvar('ESMF_INSTALL_MODDIR', 'mod')
 
         # specify compiler
+        toolchain_family = self.toolchain.toolchain_family()
         comp_family = self.toolchain.comp_family()
-        if comp_family in [toolchain.GCC]:
-            compiler = 'gfortran'
+        if toolchain_family in [toolchain.CPE]:
+            # Cray systems have a separate configuration in ESMF. gfortran, cce and aocc are 
+            # among the supported values for ESMF_COMPILER.
+            # This will also ensure that ESMF_PREPROCESSOR, ESMF_*COMPILER and ESMF_*LINKER
+            # will be set automatically.
+            env.setvar('ESMF_OS', 'Unicos')
+            self.log.info( "CPE toolchains detected, setting ESMF_OS to Unicos for Cray-specific configuration" )
+            # Note: With the current supported toolchains GCC, CCE and AOCC, the generic code 
+            # for non-Cray systems also works, so we could simplify, but this may be more
+            # future-proof.
+            if comp_family in [toolchain.GCC]:
+                compiler = 'gfortran'
+            elif comp_family in [toolchain.CCE]:
+                compiler = 'cce'
+            elif comp_family in [toolchain.AOCC]:
+                compiler = 'aocc'
+            else:
+                raise EasyBuildError( "Unsupported CPE toolchain commpiler family %s", comp_family )
         else:
-            compiler = comp_family.lower()
+            if comp_family in [toolchain.GCC]:
+                compiler = 'gfortran'
+            else:
+                compiler = comp_family.lower()
         env.setvar('ESMF_COMPILER', compiler)
-
+        
+        # Build type and optimisation level
+        optlevel = self.cfg.get('optlevel', default=None)
+        if not optlevel is None:
+            if optlevel.lower() == 'g':
+                env.setvar('ESMF_BOPT', 'g')
+            else:
+                env.setvar('ESMF_BOPT', 'O')
+                env.setvar('ESMF_OPTLEVEL', optlevel)
+        
         # specify MPI communications library
         if self.cfg.get('mpicomm', None):
             comm = self.cfg['mpicomm']
@@ -86,7 +120,25 @@ class esmfcray(ConfigureMake):
         # specify netCDF
         netcdf = get_software_root('netCDF')
         if netcdf:
-            env.setvar('ESMF_NETCDF', 'user')
+
+            cray_netcdf = None
+            for env_var in ('CRAY_NETCDF_PREFIX', 'CRAY_NETCDF_HDF5PARALLEL_PREFIX'):
+                cray_netcdf = os.getenv(env_var, None)
+                if cray_netcdf is not None:
+                    self.log.debug("Detected Cray netCDF library prefix %s via $%s: %s", env_var, cray_netcdf)
+                    break
+
+            if cray_netcdf is not None:
+                # Detected a Cray netCDF library, set some additional variables as
+                # otherwise building PIO and possibly other internal packages fails
+                env.setvar('ESMF_NETCDF', 'split')
+                env.setvar('ESMF_NETCDF_INCLUDE', '${NETCDF_DIR}/include/')
+                env.setvar('ESMF_NETCDF_LIBPATH', '${NETCDF_DIR}/lib/')
+            else:
+                # Likely a regular EasyBuild-installed netCDF library
+                env.setvar('ESMF_NETCDF', 'user')
+            
+            # Code to build ESMF_NETCDF_LIBS also works for the Cray version.
             netcdf_libs = ['-L%s/lib' % netcdf, '-lnetcdf']
 
             # Fortran
@@ -104,9 +156,13 @@ class esmfcray(ConfigureMake):
                 netcdf_libs.append('-lnetcdf_c++4')
 
             env.setvar('ESMF_NETCDF_LIBS', ' '.join(netcdf_libs))
+            
+        # specify PIO
+        if not self.cfg.get('usepio', default=None) is None:
+            env.setvar('ESMF_PIO', self.cfg['usepio'])
 
         # 'make info' provides useful debug info
-        cmd = "make info"
+        cmd = ' '.join( [ self.cfg['preconfigopts'], 'make info'] )
         run_cmd(cmd, log_all=True, simple=True, log_ok=True)
 
     def sanity_check_step(self):
