@@ -53,3 +53,8 @@ A sample EasyConfig is provided in the
     image for `lumi-g` to rocm-6.0.3. The previous `lumi-g` and `lumi-g-classic` are
     removed due to lack of official support for the ROCm 5.x based environments.
     
+### Version 2025.03.0
+
+-   Trivial port of the previous EasyConfigs, but with additional images.
+    
+    
