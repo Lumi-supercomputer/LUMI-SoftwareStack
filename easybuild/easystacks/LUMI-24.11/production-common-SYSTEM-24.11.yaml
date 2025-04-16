@@ -1,0 +1,21 @@
+easyconfigs:
+  - buildtools-24.11-bootstrap.eb
+  - syslibs-24.11-static.eb
+  - buildtools-24.11.eb
+#  - buildtools-python-24.11-systemPython.eb
+#  - buildtools-python-24.11-cray-python3.11.eb
+  - systools-24.11.eb
+  - Lzip-tools-24.11.eb
+#  - nano-8.0.eb
+#  - Vim-9.1.0447.eb
+#  - git-2.45.1.eb
+#  - Subversion-1.14.3.eb
+#  - Eigen-3.4.0.eb
+#  - xorg-macros-1.20.0.eb
+#  - lumi-container-wrapper-0.3.3-cray-python-3.11.7.eb
+#  - cotainr-2023.11.0-20240909-cray-python-3.11.7.eb
+##  - cotainr-2024.10.0-cray-python-3.11.7.eb
+##  - Rust-1.75.0.eb
+#  - parallel-20240522.eb
+  - lumi-CrayPath-0.1.eb
+  
