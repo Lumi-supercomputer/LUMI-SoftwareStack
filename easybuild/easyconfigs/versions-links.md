@@ -74,6 +74,7 @@ better to avoid bugs also).
 |:--------|:-----------|:-----|
 | [GPP](https://github.com/logological/gpp/releases)           | | |
 | [htop](https://github.com/htop-dev/htop/releases)            | | |
+| [pbzip2](http://compression.great-site.net/pbzip2/)          | [EB PBZIP2](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/p/PBZIP2) | \ |
 | [libtree](https://github.com/haampie/libtree/releases)       | [EB libtree](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/libtree) | [CSCS libtree](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/l/libtree) |
 | [tree](https://gitlab.com/OldManProgrammer/unix-tree/-/tags) | | |
 | [proot](https://github.com/proot-me/proot/releases)          | | |
