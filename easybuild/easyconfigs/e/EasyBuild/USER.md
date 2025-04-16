@@ -22,3 +22,11 @@ To install software building upon the centrally installed LUMI software stacks
 (as provided by the LUMI/xx.yy modules), users should load the EasyBuild-user module
 instead as discussed in 
 [the EasyBuild section of the main LUMI documentation](https://docs.lumi-supercomputer.eu/software/installing/easybuild/).
+
+Since the LUMI/24.11 software stack, the EasyBuild module also includes some tools 
+that EasyBuild might need for some EasyConfigs and that are not present on the 
+system. This basically fullfills the task of the EasyBuild-tools module that 
+we experimented with for LUMI/23.09.
+
+For the 24.11 version (EasyBuild/4.9.4), [lzip](https://www.nongnu.org/lzip/)
+and [p7zip](https://github.com/p7zip-project/p7zip) are included.
