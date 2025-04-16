@@ -21,6 +21,7 @@ local_syslibs_libreadline_version =  '8.2.13'        # https://ftp.gnu.org/pub/g
 local_syslibs_bzip2_version =        '1.0.8'         # https://sourceware.org/git/?p=bzip2.git;a=summary
 local_syslibs_zlib_version =         '1.3.1'         # https://zlib.net/
 local_syslibs_lz4_version =          '1.10.0'        # https://github.com/lz4/lz4/releases
+local_syslibs_lzlib_version =        '1.15'          # https://download.savannah.gnu.org/releases/lzip/lzlib/
 local_syslibs_Brotli_version =       '1.1.0'         # https://github.com/google/brotli/releases
 local_syslibs_cURL_version =         '8.12.1'        # https://curl.haxx.se/download/
 local_syslibs_expat_version =        '2.7.0'         # https://github.com/libexpat/libexpat/releases
@@ -32,7 +33,7 @@ local_syslibs_Serf_version =         '1.3.10'        # https://serf.apache.org/d
 local_syslibs_SQLite3_version =      '3.49.1'        # https://www.sqlite.org/
 local_syslibs_talloc_version =       '2.4.3'         # https://www.samba.org/ftp/talloc/
 
-description = """
+description = f"""
 This module provides a number of libraries that are mostly also found on the
 system but as static libraries meant to be used as build dependencies for a
 number of tools that should not introduce dependencies when being used so that
@@ -45,13 +46,13 @@ for static linking, they won't interfer with system libraries anyways.
 Overview of included libraries:
 
 * Terminal I/O
-  + ncurses (version %(ncurses)s): The Ncurses (new curses) library is a free software
+  + ncurses (version {local_syslibs_ncurses_version}): The Ncurses (new curses) library is a free software
     emulation of curses in System V Release 4.0, and more. It uses Terminfo
     format, supports pads and color and multiple highlights and forms characters
     and function-key mapping, and has all the other SYSV-curses enhancements
     over BSD Curses.
     Documentation is available through man pages in sections 3, 5 and 7.
-  + libreadline (version %(libreadline)s): The GNU Readline library provides a set of
+  + libreadline (version {local_syslibs_libreadline_version}): The GNU Readline library provides a set of
     functions for use by applications that allow users to edit command lines as
     they are typed in. Both Emacs and vi editing modes are available.
     The Readline library includes additional functions to maintain a list of
@@ -59,21 +60,25 @@ Overview of included libraries:
     and perform csh-like history expansion on previous commands.
     There are manual pages for readline and history and help via info.
 * File compression tools and libraries
-  + bzip2 (version %(bzip2)s): Patent-free high-quailty data compressor
+  + bzip2 (version {local_syslibs_bzip2_version}): Patent-free high-quailty data compressor
     with very good compression yet fast compression and decompression
     (.bz2 files)
-  + zlib (version %(zlib)s): Free lossless data compression library, not
+  + zlib (version {local_syslibs_zlib_version}): Free lossless data compression library, not
     covered by any patents, for the popular .gz files.
-  + lz4 (version %(lz4)s): LZ4 is lossless compression algorithm, providing compression
+  + lz4 (version {local_syslibs_lz4_version}): LZ4 is lossless compression algorithm, providing compression
     speed at 400 MB/s per core. It features an extremely fast decoder, with
     speed in multiple GB/s per core.
+  + lzlib (version {local_syslibs_lzlib_version}): Compression library providing in-memory LZMA
+    compression and decompression functions, including integrity checking of
+    the decompressed data. The compressed data format used by the library is
+    the lzip format.
 * Networking, security and XML
-  + expat (version %(expat)s): Expat is an XML parser library written in C.
+  + expat (version {local_syslibs_expat_version}): Expat is an XML parser library written in C.
     It is a stream-oriented parser in which an application registers handlers
     for things the parser might find in the XML document (like start tags).
     It provides the command line tool xmlwf and static and shared libraries.
 * Miscellaneous
-  + APR (version %(APR)s) and APR-util (version %(APR_util)s): Apache Portable
+  + APR (version {local_syslibs_APR_version}) and APR-util (version {local_syslibs_APR_util_version}): Apache Portable
     Runtime and its util libraries.
 
     The mission of the Apache Portable Runtime (APR) project is to create and
@@ -84,18 +89,18 @@ Overview of included libraries:
     which their software is built, relieving them of the need to code
     special-case conditions to work around or take advantage of platform-specific
     deficiencies or features.
-  + file (version %(filev)s): The file command is "a file type guesser", that
+  + file (version {local_syslibs_file_version}): The file command is "a file type guesser", that
     is, a command-line tool that tells you in words what kind of data a file
     contains. Unlike most GUI systems, command-line UNIX systems - with this
-    program leading the charge - don't rely on filename extentions to tell you
+    program leading the charge - don't rely on filename extensions to tell you
     the type of a file, but look at the file's actual contents. This is, of
     course, more reliable, but requires a bit of I/O.This is a
     re-implementation of the original file command shipped with Bell Labs UNIX.
-  + PCRE2 (version %(PCRE2)s: More modern version of PCRE.
+  + PCRE2 (version {local_syslibs_PCRE2_version}: More modern version of PCRE.
     The package includes the command line tools pcre2grep, pcre2test and
     pcre2-config, documented through man pages. API documentation is available
     through man pcre2.
-  + Serf (version %(Serf)s): The serf library is a high performance C-based HTTP client library
+  + Serf (version {local_syslibs_Serf_version}): The serf library is a high performance C-based HTTP client library
     built upon the Apache Portable Runtime (APR) library.
 
     Key features are:
@@ -109,7 +114,7 @@ Overview of included libraries:
     Office.
 
     The Serf library is permissively licensed under the Apache License, v2.
-  + SQLite3 (version %(SQLite3)s): SQLite is a C-language library that implements a small, fast, self-contained,
+  + SQLite3 (version {local_syslibs_SQLite3_version}): SQLite is a C-language library that implements a small, fast, self-contained,
     high-reliability, full-featured, SQL database engine. SQLite is the most used
     database engine in the world. SQLite is built into all mobile phones and most
     computers and comes bundled inside countless other applications that people
@@ -125,28 +130,13 @@ Overview of included libraries:
     any purpose.
 
     NOTE: This is not a full-featured build but serves to build svn
-  + Talloc (version %(talloc)s) is a hierarchical, reference counted memory pool 
+  + Talloc (version {local_syslibs_talloc_version}) is a hierarchical, reference counted memory pool 
     system with destructors. It is the core memory allocator used in Samba.
 
     This module does not provide talloc in the traditional way. Instead it provides
     a static library only, and without Python support. It is derived from instructions
     to build a static talloc library for Android. 
-""" % {
-    'ncurses':      local_syslibs_ncurses_version,
-    'libreadline':  local_syslibs_libreadline_version,
-    'bzip2':        local_syslibs_bzip2_version,
-    'zlib':         local_syslibs_zlib_version,
-    'lz4':          local_syslibs_lz4_version,
-    'cURL':         local_syslibs_cURL_version,
-    'expat':        local_syslibs_expat_version,
-    'APR':          local_syslibs_APR_version,
-    'APR_util':     local_syslibs_APR_util_version,
-    'filev':        local_syslibs_file_version,
-    'PCRE2':        local_syslibs_PCRE2_version,
-    'Serf':         local_syslibs_Serf_version,
-    'SQLite3':      local_syslibs_SQLite3_version,
-    'talloc':       local_syslibs_talloc_version,
-}
+"""
 
 docurls = [
     'ncurses:       Web-based documentation on https://www.gnu.org/software/ncurses/',
@@ -270,6 +260,15 @@ components = [
         'buildopts':   'BUILD_STATIC="yes" BUILD_SHARED="no" CFLAGS="-O3 -march=znver1 -fPIC" ',
         'runtest':     'check',
         'installopts': 'PREFIX=%(installdir)s BUILD_STATIC="yes" BUILD_SHARED="no"',
+    }),
+    ('lzlib', local_syslibs_lzlib_version, {
+        'easyblock':   'ConfigureMake',
+        # https://download.savannah.gnu.org/releases/lzip/lzlib/lzlib-1.15.tar.gz
+        'sources':     [SOURCELOWER_TAR_GZ], # .tar.lz not yet supported on our systems and not available as a constant in EasyBuild.
+        'source_urls': ['https://download.savannah.gnu.org/releases/lzip/lzlib'],
+        'checksums':   ['4afab907a46d5a7d14e927a1080c3f4d7e3ca5a0f9aea81747d8fed0292377ff'],
+        'start_dir':   '%(namelower)s-%(version)s',
+        'configopts':  'CXXFLAGS="-march=znver1 -O2 -Wall -W"',
     }),
 #    ('cURL', local_syslibs_cURL_version, {
 #        'sources':       [ {
@@ -403,6 +402,8 @@ sanity_check_paths = {
              ['include/zconf.h', 'include/zlib.h', 'lib/libz.a', 'lib/pkgconfig/zlib.pc'] +
              # lz4
              ["bin/lz4", "lib/liblz4.a", "include/lz4.h"] +
+             # lzlib
+             ["lib/liblz.a"] +
 #             # cURL
 #             ['bin/curl', 'lib/libcurl.a'] +
              # expat
@@ -487,6 +488,8 @@ modextravars = {
     'EBVERSIONZLIB':                local_syslibs_zlib_version,
     'EBROOTLZ4':                    '%(installdir)s',
     'EBVERSIONLZ4':                 local_syslibs_zlib_version,
+    'EBROOTLZLIB':                  '%(installdir)s',
+    'EBVERSIONLZLIB':               local_syslibs_lzlib_version,
 #    'EBROOTCURL':                   '%(installdir)s',
 #    'EBVERSIONCURL':                local_syslibs_cURL_version,
     'EBROOTEXPAT':                  '%(installdir)s',
