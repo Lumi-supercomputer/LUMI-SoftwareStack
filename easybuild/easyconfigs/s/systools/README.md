@@ -137,7 +137,16 @@ The current content is
  
  ### 24.11
  
--   We did not bump the version of `htop` as 3.4.0 gave segmentation violations.
+-   Added `pbzip2` to the bundle:
+
+    -   The only dependency is libbz2, and we use a static version of it from the systools module.
+
+    -   This part of the EasyConfig is heavily inspired on the EasyBuilders one for 
+        PBZIP2.
+
+    -   We developed a small patch to detect the number of cores available via the `sched_getaffinity` 
+        function so that it works as expected in a Slurm job, and also limit the default number of 
+        threads to 16 on the login nodes.
 
 ### 25.03
 
