@@ -63,9 +63,10 @@ local_syslibs_talloc_version =       '2.4.3'         # https://www.samba.org/ftp
 #
 # systools bundle
 #
-local_systools_GPP_version =          '2.28'
-local_systools_htop_version =         '3.4.0'        # Segmentation violation with 3.4.0.
-local_systools_libtree_version =      '3.1.1'
+local_systools_GPP_version =          '2.28'         # https://github.com/logological/gpp/releases
+local_systools_htop_version =         '3.4.1'        # https://github.com/htop-dev/htop/releases
+local_systools_pbzip2_version =       '1.1.13'       # http://compression.great-site.net/pbzip2/
+local_systools_libtree_version =      '3.1.1'        # https://github.com/haampie/libtree/releases
 local_systools_tree_version =         '2.2.1'        # https://gitlab.com/OldManProgrammer/unix-tree/-/tags
 local_systools_PRoot_version =        '5.4.0'        # https://github.com/proot-me/proot/releases
 
