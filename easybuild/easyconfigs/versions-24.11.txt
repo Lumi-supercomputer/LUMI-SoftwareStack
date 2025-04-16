@@ -3,7 +3,13 @@
 # when development started.
 local_LUMI_version =        '24.11'
 local_craypython_version =  '3.11.7'
+
+#
+# EasyBuild EasyConfig
+#
 local_EasyBuild_version =   '4.9.4'
+local_EB_lzip_version =     '1.25'   # https://download.savannah.gnu.org/releases/lzip/
+local_EB_p7zip_version =    '17.05'  # 20240220 - Check on https://github.com/p7zip-project/p7zip/releases
 
 #
 # Components of buildtools
