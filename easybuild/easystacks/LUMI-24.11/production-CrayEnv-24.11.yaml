@@ -2,8 +2,8 @@ easyconfigs:
   - buildtools-24.11-bootstrap.eb
   - syslibs-24.11-static.eb
   - buildtools-24.11.eb
-#  - buildtools-python-24.11-systemPython.eb
-#  - buildtools-python-24.11-cray-python3.11.eb
+  - buildtools-python-24.11-systemPython.eb
+  - buildtools-python-24.11-cray-python3.11.eb
   - systools-24.11.eb
   - Lzip-tools-24.11.eb
   - lumi-CPEtools-1.0.eb
