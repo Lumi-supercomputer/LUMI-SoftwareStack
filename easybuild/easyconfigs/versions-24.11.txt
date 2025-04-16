@@ -77,6 +77,17 @@ local_systools_tree_version =         '2.2.1'        # https://gitlab.com/OldMan
 local_systools_PRoot_version =        '5.4.0'        # https://github.com/proot-me/proot/releases
 
 #
+# Lzip-tools bundle
+#
+local_lzip_version =        '1.25'   # https://download.savannah.gnu.org/releases/lzip/
+local_lunzip_version =      '1.15'   # https://download.savannah.gnu.org/releases/lzip/lunzip/
+local_plzip_version =       '1.12'   # https://download.savannah.gnu.org/releases/lzip/plzip/
+local_lzlib_version =       '1.15'   # https://download.savannah.gnu.org/releases/lzip/lzlib/
+local_lziprecover_version = '1.25'   # https://download.savannah.gnu.org/releases/lzip/lziprecover/
+local_tarlz_version =       '0.27.1' # https://download.savannah.gnu.org/releases/lzip/tarlz/
+local_Zutils_version =      '1.14'   # https://download.savannah.gnu.org/releases/zutils/
+
+#
 # Some SYSTEM applications
 #
 local_git_version =          '2.48.1'        # https://github.com/git/git/tags
