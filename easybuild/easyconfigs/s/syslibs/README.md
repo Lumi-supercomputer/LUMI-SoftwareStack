@@ -12,6 +12,7 @@ Currently included are:
   * bzip2 [version check](https://sourceware.org/git/?p=bzip2.git;a=summary)
   * zlib [version check](https://zlib.net/)
   * lz4 [version check](https://github.com/lz4/lz4/releases)
+  * lzlib [version check](https://download.savannah.gnu.org/releases/lzip/lzlib/)
   * expat [version check](https://github.com/libexpat/libexpat/releases)
   * APR and APR-util [version check](https://apr.apache.org/)
   * Serf [version check](https://serf.apache.org/download)
@@ -93,8 +94,10 @@ use.
     compiling readline 8.2 hence failed.
     
     
-### 24.09
+### 24.11
 
   * A fairly trivial update of 24.03, now with ncurses 6.5 which we also used in a later version
     of the 24.03 module and was needed for `htop`.
+    
+  * Adding lzlib to provide the z liblz.a` library to the `lzip-tools` module.
 
