@@ -40,11 +40,11 @@ local_xxd_version =              '9.1.1202'    # vim        20250313 - Check on 
 
 # Note: Meson 0.61.5 is the last version with Python 3.6 support.
 local_Meson_version =            '0.61.5'      # Meson      20220117 - Check on https://pypi.org/project/meson/#history
-local_Meson_cray_version =       '1.7.0'       # Meson      20240312 - Check on https://pypi.org/project/meson/#history
+local_Meson_cray_version =       '1.7.1'       # Meson      20250401 - Check on https://pypi.org/project/meson/#history
 local_SCons_version =            '4.4.0'       # SCons      20220730 - Check on https://github.com/SCons/scons/releases, https://scons.org/pages/download.html
-local_SCons_cray_version =       '4.9.0'       # SCons      20240318 - Check on https://github.com/SCons/scons/releases, https://scons.org/pages/download.html
+local_SCons_cray_version =       '4.9.1'       # SCons      20250327 - Check on https://github.com/SCons/scons/releases, https://scons.org/pages/download.html
 local_wheel_cray_version     =   '0.45.1'      # wheel      20241123 - Check on https://pypi.org/project/wheel/#history
-local_flit_core_cray_version =   '3.11.0'      # flit_core  20250219 - Check on https://pypi.org/project/flit-core/#history
+local_flit_core_cray_version =   '3.12.0'      # flit_core  20250325 - Check on https://pypi.org/project/flit-core/#history
 
 #
 # syslibs bundle
