@@ -8,7 +8,7 @@ easyconfigs:
   - Lzip-tools-24.11.eb
 #  - nano-8.0.eb
 #  - Vim-9.1.0447.eb
-#  - git-2.45.1.eb
+  - git-2.49.0.eb
   - Subversion-1.14.5.eb
   - Eigen-3.4.0.eb
   - xorg-macros-1.20.0.eb  # Skip update, server was down and align with toolchain.
