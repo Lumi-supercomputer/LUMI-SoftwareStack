@@ -44,6 +44,9 @@ The code was never truly adapted the the 64-bit world. Memory management is
 still 32-bit code, limiting the amount of memory one can request via the 
 `-m` parameter to 2000 blocks.
 
+It is also an alternative to [`lbzip2`](https://lbzip2.org/) which is also unmaintained and
+has become almost impossible to compile on modern machines.
+
 
 ## The `tree` command
 
