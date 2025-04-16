@@ -81,13 +81,27 @@ better to avoid bugs also).
 ## systools bundle
 
 | Package | EasyBuild | CSCS |
-|:--------|:-----------|:-----|
+|:--------|:----------|:-----|
 | [GPP](https://github.com/logological/gpp/releases)           | | |
 | [htop](https://github.com/htop-dev/htop/releases)            | | |
 | [pbzip2](http://compression.great-site.net/pbzip2/)          | [EB PBZIP2](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/p/PBZIP2) | \ |
 | [libtree](https://github.com/haampie/libtree/releases)       | [EB libtree](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/libtree) | [CSCS libtree](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/l/libtree) |
 | [tree](https://gitlab.com/OldManProgrammer/unix-tree/-/tags) | | |
 | [proot](https://github.com/proot-me/proot/releases)          | | |
+
+
+## Lzip-tools bundle
+
+| Package | EasyBuild | 
+|:--------|:----------|
+| [lzip](https://download.savannah.gnu.org/releases/lzip/) | / |
+| [lunzip](https://download.savannah.gnu.org/releases/lzip/lunzip/) | / |
+| [plzip](https://download.savannah.gnu.org/releases/lzip/plzip/) | / |
+| [lzlib](https://download.savannah.gnu.org/releases/lzip/lzlib/) | / |
+| [lziprecover](https://download.savannah.gnu.org/releases/lzip/lziprecover/) | / |
+| [tarlz](https://download.savannah.gnu.org/releases/lzip/tarlz/) | / |
+| [Zutils](https://download.savannah.gnu.org/releases/zutils/) | / |
+
 
 
 ## Other packages that we try to build against the SYSTEM toolchain
