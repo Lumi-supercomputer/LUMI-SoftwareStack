@@ -4,6 +4,15 @@
 
 -   [FOSS toolchain components by version](https://docs.easybuild.io/common-toolchains/#common_toolchains_overview)
 
+## EasyBuild
+
+| Package | EasyBuild |
+|:--------|:----------|
+| [EasyBuild](https://pypi.org/project/easybuild/) | [EB Easy/build](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/e/EasyBuild) |
+| [lzip](https://download.savannah.gnu.org/releases/lzip/) | / | 
+| [p7zip](https://github.com/p7zip-project/p7zip/releases) | [EB p7zip](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/p/p7zip) | 
+
+
 ## Buildtools package
 
 For buildtools we tend to follow our own approach and not use either CSCS or EasyBuild
@@ -41,6 +50,7 @@ Buildtools-python:
 | [SCons on GitHub](https://github.com/SCons/scons/releases) or [on download page](https://scons.org/pages/download.html) | [EB SCons](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/s/SCons) | [CSCS SCons](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/s/SCons) | |
 | [wheel](https://pypi.org/project/wheel/) | / | / | Needed to install packages on top of cray-python |
 | [flit-core](https://pypi.org/project/flit-core/) | / | / | / |
+
 
 ## syslibs library
 
