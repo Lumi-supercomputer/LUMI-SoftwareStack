@@ -7,3 +7,6 @@ dependencies).
 
 The version numbering of the modules corresponds to the version number of the LUMI 
 stack for which they were meant.
+
+From LUMI/24.11, a different solution was used, trying to integrate the tools as
+much as possible in the EasyBuild module itself.
