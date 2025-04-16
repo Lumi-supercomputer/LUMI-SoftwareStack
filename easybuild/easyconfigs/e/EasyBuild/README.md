@@ -12,10 +12,50 @@
 
     -   [easybuild-easyconfigs](https://pypi.org/project/easybuild-easyconfigs/)
 
+-   Additional tools:
+
+    -   lzip:
+
+        -   [Home page](https://www.nongnu.org/lzip/)
+    
+    	  -   [Downloads](https://download.savannah.gnu.org/releases/lzip/)
+    	  
+    -   p7zip
+    
+        -   [p7zip on GitHub](https://github.com/p7zip-project/p7zip/)
+
+        -   [GitHub releases](https://github.com/p7zip-project/p7zip/releases)
+    
+    
+## A note on p7zip
+
+The p7zip package is a POSIX/Linux port of some of the 
+[p7zip Windows tools](https://www.7-zip.org/).
+Note that the latest version of 7zip do now support Linux already.
+
+The p7zip tools however are used in certain EasyConfigs to work with ISO files,
+e.b., the [MATLAB EasyConfigs in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/m/MATLAB).
+
+-   New developments [on GitHub](https://github.com/p7zip-project/p7zip/).
+    It is a fork from previous versions that are no longer maintained.
+    It also extends the tools of the [7zip project](https://sourceforge.net/projects/sevenzip/)
+
+    -   [GitHub releases](https://github.com/p7zip-project/p7zip/releases)
+
+
+-   Older versions [on SourceForge](https://p7zip.sourceforge.net/)
+
+    -   [SourceForge downloads](https://sourceforge.net/projects/p7zip/files/p7zip/)
+        (up to version 16.02)
+
+
 
 ## EasyBuild
 
 -   [EasyBuild EasyConfigs in the easybuilders repo](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/e/EasyBuild)
+
+-   [p7zip in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/p/p7zip)
+
 
 ### Version 4.4.2 for LUMI/21.08
 
@@ -81,7 +121,7 @@
             Python with full path and version at the front of the list. Hence strictly
             speaking `EB_PYTHON` is no longer needed.
 
-    -   Robustifying the `archspec`, `cmark` and `puygmentize` scripts put in the `bin`
+    -   Robustifying the `archspec`, `cmark` and `pygmentize` scripts put in the `bin`
         directory when installing their respective additional packages:
         
         -   Shebang line changed to explicitly call `python3.6`, and added the `-E` 
@@ -101,9 +141,26 @@
     
 ### Version 4.9.4 for LUMI/24.11
 
--   Trivial port of the 4.9.2 EasyConfig.
+-   A big reworking as we now include additional tools in the module. The EasyConfig 
+    has been converted into a Bundle.
 
 -   The patch for LibSci was not needed anymore, and the one for keyring has been modified 
     a bit.
+    
+-   The patch for keyring was revised and an additional patch was added to support 
+    lzipped tarballs (simple by modifying `tools/filetools` in `easybuild-framework`). 
+    
+    The patches have to be made differently from before as otherwise EasyBuild could not find
+    where to apply the patch. So we now start from the `system-system` subdirectory 
+    in the unpacked installation and refer to the relative path with respect to this subdirectory
+    for all patches. This may also require modifying patches that come from the EasyBuild 
+    repository itself.
+    
+-   Two additional tools were installed:
+
+    -   lzip has a very standard ConfigureMake build process
+    
+    -   p7zip uses a MakeCp build process and we based the build process on the one 
+        in the EasyBuilders EasyConfig.
 
     
