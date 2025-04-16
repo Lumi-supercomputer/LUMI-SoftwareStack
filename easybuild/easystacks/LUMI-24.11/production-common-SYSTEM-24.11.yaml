@@ -14,7 +14,6 @@ easyconfigs:
   - xorg-macros-1.20.0.eb  # Skip update, server was down and align with toolchain.
 #  - lumi-container-wrapper-0.3.3-cray-python-3.11.7.eb  # Ready but makes no sense in a containerised environment.
 #  - cotainr-2025.03.0-cray-python-3.11.7.eb  # Ready but makes no sense in a containerised environment
-##  - Rust-1.75.0.eb
   - parallel-20250322.eb
   - lumi-CrayPath-0.1.eb
   
