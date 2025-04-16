@@ -55,6 +55,7 @@ better to avoid bugs also).
 | [bzip2](https://sourceware.org/git/?p=bzip2.git;a=summary) | [SUSE bzip2](https://software.opensuse.org/search?utf8=%E2%9C%93&baseproject=ALL&q=bzip2) |
 | [zlib](https://zlib.net/) |  ? |
 | [lz4](https://github.com/lz4/lz4/releases) | [SUSE lz4](https://software.opensuse.org/search?utf8=%E2%9C%93&baseproject=ALL&q=lz4) |
+| [lzlib](https://download.savannah.gnu.org/releases/lzip/lzlib/) | / |
 | [Brotli](https://github.com/google/brotli/releases) | / |
 | [cURL](https://curl.se/download/) | / | 
 | [expat](https://github.com/libexpat/libexpat/releases) | [SUSE expat](https://software.opensuse.org/search?utf8=%E2%9C%93&baseproject=ALL&q=expat) |
