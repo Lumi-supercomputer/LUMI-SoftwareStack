@@ -35,7 +35,12 @@ version of cray-python that is already loaded when the module is loaded.
     the proper configuration file for LUMI so was skipped.
 
 
-### VErsion 0.3.3
+### Version 0.3.3
 
 -   Version for SUSE 15 SP5. Trivial update otherwise with some refinements.
-    
+
+
+### Version 0.4.2
+
+-   Trivial update from 0.3.3.
+        
