@@ -10,8 +10,8 @@ Subject: [PATCH] fix typo in veryloose toolchain option
 
 diff --git a/easybuild/toolchains/compiler/gcc.py b/easybuild/toolchains/compiler/gcc.py
 index e9748f3bda..fd50ad2c03 100644
---- a/easybuild/toolchains/compiler/gcc.py
-+++ b/easybuild/toolchains/compiler/gcc.py
+--- easybuild-framework-4.9.4/easybuild/toolchains/compiler/gcc.py
++++ easybuild-framework-4.9.4/easybuild/toolchains/compiler/gcc.py
 @@ -85,7 +85,7 @@ class Gcc(Compiler):
          COMPILER_UNIQUE_OPTION_MAP['strict'] = []
          COMPILER_UNIQUE_OPTION_MAP['precise'] = []
