@@ -3,7 +3,8 @@ easyblock = 'Bundle'
 name =    'EasyBuild'
 version = '4.9.4'
 
-local_lzip_version =        '1.25'   # https://download.savannah.gnu.org/releases/lzip/
+local_EB_p7zip_version =       '17.05'  # 20240220 - Check on https://github.com/p7zip-project/p7zip/releases
+local_EB_lzip_version =        '1.25'   # https://download.savannah.gnu.org/releases/lzip/
 
 homepage = 'https://easybuilders.github.io/easybuild'
 
@@ -11,10 +12,28 @@ whatis = [
     "Description: EasyBuild is a software build and installation framework written in Python that allows you to install software in a structured, repeatable and robust way."
 ]
 
-description = """
+description = f"""
 EasyBuild is a software build and installation framework
 written in Python that allows you to install software in a structured,
 repeatable and robust way.
+    
+This EasyBuild module also provides some additional tools that can be used by
+EasyBuild but are missing in the LUMI OS image. These include
+
++ lzip {local_EB_lzip_version}: Lzip is a lossless data compressor with a user interface 
+  similar to the one of gzip or bzip2. Lzip uses a simplified form of LZMA 
+  (Lempel-Ziv-Markov chain-Algorithm) designed to achieve complete 
+  interoperability between implementations. Decompression speed is 
+  intermediate between gzip and bzip2.
+  
+  EasyBuild has also been patched to recognise .tar.lz, .tlz and .lz files.
+
++ p7zip {local_EB_p7zip_version} - https://github.com/p7zip-project/p7zip
+  It is used, e.g., in the Matlab EasyConfigs from EasyBuild but currently
+  not actively used on LUMI.
+
+These tools are all build against the system libraries
+
 """
 
 usage = """
@@ -67,6 +86,7 @@ components = [
                         },
                      ],
         'patches':   [
+                        'EasyBuild-4.9.4_extra_file_formats.patch',
                         'EasyBuild-4.9.4_keyring_DBus.patch',
                         'EasyBuild-4.9.4_fix-riscv-toolchain-opts-typo.patch'
                      ],
@@ -74,11 +94,12 @@ components = [
                         {'easybuild_framework-4.9.4.tar.gz':   '5b380a2e3a359f64f06789c390200b922a840f6b10b441e5163696a34bd9bc27'},
                         {'easybuild_easyblocks-4.9.4.tar.gz':  '1272f1e294090caafde8cbda72ae344ef400fdd161163781f67b3cffe761dd62'},
                         {'easybuild_easyconfigs-4.9.4.tar.gz': 'beee4e098f5fee18f2029d6a0b893549aba26e075b147cc0008cb16fd4c8d982'},
-                        {'EasyBuild-4.9.4_keyring_DBus.patch': '70535e02b023162d422bf76c878a05912ee803c6dd54cb48be7dd54868a7d117'},
+                        {'EasyBuild-4.9.4_extra_file_formats.patch':            'f21feed2ba99f0220d7cbb31a84f6632ccbfdce8f365ada99f5432a7ab016088'},
+                        {'EasyBuild-4.9.4_keyring_DBus.patch':                  '70535e02b023162d422bf76c878a05912ee803c6dd54cb48be7dd54868a7d117'},
                         {'EasyBuild-4.9.4_fix-riscv-toolchain-opts-typo.patch': 'a570e9381d56cda4c281bd102db95e58125ab02dcd21814335df0cf9860b3245'},
                      ],
     }),
-    ('lzip', local_lzip_version, { # Useful to work with .tar.lz files
+    ('lzip', local_EB_lzip_version, { # Useful to work with .tar.lz files
         'easyblock':   'ConfigureMake',
         # https://download.savannah.gnu.org/releases/lzip/lzip-1.25.tar.gz
         'sources':      [SOURCELOWER_TAR_GZ], # .tar.lz not yet supported on our systems and not available as a constant in EasyBuild.
@@ -94,6 +115,22 @@ components = [
                         ' && cd - ' +
                         ' && mkdir -p %(installdir)s/share/licenses/lzip' +
                         ' && cp AUTHORS COPYING NEWS README %(installdir)s/share/licenses/lzip'
+    }),
+    ('p7zip', local_EB_p7zip_version, { # Once added when it seemed that we would need EasyBuild to install Matlab.
+        'easyblock':     'MakeCp',
+        'sources':       [ { 'download_filename' : 'v%(version)s.tar.gz',
+                             'filename'          : SOURCE_TAR_GZ,
+                             'source_urls'       : ['https://github.com/p7zip-project/p7zip/archive/refs/tags'],
+                         } ],
+        'checksums':     [{f'p7zip-{local_EB_p7zip_version}.tar.gz': 'd2788f892571058c08d27095c22154579dfefb807ebe357d145ab2ddddefb1a6'}],
+        'start_dir':     '%(namelower)s-%(version)s',
+        'prebuildopts':  'cp makefile.linux_amd64 makefile.linux &&',
+        'buildopts':     'all3 CC="gcc" CXX="g++" OPTFLAGS="-O2 -march=znver1"',
+        'files_to_copy': [
+                             (['bin/7za', 'bin/7zr', 'bin/7zCon.sfx'],           'bin'),     # stand-alone binaries
+                             (['bin/7z', 'bin/7z.%s' % SHLIB_EXT, 'bin/Codecs'], 'libexec'), # 7z requires 7z.so plugin in same directory
+                             (['ChangeLog', 'DOC/copying.txt', 'DOC/License.txt'], 'share/licenses/%(name)s'), # License information
+                         ],
     }),
 ]
 
@@ -130,8 +167,16 @@ postinstallcmds = [ # Robustify a number of commands.
 ]
 
 sanity_check_paths = {
-    'files': ['bin/eb', 'bin/lzip'],
-    'dirs':  [f'lib/python{local_pyshortver}/site-packages'],
+    'files': #EasyBuild
+             ['bin/eb'] +
+             # lzip
+             ['bin/lzip'] +
+             # p7zip
+             ['bin/7za', 'bin/7zr', 'libexec/7z', 'libexec/7z.%s' % SHLIB_EXT],
+    'dirs':  # EasyBuild
+             [f'lib/python{local_pyshortver}/site-packages'] +
+             # p7zip
+             ['libexec/Codecs'],
 }
 
 sanity_check_commands = [
@@ -140,6 +185,8 @@ sanity_check_commands = [
     'unset PYTHONPATH && pygmentize -V',
     'unset PYTHONPATH && eb --version',
     'lzip --version',
+    '7za --help',
+    '7zr --help',
 ]
 
 # Set Python 3 for EasyBuild: Not needed as we hard-coded it.
@@ -152,9 +199,3 @@ modextrapaths = {
 }
 
 moduleclass = 'tools'
-
-#modluafooter= f"""
-#if not ( isloaded("EasyBuild-tools/{local_LUMI_version}") ) then
-#    try_load("EasyBuild-tools/{local_LUMI_version}")
-#end
-#"""
