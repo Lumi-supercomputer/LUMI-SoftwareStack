@@ -159,11 +159,19 @@ exts_list = [
     ('PyYAML',            '5.4.1',    {'modulename': 'yaml'}), # Needed for easystack support in containers that do not yet provide the package.
 ]
 
-postinstallcmds = [ # Robustify a number of commands.
+postinstallcmds = [
+    # Copy the EasyBuild license files.
+    f'cd %(builddir)s/easybuild-framework-{version} && mkdir %(installdir)s/share/licenses/EasyBuild && ' +
+    'cp CONTRIBUTING.md LICENSE README.rst RELEASE_NOTES %(installdir)s/share/licenses/EasyBuild',
+    # Robustify a number of commands by hard-coding the Python to use and integrating
+    # setting the search path for Python packages.
     f'sed -i -e \'s|bin/python3|bin/python{local_pyshortver} -E|\' -e \'s|import sys|import sys\\nsys.path.append("%(installdir)s/lib/python{local_pyshortver}/site-packages")|\' %(installdir)s/bin/archspec',
     f'sed -i -e \'s|bin/python3|bin/python{local_pyshortver} -E|\' -e \'s|import sys|import sys\\nsys.path.append("%(installdir)s/lib/python{local_pyshortver}/site-packages")|\' %(installdir)s/bin/cmark',
     f'sed -i -e \'s|bin/python3|bin/python{local_pyshortver} -E|\' -e \'s|import sys|import sys\\nsys.path.append("%(installdir)s/lib/python{local_pyshortver}/site-packages")|\' %(installdir)s/bin/pygmentize',
     f'sed -i -e \'s|^PYTHON=.*|export PYTHONPATH="%(installdir)s/lib/python{local_pyshortver}/site-packages:%(installdir)s/lib64/python{local_pyshortver}/site-packages"\\nPYTHON=|\' -e \'s|for python_cmd in|for python_cmd in "/usr/bin/python{local_pyshortver}"|\' %(installdir)s/bin/eb',
+    # p7zip: Create the 7z script in the bin directory.
+    'echo \'#!/bin/sh\n%(installdir)s/libexec/7z $@\' > %(installdir)s/bin/7z',
+    'chmod +x %(installdir)s/bin/7z',  # set execution bits according to current umask
 ]
 
 sanity_check_paths = {
@@ -172,7 +180,7 @@ sanity_check_paths = {
              # lzip
              ['bin/lzip'] +
              # p7zip
-             ['bin/7za', 'bin/7zr', 'libexec/7z', 'libexec/7z.%s' % SHLIB_EXT],
+             ['bin/7z', 'bin/7za', 'bin/7zr', 'libexec/7z', 'libexec/7z.%s' % SHLIB_EXT],
     'dirs':  # EasyBuild
              [f'lib/python{local_pyshortver}/site-packages'] +
              # p7zip
@@ -187,6 +195,9 @@ sanity_check_commands = [
     'lzip --version',
     '7za --help',
     '7zr --help',
+    "7z --help",
+    "7z x || test $? -gt 0",
+    """! 7z i | grep -q "Can't load" """,
 ]
 
 # Set Python 3 for EasyBuild: Not needed as we hard-coded it.
