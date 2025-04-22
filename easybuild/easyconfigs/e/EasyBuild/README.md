@@ -156,11 +156,14 @@ e.b., the [MATLAB EasyConfigs in the EasyBuilders repository](https://github.com
     for all patches. This may also require modifying patches that come from the EasyBuild 
     repository itself.
     
--   Two additional tools were installed:
+-   Three additional tools were installed:
 
     -   lzip has a very standard ConfigureMake build process
     
     -   p7zip uses a MakeCp build process and we based the build process on the one 
         in the EasyBuilders EasyConfig.
+
+    -   PRoot as that is useful if we want to use the SingularityCE unprivileged proot 
+        build process in an EasyConfig to modify an existing container.
 
     
