@@ -42,7 +42,7 @@ easyconfigs:
 # Block 2
 #  - cURL-8.3.0-cpeGNU-24.03.eb
 #  - FLAC-1.4.3-cpeGNU-24.03.eb
-#  - gettext-0.22-cpeGNU-24.03-minimal.eb
+  - gettext-0.22-cpeGNU-24.03-minimal.eb
 #  - JasPer-4.0.0-cpeGNU-24.03.eb
   - LAME-3.100-cpeGNU-24.03.eb
 #  - libevent-2.1.12-cpeGNU-24.03.eb
