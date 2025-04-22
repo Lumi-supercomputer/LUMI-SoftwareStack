@@ -3,8 +3,10 @@ easyblock = 'Bundle'
 name =    'EasyBuild'
 version = '4.9.4'
 
-local_EB_lzip_version =     '1.25'   # https://download.savannah.gnu.org/releases/lzip/
-local_EB_p7zip_version =    '17.05'  # 20240220 - Check on https://github.com/p7zip-project/p7zip/releases
+local_EB_lzip_version =           '1.25'   # https://download.savannah.gnu.org/releases/lzip/
+local_EB_p7zip_version =          '17.05'  # 20240220 - Check on https://github.com/p7zip-project/p7zip/releases
+local_EB_PRoot_version =          '5.4.0'  # https://github.com/proot-me/proot/releases
+local_EB_syslibs_talloc_version = '2.4.3'  # https://www.samba.org/ftp/talloc/
 
 homepage = 'https://easybuilders.github.io/easybuild'
 
@@ -31,6 +33,16 @@ EasyBuild but are missing in the LUMI OS image. These include
 + p7zip {local_EB_p7zip_version} - https://github.com/p7zip-project/p7zip
   It is used, e.g., in the Matlab EasyConfigs from EasyBuild but currently
   not actively used on LUMI.
+
++ PRoot {local_EB_PRoot_version}: PRoot is a user-space implementation of chroot, mount --bind,
+  and binfmt_misc. This means that users don't need any privileges or setup to
+  do things like using an arbitrary directory as the new root filesystem,
+  making files accessible somewhere else in the filesystem hierarchy, or
+  executing programs built for another CPU architecture transparently through
+  QEMU user-mode.
+
+  It is included in the EasyBuild module as it is a useful tool to enable
+  building containers in `postinstallcmds` in the container modules on LUMI. 
 
 These tools are all build against the system libraries
 
@@ -132,6 +144,38 @@ components = [
                              (['ChangeLog', 'DOC/copying.txt', 'DOC/License.txt'], 'share/licenses/%(name)s'), # License information
                          ],
     }),
+    # talloc is needed only to be able to build PRoot afterwards and is removed again in
+    # postinstallcmds.
+    ('talloc', local_EB_syslibs_talloc_version, {
+        'easyblock':   'ConfigureMake',
+        # https://www.sqlite.org/2022/sqlite-autoconf-3370200.tar.gz
+        'sources':       [SOURCELOWER_TAR_GZ],
+        'source_urls':   ['https://www.samba.org/ftp/talloc'],
+        'checksums':     ['dc46c40b9f46bb34dd97fe41f548b0e8b247b77a918576733c528e83abd854dd'],
+        'start_dir':     '%(namelower)s-%(version)s',
+        'preconfigopts': 'CC="gcc" CFLAGS="-O2 -march=znver1" ',
+        'configopts':    '--disable-python --disable-rpath',
+        'installopts':   ' && cd %(builddir)s/talloc-%(version)s/bin/default ' +
+                         ' && /usr/bin/ar rcs %(installdir)s/lib/libtalloc.a talloc.c.*.o ' +
+                         ' && /bin/rm %(installdir)s/lib/libtalloc.so*',
+    }),
+    ('PRoot', local_EB_PRoot_version, {
+        'easyblock':    'ConfigureMake',
+        # Source code https://github.com/proot-me/proot/archive/refs/tags/v5.4.0.zip
+        'sources':      [ {
+                           'download_filename': 'v%(version)s.zip',
+                           'filename':          SOURCELOWER_ZIP,
+                           'source_urls':       ['https://github.com/proot-me/proot/archive/refs/tags']
+                        } ],
+        'checksums':    ['8812f3a6c224bdd6a316f13689377e7543e7e3cebcdef6ec98827abee60fa327'],
+        'start_dir':    '%(namelower)s-%(version)s/src',
+        'skipsteps':    [ 'configure' ],
+        'prebuildopts': 'sed -e "s/.*GIT_.*//" -i GNUmakefile && ' +
+                        'PKG_CONFIG_PATH="%(installdir)s/lib/pkgconfig" ',
+        'buildopts':    'proot V=1 CC="gcc" CFLAGS="-O2 -march=znver1" VERSION="%(version)s"',
+        'installopts':  'V=1 PREFIX="%(installdir)s" ' +
+                        '&& mkdir -p %(installdir)s/share/licenses/PRoot && cd .. && cp AUTHORS CHANGELOG.rst COPYING README.rst %(installdir)s/share/licenses/PRoot',
+    })
 ]
 
 local_pyshortver = '.'.join(SYS_PYTHON_VERSION.split('.')[:2])
@@ -160,6 +204,8 @@ exts_list = [
 ]
 
 postinstallcmds = [
+    # Remove talloc as we don't need it anymore; it is statically linked into proot.
+    '/bin/rm -f %(installdir)s/lib/libtalloc.a && /bin/rm -rf %(installdir)s/include',
     # Copy the EasyBuild license files.
     f'cd %(builddir)s/easybuild-framework-{version} && mkdir %(installdir)s/share/licenses/EasyBuild && ' +
     'cp CONTRIBUTING.md LICENSE README.rst RELEASE_NOTES %(installdir)s/share/licenses/EasyBuild',
@@ -180,7 +226,9 @@ sanity_check_paths = {
              # lzip
              ['bin/lzip'] +
              # p7zip
-             ['bin/7z', 'bin/7za', 'bin/7zr', 'libexec/7z', 'libexec/7z.%s' % SHLIB_EXT],
+             ['bin/7z', 'bin/7za', 'bin/7zr', 'libexec/7z', 'libexec/7z.%s' % SHLIB_EXT] +
+             # PRoot
+             ['bin/proot'],
     'dirs':  # EasyBuild
              [f'lib/python{local_pyshortver}/site-packages'] +
              # p7zip
@@ -198,6 +246,7 @@ sanity_check_commands = [
     "7z --help",
     "7z x || test $? -gt 0",
     """! 7z i | grep -q "Can't load" """,
+    'proot --version',
 ]
 
 # Set Python 3 for EasyBuild: Not needed as we hard-coded it.
