@@ -1,8 +1,9 @@
 # The 24.03 toolchain was developed together with the 23.12 one, but contains many updated
 # packages, largely based on the EasyBuild 2022b toolchain as 2023a was not yet available
 # when development started.
-local_LUMI_version =        '24.11'
-local_craypython_version =  '3.11.7'
+local_LUMI_version =         '24.11'
+local_craypython_version =   '3.11.7'
+local_gcc_version =          '13.2'
 
 #
 # EasyBuild EasyConfig
@@ -34,7 +35,7 @@ local_sed_version =              '4.9'         # sed        20221106 - Check on 
 local_patchelf_version =         '0.17.2'      # patchelf   20230110 - Check on https://github.com/NixOS/patchelf/releases - 0.18.0 did not compile with the system compilers
 local_Bison_version =            '3.8.2'       # Bison      20210925 - Check on https://ftp.gnu.org/gnu/bison/
 local_flex_version =             '2.6.4'       # flex       20170506 - Check on https://github.com/westes/flex/releases
-# Noe: byacc 20240109 had a problem in the install phase, didn't check how to fix it but stuck to 20230219
+# Note: byacc 20240109 had a problem in the install phase, didn't check how to fix it but stuck to 20230219
 local_byacc_version =            '20230219'    # byacc      20230219 - Check on https://invisible-mirror.net/archives/byacc/
 # re2c from 3.1 on requires at least Python 3.7.
 local_re2c_version =             '3.0'         # re2c       20210127 - Check on https://github.com/skvadrik/re2c/releases - 3.1 requires Python 3.7 or newer.
@@ -97,6 +98,8 @@ local_nano_version =         '8.3'           # https://www.nano-editor.org/downl
 local_parallel_version =     '20250322'      # https://ftp.gnu.org/gnu/parallel/
 local_Vim_version =          '9.1.1202'      # https://github.com/vim/vim/tags
 local_Subversion_version =   '1.14.5'        # https://subversion.apache.org/download.cgi (not yet used)
+local_Eigen_version =        '3.4.0'         # https://gitlab.com/libeigen/eigen/-/releases
+local_xorg_macros_version =  '1.20.0'        # https://cgit.freedesktop.org/xorg/util/macros
 
 #
 # Regular EasyConfigs
@@ -115,7 +118,6 @@ local_cURL_version =         '8.3.0'         # https://curl.haxx.se/download/
 local_DB_version =           '18.1.40'       # https://www.oracle.com/database/technologies/related/berkeleydb-downloads.html
 local_double_conv_version =  '3.3.0'         # https://github.com/google/double-conversion/releases
 
-local_Eigen_version =        '3.4.0'         # https://gitlab.com/libeigen/eigen/-/releases
 local_ELPA_version =         '2021.11.001'   # Synchronized with CSCS and same version in EasyBuild 2022a
 local_ESMF_version =         '8.6.0'         # https://github.com/esmf-org/esmf/releases - Candidate for version bump if time left
 local_expat_version =        '2.6.2'         # https://github.com/libexpat/libexpat/releases
@@ -217,7 +219,6 @@ local_wget_version =         '1.21.4'        # https://ftp.gnu.org/gnu/wget/
 local_x264_commit =          'baee400f'      # Just follow EasyBuild as the distribution is currently a mess
 local_x264_version =         '20231019'      # Just follow EasyBuild as the distribution is currently a mess
 local_x265_version =         '3.5'           # http://download.videolan.org/pub/videolan/x265/
-local_xorg_macros_version =  '1.20.0'        # https://cgit.freedesktop.org/xorg/util/macros
 local_xterm_version =        '389c'          # https://github.com/ThomasDickey/xterm-snapshots/tags
 local_XZ_version =           '5.4.4'         # https://tukaani.org/xz/
 
