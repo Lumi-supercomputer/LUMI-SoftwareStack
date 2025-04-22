@@ -2,7 +2,7 @@ easyconfigs:
 # Block 1
 #  - Blosc-1.21.5-cpeAOCC-24.03.eb
 #  - Brotli-1.1.0-cpeAOCC-24.03.eb
-#  - bzip2-1.0.8-cpeAOCC-24.03.eb
+  - bzip2-1.0.8-cpeAOCC-24.03.eb
 #  - DB-18.1.40-cpeAOCC-24.03.eb
 #  - double-conversion-3.3.0-cpeAOCC-24.03.eb
   - expat-2.6.2-cpeAOCC-24.03.eb
