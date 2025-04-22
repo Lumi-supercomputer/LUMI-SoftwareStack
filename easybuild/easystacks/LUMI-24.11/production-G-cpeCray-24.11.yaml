@@ -44,7 +44,7 @@ easyconfigs:
 #  - FLAC-1.4.3-cpeCray-24.03.eb
 #  - gettext-0.22-cpeCray-24.03-minimal.eb
 #  - JasPer-4.0.0-cpeCray-24.03.eb
-#  - LAME-3.100-cpeCray-24.03.eb
+  - LAME-3.100-cpeCray-24.03.eb
 #  - libevent-2.1.12-cpeCray-24.03.eb
 #  - libpciaccess-0.17-cpeCray-24.03.eb
 #  - libpng-1.6.40-cpeCray-24.03.eb
