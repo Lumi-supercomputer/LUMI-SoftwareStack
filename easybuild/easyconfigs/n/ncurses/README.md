@@ -67,3 +67,27 @@
     We have tried with `--enable-weak-symbols` which should not add the `t` to the file name but
     haven't gotten it to work yet. It may need some special flags for the compiler and/or linker
     to work as expected.
+
+    
+### 6.4 from 24.11 on
+
+ 
+   * Found how SUSE builds `ncurses`: 
+     [See the spec sheet](https://build.opensuse.org/projects/SUSE:SLE-15:Update/packages/ncurses/files/ncurses.spec?expand=1).
+     
+   * SUSE uses the weak symbols feature from the GNU compiler. It generates libraries with the regular
+     names, but that also have the multithreaded code in them and the versioned symbols are the
+     multithreaded ones. 
+     
+     This is accompished by a combination of compiler/linker flags and arguments to the configure
+     script, see the EasyConfig.
+     
+   * To be sure that the weak symbols work, we do not compile via the Cray wrappers, but overwrite `CC`,
+     etc., to always use a suitable version of the GCC compiler, even for non-GCC toolchains.
+     
+   * We stay close to the SUSE options, but also generate debug libraries as that is done in the regular
+     EasyBuild ncurses.
+
+   * It turned out that the Makefile picks up environment variables during the build and install phases
+     rather than using the values given during the configure step which is why we set the variables 
+     again in all three phases.
