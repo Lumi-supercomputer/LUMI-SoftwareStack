@@ -14,7 +14,7 @@ easyconfigs:
 #  - GSL-2.7.1-cpeAMD-24.03-sequential.eb
 #  - GSL-2.7.1-cpeAMD-24.03-OpenMP.eb
 #  - gzip-1.13-cpeAMD-24.03.eb
-#  - ICU-74.1-cpeAMD-24.03.eb
+  - ICU-74.1-cpeAMD-24.03.eb
 #  - libaec-1.0.6-cpeAMD-24.03.eb
 #  - libb2-0.98.1-cpeAMD-24.03.eb
 #  - libcerf-2.3-cpeAMD-24.03.eb
@@ -62,7 +62,7 @@ easyconfigs:
   - PCRE2-10.42-cpeAMD-24.03.eb
 #  - pixman-0.42.2-cpeAMD-24.03.eb
   - SQLite-3.43.1-cpeAMD-24.03.eb
-#  - XZ-5.4.4-cpeAMD-24.03.eb
+  - XZ-5.4.4-cpeAMD-24.03.eb
 ## Block 4
 #  - file-5.43-cpeAMD-24.03.eb
 #  - libunistring-1.1-cpeAMD-24.03.eb
