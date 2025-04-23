@@ -262,7 +262,8 @@ components = [
         }),
     ('NASM', local_NASM_version, {
         'sources':     [SOURCELOWER_TAR_XZ],
-        'source_urls': ['http://www.nasm.us/pub/nasm/releasebuilds/%(version)s'],
+        'source_urls': ['http://www.nasm.us/pub/nasm/releasebuilds/%(version)s',
+                        'https://web.archive.org/web/20250403005636/https://www.nasm.us/pub/nasm/releasebuilds/%(version)s/'],
         'checksums':   ['1412a1c760bbd05db026b6c0d1657affd6631cd0a63cddb6f73cc6d4aa616148'],
         'start_dir':   '%(namelower)s-%(version)s'
         }),
