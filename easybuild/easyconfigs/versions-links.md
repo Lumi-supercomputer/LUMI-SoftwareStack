@@ -33,7 +33,7 @@ for versions.
 | [libtool](https://ftp.gnu.org/gnu/libtool/) | [EB libtool](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/libtool) | [CSCS libtool](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/l/libtool) | |
 | [M4](https://ftp.gnu.org/gnu/m4/) | [EB M4](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/m/M4) | [CSCS M4](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/m/M4) | |
 | [make](https://ftp.gnu.org/gnu/make/) | [EB make](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/m/make) | [CSCS make](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/m/make) | |
-| [NASM](https://www.nasm.us/) | [EB NASM](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/n/NASM) | [CSCS NASM](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/n/NASM) | |
+| [NASM](https://www.nasm.us/) or [NASM GitHub](https://github.com/netwide-assembler/nasm) | [EB NASM](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/n/NASM) | [CSCS NASM](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/n/NASM) | |
 | [Yasm](https://github.com/yasm/yasm) | [EB Yasm](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/y/Yasm) | / | |
 | [gperf](https://ftp.gnu.org/gnu/gperf/) | [EB gperf](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/g/gperf) | [CSCS gperf](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/g/gperf) | |
 | [sed](https://ftp.gnu.org/gnu/sed/) | / | / | |
