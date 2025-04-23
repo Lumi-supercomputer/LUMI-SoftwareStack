@@ -1,111 +1,111 @@
 easyconfigs:
 # Block 1
-#  - Blosc-1.21.5-cpeGNU-24.03.eb
-#  - Brotli-1.1.0-cpeGNU-24.03.eb
-  - bzip2-1.0.8-cpeGNU-24.03.eb
-#  - DB-18.1.40-cpeGNU-24.03.eb
-#  - double-conversion-3.3.0-cpeGNU-24.03.eb
-  - expat-2.6.2-cpeGNU-24.03.eb
-#  - FriBidi-1.0.13-cpeGNU-24.03.eb
-#  - gc-8.2.6-cpeGNU-24.03.eb
-#  - giflib-5.2.1-cpeGNU-24.03.eb
-#  - GMP-6.3.0-cpeGNU-24.03.eb
-#  - googletest-1.14.0-cpeGNU-24.03.eb
-#  - GSL-2.7.1-cpeGNU-24.03-sequential.eb
-#  - GSL-2.7.1-cpeGNU-24.03-OpenMP.eb
-#  - gzip-1.13-cpeGNU-24.03.eb
-  - ICU-74.1-cpeGNU-24.03.eb
-#  - libaec-1.0.6-cpeGNU-24.03.eb
-#  - libb2-0.98.1-cpeGNU-24.03.eb
-#  - libcerf-2.3-cpeGNU-24.03.eb
-#  - libdeflate-1.19-cpeGNU-24.03.eb
-#  - libffi-3.4.4-cpeGNU-24.03.eb
-##  - libidn-1.38-cpeGNU-24.03.eb
-#  - libidn2-2.3.7-cpeGNU-24.03.eb
-#  - libjpeg-turbo-3.0.1-cpeGNU-24.03.eb
-#  - libogg-1.3.5-cpeGNU-24.03.eb
-#  - libopus-1.4-cpeGNU-24.03.eb
-#  - libpsl-0.21.5-cpeGNU-24.03.eb
-#  - libtirpc-1.3.4-cpeGNU-24.03.eb
-#  - LMDB-0.9.31-cpeGNU-24.03.eb
-#  - lz4-1.9.4-cpeGNU-24.03.eb
-#  - Lzip-1.23-cpeGNU-24.03.eb
-#  - LZO-2.10-cpeGNU-24.03.eb
-#  - mpdecimal-4.0.0-cpeGNU-24.03.eb
-  - ncurses-6.4-cpeGNU-24.03.eb
-#  - nlohmann-json-3.11.3-cpeGNU-24.03.eb
-#  - Szip-2.1.1-cpeGNU-24.03.eb
-#  - termcap-1.3.1-cpeGNU-24.03.eb # Haven't found how to get rid of it for for Term::ReadLine::Gnu
-#  - x264-20231019-cpeGNU-24.03.eb
-#  - x265-3.5-cpeGNU-24.03.eb
-  - zlib-1.3.1-cpeGNU-24.03.eb
+#  - Blosc-1.21.5-cpeGNU-24.11.eb
+#  - Brotli-1.1.0-cpeGNU-24.11.eb
+  - bzip2-1.0.8-cpeGNU-24.11.eb
+#  - DB-18.1.40-cpeGNU-24.11.eb
+#  - double-conversion-3.3.0-cpeGNU-24.11.eb
+  - expat-2.6.2-cpeGNU-24.11.eb
+#  - FriBidi-1.0.13-cpeGNU-24.11.eb
+#  - gc-8.2.6-cpeGNU-24.11.eb
+#  - giflib-5.2.1-cpeGNU-24.11.eb
+#  - GMP-6.3.0-cpeGNU-24.11.eb
+#  - googletest-1.14.0-cpeGNU-24.11.eb
+#  - GSL-2.7.1-cpeGNU-24.11-sequential.eb
+#  - GSL-2.7.1-cpeGNU-24.11-OpenMP.eb
+#  - gzip-1.13-cpeGNU-24.11.eb
+  - ICU-74.1-cpeGNU-24.11.eb
+#  - libaec-1.0.6-cpeGNU-24.11.eb
+#  - libb2-0.98.1-cpeGNU-24.11.eb
+#  - libcerf-2.3-cpeGNU-24.11.eb
+#  - libdeflate-1.19-cpeGNU-24.11.eb
+#  - libffi-3.4.4-cpeGNU-24.11.eb
+##  - libidn-1.38-cpeGNU-24.11.eb
+#  - libidn2-2.3.7-cpeGNU-24.11.eb
+#  - libjpeg-turbo-3.0.1-cpeGNU-24.11.eb
+#  - libogg-1.3.5-cpeGNU-24.11.eb
+#  - libopus-1.4-cpeGNU-24.11.eb
+#  - libpsl-0.21.5-cpeGNU-24.11.eb
+#  - libtirpc-1.3.4-cpeGNU-24.11.eb
+#  - LMDB-0.9.31-cpeGNU-24.11.eb
+#  - lz4-1.9.4-cpeGNU-24.11.eb
+#  - Lzip-1.23-cpeGNU-24.11.eb
+#  - LZO-2.10-cpeGNU-24.11.eb
+#  - mpdecimal-4.0.0-cpeGNU-24.11.eb
+  - ncurses-6.4-cpeGNU-24.11.eb
+#  - nlohmann-json-3.11.3-cpeGNU-24.11.eb
+#  - Szip-2.1.1-cpeGNU-24.11.eb
+#  - termcap-1.3.1-cpeGNU-24.11.eb # Haven't found how to get rid of it for for Term::ReadLine::Gnu
+#  - x264-20231019-cpeGNU-24.11.eb
+#  - x265-3.5-cpeGNU-24.11.eb
+  - zlib-1.3.1-cpeGNU-24.11.eb
 # Block 2
-#  - cURL-8.3.0-cpeGNU-24.03.eb
-#  - FLAC-1.4.3-cpeGNU-24.03.eb
-  - gettext-0.22-cpeGNU-24.03-minimal.eb
-#  - JasPer-4.0.0-cpeGNU-24.03.eb
-  - LAME-3.100-cpeGNU-24.03.eb
-#  - libevent-2.1.12-cpeGNU-24.03.eb
-#  - libpciaccess-0.17-cpeGNU-24.03.eb
-#  - libpng-1.6.40-cpeGNU-24.03.eb
-  - libreadline-8.2-cpeGNU-24.03.eb
-#  - libvorbis-1.3.7-cpeGNU-24.03.eb
-#  - MPFR-4.2.0-cpeGNU-24.03.eb
-#  - snappy-1.1.10-cpeGNU-24.03.eb
-  - Tcl-8.6.13-cpeGNU-24.03.eb
-#  - UDUNITS-2.2.28-cpeGNU-24.03.eb
+#  - cURL-8.3.0-cpeGNU-24.11.eb
+#  - FLAC-1.4.3-cpeGNU-24.11.eb
+  - gettext-0.22-cpeGNU-24.11-minimal.eb
+#  - JasPer-4.0.0-cpeGNU-24.11.eb
+  - LAME-3.100-cpeGNU-24.11.eb
+#  - libevent-2.1.12-cpeGNU-24.11.eb
+#  - libpciaccess-0.17-cpeGNU-24.11.eb
+#  - libpng-1.6.40-cpeGNU-24.11.eb
+  - libreadline-8.2-cpeGNU-24.11.eb
+#  - libvorbis-1.3.7-cpeGNU-24.11.eb
+#  - MPFR-4.2.0-cpeGNU-24.11.eb
+#  - snappy-1.1.10-cpeGNU-24.11.eb
+  - Tcl-8.6.13-cpeGNU-24.11.eb
+#  - UDUNITS-2.2.28-cpeGNU-24.11.eb
 ## Block 3
-#  - freetype-2.13.2-cpeGNU-24.03.eb
-#  - libiconv-1.17-cpeGNU-24.03.eb
-#  - libsndfile-1.2.2-cpeGNU-24.03.eb
-#  - MPC-1.3.1-cpeGNU-24.03.eb
-  - PCRE2-10.42-cpeGNU-24.03.eb
-#  - pixman-0.42.2-cpeGNU-24.03.eb
-  - SQLite-3.43.1-cpeGNU-24.03.eb
-  - XZ-5.4.4-cpeGNU-24.03.eb
+#  - freetype-2.13.2-cpeGNU-24.11.eb
+#  - libiconv-1.17-cpeGNU-24.11.eb
+#  - libsndfile-1.2.2-cpeGNU-24.11.eb
+#  - MPC-1.3.1-cpeGNU-24.11.eb
+  - PCRE2-10.42-cpeGNU-24.11.eb
+#  - pixman-0.42.2-cpeGNU-24.11.eb
+  - SQLite-3.43.1-cpeGNU-24.11.eb
+  - XZ-5.4.4-cpeGNU-24.11.eb
 ## Block 4
-#  - file-5.43-cpeGNU-24.03.eb
-#  - libunistring-1.1-cpeGNU-24.03.eb
-#  - libunwind-1.6.2-cpeGNU-24.03.eb
-  - libxml2-2.11.5-cpeGNU-24.03.eb
-#  - wget-1.21.4-cpeGNU-24.03.eb
-#  - zstd-1.5.5-cpeGNU-24.03.eb
+#  - file-5.43-cpeGNU-24.11.eb
+#  - libunistring-1.1-cpeGNU-24.11.eb
+#  - libunwind-1.6.2-cpeGNU-24.11.eb
+  - libxml2-2.11.5-cpeGNU-24.11.eb
+#  - wget-1.21.4-cpeGNU-24.11.eb
+#  - zstd-1.5.5-cpeGNU-24.11.eb
 ## Block 5
-#  - Boost-1.83.0-cpeGNU-24.03.eb
-  - gettext-0.22-cpeGNU-24.03.eb
-#  - libarchive-3.7.2-cpeGNU-24.03.eb
-#  - LibTIFF-4.6.0-cpeGNU-24.03.eb
-#  - libxslt-1.1.38-cpeGNU-24.03.eb
+#  - Boost-1.83.0-cpeGNU-24.11.eb
+  - gettext-0.22-cpeGNU-24.11.eb
+#  - libarchive-3.7.2-cpeGNU-24.11.eb
+#  - LibTIFF-4.6.0-cpeGNU-24.11.eb
+#  - libxslt-1.1.38-cpeGNU-24.11.eb
 ## Block 6
 ## TODO: New Boost.python.
-#  - gdbm-1.23-cpeGNU-24.03.eb
-#  - intltool-0.51.0-cpeGNU-24.03.eb
-#  - libwebp-1.3.2-cpeGNU-24.03.eb
-#  - PROJ-9.3.1-cpeGNU-24.03.eb
-#  - util-linux-2.39.3-cpeGNU-24.03.eb
+#  - gdbm-1.23-cpeGNU-24.11.eb
+#  - intltool-0.51.0-cpeGNU-24.11.eb
+#  - libwebp-1.3.2-cpeGNU-24.11.eb
+#  - PROJ-9.3.1-cpeGNU-24.11.eb
+#  - util-linux-2.39.3-cpeGNU-24.11.eb
 ## Block 7
-#  - fontconfig-2.14.2-cpeGNU-24.03.eb
+#  - fontconfig-2.14.2-cpeGNU-24.11.eb
 ## Block 8
-#  - libgd-2.3.3-cpeGNU-24.03.eb
-#  - X11-24.03-cpeGNU-24.03.eb
+#  - libgd-2.3.3-cpeGNU-24.11.eb
+#  - X11-24.03-cpeGNU-24.11.eb
 ## Block 9
-#  - FFmpeg-6.1.1-cpeGNU-24.03.eb
-#  - Tk-8.6.13-cpeGNU-24.03.eb
+#  - FFmpeg-6.1.1-cpeGNU-24.11.eb
+#  - Tk-8.6.13-cpeGNU-24.11.eb
 ## Block 10
 ## Block 11
 ## Block 12
 ## Some libraries from the apps section of before, and applications(s)
 ##  - ELPA: Wait a bit, it looks like we need multiple versions and that it may need more testing.
-#  - METIS-5.1.0-cpeGNU-24.03.eb
-#  - ParMETIS-4.0.3-cpeGNU-24.03.eb
-#  - SCOTCH-6.1.3-cpeGNU-24.03.eb
-#  - SCOTCH-7.0.4-cpeGNU-24.03.eb  # Check if the EasyBlock needs an update!
-#  - ESMF-8.6.0-cpeGNU-24.03.eb
-#  - ESMF-8.6.0-cpeGNU-24.03-MPI-PIO.eb
-#  - SuiteSparse-5.13.0-cpeGNU-24.03-OpenMP.eb
+#  - METIS-5.1.0-cpeGNU-24.11.eb
+#  - ParMETIS-4.0.3-cpeGNU-24.11.eb
+#  - SCOTCH-6.1.3-cpeGNU-24.11.eb
+#  - SCOTCH-7.0.4-cpeGNU-24.11.eb  # Check if the EasyBlock needs an update!
+#  - ESMF-8.6.0-cpeGNU-24.11.eb
+#  - ESMF-8.6.0-cpeGNU-24.11-MPI-PIO.eb
+#  - SuiteSparse-5.13.0-cpeGNU-24.11-OpenMP.eb
 ## Some apps
-#  - lumi-CPEtools-1.1-cpeGNU-24.03.eb
-#  - lumi-CPEtools-1.2-cpeGNU-24.03.eb
+#  - lumi-CPEtools-1.1-cpeGNU-24.11.eb
+#  - lumi-CPEtools-1.2-cpeGNU-24.11.eb
 ##  - VampirServer
 ##  - Score-P
 ##
@@ -114,19 +114,19 @@ easyconfigs:
 ## Line 1: Extensions for Perl
 ##
 ## With block 4
-#  - Perl-packages-CPAN-5.38.0-cpeGNU-24.03.eb
+#  - Perl-packages-CPAN-5.38.0-cpeGNU-24.11.eb
 ##
 ## Line 2: Gnome graphics
 ##
 ## With block 7
-#  - GLib-2.78.1-cpeGNU-24.03.eb
+#  - GLib-2.78.1-cpeGNU-24.11.eb
 ## With block 9
-#  - cairo-1.18.0-cpeGNU-24.03.eb
+#  - cairo-1.18.0-cpeGNU-24.11.eb
 ## With block 10
-#  - GObject-Introspection-1.78.1-cpeGNU-24.03-cray-python3.11.eb
+#  - GObject-Introspection-1.78.1-cpeGNU-24.11-cray-python3.11.eb
 ## With block 11
-#  - HarfBuzz-8.2.2-cpeGNU-24.03.eb
+#  - HarfBuzz-8.2.2-cpeGNU-24.11.eb
 ## With block 12
-#  - Pango-1.51.0-cpeGNU-24.03.eb
+#  - Pango-1.51.0-cpeGNU-24.11.eb
 ## With apps (as they depend on other low-priority packages)
-#  - gnuplot-5.4.10-cpeGNU-24.03.eb
+#  - gnuplot-5.4.10-cpeGNU-24.11.eb
