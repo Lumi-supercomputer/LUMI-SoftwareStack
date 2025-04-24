@@ -101,3 +101,7 @@ use.
     
   * Adding lzlib to provide the z liblz.a` library to the `lzip-tools` module.
 
+
+### 25.03
+
+  * Trivial update of 24.11 with just some version check.
