@@ -72,6 +72,7 @@ if os.getenv( 'LUMI_STACK_NAME' ) ~= nil then
     hide_modulefile( '/opt/cray/pe/lmod/modulefiles/core/cpe/23.12.lua' )
     hide_modulefile( '/opt/cray/pe/lmod/modulefiles/core/cpe/24.03.lua' )
     hide_modulefile( '/opt/cray/pe/lmod/modulefiles/core/cpe/24.11.lua' )
+    hide_modulefile( '/opt/cray/pe/lmod/modulefiles/core/cpe/25.03.lua' )
 end
 
 -- Solve a problem for users who were previously using ROCm 5.0.2
@@ -107,6 +108,7 @@ module_version( 'cray-mpich/8.1.27', '8.1.18' )
 module_version( 'cray-mpich/8.1.27', '8.1.23' )
 -- cpe/23.03: to cray-mpich from cpe/23.09
 module_version( 'cray-mpich/8.1.27', '8.1.25' )
+
 
 
 
