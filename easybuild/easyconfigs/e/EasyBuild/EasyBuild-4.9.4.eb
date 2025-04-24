@@ -192,15 +192,15 @@ exts_default_options = {
 exts_list = [
     ('click',             '7.1.2',    {}), # archspec 0.1.3 is incompatible with more recent versions of click
     ('archspec',          '0.1.3',    {}),
-#    ('colorama',          '0.4.4',    {}),
-#    ('commonmark',        '0.9.1',    {}),
-#    ('dataclasses',       '0.8',      {}),
-#    ('Pygments',          '2.11.2',   {}),
-#    ('typing_extensions', '3.10.0.2', {}), # The 4.0.x versions did not install, maybe due to the lack of pip?
-#    ('rich',              '11.2.0',   {}),
+    ('colorama',          '0.4.4',    {}),
+    ('commonmark',        '0.9.1',    {}),
+    ('dataclasses',       '0.8',      {}),
+    ('Pygments',          '2.11.2',   {}),
+    ('typing_extensions', '3.10.0.2', {}), # The 4.0.x versions did not install, maybe due to the lack of pip?
+    ('rich',              '11.2.0',   {}),
     # Trying to install PyYAML but it installs in the wrong directory. Tests pass but 
     # when you try to use it afterwards, Python fails to find it.
-#    ('PyYAML',            '5.4.1',    {'modulename': 'yaml'}), # Needed for easystack support in containers that do not yet provide the package.
+    ('PyYAML',            '5.4.1',    {'modulename': 'yaml'}), # Needed for easystack support in containers that do not yet provide the package.
 ]
 
 postinstallcmds = [
@@ -211,9 +211,9 @@ postinstallcmds = [
     'cp CONTRIBUTING.md LICENSE README.rst RELEASE_NOTES %(installdir)s/share/licenses/EasyBuild',
     # Robustify a number of commands by hard-coding the Python to use and integrating
     # setting the search path for Python packages.
-    #f'sed -i -e \'s|bin/python3|bin/python{local_pyshortver} -E|\' -e \'s|import sys|import sys\\nsys.path.append("%(installdir)s/lib/python{local_pyshortver}/site-packages")|\' %(installdir)s/bin/archspec',
-    #f'sed -i -e \'s|bin/python3|bin/python{local_pyshortver} -E|\' -e \'s|import sys|import sys\\nsys.path.append("%(installdir)s/lib/python{local_pyshortver}/site-packages")|\' %(installdir)s/bin/cmark',
-    #f'sed -i -e \'s|bin/python3|bin/python{local_pyshortver} -E|\' -e \'s|import sys|import sys\\nsys.path.append("%(installdir)s/lib/python{local_pyshortver}/site-packages")|\' %(installdir)s/bin/pygmentize',
+    f'sed -i -e \'s|bin/python3|bin/python{local_pyshortver} -E|\' -e \'s|import sys|import sys\\nsys.path.append("%(installdir)s/lib/python{local_pyshortver}/site-packages")|\' %(installdir)s/bin/archspec',
+    f'sed -i -e \'s|bin/python3|bin/python{local_pyshortver} -E|\' -e \'s|import sys|import sys\\nsys.path.append("%(installdir)s/lib/python{local_pyshortver}/site-packages")|\' %(installdir)s/bin/cmark',
+    f'sed -i -e \'s|bin/python3|bin/python{local_pyshortver} -E|\' -e \'s|import sys|import sys\\nsys.path.append("%(installdir)s/lib/python{local_pyshortver}/site-packages")|\' %(installdir)s/bin/pygmentize',
     f'sed -i -e \'s|^PYTHON=.*|export PYTHONPATH="%(installdir)s/lib/python{local_pyshortver}/site-packages:%(installdir)s/lib64/python{local_pyshortver}/site-packages"\\nPYTHON=|\' -e \'s|for python_cmd in|for python_cmd in "/usr/bin/python{local_pyshortver}"|\' %(installdir)s/bin/eb',
     # p7zip: Create the 7z script in the bin directory.
     'echo \'#!/bin/sh\n%(installdir)s/libexec/7z $@\' > %(installdir)s/bin/7z',
@@ -236,9 +236,9 @@ sanity_check_paths = {
 }
 
 sanity_check_commands = [
-    #'unset PYTHONPATH && archspec --version',
-    #'unset PYTHONPATH && cmark -h',
-    #'unset PYTHONPATH && pygmentize -V',
+    'unset PYTHONPATH && archspec --version',
+    'unset PYTHONPATH && cmark -h',
+    'unset PYTHONPATH && pygmentize -V',
     'unset PYTHONPATH && eb --version',
     'lzip --version',
     '7za --help',
