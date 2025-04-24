@@ -154,3 +154,9 @@ Not included at the moment:
         pre-generated.
         
       * So for now we use the web archive as a second source for downloads.
+
+      
+### 25.03
+      
+  * Minor update of 24.11, few packages changed as these were developed within three 
+    weeks of each other.      
