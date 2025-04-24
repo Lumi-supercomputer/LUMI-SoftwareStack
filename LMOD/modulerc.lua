@@ -45,6 +45,7 @@ if os.getenv( 'LUMI_LMOD_POWERUSER' ) == nil then
     hide_version( 'buildtools/23.12-bootstrap' )
     hide_version( 'buildtools/24.03-bootstrap' )
     hide_version( 'buildtools/24.11-bootstrap' )
+    hide_version( 'buildtools/25.03-bootstrap' )
     -- Some cpe* modules for which we have no software yet
     hide_version( 'cpeGNU/23.03' )
     hide_version( 'cpeAOCC/23.03' )
