@@ -1,0 +1,9 @@
+easyconfigs:
+  - lumi-tools-24.05.eb
+  - lumi-vnc-20230110.eb
+  - lumio-ext-tools-1.0.0.eb
+  - lumio-1.0.0.eb 
+  - lumio-2.0.0.eb 
+  - Vampir-10.0.0.eb
+  - Vampir-10.2.1.eb
+  - ARMForge-22.0.1.eb
