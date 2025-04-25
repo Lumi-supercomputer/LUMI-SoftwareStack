@@ -81,7 +81,7 @@ cluster).
   * Straightforward port of the 2.43.4 EasyConfig file.
 
 
-### git 2.49.0 for 24.11
+### git 2.49.0 for 24.11 and 25.03
 
   * Straightforward port of the 2.45.1 EasyConfig file.
    
