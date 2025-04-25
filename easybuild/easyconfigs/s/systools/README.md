@@ -131,3 +131,8 @@ The current content is
         function so that it works as expected in a Slurm job, and also limit the default number of 
         threads to 16 on the login nodes.
 
+
+### 25.03
+
+-   Identical to the 24.11 version
+
