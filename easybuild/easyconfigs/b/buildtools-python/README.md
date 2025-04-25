@@ -45,3 +45,9 @@ Links for quick checking for version updates:
 
 -   Updated Meson and SCons to the latest versions at the time of development of the
     EasyConfig.
+
+### 25.03 versions
+
+-   For now direct copies from the 24.11 ones.
+
+    
