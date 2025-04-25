@@ -63,7 +63,7 @@
   * Trivial port of the 3.3.9 EasyConfig.
 
 
-### 3.4.0 for 21.12/23.03
+### 3.4.0 for 21.12/23.03/24.11/25.03
 
   * Looks like the Eigen people returned to a normal version numberins, so adapted the
     EasyConfig.
