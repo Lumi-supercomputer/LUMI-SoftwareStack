@@ -59,4 +59,9 @@ The module contains:
     
 -   The EasyConfig needs our new EasyBuild 4.9.4 installation as it needs
     the `lzip` command and the modifications to support `.tar.lz` files.
+
+
+### Lzip-tools for 25.03
+
+-   Identical to the 24.11 version.   
  
