@@ -38,7 +38,7 @@
   * Straightforward port from the 1.14.2 EasyConfig.
 
 
-### Subversion 1.14.5 for SYSTEM in 24.11
+### Subversion 1.14.5 for SYSTEM in 24.11 and 25.03
 
   * Straightforward port from the 1.14.3 EasyConfig.
   
