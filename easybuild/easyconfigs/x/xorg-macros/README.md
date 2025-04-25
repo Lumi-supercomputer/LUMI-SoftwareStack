@@ -32,7 +32,7 @@ of their configure scripts with autoconf.
   * Trivial version bump of our 1.19.3 EasyConfig.
 
 
-### Version 1.20.1 from CPE 24.03 on
+### Version 1.20.2 from CPE 25.03 on
 
   * Trivial version bump of our 1.20.0 EasyConfig.
 
