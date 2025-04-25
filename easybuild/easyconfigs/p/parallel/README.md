@@ -49,7 +49,12 @@
 -   Trivial version bump of the EasyConfig for 20240422.
 
 
-### Version 20250322 using the system perl.
+### Version 20250322 using the system perl for 24.03
 
 -   Trivial version bump of the EasyConfig for 20240522.
+
+
+### Version 20250422 using the system perl for 25.03
+
+-   Trivial version bump of the EasyConfig for 20250322.
 
