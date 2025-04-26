@@ -91,6 +91,15 @@ requires SuiteSparse, and since that one uses BLAS and LAPACK, it depends on the
 programming environment so is a separate module that needs to be loaded if you use
 hipSolver.
 
+rocm/6.3.4:
+This module is not installed the way it is intended by AMD. Hence some parts of ROCm may
+be broken or offer slower than expected performance and there is nothing the LUMI
+User Support Team can do about that. As the module is also not an official HPE Cray 
+module there is no guarantee that it will integrate properly with HPE Cray PE modules
+or work correctly in that environment. In fact, it is know to cause problems with the
+CCE compilers prior to cce/18.0.0 due to link incompatibilities. Additional information
+can be found here: https://lumi-supercomputer.github.io/LUMI-EasyBuild-docs/r/rocm/
+
 .*/.*%-rocm%-5.[2-5].*%-singularity%-.*:
 These containers are based on older versions of ROCm than officially supported by
 the ROCm driver on the system, so some features may be broken. These containers,

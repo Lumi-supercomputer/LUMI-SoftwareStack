@@ -40,16 +40,23 @@ requirements is not public.
     the SuiteSparse module needs to be **loaded before** the `rocm/6.2.2` module
     or `rocm/6.0.3` will be used.
 
--   In the `CrayEnv` environment, omniperf dependencies have been installed for
-    all `cray-python` versions available at the time of the module installation
-    (October 2024, Python 3.9, 3.10 and 3.11) but the `cray-python` module is
-    not loaded as a dependency to let the choice of the Python version to the
-    user. Therefore, if you want to use omniperf, you need to load a
-    `cray-python` module yourself. In the `LUMI` environment, the only supported
-    version of Python is the one coming from the corresponding release of the
-    CPE. For example, for `LUMI/24.03` omniperf dependencies have been installed
-    for version 3.11. **Omniperf is not compatible with the system Python
-    (version 3.6)**.
+-   With ROCm 6.3, hipSolver doesn't require a module for SuiteSparse. Our
+    testing have uncover a few failures in unit testing for hipGraph. These
+    concerns the `hipUserObjectCreate` and `hipGraphRetainUserObject` API calls
+    which are marked as Beta. We don't think many users will be affected. We
+    also noticed a problem when using rocFFT callbacks.
+
+-   Starting with version 6.3.4 omniperf/rocprofiler-compute dependencies are
+    installed for all `cray-python` versions available at the time of the module
+    installation (April 2025, Python 3.9, 3.10 and 3.11). However, the
+    `cray-python` module is not loaded as a dependency to let the choice of the
+    Python version to the user. Therefore, if you want to use
+    omniperf/rocprofiler-compute, you need to load a `cray-python` module
+    yourself. For version 6.2, the only supported version of Python is the one
+    coming from the corresponding release of the CPE. For example, for
+    `LUMI/24.03` omniperf/rocprofiler-compute dependencies have been installed
+    for version 3.11. **Omniperf/rocprofiler-compute is not compatible with the
+    system Python (version 3.6)**.
 
 Note that using ROCm in containers is still subject to the same driver
 compatibility problems. Though containers will solve the problem of ROCm being
