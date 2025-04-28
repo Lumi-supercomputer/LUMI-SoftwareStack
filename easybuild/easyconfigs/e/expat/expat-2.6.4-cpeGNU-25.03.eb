@@ -1,0 +1,75 @@
+easyblock = 'ConfigureMake'
+
+local_expat_version =        '2.6.4'         # https://github.com/libexpat/libexpat/releases
+
+name =    'expat'
+version = local_expat_version
+
+homepage = 'https://libexpat.github.io/'
+
+whatis = [
+    'Description: Stream-oriented XML parser library',
+    'This module contains the tool xmlwf and static and shared libraries',
+]
+
+description = """
+Expat is an XML parser library written in C. It is a stream-oriented parser in
+which an application registers handlers for things the parser might find in the
+XML document (like start tags).
+
+The module contains the command line tool xmlwf and static and shared libraries.
+"""
+
+usage = """
+The command line utility xmlwf checks whether a XML document is well-formed.
+Help for this command is available through a man page.
+
+The library is documented on the expat web page.
+"""
+
+docurls = [
+    'Web-based documentation: https://libexpat.github.io/doc/',
+    'Man page for xmlwf',
+]
+
+software_license_urls = [
+   'https://github.com/libexpat/libexpat/blob/R_%s/COPYING' % '_'.join(version.split('.')),    
+]
+
+toolchain = {'name': 'cpeGNU', 'version': '25.03'}
+toolchainopts = {'pic': True}
+
+source_urls = ['https://github.com/libexpat/libexpat/releases/download/R_%s/' % version.replace('.', '_')]
+sources =     [SOURCE_TAR_BZ2]
+checksums =   ['8dc480b796163d4436e6f1352e71800a774f73dbae213f1860b60607d2a83ada']
+
+builddependencies = [ # Create a reproducible build environment.
+    ('buildtools', '%(toolchain_version)s', '', True),
+]
+
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+
+# Since expat 2.2.6, docbook2X is needed to produce manpage of xmlwf.
+# Docbook2X needs XML-Parser and XML-Parser needs expat.
+# -> circular dependency. "--without-docbook" breaks this circle.
+configopts = ['--without-docbook']
+
+postinstallcmds = [
+    'mkdir -p %(installdir)s/share/licenses/%(name)s',
+    'cp AUTHORS COPYING README.md %(installdir)s/share/licenses/%(name)s',   
+]
+
+sanity_check_paths = {
+    'files': ['bin/xmlwf', 'include/expat.h', 'lib/libexpat.a', 'lib/libexpat.%s' % SHLIB_EXT,
+              'share/licenses/%(name)s/COPYING'],
+    'dirs':  [],
+}
+
+sanity_check_commands = [
+    'xmlwf -h',
+    'pkg-config --libs %(namelower)s',
+]
+
+moduleclass = 'tools'
