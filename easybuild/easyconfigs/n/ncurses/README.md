@@ -71,7 +71,6 @@
     
 ### 6.4 from 24.11 on
 
- 
    * Found how SUSE builds `ncurses`: 
      [See the spec sheet](https://build.opensuse.org/projects/SUSE:SLE-15:Update/packages/ncurses/files/ncurses.spec?expand=1).
      
@@ -96,3 +95,14 @@
      for `pkg-config` and the `ncurses*6-config` commands 
      as that breaks the linker on LLVM-based compilers on LUMI. It is an unfortunate
      side effect of compiling everything with the GNU compilers to have the weak symbol support.
+
+
+### 6.5 from 25.03 on
+
+-   Port of the EasyConfig for 6.4 in 24.11
+
+-   One adaptation needed: Explicitly use `--disable-widec` for the regular libraries as 
+    support for UTF-8 (widec) is now the default.
+
+-   Slightly improved the sanity check.
+
