@@ -120,7 +120,7 @@ local_double_conv_version =  '3.3.0'         # https://github.com/google/double-
 
 local_ELPA_version =         '2021.11.001'   # Synchronized with CSCS and same version in EasyBuild 2022a
 local_ESMF_version =         '8.6.0'         # https://github.com/esmf-org/esmf/releases - Candidate for version bump if time left
-local_expat_version =        '2.6.2'         # https://github.com/libexpat/libexpat/releases
+local_expat_version =        '2.6.4'         # https://github.com/libexpat/libexpat/releases
 
 local_file_version =         '5.43'          # ftp://ftp.astron.com/pub/file/
 local_FFmpeg_version =       '6.1.1'         # https://ffmpeg.org/download.html#releases
@@ -131,7 +131,7 @@ local_fribidi_version =      '1.0.13'        # https://github.com/fribidi/fribid
 
 local_gc_version =           '8.2.6'         # http://hboehm.info/gc/gc_source/
 local_gdbm_version =         '1.23'          # https://ftp.gnu.org/gnu/gdbm/
-local_gettext_version =      '0.22'          # https://ftp.gnu.org/pub/gnu/gettext/
+local_gettext_version =      '0.24'          # https://ftp.gnu.org/pub/gnu/gettext/
 local_giflib_version =       '5.2.1'         # https://sourceforge.net/projects/giflib/files/
 local_GLib_version =         '2.78.1'        # https://ftp.gnome.org/pub/GNOME/sources/glib/
 local_GMP_version =          '6.3.0'         # https://ftp.gnu.org/gnu/gmp/
@@ -143,7 +143,7 @@ local_gzip_version =         '1.13'          # https://ftp.gnu.org/gnu/gzip/
 
 local_HarfBuzz_version =     '8.2.2'          # https://www.freedesktop.org/software/harfbuzz/release/
 
-local_ICU_version =          '74.1'          # http://site.icu-project.org/home
+local_ICU_version =          '76.1'          # http://site.icu-project.org/home
 local_intltool_version =     '0.51.0'        # https://launchpad.net/intltool/+download
 
 local_JasPer_version =       '4.0.0'         # https://github.com/jasper-software/jasper/releases
@@ -167,7 +167,7 @@ local_libopus_version =      '1.4'           # http://opus-codec.org/downloads/
 local_libpciaccess_version = '0.17'          # https://cgit.freedesktop.org/xorg/lib/libpciaccess/
 local_libpng_version =       '1.6.40'        # http://www.libpng.org/pub/png/libpng.html
 local_libpsl_version =       '0.21.5'        # https://github.com/rockdaboot/libpsl/releases
-local_libreadline_version =  '8.2'           # https://ftp.gnu.org/pub/gnu/readline/
+local_libreadline_version =  '8.2.13'        # https://ftp.gnu.org/pub/gnu/readline/, also look at the patches
 local_libsndfile_version =   '1.2.2'         # https://github.com/libsndfile/libsndfile/releases
 local_libtheora_version =    '1.1.1'         # https://www.theora.org/downloads/ or https://github.com/xiph/theora/releases
 local_libtiff_version =      '4.6.0'         # https://download.osgeo.org/libtiff/
@@ -176,7 +176,7 @@ local_libunistring_version = '1.1'           # https://ftp.gnu.org/gnu/libunistr
 local_libunwind_version  =   '1.6.2'         # http://download.savannah.nongnu.org/releases/libunwind/
 local_libvorbis_version =    '1.3.7'         # https://xiph.org/downloads/ or https://github.com/xiph/vorbis/releases
 local_libwebp_version =      '1.3.2'         # https://github.com/webmproject/libwebp/releases
-local_libxml2_version =      '2.11.5'        # http://xmlsoft.org/sources/
+local_libxml2_version =      '2.13.4'        # http://xmlsoft.org/sources/
 local_libxslt_version =      '1.1.38'        # http://xmlsoft.org/sources/
 local_libyaml_version =      '0.2.5'         # https://github.com/yaml/libyaml/releases
 local_LMDB_version =         '0.9.31'        # https://github.com/LMDB/lmdb/releases
@@ -189,14 +189,14 @@ local_METIS_version =        '5.1.0'         # https:/http://glaros.dtc.umn.edu/
 local_mpdecimal_version =    '2.5.1'         # https://www.bytereef.org/mpdecimal/
 local_MPFR_version =         '4.2.0'         # https://ftp.gnu.org/gnu/mpfr/
 
-local_ncurses_version =      '6.4'           # https://ftp.gnu.org/pub/gnu/ncurses/
+local_ncurses_version =      '6.5'           # https://ftp.gnu.org/pub/gnu/ncurses/
 local_nlohmannjson_version = '3.11.3'        # https://github.com/nlohmann/json/releases
 
 local_Pango_version =        '1.51.0'        # http://ftp.gnome.org/pub/GNOME/sources/pango/
 local_ParMETIS_version =     '4.0.3'         # https:/http://glaros.dtc.umn.edu/gkhome/metis/parmetis/download
-local_PCRE2_version =        '10.42'         # https://ftp.pcre.org/pub/pcre/
+local_PCRE2_version =        '10.45'         # https://github.com/PCRE2Project/pcre2/releases  # Not yet in EB 2025a when checked for installation
 local_PCRE_version =         '8.45'          # https://ftp.pcre.org/pub/pcre/
-local_Perl_version =         '5.38.0'        # https://www.perl.org/get.html
+local_Perl_version =         '5.40.0'        # https://www.perl.org/get.html
 local_PROJ_version =         '9.3.1'         # https://proj.org/download.html
 local_pixman_version =       '0.42.2'        # https://www.cairographics.org/releases/
 
@@ -204,11 +204,11 @@ local_SCOTCH6_version =      '6.1.3'         # https://gforge.inria.fr/projects/
 local_SCOTCH7_version =      '7.0.4'         # https://gforge.inria.fr/projects/scotch/
 local_SCOTCH_version =       '6.1.3'         # https://gforge.inria.fr/projects/scotch/
 local_snappy_version =       '1.1.10'        # https://github.com/google/snappy/releases
-local_SQLite_version =       '3.43.1'        # https://www.sqlite.org/
+local_SQLite_version =       '3.47.2'        # https://www.sqlite.org/
 local_Szip_version =         '2.1.1'         # https://support.hdfgroup.org/ftp/lib-external/szip/
 
-local_Tcl_version =          '8.6.13'        # https://tcl.tk/
-local_Tk_version =           '8.6.13'        # https://tcl.tk/
+local_Tcl_version =          '8.6.16'        # https://tcl.tk/
+local_Tk_version =           '8.6.16'        # https://tcl.tk/
 local_termcap_version =      '1.3.1'         # https://ftp.gnu.org/gnu/termcap/
 
 local_UDUNITS_version =      '2.2.28'        # https://artifacts.unidata.ucar.edu/service/rest/repository/browse/downloads-udunits/
@@ -220,7 +220,7 @@ local_x264_commit =          'baee400f'      # Just follow EasyBuild as the dist
 local_x264_version =         '20231019'      # Just follow EasyBuild as the distribution is currently a mess
 local_x265_version =         '3.5'           # http://download.videolan.org/pub/videolan/x265/
 local_xterm_version =        '389c'          # https://github.com/ThomasDickey/xterm-snapshots/tags
-local_XZ_version =           '5.4.4'         # https://tukaani.org/xz/
+local_XZ_version =           '5.6.3'         # https://tukaani.org/xz/
 
 local_zlib_version =         '1.3.1'         # https://zlib.net/
 local_zstd_version =         '1.5.5'         # https://github.com/facebook/zstd/releases
