@@ -50,3 +50,11 @@
     concerns.
 
   * Starting from a trivial port, but adding more license info to the installation.
+
+
+### Version 2.6.4 from CPED 25.03 on
+
+  * Trivial version bump of the last EasyConfigs for 2.6.2.
+  
+  
+  
