@@ -28,4 +28,9 @@
   * Trivial version bump of the EasyConfig for 5.4.2 in LUMI/23.12.
 
   * gettext seems to be a build dependency only, so moved it.
-  
+ 
+
+### Version 5.6.3 for LUMI/25.03
+
+  * Trivial version bump of the EasyConfig for 5.4.4 in LUMI/24.03.
+
