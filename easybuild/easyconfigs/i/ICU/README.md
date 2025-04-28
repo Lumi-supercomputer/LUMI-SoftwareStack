@@ -57,3 +57,9 @@ Build problem with cpeGNU when using the 12.2.0 compilers:
 ### 74.1 for LUMI/24.03
 
 -   Trivial port of the 73.2 EasyConfig for LUMI/23.12.
+
+
+### 76.1 for LUMI/25.03
+
+-   Trivial port of the 74.1 EasyConfig for LUMI/24.03 and LUMI/24.11.
+
