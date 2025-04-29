@@ -12,3 +12,14 @@
 ### Version 10.0.0
 
 Based on similar EasyConfig files in the easybuilders and CSCS repositories.
+
+
+### Version 10.2.1
+
+-   Trivial update of the 10.0.0 EasyConfig
+
+
+### Version 10.6.1
+
+-   Trivial update of the 10.2.1 EasyConfig
+
