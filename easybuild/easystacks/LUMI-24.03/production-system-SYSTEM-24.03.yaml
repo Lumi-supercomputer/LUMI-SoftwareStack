@@ -6,4 +6,5 @@ easyconfigs:
   - lumio-2.0.0.eb 
   - Vampir-10.0.0.eb
   - Vampir-10.2.1.eb
+  - Vampir-10.6.1.eb
   - ARMForge-22.0.1.eb
