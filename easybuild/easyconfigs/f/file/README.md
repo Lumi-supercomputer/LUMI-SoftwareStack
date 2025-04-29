@@ -38,3 +38,13 @@
   * Trivial version update of the EasyConfig.
 
   * For LUMI/23.12, version information was added to the installation.
+
+  
+### Version 5.46 from CPE 25.03 on
+
+  * Trivial version update of the EasyConfig for version 5.43 in LUMI 24.03/24.11.
+  
+  * But did need to properly set `preconfigopts` ensuring that unneeded modules were
+    unloaded as the configure failed when `xpmem` was loaded. So far we only did so
+    from the build phase on./
+  
