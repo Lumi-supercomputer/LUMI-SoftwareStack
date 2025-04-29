@@ -49,3 +49,13 @@
   * The bugs that hit us in 2.39 seem to be fixed without any patches that have since 
     been developed by the EasyBuild community, so we deviate from 2023b.
 
+
+### Version 2.39.3 from LUMI/24.03 on
+
+  * Version bump of 2.39.3 for LUMI/24.02 and 24.11,
+  
+  * but there is a new dependency: SQLite, for a function that is enabled by default.
+  
+  * And there is also an extra configure flag `--disable-symvers` needed for cpeCray 
+    as there are issues with versioned symbols.
+
