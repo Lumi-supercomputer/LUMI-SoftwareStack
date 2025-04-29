@@ -10,7 +10,10 @@ The systools module provides multiple packages:
     a copy of which can also be found in the
     [COPYING file in the source repository](https://github.com/htop-dev/htop/blob/main/COPYING).
     
--   `libtree` is publiedh under the MIT License a copy of which can be found in the
+-   `pbzip2` is published under a BSD-style license. See the "COPYING" file included 
+    in the software installation (see below).
+    
+-   `libtree` is published under the MIT License a copy of which can be found in the
     [LICENSE file in the GitHub repository](https://github.com/haampie/libtree/blob/master/LICENSE).
 
 -   `tree` is published under the
