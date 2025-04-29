@@ -103,6 +103,11 @@ configopts = [
 ]
 
 postinstallcmds = [
+    # Remove --hash-size in the link options in the .pc files and ncurses*6-config commands
+    'cd %(installdir)s/lib/pkgconfig ; for file in $(/bin/ls *.pc) ; do sed -e "s| -Wl,--hash-size=8599||" -i $file ; done',
+    'cd %(installdir)s/bin && sed -e "s| -Wl,--hash-size=8599||" -i ncurses6-config',
+    'cd %(installdir)s/bin && sed -e "s| -Wl,--hash-size=8599||" -i ncursesw6-config',
+    # Copy the license files
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
     'cp ANNOUNCE AUTHORS COPYING MANIFEST NEWS README %(installdir)s/share/licenses/%(name)s',   
 ]
