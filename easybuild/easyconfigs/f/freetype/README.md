@@ -50,3 +50,8 @@
 
   * Trivial port of the EasyConfig for version 2.13.0 for LUMI/23.12.
 
+
+### Version 2.13.3 from LUMI/25.03 on
+
+  * Trivial port of the EasyConfig for version 2.13.2 for LUMI/24.03.
+
