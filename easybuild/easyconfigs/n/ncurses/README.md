@@ -91,3 +91,8 @@
    * It turned out that the Makefile picks up environment variables during the build and install phases
      rather than using the values given during the configure step which is why we set the variables 
      again in all three phases.
+
+   * For the non-GNU versions, we needed to remove the `--hash-size` linker flag included in the files
+     for `pkg-config` and the `ncurses*6-config` commands 
+     as that breaks the linker on LLVM-based compilers on LUMI. It is an unfortunate
+     side effect of compiling everything with the GNU compilers to have the weak symbol support.
