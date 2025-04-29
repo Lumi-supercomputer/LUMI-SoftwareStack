@@ -65,7 +65,7 @@ easyconfigs:
   - SQLite-3.47.2-cpeCray-25.03.eb
   - XZ-5.6.3-cpeCray-25.03.eb
 ## Block 4
-#  - file-5.43-cpeCray-25.03.eb
+  - file-5.46-cpeCray-25.03.eb
 #  - libunistring-1.1-cpeCray-25.03.eb
 #  - libunwind-1.6.2-cpeCray-25.03.eb
   - libxml2-2.13.4-cpeCray-25.03.eb
