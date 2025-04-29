@@ -35,3 +35,10 @@
 
   * For LUMI/23.12, license information was added to the installation, and we also 
     build both shared and static libraries.
+
+    
+### Version 1.1.42 from CPE 25.03 on
+
+  * Trivial version bump of the 1.1.38 EasyConfig.
+
+    
