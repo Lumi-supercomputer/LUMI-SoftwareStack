@@ -168,7 +168,7 @@ class EB_Score_minus_P_minus_CPE(ConfigureMake):
         #               configure, see https://github.com/geimer/easybuild-easyblocks/pull/4#issuecomment-219284755
         deps = {
             'libbfd': ['--with-libbfd-include=%s/include',
-                         '--with-libbfd-lib=%%s/%s' % get_software_libdir('libbfd', fs=['libbfd.a'])],
+                         '--with-libbfd-lib=%%s/%s' % get_software_libdir('libbfd', fs=['libbfd.so'])],
             'binutils': ['--with-libbfd-include=%s/include',
                          '--with-libbfd-lib=%%s/%s' % get_software_libdir('binutils', fs=['libbfd.a'])],
             'libunwind': ['--with-libunwind=%s'],
