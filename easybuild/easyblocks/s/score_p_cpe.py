@@ -38,11 +38,13 @@ implemented as an easyblock.
 # that do not yet contain LooseVersion in easybuild.tools.
 #from easybuild.tools import LooseVersion
 from distutils.version import LooseVersion
+import os
 
 import easybuild.tools.toolchain as toolchain
 from easybuild.easyblocks.generic.configuremake import ConfigureMake
 from easybuild.tools.build_log import EasyBuildError
 from easybuild.tools.environment import unset_env_vars
+from easybuild.tools.filetools import apply_regex_substitutions
 from easybuild.tools.modules import get_software_root, get_software_libdir
 
 
@@ -54,6 +56,22 @@ class EB_Score_minus_P_minus_CPE(ConfigureMake):
 
     def configure_step(self, *args, **kwargs):
         """Configure the build, set configure options for compiler, MPI and dependencies."""
+
+        if LooseVersion('8.0') <= LooseVersion(self.version) < LooseVersion('8.5'):
+            # Fix an issue where the configure script would fail if certain dependencies are installed in a path
+            # that includes "yes" or "no", see https://gitlab.com/score-p/scorep/-/issues/1008.
+            yes_no_regex = [
+                (r'\*yes\*\|\*no\*', 'yes,*|no,*|*,yes|*,no'),
+                (r'_lib}\${with_', '_lib},${with_'),
+            ]
+            configure_scripts = [
+                os.path.join(self.start_dir, 'build-backend', 'configure'),
+                os.path.join(self.start_dir, 'build-mpi', 'configure'),
+                os.path.join(self.start_dir, 'build-shmem', 'configure'),
+            ]
+            for configure_script in configure_scripts:
+                apply_regex_substitutions(configure_script, yes_no_regex)
+
         # Remove some settings from the environment, as they interfere with
         # Score-P's configure magic...
         unset_env_vars(['CPPFLAGS', 'LDFLAGS', 'LIBS'])
@@ -92,6 +110,11 @@ class EB_Score_minus_P_minus_CPE(ConfigureMake):
             }
             if LooseVersion(self.version) < LooseVersion(nvhpc_since.get(self.name, '0')):
                 comp_opts[toolchain.NVHPC] = 'pgi'
+            # Switch to oneAPI for toolchains using oneAPI variants as default.
+            # This may result in installations without Fortran compiler instrumentation support,
+            # if this is chosen before 2024.0.0, as prior versions did not support the required flags.
+            if self.toolchain.options.get('oneapi', None) is True:
+                comp_opts[toolchain.INTELCOMP] = 'oneapi'
 
             comp_fam = self.toolchain.comp_family()
             if comp_fam in comp_opts:
@@ -121,7 +144,8 @@ class EB_Score_minus_P_minus_CPE(ConfigureMake):
                 toolchain.CCE: 'cray',
                 toolchain.INTELMPI: 'intel2',
                 toolchain.OPENMPI: 'openmpi',
-                toolchain.MPICH: 'mpich3',     # In EB terms, MPICH means MPICH 3.x
+                # In EB terms, MPICH means MPICH 3.x
+                toolchain.MPICH: 'mpich3',
                 toolchain.MPICH2: 'mpich2',
                 toolchain.MVAPICH2: 'mpich3',
             }
@@ -145,29 +169,39 @@ class EB_Score_minus_P_minus_CPE(ConfigureMake):
         deps = {
             'libbfd': ['--with-libbfd-include=%s/include',
                          '--with-libbfd-lib=%%s/%s' % get_software_libdir('libbfd', fs=['libbfd.so'])],
+            'binutils': ['--with-libbfd-include=%s/include',
+                         '--with-libbfd-lib=%%s/%s' % get_software_libdir('binutils', fs=['libbfd.a'])],
             'libunwind': ['--with-libunwind=%s'],
-            # Older versions use Cube
-            'Cube': ['--with-cube=%s/bin'],
-            # Recent versions of Cube are split into CubeLib and CubeW(riter)
             'CubeLib': ['--with-cubelib=%s/bin'],
             'CubeWriter': ['--with-cubew=%s/bin'],
             'CUDA': ['--enable-cuda', '--with-libcudart=%s'],
+            'GOTCHA': ['--with-libgotcha=%s'],
             'OTF2': ['--with-otf2=%s/bin'],
             'OPARI2': ['--with-opari2=%s/bin'],
             'PAPI': ['--with-papi-header=%s/include', '--with-papi-lib=%%s/%s' % get_software_libdir('PAPI')],
             'PDT': ['--with-pdt=%s/bin'],
-            'Qt': ['--with-qt=%s'],
+            # Used for CubeGUI. As EasyBuild splits Qt versions into separate EasyConfig names, we need to specify all
+            # supported Qt versions. EasyConfigs should only use one of them.
+            'Qt': ['--with-qt=%s/bin'],
+            'Qt5': ['--with-qt=%s/bin'],
+            'Qt6': ['--with-qt=%s/bin'],
             'SIONlib': ['--with-sionlib=%s/bin'],
         }
-        for (dep_name, dep_opts) in deps.items():
-            dep_root = get_software_root(dep_name)
-            if dep_root:
-                for dep_opt in dep_opts:
-                    try:
-                        dep_opt = dep_opt % dep_root
-                    except TypeError:
-                        pass  # Ignore subtitution error when there is nothing to substitute
-                    self.cfg.update('configopts', dep_opt)
+
+        # Go through all dependencies of passed EasyConfig to determine which flags to pass
+        # explicitly to configure.
+        ec_explicit_deps = [dep for dep in self.cfg.all_dependencies if dep['name'] in deps.keys()]
+        for dep in ec_explicit_deps:
+            dep_root = get_software_root(dep['name'])
+            configure_opts = deps[dep['name']]
+            for configure_opt in configure_opts:
+                try:
+                    configure_opt = configure_opt % dep_root
+                except TypeError:
+                    # Ignore substitution error when there is nothing to substitute
+                    pass
+                self.cfg.update('configopts', configure_opt)
+
 
         super(EB_Score_minus_P_minus_CPE, self).configure_step(*args, **kwargs)
 
