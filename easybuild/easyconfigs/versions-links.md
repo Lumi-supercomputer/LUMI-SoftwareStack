@@ -84,6 +84,20 @@ better to avoid bugs also).
 | [GNU parallel](https://ftp.gnu.org/gnu/parallel/) | [EB parallel](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/p/parallel) | [CSCS parallel](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/p/parallel) |
 
 
+## Packages specific to the OpenGL bundle
+
+| Package | EasyBuild | CSCS | Downloads |
+|:--------|:----------|:-----|:----------|
+| [libglvnd](https://github.com/NVIDIA/libglvnd/releases) | [EB libglvnd](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/libglvnd) | / |
+| [Mesa](https://archive.mesa3d.org/) | [EB Mesa](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/m/Mesa) | / |
+| [libGLU](https://archive.mesa3d.org/glu/) | [EB libGLU](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/libGLU) | / |
+| [freeglut](https://github.com/freeglut/freeglut/releases) | [EB freeglut](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/f/freeglut) | / |
+| [glew](https://github.com/nigels-com/glew/releases) | [EB glew](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/g/glew) | / |
+| [GLFW](https://github.com/glfw/glfw/releases) | [ EB GLFW](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/g/GLFW) | / |
+| [VirtualGL](https://github.com/VirtualGL/virtualgl/releases) | [EB VirtualGL](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/v/VirtualGL) | / |
+
+
+
 ## Regular packages in the main stack
 
 | Package | EasyBuild | CSCS | Downloads |
