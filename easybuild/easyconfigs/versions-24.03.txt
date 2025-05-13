@@ -164,6 +164,7 @@ local_lz4_version =          '1.9.4'         # https://github.com/lz4/lz4/releas
 local_Lzip_version =         '1.24'          # http://download.savannah.gnu.org/releases/lzip/
 local_LZO_version =          '2.10'          # http://www.oberhumer.com/opensource/lzo/#download
 
+local_Mako_version =         '1.3.5'         # https://pypi.org/project/Mako/
 local_MPC_version =          '1.3.1'         # https://ftp.gnu.org/gnu/mpc/
 local_METIS_version =        '5.1.0'         # https:/http://glaros.dtc.umn.edu/gkhome/metis/metis/download
 local_mpdecimal_version =    '2.5.1'         # https://www.bytereef.org/mpdecimal/

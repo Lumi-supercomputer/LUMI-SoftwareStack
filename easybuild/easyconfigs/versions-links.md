@@ -159,6 +159,7 @@ better to avoid bugs also).
 | [lz4](https://github.com/lz4/lz4/releases) | [EB lz4](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/lz4) | [CSCS lz4](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/l/lz4) |
 | [lzip](http://download.savannah.gnu.org/releases/lzip/) | / | / |
 | [LZO](http://www.oberhumer.com/opensource/lzo/#download) | [EB LZO](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/LZO) | / |
+| [Mako](https://pypi.org/project/Mako/) | [EB Mako](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/m/Mako) | [CSCS Mako](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/m/Mako) |
 | [MPC](https://ftp.gnu.org/gnu/mpc/) | [EB MPC](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/m/MPC) | / |
 | [METIS](https:/http://glaros.dtc.umn.edu/gkhome/metis/metis/download) | [EB METIS](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/m/METIS) | [CSCS METIS](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/m/METIS) |
 | [mpdecimal](https://www.bytereef.org/mpdecimal/) | / | / |

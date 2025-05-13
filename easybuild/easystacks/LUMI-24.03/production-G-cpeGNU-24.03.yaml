@@ -53,6 +53,7 @@ easyconfigs:
   - libreadline-8.2-cpeGNU-24.03.eb
   - libvorbis-1.3.7-cpeGNU-24.03.eb
   - LLVM-17.0.6-cpeGNU-24.03.eb
+  - Mako-1.3.5-cpeGNU-24.03.eb
   - MPFR-4.2.0-cpeGNU-24.03.eb
   - snappy-1.1.10-cpeGNU-24.03.eb
   - Tcl-8.6.13-cpeGNU-24.03.eb
