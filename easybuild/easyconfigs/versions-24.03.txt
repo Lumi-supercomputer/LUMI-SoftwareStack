@@ -115,6 +115,7 @@ local_GMP_version =          '6.3.0'         # https://ftp.gnu.org/gnu/gmp/
 local_gnuplot_version =      '5.4.10'        # http://gnuplot.sourceforge.net/
 local_GObject_version =      '1.78.1'        # https://github.com/GNOME/gobject-introspection/releases
 local_googletest_version =   '1.14.0'        # https://github.com/google/googletest/releases
+local_graphite2_version =    '1.3.14'        # https://github.com/silnrsi/graphite/releases
 local_GSL_version =          '2.7.1'         # https://ftp.gnu.org/gnu/gsl/
 local_gzip_version =         '1.13'          # https://ftp.gnu.org/gnu/gzip/
 
