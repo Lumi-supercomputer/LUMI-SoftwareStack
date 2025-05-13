@@ -43,7 +43,7 @@ postinstallcmds = [
 sanity_check_paths = {
     'files': ['bin/gr2fonttest'] +
              ['lib/lib%%(name)s.%s' % x for x in [SHLIB_EXT, 'la']] + 
-             ['%(installdir)s/share/licenses/%(name)s/LICENSE'],
+             ['share/licenses/%(name)s/LICENSE'],
     'dirs':  ['include/%(name)s', 'share']
 }
 
