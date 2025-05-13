@@ -92,6 +92,7 @@ local_CubeWriter_version =   '4.8'           # https://www.scalasca.org/scalasca
 local_cURL_version =         '8.3.0'         # https://curl.haxx.se/download/
 
 local_DB_version =           '18.1.40'       # https://www.oracle.com/database/technologies/related/berkeleydb-downloads.html
+local_DBus_version =         '1.15.8'        # https://dbus.freedesktop.org/releases/dbus/
 local_double_conv_version =  '3.3.0'         # https://github.com/google/double-conversion/releases
 
 local_Eigen_version =        '3.4.0'         # https://gitlab.com/libeigen/eigen/-/releases
