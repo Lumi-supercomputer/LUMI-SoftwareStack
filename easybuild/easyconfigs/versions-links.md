@@ -154,6 +154,7 @@ better to avoid bugs also).
 | [libxml2](http://xmlsoft.org/sources/) | [EB libxml2](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/libxml2) | [CSCS libxml2](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/l/libxml2) |
 | [libxslt](http://xmlsoft.org/sources/) | [EB libxslt](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/libxslt) | / |
 | [libyaml](https://github.com/yaml/libyaml/releases) | [ EB libyaml](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/libyaml) |  [CSCS libyaml](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/l/libyaml) |
+| [LLVM](https://github.com/llvm/llvm-project/releases) | [EB LLVM](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/LLVM) | [CSCS LLVM](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/l/LLVM) |
 | [LMDB](https://github.com/LMDB/lmdb/tags) | [EB LMDB](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/LMDB) | [CSCS LMDB](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/l/LMDB) |
 | [lz4](https://github.com/lz4/lz4/releases) | [EB lz4](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/lz4) | [CSCS lz4](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/l/lz4) |
 | [lzip](http://download.savannah.gnu.org/releases/lzip/) | / | / |
