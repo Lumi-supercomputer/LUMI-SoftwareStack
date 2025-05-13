@@ -118,7 +118,7 @@ The current content is
     led to a slightly different build process.
 
 
-### 24.03-1 and 24.11
+### 24.03-1/-2 and 24.11
  
 -   Added `pbzip2` to the bundle:
 
@@ -130,4 +130,7 @@ The current content is
     -   We developed a small patch to detect the number of cores available via the `sched_getaffinity` 
         function so that it works as expected in a Slurm job, and also limit the default number of 
         threads to 16 on the login nodes.
+
+-   Tried htop 3.4.1 in 24.03-1 but had to switch back to 3.3.0. 3.4.1 still segfaults, 
+    but it did not show in the ccpe container for some unknown reason.
 
