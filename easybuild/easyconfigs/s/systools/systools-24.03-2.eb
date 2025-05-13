@@ -1,0 +1,221 @@
+easyblock = 'Bundle'
+
+local_LUMI_version =        '24.03'
+
+name =     'systools'
+version =  f'{local_LUMI_version}-2'
+
+homepage = '(none)'
+
+whatis = [
+    "Description: A number of small and popular tools that just make life easier.",
+    "Contains: gpp, htop, tree, proot",
+]
+
+# Midlife update adding pbzip2.
+local_systools_GPP_version =          '2.28'         # https://github.com/logological/gpp/releases
+local_systools_htop_version =         '3.3.0'        # https://github.com/htop-dev/htop/releases
+local_systools_pbzip2_version =       '1.1.13'       # http://compression.great-site.net/pbzip2/
+local_systools_libtree_version =      '3.1.1'        # https://github.com/haampie/libtree/releases
+local_systools_tree_version =         '2.2.1'        # https://gitlab.com/OldManProgrammer/unix-tree/-/tags
+local_systools_PRoot_version =        '5.4.0'        # https://github.com/proot-me/proot/releases
+
+description = f"""
+This module provides a number of popular tools to view and manage Linux processes
+or files or to process files.
+
+Overview of included tools:
+
+  + gpp (version {local_systools_GPP_version}: a general-purpose preprocessor with customizable syntax, suitable for a
+    wide range of preprocessing tasks. Its independence from any one programming
+    language makes it much more versatile than the C preprocessor (cpp), while its
+    syntax is lighter and more flexible than that of GNU m4. There are built-in
+    macros for use with C/C++, LaTeX, HTML, XHTML, and Prolog files.
+
+    GPP is Free Software. It is distributed under the terms of the GNU Lesser
+    General Public Licence.
+
+  + htop (version {local_systools_htop_version}): an interactive process viewer for Unix/Linux.
+
+    Note that by default, htop will not show the load of individual cores as you may be used from
+    many other sites. However, given that there are 256 virtual cores on most nodes, this produces
+    visual overload for may. It is still possible to change the settings in htop by going into the
+    settings screen using "SHFIT-S" and then changing the meters, e.g., adding
+    "CPUS (1-4/8): first half in 4 shorter columns" to the first half and
+    "CPUS (5-8/8): second half in 4 shorter columns" to the second.
+
+    This configuration will be stored in ~/.config/htop/htoprc, so you can also copy settings
+    from another user by exchanging that file.
+    
+  + pbzip2 (version {local_systools_pbzip2_version}): a parallel implementation of the bzip2 
+    block-sorting file compressor that uses pthreads and achieves near-linear 
+    speedup on SMP machines. The output of this version is fully compatible with
+    bzip2 v1.0.2 or newer (ie: anything compressed with pbzip2 can be 
+    decompressed with bzip2).
+
+    Note that development has halted long ago, so consider this unsupported
+    software and problems will not get fixed. As this is old code, the amount
+    of memory that one can request through the -m command line argument is
+    also limited and the maximum value for the argument is 2000 as otherwise
+    unexpected behaviour can occur (and this is not properly checked in the
+    current version).
+    
+    A small patch is applied to detect the correct number of CPUs allocated to
+    the job and to limit the default number of threads on the login nodes of
+    LUMI to not flood the login nodes with threads that would be very ineffective
+    anyway due to restrictions on the amount of CPU resources a user can use.
+    
+  + libtree (version {local_systools_libtree_version}) is a tool that turns ldd into a tree, explains why
+    shared libraries are found and why not and optionally deploys executables and
+    dependencies into a single directory.
+
+  + tree (version {local_systools_tree_version}): a recursive directory listing command that produces a depth indented
+    listing of files, which is colorized ala dircolors if the LS_COLORS environment
+    variable is set and output is to tty.
+    
+  + PRoot (version {local_systools_PRoot_version}) is a user-space implementation of chroot, mount --bind, and 
+    binfmt_misc. This means that users don't need any privileges or setup to do 
+    things like using an arbitrary directory as the new root filesystem, making 
+    files accessible somewhere else in the filesystem hierarchy, or executing 
+    programs built for another CPU architecture transparently through QEMU 
+    user-mode.
+
+    It is provided in this module mainly for use with singularity.
+"""
+
+docurls = [
+    'GPP:  Web-based documentation on: https://files.nothingisreal.com/software/gpp/gpp.html',
+    'GPP:  Mal page in section 1 (man 1 gpp)',
+    'htop: Man page in section 1 (man 1 htop)',
+    'pbzip2: Man page in section 1 (man pbzip2)', 
+    'libtree: Man page in section 1 (man 1 libtree)',
+    'tree: Man page in section 1 (man 1 tree)',
+    'PRoot: Web-based documentation on: https://proot-me.github.io/',
+]
+
+toolchain = SYSTEM
+
+dependencies = [
+    ('buildtools', local_LUMI_version),
+    ('syslibs',    local_LUMI_version, '-static-ncurses-6.5'), # for libreadline
+]
+
+
+default_easyblock = 'ConfigureMake'
+
+components = [
+    ('GPP', local_systools_GPP_version, {
+        'easyblock':     'ConfigureMake',
+        'sources':       [ {
+                            'filename':    SOURCELOWER_TAR_BZ2,
+                            'source_urls': ['https://github.com/logological/gpp/releases/download/%(version)s']
+                         } ],
+        'checksums':     ['343d33d562e2492ca9b51ff2cc4b06968a17a85fdc59d5d4e78eed3b1d854b70'],
+        'start_dir':     '%(namelower)s-%(version)s',
+        'preconfigopts': 'CFLAGS="-O2 -march=znver1" CXXFLAGS="-O2 -march=znver1" ',
+        'installopts':   ' && mkdir -p %(installdir)s/share/licenses/%(name)s' +
+                         ' && cp COPYING COPYING.LESSER NEWS THANKS %(installdir)s/share/licenses/%(name)s'
+    }),
+    ('htop', local_systools_htop_version, {
+        'easyblock':     'ConfigureMake',
+        'sources':       [ { # https://github.com/htop-dev/htop/releases/download/3.3.0/htop-3.3.0.tar.xz
+                            'filename':          SOURCE_TAR_XZ,
+                            'source_urls':       [f'https://github.com/htop-dev/htop/releases/download/{local_systools_htop_version}']
+                         } ],
+        'checksums':     ['a69acf9b42ff592c4861010fce7d8006805f0d6ef0e8ee647a6ee6e59b743d5c'],
+        'start_dir':     '%(name)s-%(version)s',
+#        'preconfigopts': 'module unload syslibs && CFLAGS="-O2 -march=znver1" CXXFLAGS="-O2 -march=znver1" ',
+        'preconfigopts': 'CFLAGS="-O2 -march=znver1" CXXFLAGS="-O2 -march=znver1" ',
+        # Core dumps when compiled with unicode support, there must be something wrong in
+        # our ncursesw library.
+        'configopts':    '--enable-static --enable-unicode --enable-affinity',
+#        'prebuildopts':  'module unload sysibs && ',
+        'installopts':   ' && mkdir -p %(installdir)s/share/licenses/%(name)s' +
+                         ' && cp COPYING %(installdir)s/share/licenses/%(name)s'
+    }),
+    ('pbzip2', local_systools_pbzip2_version, {
+        'easyblock':     'ConfigureMake',
+        'sources':       [ { # https://github.com/haampie/libtree/archive/refs/tags/v3.1.1.tar.gz
+                            'filename':          SOURCELOWER_TAR_GZ,
+                            'source_urls':       ['https://launchpad.net/pbzip2/1.1/1.1.13/+download']
+                         } ],
+        'patches':       ['%(name)s-%(version)s_LUMI.patch'],
+        'checksums':     [
+                              {'pbzip2-1.1.13.tar.gz':     '8fd13eaaa266f7ee91f85c1ea97c86d9c9cc985969db9059cdebcb1e1b7bdbe6'},
+                              {'pbzip2-1.1.13_LUMI.patch': 'eae828715f36d125cb6319af15c517818b20bc783c86e201df471c32e705acc3'}
+                         ],
+        'start_dir':     '%(name)s-%(version)s',
+        'skipsteps':     ['configure'],
+        'prebuildopts':  'sed -e "s|CXXFLAGS = -O2|CXXFLAGS = -O2 -march=znver1 -std=c++98 -DLUMI_PATCH|" -i Makefile &&',
+        'installopts':   'PREFIX=%(installdir)s' +
+                         ' && mkdir -p %(installdir)s/share/licenses/%(name)s' +
+                         ' && cp AUTHORS COPYING README %(installdir)s/share/licenses/%(name)s',
+    }),
+    ('libtree', local_systools_libtree_version, {
+        'easyblock':     'MakeCp',
+        'sources':       [ { # https://github.com/haampie/libtree/archive/refs/tags/v3.1.1.tar.gz
+                            'download_filename': 'v%(version)s.tar.gz',
+                            'filename':          '%(name)s-%(version)s.tar.gz',
+                            'source_urls':       ['https://github.com/haampie/libtree/archive/refs/tags']
+                         } ],
+        'checksums':     ['6148436f54296945d22420254dd78e1829d60124bb2f5b9881320a6550f73f5c'],
+        'start_dir':     '%(name)s-%(version)s',
+        'buildopts':     'CC="gcc" CFLAGS="-O2 -march=znver1" LDFLAGS="-static"',
+        'files_to_copy': [(['libtree'], 'bin'), (['doc/libtree.1'], 'share/man/man1'), (['LICENSE'], 'share/licenses/%(name)s')]
+    }),
+    ('tree', local_systools_tree_version, {
+        'easyblock':     'MakeCp',
+        'sources':       [ { # https://gitlab.com/OldManProgrammer/unix-tree/-/archive/2.1.1/unix-tree-2.1.1.tar.bz2
+                            'filename':    'unix-tree-%(version)s.tgz',
+                            'source_urls': ['https://gitlab.com/OldManProgrammer/unix-tree/-/archive/%(version)s']
+                         } ],
+        'checksums':     ['70d9c6fc7c5f4cb1f7560b43e2785194594b9b8f6855ab53376f6bd88667ee04'],
+        'start_dir':     'unix-tree-%(version)s',
+        'buildopts':     'CC="gcc" CFLAGS="-O2 -march=znver1 -ggdb -pedantic -Wall -DLINUX -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64"',
+        'files_to_copy': [(['tree'], 'bin'), (['doc/tree.1'], 'share/man/man1'), (['LICENSE'], 'share/licenses/%(name)s')]
+    }),
+    ('PRoot', local_systools_PRoot_version, {
+        'sources':       [ { # https://github.com/haampie/libtree/archive/refs/tags/v3.1.1.tar.gz
+                            'download_filename': 'v%(version)s.zip',
+                            'filename':          SOURCELOWER_ZIP,
+                            'source_urls':       ['https://github.com/proot-me/proot/archive/refs/tags']
+                         } ],
+        'checksums':     ['8812f3a6c224bdd6a316f13689377e7543e7e3cebcdef6ec98827abee60fa327'],
+        'start_dir':     '%(namelower)s-%(version)s/src',
+        'skipsteps':     [ 'configure' ],
+        'prebuildopts':  'sed -e "s/.*GIT_.*//" -i GNUmakefile && ',
+        'buildopts':     'proot V=1 CFLAGS="-O2 -march=znver1" VERSION="%(version)s"',
+        'installopts':   'V=1 PREFIX="%(installdir)s"' +
+                         ' && mkdir -p %(installdir)s/share/licenses/%(name)s' +
+                         ' && cd ..' +
+                         ' && cp AUTHORS CHANGELOG.rst COPYING README.rst %(installdir)s/share/licenses/%(name)s',
+    }),
+]
+
+sanity_check_paths = {
+    'files': ['bin/gpp', 'share/man/man1/gpp.1', 'share/licenses/GPP/COPYING', 'share/licenses/GPP/COPYING.LESSER'] +
+             ['bin/htop', 'share/man/man1/htop.1', 'share/licenses/htop/COPYING'] +
+             ['bin/pbzip2', 'share/man/man1/pbzip2.1'] +
+             ['bin/libtree', 'share/man/man1/libtree.1', 'share/licenses/libtree/LICENSE'] +
+             ['bin/tree', 'share/man/man1/tree.1', 'share/licenses/tree/LICENSE'] +
+             ['bin/proot', 'share/licenses/PRoot/COPYING'],
+    'dirs':  []
+}
+
+sanity_check_commands = [
+    'gpp --version',
+    'htop --version',
+    'pbzip2 -h 2>&1 | grep "Parallel BZIP2 v%(version)s"'
+    'libtree --help',
+    'libtree -v -p %(installdir)s/bin/libtree',
+    'tree --version',
+    'cd %(installdir)s && tree',
+    'proot --version'
+]
+
+modluafooter = f"""
+extensions( "GPP/{local_systools_GPP_version}, htop/{local_systools_htop_version}, pbzip2/{local_systools_pbzip2_version}, " ..
+            "libtree/{local_systools_libtree_version}, tree/{local_systools_tree_version}, PRoot/{local_systools_PRoot_version}" )
+"""
+
+moduleclass = 'tools'
