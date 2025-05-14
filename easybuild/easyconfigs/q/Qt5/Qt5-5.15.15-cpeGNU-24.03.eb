@@ -1,0 +1,94 @@
+
+easyblock = 'EB_Qt'
+
+local_doubleconversion_version = '3.3.0'
+local_DBus_version =         '1.15.8'        # https://dbus.freedesktop.org/releases/dbus/
+local_GLib_version =         '2.78.1'        # https://ftp.gnome.org/pub/GNOME/sources/glib/
+local_PCRE2_version =        '10.42'         # https://ftp.pcre.org/pub/pcre/
+local_libpng_version =       '1.6.40'        # http://www.libpng.org/pub/png/libpng.html
+local_HarfBuzz_version =     '8.2.2'          # https://www.freedesktop.org/software/harfbuzz/release/
+local_graphite2_version =    '1.3.14'        # https://github.com/silnrsi/graphite/releases
+local_fontconfig_version =   '2.14.2'        # https://www.freedesktop.org/software/fontconfig/release/
+local_libevent_version =     '2.1.12'        # https://libevent.org/
+local_libjpegturbo_version = '3.0.1'         # https://github.com/libjpeg-turbo/libjpeg-turbo/releases
+#local_NSS_version              = '3.94'
+local_snappy_version =       '1.1.10'        # https://github.com/google/snappy/releases
+local_JasPer_version =       '4.0.0'         # https://github.com/jasper-software/jasper/releases
+local_bzip2_version =        '1.0.8'         # http://www.bzip.org/downloads.html
+local_ICU_version =          '74.1'          # http://site.icu-project.org/home
+#local_nodejs_version           = '20.9.0'
+
+local_Qt5_version =          '5.15.15'       # https://download.qt.io/official_releases/qt/
+
+name =    'Qt5'
+version = local_Qt5_version
+
+homepage = 'https://qt.io/'
+
+whatis = ['Description: Qt is a comprehensive cross-platform C++ application framework.']
+
+description = "Qt is a comprehensive cross-platform C++ application framework."
+
+toolchain = {'name': 'cpeGNU', 'version': '24.03'}
+
+source_urls = [
+    'https://download.qt.io/official_releases/qt/%(version_major_minor)s/%(version)s/single/',
+    'https://download.qt.io/archive/qt/%(version_major_minor)s/%(version)s/single/',
+    'https://download.qt.io/new_archive/qt/%(version_major_minor)s/%(version)s/single/',
+]
+sources = ['qt-everywhere-opensource-src-%(version)s.tar.xz']
+
+patches = [
+    'Qt5-5.13.1_fix-avx2.patch',
+    'Qt5-5.13.1_fix-qmake-libdir.patch',
+    'Qt5-5.15.10_fix-OF-Gentoo.patch',
+    'Qt5-5.15.7_GCC-12.patch',
+    'Qt5-5.15.13_fix-XKB_KEY_dead.patch',
+    'Qt5-5.15.15_fix-includes.patch',
+    'Qt5-5.15.13_force-cray-wrapper.patch',
+]
+
+checksums = [
+    {'qt-everywhere-opensource-src-5.15.15.tar.xz'           : 'b423c30fe3ace7402e5301afbb464febfb3da33d6282a37a665be1e51502335e'},
+    {'Qt5-5.13.1_fix-avx2.patch'                             : '6f46005f056bf9e6ff3e5d012a874d18ee03b33e685941f2979c970be91a9dbc'},
+    {'Qt5-5.13.1_fix-qmake-libdir.patch'                     : '511ca9c0599ceb1989f73d8ceea9199c041512d3a26ee8c5fd870ead2c10cb63'},
+    {'Qt5-5.15.10_fix-OF-Gentoo.patch'                       : '1c4d3b974422dadb4fd62f79581d48d25ae3d5f5f21489ae8c632e43e2e5286b'},
+    {'Qt5-5.15.7_GCC-12.patch'                               : '9a5bde91b223a3e2e90d3d6bec107af69a1a0f18d789593738a953080473fa68'},
+    {'Qt5-5.15.13_fix-XKB_KEY_dead.patch'                    : '7fcee0d8414f5060d2b93a46bbd109b9712c127747dc654bf9dc99038e6b5340'},
+    {'Qt5-5.15.15_fix-includes.patch'                        : '9ea19bfc97cfbce0619ad3523f8a25337737f62bdc29b9bc0f95c8f8444a41c7'},
+    {'Qt5-5.15.13_force-cray-wrapper.patch'                  : 'b35ee262b5d43016445b464ffd781393cb8b696bf977f27c79b3020635c200d5'},
+]
+
+builddependencies = [
+    ('buildtools',          '%(toolchain_version)s',                           '', True),
+    ('buildtools-python',   '%(toolchain_version)s', '-cray-python%(pyshortver)s', True),
+    ('craype-network-none', EXTERNAL_MODULE),
+    ('craype-accel-host',   EXTERNAL_MODULE),
+    ('cray-python',         EXTERNAL_MODULE),
+]
+
+dependencies = [
+    ('X11',               '%(toolchain_version)s'),
+    ('OpenGL',            '%(toolchain_version)s'),
+    ('double-conversion', local_doubleconversion_version),
+    ('DBus',              local_DBus_version),
+    ('GLib',              local_GLib_version),
+    ('PCRE2',             local_PCRE2_version),
+    ('libpng',            local_libpng_version),
+    ('HarfBuzz',          local_HarfBuzz_version),
+    ('graphite2',         local_graphite2_version),
+    ('fontconfig',        local_fontconfig_version),
+    ('JasPer',            local_JasPer_version),
+    ('bzip2',             local_bzip2_version),
+    ('ICU',               local_ICU_version),
+]
+
+configopts = ' '.join([
+    '-skip qtgamepad',   # qtgamepad needs recent kernel/libevdev (fails on RHEL 6.x) and is not useful on LUMI anyway
+    '-skip qtwayland',   # qtwayland fails to build on (some) Centos 7 systems, not needed for our purpose on LUMI anyway so don't even try
+    '-skip qtwebengine', # qtwebengine doesn't build on LUMI at the moment
+    '-xcb',
+    '-eglfs'
+])
+
+moduleclass = 'devel'

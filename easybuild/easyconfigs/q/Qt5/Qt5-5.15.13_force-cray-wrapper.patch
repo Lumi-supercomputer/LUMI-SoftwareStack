@@ -1,0 +1,17 @@
+--- qt-everywhere-src-5.15.13/qtbase/mkspecs/common/g++-base.conf	2024-01-04 20:21:43.000000000 +0100
++++ qt-everywhere-src-5.15.13.new/qtbase/mkspecs/common/g++-base.conf	2024-12-20 12:21:23.224146062 +0100
+@@ -10,12 +10,12 @@
+ 
+ QMAKE_COMPILER          = gcc
+ 
+-QMAKE_CC                = $${CROSS_COMPILE}gcc
++QMAKE_CC                = cc
+ 
+ QMAKE_LINK_C            = $$QMAKE_CC
+ QMAKE_LINK_C_SHLIB      = $$QMAKE_CC
+ 
+-QMAKE_CXX               = $${CROSS_COMPILE}g++
++QMAKE_CXX               = CC
+ 
+ QMAKE_LINK              = $$QMAKE_CXX
+ QMAKE_LINK_SHLIB        = $$QMAKE_CXX
