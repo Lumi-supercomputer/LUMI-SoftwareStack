@@ -1,0 +1,70 @@
+easyblock = 'ConfigureMake'
+
+local_Qwt_version =          '6.3.0'         # https://sourceforge.net/projects/qwt/files/qwt/
+
+local_Qt5_version =          '5.15.15'       # https://download.qt.io/official_releases/qt/
+
+name = 'Qwt'
+version = local_Qwt_version
+
+homepage = 'https://qwt.sourceforge.io/'
+
+whatis = [
+    'Description: The Qwt library contains GUI Components and '
+    'utility classes which are primarily useful for programs with '
+    'a technical background'
+]
+
+description = """
+The Qwt library contains GUI Components and utility classes
+which are primarily useful for programs with a technical
+background. Beside a framework for 2D plots it provides scales,
+sliders, dials, compasses, thermometers, wheels and knobs to
+control or display values, arrays, or ranges of type double.
+"""
+
+toolchain = {'name': 'cpeGNU', 'version': '24.03'}
+
+source_urls = [SOURCEFORGE_SOURCE]
+sources =     [SOURCELOWER_TAR_BZ2]
+
+patches = ['Qwt-6.3.0_fix-install-prefix.patch']
+
+checksums = [
+    {'qwt-6.3.0.tar.bz2': 
+        'dcb085896c28aaec5518cbc08c0ee2b4e60ada7ac929d82639f6189851a6129a'},
+    {'Qwt-6.3.0_fix-install-prefix.patch':
+        'ac5c329c0693d565b461cdd3b36c1b96b4d09885e1e0c10929fc7a9021c03bad'},
+]
+
+builddependencies = [
+    ('buildtools',          '%(toolchain_version)s', '', True),
+    ('craype-accel-host',   EXTERNAL_MODULE),
+    ('craype-network-none', EXTERNAL_MODULE),
+]
+
+dependencies = [
+    ('Qt5', local_Qt5_version),
+]
+
+skipsteps = ['configure']
+
+preconfigopts = 'module unload cray-libsci rocm xpmem && '
+
+prebuildopts = ' && '.join([
+    'module unload cray-libsci rocm xpmem',
+    'export QWT_PREFIX=%(installdir)s',
+    'qmake qwt.pro',
+]) + ' && '
+
+postinstallcmds = [
+    'mkdir -p %(installdir)s/share/licenses/%(name)s',
+    'cp COPYING README %(installdir)s/share/licenses/%(name)s',   
+]
+
+sanity_check_paths = {
+    'files': ['lib/libqwt.%s' % SHLIB_EXT, 'lib/pkgconfig/Qt5Qwt6.pc', 'share/licenses/%(name)s/COPYING'],
+    'dirs':  ['doc', 'features', 'include', 'plugins'],
+}
+
+moduleclass = 'lib'

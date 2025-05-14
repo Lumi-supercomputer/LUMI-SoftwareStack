@@ -101,6 +101,7 @@ easyconfigs:
 # Block 10
   - Qt5-5.15.15-cpeGNU-24.03.eb
 # Block 11
+  - Qwt-6.3.0-cpeGNU-24.03.eb
 # Block 12
 # Some libraries from the apps section of before, and applications(s)
 #  - ELPA: Wait a bit, it looks like we need multiple versions and that it may need more testing.
