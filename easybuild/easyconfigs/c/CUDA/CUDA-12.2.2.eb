@@ -1,0 +1,32 @@
+local_CUDA_version =         '12.2.2'
+local_NV_driver_version =    '535.104.05'
+
+name =    'CUDA'
+version = local_CUDA_version
+
+homepage = 'https://developer.nvidia.com/cuda-toolkit'
+
+whatis = ['Description: CUDA is a parallel computing platform for NVIDIA GPUs']
+
+description = """
+CUDA (formerly Compute Unified Device Architecture) is a parallel
+computing platform and programming model created by NVIDIA and 
+implemented by the graphics processing units (GPUs) that they produce. 
+CUDA gives developers access to the virtual instruction set and memory
+of the parallel computational elements in CUDA GPUs.
+"""
+
+toolchain = SYSTEM
+
+accept_eula = True
+
+source_urls = ['https://developer.download.nvidia.com/compute/cuda/%(version)s/local_installers/']
+sources =     ['cuda_%%(version)s_%s_linux.run' % local_NV_driver_version]
+checksums =   ['2b39aae3e7618d9f59a3c8fa1f1bc61f29c0b0e0df75fb05076badb352952ef2']
+
+postinstallcmds = [
+    'mkdir -p %(installdir)s/share/licenses/%(name)s',
+    'cd %(installdir)s && cp EULA.txt share/licenses/%(name)s'    
+]
+
+moduleclass = 'system'
