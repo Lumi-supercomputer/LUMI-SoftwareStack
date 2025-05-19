@@ -4,7 +4,7 @@ Components in the bundle:
 
 -   libglvnd - The GL Vendor-Neutral Dispatch Library
 
-    -   [Officiaal GitLab](https://gitlab.freedesktop.org/glvnd/libglvnd)
+    -   [Official GitLab](https://gitlab.freedesktop.org/glvnd/libglvnd)
 
     -   [Alternative GitHub](https://github.com/NVIDIA/libglvnd)
  
