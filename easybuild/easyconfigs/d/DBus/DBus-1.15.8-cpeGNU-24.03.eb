@@ -1,0 +1,62 @@
+easyblock = 'CMakeMake'
+
+local_DBus_version =         '1.15.8'        # https://dbus.freedesktop.org/releases/dbus/
+local_expat_version =        '2.6.2'         # https://github.com/libexpat/libexpat/releases
+
+name = 'DBus'
+version = local_DBus_version
+
+homepage = 'https://dbus.freedesktop.org/'
+
+whatis = ['Description: D-Bus, a message bus system']
+
+description = """
+D-Bus is a message bus system, a simple way for applications to talk
+to one another.  In addition to interprocess communication, D-Bus helps
+coordinate process lifecycle; it makes it simple and reliable to code
+a "single instance" application or daemon, and to launch applications
+and daemons on demand when their services are needed.
+"""
+
+toolchain = {'name': 'cpeGNU', 'version': '24.03'}
+toolchainopts = {'pic': True}
+
+source_urls = ['https://dbus.freedesktop.org/releases/dbus']
+sources =     [SOURCELOWER_TAR_XZ]
+checksums =   ['84fc597e6ec82f05dc18a7d12c17046f95bad7be99fc03c15bc254c4701ed204']
+
+builddependencies = [
+    ('buildtools',          '%(toolchain_version)s', '', True),
+    ('craype-network-none', EXTERNAL_MODULE),
+    ('craype-accel-host',   EXTERNAL_MODULE),
+]
+
+dependencies = [
+    ('expat', local_expat_version),
+]
+
+preconfigopts = 'module unload cray-libsci rocm xpmem && '
+prebuildopts  = preconfigopts
+
+configopts = ' '.join([
+    '-D CMAKE_INSTALL_LIBDIR=lib',
+    '-D ENABLE_SYSTEMD=OFF',
+    '-D DBUS_ENABLE_XML_DOCS=OFF',
+    '-D DBUS_ENABLE_QTHELP_DOCS=OFF', 
+    '-D DBUS_ENABLE_DOXYGEN_DOCS=OFF',
+])
+
+postinstallcmds = [
+    'mkdir -p %(installdir)s/share/licenses/%(name)s',
+    'cd ../%(namelower)s-%(version)s && cp -r CONTRIBUTING.md COPYING LICENSES NEWS README %(installdir)s/share/licenses/%(name)s',   
+]
+
+sanity_check_paths = {
+    'files': ['bin/dbus-%s' % x for x in
+              ['cleanup-sockets', 'daemon', 'launch', 'monitor',
+               'run-session', 'send', 'uuidgen']] +
+             ['lib/libdbus-1.%s' % SHLIB_EXT],
+    'dirs':  ['include', 'share/licenses/DBus/LICENSES'],
+}
+
+moduleclass = 'devel'

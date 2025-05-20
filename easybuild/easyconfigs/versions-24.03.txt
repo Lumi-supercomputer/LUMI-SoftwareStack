@@ -78,6 +78,17 @@ local_Vim_version =          '9.1.0447'      # https://github.com/vim/vim/tags
 local_Subversion_version =   '1.14.3'        # https://subversion.apache.org/download.cgi (not yet used)
 
 #
+# OpenGL bundle
+#
+local_libglvnd_version =     '1.7.0'         # https://github.com/NVIDIA/libglvnd/releases
+local_Mesa_version =         '24.1.3'        # https://archive.mesa3d.org/
+local_libGLU_version =       '9.0.3'         # https://archive.mesa3d.org/glu/
+local_freeglut_version =     '3.4.0'         # https://github.com/freeglut/freeglut/releases
+local_glew_version =         '2.2.0'         # https://github.com/nigels-com/glew/releases
+local_GLFW_version =         '3.4'           # https://github.com/glfw/glfw/releases
+local_VirtualGL_version =    '3.1.1'         # https://github.com/VirtualGL/virtualgl/releases
+
+#
 # Regular EasyConfigs
 #
 
@@ -92,6 +103,7 @@ local_CubeWriter_version =   '4.8'           # https://www.scalasca.org/scalasca
 local_cURL_version =         '8.3.0'         # https://curl.haxx.se/download/
 
 local_DB_version =           '18.1.40'       # https://www.oracle.com/database/technologies/related/berkeleydb-downloads.html
+local_DBus_version =         '1.15.8'        # https://dbus.freedesktop.org/releases/dbus/
 local_double_conv_version =  '3.3.0'         # https://github.com/google/double-conversion/releases
 
 local_Eigen_version =        '3.4.0'         # https://gitlab.com/libeigen/eigen/-/releases
@@ -115,6 +127,7 @@ local_GMP_version =          '6.3.0'         # https://ftp.gnu.org/gnu/gmp/
 local_gnuplot_version =      '5.4.10'        # http://gnuplot.sourceforge.net/
 local_GObject_version =      '1.78.1'        # https://github.com/GNOME/gobject-introspection/releases
 local_googletest_version =   '1.14.0'        # https://github.com/google/googletest/releases
+local_graphite2_version =    '1.3.14'        # https://github.com/silnrsi/graphite/releases
 local_GSL_version =          '2.7.1'         # https://ftp.gnu.org/gnu/gsl/
 local_gzip_version =         '1.13'          # https://ftp.gnu.org/gnu/gzip/
 
@@ -156,11 +169,13 @@ local_libwebp_version =      '1.3.2'         # https://github.com/webmproject/li
 local_libxml2_version =      '2.11.5'        # http://xmlsoft.org/sources/
 local_libxslt_version =      '1.1.38'        # http://xmlsoft.org/sources/
 local_libyaml_version =      '0.2.5'         # https://github.com/yaml/libyaml/releases
+local_LLVM_version =         '17.0.6'        # https://github.com/llvm/llvm-project/releases
 local_LMDB_version =         '0.9.31'        # https://github.com/LMDB/lmdb/releases
 local_lz4_version =          '1.9.4'         # https://github.com/lz4/lz4/releases
 local_Lzip_version =         '1.24'          # http://download.savannah.gnu.org/releases/lzip/
 local_LZO_version =          '2.10'          # http://www.oberhumer.com/opensource/lzo/#download
 
+local_Mako_version =         '1.3.5'         # https://pypi.org/project/Mako/
 local_MPC_version =          '1.3.1'         # https://ftp.gnu.org/gnu/mpc/
 local_METIS_version =        '5.1.0'         # https:/http://glaros.dtc.umn.edu/gkhome/metis/metis/download
 local_mpdecimal_version =    '2.5.1'         # https://www.bytereef.org/mpdecimal/
@@ -169,6 +184,8 @@ local_MPFR_version =         '4.2.0'         # https://ftp.gnu.org/gnu/mpfr/
 local_ncurses_version =      '6.4'           # https://ftp.gnu.org/pub/gnu/ncurses/
 local_nlohmannjson_version = '3.11.3'        # https://github.com/nlohmann/json/releases
 
+local_oneTBB_version =       '2021.13.0'     # https://github.com/uxlfoundation/oneTBB/releases
+l
 local_Pango_version =        '1.51.0'        # http://ftp.gnome.org/pub/GNOME/sources/pango/
 local_ParMETIS_version =     '4.0.3'         # https:/http://glaros.dtc.umn.edu/gkhome/metis/parmetis/download
 local_PCRE2_version =        '10.42'         # https://ftp.pcre.org/pub/pcre/
@@ -176,6 +193,9 @@ local_PCRE_version =         '8.45'          # https://ftp.pcre.org/pub/pcre/
 local_Perl_version =         '5.38.0'        # https://www.perl.org/get.html
 local_PROJ_version =         '9.3.1'         # https://proj.org/download.html
 local_pixman_version =       '0.42.2'        # https://www.cairographics.org/releases/
+
+local_Qt5_version =          '5.15.15'       # https://download.qt.io/official_releases/qt/
+local_Qwt_version =          '6.3.0'         # https://sourceforge.net/projects/qwt/files/qwt/
 
 local_SCOTCH6_version =      '6.1.3'         # https://gforge.inria.fr/projects/scotch/
 local_SCOTCH7_version =      '7.0.4'         # https://gforge.inria.fr/projects/scotch/
@@ -202,3 +222,23 @@ local_XZ_version =           '5.4.4'         # https://tukaani.org/xz/
 
 local_zlib_version =         '1.3.1'         # https://zlib.net/
 local_zstd_version =         '1.5.5'         # https://github.com/facebook/zstd/releases
+
+######################################################################################################
+#
+# LUMI-D only
+#
+local_CUDA_version =         '12.2.2'
+local_NV_driver_version =    '535.104.05'
+
+
+#
+# Intel Rendering Toolkit bundle
+#
+local_IntelRenderingToolkit_version = '1.10.0'  # https://github.com/RenderKit/superbuild/tags
+local_OSPRay_version =                '3.2.0'   # https://github.com/RenderKit/ospray/releases
+local_ispc_version =                  '1.25.3'  # https://github.com/ispc/ispc/releases
+local_Embree_version =                '4.3.3'   # https://github.com/RenderKit/embree/releases
+local_rkcommon_version =              '1.14.0'  # https://github.com/RenderKit/rkcommon/tags
+local_openvkl_version =               '2.0.1'   # https://github.com/RenderKit/openvkl/releases
+local_OpenImageDenoise_version =      '2.3.1'   # https://github.com/RenderKit/oidn/releases
+

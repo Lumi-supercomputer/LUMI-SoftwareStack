@@ -1,0 +1,187 @@
+easyblock = 'Bundle'
+
+local_IntelRenderingToolkit_version = '1.10.0'  # https://github.com/RenderKit/superbuild/tags
+
+# what we install
+local_OSPRay_version =                '3.2.0'   # https://github.com/RenderKit/ospray/releases
+local_ispc_version =                  '1.25.3'  # https://github.com/ispc/ispc/releases
+local_Embree_version =                '4.3.3'   # https://github.com/RenderKit/embree/releases
+local_rkcommon_version =              '1.14.0'  # https://github.com/RenderKit/rkcommon/tags
+local_openvkl_version =               '2.0.1'   # https://github.com/RenderKit/openvkl/releases
+local_OpenImageDenoise_version =      '2.3.1'   # https://github.com/RenderKit/oidn/releases
+
+# dependencies
+local_oneTBB_version =       '2021.13.0'     # https://github.com/uxlfoundation/oneTBB/releases
+local_snappy_version           = '1.1.10'
+local_libpng_version           = '1.6.40'
+local_libjpegturbo_version     = '3.0.1'
+
+local_rkcommon_checksum         = '5aef75afc8d4fccf9e70df4cbdf29a1b28b39ee51b5588b94b83a14c6a166d83'
+local_ispc_checksum             = '526fe36638e675b9e1bb0618ac30f5286339e7a7e7f5a8441cd7607177292804'
+local_OpenImageDenoise_checksum = 'cf01103c2555e253928f1cc75e79ab36f407170b0f2c44f11634ceca8309e092'
+local_Embree_checksum           = '8a3bc3c3e21aa209d9861a28f8ba93b2f82ed0dc93341dddac09f1f03c36ef2d'
+local_openvkl_checksum          = '0c7faa9582a93e93767afdb15a6c9c9ba154af7ee83a6b553705797be5f8af62'
+local_OSPRay_checksum           = '2c8108df2950bc5d1bc2a62f74629233dbe4f36e3f6a8ea032907d4a3fdc6750'
+
+name = 'IntelRenderingToolkit'
+version = local_IntelRenderingToolkit_version
+
+homepage = 'https://www.intel.com/content/www/us/en/developer/tools/oneapi/rendering-toolkit.html'
+
+description = """
+The Intel Rendering Toolkit (Render Kit) is a powerful set of open source
+rendering, ray tracing, denoising, and path guiding libraries for AI synthetic
+data generation, digital twins, high-fidelity and high-performance
+visualization, and immersive content creation.
+
+This bundle includes the following packages:
+
+ - ispc             : Intel SPMD Program Compilers
+ - OpenImageDenoise : a library of high-performance, high-quality denoising
+                      filters for images rendered with ray tracing
+ - rkcommon         : a set of C++ infrastructure and CMake utilities
+ - openvkl          : Intel Open Volume Kernel Library
+ - Embree           : a collection of high-performance ray tracing kernels
+ - OSPRay           : an open source, scalable, and portable ray tracing engine
+"""
+
+docurls = [
+    'ispc             : https://ispc.github.io/ispc.html',
+    'OpenImageDenoise : https://www.openimagedenoise.org/documentation.html',
+    'Embree           : https://raw.githubusercontent.com/embree/embree/master/readme.pdf',
+    'openvkl          : https://github.com/RenderKit/openvkl#open-vkl-api',
+    'OSPRay           : https://www.ospray.org/documentation.html',
+]
+
+software_license_urls = [
+    'ispc             : https://github.com/ispc/ispc/blob/main/LICENSE.txt',
+    'OpenImageDenoise : https://github.com/RenderKit/oidn/blob/master/LICENSE.txt',
+    'Embree           : https://github.com/RenderKit/embree/blob/master/LICENSE.txt',
+    'rkcommon         : https://github.com/RenderKit/rkcommon/blob/master/LICENSE.txt',
+    'openvkl          : https://github.com/RenderKit/openvkl/blob/devel/LICENSE.txt',
+    'OSPRay           : https://github.com/RenderKit/ospray/blob/devel/LICENSE.txt',
+]
+
+toolchain = {'name': 'cpeGNU', 'version': '24.03'}
+
+builddependencies = [
+    ('buildtools',          '%(toolchain_version)s', '', True),
+    ('craype-accel-host',   EXTERNAL_MODULE),
+]
+
+dependencies = [
+    ('OpenGL',        '%(toolchain_version)s'),
+    ('X11',           '%(toolchain_version)s'),
+    ('oneTBB',        local_oneTBB_version),
+    ('snappy',        local_snappy_version),
+    ('libpng',        local_libpng_version),
+    ('libjpeg-turbo', local_libjpegturbo_version),
+]
+
+default_easyblock = 'CMakeMake'
+
+local_unload_unneeded = 'module load craype-network-none && module unload cray-libsci rocm xpmem && '
+
+default_component_specs = {
+    'start_dir'     : '%(namelower)s-%(version)s',
+    'preconfigopts' : local_unload_unneeded,
+    'prebuildopts'  : local_unload_unneeded,
+}
+
+components = [
+    # !!! Need to be first because the tarball copy destray everything in 
+    #     installation directory
+    ('ispc', local_ispc_version, {
+        'easyblock'   : 'Tarball',
+        'source_urls' : ['https://github.com/ispc/ispc/releases/download/v%(version)s'],
+        'sources'     : ['%(name)s-v%(version)s-linux-oneapi.tar.gz'],
+        'checksums'   : [local_ispc_checksum],
+        'start_dir'   : '%(name)s-v%(version)s-linux',
+    }),
+    ('rkcommon', local_rkcommon_version, {
+        'source_urls'   : ['https://github.com/RenderKit/rkcommon/archive/refs/tags'],
+        'sources'       : ['v%(version)s.tar.gz'],
+        'checksums'     : [local_rkcommon_checksum],
+    }),
+    ('OpenImageDenoise', local_OpenImageDenoise_version, {
+        'source_urls'   : ['https://github.com/RenderKit/oidn/releases/download/v%(version)s'],
+        'sources'       : ['oidn-%(version)s.src.zip'],
+        'checksums'     : [local_OpenImageDenoise_checksum],
+        'configopts'    : '-DOIDN_APPS:BOOL=OFF',
+        'start_dir'     : 'oidn-%(version)s',
+    }),
+    ('Embree', local_Embree_version, {
+        'source_urls'   : ['https://github.com/RenderKit/embree/archive/refs/tags'],
+        'sources'       : ['v%(version)s.tar.gz'],
+        'checksums'     : [local_Embree_checksum],
+        'configopts'    : ' '.join([
+            '-D EMBREE_ISPC_SUPPORT=ON',
+            '-D EMBREE_TASKING_SYSTEM=INTERNAL',
+            '-D EMBREE_MAX_ISA=AVX2',
+            '-D EMBREE_TUTORIALS=OFF',
+        ]),
+    }),
+    ('openvkl', local_openvkl_version, {
+        'source_urls'   : ['https://github.com/RenderKit/openvkl/archive/refs/tags'],
+        'sources'       : ['v%(version)s.tar.gz'],
+        'checksums'     : [local_openvkl_checksum],
+        'configopts'    : ' '.join([
+            '-D BUILD_BENCHMARKS=OFF',
+            '-D BUILD_EXAMPLES=OFF',
+            '-D BUILD_TESTING=OFF',
+        ]),
+    }),
+    ('OSPRay', local_OSPRay_version, {
+        'source_urls'   : ['https://github.com/RenderKit/ospray/archive/refs/tags'],
+        'sources'       : ['v%(version)s.tar.gz'],
+        'checksums'     : [local_OSPRay_checksum],
+        'preconfigopts' : 'module unload cray-libsci rocm && ',
+        'prebuildopts'  : 'module unload cray-libsci rocm && ',
+        'configopts'    : ' '.join([
+            '-D OSPRAY_INSTALL_DEPENDENCIES=OFF',
+            '-D OSPRAY_BUILD_ISA=ALL',
+            '-D OSPRAY_ENABLE_APPS=OFF',
+            '-D OSPRAY_MODULE_DENOISER=ON',
+            '-D OSPRAY_MODULE_MPI=ON',
+            '-D OSPRAY_ENABLE_APPS=OFF',
+            '-D OSPRAY_ENABLE_APPS_BENCHMARK=OFF',
+            '-D OSPRAY_ENABLE_APPS_EXAMPLES=OFF',
+            '-D OSPRAY_ENABLE_APPS_TUTORIALS=OFF',
+            '-D OSPRAY_ENABLE_APPS_TESTING=OFF',
+        ]),
+    }),
+]
+
+modextravars = {
+    'EBROOTOSPRAY'               : '%(installdir)s',
+    'EBVERSIONOSPRAY'            : local_OSPRay_version,
+    'EBROOTISPC'                 : '%(installdir)s',
+    'EBVERSIONISPC'              : local_ispc_version,
+    'EBROOTEMBREE'               : '%(installdir)s',
+    'EBVERSIONEMBREE'            : local_Embree_version,
+    'EBROOTRKCOMMON'             : '%(installdir)s',
+    'EBVERSIONRKCOMMON'          : local_rkcommon_version,
+    'EBROOTOPENVKL'              : '%(installdir)s',
+    'EBVERSIONOPENVKL'           : local_openvkl_version,
+    'EBROOTOPENIMAGEDENOISE'     : '%(installdir)s',
+    'EBVERSIONOPENIMAGEDENOISE'  : local_OpenImageDenoise_version,
+}
+
+modluafooter = """
+extensions("OSPRay/%(ospray)s, ispc/%(ispc)s, Embree/%(embree)s, rkcommon/%(rkcommon)s, " ..
+           "openvkl/%(openvkl)s, OpenImageDenoise/%(openimagedenoise)s")
+""" % {
+    'ospray'           : local_OSPRay_version,
+    'ispc'             : local_ispc_version,
+    'embree'           : local_Embree_version,
+    'rkcommon'         : local_rkcommon_version,
+    'openvkl'          : local_openvkl_version,
+    'openimagedenoise' : local_OpenImageDenoise_version,
+}
+
+sanity_check_paths = {
+    'dirs': ['include/ospray/', 'share/doc/OSPRay'],
+    'files': ['include/ospray/version.h', 'lib64/libospray.so', 'share/doc/OSPRay/README.md'],
+}
+
+moduleclass = 'vis'
