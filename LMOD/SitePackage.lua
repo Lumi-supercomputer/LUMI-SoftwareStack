@@ -814,6 +814,7 @@ local mapT =
         ['cray/pe/.*/mpi']                        = 'HPE-Cray PE modules',
         ['cray/pe/.*/net/ofi']                    = 'HPE-Cray PE modules',
         ['cray/pe/.*/net/ucx']                    = 'HPE-Cray PE modules',
+        ['cray/pe/lmod/lmod']                     = 'HPE-Cray PE modules',
         -- The next one doesn't seem to be implemented on the Grenoble nodes
         ['cray/pe/craype']                        = 'HPE-Cray PE modules',
         -- One that I've only seen on LUMI
@@ -863,6 +864,7 @@ local mapT =
         ['cray/pe/.*/mpi']                        = 'HPE-Cray PE MPI-dependent libraries',
         ['cray/pe/.*/net/ofi']                    = 'HPE-Cray PE OFI-based libraries',
         ['cray/pe/.*/net/ucx']                    = 'HPE-Cray PE UCX-based libraries',
+        ['cray/pe/lmod/lmod']                     = 'HPE-Cray PE Lmod modules',
         -- The next one doesn't seem to be implemented on the Grenoble nodes
         ['cray/pe/craype']                        = 'HPE-Cray PE compiler wrappers',
         -- One that I've only seen on LUMI
