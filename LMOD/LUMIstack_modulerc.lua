@@ -6,8 +6,12 @@
 
 module_version( 'partition/C', 'CPUcompute' )
 module_version( 'partition/G', 'GPUcompute' )
--- module_version( 'partition/D', 'DataVisualisation' )
+module_version( 'partition/D', 'Visualisation' )
 module_version( 'partition/L', 'login' )
+
+--
+-- Modules that should be hidden from regular users
+--
 
 --
 --  Cray PE modules that we don't want to be seen in the LUMI stacks.
