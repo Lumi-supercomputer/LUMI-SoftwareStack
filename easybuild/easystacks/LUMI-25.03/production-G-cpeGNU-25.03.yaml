@@ -1,6 +1,6 @@
 easyconfigs:
 # Block 1
-#  - Blosc-1.21.5-cpeGNU-25.03.eb
+  - Blosc-1.21.6-cpeGNU-25.03.eb
   - Brotli-1.1.0-cpeGNU-25.03.eb
   - bzip2-1.0.8-cpeGNU-25.03.eb
 #  - DB-18.1.40-cpeGNU-25.03.eb
@@ -13,7 +13,7 @@ easyconfigs:
 #  - googletest-1.14.0-cpeGNU-25.03.eb
 #  - GSL-2.7.1-cpeGNU-25.03-sequential.eb
 #  - GSL-2.7.1-cpeGNU-25.03-OpenMP.eb
-#  - gzip-1.13-cpeGNU-25.03.eb
+  - gzip-1.14-cpeGNU-25.03.eb
   - ICU-76.1-cpeGNU-25.03.eb
 #  - libaec-1.0.6-cpeGNU-25.03.eb
 #  - libb2-0.98.1-cpeGNU-25.03.eb
