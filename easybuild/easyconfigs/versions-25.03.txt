@@ -105,7 +105,7 @@ local_xorg_macros_version =  '1.20.2'        # https://cgit.freedesktop.org/xorg
 # Regular EasyConfigs
 #
 
-local_Blosc_version =        '1.21.5'        # https://github.com/Blosc/c-blosc/releases
+local_Blosc_version =        '1.21.6'        # https://github.com/Blosc/c-blosc/releases
 local_Boost_version =        '1.83.0'        # https://www.boost.org/
 local_Brotli_version =       '1.1.0'         # https://github.com/google/brotli/releases (not yet in EB 2025a when checking)
 local_bzip2_version =        '1.0.8'         # http://www.bzip.org/downloads.html
@@ -139,7 +139,7 @@ local_gnuplot_version =      '5.4.10'        # http://gnuplot.sourceforge.net/
 local_GObject_version =      '1.78.1'        # https://github.com/GNOME/gobject-introspection/releases
 local_googletest_version =   '1.14.0'        # https://github.com/google/googletest/releases
 local_GSL_version =          '2.7.1'         # https://ftp.gnu.org/gnu/gsl/
-local_gzip_version =         '1.13'          # https://ftp.gnu.org/gnu/gzip/
+local_gzip_version =         '1.14'          # https://ftp.gnu.org/gnu/gzip/
 
 local_HarfBuzz_version =     '8.2.2'          # https://www.freedesktop.org/software/harfbuzz/release/
 

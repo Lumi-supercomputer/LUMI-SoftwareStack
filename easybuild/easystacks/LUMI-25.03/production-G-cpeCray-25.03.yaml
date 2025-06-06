@@ -1,6 +1,5 @@
 easyconfigs:
-# Block 1
-#  - Blosc-1.21.5-cpeCray-25.03.eb
+# Block 1  - Blosc-1.21.6-cpeCray-25.03.eb
   - Brotli-1.1.0-cpeCray-25.03.eb
   - bzip2-1.0.8-cpeCray-25.03.eb
 #  - DB-18.1.40-cpeCray-25.03.eb
@@ -13,7 +12,7 @@ easyconfigs:
 #  - googletest-1.14.0-cpeCray-25.03.eb
 #  - GSL-2.7.1-cpeCray-25.03-sequential.eb
 #  - GSL-2.7.1-cpeCray-25.03-OpenMP.eb
-#  - gzip-1.13-cpeCray-25.03.eb
+  - gzip-1.14-cpeCray-25.03.eb
   - ICU-76.1-cpeCray-25.03.eb
 #  - libaec-1.0.6-cpeCray-25.03.eb
 #  - libb2-0.98.1-cpeCray-25.03.eb
