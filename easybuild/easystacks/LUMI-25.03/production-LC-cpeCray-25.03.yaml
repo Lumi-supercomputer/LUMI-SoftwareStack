@@ -1,6 +1,6 @@
 easyconfigs:
 # Block 1
-#  - Blosc-1.21.5-cpeCray-25.03.eb
+  - Blosc-1.21.6-cpeCray-25.03.eb
   - Brotli-1.1.0-cpeCray-25.03.eb
   - bzip2-1.0.8-cpeCray-25.03.eb
 #  - DB-18.1.40-cpeCray-25.03.eb
