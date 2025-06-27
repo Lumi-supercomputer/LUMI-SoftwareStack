@@ -108,6 +108,7 @@ easyconfigs:
 # Some apps
   - lumi-CPEtools-1.1-cpeCray-24.03.eb
   - lumi-CPEtools-1.2-cpeCray-24.03.eb
+  - lumi-CPEtools-1.2a-cpeCray-24.03.eb
 #  - VampirServer
 #  - Score-P
 #
