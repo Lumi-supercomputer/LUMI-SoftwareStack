@@ -116,6 +116,7 @@ easyconfigs:
 # Some apps
   - lumi-CPEtools-1.1-cpeGNU-24.03.eb
   - lumi-CPEtools-1.2-cpeGNU-24.03.eb
+  - lumi-CPEtools-1.2a-cpeGNU-24.03.eb
 #  - VampirServer
 #  - Score-P
 #

@@ -78,3 +78,22 @@ for the CrayEnv software stack.
     -   Note that the accelerator target module should not be loaded when using the wrappers as the OpenMP offload
         options cause a problem in one of the header files used.
 
+
+### Version 1.2a
+
+-   The version of lumi-CPEtools is the same, but there is a major upgrade to `hpcat` which now has several
+    changes (bumped from 0.4 to 0.8):
+    
+    -   There is now a `configure` script that actually calls CMake. So we switched to a `ConfigureMake`
+        build process.
+    
+    -   The package now uses `hwloc` and `libfort` as submodules, but they do not appear 
+        in the standard GitHub download. Hence we derived the versions from the commits, download those
+        two packages separately and install in the correct directory before configuring 
+        and building `hpcat`
+        
+    -   A symbolic link in the `bin` directory to `libhpcathip.so` is also no longer needed.
+        
+    -   No more edits are needed.
+    
+    -   The LICENSE file now needs to be copied via separate commands as we are no longer using `MakeCp`.

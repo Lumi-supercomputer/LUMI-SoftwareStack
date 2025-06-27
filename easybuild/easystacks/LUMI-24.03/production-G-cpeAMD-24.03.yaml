@@ -105,6 +105,7 @@ easyconfigs:
 # Some apps
   - lumi-CPEtools-1.1-cpeAMD-24.03.eb
   - lumi-CPEtools-1.2-cpeAMD-24.03.eb
+  - lumi-CPEtools-1.2a-cpeAMD-24.03.eb
 #  - VampirServer
 #  - Score-P
 #
