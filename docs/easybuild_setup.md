@@ -4,41 +4,44 @@
 
 ### EasyBuild Module Naming Scheme
 
-  * Options
+-   Options
 
-      * A flat naming scheme, even without the module classes as they are of little
+    -   A flat naming scheme, even without the module classes as they are of little
         use. May packages belong to more than one class, it is impossible to come up
         with a consistent categorization. Fully omitting the categorization requires
         a slightly customized naming scheme that can be copied from UAntwerpen. When
         combining with --suffix-modules-path='' one can also drop the 'all' subdirectory
         level which is completely unnecessary in that case.
 
-      * A hierarchical naming scheme as used at CSCS and CSC. Note that CSCS has an
-        open bug report at the time of writing (May 12) on the standard implementation
+    -   A hierarchical naming scheme as used at CSCS and CSC. Note that CSCS has an
+        open bug report at the time of writing (May 12, 2021) on the standard implementation
         in EasyBuild ([Issue #3626](https://github.com/easybuilders/easybuild-framework/issues/3626)
-        and the related [issue 3575](https://github.com/easybuilders/easybuild-framework/issues/3575)).
-        The solution might be to develop our own naming scheme module.
+        and the related [issue 3575](https://github.com/easybuilders/easybuild-framework/issues/3575)),
+        but they seem to be resolved.
+        If not, the solution might be to develop our own naming scheme module.
 
-  * Choice implemented for the current software stacks:
+-   Choice implemented for the current software stacks:
 
-      * A flat naming scheme that is a slight customization of the default EasyBuildMNS
+    -   A flat naming scheme that is a slight customization of the default EasyBuildMNS
         without the categories, combined with an empty ``suffix-modules-path`` to avoid
         adding the unnecessary ``all`` subdirectory level in the module tree.
 
-      * As we need to point to our own module naming scheme implementation which is
+    -   As we need to point to our own module naming scheme implementation which is
         hard to do in a configuration file (as the path needs to be hardcoded), the
         settings for the module scheme are done via ``EASYBUILD_*`` environment variables,
         specifically:
-          * ``EASYBUILD_INCLUDE_MODULE_NAMING_SCHEMES`` to add out own module naming schemes
-          * ``EASYBUILD_MODULE_NAMING_SCHEME=LUMI_FlatMNS``
-          * ``EASYBUILD_SUFFIX_MODULES_PATH=''``
+        -   ``EASYBUILD_INCLUDE_MODULE_NAMING_SCHEMES`` to add out own module naming schemes
+        -   ``EASYBUILD_MODULE_NAMING_SCHEME=LUMI_FlatMNS``
+        -   ``EASYBUILD_SUFFIX_MODULES_PATH=''``
 
 
 ### Other configuration decisions
 
-  * TODO: rpath or not?
+-   rpath or not? No rpath, as it makes it difficult to try to inject other versions to see if 
+    that solves bugs.
 
-  * TODO: Hiding many basic libraries
+-   In the LUMI stack, we hide the versions of Cray libraries that do not correspond to the 
+    version of ther LUMI stack that is loaded.
 
 
 ## External modules for integration with the Cray PE
@@ -52,12 +55,12 @@ EasyBuild for LUMI is configured through a set of EasyBuild configuration files 
 environment variables. The basic idea is to never load the EasyBuild module directly
 without using one of the EasyBuild configuration modules. There are three such modules
 
-  * ``EasyBuild-production`` to do the installations in the production directories.
+-   ``EasyBuild-production`` to do the installations in the production directories.
 
-  * ``EasyBuild-infrastructure`` is similar to ``EasyBuild-production`` but places the module
+-   ``EasyBuild-infrastructure`` is similar to ``EasyBuild-production`` but places the module
     in the Infrastructure tree rather than the easybuild tree.
 
-  * ``EasyBuild-user`` is meant to do software installations in the home directory of a
+-   ``EasyBuild-user`` is meant to do software installations in the home directory of a
     user or in their project directory. This module will configure EasyBuild such that
     it builds on top of the software already installed on the system, with a compatible
     directory structure.
@@ -82,30 +85,30 @@ available in the new partition.
 
 ### Common settings that are made through environment variables in all modes
 
-  * The buildpath and path for temporary files. The current implementation creates
+-   The buildpath and path for temporary files. The current implementation creates
     subdirectories in the directory pointed to by ``XDG_RUNTIME_DIR`` as this is a
     RAM-based file system and gets cleaned when the user logs out. This value is based
     on the CSCS setup.
 
-  * Name and location of the EasyBuild external modules definition file.
+-   Name and location of the EasyBuild external modules definition file.
 
-  * Settings for the module naming scheme: As we need to point to a custom implementation
+-   Settings for the module naming scheme: As we need to point to a custom implementation
     of the module naming schemes, this is done through an environment variable. For
     consistency we also set the module naming scheme itself via a variable and set
     EASYBUILD_SUFFIX_MODULES_PATH as that together with the module naming scheme determines
     the location of the modules with respect to the module install path.
 
-  * ``EASYBUILD_OPTARCH`` has been extended compared to the CSCS setup:
+-   ``EASYBUILD_OPTARCH`` has been extended compared to the CSCS setup:
 
-      * We support multiple target modules so that it is possible to select both the
+    -   We support multiple target modules so that it is possible to select both the
         CPU and accelerator via ``EASYBUILD_OPTARCH``. See the
         [EasyBuild CPE toolchains common options](Toolchains/toolchain_cpe_common.md)
 
-      * It is now also possible to specify arguments for multiple compilers. Use ``CPE:``
+    -   It is now also possible to specify arguments for multiple compilers. Use ``CPE:``
         to mark the options for the CPE toolchains. See also
         [EasyBuild CPE toolchains common options](Toolchains/toolchain_cpe_common.md)
 
-  * As the CPE toolchains are not included with the standard EasyBuild distribution
+-   As the CPE toolchains are not included with the standard EasyBuild distribution
     and as we have also extended them (if those from CSCS would ever be included),
     we set ``EASYBUILD_INCLUDE_TOOLCHAINS`` to tell EasyBuild where to find the toolchains.
 
@@ -130,35 +133,34 @@ There are two regular configuration files:
 
 Settings made in the configuration files:
 
-  * Modules tool and modules syntax.
+-   Modules tool and modules syntax.
 
-  * Modules that may be loaded when EasyBuild runs
+-   Modules that may be loaded when EasyBuild runs
 
-  * Modules that should be hidden. Starting point is currently the list of CSCS.
-    **TODO: Not yet enabled as this makes development more difficult.**
+-   Modules that should be hidden. Starting point is currently the list of CSCS.
 
-    In fact, another (untested) option is to hide the modules via a modulerc file in
-    the module system rather than via EasyBuild which would have the advantage that
+-   We hide irrelevant modules via a modulerc file in
+    the module system rather than via EasyBuild which has the advantage that
     they maintain regular version numbers rather than version numbers that start with
     a dot (as it seems that that version number with the dot should then also be used
     consistently).
 
-  * Ignore EBROOT variables without matching module as we use this to implement Bundles
+-   Ignore EBROOT variables without matching module as we use this to implement Bundles
     that are detected by certain EasyBlocks as if each package included in the Bundle
     was installed as a separate package.
 
 The following settings are made through environment variables:
 
-  * Software and module install paths, according to the directory scheme given in the
+-   Software and module install paths, according to the directory scheme given in the
     module system section.
 
-  * The directory where sources will be stored, as indicated in the directory structure
+-   The directory where sources will be stored, as indicated in the directory structure
     overview.
 
-  * The repo directories where EasyBuild stores EasyConfig files for the modules that
+-   The repo directories where EasyBuild stores EasyConfig files for the modules that
     are build, as indicated in the directory structure overview.
 
-  * EasyBuild robot paths: we use EASYBUILD_ROBOT_PATHS and not EASYBUILD_ROBOT so
+-   EasyBuild robot paths: we use EASYBUILD_ROBOT_PATHS and not EASYBUILD_ROBOT so
     searching the robot path is not enabled by default but can be controlled through
     the ``-r`` flag of the ``eb`` command. The search order is:
 
@@ -170,7 +172,7 @@ The following settings are made through environment variables:
 
      3. The LUMI-specific EasyConfig directory.
 
-    We deliberately put the ebrepo_files repositories first as this ensure that EasyBuild
+    We deliberately put the ebfiles_repo repositories first as this ensure that EasyBuild
     will always find the EasyConfig file for the installed module first as changes
     may have been made to the EasyConfig in the LUMI EasyConfig repository that are
     not yet reflected in the installed software.
@@ -178,26 +180,26 @@ The following settings are made through environment variables:
     The default EasyConfig files that come with EasyBuild are not put in the robot
     search path for two reasons:
 
-     1. They are not made for the Cray toolchains anyway (though one could of course
+     4. They are not made for the Cray toolchains anyway (though one could of course
         use ``--try-toolchain`` etc.)
 
-     2. We want to ensure that our EasyConfig repository is complete so that we can
+     5. We want to ensure that our EasyConfig repository is complete so that we can
         impose our own standards on, e.g., adding information to the help block or
         whatis lines in modules, and do not accidentally install dependencies without
         realising this.
 
-  * Names and locations of the EasyBuild configuration files and of the external modules
+-   Names and locations of the EasyBuild configuration files and of the external modules
     definition file.
 
-  * Settings for the module naming scheme: As we need to point to a custom implementation
+-   Settings for the module naming scheme: As we need to point to a custom implementation
     of the module naming schemes, this is done through an environment variable. For
     consistency we also set the module naming scheme itself via a variable and set
     EASYBUILD_SUFFIX_MODULES_PATH as that together with the module naming scheme determines
     the location of the modules with respect to the module install path.
 
-  * Custom EasyBlocks
+-   Custom EasyBlocks
 
-  * Search path for EasyConfig files with ``eb -S`` and ``eb --search``
+-   Search path for EasyConfig files with ``eb -S`` and ``eb --search``
 
      1. Every directory of the robot search path is automatically included and 
         does not need to be added to EASYBUILD_SEARCH_PATHS
@@ -215,11 +217,11 @@ The following settings are made through environment variables:
         should be in our own EasyConfig repository if the installations are managed
         properly.
 
-  * We also set containerpath and packagepath even though we don't plan to use those,
+-   We also set containerpath and packagepath even though we don't plan to use those,
     but it ensures that files produced by this option will not end up in our GitHub
     repository.
 
-  * `EASYBUILD_BUILDPATH` and `EASYBUILD_TMPDIR` are determined by the following strategy:
+-   `EASYBUILD_BUILDPATH` and `EASYBUILD_TMPDIR` are determined by the following strategy:
 
      1. If the environment variable `EBU_WORKDIR` is set, that one is used as the base
         for the directory names.
@@ -236,36 +238,36 @@ The following settings are made through environment variables:
 
 ### The EasyBuild-user mode
 
-  * The root of the user EasyBuild directory structure is pointed to by the
+-   The root of the user EasyBuild directory structure is pointed to by the
     environment variable ``EBU_USER_PREFIX``. The default value if the variable
     is not defined is ``$HOME/EasyBuild``.
 
     Note that this environment variable is also used in the ``LUMI/yy.mm`` modules
     as these modules try to include the user modules in the MODULEPATH.
 
-  * The directory structure in that directory largely reflects the system
+-   The directory structure in that directory largely reflects the system
     directory structure. This may be a bit more complicated than really needed
     for the user who does an occasional install, but is great for user communities
     who install a more elaborate software stack in their project directory.
 
     Changes:
 
-       * ``SystemRepo`` is named ``UserRepo`` instead and that name is fixed,
+     -   ``SystemRepo`` is named ``UserRepo`` instead and that name is fixed,
          contrary to the ``SytemRepo`` name. We do keep it
          as a separate level so that the user can also easily do version
          tracking via a versioning system such as GitHub.
 
-       * The ``mgmt`` level is missing as we do not take into account
+     -   The ``mgmt`` level is missing as we do not take into account
          subdirectories that might be related to other software management
          tools.
 
-       * As there are only modules generated by EasyBuild in this module tree,
+     -   As there are only modules generated by EasyBuild in this module tree,
          ``modules/easybuild`` simply becomes ``modules``.
 
-       * Similarly, the ``EB`` level in the directory for installed software is
+     -   Similarly, the ``EB`` level in the directory for installed software is
          omitted.
 
-  * The robot search path:
+-   The robot search path:
 
      1. The user repository for the currently active partition
 
@@ -286,7 +288,7 @@ The following settings are made through environment variables:
 
      2. The LUMI-specific EasyConfig directory from the application directory
 
-  * The search path for EasyConfig files with ``eb -S`` and ``eb --search``
+-   The search path for EasyConfig files with ``eb -S`` and ``eb --search``
 
      1. The directories above in the robot search path are automatically also used
         for search.
@@ -303,7 +305,7 @@ The following settings are made through environment variables:
 
     So currently the additional search paths in user mode are empty. 
 
-  * `EASYBUILD_BUILDPATH` and `EASYBUILD_TMPDIR` are determined by the following strategy:
+-   `EASYBUILD_BUILDPATH` and `EASYBUILD_TMPDIR` are determined by the following strategy:
 
      1. If the environment variable `EBU_WORKDIR` is set, that one is used as the base
         for the directory names.
