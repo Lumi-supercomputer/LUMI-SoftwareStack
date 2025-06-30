@@ -165,10 +165,10 @@ The following settings are made through environment variables:
     the ``-r`` flag of the ``eb`` command. The search order is:
 
      1. The repository for the currently active partition build by EasyBuild for
-        installed packages (``ebrepo_files``)
+        installed packages (``ebfiles_repo``)
 
      2. The repository for the common partition build by EasyBuild for
-        installed packages (``ebrepo_files``)
+        installed packages (``ebfiles_repo``)
 
      3. The LUMI-specific EasyConfig directory.
 
@@ -213,7 +213,7 @@ The following settings are made through environment variables:
      4. Default EasyConfig files that come with EasyBuild (if we can find EasyBuild,
         which is if an EasyBuild-build EasyBuild module is loaded)
 
-     5. Deliberately not included: Our ebrepo_files repositories. Everything in there
+     5. Deliberately not included: Our ebfiles_repo repositories. Everything in there
         should be in our own EasyConfig repository if the installations are managed
         properly.
 
@@ -299,7 +299,7 @@ The following settings are made through environment variables:
      3. Default EasyConfig files that come with EasyBuild are deliberately not included
         in user mode as it was decided this is confusing for the users.
 
-     4. Deliberately not included: Our ebrepo_files repositories. Everything in there
+     4. Deliberately not included: Our ebfiles_repo repositories. Everything in there
         should be in our own EasyConfig repository if the installations are managed
         properly.
 
