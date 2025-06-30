@@ -13,7 +13,7 @@ easyconfigs:
 #  - googletest-1.14.0-cpeCray-25.03.eb
 #  - GSL-2.7.1-cpeCray-25.03-sequential.eb
 #  - GSL-2.7.1-cpeCray-25.03-OpenMP.eb
-#  - gzip-1.13-cpeCray-25.03.eb
+  - gzip-1.14-cpeCray-25.03.eb
   - ICU-76.1-cpeCray-25.03.eb
 #  - libaec-1.0.6-cpeCray-25.03.eb
 #  - libb2-0.98.1-cpeCray-25.03.eb
