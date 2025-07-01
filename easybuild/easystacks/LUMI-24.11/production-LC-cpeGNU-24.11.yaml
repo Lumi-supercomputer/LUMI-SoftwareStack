@@ -86,25 +86,26 @@ easyconfigs:
 ## Block 7
   - fontconfig-2.14.2-cpeGNU-24.11.eb
 ## Block 8
-#  - libgd-2.3.3-cpeGNU-24.11.eb
-#  - X11-24.03-cpeGNU-24.11.eb
+  - libgd-2.3.3-cpeGNU-24.11.eb
+  - X11-24.03-cpeGNU-24.11.eb
 ## Block 9
-#  - FFmpeg-6.1.1-cpeGNU-24.11.eb
-#  - Tk-8.6.13-cpeGNU-24.11.eb
+#  - FFmpeg-6.1.1-cpeGNU-24.11.eb # ISSUES with the 24.11 GNU compiler
+  - Tk-8.6.13-cpeGNU-24.11.eb
 ## Block 10
 ## Block 11
 ## Block 12
 ## Some libraries from the apps section of before, and applications(s)
-#  - METIS-5.1.0-cpeGNU-24.11.eb
-#  - ParMETIS-4.0.3-cpeGNU-24.11.eb
-#  - SCOTCH-6.1.3-cpeGNU-24.11.eb
-#  - SCOTCH-7.0.4-cpeGNU-24.11.eb  # Check if the EasyBlock needs an update!
+  - METIS-5.1.0-cpeGNU-24.11.eb
+  - ParMETIS-4.0.3-cpeGNU-24.11.eb
+  - SCOTCH-6.1.3-cpeGNU-24.11.eb
+  - SCOTCH-7.0.4-cpeGNU-24.11.eb  # Check if the EasyBlock needs an update!
 #  - ESMF-8.6.0-cpeGNU-24.11.eb
 #  - ESMF-8.6.0-cpeGNU-24.11-MPI-PIO.eb
-#  - SuiteSparse-5.13.0-cpeGNU-24.11-OpenMP.eb
+  - SuiteSparse-5.13.0-cpeGNU-24.11-OpenMP.eb
 ## Some apps
 #  - lumi-CPEtools-1.1-cpeGNU-24.11.eb
 #  - lumi-CPEtools-1.2-cpeGNU-24.11.eb
+#  - lumi-CPEtools-1.2a-cpeGNU-24.11.eb # Header file issue in the container
 ##  - VampirServer
 ##  - Score-P
 ##
