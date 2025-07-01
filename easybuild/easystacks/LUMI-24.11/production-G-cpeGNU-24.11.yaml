@@ -64,11 +64,11 @@ easyconfigs:
   - XZ-5.4.4-cpeGNU-24.11.eb
 ## Block 4
   - file-5.43-cpeGNU-24.11.eb
-#  - libunistring-1.1-cpeGNU-24.11.eb
-#  - libunwind-1.6.2-cpeGNU-24.11.eb
+  - libunistring-1.1-cpeGNU-24.11.eb
+  - libunwind-1.6.2-cpeGNU-24.11.eb
   - libxml2-2.11.5-cpeGNU-24.11.eb
-#  - wget-1.21.4-cpeGNU-24.11.eb
-#  - zstd-1.5.5-cpeGNU-24.11.eb
+  - wget-1.21.4-cpeGNU-24.11.eb
+  - zstd-1.5.5-cpeGNU-24.11.eb
 ## Block 5
 #  - Boost-1.83.0-cpeGNU-24.11.eb
   - gettext-0.22-cpeGNU-24.11.eb
