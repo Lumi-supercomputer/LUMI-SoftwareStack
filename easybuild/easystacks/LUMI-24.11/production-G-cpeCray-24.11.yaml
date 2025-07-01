@@ -1,43 +1,42 @@
 easyconfigs:
 # Block 1
-#  - Blosc-1.21.5-cpeCray-24.11.eb
+  - Blosc-1.21.5-cpeCray-24.11.eb
   - Brotli-1.1.0-cpeCray-24.11.eb
   - bzip2-1.0.8-cpeCray-24.11.eb
-#  - DB-18.1.40-cpeCray-24.11.eb
-#  - double-conversion-3.3.0-cpeCray-24.11.eb
+  - DB-18.1.40-cpeCray-24.11.eb
+  - double-conversion-3.3.0-cpeCray-24.11.eb
   - expat-2.6.2-cpeCray-24.11.eb
-#  - FriBidi-1.0.13-cpeCray-24.11.eb
-#  - gc-8.2.6-cpeCray-24.11.eb
-#  - giflib-5.2.1-cpeCray-24.11.eb
-#  - GMP-6.3.0-cpeCray-24.11.eb
-#  - googletest-1.14.0-cpeCray-24.11.eb
-#  - GSL-2.7.1-cpeCray-24.11-sequential.eb
-#  - GSL-2.7.1-cpeCray-24.11-OpenMP.eb
-#  - gzip-1.13-cpeCray-24.11.eb
+  - FriBidi-1.0.13-cpeCray-24.11.eb
+  - gc-8.2.6-cpeCray-24.11.eb
+  - giflib-5.2.1-cpeCray-24.11.eb
+  - GMP-6.3.0-cpeCray-24.11.eb
+  - googletest-1.14.0-cpeCray-24.11.eb
+  - GSL-2.7.1-cpeCray-24.11-sequential.eb
+  - GSL-2.7.1-cpeCray-24.11-OpenMP.eb
+  - gzip-1.13-cpeCray-24.11.eb
   - ICU-74.1-cpeCray-24.11.eb
-#  - libaec-1.0.6-cpeCray-24.11.eb
-#  - libb2-0.98.1-cpeCray-24.11.eb
-#  - libcerf-2.3-cpeCray-24.11.eb
-#  - libdeflate-1.19-cpeCray-24.11.eb
-#  - libffi-3.4.4-cpeCray-24.11.eb
-##  - libidn-1.38-cpeCray-24.11.eb
-#  - libidn2-2.3.7-cpeCray-24.11.eb
-#  - libjpeg-turbo-3.0.1-cpeCray-24.11.eb
-#  - libogg-1.3.5-cpeCray-24.11.eb
-#  - libopus-1.4-cpeCray-24.11.eb
-#  - libpsl-0.21.5-cpeCray-24.11.eb
-#  - libtirpc-1.3.4-cpeCray-24.11.eb
-#  - LMDB-0.9.31-cpeCray-24.11.eb
-#  - lz4-1.9.4-cpeCray-24.11.eb
-#  - Lzip-1.23-cpeCray-24.11.eb
-#  - LZO-2.10-cpeCray-24.11.eb
-#  - mpdecimal-4.0.0-cpeCray-24.11.eb
+  - libaec-1.0.6-cpeCray-24.11.eb
+  - libb2-0.98.1-cpeCray-24.11.eb
+  - libcerf-2.3-cpeCray-24.11.eb
+  - libdeflate-1.19-cpeCray-24.11.eb
+  - libffi-3.4.4-cpeCray-24.11.eb
+  - libidn2-2.3.7-cpeCray-24.11.eb
+  - libjpeg-turbo-3.0.1-cpeCray-24.11.eb
+  - libogg-1.3.5-cpeCray-24.11.eb
+  - libopus-1.4-cpeCray-24.11.eb
+  - libpsl-0.21.5-cpeCray-24.11.eb
+  - libtirpc-1.3.4-cpeCray-24.11.eb
+  - LMDB-0.9.31-cpeCray-24.11.eb
+  - lz4-1.9.4-cpeCray-24.11.eb
+  - Lzip-1.23-cpeCray-24.11.eb
+  - LZO-2.10-cpeCray-24.11.eb
+  - mpdecimal-4.0.0-cpeCray-24.11.eb
   - ncurses-6.4-cpeCray-24.11.eb
-#  - nlohmann-json-3.11.3-cpeCray-24.11.eb
-#  - Szip-2.1.1-cpeCray-24.11.eb
-#  - termcap-1.3.1-cpeCray-24.11.eb # Haven't found how to get rid of it for for Term::ReadLine::Gnu
-#  - x264-20231019-cpeCray-24.11.eb
-#  - x265-3.5-cpeCray-24.11.eb
+  - nlohmann-json-3.11.3-cpeCray-24.11.eb
+  - Szip-2.1.1-cpeCray-24.11.eb
+  - termcap-1.3.1-cpeCray-24.11.eb # Haven't found how to get rid of it for for Term::ReadLine::Gnu
+  - x264-20231019-cpeCray-24.11.eb
+  - x265-3.5-cpeCray-24.11.eb
   - zlib-1.3.1-cpeCray-24.11.eb
 # Block 2
 #  - cURL-8.3.0-cpeCray-24.11.eb
