@@ -89,7 +89,7 @@ easyconfigs:
   - libgd-2.3.3-cpeCray-24.11.eb
   - X11-24.03-cpeCray-24.11.eb
 ## Block 9
-#  - FFmpeg-6.1.1-cpeCray-24.11.eb # ISSUES with the 24.11 version of the Cray compiler
+  - FFmpeg-6.1.1-cpeCray-24.11.eb
   - Tk-8.6.13-cpeCray-24.11.eb
 ## Block 10
 ## Block 11
