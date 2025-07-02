@@ -89,7 +89,7 @@ easyconfigs:
   - libgd-2.3.3-cpeGNU-24.11.eb
   - X11-24.03-cpeGNU-24.11.eb
 ## Block 9
-#  - FFmpeg-6.1.1-cpeGNU-24.11.eb # ISSUES with the 24.11 GNU compiler
+  - FFmpeg-6.1.1-cpeGNU-24.11.eb
   - Tk-8.6.13-cpeGNU-24.11.eb
 ## Block 10
 ## Block 11

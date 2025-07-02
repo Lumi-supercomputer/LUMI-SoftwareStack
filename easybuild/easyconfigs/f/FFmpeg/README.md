@@ -53,3 +53,8 @@ in EasyBuild.
   * Trivial version bump of 6.0.
   
   * But we added license information to the installation directories.
+
+  * For 24.11, we disabled some forms of help generation as they failed in the 24.11 
+    container that we used during development, and switched to a more readable form
+    of specifying configopts.
+  
