@@ -89,7 +89,7 @@ easyconfigs:
   - libgd-2.3.3-cpeAMD-24.11.eb
   - X11-24.03-cpeAMD-24.11.eb
 ## Block 9
-#  - FFmpeg-6.1.1-cpeAMD-24.11.eb # ISSUES with the AMD compiler in ROCm 6.2.
+  - FFmpeg-6.1.1-cpeAMD-24.11.eb
   - Tk-8.6.13-cpeAMD-24.11.eb
 ## Block 10
 ## Block 11
