@@ -97,3 +97,7 @@ for the CrayEnv software stack.
     -   No more edits are needed.
     
     -   The LICENSE file now needs to be copied via separate commands as we are no longer using `MakeCp`.
+    
+    -   For the 24.11 container, we needed to add a workaround as CMake for some reason failed to 
+        add the proper include dir for HIP files even though this seems specified in the CMakeLists.txt
+        file.
