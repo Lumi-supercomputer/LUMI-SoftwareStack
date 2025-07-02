@@ -114,7 +114,7 @@ easyconfigs:
 ## Line 1: Extensions for Perl
 ##
 ## With block 4
-#  - Perl-packages-CPAN-5.38.0-cpeGNU-24.11.eb
+  - Perl-packages-CPAN-5.38.0-cpeGNU-24.11.eb
 ##
 ## Line 2: Gnome graphics
 ##
