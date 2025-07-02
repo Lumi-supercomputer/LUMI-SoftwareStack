@@ -19,3 +19,14 @@ when Perl is called inside a parallel process.
 
 **Getting this module into a new software stack does not have a high priority for LUST
 and it may be removed entirely in the future.**
+
+
+## Packages for 5.38.0
+
+-   As usual, more compilation issues with clang-based compilers.
+
+-   For the 24.11 container, we had to remove several packages as they wouldn't
+    compile or install correctly, but the source of issues is usually hard to find.
+    Some failed in `partition/G` but not in the CPU partitions for very unclear reasons,
+    even though we tried to disable Lmod CPE modules that may cause trouble but likely aren't
+    used by any Perl package.
