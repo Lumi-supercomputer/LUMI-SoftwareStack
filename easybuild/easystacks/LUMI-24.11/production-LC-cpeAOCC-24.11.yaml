@@ -119,15 +119,15 @@ easyconfigs:
 ## Line 2: Gnome graphics
 ##
 ## With block 7
-#  - GLib-2.78.1-cpeAOCC-24.11.eb
+  - GLib-2.78.1-cpeAOCC-24.11.eb
 ## With block 9
-#  - cairo-1.18.0-cpeAOCC-24.11.eb
+  - cairo-1.18.0-cpeAOCC-24.11.eb
 ## With block 10
-#  - GObject-Introspection-1.78.1-cpeAOCC-24.11-cray-python3.11.eb
+  - GObject-Introspection-1.78.1-cpeAOCC-24.11-cray-python3.11.eb
 ## With block 11
-#  - HarfBuzz-8.2.2-cpeAOCC-24.11.eb
+  - HarfBuzz-8.2.2-cpeAOCC-24.11.eb
 ## With block 12
-#  - Pango-1.51.0-cpeAOCC-24.11.eb
+  - Pango-1.51.0-cpeAOCC-24.11.eb
 ## With apps (as they depend on other low-priority packages)
-#  - gnuplot-5.4.10-cpeAOCC-24.11.eb
+  - gnuplot-5.4.10-cpeAOCC-24.11.eb
 #
