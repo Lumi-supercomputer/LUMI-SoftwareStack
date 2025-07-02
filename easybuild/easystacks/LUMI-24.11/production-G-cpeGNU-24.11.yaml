@@ -105,7 +105,7 @@ easyconfigs:
 ## Some apps
 #  - lumi-CPEtools-1.1-cpeGNU-24.11.eb
 #  - lumi-CPEtools-1.2-cpeGNU-24.11.eb
-#  - lumi-CPEtools-1.2a-cpeGNU-24.11.eb  # Header file issue in the container
+  - lumi-CPEtools-1.2a-cpeGNU-24.11.eb
 ##  - VampirServer
 ##  - Score-P
 ##
