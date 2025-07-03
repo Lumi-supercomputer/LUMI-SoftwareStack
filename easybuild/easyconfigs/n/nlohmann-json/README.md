@@ -23,6 +23,7 @@
 
 -   Based on the JSC easyconfig
 
+
 ### Version 3.11.3 from CPE 23.12 on
 
 -   Moved to the LUMI-SoftwareStack repository from LUMI-EasyBuild-contributed as
@@ -30,3 +31,9 @@
 
 -   Had to move to 3.11.3 already in 23.12 rather than following the 2023a EasyBuild
     release as 3.11.2 did not compile with the Cray compiler.
+
+    
+### 3.12.0 from 25.03 on
+
+-   Trivial port of the 3.11.3 EasyConfig for 24.03/24.11.
+    

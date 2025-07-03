@@ -186,11 +186,11 @@ local_LZO_version =          '2.10'          # http://www.oberhumer.com/opensour
 
 local_MPC_version =          '1.3.1'         # https://ftp.gnu.org/gnu/mpc/
 local_METIS_version =        '5.1.0'         # https:/http://glaros.dtc.umn.edu/gkhome/metis/metis/download
-local_mpdecimal_version =    '2.5.1'         # https://www.bytereef.org/mpdecimal/
+local_mpdecimal_version =    '4.0.1'         # https://www.bytereef.org/mpdecimal/
 local_MPFR_version =         '4.2.0'         # https://ftp.gnu.org/gnu/mpfr/
 
 local_ncurses_version =      '6.5'           # https://ftp.gnu.org/pub/gnu/ncurses/
-local_nlohmannjson_version = '3.11.3'        # https://github.com/nlohmann/json/releases
+local_nlohmannjson_version = '3.12.0'        # https://github.com/nlohmann/json/releases
 
 local_Pango_version =        '1.51.0'        # http://ftp.gnome.org/pub/GNOME/sources/pango/
 local_ParMETIS_version =     '4.0.3'         # https:/http://glaros.dtc.umn.edu/gkhome/metis/parmetis/download
@@ -216,9 +216,9 @@ local_util_version =         '2.40.4'        # https://mirrors.edge.kernel.org/p
 
 local_wget_version =         '1.21.4'        # https://ftp.gnu.org/gnu/wget/
 
-local_x264_commit =          'baee400f'      # Just follow EasyBuild as the distribution is currently a mess
-local_x264_version =         '20231019'      # Just follow EasyBuild as the distribution is currently a mess
-local_x265_version =         '3.5'           # http://download.videolan.org/pub/videolan/x265/
+local_x264_commit =          'b35605ac'      # Just follow EasyBuild as the distribution is currently a mess
+local_x264_version =         '20250619'      # Just follow EasyBuild as the distribution is currently a mess
+local_x265_version =         '4.1'           # http://download.videolan.org/pub/videolan/x265/
 local_xterm_version =        '389c'          # https://github.com/ThomasDickey/xterm-snapshots/tags
 local_XZ_version =           '5.6.3'         # https://tukaani.org/xz/
 
