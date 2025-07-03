@@ -3,16 +3,16 @@ easyconfigs:
   - Blosc-1.21.6-cpeAOCC-25.03.eb
   - Brotli-1.1.0-cpeAOCC-25.03.eb
   - bzip2-1.0.8-cpeAOCC-25.03.eb
-#  - DB-18.1.40-cpeAOCC-25.03.eb
-#  - double-conversion-3.3.0-cpeAOCC-25.03.eb
+  - DB-18.1.40-cpeAOCC-25.03.eb
+  - double-conversion-3.3.1-cpeAOCC-25.03.eb
   - expat-2.6.4-cpeAOCC-25.03.eb
-#  - FriBidi-1.0.13-cpeAOCC-25.03.eb
-#  - gc-8.2.6-cpeAOCC-25.03.eb
-#  - giflib-5.2.1-cpeAOCC-25.03.eb
-#  - GMP-6.3.0-cpeAOCC-25.03.eb
-#  - googletest-1.14.0-cpeAOCC-25.03.eb
-#  - GSL-2.7.1-cpeAOCC-25.03-sequential.eb
-#  - GSL-2.7.1-cpeAOCC-25.03-OpenMP.eb
+  - FriBidi-1.0.16-cpeAOCC-25.03.eb
+  - gc-8.2.8-cpeAOCC-25.03.eb
+  - giflib-5.2.2-cpeAOCC-25.03.eb
+  - GMP-6.3.0-cpeAOCC-25.03.eb
+  - googletest-1.17.0-cpeAOCC-25.03.eb
+  - GSL-2.8-cpeAOCC-25.03-sequential.eb
+  - GSL-2.8-cpeAOCC-25.03-OpenMP.eb
   - gzip-1.14-cpeAOCC-25.03.eb
   - ICU-76.1-cpeAOCC-25.03.eb
 #  - libaec-1.0.6-cpeAOCC-25.03.eb

@@ -27,5 +27,7 @@
 -   Direct port of the 1.13.0 EasyConfig for LUMI/23.12.
 
 
+### Version 1.17.0 for CPE 25.03
 
+-   Direct port of the 1.14.0 EasyConfig for 24.03/24.11.
 
