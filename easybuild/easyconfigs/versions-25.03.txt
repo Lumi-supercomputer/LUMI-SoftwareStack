@@ -113,7 +113,7 @@ local_bzip2_version =        '1.0.8'         # http://www.bzip.org/downloads.htm
 local_cairo_version =        '1.18.0'        # https://www.cairographics.org/
 local_CubeLib_version =      '4.8'           # https://www.scalasca.org/scalasca/software/cube-4.x/download.html
 local_CubeWriter_version =   '4.8'           # https://www.scalasca.org/scalasca/software/cube-4.x/download.html
-local_cURL_version =         '8.3.0'         # https://curl.haxx.se/download/
+local_cURL_version =         '8.11.1'        # https://curl.haxx.se/download/
 
 local_DB_version =           '18.1.40'       # https://www.oracle.com/database/technologies/related/berkeleydb-downloads.html
 local_double_conv_version =  '3.3.1'         # https://github.com/google/double-conversion/releases
@@ -124,7 +124,7 @@ local_expat_version =        '2.6.4'         # https://github.com/libexpat/libex
 
 local_file_version =         '5.46'          # ftp://ftp.astron.com/pub/file/ (not yet in EB 2025a when checking)
 local_FFmpeg_version =       '6.1.1'         # https://ffmpeg.org/download.html#releases
-local_FLAC_version =         '1.4.3'         # https://xiph.org/downloads/ or https://github.com/xiph/flac/releases
+local_FLAC_version =         '1.5.0'         # https://xiph.org/downloads/ or https://github.com/xiph/flac/releases
 local_fontconfig_version =   '2.14.2'        # https://www.freedesktop.org/software/fontconfig/release/
 local_freetype_version =     '2.13.3'        # https://download.savannah.gnu.org/releases/freetype/ (Not yet in EB 2025a when checking)
 local_fribidi_version =      '1.0.16'        # https://github.com/fribidi/fribidi/releases
@@ -146,7 +146,7 @@ local_HarfBuzz_version =     '8.2.2'          # https://www.freedesktop.org/soft
 local_ICU_version =          '76.1'          # http://site.icu-project.org/home
 local_intltool_version =     '0.51.0'        # https://launchpad.net/intltool/+download
 
-local_JasPer_version =       '4.0.0'         # https://github.com/jasper-software/jasper/releases
+local_JasPer_version =       '4.2.5'         # https://github.com/jasper-software/jasper/releases
 
 local_LAME_version =         '3.100'         # http://lame.sourceforge.net/
 local_libaec_version =       '1.1.4'         # https://gitlab.dkrz.de/k202009/libaec/-/tags
