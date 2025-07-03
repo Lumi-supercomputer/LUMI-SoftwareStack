@@ -22,7 +22,7 @@ software_license_urls = [
     'https://support.hdfgroup.org/doc_resource/SZIP/Commercial_szip.html'    
 ]
 
-toolchain = {'name': 'cpeAMD', 'version': '24.11'}
+toolchain = {'name': 'cpeGNU', 'version': '25.03'}
 toolchainopts = {'pic': True}
 
 # Old URL: http://www.hdfgroup.org/ftp/lib-external/szip/2.1.1/src/szip-2.1.1.tar.gz
