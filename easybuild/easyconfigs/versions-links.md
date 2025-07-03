@@ -188,6 +188,7 @@ better to avoid bugs also).
 | [libidn](https://ftp.gnu.org/gnu/libidn/) | [EB libidn](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/libidn) | / |
 | [libidn2](https://ftp.gnu.org/gnu/libidn/) | [EB libidn2](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/libidn2) | / |
 | [libjpeg-turbo](https://github.com/libjpeg-turbo/libjpeg-turbo/releases) | [EB libjpeg-turbo](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/libjpeg-turbo) | [CSCS libjpeg-turbo](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/l/libjpeg-turbo) |
+| [libpsl](https://github.com/rockdaboot/libpsl/releases) | [eb libpsl](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/libpsl) | / |  |
 | [libogg](https://www.xiph.org/downloads/) or [GitHub](https://github.com/xiph/ogg/releases) | [EB libogg](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/libogg/) | / |
 | [libopus](http://opus-codec.org/downloads/) | / | / |
 | [libpciaccess](https://cgit.freedesktop.org/xorg/lib/libpciaccess/) | [EB libpciaccess](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/libpciaccess) | / |
