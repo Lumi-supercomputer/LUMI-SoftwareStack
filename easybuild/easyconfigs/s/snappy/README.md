@@ -1,57 +1,61 @@
 # snappy instructions
 
-  * [snappy on GitHub](https://github.com/google/snappy)
-      * [Releases on GitHub](https://github.com/google/snappy/releases)
+-   [snappy on GitHub](https://github.com/google/snappy)
+    -   [Releases on GitHub](https://github.com/google/snappy/releases)
 
 ## General information
 
-  * Snappy is build using CMake.
-  * Snappy can use zlib and lzo2.
-  * There are CMake flags to enforce AVX or AVX2 but it is not clear if these
+-   Snappy is build using CMake.
+-   Snappy can use zlib and lzo2.
+-   There are CMake flags to enforce AVX or AVX2 but it is not clear if these
     are needed as I cannot find where they define symbols that would then be
     used in the code. It does influence compiler options that are added though.
-  * Note that building snappy requires two iterations if we want both static
+-   Note that building snappy requires two iterations if we want both static
     and shared libraries.
 
 ## EasyBuild
 
 This README was developed starting with snappy 1.1.8 in the CPE 21.06.
 
-  * [Support for snappy in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/s/snappy)
+-   [Support for snappy in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/s/snappy)
     but the dependencies are incomplete.
 
-  * [Support for snappy in the CSCS repository](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/s/snappy)
+-   [Support for snappy in the CSCS repository](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/s/snappy)
 
 ### 1.1.8 from CPE 21.06 on.
 
-  * We stuck to 1.1.8 even though 1.1.9 was out because in 1.1.9 the build process
+-   We stuck to 1.1.8 even though 1.1.9 was out because in 1.1.9 the build process
     has changed and seems to require various Google tools.
 
-  * This EasyConfig was made to prepare for inclusion in the baselibs Bundle.
+-   This EasyConfig was made to prepare for inclusion in the baselibs Bundle.
 
-  * The dependencies on zlib and LZO (lzo2) were added to the dependencies list to ensure
+-   The dependencies on zlib and LZO (lzo2) were added to the dependencies list to ensure
     a build with maximum potential.
 
-  * We also added an option to install in lib instead of lib64 as almost all of the other
+-   We also added an option to install in lib instead of lib64 as almost all of the other
     packages also install in lib.
 
 
 ### 1.1.9 from CPE 21.12 on
 
-  * Went to 1.1.9 but used the fix from the EasyBuilders EasyConfig to avoid the use
+-   Went to 1.1.9 but used the fix from the EasyBuilders EasyConfig to avoid the use
     of the Google tools
 
-  * for cpeAMD from 23.09 on (likely due to a change in behaviour of cmake or compiler 
+-   for cpeAMD from 23.09 on (likely due to a change in behaviour of cmake or compiler 
     wrappers) needed to turn off error messages about unused arguments as there were 
     some -L lines added that were not used.
     
-  * From LUMI/23.12 onwards, license information was added to the license.
+-   From LUMI/23.12 onwards, license information was added to the license.
 
 
 ### 1.1.10 for LUMI/24.03
 
-  * Started from the EasyConfig for 1.1.9 for LUMI/23.12, but the patch was no longer needed.
+-   Started from the EasyConfig for 1.1.9 for LUMI/23.12, but the patch was no longer needed.
   
-  * Needed to add a flag for the Cray and AOCC/AMD compilers as the code uses an unsafe comparision of 
+-   Needed to add a flag for the Cray and AOCC/AMD compilers as the code uses an unsafe comparision of 
     integers that caused an error on those compilers.
 
+
+### 1.2.2 for LUMI/25.03
+
+-   Trivial port of the 1.1.10 EasyConfig for 24.03/24.11.
