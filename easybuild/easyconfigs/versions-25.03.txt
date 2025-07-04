@@ -164,7 +164,7 @@ local_libidn_version =       '1.41'          # https://ftp.gnu.org/gnu/libidn/
 local_libjpegturbo_version = '3.1.0'         # https://github.com/libjpeg-turbo/libjpeg-turbo/releases
 local_libogg_version =       '1.3.6'         # https://www.xiph.org/downloads/ or https://github.com/xiph/ogg/releases
 local_libopus_version =      '1.5.2'         # http://opus-codec.org/downloads/
-local_libpciaccess_version = '0.17'          # https://cgit.freedesktop.org/xorg/lib/libpciaccess/
+local_libpciaccess_version = '0.18.1'        # https://cgit.freedesktop.org/xorg/lib/libpciaccess/
 local_libpng_version =       '1.6.47'        # http://www.libpng.org/pub/png/libpng.html (Not yet in EB 2025a when checking)
 local_libpsl_version =       '0.21.5'        # https://github.com/rockdaboot/libpsl/releases
 local_libreadline_version =  '8.2.13'        # https://ftp.gnu.org/pub/gnu/readline/, also look at the patches
@@ -187,7 +187,7 @@ local_LZO_version =          '2.10'          # http://www.oberhumer.com/opensour
 local_MPC_version =          '1.3.1'         # https://ftp.gnu.org/gnu/mpc/
 local_METIS_version =        '5.1.0'         # https:/http://glaros.dtc.umn.edu/gkhome/metis/metis/download
 local_mpdecimal_version =    '4.0.1'         # https://www.bytereef.org/mpdecimal/
-local_MPFR_version =         '4.2.0'         # https://ftp.gnu.org/gnu/mpfr/
+local_MPFR_version =         '4.2.2'         # https://ftp.gnu.org/gnu/mpfr/
 
 local_ncurses_version =      '6.5'           # https://ftp.gnu.org/pub/gnu/ncurses/
 local_nlohmannjson_version = '3.12.0'        # https://github.com/nlohmann/json/releases
@@ -203,7 +203,7 @@ local_pixman_version =       '0.42.2'        # https://www.cairographics.org/rel
 local_SCOTCH6_version =      '6.1.3'         # https://gforge.inria.fr/projects/scotch/
 local_SCOTCH7_version =      '7.0.4'         # https://gforge.inria.fr/projects/scotch/
 local_SCOTCH_version =       '6.1.3'         # https://gforge.inria.fr/projects/scotch/
-local_snappy_version =       '1.1.10'        # https://github.com/google/snappy/releases
+local_snappy_version =       '1.2.2'         # https://github.com/google/snappy/releases
 local_SQLite_version =       '3.47.2'        # https://www.sqlite.org/
 local_Szip_version =         '2.1.1'         # https://support.hdfgroup.org/ftp/lib-external/szip/
 
