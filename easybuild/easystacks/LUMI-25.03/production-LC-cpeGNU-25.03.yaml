@@ -71,10 +71,10 @@ easyconfigs:
   - wget-1.25.0-cpeGNU-25.03.eb
   - zstd-1.5.7-cpeGNU-25.03.eb
 ## Block 5
-#  - Boost-1.83.0-cpeGNU-25.03.eb
+  - Boost-1.88.0-cpeGNU-25.03.eb
   - gettext-0.24-cpeGNU-25.03.eb
-#  - libarchive-3.7.2-cpeGNU-25.03.eb
-#  - LibTIFF-4.6.0-cpeGNU-25.03.eb
+  - libarchive-3.7.7-cpeGNU-25.03.eb
+  - LibTIFF-4.7.0-cpeGNU-25.03.eb
   - libxslt-1.1.42-cpeGNU-25.03.eb
 ## Block 6
 ## TODO: New Boost.python.
