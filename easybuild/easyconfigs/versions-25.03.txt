@@ -112,7 +112,7 @@ local_Boost_version =        '1.88.0'        # https://www.boost.org/
 local_Brotli_version =       '1.1.0'         # https://github.com/google/brotli/releases (not yet in EB 2025a when checking)
 local_bzip2_version =        '1.0.8'         # http://www.bzip.org/downloads.html
 
-local_cairo_version =        '1.18.0'        # https://www.cairographics.org/
+local_cairo_version =        '1.18.4'        # https://www.cairographics.org/
 local_CubeLib_version =      '4.8'           # https://www.scalasca.org/scalasca/software/cube-4.x/download.html
 local_CubeWriter_version =   '4.8'           # https://www.scalasca.org/scalasca/software/cube-4.x/download.html
 local_cURL_version =         '8.11.1'        # https://curl.haxx.se/download/
@@ -125,7 +125,7 @@ local_ESMF_version =         '8.6.0'         # https://github.com/esmf-org/esmf/
 local_expat_version =        '2.6.4'         # https://github.com/libexpat/libexpat/releases
 
 local_file_version =         '5.46'          # ftp://ftp.astron.com/pub/file/ (not yet in EB 2025a when checking)
-local_FFmpeg_version =       '6.1.1'         # https://ffmpeg.org/download.html#releases
+local_FFmpeg_version =       '7.1.1'         # https://ffmpeg.org/download.html#releases
 local_FLAC_version =         '1.5.0'         # https://xiph.org/downloads/ or https://github.com/xiph/flac/releases
 local_fontconfig_version =   '2.16.2'        # https://www.freedesktop.org/software/fontconfig/release/
 local_freetype_version =     '2.13.3'        # https://download.savannah.gnu.org/releases/freetype/ (Not yet in EB 2025a when checking)
@@ -135,15 +135,15 @@ local_gc_version =           '8.2.8'         # http://hboehm.info/gc/gc_source/
 local_gdbm_version =         '1.25'          # https://ftp.gnu.org/gnu/gdbm/
 local_gettext_version =      '0.24'          # https://ftp.gnu.org/pub/gnu/gettext/
 local_giflib_version =       '5.2.2'         # https://sourceforge.net/projects/giflib/files/
-local_GLib_version =         '2.78.1'        # https://ftp.gnome.org/pub/GNOME/sources/glib/
+local_GLib_version =         '2.81.2'        # https://ftp.gnome.org/pub/GNOME/sources/glib/ Not the one from 2025a, but with newer versions we had trouble with GObject-Introspection
 local_GMP_version =          '6.3.0'         # https://ftp.gnu.org/gnu/gmp/
 local_gnuplot_version =      '5.4.10'        # http://gnuplot.sourceforge.net/
-local_GObject_version =      '1.78.1'        # https://github.com/GNOME/gobject-introspection/releases
+local_GObject_version =      '1.84.0'        # https://github.com/GNOME/gobject-introspection/releases
 local_googletest_version =   '1.17.0'        # https://github.com/google/googletest/releases
 local_GSL_version =          '2.8'           # https://ftp.gnu.org/gnu/gsl/
 local_gzip_version =         '1.14'          # https://ftp.gnu.org/gnu/gzip/
 
-local_HarfBuzz_version =     '8.2.2'          # https://www.freedesktop.org/software/harfbuzz/release/
+local_HarfBuzz_version =     '11.2.1'        # https://www.freedesktop.org/software/harfbuzz/release/
 
 local_ICU_version =          '76.1'          # http://site.icu-project.org/home
 local_intltool_version =     '0.51.0'        # https://launchpad.net/intltool/+download
@@ -194,7 +194,7 @@ local_MPFR_version =         '4.2.2'         # https://ftp.gnu.org/gnu/mpfr/
 local_ncurses_version =      '6.5'           # https://ftp.gnu.org/pub/gnu/ncurses/
 local_nlohmannjson_version = '3.12.0'        # https://github.com/nlohmann/json/releases
 
-local_Pango_version =        '1.51.0'        # http://ftp.gnome.org/pub/GNOME/sources/pango/
+local_Pango_version =        '1.56.3'        # http://ftp.gnome.org/pub/GNOME/sources/pango/
 local_ParMETIS_version =     '4.0.3'         # https:/http://glaros.dtc.umn.edu/gkhome/metis/parmetis/download
 local_PCRE2_version =        '10.45'         # https://github.com/PCRE2Project/pcre2/releases  # Not yet in EB 2025a when checked for installation
 local_PCRE_version =         '8.45'          # https://ftp.pcre.org/pub/pcre/
