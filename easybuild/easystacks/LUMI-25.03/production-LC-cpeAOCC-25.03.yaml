@@ -78,11 +78,11 @@ easyconfigs:
   - libxslt-1.1.42-cpeAOCC-25.03.eb
 ## Block 6
 ## TODO: New Boost.python.
-#  - gdbm-1.23-cpeAOCC-25.03.eb
-#  - intltool-0.51.0-cpeAOCC-25.03.eb
-#  - libwebp-1.3.2-cpeAOCC-25.03.eb
-#  - PROJ-9.3.1-cpeAOCC-25.03.eb
-#  - util-linux-2.39.3-cpeAOCC-25.03.eb
+  - gdbm-1.25-cpeAOCC-25.03.eb
+  - intltool-0.51.0-cpeAOCC-25.03.eb
+  - libwebp-1.5.0-cpeAOCC-25.03.eb
+  - PROJ-9.6.2-cpeAOCC-25.03.eb
+  - util-linux-2.40.4-cpeAOCC-25.03.eb
 ## Block 7
 #  - fontconfig-2.14.2-cpeAOCC-25.03.eb
 ## Block 8
