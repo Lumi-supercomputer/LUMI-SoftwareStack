@@ -96,8 +96,8 @@ easyconfigs:
 ## Block 12
 ## Some libraries from the apps section of before, and applications(s)
 ##  - ELPA: Wait a bit, it looks like we need multiple versions and that it may need more testing.
-#  - METIS-5.1.0-cpeAOCC-25.03.eb
-#  - ParMETIS-4.0.3-cpeAOCC-25.03.eb
+  - METIS-5.1.0-cpeAOCC-25.03.eb
+#  - ParMETIS-4.0.3-cpeAOCC-25.03.eb # Does not build in the 25.03 containers due to a missing pals library
 #  - SCOTCH-6.1.3-cpeAOCC-25.03.eb
 #  - SuiteSparse-5.13.0-cpeAOCC-25.03-OpenMP.eb
 ###PROBLEM##  - SCOTCH-7.0.4-cpeAOCC-25.03.eb  # Check if the EasyBlock needs an update!
