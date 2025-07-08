@@ -28,6 +28,7 @@ local_system_pyshortver = '3.6'
 # Note: Meson 0.61.5 is the last version with Python 3.6 support.
 local_Meson_version =            '0.61.5'      # Meson      20220117 - Check on https://pypi.org/project/meson/#history
 local_SCons_version =            '4.4.0'       # SCons      20220730 - Check on https://github.com/SCons/scons/releases, https://scons.org/pages/download.html
+local_StrEnum_version =          '0.4.8'       # StrEnum    20220622 - Check on https://pypi.org/project/StrEnum/#history, last version for Python 3.6    
 
 homepage = 'http://www.gnu.org'
 
@@ -58,6 +59,16 @@ osdependencies = [
 default_easyblock = 'ConfigureMake'
 
 components = [
+    ('StrEnum', local_StrEnum_version, {
+        'easyblock':     'PythonPackage',
+        'sources':       [SOURCE_TAR_GZ],
+        'source_urls':   [PYPI_SOURCE],
+        'checksums':     ['08a7647f4fac2977470e5618cccd5e8b939768f02e5f5dd7864adaa329559949'],
+        'start_dir':     '%(name)s-%(version)s',
+        'req_py_majver': 3, # Used to let EasyBuild select the right system Python executable.
+        'req_py_minver': 5, # Used to let EasyBuild select the right system Python executable.
+        'options':       {'modulename': 'strenum'}
+    }),
     ('Meson', local_Meson_version, { # Does require Ninja
         'easyblock':     'PythonPackage',
         'sources':       [SOURCELOWER_TAR_GZ],
