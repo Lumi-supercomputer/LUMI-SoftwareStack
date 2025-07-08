@@ -119,9 +119,9 @@ easyconfigs:
 ## Line 2: Gnome graphics
 ##
 ## With block 7
-#  - GLib-2.78.1-cpeAMD-25.03.eb
+  - GLib-2.81.2-cpeAMD-25.03.eb
 ## With block 9
-#  - cairo-1.18.0-cpeAMD-25.03.eb
+  - cairo-1.18.4-cpeAMD-25.03.eb
 ## With block 10
 #  - GObject-Introspection-1.78.1-cpeAMD-25.03-cray-python3.11.eb
 ## With block 11
