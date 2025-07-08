@@ -89,8 +89,8 @@ easyconfigs:
   - libgd-2.3.3-cpeAMD-25.03.eb
   - X11-25.03-cpeAMD-25.03.eb
 ## Block 9
-#  - FFmpeg-6.1.1-cpeAMD-25.03.eb
-#  - Tk-8.6.16-cpeAMD-25.03.eb
+  - FFmpeg-7.1.1-cpeAMD-25.03.eb
+  - Tk-8.6.16-cpeAMD-25.03.eb
 ## Block 10
 ## Block 11
 ## Block 12
@@ -105,6 +105,7 @@ easyconfigs:
 ## Some apps
 #  - lumi-CPEtools-1.1-cpeAMD-25.03.eb
 #  - lumi-CPEtools-1.2-cpeAMD-25.03.eb
+#  - lumi-CPEtools-1.2a-cpeGNU-25.03.eb
 ##  - VampirServer
 ##  - Score-P
 ##
