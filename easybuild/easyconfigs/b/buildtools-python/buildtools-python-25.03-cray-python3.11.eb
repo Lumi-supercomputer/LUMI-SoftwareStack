@@ -29,6 +29,7 @@ versionsuffix = f'-cray-python{local_system_pyshortver}'
 # Note: Meson 0.61.5 is the last version with Python 3.6 support.
 local_Meson_cray_version =       '1.7.1'       # Meson      20250401 - Check on https://pypi.org/project/meson/#history
 local_SCons_cray_version =       '4.9.1'       # SCons      20250327 - Check on https://github.com/SCons/scons/releases, https://scons.org/pages/download.html
+local_StrEnum_cray_version =     '0.4.15'      # StrEnum    20230630 - Check on https://pypi.org/project/StrEnum/#history
 local_wheel_cray_version     =   '0.45.1'      # wheel      20241123 - Check on https://pypi.org/project/wheel/#history
 local_flit_core_cray_version =   '3.12.0'      # flit_core  20250325 - Check on https://pypi.org/project/flit-core/#history
 
@@ -83,6 +84,16 @@ components = [
         'use_pip':           True,
         'sanity_pip_check':  False,
     }), 
+    ('StrEnum', local_StrEnum_cray_version, {
+        'easyblock':     'PythonPackage',
+        'sources':       [SOURCE_TAR_GZ],
+        'source_urls':   [PYPI_SOURCE],
+        'checksums':     ['878fb5ab705442070e4dd1929bb5e2249511c0bcf2b0eeacf3bcd80875c82eff'],
+        'start_dir':     '%(name)s-%(version)s',
+        'req_py_majver': 3, # Used to let EasyBuild select the right system Python executable.
+        'req_py_minver': 5, # Used to let EasyBuild select the right system Python executable.
+        'options':       {'modulename': 'strenum'}
+    }),
     ('Meson', local_Meson_cray_version, { # Does require Ninja
         'easyblock':         'PythonPackage',
         'sources':           [SOURCELOWER_TAR_GZ],
