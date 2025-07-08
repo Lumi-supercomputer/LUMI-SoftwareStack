@@ -46,6 +46,8 @@ local_Meson_version =            '0.61.5'      # Meson      20220117 - Check on 
 local_Meson_cray_version =       '1.7.1'       # Meson      20250401 - Check on https://pypi.org/project/meson/#history(Newer than EB 2025a)
 local_SCons_version =            '4.4.0'       # SCons      20220730 - Check on https://github.com/SCons/scons/releases, https://scons.org/pages/download.html
 local_SCons_cray_version =       '4.9.1'       # SCons      20250327 - Check on https://github.com/SCons/scons/releases, https://scons.org/pages/download.html (Not yet in EB 2025a when checking)
+local_StrEnum_version =          '0.4.8'       # StrEnum    20220622 - Check on https://pypi.org/project/StrEnum/#history, last version for Python 3.6
+local_StrEnum_cray_version =     '0.4.15'      # StrEnum    20230630 - Check on https://pypi.org/project/StrEnum/#history
 local_wheel_cray_version     =   '0.45.1'      # wheel      20241123 - Check on https://pypi.org/project/wheel/#history
 local_flit_core_cray_version =   '3.12.0'      # flit_core  20250325 - Check on https://pypi.org/project/flit-core/#history
 
@@ -125,7 +127,7 @@ local_expat_version =        '2.6.4'         # https://github.com/libexpat/libex
 local_file_version =         '5.46'          # ftp://ftp.astron.com/pub/file/ (not yet in EB 2025a when checking)
 local_FFmpeg_version =       '6.1.1'         # https://ffmpeg.org/download.html#releases
 local_FLAC_version =         '1.5.0'         # https://xiph.org/downloads/ or https://github.com/xiph/flac/releases
-local_fontconfig_version =   '2.14.2'        # https://www.freedesktop.org/software/fontconfig/release/
+local_fontconfig_version =   '2.16.2'        # https://www.freedesktop.org/software/fontconfig/release/
 local_freetype_version =     '2.13.3'        # https://download.savannah.gnu.org/releases/freetype/ (Not yet in EB 2025a when checking)
 local_fribidi_version =      '1.0.16'        # https://github.com/fribidi/fribidi/releases
 
@@ -219,7 +221,7 @@ local_wget_version =         '1.25.0'        # https://ftp.gnu.org/gnu/wget/
 local_x264_commit =          'b35605ac'      # Just follow EasyBuild as the distribution is currently a mess
 local_x264_version =         '20250619'      # Just follow EasyBuild as the distribution is currently a mess
 local_x265_version =         '4.1'           # http://download.videolan.org/pub/videolan/x265/
-local_xterm_version =        '389c'          # https://github.com/ThomasDickey/xterm-snapshots/tags
+local_xterm_version =        '401'           # https://github.com/ThomasDickey/xterm-snapshots/tags
 local_XZ_version =           '5.6.3'         # https://tukaani.org/xz/
 
 local_zlib_version =         '1.3.1'         # https://zlib.net/
