@@ -1,53 +1,53 @@
 # GLib
 
-  * [GLib home as part ot the GTK project](https://www.gtk.org/)
+-   [GLib home as part ot the GTK project](https://www.gtk.org/)
 
-  * [GLib downloads](https://download.gnome.org/sources/glib/)
+-   [GLib downloads](https://download.gnome.org/sources/glib/)
 
 
 ## EasyBuild
 
-  * [GLib in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/g/GLib)
+-   [GLib in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/g/GLib)
 
-  * [GLib in the CSCS repository](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/g/GLib)
+-   [GLib in the CSCS repository](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/g/GLib)
 
 
 ### 2.69.1 for CPE 21.06
 
-  * Started from a mix of the EasyBuilders and University of Antwerpen
+-   Started from a mix of the EasyBuilders and University of Antwerpen
     EasyConfig files
 
-  * An additional dependency was needed: libiconv.
+-   An additional dependency was needed: libiconv.
 
-  * NOTE 2021-12-06: Replaced PCRE2 dependency with PCRE dependency as it turned out
+-   NOTE 2021-12-06: Replaced PCRE2 dependency with PCRE dependency as it turned out
     that GLib downloaded PCRE during the installation process.
 
 
 ### Version 2.73.0 from CPE 22.06 on
 
-  * Trivial version bump of the 2.69.1 one.
+-   Trivial version bump of the 2.69.1 one.
 
 
 ### Version 2.75.0 from CPE 22.12 on
 
-  * Almost trivial version bump of the 2.73.0 one, 
+-   Almost trivial version bump of the 2.73.0 one, 
   
-      * but switched from PCRE to PCRE2
+    -   but switched from PCRE to PCRE2
       
-      * and trying the new fix_python_shebang_for option.
+    -   and trying the new fix_python_shebang_for option.
 
 
 ### Version 2.77.1 from CPE 23.03 on
 
-  * Trivial version bump of the 2.75.0 one.
+-   Trivial version bump of the 2.75.0 one.
 
-  * But it looks like the iconv flag is no longer supported, so remove this.
+-   But it looks like the iconv flag is no longer supported, so remove this.
   
-  * **Note:** Even though GLib itself installs fine with Clang 16 (in cpe 23.03), it looks like
+-   **Note:** Even though GLib itself installs fine with Clang 16 (in cpe 23.03), it looks like
     using its header files causes problems reporting type cast errors that 
     seem impossible to turn off.
     
-  * Building with cpeGNU using the compiler wrappers didn't work anymore. 
+-   Building with cpeGNU using the compiler wrappers didn't work anymore. 
     It appears something in the options processing
     has changed (the C compiler is different), and the build fails when processing `gio/tests/test5.gresource`.
     The build procedure complains that it cannot find certain standard system libraries 
@@ -58,7 +58,21 @@
     The solution for now was to force meson to not use the wrappers.
 
 
-### Version 2.78.1 for LIUMI/24.03
+### Version 2.78.1 for LUMI/24.03 and LUMI/24.11
 
-  * Trivial port of the EasyConfig for 2.776.1 in LUMI/23.12.
+-   Trivial port of the EasyConfig for 2.77.1 in LUMI/23.12.
+
+
+### Version 2.81.2 for LUMI/25.03
+
+-   Trivial port of the EasyConfig for 2.78.1 in 24.03/24.11.
+
+-   The EasyBuilders repository uses version 2.85.1 for 2025a, but when we tried that version, 
+    we got issues compiling `GObject-Introspection` with an error message 
+    `undefined symbol: g_string_free_and_steal` in some Python-related shared library
+    that was being built.
+
+    Reverting to 2.81.2 solved the issue. It is not clear why the newer version did work for
+    the EasyBuilders repository. Maybe because they use their own Python while we use Cray 
+    Python?
 
