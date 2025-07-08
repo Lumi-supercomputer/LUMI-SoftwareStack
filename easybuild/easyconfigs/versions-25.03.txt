@@ -130,7 +130,7 @@ local_freetype_version =     '2.13.3'        # https://download.savannah.gnu.org
 local_fribidi_version =      '1.0.16'        # https://github.com/fribidi/fribidi/releases
 
 local_gc_version =           '8.2.8'         # http://hboehm.info/gc/gc_source/
-local_gdbm_version =         '1.23'          # https://ftp.gnu.org/gnu/gdbm/
+local_gdbm_version =         '1.25'          # https://ftp.gnu.org/gnu/gdbm/
 local_gettext_version =      '0.24'          # https://ftp.gnu.org/pub/gnu/gettext/
 local_giflib_version =       '5.2.2'         # https://sourceforge.net/projects/giflib/files/
 local_GLib_version =         '2.78.1'        # https://ftp.gnome.org/pub/GNOME/sources/glib/
@@ -175,7 +175,7 @@ local_libtirpc_version =     '1.3.6'         # https://sourceforge.net/projects/
 local_libunistring_version = '1.3'           # https://ftp.gnu.org/gnu/libunistring/
 local_libunwind_version  =   '1.8.1'         # http://download.savannah.nongnu.org/releases/libunwind/
 local_libvorbis_version =    '1.3.7'         # https://xiph.org/downloads/ or https://github.com/xiph/vorbis/releases
-local_libwebp_version =      '1.3.2'         # https://github.com/webmproject/libwebp/releases
+local_libwebp_version =      '1.5.0'         # https://github.com/webmproject/libwebp/releases
 local_libxml2_version =      '2.13.4'        # http://xmlsoft.org/sources/
 local_libxslt_version =      '1.1.42'        # http://xmlsoft.org/sources/
 local_libyaml_version =      '0.2.5'         # https://github.com/yaml/libyaml/releases
@@ -197,7 +197,7 @@ local_ParMETIS_version =     '4.0.3'         # https:/http://glaros.dtc.umn.edu/
 local_PCRE2_version =        '10.45'         # https://github.com/PCRE2Project/pcre2/releases  # Not yet in EB 2025a when checked for installation
 local_PCRE_version =         '8.45'          # https://ftp.pcre.org/pub/pcre/
 local_Perl_version =         '5.40.0'        # https://www.perl.org/get.html
-local_PROJ_version =         '9.3.1'         # https://proj.org/download.html
+local_PROJ_version =         '9.6.2'         # https://proj.org/download.html
 local_pixman_version =       '0.42.2'        # https://www.cairographics.org/releases/
 
 local_SCOTCH6_version =      '6.1.3'         # https://gforge.inria.fr/projects/scotch/
