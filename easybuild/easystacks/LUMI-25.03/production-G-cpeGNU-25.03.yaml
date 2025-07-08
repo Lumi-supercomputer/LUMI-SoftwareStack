@@ -83,10 +83,10 @@ easyconfigs:
   - PROJ-9.6.2-cpeGNU-25.03.eb
   - util-linux-2.40.4-cpeGNU-25.03.eb
 ## Block 7
-#  - fontconfig-2.14.2-cpeGNU-25.03.eb
+  - fontconfig-2.16.2-cpeGNU-25.03.eb
 ## Block 8
-#  - libgd-2.3.3-cpeGNU-25.03.eb
-#  - X11-24.03-cpeGNU-25.03.eb
+  - libgd-2.3.3-cpeGNU-25.03.eb
+  - X11-25.03-cpeGNU-25.03.eb
 ## Block 9
 #  - FFmpeg-6.1.1-cpeGNU-25.03.eb
 #  - Tk-8.6.16-cpeGNU-25.03.eb
