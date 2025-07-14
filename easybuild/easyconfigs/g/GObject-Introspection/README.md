@@ -3,6 +3,17 @@
 -   [GObject-Introspection web site](https://gi.readthedocs.io/en/latest/)
 
 
+## General information
+
+GObject-Introspection comes with its own built-in version of GLib. This creates a mess 
+in EasyBuild,as EasyBuild also has its own GLib and even uses it as a dependency of
+GObject-Introspection that is not even used. The issue is that GObject-Introspection
+hence may use a different version of the GLib libraries as the GLib module, leading
+to issues when using GObject-Introspection, as which version of the GLib libraries
+will be used, will depend on the order of the directories in LD_LIBRARY_PATH or 
+the RPATH. 
+
+
 ## EasyBuild
 
 -   [GObject-Introspection in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/g/GObject-Introspection)

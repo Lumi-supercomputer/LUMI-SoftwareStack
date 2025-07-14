@@ -63,7 +63,7 @@ builddependencies = [
 
 dependencies = [
     (f'cray-python/{local_craypython_version}', EXTERNAL_MODULE),
-    ('GLib',       local_GLib_version),
+    #('GLib',       local_GLib_version), # GObject-Introspection uses its own GLib internally.
     ('libffi',     local_libffi_version),
     ('util-linux', local_util_version),
 ]
