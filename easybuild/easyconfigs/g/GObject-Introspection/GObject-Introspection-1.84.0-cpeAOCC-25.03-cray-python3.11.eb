@@ -63,15 +63,14 @@ builddependencies = [
 
 dependencies = [
     (f'cray-python/{local_craypython_version}', EXTERNAL_MODULE),
-    ('GLib',       local_GLib_version),
+    #('GLib',       local_GLib_version), # GObject-Introspection uses its own GLib internally.
     ('libffi',     local_libffi_version),
     ('util-linux', local_util_version),
 ]
 
 # Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
 preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
-prebuildopts = preconfigopts
-preinstallopts = preconfigopts
+preinstallopts = pretestopts = prebuildopts = preconfigopts
 
 preconfigopts += "env GI_SCANNER_DISABLE_CACHE=true "
 
