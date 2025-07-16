@@ -18,3 +18,7 @@
     outdated version is provided (newest version at the time of writing is
     7.8.2). The version matches the version available in the OpenSUSE 15.5
     science repository.
+    
+-   For 25.03 we did a small renaming to make it possible to later add
+    SuiteSparse 7. But that one might require a whole new EasyConfig an a 
+    build with CMake.
