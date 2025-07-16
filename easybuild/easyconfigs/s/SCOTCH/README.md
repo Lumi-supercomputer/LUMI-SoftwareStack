@@ -82,3 +82,9 @@
 ### Version 7.0.4 fro LUMI/24.03
 
   * Trivial version update from the 7.0.3 EasyConfig for LUMI/23.12.
+
+
+### Version 7.0.8 fro LUMI/25.03
+
+  * Trivial version update from the 7.0.4 EasyConfig for LUMI/24.03and 24.11.
+  
