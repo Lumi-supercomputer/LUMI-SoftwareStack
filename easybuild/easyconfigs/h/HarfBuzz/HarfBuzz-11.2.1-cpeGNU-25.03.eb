@@ -3,7 +3,7 @@
 easyblock = 'MesonNinja'
 
 local_cairo_version =        '1.18.4'        # https://www.cairographics.org/
-local_GLib_version =         '2.81.2'        # https://ftp.gnome.org/pub/GNOME/sources/glib/ Not the one from 2025a, but with newer versions we had trouble with GObject-Introspection
+local_GLib_version =         '2.85.1'        # https://ftp.gnome.org/pub/GNOME/sources/glib/ Not the one from 2025a, but with newer versions we had trouble with GObject-Introspection
 local_ICU_version =          '76.1'          # http://site.icu-project.org/home
 local_freetype_version =     '2.13.3'        # https://download.savannah.gnu.org/releases/freetype/ (Not yet in EB 2025a when checking)
 local_GObject_version =      '1.84.0'        # https://github.com/GNOME/gobject-introspection/releases
@@ -60,7 +60,7 @@ dependencies = [
     ('ICU',      local_ICU_version),
     ('freetype', local_freetype_version),
     ('GLib',     local_GLib_version),     # Needed, even without cairo. It is a direct dependency and meson doesn't find the (partial?) version of GObject-Introspection
-#    ('cairo',    local_cairo_version),
+    ('cairo',    local_cairo_version),
 ]
 
 # Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
@@ -68,12 +68,13 @@ preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
 preinstallopts = pretestopts = prebuildopts = preconfigopts
 
 configopts = ' '.join([
+    '--buildtype=release',     # Release build (the default actually)
     '--default-library=both',  # static and shared library
+    '--libdir=lib',            # Install libraries in lib (also the default it seems)
     ' -Dgobject=enabled -Dintrospection=enabled',
     ' -Dglib=enabled',
     ' -Dicu=enabled',
-#    ' -Dcairo=enabled',
-    ' -Dcairo=disabled',
+    ' -Dcairo=enabled',
     ' -Dfreetype=enabled',
 ])
 
@@ -85,26 +86,27 @@ postinstallcmds = [
     'cd %(start_dir)s && cp AUTHORS COPYING NEWS README.md THANKS %(installdir)s/share/licenses/%(name)s',   
 ]
 
+local_HarfBuzz_commands_with_version = ['hb-info', 'hb-shape', 'hb-subset', 'hb-view']
+local_HarfBuzz_pc = ['-cairo', '-gobject', '-icu',  '', '-subset']
+
 sanity_check_paths = {
-#    'files': ['lib/libharfbuzz.%s' % SHLIB_EXT, 'bin/hb-view', f'share/licenses/{name}/COPYING'],
-    'files': ['lib/libharfbuzz.%s' % SHLIB_EXT, 'bin/hb-info', f'share/licenses/{name}/COPYING'],
+    'files': ['lib/libharfbuzz.%s' % SHLIB_EXT] +
+             ['bin/%s' % x for x in local_HarfBuzz_commands_with_version] +
+             ['lib/pkgconfig/harfbuzz%s.pc' % x for x in local_HarfBuzz_pc] +
+             [f'share/licenses/{name}/COPYING'],
     'dirs':  []
 }
 
 sanity_check_commands = [
-    #'hb-ot-shape-closure --version',
-    'hb-shape --version',
-    'hb-subset --version',
-    #'hb-view --version', # Not present when cairo is not used?
-    'pkg-config --libs harfbuzz-gobject',
-    'pkg-config --libs harfbuzz-icu',
-    'pkg-config --libs harfbuzz',
-    'pkg-config --libs harfbuzz-subset',
+    f'%s --version | grep -q {local_HarfBuzz_version}' % x for x in local_HarfBuzz_commands_with_version
+] + [
+    f'pkg-config --modversion harfbuzz%s | grep -q {local_HarfBuzz_version}' % x for x in local_HarfBuzz_pc
+] + [
+    'pkg-config --libs harfbuzz%s | egrep -q "\-L%s/lib.* -lharfbuzz%s"' % (x, '%(installdir)s', x) for x in local_HarfBuzz_pc
 ]
 
 modextrapaths = {
     'GI_TYPELIB_PATH': 'share',
-    'XDG_DATA_DIRS':   'share',
 }
 
 moduleclass = 'vis'
