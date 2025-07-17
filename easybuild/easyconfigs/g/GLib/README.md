@@ -63,16 +63,15 @@
 -   Trivial port of the EasyConfig for 2.77.1 in LUMI/23.12.
 
 
-### Version 2.81.2 for LUMI/25.03
+### Version 2.85.1 for LUMI/25.03
 
 -   Trivial port of the EasyConfig for 2.78.1 in 24.03/24.11.
 
--   The EasyBuilders repository uses version 2.85.1 for 2025a, but when we tried that version, 
-    we got issues compiling `GObject-Introspection` with an error message 
-    `undefined symbol: g_string_free_and_steal` in some Python-related shared library
-    that was being built.
+-   But then we made several refinements to the way options are specified, etc., and 
+    added a lot of sanity checks so that we will note changes to the package in the
+    future.
 
-    Reverting to 2.81.2 solved the issue. It is not clear why the newer version did work for
-    the EasyBuilders repository. Maybe because they use their own Python while we use Cray 
-    Python?
+-   Instead of the EasyBuild shebang solution, we encode the full path to Cray Python so that
+    even if the `cray-ptyhon` module would not be loaded, the right Python executable would
+    be used.
 
