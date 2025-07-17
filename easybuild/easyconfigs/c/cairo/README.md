@@ -1,8 +1,37 @@
 # cairo instructions
 
 -   [cairo web site](https://www.cairographics.org/)
+
+-   [cairo downloads](https://www.cairographics.org/releases/)
   
+-   [cairo in the freedesktop gitlab](https://gitlab.freedesktop.org/cairo/cairo)
+
+    -   [tags corresponding to releases](https://gitlab.freedesktop.org/cairo/cairo/-/tags)
+
 -   [cairo via the cgit interface](https://cgit.freedesktop.org/cairo/)
+
+
+## General information
+
+Cairo supports GLib, but it is not a necessity. When cairo is used in other packages 
+from the Gnome ecosystem, it may be required though. It may also be used when binding
+cairo to other languages.
+
+Cairo ships a thin GObject wrapper (`cairo-gobject`) that turns its C API into loadable GType classes.
+
+-   GLib’s GObject system powers the object model (inheritance, signals) around Cairo types
+
+-   GObject-Introspection (GIRepository) uses GLib to generate `.typelib` metadata
+
+-   Language bindings (Python, JavaScript, Rust, etc.) consume these typelib files to expose Cairo APIs 
+    in high-level languages.
+    
+Without GLib, you’d lose the automatic introspection data and the GObject type system that 
+make Cairo so easily accessible from many programming environments.
+
+We have had issues in the past with cairo picking the wrong GLib library which were 
+due to a package that we had in the X11 bundle that secretly also installed a version
+of GLib.
 
 
 ## EasyBuild
