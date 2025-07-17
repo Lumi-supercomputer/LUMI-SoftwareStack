@@ -78,6 +78,17 @@ TODO: Problems on eiger likely because the configure process fails to find the p
  
 ### Version 1.18.4 for LUMI/25.03
 
--   Trivial port of the EasyConfig for 1.18.0 in 24.03/24.11, but needed to switch 
+-   Initially a trivial port of the EasyConfig for 1.18.0 in 24.03/24.11, but needed to switch 
     to a different buildtools-python version as we needed a very recent meson.
-  
+
+-   But did a check of features and it turned out that the EasyBuilders EasyConfig is far from
+    full-featured so we added some new dependencies that enabled new features.
+    
+    We also added very extensive sanity checks that will likely fail if one of the features that
+    we have now activated, would not be present anymore.
+    
+-   We deliberately use `-Dsymbol-lookup=disabled` as that uses libbfd which comes with binutils.
+    This library was taken from the system. Though we do have an EasyConfig for it in contrib
+    as it is also used with Score-P, we did not want to move that one to the software stack 
+    and make it a dependency as in the past it has not always been trivial to support this library
+    so it would slow down the development of the software stack.

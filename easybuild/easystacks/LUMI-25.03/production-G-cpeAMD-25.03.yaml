@@ -119,7 +119,7 @@ easyconfigs:
 ## Line 2: Gnome graphics
 ##
 ## With block 7
-  - GLib-2.81.2-cpeAMD-25.03.eb
+  - GLib-2.85.1-cpeAMD-25.03.eb
 ## With block 9
   - cairo-1.18.4-cpeAMD-25.03.eb
 ## With block 10
