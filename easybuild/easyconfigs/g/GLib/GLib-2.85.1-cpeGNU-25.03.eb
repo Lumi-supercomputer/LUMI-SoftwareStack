@@ -9,7 +9,7 @@ local_libxml2_version =      '2.13.4'        # http://xmlsoft.org/sources/
 local_PCRE2_version =        '10.45'         # https://github.com/PCRE2Project/pcre2/releases  # Not yet in EB 2025a when checked for installation
 local_util_version =         '2.40.4'        # https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/ (Not yet in EB 2025a when checking)
 
-local_GLib_version =         '2.81.2'        # https://ftp.gnome.org/pub/GNOME/sources/glib/ Not the one from 2025a, but with newer versions we had trouble with GObject-Introspection
+local_GLib_version =         '2.85.1'        # https://ftp.gnome.org/pub/GNOME/sources/glib/ Not the one from 2025a, but with newer versions we had trouble with GObject-Introspection
 
 local_craypython_version =   '3.11.7'
 local_craypython_maj_min = '.'.join( local_craypython_version.split('.')[:2] )
@@ -48,15 +48,17 @@ software_license_urls = [
     'https://www.gnu.org/licenses/old-licenses/lgpl-2.0.html',
 ]
 
-toolchain = {'name': 'cpeAMD', 'version': '25.03'}
-toolchainopts = {'pic': True, 
-                 'extra_cflags': '-Qunused-arguments', 
-                 'extra_cxxflags': '-Qunused-arguments'}
+toolchain = {'name': 'cpeGNU', 'version': '25.03'}
+toolchainopts = {'pic': True, 'extra_cflags': '-Wno-unsupported-target-opt'}
 
 # Check on https://ftp.gnome.org/pub/GNOME/sources/glib/
 source_urls = [FTPGNOME_SOURCE]
 sources =     [SOURCELOWER_TAR_XZ]
-checksums =   ['ce84b241b84750a3d42c78c456976fac57f2d2726a110f2ba059c052a4349d1c']
+patches = ['GLib-2.85.1_add-ldl.patch']
+checksums = [
+    {'glib-2.85.1.tar.xz': 'd3f57bcd4202d93aa547ffa1d2a5dbd380a05dbaac04cc291bd7dfce93b4a8e5'},
+    {'GLib-2.85.1_add-ldl.patch': '780b4da7e33158e2fda21e5fab11cd451f8d63fc2d0b0530113fa75a3b4a2099'},
+]
 
 builddependencies = [
     # Python is required for building against GLib, at least when
@@ -80,20 +82,21 @@ dependencies = [
 ]
 
 # Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
-preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+preconfigopts = ' && '.join([
+    'module unload cray-libsci cray-mpich rocm xpmem',
+    f'export PYTHON=python{local_craypython_maj_min}',
+]) + ' && '
 preinstallopts = pretestopts = prebuildopts = preconfigopts
 
-# avoid using hardcoded path to Python binary in build step
-preconfigopts += "export PYTHON=python3 && "
-
-configopts  = "--buildtype=release --default-library=both "
+configopts  = '--buildtype=release --default-library=both --libdir=lib'
 
 #parallel = 1 # For debugging
 
-#postinstallcmds = ["sed -i -e 's|#!.*python[0-9.]*$|#!/usr/bin/env python|' %(installdir)s/bin/*"]
-fix_python_shebang_for = ['bin/*']
-
 postinstallcmds = [
+    # Fix shebangs and make very sure it uses cray-python.
+    f'module load cray-python/{local_craypython_version} && ' +
+    f'sed -i -e "s|#!.*python[0-9.]*$|#!$(which python{local_craypython_maj_min})|" %(installdir)s/bin/*',
+    # Copy license information etc.
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
     'cd %(start_dir)s && cp LICENSES/LGPL-2.1-or-later.txt NEWS README.md SECURITY.md %(installdir)s/share/licenses/%(name)s',   
 ]
@@ -103,5 +106,34 @@ sanity_check_paths = {
               f'share/licenses/{name}/LGPL-2.1-or-later.txt'],
     'dirs':  ['bin', 'include'],
 }
+
+sanity_check_commands = [
+    f'pkg-config --modversion gio-2.0               | grep -q {local_GLib_version}',
+    f'pkg-config --modversion gio-unix-2.0          | grep -q {local_GLib_version}',
+    f'pkg-config --modversion girepository-2.0      | grep -q {local_GLib_version}',
+    f'pkg-config --modversion glib-2.0              | grep -q {local_GLib_version}',
+    f'pkg-config --modversion gmodule-2.0           | grep -q {local_GLib_version}',
+    f'pkg-config --modversion gmodule-export-2.0    | grep -q {local_GLib_version}',
+    f'pkg-config --modversion gmodule-no-export-2.0 | grep -q {local_GLib_version}',
+    f'pkg-config --modversion gobject-2.0           | grep -q {local_GLib_version}',
+    f'pkg-config --modversion gthread-2.0           | grep -q {local_GLib_version}',
+    f'gapplication version | grep -q {local_GLib_version}',
+    'gdbus help',
+    'gdbus-codegen --help',
+    f'gi-compile-repository --version | grep -q {local_GLib_version}',
+    f'gi-decompile-typelib --version | grep -q {local_GLib_version}',
+    'gi-inspect-typelib --help',
+    f'gio --version | grep -q {local_GLib_version}',
+    f'glib-compile-resources --version | grep -q {local_GLib_version}',
+    f'glib-compile-schemas --version | grep -q {local_GLib_version}',
+    f'glib-genmarshal --version | grep -q {local_GLib_version}',
+    f'glib-gettextize --version | grep -q {local_GLib_version}',
+    f'glib-mkenums --version | grep -q {local_GLib_version}',
+    f'gobject-query --version | grep -q {local_GLib_version}',
+    'gresource help',
+    f'gsettings --version | grep -q {local_GLib_version}',
+    f'gtester --version | grep -q {local_GLib_version}',
+    f'gtester-report --version | grep -q {local_GLib_version}',
+]
 
 moduleclass = 'vis'

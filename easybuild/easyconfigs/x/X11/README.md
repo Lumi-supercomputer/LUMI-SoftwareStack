@@ -98,5 +98,13 @@ This is a bundle of X11 tools provided by EasyBuild.
 
 -   xterm removed for now as it is likely not very useful anymore with the 
     OOD desktop that we have now.
+    
+-   There were issues with DBus that itself installed an older version of GLib that
+    broke things further down the line as packages sometimes picked up that version
+    of GLib rather than the one built in the toolchain.
+    
+    One solution would be to build GLib before X11, but in fact, it turns out that
+    GLib is only used in some testing so the solution was to turn this off using
+    `-Dmodular_tests=disabled`.
 
 
