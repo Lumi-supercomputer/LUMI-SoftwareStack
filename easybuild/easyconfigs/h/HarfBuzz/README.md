@@ -50,8 +50,11 @@
 -   A thorough rewrite of the EasyConfig was needed due to the switch to `MesonNinja`. 
     Inspiration was taken from the EasyBuilders recipe for this version of HarfBuzz.
 
--   Disabled cairo which seems to have solved issues with GLib and/or GObject-Introspection
-    during the build. This also implies that the `hb-view` executable is no longer available.
+-   Made some layout improvements and added more thorough sanity checks that should
+    catch when something is missing in the module but picked up from the system.
+
+-   Removed the explicit path addition to `XDG_DATA_DIRS` as EasyBuild does this
+    automatically. This removed a warning.
 
 -   Disabled testing in the Cray version as one test fails. We deemed this not enough 
     to really block the package, even though it may point to a real issue.

@@ -272,7 +272,12 @@ components = [ # List taken from the GCCcore 14.2.0 (2025a) common toolchain wit
         'source_urls': ['http://dbus.freedesktop.org/releases/dbus'],
         'checksums':   ['0ba2a1a4b16afe7bceb2c07e9ce99a8c2c3508e5dec290dbb643384bd6beb7e2'],
         'start_dir':   '%(namelower)s-%(version)s',
-        'configopts':  '-Dsystemd=disabled -Ddoxygen_docs=disabled',
+        'configopts':  ' '.join([
+                           '-Dsystemd=disabled',
+                           '-Ddoxygen_docs=disabled -Dducktype_docs=disabled -Dxml_docs=disabled',
+                           '-Dqt_help=disabled',
+                           '-Dmodular_tests=disabled', # Otherwise GLib is needed and it will install its own, breaking later builds.
+                       ]),
     }),
     ('xprop', '1.2.7', { # 2024-02-03 https://www.x.org/archive/individual/app/, used by FLTK
         'sources':     [SOURCELOWER_TAR_XZ],

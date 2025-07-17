@@ -72,7 +72,8 @@ the RPATH.
 -   Almost trivial port of the 1.78.1 EasyConfig in 24.03/24.11, but used
     the same patch as the EasyBuilders.
     
--   Also had to restrict the GLib version to 2.81.2. Newer versions gave issues
-    during the build of GObject-Introspection with an undefined symbol that should
-    come from GLib.
+-   Did some layout improvements to the EasyConfig.
+    
+-   Also removed the explicit addition to `XDG_DATA_DIRS` as EasyBuild does this automatically
+    when generating the module.
 
