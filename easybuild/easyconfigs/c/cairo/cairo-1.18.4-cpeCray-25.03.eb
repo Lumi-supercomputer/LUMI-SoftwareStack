@@ -2,9 +2,11 @@ easyblock = 'MesonNinja'
 
 local_bzip2_version =        '1.0.8'         # http://www.bzip.org/downloads.html
 local_expat_version =        '2.6.4'         # https://github.com/libexpat/libexpat/releases
+local_fontconfig_version =   '2.16.2'        # https://www.freedesktop.org/software/fontconfig/release/
 local_freetype_version =     '2.13.3'        # https://download.savannah.gnu.org/releases/freetype/ (Not yet in EB 2025a when checking)
-local_GLib_version =         '2.81.2'        # https://ftp.gnome.org/pub/GNOME/sources/glib/ Not the one from 2025a, but with newer versions we had trouble with GObject-Introspection
+local_GLib_version =         '2.85.1'        # https://ftp.gnome.org/pub/GNOME/sources/glib/ Not the one from 2025a, but with newer versions we had trouble with GObject-Introspection
 local_libpng_version =       '1.6.47'        # http://www.libpng.org/pub/png/libpng.html (Not yet in EB 2025a when checking)
+local_LZO_version =          '2.10'          # http://www.oberhumer.com/opensource/lzo/#download
 local_pixman_version =       '0.42.2'        # https://www.cairographics.org/releases/
 local_zlib_version =         '1.3.1'         # https://zlib.net/
 
@@ -84,6 +86,8 @@ dependencies = [
     ('zlib',     local_zlib_version),
     ('libpng',   local_libpng_version),
     ('freetype', local_freetype_version),
+    ('LZO',      local_LZO_version),
+    ('fontconfig', local_fontconfig_version),
     ('pixman',   local_pixman_version),
     ('expat',    local_expat_version),
     ('GLib',     local_GLib_version),
@@ -94,12 +98,35 @@ dependencies = [
 preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
 preinstallopts = pretestopts = prebuildopts = preconfigopts
 
-configopts  = '--default-library=both'
+configopts  = ' '.join([ # Most parameters come from meson_options.txt.
+    '--buildtype=release',
+    '--default-library=both',
+    '--libdir=lib',
+    '-Ddwrite=disabled', 
+    '-Dfontconfig=enabled',
+    '-Dfreetype=enabled',
+    '-Dpng=enabled',
+    '-Dquartz=disabled',         # That's for Mac OS
+    '-Dtee=disabled',            # We don't have that
+    '-Dxcb=enabled',
+    '-Dxlib=enabled',
+    '-Dxlib-xcb=disabled',       # Probably disabled by default for a reason as it looks like this is still a bit experimental, so leave it like this.
+    '-Dzlib=enabled',
+    '-Dlzo=enabled', 
+    '-Dglib=enabled',
+    '-Dspectre=disabled',
+    '-Dgtk2-utils=disabled',     # Default but in case this ever changes...
+    '-Dsymbol-lookup=disabled',  # As we don't have that library installed yet through EasyBuild
+    '-Dgtk_doc=false', 
+])
 
 postinstallcmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
     'cd %(start_dir)s && cp AUTHORS BUGS COPYING* NEWS README.md %(installdir)s/share/licenses/%(name)s',   
 ]
+
+local_cairo_pc = [ '-fc', '-ft', '', '-pdf', '-png', '-ps', '-script-interpreter', 
+                   '-script', '-svg', '-xcb', '-xcb-shm', '-xlib', '-xlib-xrender']
 
 sanity_check_paths = {
     'files': ['bin/cairo-trace', 'lib/cairo/libcairo-trace.so', 'lib/cairo/libcairo-trace.a',
@@ -108,8 +135,15 @@ sanity_check_paths = {
              ['include/cairo/cairo%s.h' % x for x in ['', '-deprecated', '-features', '-ft', '-gobject', '-pdf', '-ps',
                                                       '-script', '-script-interpreter', '-svg', '-version', '-xcb',
                                                       '-xlib', '-xlib-xrender']] + 
+             ['lib/pkgconfig/cairo%s.pc' % x for x in local_cairo_pc] +
              ['share/licenses/cairo/%s' % x for x in ['COPYING', 'COPYING-LGPL-2.1', 'COPYING-MPL-1.1']],
     'dirs':  ['lib/pkgconfig'],
 }
+
+sanity_check_commands = [
+    f'pkg-config --modversion cairo%s | grep -q {local_cairo_version}' % x for x in local_cairo_pc
+] + [
+    f'cairo-trace --version | grep -q {local_cairo_version}'
+]
 
 moduleclass = 'vis'
