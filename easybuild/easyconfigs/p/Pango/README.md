@@ -45,3 +45,9 @@
 ### Version 1.56.3 for 25.03
 
 -   Trivial version update of the EasyConfig for version 1.51.0 in 24.03/24.11.
+
+-   Made some layout improvements. We also made the sanity checks a lot tougher.
+    
+-   Removed the explicit path addition to `XDG_DATA_DIRS` as EasyBuild does this
+    automatically. This removed a warning.
+
