@@ -77,7 +77,7 @@ class MesonNinja(EasyBlock):
         if no_Dlibdir and no_libdir:
             self.cfg.update('configopts', '-Dlibdir=lib')
 
-        cmd = "%(preconfigopts)s meson --prefix %(installdir)s %(configopts)s %(sourcedir)s" % {
+        cmd = "%(preconfigopts)s meson setup --prefix %(installdir)s %(configopts)s %(sourcedir)s" % {
             'configopts': self.cfg['configopts'],
             'installdir': self.installdir,
             'preconfigopts': self.cfg['preconfigopts'],
