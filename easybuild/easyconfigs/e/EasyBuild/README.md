@@ -50,7 +50,7 @@ e.b., the [MATLAB EasyConfigs in the EasyBuilders repository](https://github.com
 
 
 
-## EasyBuild
+## EasyBuild installation on LUMI
 
 -   [EasyBuild EasyConfigs in the easybuilders repo](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/e/EasyBuild)
 
@@ -156,6 +156,10 @@ e.b., the [MATLAB EasyConfigs in the EasyBuilders repository](https://github.com
     for all patches. This may also require modifying patches that come from the EasyBuild 
     repository itself.
     
+-   We also added a patch to fix an issue in the ParMETIS EasyBlock which did honour 
+    `prebuildopts` but does not honour `preconfigopts` and `preinstallopts`. We needed
+    `preconfigopts` to work around an issue with the AMD ROCm compilers.
+    
 -   Three additional tools were installed:
 
     -   lzip has a very standard ConfigureMake build process
@@ -166,4 +170,38 @@ e.b., the [MATLAB EasyConfigs in the EasyBuilders repository](https://github.com
     -   PRoot as that is useful if we want to use the SingularityCE unprivileged proot 
         build process in an EasyConfig to modify an existing container.
 
+
+## Fixes needed to EasyConfigs
+
+### ParMETIS
+
+Issue: `prebuildopts` is honoured correctly, `preconfigopts` and `preinstallopts` are 
+not.
+
+The fix requires changes to only 2 lines in the EasyConfig:
+
+-   [Line 95-96](https://github.com/easybuilders/easybuild-easyblocks/blob/easybuild-easyblocks-v4.9.4/easybuild/easyblocks/p/parmetis.py#L95):
+
+    ```
+                    cmd = 'cmake .. %s -DCMAKE_INSTALL_PREFIX="%s"' % (self.cfg['configopts'],
+                                                                       self.installdir)
+    ```
+    becomes
+    ```
+                    cmd = '%s cmake .. %s -DCMAKE_INSTALL_PREFIX="%s"' % (self.cfg['preconfigopts'], self.cfg['configopts'],
+                                                                       self.installdir)
+    ```
     
+-   [Line 141](https://github.com/easybuilders/easybuild-easyblocks/blob/easybuild-easyblocks-v4.9.4/easybuild/easyblocks/p/parmetis.py#L141):
+    ```
+                cmd = "make install %s" % self.cfg['installopts']
+    
+    ```
+    becomes
+    ```
+                cmd = "%s make install %s" % (self.cfg['preinstallopts'], self.cfg['installopts'])
+    ```
+    
+This changes will also carry over easily to EasyBuild 5 as the major change to the EasyBlock 
+there is the switch from `run_cmd` to `run_shell_cmd`. The line number of the second change has
+changed though due to the removal of some Python 2 code.
