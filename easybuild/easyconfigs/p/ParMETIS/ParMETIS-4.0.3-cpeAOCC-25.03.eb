@@ -1,7 +1,5 @@
 # Adapted by Kurt Lust (Kurt.Lust@uantwerpen.be) from recipes in
 # the EasyBuild and repository, for the LUMI consortium.
-easyblock = 'EB_ParMETIScpeEB4'
-
 local_ParMETIS_version =     '4.0.3'         # https:/http://glaros.dtc.umn.edu/gkhome/metis/parmetis/download
 
 name =    'ParMETIS'
