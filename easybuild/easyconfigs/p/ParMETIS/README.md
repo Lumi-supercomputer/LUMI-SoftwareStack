@@ -39,3 +39,18 @@ The 4.0.3 release is from 2013.
 -   For LUMI/23.12, license information was added to the installation.
 
 -   For LUMI/25.03, we corrected all URLs to their new values.
+
+    
+-   LUMI 25.03: ParMETIS does not build with `cpeAMD` id OpenMP is enabled and no special steps 
+    are taken. It turned out we had a double issue:
+
+    -   The issue with OpenMP enabled, is that `llvm-link` goes looking for `libomptarget-amdgpu-gfx90a.bc`
+        in the wrong directory, in fact, in the buildtools directory from which CMake is 
+        taken instead of in the ROCm directories. It turns out the the `/opt/rocm/lib` directory
+        should be first in `LIBRARY_PATH`.
+        
+    -   The second issue is then that the standard EasyBlock for ParMETIS does not 
+        honour `preconfigopts` though it does honour `prebuildopts`, making an easy fix impossible.
+        
+    So the solution required switchitng to our own EasyBlock for now. Consider implementing this 
+    as a patch to the regular EasyBlock though.
