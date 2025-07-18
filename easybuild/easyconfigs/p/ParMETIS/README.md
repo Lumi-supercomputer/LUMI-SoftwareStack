@@ -40,7 +40,6 @@ The 4.0.3 release is from 2013.
 
 -   For LUMI/25.03, we corrected all URLs to their new values.
 
-    
 -   LUMI 25.03: ParMETIS does not build with `cpeAMD` id OpenMP is enabled and no special steps 
     are taken. It turned out we had a double issue:
 
@@ -52,5 +51,5 @@ The 4.0.3 release is from 2013.
     -   The second issue is then that the standard EasyBlock for ParMETIS does not 
         honour `preconfigopts` though it does honour `prebuildopts`, making an easy fix impossible.
         
-    So the solution required switchitng to our own EasyBlock for now. Consider implementing this 
-    as a patch to the regular EasyBlock though.
+    The issue was fixed by simply writing a patch for EasyBuild itself rather than starting another
+    difficult-to-maintain own EasyBlock.
