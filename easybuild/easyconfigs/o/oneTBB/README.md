@@ -18,6 +18,15 @@ The oneTBB package is often also just known as TBB or tbb.
 -   [intel-oneapi-tbb package in Spack](https://packages.spack.io/package.html?name=intel-oneapi-tbb)
 
 
-### Versiuon 2021.13.0 for cpeGNU/24.03
+### Version 2021.13.0 for cpeGNU/24.03
 
 -   The EasyConfig is derived from the JSC one.
+    
+
+### Version 2022.2.0 for cpeGNU/25.03
+
+-   We would have preferred to stay with the older 2021.13.0 version, but that version
+    gave issues with gcc 14.2.
+    
+-   The upgrade is otherwise a trivial upgrade of the 2021.13.0 EasyConfig for 24.03.
+
