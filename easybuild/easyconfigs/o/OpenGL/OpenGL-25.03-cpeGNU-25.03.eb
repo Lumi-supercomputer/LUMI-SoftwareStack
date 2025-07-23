@@ -1,0 +1,280 @@
+# and adapted for LUMI by Orian Louant
+easyblock = 'Bundle'
+
+# what we install
+local_libglvnd_version =     '1.7.0'         # https://github.com/NVIDIA/libglvnd/releases
+local_Mesa_version =         '24.2.8'        # https://archive.mesa3d.org/
+local_libGLU_version =       '9.0.3'         # https://archive.mesa3d.org/glu/
+local_freeglut_version =     '3.4.0'         # https://github.com/freeglut/freeglut/releases
+local_glew_version =         '2.2.0'         # https://github.com/nigels-com/glew/releases
+local_GLFW_version =         '3.4'           # https://github.com/glfw/glfw/releases
+local_VirtualGL_version =    '3.1.1'         # https://github.com/VirtualGL/virtualgl/releases
+
+# dependencies
+local_libjpegturbo_version = '3.1.0'         # https://github.com/libjpeg-turbo/libjpeg-turbo/releases
+local_zlib_version =         '1.3.1'         # https://zlib.net/
+local_libunwind_version  =   '1.8.1'         # http://download.savannah.nongnu.org/releases/libunwind/
+local_zstd_version =         '1.5.7'         # https://github.com/facebook/zstd/releases
+local_LLVM_version =         '18.1.8'        # https://github.com/llvm/llvm-project/releases
+
+# build dependencies
+local_gettext_version =      '0.24'          # https://ftp.gnu.org/pub/gnu/gettext/
+local_libxml2_version =      '2.13.4'        # http://xmlsoft.org/sources/
+local_expat_version =        '2.6.4'         # https://github.com/libexpat/libexpat/releases
+local_Mako_version =         '1.3.10'        # https://pypi.org/project/Mako/
+
+local_libglvnd_checksum   = '2b6e15b06aafb4c0b6e2348124808cbd9b291c647299eaaba2e3202f51ff2f3d' 
+local_Mesa_checksum       = '999d0a854f43864fc098266aaf25600ce7961318a1e2e358bff94a7f53580e30' 
+local_libGLU_checksum     = 'bd43fe12f374b1192eb15fe20e45ff456b9bc26ab57f0eee919f96ca0f8a330f'
+local_freeglut_checksum   = '3c0bcb915d9b180a97edaebd011b7a1de54583a838644dcd42bb0ea0c6f3eaec'
+local_glew_checksum       = 'd4fc82893cfb00109578d0a1a2337fb8ca335b3ceccf97b97e5cc7f08e4353e1'
+local_GLFW_checksum       = 'c038d34200234d071fae9345bc455e4a8f2f544ab60150765d7704e08f3dac01'
+local_VirtualGL_checksum  = '79c0d76993814d9ed9fdc29908de1cc6da08f41931bc8363084fdfae03f53ce8'
+
+name = 'OpenGL'
+version = '24.03'
+
+homepage = 'http://www.opengl.org/'
+
+description = """
+Open Graphics Library (OpenGL) is a cross-language, cross-platform application
+programming interface (API) for rendering 2D and 3D vector graphics. Mesa is an
+open-source implementation of the OpenGL specification - a system for rendering
+interactive 3D graphics.
+
+This bundle includes the following packages:
+
+ - libglvnd  : the GL Vendor-Neutral Dispatch library 
+ - glew      : the OpenGL Extension Wrangler Library
+ - libGLU    : the OpenGL Utility Library
+ - GLFW      : an open source, multi-platform library for OpenGL
+ - freeglut  : an open source alternative to the OpenGL Utility Toolkit library
+ - VirtualGL : a package to redirect the 3D rendering commands of OpenGL
+               applications to 3D accelerator
+"""
+
+toolchain = {'name': 'cpeGNU', 'version': '25.03'}
+
+builddependencies = [
+    ('buildtools',          '%(toolchain_version)s', '', True),
+    ('buildtools-python',   '%(toolchain_version)s', '-cray-python%(pyshortver)s', True),
+    ('craype-network-none', EXTERNAL_MODULE),
+    ('craype-accel-host',   EXTERNAL_MODULE),
+    ('cray-python', EXTERNAL_MODULE),
+    ('gettext',             local_gettext_version),
+    ('libxml2',             local_libxml2_version),
+    ('expat',               local_expat_version),
+    ('Mako',                local_Mako_version),
+]
+
+dependencies = [
+    ('zlib',          local_zlib_version),
+    ('zstd',          local_zstd_version),
+    ('LLVM',          local_LLVM_version),
+    ('libunwind',     local_libunwind_version),
+    ('libjpeg-turbo', local_libjpegturbo_version),
+    ('X11',           '%(toolchain_version)s'),
+]
+
+default_easyblock = 'ConfigureMake'
+
+local_pkg_config = ' && '.join([
+    'export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:%(installdir)s/lib/pkgconfig',
+    'export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:%(installdir)s/lib64/pkgconfig',
+]) + ' && '
+
+local_unload_unneeded = 'module unload cray-libsci rocm xpmem && '
+
+default_component_specs = {
+    'sources'      : [SOURCE_TAR_GZ],
+    'start_dir'    : '%(name)s-%(version)s',
+    'prebuildopts' : local_unload_unneeded,
+}
+
+components = [
+    ('libglvnd', local_libglvnd_version, {
+        'source_urls'   : ['https://gitlab.freedesktop.org/glvnd/libglvnd/-/archive/v%(version)s/'],
+        'sources'       : ['%(name)s-v%(version)s.tar.gz'],
+        'checksums'     : [local_libglvnd_checksum],
+        'preconfigopts' : local_unload_unneeded + 'module unload buildtools && ./autogen.sh && ',
+        'start_dir'     : '%(name)s-v%(version)s',
+    }),
+    ('Mesa', local_Mesa_version, {
+        'easyblock'          : 'MesonNinja',
+        'source_urls': [
+            'https://archive.mesa3d.org/',
+            'https://mesa.freedesktop.org/archive/',
+            'https://mesa.freedesktop.org/archive/%(version)s',
+            'ftp://ftp.freedesktop.org/pub/mesa/%(version)s',
+            'ftp://ftp.freedesktop.org/pub/mesa/older-versions/%(version_major)s.x/%(version)s',
+            'ftp://ftp.freedesktop.org/pub/mesa/older-versions/%(version_major)s.x',
+        ],
+        'sources'            : [SOURCELOWER_TAR_XZ],
+        'checksums'          : [local_Mesa_checksum],
+        'start_dir'          : '%(namelower)s-%(version)s',
+        'separate_build_dir' : True,
+        'preconfigopts'      : local_pkg_config + local_unload_unneeded,
+        'configopts'         : ' '.join([ 
+            '-D libdir=%(installdir)s/lib',
+            '-D gbm=enabled',
+            '-D glx=auto',
+            '-D osmesa=true',
+            '-D llvm=enabled',
+            '-D shared-llvm=enabled',
+            '-D vulkan-drivers="swrast"',
+            '-D gallium-drivers="swrast"',
+            '-D platforms=x11',
+            '-D glvnd=true',
+            '-D libunwind=enabled',
+            '-D valgrind=disabled',
+            '-D egl=enabled',
+            '-D gles1=enabled',
+            '-D gles2=enabled',
+            '-D shared-glapi=enabled',
+            '-D gallium-vdpau=disabled',
+            '-D buildtype=release',
+        ]),
+    }),
+    ('libGLU', local_libGLU_version, {
+        'easyblock'     : 'MesonNinja',
+        'source_urls'   : [
+            'https://archive.mesa3d.org/glu/',
+            'https://mesa.freedesktop.org/archive/glu/'
+        ],
+        'sources'       : ['glu-%(version)s.tar.xz'],
+        'start_dir'     : 'glu-%(version)s',
+        'checksums'     : [local_libGLU_checksum],
+        'preconfigopts' : local_unload_unneeded + local_pkg_config,
+    }),
+    ('freeglut', local_freeglut_version, {
+        'easyblock'     : 'CMakeMake',
+        'source_urls'   : [SOURCEFORGE_SOURCE],
+        'sources'       : [SOURCE_TAR_GZ],
+        'checksums'     : [local_freeglut_checksum],
+        'preconfigopts' : local_unload_unneeded + local_pkg_config,
+    }),
+    ('glew', local_glew_version, {
+        'source_urls'   : ['https://github.com/nigels-com/glew/releases/download/%(name)s-%(version)s/'],
+        'sources'       : ['%(name)s-%(version)s.tgz'],
+        'checksums'     : [local_glew_checksum],
+        'skipsteps'     : ['configure'],
+        'preconfigopts' : local_unload_unneeded,
+        'buildopts'     : ' '.join([
+           'GLEW_PREFIX=%(installdir)s',
+           'GLEW_DEST=%(installdir)s',
+           'LIBDIR=%(installdir)s/lib',
+           'SYSTEM=linux-egl',
+           'LDFLAGS.EXTRA="-L%(installdir)s/lib -lEGL"',
+           'LDFLAGS.GL="-L%(installdir)s/lib -lGL"',
+        ]),
+        'installopts'   : ' '.join([
+            'GLEW_PREFIX=%(installdir)s',
+            'GLEW_DEST=%(installdir)s',
+            'LIBDIR=%(installdir)s/lib',
+        ]),
+        'install_cmd'   : 'make install.all SYSTEM=linux-egl',
+    }),
+    ('GLFW', local_GLFW_version, {
+        'easyblock'     : 'CMakeMake',
+        'source_urls'   : ['https://github.com/glfw/glfw/archive/'],
+        'sources'       : ['%(version)s.tar.gz'],
+        'checksums'     : [local_GLFW_checksum],
+        'preconfigopts' : local_unload_unneeded,
+        'configopts'    : '-DBUILD_SHARED_LIBS=ON -DGLFW_BUILD_WAYLAND=OFF',
+        'start_dir'     : '%(namelower)s-%(version)s',
+    }),
+    ('VirtualGL', local_VirtualGL_version, {
+        'easyblock'     : 'CMakeMake',
+        'source_urls'   : ['https://github.com/VirtualGL/virtualgl/archive/'],
+        'sources'       : ['%(version)s.tar.gz'],
+        'patches'       : ['OpenGL-24.03_virtualgl-cmake-lib-path.patch'],
+        'checksums'     : [
+            local_VirtualGL_checksum,                                           # 3.1.tar.gz
+            'aa185d038f5e47957bd8a163107d352a1675a224b5a41f167e5b75ae42c87f1d', # OpenGL-25.03_virtualgl-cmake-lib-path.patch
+        ],
+        'preconfigopts' : local_unload_unneeded,
+        'configopts'    : '-DVGL_FAKEOPENCL=OFF',
+        'start_dir'     : '%(namelower)s-%(version)s',
+    }),
+]
+
+postinstallcmds = [
+    'cd %(installdir)s/lib && ln -sf libGL.so.1.7.0 libGL.so.1',
+    'rm %(installdir)s/lib/*.la',
+    'cd %(installdir)s/lib && ln -sf libGLX_mesa.so.0 libGLX_indirect.so.0',
+    (
+        '{ cat > %(installdir)s/share/glvnd/egl_vendor.d/10_nvidia.json; } << \'EOF\'\n'
+        '{\n'
+        '  \"file_format_version\" : \"1.0.0\",\n'
+        '  \"ICD\" : {\n'
+        '     \"library_path\" : \"libEGL_nvidia.so.0\"\n'
+        '  }\n'
+        '}\n'
+        'EOF'
+    ),
+    (
+        '{ cat > %(installdir)s/share/glvnd/egl_vendor.d/50_mesa.json; } << \'EOF\'\n'
+        '{\n'
+        '  \"file_format_version\" : \"1.0.0\",\n'
+        '  \"ICD\" : {\n'
+        '     \"library_path\" : \"libEGL_mesa.so.0\"\n'
+        '  }\n'
+        '}\n'
+        'EOF'
+    ),
+    'sed -i "/^libdir=/c\libdir=\${exec_prefix}\/lib" %(installdir)s/lib/pkgconfig/glew.pc',
+    'sed -i "/^prefix=/c\prefix=%(installdir)s"       %(installdir)s/lib/pkgconfig/glew.pc',
+]
+
+modextravars = {
+    'EBROOTLIBGLVND'                 : '%(installdir)s',
+    'EBVERSIONLIBGLVND'              : local_libglvnd_version,
+    'EBROOTMESA'                     : '%(installdir)s',
+    'EBVERSIONMESA'                  : local_Mesa_version,
+    'EBROOTLIBGLU'                   : '%(installdir)s',
+    'EBVERSIONLIBGLU'                : local_libGLU_version,
+    'EBROOTFREEGLUT'                 : '%(installdir)s',
+    'EBVERSIONFREEGLUT'              : local_freeglut_version,
+    'EBROOTGLEW'                     : '%(installdir)s',
+    'EBVERSIONGLEW'                  : local_glew_version,
+    'EBROOTGLFW'                     : '%(installdir)s',
+    'EBVERSIONGLFW'                  : local_GLFW_version, 
+    'EBROOTVIRTUALGL'                : '%(installdir)s',
+    'EBVERSIONVIRTUALGL'             : local_VirtualGL_version,
+    '__EGL_VENDOR_LIBRARY_FILENAMES' : ':'.join([
+        '%(installdir)s/share/glvnd/egl_vendor.d/10_nvidia.json',
+        '%(installdir)s/share/glvnd/egl_vendor.d/50_mesa.json',
+    ]),
+    'EGL_PLATFORM'                   : 'surfaceless',
+    'EGL_LOG_LEVEL'                  : 'fatal',
+    'KNOB_MAX_WORKER_THREADS'        : '65535',
+}
+
+modluafooter = """
+extensions("Mesa/%(mesa)s, libglvnd/%(libglvnd)s, libGLU/%(glu)s, glew/%(glew)s, " .. 
+           "freeglut/%(freeglut)s, GLFW/%(glfw)s, VirtualGL/%(virtualgl)s")
+""" % {
+    'mesa'       : local_Mesa_version,
+    'libglvnd'   : local_libglvnd_version,
+    'glu'        : local_libGLU_version,
+    'glew'       : local_glew_version,
+    'freeglut'   : local_freeglut_version,
+    'glfw'       : local_GLFW_version,
+    'virtualgl'  : local_VirtualGL_version,
+}
+
+local_libGLU_files    = ['lib/libGLU.%s' % SHLIB_EXT]
+local_glvnd_files     = ['lib/lib%s.%s' % (x, SHLIB_EXT) for x in ['EGL', 'GL', 'GLX', 'OpenGL']]
+local_Mesa_files      = ['lib/lib%s_mesa.%s' % (x, SHLIB_EXT) for x in ['EGL', 'GLX']]
+local_freeglut_files  = ['lib/libglut.%s' % SHLIB_EXT]
+local_glew_files      = ['lib/libGLEW.a', 'lib/libGLEW.%s' % SHLIB_EXT, 'bin/glewinfo', 'bin/visualinfo']
+local_GLFW_files      = ['lib/libglfw.%s' % SHLIB_EXT]
+local_VirtualGL_files = ['bin/vglrun']
+ 
+sanity_check_paths = {
+    'files': local_libGLU_files + local_glvnd_files + local_Mesa_files + local_freeglut_files +
+             local_glew_files + local_GLFW_files + local_VirtualGL_files,
+    'dirs': []
+}
+
+moduleclass = 'vis'
