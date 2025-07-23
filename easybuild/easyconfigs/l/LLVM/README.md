@@ -29,3 +29,17 @@ Where to find?
 -   The EasyConfig is largely a LUST development, but based on the EasyBuilders EasyBlock 
     for LLVM.
 
+
+### LLVM 18.1.8 for LUMI/25.03
+
+-   This version was chosen as we could base on an already existing EasyConfig in the 
+    EasyBuilders repository and as this version is closest to the one used in ROCm 6.3.4.
+    
+    Note that Cray uses version 19 in this version of the PE and that it is not aligned
+    with the LLVM version in ROCm.
+
+-   The EasyConfig is a direct port of the 17.0.6 one and also follows the one included 
+    with EasyBuild 4.9.4. Note that a later version for EasyBuild 5.1 contains some
+    patches, but it is not clear if this is due to bugs or because of changes in the 
+    EasyBlock.
+    
