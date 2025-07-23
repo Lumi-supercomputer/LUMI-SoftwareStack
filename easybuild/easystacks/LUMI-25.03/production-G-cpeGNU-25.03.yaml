@@ -93,7 +93,7 @@ easyconfigs:
   - X11-25.03-cpeGNU-25.03.eb
 ## Block 9
   - FFmpeg-7.1.1-cpeGNU-25.03.eb
-  - OpenGL-25.03-cpeGNU-24.03.eb    # Brought in for LUMI-D
+  - OpenGL-25.03-cpeGNU-25.03.eb    # Brought in for LUMI-D
   - Tk-8.6.16-cpeGNU-25.03.eb
 ## Block 10
 ## Block 11
