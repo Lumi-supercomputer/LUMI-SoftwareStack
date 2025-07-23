@@ -15,6 +15,7 @@ easyconfigs:
 #  - Eigen-3.4.0.eb
 #  - xorg-macros-1.20.0.eb
   - lumi-container-wrapper-0.3.3-cray-python-default.eb
+  - lumi-container-wrapper-0.4.2-cray-python-default.eb
   - cotainr-2023.11.0-20240909.eb
 #  - cotainr-2024.10.0.eb
   - parallel-20240522.eb
