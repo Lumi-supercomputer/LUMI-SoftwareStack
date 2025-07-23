@@ -104,6 +104,18 @@ local_Eigen_version =        '3.4.0'         # https://gitlab.com/libeigen/eigen
 local_xorg_macros_version =  '1.20.2'        # https://cgit.freedesktop.org/xorg/util/macros
 
 #
+# LUMI-D OpenGL bundle
+#
+local_libglvnd_version =     '1.7.0'         # https://github.com/NVIDIA/libglvnd/releases
+local_Mesa_version =         '24.2.8'        # https://archive.mesa3d.org/
+local_libGLU_version =       '9.0.3'         # https://archive.mesa3d.org/glu/
+local_freeglut_version =     '3.4.0'         # https://github.com/freeglut/freeglut/releases
+local_glew_version =         '2.2.0'         # https://github.com/nigels-com/glew/releases
+local_GLFW_version =         '3.4'           # https://github.com/glfw/glfw/releases
+local_VirtualGL_version =    '3.1.1'         # https://github.com/VirtualGL/virtualgl/releases
+
+
+#
 # Regular EasyConfigs
 #
 
