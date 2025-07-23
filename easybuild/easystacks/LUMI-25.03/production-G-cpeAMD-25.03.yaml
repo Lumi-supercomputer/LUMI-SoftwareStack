@@ -103,9 +103,7 @@ easyconfigs:
   - SuiteSparse-5.13.0-cpeAMD-25.03-OpenMP.eb
 ##  - ESMF-8.6.0-cpeAMD-25.03.eb
 ## Some apps
-#  - lumi-CPEtools-1.1-cpeAMD-25.03.eb
-#  - lumi-CPEtools-1.2-cpeAMD-25.03.eb
-#  - lumi-CPEtools-1.2a-cpeGNU-25.03.eb
+  - lumi-CPEtools-1.2-cpeAMD-25.03-hpcat-0.9.eb
 ##  - VampirServer
 ##  - Score-P
 ##
