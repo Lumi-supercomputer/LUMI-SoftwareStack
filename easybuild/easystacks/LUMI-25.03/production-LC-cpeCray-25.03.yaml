@@ -104,9 +104,7 @@ easyconfigs:
 #  - ESMF-8.6.0-cpeCray-25.03-MPI-PIO.eb
   - SuiteSparse-5.13.0-cpeCray-25.03-OpenMP.eb
 ## Some apps
-#  - lumi-CPEtools-1.1-cpeCray-25.03.eb
-#  - lumi-CPEtools-1.2-cpeCray-25.03.eb
-#  - lumi-CPEtools-1.2a-cpeGNU-25.03.eb
+  - lumi-CPEtools-1.2-cpeCray-25.03-hpcat-0.9.eb
 ##  - VampirServer
 ##  - Score-P
 ##
