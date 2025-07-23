@@ -101,3 +101,8 @@ for the CrayEnv software stack.
     -   For the 24.11 container, we needed to add a workaround as CMake for some reason failed to 
         add the proper include dir for HIP files even though this seems specified in the CMakeLists.txt
         file.
+
+        
+### Version 1.2-cpe*-hpcat-0.9
+
+-   Direct port of the EasyConfig for 1.2a, but decided to make the version of hpcat explicit in the suffix.
