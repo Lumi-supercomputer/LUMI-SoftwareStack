@@ -86,7 +86,9 @@ sources = [{
     },
     'extract_cmd': 'tar --strip-components=1 -xf %s'
 }]
-checksums = ['4719532dc9de3ed4877276aab0334efcb8c2813a6142a062979808f01417b4bf']
+# Checksums when downloading this way from GitHub in EasyBuild are not reproducible
+# unless Python >=3.9 is used.
+#checksums = ['4719532dc9de3ed4877276aab0334efcb8c2813a6142a062979808f01417b4bf']
 
 dependencies = [
     (f'cray-python/{local_craypython_version}', EXTERNAL_MODULE),
