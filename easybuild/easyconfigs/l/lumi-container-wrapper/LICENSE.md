@@ -7,3 +7,5 @@ Tykky is licensed under the MIT License, a copy of which can be found in the
 From LUMI/23.12 on, a copy of this file can also be found in
 `$EBROOTLUMIMINCONTAINERMINWRAPPER/share/licenses/lumi-container-wrapper` after loading 
 the module.
+
+See the user documentation in the next section for Anaconda license restrictions.

@@ -109,4 +109,12 @@ sanity_check_paths = {
     'dirs':  ['bin', 'frontends'],
 }
 
+modluafooter = """
+LmodMessage( 'Please note that there are severe license restrictions when using packages from the ' ..
+             'regular Anaconda repositories that apply to most users of LUMI. See the user documentation ' ..
+             'section on https://lumi-supercomputer.github.io/LUMI-EasyBuild-docs/l/lumi-container-wrapper/ ' ..
+             'for more information. Take this information seriously as it can have legal consquences for you ' ..
+             'and your institution.' )     
+"""
+
 moduleclass = 'tools'
