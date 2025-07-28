@@ -133,7 +133,6 @@ local_DB_version =           '18.1.40'       # https://www.oracle.com/database/t
 local_double_conv_version =  '3.3.1'         # https://github.com/google/double-conversion/releases
 
 local_ELPA_version =         '2021.11.001'   # Synchronized with CSCS and same version in EasyBuild 2022a
-local_ESMF_version =         '8.6.0'         # https://github.com/esmf-org/esmf/releases - Candidate for version bump if time left
 local_expat_version =        '2.6.4'         # https://github.com/libexpat/libexpat/releases
 
 local_file_version =         '5.46'          # ftp://ftp.astron.com/pub/file/ (not yet in EB 2025a when checking)
