@@ -85,16 +85,18 @@ easyconfigs:
   - gdbm-1.25-cpeGNU-25.03.eb
   - intltool-0.51.0-cpeGNU-25.03.eb
   - libwebp-1.5.0-cpeGNU-25.03.eb
+  - LittleCMS-2.17-cpeGNU-25.03.eb
   - PROJ-9.6.2-cpeGNU-25.03.eb
   - util-linux-2.40.4-cpeGNU-25.03.eb
 ## Block 7
   - fontconfig-2.16.2-cpeGNU-25.03.eb
+  - OpenJPEG-2.5.3-cpeGNU-25.03.eb
 ## Block 8
   - libgd-2.3.3-cpeGNU-25.03.eb
   - X11-25.03-cpeGNU-25.03.eb
 ## Block 9
   - FFmpeg-7.1.1-cpeGNU-25.03.eb
-  - OpenGL-25.03-cpeGNU-24.03.eb    # Brought in for LUMI-D
+  - OpenGL-25.03-cpeGNU-25.03.eb    # Brought in for LUMI-D
   - Tk-8.6.16-cpeGNU-25.03.eb
 ## Block 10
 ## Block 11
