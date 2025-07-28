@@ -85,6 +85,7 @@ easyconfigs:
   - util-linux-2.40.4-cpeAOCC-25.03.eb
 ## Block 7
   - fontconfig-2.16.2-cpeAOCC-25.03.eb
+  - OpenJPEG-2.5.3-cpeAOCC-25.03.eb
 ## Block 8
   - libgd-2.3.3-cpeAOCC-25.03.eb
   - X11-25.03-cpeAOCC-25.03.eb
