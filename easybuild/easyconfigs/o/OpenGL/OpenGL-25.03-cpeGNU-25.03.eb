@@ -1,6 +1,8 @@
 # and adapted for LUMI by Orian Louant
 easyblock = 'Bundle'
 
+local_LUMI_version =         '25.03'
+
 # what we install
 local_libglvnd_version =     '1.7.0'         # https://github.com/NVIDIA/libglvnd/releases
 local_Mesa_version =         '24.2.8'        # https://archive.mesa3d.org/
@@ -31,8 +33,8 @@ local_glew_checksum       = 'd4fc82893cfb00109578d0a1a2337fb8ca335b3ceccf97b97e5
 local_GLFW_checksum       = 'c038d34200234d071fae9345bc455e4a8f2f544ab60150765d7704e08f3dac01'
 local_VirtualGL_checksum  = '79c0d76993814d9ed9fdc29908de1cc6da08f41931bc8363084fdfae03f53ce8'
 
-name = 'OpenGL'
-version = '24.03'
+name =    'OpenGL'
+version = local_LUMI_version
 
 homepage = 'http://www.opengl.org/'
 
