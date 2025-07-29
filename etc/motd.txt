@@ -9,18 +9,25 @@
   *| 23.12 are already on the system and much user-installable      |
    | software for 24.03 is already available also.                  |
 *  |                                                                |
-   | Unfortunately, due to the late decision to move directly to    |
-*  | ROCm 6.0 rather than the originally planned 5.7, we are not    |
-  *| able to keep our promise of fully supporting 23.09 also. We    |
-  *| did test many of the build recipes and tried to fix problems   |
-   | when possible, but a recompile of GPU software may be needed.  |
- * |                                                                |
-   | Expect longer answer times as usual to very technical tickets  |
-   | as there is still a lot of development work to do.             | 
+   | In late August or September, significant parts of the system   |
+  *| software will be updated. ROCm will be updated to version 6.3  |
+   | and the programming environment to 25.03. It is not clear yet  |
+   | if 24.03 will still work after the update, and we do expect    |
+ * | issues with GPU software in particular as ROCm 6.0 is not      |
+   | supported. Older environments will not be supported anymore.   |
+   | Containers based on ROCm 6.1 and 6.2 should will likely still  |
+*  | work but may require some updates in the  network              |
+   | communication layer. Containers based on older ROCm versions   |
+   | will almost certainly fail to work properly.                   |
  * |                                                                |
 *  | You can use the lumi-workspaces command (without loading an    |
    | additional module) to check your quota and allocations on      |
-   | LUMI. Also check `module help lumi-tools` for more info.       | 
+  *| LUMI. Also check `module help lumi-tools` for more info.       | 
+   |                                                                |
+   | Note that LUMI users are responsible for verifying software    |
+*  | licenses for the packages they use and must also obey to all   |
+   | export restriction laws which includes several and ever        |
+   | changing export restriction laws.                              |
 *  .Notes-----------------------------------------------------------.
    | Make sure one of the following modules is loaded to have the   |
  * | full LUMI experience:                                          |
