@@ -18,17 +18,17 @@ Documentation:
     
     If however you use lumi-container-wrapper to install software from the regular 
     Anaconda repositories (not `conda-forge` which is OK), the Anaconda license applies,
-    consists of one or two documents, depending on the type of user your are.
+    which consists of one or two documents, depending on the type of user your are.
     The ["Terms of Service"](https://www.anaconda.com/legal/terms/terms-of-service)
     apply to all users. Don't however assume that since 1.a.(2) makes an exception 
     that as an academic user you can use Anaconda on LUMI. Then the 
     ["Academic Policy"](https://www.anaconda.com/legal/terms/academic) applies also,
     and on LUMI, 4.1 does not apply as LUMI is not in an academic domain, so you must
     either do all downloads from a server in the academic domain (and hence cannot 
-    use lumi-container-wrapper) or you need to follow 4.2 and your insitution needs
+    use `lumi-container-wrapper`) or you need to follow 4.2 and your insitution needs
     to take an institution-wide license for Anaconda.
     
-    Other specific packages, even packages on conda-forge, may also have a more restrictive 
+    Other specific packages, even packages on `conda-forge`, may also have a more restrictive 
     license than the `miniconda-forge` tools.
     
     Note that LUMI users themselves are responsible for verifying that they are 
