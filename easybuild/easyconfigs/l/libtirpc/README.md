@@ -35,6 +35,27 @@
 
 ### Version 1.3.6 from 25.03 on
 
--   Trivial port of the EasyConfig for version 1.3.4 on 24.03/24.11.
+-   Started as a trivial port of the EasyConfig for version 1.3.4 on 24.03/24.11.
+
+-   However, we found out that the clang based compiles break `hostname` and likely
+    other commands on LUMI as the library lacks the versioned symbol information
+    that is present in the system libraries.
+    
+    The solution is to configure with `--enable-symvers` which in turn required to
+    expliclty use `--disable-gssapi`. GSS-API is not found in the cpeGNU build either,
+    but in combination with `--enable-symvers`, `configure` explicitly complains.
+    
+    This then in turn causes issues when linking as the symbol file `src/libtirpc.map`
+    also contains routines that are only built with GSS-API enabled. So we also need 
+    to massage the linker flags.
+    
+    For cpeCray, this worked:
+    
+    ```
+    preconfigopts += 'LDFLAGS="$LDFLAGS -Wl,--noinhibit-exec"'
+    ```
+
+-   We then also added an additional sanity check to ensure that `hostname` does not produce
+    the warnings about missing version information.
 
    

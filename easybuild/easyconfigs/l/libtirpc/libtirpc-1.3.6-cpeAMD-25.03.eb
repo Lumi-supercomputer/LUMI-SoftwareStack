@@ -27,15 +27,22 @@ source_urls = [SOURCEFORGE_SOURCE]
 sources =     [SOURCE_TAR_BZ2]
 checksums =   ['bbd26a8f0df5690a62a47f6aa30f797f3ef8d02560d1bc449a83066b5a1d3508']
 
-configopts = '--enable-static --enable-shared --disable-gssapi  --disable-symvers'
-
 builddependencies = [ # Create a reproducible build environment.
     ('buildtools',   '%(toolchain_version)s',   '', True),
 ]
 
 # Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
 preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
-prebuildopts = preconfigopts
+preinstallopts = pretestopts = prebuildopts = preconfigopts
+
+preconfigopts += 'LDFLAGS="$LDFLAGS -Wl,--noinhibit-exec"'
+
+configopts = ' '.join([
+    '--enable-static',
+    '--enable-shared',
+    '--enable-symvers', # need versioned symbols for compatibility with the SUSE variant
+    '--disable-gssapi', # Cannot use GSS-API on LUMI and this has to be explicit when using --enable-symvers
+])
 
 postinstallcmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
@@ -50,6 +57,7 @@ sanity_check_paths = {
 
 sanity_check_commands = [
    'pkg-config --libs libtirpc',
+   '! hostname |& grep -q "no version information"',
 ]
 
 modextrapaths = {'CPATH': 'include/tirpc'}
