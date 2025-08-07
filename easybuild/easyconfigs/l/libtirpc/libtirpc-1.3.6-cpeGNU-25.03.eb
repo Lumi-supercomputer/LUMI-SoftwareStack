@@ -35,7 +35,14 @@ builddependencies = [ # Create a reproducible build environment.
 
 # Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
 preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
-prebuildopts = preconfigopts
+preinstallopts = pretestopts = prebuildopts = preconfigopts
+
+configopts = ' '.join([
+    '--enable-static',
+    '--enable-shared',
+    '--enable-symvers', # need versioned symbols for compatibility with the SUSE variant
+    '--disable-gssapi', # Cannot use GSS-API on LUMI and this has to be explicit when using --enable-symvers
+])
 
 postinstallcmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
@@ -50,6 +57,7 @@ sanity_check_paths = {
 
 sanity_check_commands = [
    'pkg-config --libs libtirpc',
+   '! hostname |& grep -q "no version information"',
 ]
 
 modextrapaths = {'CPATH': 'include/tirpc'}
