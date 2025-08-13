@@ -65,8 +65,8 @@ ensuring that the Cray PE will work as if those modules are loaded.
 
 toolchain = SYSTEM
 
-PrgEnv_load   = False
-PrgEnv_family = 'PrgEnv'
+PrgEnv_load   = %(PrgEnv_load)s
+PrgEnv_family = '%(PrgEnv_family)s'
 CPE_load      = None
 
 import os
@@ -158,6 +158,17 @@ def gen_CPE_EBfile( CPEmodule, PEversion, CPEpackages_dir, EBfile_dir ):
             'cpeAMD':  'amd'
             }
     #
+    # We switched to explicitly loading the PrgEnv module also and to make the toolchain
+    # module a member of the cpeToolchain family in 24.11 as several compiler modules
+    # loaded the corresponding PrgEnv module anyway.
+    #
+    if float( PEversion ) < 24.11 :
+        PrgEnv_load   = False
+        PrgEnv_family = 'PrgEnv'
+    else :
+        PrgEnv_load   = True
+        PrgEnv_family = 'cpeToolchain'
+    #
     # Read the .csv file with toolchain data.
     #
     CPEpackages_file = os.path.join( CPEpackages_dir, 'CPEpackages_' + PEversion + '.csv' )
@@ -191,7 +202,10 @@ def gen_CPE_EBfile( CPEmodule, PEversion, CPEpackages_dir, EBfile_dir ):
     dependency_list = []
     compilermodule  = map_cpe_compilermodule[CPEmodule]
     compilerpackage = map_cpe_compilerpackage[CPEmodule]
+    prgenvmodule    = map_cpe_PrgEnv[CPEmodule]
 
+    if float( PEversion ) >= 24.11 :
+        dependency_list.append( generate_dependency( prgenvmodule, 'cpe-prgenv',    package_versions ) )
     dependency_list.append( generate_dependency( compilermodule,   compilerpackage, package_versions ) )
     dependency_list.append( generate_dependency( 'craype',         'craype',        package_versions ) )
     dependency_list.append( generate_dependency( 'cray-mpich',     'MPICH',         package_versions ) )
@@ -229,12 +243,14 @@ def gen_CPE_EBfile( CPEmodule, PEversion, CPEpackages_dir, EBfile_dir ):
     fileH = open( extdeffileanddir, 'w' )
 
     fileH.write( EBfile % {
-        'CPEname':      CPEmodule,
-        'CPEversion':   PEversion,
-        'compiler':     compilermodule,
-        'PrgEnv':       map_cpe_PrgEnv[CPEmodule],
-        'dependencies': '\n'.join( dependency_list ),
-        'extra_mods':   EBfile_add,
+        'CPEname':       CPEmodule,
+        'CPEversion':    PEversion,
+        'compiler':      compilermodule,
+        'PrgEnv':        map_cpe_PrgEnv[CPEmodule],
+        'PrgEnv_load':   PrgEnv_load,
+        'PrgEnv_family': PrgEnv_family,
+        'dependencies':  '\n'.join( dependency_list ),
+        'extra_mods':    EBfile_add,
         } )
 
     #
