@@ -9,16 +9,18 @@
   *| 23.12 are already on the system and much user-installable      |
    | software for 24.03 is already available also.                  |
 *  |                                                                |
-   | In late August or September, significant parts of the system   |
-  *| software will be updated. ROCm will be updated to version 6.3  |
-   | and the programming environment to 25.03. It is not clear yet  |
-   | if 24.03 will still work after the update, and we do expect    |
- * | issues with GPU software in particular as ROCm 6.0 is not      |
-   | supported. Older environments will not be supported anymore.   |
-   | Containers based on ROCm 6.1 and 6.2 should will likely still  |
-*  | work but may require some updates in the  network              |
-   | communication layer. Containers based on older ROCm versions   |
-   | will almost certainly fail to work properly.                   |
+   | The system update originally planned for late August 2025 has  |
+   | been postponed to a yet-to-be-decided moment. This also        |
+ * | implies that for now, newer ROCm versions than 6.2 cannot be   |
+   | used reliably on LUMI, nor do programming environments that    |
+  *| rely on those versions and that we can provide in containers,  |
+   | fully work.                                                    |
+   |                                                                |
+   | The advice remains to rely on the most recent programming      |
+*  | environment where possible and to consider using containers    |
+*  | on ROCm 6.2 for AI applications, as this offers the best       |
+   | guarantee of a relatively smooth upgrade to an ultimately      |
+   | updated system.                                                |
  * |                                                                |
 *  | You can use the lumi-workspaces command (without loading an    |
    | additional module) to check your quota and allocations on      |
