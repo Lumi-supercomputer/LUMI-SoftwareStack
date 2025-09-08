@@ -53,3 +53,5 @@ The 4.0.3 release is from 2013.
         
     The issue was fixed by simply writing a patch for EasyBuild itself rather than starting another
     difficult-to-maintain own EasyBlock.
+
+-   From 25.03 on, we include both static and dynamic libraries in the same module.
