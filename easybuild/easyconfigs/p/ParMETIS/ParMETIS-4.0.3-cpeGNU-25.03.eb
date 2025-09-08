@@ -60,6 +60,12 @@ builddependencies = [ # Create a reproducible build environment.
 preconfigopts = 'module unload cray-libsci rocm craype-accel-amd-gfx90a && '
 preinstallopts = pretestopts = prebuildopts = preconfigopts
 
+# Build both static and shared libraries
+configopts = [
+    '-DSHARED=0',
+    '-DSHARED=1'
+]
+
 # To better check the log files, do a verbose build.
 buildopts = 'VERBOSE=1'
 
