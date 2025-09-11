@@ -22,6 +22,8 @@
     installed in the .dev stack. However, they have to use the same components of
     the Cray PE and same cpeCray/cpeGNU/cpeAMD EasyBuild toolchain modules.
 
+    We never really used this last feature though so it may be broken by now.
+
 -   The module system will automatically select the software for
     the partition on which the software stack was loaded (and change to the correct
     partition in Slurm batch scripts if you reload the LUMI module). It is always possible
@@ -73,20 +75,14 @@
 
     The current implementation first checks if the environment variable
     LUMI_OVERWRITE_PARTITION is defined and if so, the value of that variable is used.
-    It is assumed to be C, G, D or L depending on the node type (CPU compute or large memory, GPU compute,
-    visualisation or login), or can be common to install software in the
-    hidden common partition.
+    It is assumed to be L, C, G, or D depending on the node type (L: Login and large memory
+    nodes, basically everything zen2; C: regular compute nodes; G: GPU compute nodes;
+    D: visualisation nodes with NVIDIA GPUs).
 
-    If that environment variable is not defined, we currently use the following algorithm
-    as a demo of what can be done on the final LUMI installation:
-
-    -   On eiger uan01 and uan02 the partition is set to L
-
-    -   On eiger uan03 the partition is set to common
-
-    -   On all other hosts we first check for the environment variable
-        LUMI_PARTITION and use that one and otherwise we set the partition
-        to L.
+    Detection is done based on the hostname of the node. For login nodes, we know 
+    that name starts with `uan` and for other nodes, it starts with `nid` followed by
+    a number. The number is extracted with a regular expression and then the partition is 
+    set based on that number.
 
     This is used by the SoftwareStack module to then auto-load the
     module for the current partition when it is loaded. That function can be implemented
@@ -107,9 +103,13 @@
         stack. This is based on the partition detected by the
         detect_LUMI_partition function defined in SitePackage.lua.
 
--    We made the SoftwareStack and LUMIpartition
-     modules sticky so that once loaded a user can use ``module purge`` if they
-     want to continue working in the same software stack but load other packages.
+-   We made the SoftwareStack and LUMI partition
+    modules sticky so that once loaded a user can use ``module purge`` if they
+    want to continue working in the same software stack but load other packages.
+
+    For the partition, a generic implementation is used in the repo (`modules/LUMIpartition`),
+    but its behaviour is determined by the version used when loading which is done via 
+    symbolic links to the generic module.
 
 
 ### Module presentation
@@ -131,7 +131,7 @@
      2. But of course the view with subdirectories is also supported for the power
         user. This is called the ``system`` style.
 
-    The implementation of the labeled view is done in the ``avail_hook`` hook in the
+    The implementation of the labelled view is done in the ``avail_hook`` hook in the
     ``SitePackage.lua`` file and is derived from an example in the Lmod manual.
 
 -   To not confront the user directly with all Lmod environment variables that influence
@@ -150,6 +150,19 @@
     The presentation modules are sticky so that ``module purge`` doesn't change the
     presentation of the modules.
 
+    The implementation of these modules can be found in `modules/StyleModifiers`.
+
+-   Some parts of the module tree (basically the spack and local software stacks) 
+    will not be indexed by `module spider` unless an
+    environment variable is set that tells to do so, which can be done via the `ModuleFullSpider`
+    module which is also in `modules/StyleModifiers`.
+
+    The implementation of this is actually done through the modules that make those
+    stacks available, by hiding the commands that add the directory to the module search
+    path when the mode in which the module file is executed is not load, unload or show. 
+
+    This is discussed in more detail a bit further down this page.
+
 -   There is a "power user" view that will reveal a number of modules that are
     otherwise hidden. This is at their own risk. Use of this module is not documented
     on the regular LUMI-documentation.
@@ -162,9 +175,6 @@
 
 -   As we don't use a system-wide spider cache at the moment, `module spider` and 
     `module avail` can be very slow if the user cache needs to be generated.
-
-    This is partly also caused by the very high number of spack-generated modules on
-    the system that are also in Tcl, causing a double slowdown.
 
 -   Solution: The spack modules and modules enabling the local software stacks that
     are not maintained by LUST have a mechanism that makes `MODULEPATH` changes invisible
@@ -205,7 +215,7 @@
 -   We have a set of subdirectories for each of the 4 LUMI partitions on which the
     modules are available. However, we also have a directory to install software that
     is common to all partitions and doesn't need specific processor optimisations hence
-    is simply compiled for the minimal configuration that works everywhere, Rome without
+    is simply compiled for the minimal configuration that works everywhere, Rome CPU without
     accelerator.
 
 -   We use a hidden partition module (``partition/common``) which can then be recognized
@@ -284,9 +294,9 @@ in the `CrayEnv` and any `LUMI` environment.
 
 ### Where do we set the default modules?
 
--   Style modifiers: LMOD/modulerc.lua (central moduler.lua file)
+-   Style modifiers: `LMOD/modulerc.lua` (central `modulerc.lua` file)
 
--   Software stack: Currently by a hidden ``.modulerc.lua`` file in the ``SoftwareStacks``
+-   Software stack: Currently by a hidden `.modulerc.lua` file in the `SoftwareStacks`
     subdirectory since we use different defaults on different test systems.
 
 -   Partition: No assigned default, the software stack module determines the optimal
@@ -295,10 +305,10 @@ in the `CrayEnv` and any `LUMI` environment.
 -   Cray PE compoments: Depending on the version of the LUMI stack loaded, different
     versions of the modules in the Cray PE will be the default ones, corresponding
     to the release of the PE used for that stack. These defaults are set in
-    ``LMOD/LUMIstack_<version>_modulerc.lua``, which can be generated with the
-    ``make_CPE_modulerc.sh`` script.
+    `LMOD/LUMIstack_<version>_modulerc.lua`, which can be generated with the
+    `make_CPE_modulerc.sh` script.
 
-    Note that loading a ``cpe/yy.mm`` module may overwrite this depending on the implementation
+    Note that loading a `cpe/yy.mm` module may overwrite this depending on the implementation
     of that module.
 
 

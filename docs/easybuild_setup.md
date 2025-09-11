@@ -7,16 +7,16 @@
 -   Options
 
     -   A flat naming scheme, even without the module classes as they are of little
-        use. May packages belong to more than one class, it is impossible to come up
+        use. Many packages belong to more than one class and it is impossible to come up
         with a consistent categorization. Fully omitting the categorization requires
         a slightly customized naming scheme that can be copied from UAntwerpen. When
-        combining with --suffix-modules-path='' one can also drop the 'all' subdirectory
+        combining with `--suffix-modules-path=''` one can also drop the 'all' subdirectory
         level which is completely unnecessary in that case.
 
     -   A hierarchical naming scheme as used at CSCS and CSC. Note that CSCS has an
         open bug report at the time of writing (May 12, 2021) on the standard implementation
         in EasyBuild ([Issue #3626](https://github.com/easybuilders/easybuild-framework/issues/3626)
-        and the related [issue 3575](https://github.com/easybuilders/easybuild-framework/issues/3575)),
+        and the related [issue #3575](https://github.com/easybuilders/easybuild-framework/issues/3575)),
         but they seem to be resolved.
         If not, the solution might be to develop our own naming scheme module.
 
@@ -38,10 +38,12 @@
 ### Other configuration decisions
 
 -   rpath or not? No rpath, as it makes it difficult to try to inject other versions to see if 
-    that solves bugs.
+    that solves bugs, and it is done via yet another level of wrappers that only exist
+    in EasyBuild, making it harder to reproduce the behaviour of EasyBuild in a script
+    to first explore how the installation of a package works.
 
 -   In the LUMI stack, we hide the versions of Cray libraries that do not correspond to the 
-    version of ther LUMI stack that is loaded.
+    version of their LUMI stack that is loaded.
 
 
 ## External modules for integration with the Cray PE
@@ -85,10 +87,11 @@ available in the new partition.
 
 ### Common settings that are made through environment variables in all modes
 
--   The buildpath and path for temporary files. The current implementation creates
-    subdirectories in the directory pointed to by ``XDG_RUNTIME_DIR`` as this is a
+-   The buildpath and path for temporary files. On the login nodes, the current implementation creates
+    subdirectories in the directory pointed to by `XDG_RUNTIME_DIR` as this is a
     RAM-based file system and gets cleaned when the user logs out. This value is based
-    on the CSCS setup.
+    on the CSCS setup. In containers or on compute nodes, it is created in a subdirectory
+    of `/tmp` based on the Slurm job ID or user ID.
 
 -   Name and location of the EasyBuild external modules definition file.
 
@@ -98,19 +101,19 @@ available in the new partition.
     EASYBUILD_SUFFIX_MODULES_PATH as that together with the module naming scheme determines
     the location of the modules with respect to the module install path.
 
--   ``EASYBUILD_OPTARCH`` has been extended compared to the CSCS setup:
+-   `EASYBUILD_OPTARCH` has been extended compared to the CSCS setup:
 
     -   We support multiple target modules so that it is possible to select both the
-        CPU and accelerator via ``EASYBUILD_OPTARCH``. See the
-        [EasyBuild CPE toolchains common options](Toolchains/toolchain_cpe_common.md)
+        CPU and accelerator via `EASYBUILD_OPTARCH`. See the
+        [EasyBuild CPE toolchains common options](Toolchains/toolchain_cpe_common.md).
 
     -   It is now also possible to specify arguments for multiple compilers. Use ``CPE:``
         to mark the options for the CPE toolchains. See also
-        [EasyBuild CPE toolchains common options](Toolchains/toolchain_cpe_common.md)
+        [EasyBuild CPE toolchains common options](Toolchains/toolchain_cpe_common.md).
 
 -   As the CPE toolchains are not included with the standard EasyBuild distribution
     and as we have also extended them (if those from CSCS would ever be included),
-    we set ``EASYBUILD_INCLUDE_TOOLCHAINS`` to tell EasyBuild where to find the toolchains.
+    we set `EASYBUILD_INCLUDE_TOOLCHAINS` to tell EasyBuild where to find the toolchains.
 
 
 ### The EasyBuild-production and EasyBuild-infrastructure mode
@@ -123,11 +126,11 @@ configuration files.
 
 There are two regular configuration files:
 
- 1. ``easybuild-production.cfg`` is always read. In the current implementation it is
+ 1. `easybuild-production.cfg` is always read. In the current implementation it is
     assumed to be present.
 
- 2. ``easybuild-production-LUMI-yy.mm.cfg`` is read after ``production.cfg``, hence can be used
-    to overwrite settings made in ``production.cfg`` for a specific toolchain. This
+ 2. `easybuild-production-LUMI-yy.mm.cfg` is read after `production.cfg`, hence can be used
+    to overwrite settings made in `production.cfg` for a specific toolchain. This
     allows us to evolve the configuration files while keeping the possibility to install
     in older versions of the LUMI software stack.
 
@@ -160,19 +163,19 @@ The following settings are made through environment variables:
 -   The repo directories where EasyBuild stores EasyConfig files for the modules that
     are build, as indicated in the directory structure overview.
 
--   EasyBuild robot paths: we use EASYBUILD_ROBOT_PATHS and not EASYBUILD_ROBOT so
+-   EasyBuild robot paths: we use `EASYBUILD_ROBOT_PATHS` and not `EASYBUILD_ROBOT` so
     searching the robot path is not enabled by default but can be controlled through
-    the ``-r`` flag of the ``eb`` command. The search order is:
+    the `-r` flag of the `eb` command. The search order is:
 
-     1. The repository for the currently active partition build by EasyBuild for
-        installed packages (``ebfiles_repo``)
+     1. The repository for the currently active partition built by EasyBuild for
+        installed packages (`ebfiles_repo`)
 
-     2. The repository for the common partition build by EasyBuild for
-        installed packages (``ebfiles_repo``)
+     2. The repository for the common partition built by EasyBuild for
+        installed packages (`ebfiles_repo`)
 
      3. The LUMI-specific EasyConfig directory.
 
-    We deliberately put the ebfiles_repo repositories first as this ensure that EasyBuild
+    We deliberately put the `ebfiles_repo` repositories first as this ensure that EasyBuild
     will always find the EasyConfig file for the installed module first as changes
     may have been made to the EasyConfig in the LUMI EasyConfig repository that are
     not yet reflected in the installed software.
@@ -181,7 +184,7 @@ The following settings are made through environment variables:
     search path for two reasons:
 
      4. They are not made for the Cray toolchains anyway (though one could of course
-        use ``--try-toolchain`` etc.)
+        use `--try-toolchain` etc.)
 
      5. We want to ensure that our EasyConfig repository is complete so that we can
         impose our own standards on, e.g., adding information to the help block or
@@ -194,15 +197,15 @@ The following settings are made through environment variables:
 -   Settings for the module naming scheme: As we need to point to a custom implementation
     of the module naming schemes, this is done through an environment variable. For
     consistency we also set the module naming scheme itself via a variable and set
-    EASYBUILD_SUFFIX_MODULES_PATH as that together with the module naming scheme determines
+    `EASYBUILD_SUFFIX_MODULES_PATH` as that together with the module naming scheme determines
     the location of the modules with respect to the module install path.
 
 -   Custom EasyBlocks
 
--   Search path for EasyConfig files with ``eb -S`` and ``eb --search``
+-   Search path for EasyConfig files with `eb -S` and `eb --search`
 
      1. Every directory of the robot search path is automatically included and 
-        does not need to be added to EASYBUILD_SEARCH_PATHS
+        does not need to be added to `EASYBUILD_SEARCH_PATHS`.
 
      2. The [LUMI-EasyBuild-contrib repository](https://github.com/Lumi-supercomputer/LUMI-EasyBuild-contrib),
         as that one is not in the robot path in non-user mode.
@@ -210,14 +213,15 @@ The following settings are made through environment variables:
      3. Not yet done, but we could maintain a local copy of the CSCS repository and
         enable search in that also.
 
-     4. Default EasyConfig files that come with EasyBuild (if we can find EasyBuild,
+     4. Deliberately not included at the moment as it would confuse users:
+        Default EasyConfig files that come with EasyBuild (if we can find EasyBuild,
         which is if an EasyBuild-build EasyBuild module is loaded)
 
-     5. Deliberately not included: Our ebfiles_repo repositories. Everything in there
+     6. Deliberately not included: Our `ebfiles_repo` repositories. Everything in there
         should be in our own EasyConfig repository if the installations are managed
         properly.
 
--   We also set containerpath and packagepath even though we don't plan to use those,
+-   We also set `EASYBUILD_CONTAINERPATH` and `EASYBUILD_PACKAGEPATH` even though we don't plan to use those,
     but it ensures that files produced by this option will not end up in our GitHub
     repository.
 
@@ -229,21 +233,25 @@ The following settings are made through environment variables:
      2. If we detect we are running in a singularity container, `/tmp/$USER` is used as
         the base for the directory names.
 
-     3. If we are on a login node, we try to use $XDG_RUNTIME_DIR, and if that environment
-        variable isn't set, we try in `/tmp`.
+     3. If we are on a login node, we try to use `$XDG_RUNTIME_DIR`, and if that environment
+        variable isn't set, we try in `/tmp/$USER`.
 
      4. Finally, if we are on a compute node we construct a subdirectory in `/tmp` based
-        on the Slurm job ID or user name.
+        on the Slurm job ID or user name (if we can't find the Slurm jobid).
+
+        This guaranteed a unique subdirectory per job so that we could safely clear the EasyBuild
+        build directory even with multiple interactive jobs of the same user on the node (at 
+        least if EasyBuild could find the job ID).
 
 
 ### The EasyBuild-user mode
 
 -   The root of the user EasyBuild directory structure is pointed to by the
-    environment variable ``EBU_USER_PREFIX``. The default value if the variable
-    is not defined is ``$HOME/EasyBuild``.
+    environment variable `EBU_USER_PREFIX`. The default value if the variable
+    is not defined is `$HOME/EasyBuild`.
 
-    Note that this environment variable is also used in the ``LUMI/yy.mm`` modules
-    as these modules try to include the user modules in the MODULEPATH.
+    Note that this environment variable is also used in the `LUMI/yy.mm` modules
+    as these modules try to include the user modules in the `MODULEPATH`.
 
 -   The directory structure in that directory largely reflects the system
     directory structure. This may be a bit more complicated than really needed
@@ -252,19 +260,19 @@ The following settings are made through environment variables:
 
     Changes:
 
-     -   ``SystemRepo`` is named ``UserRepo`` instead and that name is fixed,
-         contrary to the ``SytemRepo`` name. We do keep it
+     -   `SystemRepo` is named `UserRepo` instead and that name is fixed,
+         contrary to the `SytemRepo` name. We do keep it
          as a separate level so that the user can also easily do version
          tracking via a versioning system such as GitHub.
 
-     -   The ``mgmt`` level is missing as we do not take into account
+     -   The `mgmt` level is missing as we do not take into account
          subdirectories that might be related to other software management
          tools.
 
      -   As there are only modules generated by EasyBuild in this module tree,
-         ``modules/easybuild`` simply becomes ``modules``.
+         `modules/easybuild` simply becomes `modules`.
 
-     -   Similarly, the ``EB`` level in the directory for installed software is
+     -   Similarly, the `EB` level in the directory for installed software is
          omitted.
 
 -   The robot search path:
@@ -282,19 +290,22 @@ The following settings are made through environment variables:
      5. The user EasyConfig directory `UserRepo` (even if it is not there
         yet)
 
-     1. The LUMI-EasyBuild-contrib repository, if present in the user 
+     1. The `LUMI-EasyBuild-contrib` repository, if present in the user 
         directory use that one and otherwise use the one from the central
         installation.
 
      2. The LUMI-specific EasyConfig directory from the application directory
 
--   The search path for EasyConfig files with ``eb -S`` and ``eb --search``
+-   The search path for EasyConfig files with `eb -S` and `eb --search`
 
      1. The directories above in the robot search path are automatically also used
         for search.
 
      2. Not yet done, but we could maintain a local copy of the CSCS repository and
         enable search in that also.
+
+        Update 2025: As CSCS seems to have quit using EasyBuild, this does not make
+        sense anymore as the repository is rapidly aging.
 
      3. Default EasyConfig files that come with EasyBuild are deliberately not included
         in user mode as it was decided this is confusing for the users.
@@ -319,22 +330,26 @@ The following settings are made through environment variables:
      4. Finally, if we are on a compute node we construct a subdirectory in `/tmp` based
         on the Slurm job ID or user name.
 
+        This guaranteed a unique subdirectory per job so that we could safely clear the EasyBuild
+        build directory even with multiple interactive jobs of the same user on the node (at 
+        least if EasyBuild could find the job ID).
+
 There are two regular configuration files:
 
- 1. The system ``easybuild-production.cfg`` is always read. In the current
+ 1. The system `easybuild-production.cfg` is always read. In the current
     implementation it is assumed to be present.
 
- 2. The user ``easybuild-user.cfg``(in ``UserRepo/easybuild/config`` in the user
+ 2. The user `easybuild-user.cfg`(in `UserRepo/easybuild/config` in the user
     directory) is read next and meant for user-specific settings that should be
     read for all LUMI software stacks.
 
- 3. Then the system ``easybuild-production-LUMI-yy.mm.cfg`` is read after, hence can be used
-    to overwrite settings made in ``production.cfg`` for a specific toolchain. This
+ 3. Then the system `easybuild-production-LUMI-yy.mm.cfg` is read after, hence can be used
+    to overwrite settings made in `production.cfg` for a specific toolchain. This
     allows us to evolve the configuration files while keeping the possibility to install
     in older versions of the LUMI software stack. This will overwrite generic
     user options!
 
- 4. Finally the user ``easybuild-user-LUMI-yy.mm.cfg`` is read for user
+ 4. Finally the user `easybuild-user-LUMI-yy.mm.cfg` is read for user
     customizations to a specific toolchain.
 
 Only the first of those 4 files has to be present. Presence of the others is
@@ -343,15 +358,15 @@ these files to start using it.
 
 Comparison:
 
-| **robot path non-user**        | **robot path user**                   |
-|:-------------------------------|:--------------------------------------|
-| /                              | ebrepo user active partition          |
-| /                              | ebrepo user common partition          |
-| ebrepo system active partition | ebrepo system active partition        |
-| ebrepo system common partition | ebrepo system common partition        |
-|                                | EBU_USER_PREFIX/UserRepo              |
-|                                | LUMI-EasyBuild-contrib user or system |
-| LUMI-SoftwareStack system      | LUMI-SoftwareStack system             |
-| **search path non-user**       | **search path user**                  |
-| LUMI-EasyBuild-contrib system  | /                                     |
-| Default easybuild EasyConfigs  | /                                     |
+| **robot path non-user**              | **robot path user**                   |
+|:-------------------------------------|:--------------------------------------|
+| /                                    | ebfiles_repo user active partition    |
+| /                                    | ebfiles_repo user common partition    |
+| ebfiles_repo system active partition | ebfiles_repo system active partition  |
+| ebfiles_repo system common partition | ebfiles_repo system common partition  |
+|                                      | EBU_USER_PREFIX/UserRepo              |
+|                                      | LUMI-EasyBuild-contrib user or system |
+| LUMI-SoftwareStack system            | LUMI-SoftwareStack system             |
+| **search path non-user**             | **search path user**                  |
+| LUMI-EasyBuild-contrib system        | /                                     |
+| Default easybuild EasyConfigs        | /                                     |

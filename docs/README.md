@@ -6,7 +6,7 @@
 -   [EasyBuild setup](easybuild_setup.md)
 -   [Cray PE integration](CrayPE_integration.md)
 -   [Some procedures](procedures.md)
--   [The directpry structure in the installation directory](directory_structure.md)
+-   [The directory structure in the installation directory](directory_structure.md)
 -   [An overview of files in several of the repository directories and where they
     are used](files_used.md)
 -   [The contents of the SitePackage.lua file](SitePackage.md)
