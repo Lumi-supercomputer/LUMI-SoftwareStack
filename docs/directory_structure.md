@@ -2,23 +2,23 @@
 
 ## System directory
 
-Most of this hierarchy is created with the ``prepare_LUMI.sh`` script.
+Most of this hierarchy is created with the `prepare_LUMI.sh` script.
 
 The Cray PE modules are left in their own hierarchy.
 
 In the LUMI software stack installation directory, one can find the following subdirectories:
 
-  * ``modules``: Key here was to follow Lmod guidelines on hierarchical structures for
+  * `modules`: Key here was to follow Lmod guidelines on hierarchical structures for
     the software stack itself, though once at the level of the software we currently
     do not use a hierarchy.
 
-      * ``SoftwareStack``: A module file that enables the default Cray environment, and one
+      * `SoftwareStack`: A module file that enables the default Cray environment, and one
         for each of our LUMI software stacks, of the form LUMI/version.lua.
 
-      * ``SystemPartition/LUMI/yy.mm``: The next level in the hierarchy. It contains modules
+      * `SystemPartition/LUMI/yy.mm`: The next level in the hierarchy. It contains modules
         by LUMI SoftwareStack to enable the different partitions. Structure:
 
-          * The modules are called ``partition/C.lua`` etc.
+          * The modules are called `partition/C.lua` etc.
 
             We could not use LUMIpartition as this lead to problems with the Lmod hierachyA
             function which produced wrong results for LUMIpartition/L.lua but not for
@@ -28,114 +28,159 @@ In the LUMI software stack installation directory, one can find the following su
             used to house software that is common to all regular partitions. The corresponding
             module is hidden from regular users.
 
-      * ``Infrastructure/LUMI/yy.mm/partition/part``: Infrastructure modules. This structure
+      * `Infrastructure/LUMI/yy.mm/partition/part`: Infrastructure modules. This structure
         is needed for those modules of which we need versions of each of the regular
         partition and for the common partition. This does include the modules that
         are used for EasyBuild settings.
 
-      * ``easybuild/LUMI/yy.mm/partition/part``: Directory for the EasyBuild-generated modules
+      * `easybuild/LUMI/yy.mm/partition/part`: Directory for the EasyBuild-generated modules
         for the LUMI/yy.mm software stack for the LUMI-part partition (part actually being
         a single letter, except for the software that is common to all partitions, where
         part is common)
 
-      * ``easybuild/CrayEnv``: Directory for the EasyBuild-generated modules for the
+      * `easybuild/CrayEnv`: Directory for the EasyBuild-generated modules for the
         CrayEnv software stack.
 
-      * ``easybuild/system``: Directory for the EasyBuild-generated modules outside
+      * `easybuild/system`: Directory for the EasyBuild-generated modules outside
         any software stack
 
-      * ``spack/LUMI/yy.mm/partition/part/<archstring>``: Similar as the above, but for Spack-installed software.
+      * **Present but not used:**: `spack/LUMI/yy.mm/partition/part/<archstring>`: Similar as the above, but for Spack-installed software.
 
-      * ``manual/LUMI/yy.mm/partition/part``: Similar as the above, but for manually installed
+        **TODO:** Remove from the scripts that generate that directory as the Spack installation is 
+        independent as mixing is difficult.
+
+      * `manual/LUMI/yy.mm/partition/part`: Similar as the above, but for manually installed
         software.
 
-      * ``CrayOverwrite``: A directory that is currently used to implement modules
-        that are missing on our test system in Grenoble and to work around some of
-        the problems in the Cray ``cpe/yy.mm`` modules.
+        *As of September 2025, we've never needed that directory and have always found a
+        solution with EasyBuild.*
+
+      * `CrayOverwrite`: A directory that was used to implement modules
+        that were missing on our test system in Grenoble and, and still left to work around some of
+        the problems in the Cray `cpe/yy.mm` modules should they re-appear.
 
         Note that these modules seem to give other problems so though we still put
         them on the system they are currently disabled.
 
-      * ``StyleModifiers``: Links to the corresponding module in the repository. It
+      * `StyleModifiers`: Links to the corresponding module in the repository. It
         contains the modules that can be used to change the presentation of the modules
-        in ``module avail``.
+        in `module avail`.
 
   * SW : This is for the actual binaries, lib directories etc. Names are deliberately kept short to
     avoid problems with too long shebang lines. As shebang lines do not undergoe variable expansion,
     we cannot use the EBROOT variables and so on in those lines to save space.
 
-      * ``LUMI-yy.mm``
+      * `LUMI-yy.mm`
 
-          * ``C``
+          * `C`
 
-              * ``EB``
+              * `EB`
 
-              * ``SP``
+              * `SP`
 
-              * ``MNL``
+              * `MNL`
 
-          * ``G``
+          * `G`
 
-          * ``D``
+              * `EB`
 
-          * ``L``
+              * `SP`
 
-          * ``common``
+              * `MNL`
 
-      * ``CrayEnv``
+          * `D`
 
-      * ``system``
+              * `EB`
 
-  * ``mgmt``: Files that are not stored in our GitHub, but are generated on the fly and are only
+              * `SP`
+
+              * `MNL`
+
+          * `L`
+
+              * `EB`
+
+              * `SP`
+
+              * `MNL`
+
+          * `common`
+
+              * `EB`
+
+              * `SP`
+
+              * `MNL`
+
+      * `container`: Software installed via `partition/container` to make working with containers
+        easier.
+
+        * `EB`
+
+      * `CrayEnv`
+
+        * `EB`
+
+      * `system`: Some software that is always available.
+
+        * `EB`
+
+        * `MNL`
+
+  * `mgmt`: Files that are not stored in our GitHub, but are generated on the fly and are only
     useful to those users who want to build upon our software stack or for those who install
     software in our stacks.
 
-      * ``ebrepo_files``
+      * `ebfiles_repo`
 
-          * ``LUMI-yy.mm``
+          * `LUMI-yy.mm`
 
-              * ``LUMI-C``
+              * `LUMI-C`
 
-              * ``LUMI-G``
+              * `LUMI-G`
 
-              * ``LUMI-D``
+              * `LUMI-D`
 
-              * ``LUMI-L``
+              * `LUMI-L`
 
-              * ``LUMI-common``
+              * `LUMI-common`
 
-          * ``CrayEnv``
+          * `CrayEnv`
 
-          * ``system``
+          * `system`
 
-      * ``LMOD`` : Additional files for LMOD
+          * `container`
 
-          * ``VisibilityHookData`` : Auto-generated files used by the LMOD ``SitePackage.lua``
+      * `LMOD` : Additional files for LMOD
+
+          * `VisibilityHookData` : Auto-generated files used by the LMOD `SitePackage.lua`
             file to hide Cray modules that are irrelevant for a particular software
             stack.
 
-  * ``sources``: Directory structure to store sources of installed programs so that they
+  * `sources`: Directory structure to store sources of installed programs so that they
     can be reinstalled even if sources would no longer be downloadable
 
-      * ``easybuild``: Sources downloaded by EasyBuild. The internal structure of
+      * `easybuild`: Sources downloaded by EasyBuild. The internal structure of
         this directory is determined by EasyBuild.
 
       * Further subdirectories are not fixed yet, but the suggestion is to also provide
-        a ``manual`` subdirectory for the sources of those packages that are installed
-        manually and a ``spack`` subdirectory for spack-installed software when we
+        a `manual` subdirectory for the sources of those packages that are installed
+        manually and a `spack` subdirectory for spack-installed software when we
         proceed with the Spack integration.
 
   * SystemRepo: GitHub repository with all managed files. The name is not fixed, any
-    name can be used and will be picked up if the scripts from the ``scripts`` subdirectory
+    name can be used and will be picked up if the scripts from the `scripts` subdirectory
     inside the repository are used to initialise a new software stack or to determine
     the values for some of the environment variables for LMOD.
 
     For the structure inside the repository, see
     [the "overview of files in the repository and where they are being used](files_used.md).
 
-  * ``LUMI-EasyBuild-contrib`` (optional and not created by the script): A clone of the
+  * `LUMI-EasyBuild-contrib` (optional and not created by the script): A clone of the
     [LUMI-EasyBuild-contrib repository](https://github.com/Lumi-supercomputer/LUMI-EasyBuild-contrib)
     only used for search in EasyBuild.
+
+**TODO:**: Remove all Spack-related things from this structure as they are not needed.
 
 
 ## User EasyBuild setup
@@ -144,38 +189,44 @@ This is a very simplified version of the system directory structure with levels 
 the directory structure omitted when they don't make sense as this structure is for
 EasyBuild installations only.
 
-  * ``modules/LUMI/yy.mm/partition/part``: Directory for the EasyBuild-generated modules
+  * `modules/LUMI/yy.mm/partition/part`: Directory for the EasyBuild-generated modules
     for the LUMI/yy.mm software stack for the LUMI-part partition (part actually being
     a single letter, except for the software that is common to all partitions, where
     part is common)
 
-  * ``SW/LUMI-yy.mm/part`` : This is for the actual binaries, lib directories etc.
+  * `modules/container`: For modules for containers that the user installs.
+
+  * `SW/LUMI-yy.mm/part` : This is for the actual binaries, lib directories etc.
     Names are deliberately kept short to avoid problems with too long shebang lines.
-    As shebang lines do not undergoe variable expansion, we cannot use the EBROOT
+    As shebang lines do not undergo variable expansion, we cannot use the EBROOT
     variables and so on in those lines to save space.
 
-    As for the modules directory, ``part`` is ``C``, ``G``, ``D``, ``L``or ``common``.
+    As for the modules directory, `part` is `C`, `G`, `D`, `L`or `common`.
 
-  * ``ebrepo_files/LUMI-yy.mm/LUMI-part`` for the EasyBuild repository of installed
+  * `SW/container`: For containers and corresponding scripts of the container modules
+    that the user installs, or other support software for containers.
+
+  * `ebfiles_repo/LUMI-yy.mm/LUMI-part` for the EasyBuild repository of installed
     EasyConfigs in the user directory.
 
+    As for the modules directory, `part` is `C`, `G`, `D`, `L`or `common`.
 
-    As for the modules directory, ``part`` is ``C``, ``G``, ``D``, ``L``or ``common``.
+  * `ebfiles_repo/container`: Repository of installed container EasyConfigs.
 
-  * ``sources``: Subdirectory where EasyBuild stores sources of isntalled packages.
+  * `sources`: Subdirectory where EasyBuild stores sources of isntalled packages.
     The internal structure is fully determined by EasyBuild.
 
-  * ``UserRepo``: The user EasyBuild repo. Contrary to the repository in the system
-    directories, the name ``UserRepo`` is mandatory here.
+  * `UserRepo`: The user EasyBuild repo. Contrary to the repository in the system
+    directories, the name `UserRepo` is mandatory here.
 
     Subdirectories are
 
-      * ``easybuild/config`` to add to the system config files (the ``easybuild-user.cfg``
-        and ``easybuild-user-LUMI-yy.mm.cfg`` files, see the
+      * `easybuild/config` to add to the system config files (the `easybuild-user.cfg`
+        and `easybuild-user-LUMI-yy.mm.cfg` files, see the
         [Setup of a LUMI software stack and EasyBuild](easybuild_setup.md) page)
 
-      * ``easybuild/easyblkocks`` for additional custom EasyBlocks. We currently assume
+      * `easybuild/easyblocks` for additional custom EasyBlocks. We currently assume
         an organisation in two levels (first letter and then the python file).
 
-      * ``easybuild/easyconfigs`` for the EasyConfigs.
+      * `easybuild/easyconfigs` for the EasyConfigs.
 
