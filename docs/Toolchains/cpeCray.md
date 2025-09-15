@@ -4,7 +4,7 @@
 
 ## Note about the compilers
 
-  * The major version of the `cce` module corresponds to the major version of
+-   The major version of the `cce` module corresponds to the major version of
     the clang/LLVM compilers on which it is based for all versions that are
     relevant for LUMI.
 
@@ -32,42 +32,42 @@ These options should not be used in projects that also contains Fortran code.
 | dynamic  | code generation | Generate dynamically linked executable (default: True)                    |
 | mpich-mt | parallelism     | Alternate Cray-MPICH library for MT support (default: False)              |
 
-mpich-mt: Directs the driver to link in an alternate version of the Cray-MPICH
+`mpich-mt`: Directs the driver to link in an alternate version of the Cray-MPICH
 library which provides fine-grained multi-threading support to applications that
 perform MPI operations within threaded regions. (default: False)
 
-Two further options trigger different compiler flags than in the GCC toolchain: ``verbose``
-and ``optarch`` but have otherwise the same meaning.
+Two further options trigger different compiler flags than in the GCC toolchain: `verbose`
+and `optarch` but have otherwise the same meaning.
 
 
 ## Mapping of options onto compiler flags
 
 ### Some Cray-specific remarks
 
-  * A number of options are different for the clang-based C/C++ compilers and Fortran
+-   A number of options are different for the clang-based C/C++ compilers and Fortran
     compiler, something that EasyBuild cannot easily deal with. This is, e.g., the
     case for the options that set the floating point computation model, so for now
     these are left blank.
 
-      * Fortran floating point optimisation and accuracy options: ``-hfp0`` to ``-hfp4``,
-        with ``-hfp2`` the default according to the manual.
+    -   Fortran floating point optimisation and accuracy options: `-hfp0` to `-hfp4`,
+        with `-hfp2` the default according to the manual.
 
-        *The manual only claims ``-hfp0`` to ``-hfp3``.*
+        *The manual only claims `-hfp0` to `-hfp3`.*
 
-      * For OpenMP the manual also claims a different option for the Fortran compiler,
-        but it turns out that recent versions also support ``-fopenmp`` so no changes
+    -   For OpenMP the manual also claims a different option for the Fortran compiler,
+        but it turns out that recent versions also support `-fopenmp` so no changes
         are needed with respect to the standard EasyBuild behaviour.
 
-        *The manual claims that there is also a ``-fnoopenmp`` but that turns out to
+        *The manual claims that there is also a `-fnoopenmp` but that turns out to
         be wrong in cce 12.*
 
-  * The situation about promoting integer and real in Fortran to 8 bytes is very confusing.
+-   The situation about promoting integer and real in Fortran to 8 bytes is very confusing.
     Those options are not properly documented in the manuals. The Cray driver manual
-    only mentions ``-default64`` which according to the documentation is then converted
-    to ``-sdefault64``. In the documentation, there is mention of ``-sreal64`` (or
-    ``-s real64`), but this option is nowhere to be found in the list of compiler options.
-    However, it turns out that ``-sinteger64``(or ``-s integer64``) and ``-sreal64``
-    (or ``-s real64``) both exist and do what is expected from them.
+    only mentions `-default64` which according to the documentation is then converted
+    to `-sdefault64`. In the documentation, there is mention of `-sreal64` (or
+    `-s real64`), but this option is nowhere to be found in the list of compiler options.
+    However, it turns out that `-sinteger64`(or `-s integer64`) and `-sreal64`
+    (or `-s real64`) both exist and do what is expected from them.
 
 *TODO: Check if -flto exist in Fortran and C and if so, add to the options.*
 

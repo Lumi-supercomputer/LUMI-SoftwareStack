@@ -1,11 +1,11 @@
 # cpeAMD toolchain
 
-Note: The options are for the ``aocc.py`` file included in this repository and are
+Note: The options are for the `aocc.py` file included in this repository and are
 not the same as those for the repository at CSCS.
 
 ## Note about the compilers
 
-  * AMD/ROCm 5.0.2 is based on LLVM 14.0.0
+-   AMD/ROCm 5.0.2 is based on LLVM 14.0.0
 
 
 ## Available options
@@ -16,9 +16,9 @@ really just redefinitions of standard compiler flags.
 
 ### Default toolchain options that may not behave as expected
 
-  * `rpath`: rpath linking in EasyBuild has not been properly tested in the HPE Cray PE.
+-   `rpath`: rpath linking in EasyBuild has not been properly tested in the HPE Cray PE.
 
-  * `unroll`: As it is not clear from the docunentation for the Fortran compiler which
+-   `unroll`: As it is not clear from the docunentation for the Fortran compiler which
     options should be set to enable or disable (if any at all) 
 
 
@@ -36,12 +36,12 @@ really just redefinitions of standard compiler flags.
 | dynamic  | code generation | Generate dynamically linked executable (default: True)       |
 | mpich-mt | parallelism     | Alternate Cray-MPICH library for MT support (default: False) |
 
-mpich-mt: Directs the driver to link in an alternate version of the Cray-MPICH
+`mpich-mt`: Directs the driver to link in an alternate version of the Cray-MPICH
 library which provides fine-grained multi-threading support to applications that
 perform MPI operations within threaded regions. (default: False)
 
-Two further options trigger different compiler flags than in the GCC toolchain: ``verbose``
-and ``optarch`` but have otherwise the same meaning.
+Two further options trigger different compiler flags than in the GCC toolchain: `verbose`
+and `optarch` but have otherwise the same meaning.
 
 
 ## Mapping of options onto compiler flags
@@ -70,19 +70,18 @@ Other optimization-related options (and see also parallelism below):
 The decision of our mapping is based partly on information from Cray and partly on
 looking through various manuals on Clang.
 
-  * Level ``strict``: We simply stick to ``-ffp-model=strict``. This automatically disables
-    all of the ``-ffast-math`` enablements so there is no need to add ``-fno-fast-math``.
+-   Level `strict`: We simply stick to `-ffp-model=strict`. This automatically disables
+    all of the `-ffast-math` enablements so there is no need to add `-fno-fast-math`.
     Note that at this level, fused multiply adds are disabled.
-  * Level ``precise``: We stick to ``-ffp-model=precise`` and add ``-ffp-contract=fast-honor-pragmas``.
-  * Default level: Currently the same as ``strict``.
-  * Level ``loose``: Set to ``-ffp-model=fast`` but try to turn on again a few safeguards:
-    ``-ffp-contract=fast-honor-pragmas``, ``-fhonor-infinities``, ``-fhonor-nans``,
-    ``-fsigned-zeros``.
-  * Level ``veryloose``: Set to ``-ffp-model=fast``
+-   Level `precise`: We stick to `-ffp-model=precise` and add `-ffp-contract=fast-honor-pragmas`.
+-   Default level: Currently the same as `strict`.
+-   Level `loose`: Set to `-ffp-model=fast` but try to turn on again a few safeguards:
+    `-ffp-contract=fast-honor-pragmas`, `-fhonor-infinities`, `-fhonor-nans`,
+    `-fsigned-zeros`.
+-   Level `veryloose`: Set to `-ffp-model=fast`
 
-Note: Very recnet versions of clang add ``-ffp-contract=fast-honor-pragmas`` which
-may be interesting to add to ``precise``, ``defaultprec`` and ``loose`` but is not
-yet supported by AOCC 2.2.
+Note: Very recent versions of clang add `-ffp-contract=fast-honor-pragmas` which
+may be interesting to add to `precise`, `defaultprec` and `loose`.
 
 | Option      | Flag                                                           |
 |:------------|:---------------------------------------------------------------|
@@ -126,8 +125,8 @@ Other floating-point optimisation and accuracy-related flags:
 | static                | -static                                                                               |
 | rpath                 | Use RPATH wrappers when --rpath is enabled in EasyBuild configuration (default: True) |
 
-NOTE: `rpath` has not yet been checked and is likely broken. There is a better way to do this in the /hPE Cray PE 
-than what EasyBuild does as the wrappers already support rpath linking.
+NOTE: `rpath` has not yet been checked and is likely broken. There is a better way to do this in the HPE Cray PE 
+than what EasyBuild does as the wrappers already support rpath linking of the PE.
 
 ## Source-related options
 
@@ -144,5 +143,4 @@ than what EasyBuild does as the wrappers already support rpath linking.
 | Option         | Flag            |
 |:---------------|:----------------|
 | verbose        | -craype-verbose |
-
 

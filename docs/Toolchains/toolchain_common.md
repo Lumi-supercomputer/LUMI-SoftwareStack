@@ -3,9 +3,9 @@
 ## Optimization level
 
 EasyBuild distinguishes between four optimization levels. Rather than having a single
-toolchain option that takes the level as a number, ``toolchainopts`` uses four boolean
+toolchain option that takes the level as a number, `toolchainopts` uses four boolean
 parameters where one takes precedence over others. Lower optimization takes precedence
-over higher optimization. All have as default value ``False`` yet ``defaultopt`` is
+over higher optimization. All have as default value `False` yet `defaultopt` is
 the one that will be used if nothing is specified.
 
 | Option     | What?                          |
@@ -17,17 +17,21 @@ the one that will be used if nothing is specified.
 
 Other optimization-related options (and see also parallelism below):
 
-| Option  | What?                                              |
-|:--------|:---------------------------------------------------|
-| unroll  | Unroll loops (default: False)                      |
-| optarch | Enable architecture optimizations (default: False) |
+| Option  | What?                                               |
+|:--------|:----------------------------------------------------|
+| unroll  | Unroll loops (default: False)                       |
+| optarch | Enable architecture optimizations (default: False?) |
+
+**TODO:** Double-check what the `optarch` toolchain option is doing as there is also a
+different `optarch` parameter in the configuration files to specify compiler flags, or in
+the case of the CPE toolchains, target modules.
 
 
 ## Floating point accuracy
 
-There are five flags that set the floating point precision. All are ``False`` by default
-but ``defaultprec`` is taken if none of the options is set to ``True``. Again, the
-first one that is set to ``True`` in the table below is used:
+There are five flags that set the floating point precision. All are `False` by default
+but `defaultprec` is taken if none of the options is set to `True`. Again, the
+first one that is set to `True` in the table below is used:
 
 | Option      | What?                      |
 |:------------|:---------------------------|
@@ -52,7 +56,7 @@ Other floating-point optimisation and accuracy-related flags:
 | openmp    | Enable OpenMP (default: False)                                          |
 | usempi    | Use MPI compiler as default compiler (default: False)                   |
 
-The ``usempi`` option is only supported by toolchains that also include an MPI component.
+The `usempi` option is only supported by toolchains that also include an MPI component.
 
 ## Code generation and linking options
 
@@ -89,5 +93,5 @@ The ``usempi`` option is only supported by toolchains that also include an MPI c
 | extra_fflags   | Specify extra FFLAGS options. (default: None)   |
 
 Most of these options do not directly transform into compiler flags. Instead, they influence
-the way EasyBuild sets variables (``cciscxx``)  or directly add additional flags to
+the way EasyBuild sets variables (`cciscxx`)  or directly add additional flags to
 the indicated environment variables.

@@ -1,11 +1,11 @@
 # LUMI prototype SitePackage.lua
 
-SitePackage.lua is used to implement various customistations to Lmod.
+`SitePackage.lua` is used to implement various customisations to Lmod.
 
 The file defines both LMOD hooks and a number of new functions for the sandbox to ease
 the implementation of modulefiles for LUMI.
 
-Make sure that the environment variable ``LMOD_PACKAGE_PATH`` points to the directory
+Make sure that the environment variable `LMOD_PACKAGE_PATH` points to the directory
 that contains this file to activate this file.
 
 
@@ -20,6 +20,11 @@ includes other modules that are set at initialisation.
 ### Default programming environment
 
 The default programming environment is set via the init_PrgEnv variable.
+It is best that this corresponds to what is set at the system level by the sysadmins in
+`/etc/cray-pe.d/cray-pe-configuration.sh`.
+
+That configuration does this via an environment variable, but one that is not exported
+so Lmod cannot read it as it is not accessible to the LUA JIT.
 
 
 ### List of LTS software stacks
@@ -37,16 +42,16 @@ The LUMI-stacks with long-term support are set in LTS_LUMI_stacks
 ### SiteName hook
 
 This hook is used to define the prefix for some of the environment variables that
-Lmod will generate internally. Rather then just setting it to ``LUMI`` we decided to
-set it to ``LUMI_LMOD`` to lower the chance of conflicts with environment variables
+Lmod will generate internally. Rather then just setting it to `LUMI` we decided to
+set it to `LUMI_LMOD` to lower the chance of conflicts with environment variables
 that may be defined elsewhere.
 
 
 ### avail hook
 
-This hook is used to replace directories with labels in the output of ``module avail``.
+This hook is used to replace directories with labels in the output of `module avail`.
 
-To work for the prototypes, one needs to set:
+One needs to set:
 ```bash
 export LMOD_AVAIL_STYLE=<label>:PEhierarchy:system
 ```
@@ -56,21 +61,22 @@ view using
 module -s system avail
 ```
 
-The ``ModuleLabel`` modules can also be used to switch between the three settings:
+The `ModuleLabel` modules can also be used to switch between the three settings:
 
-  * ``label``: User-friendly labels for the directories, some directories collapsed into
+-   `label`: User-friendly labels for the directories, some directories collapsed into
     a single category, and all Cray PE modules collapsed into a single category.
 
-  * ``PEhierarchyy``: User-friendly labels for the directories, some directories collapsed into
+-   `PEhierarchyy`: User-friendly labels for the directories, some directories collapsed into
     a single category, but with the original Cray PE module hierarchy.
 
-  * ``system``: The view showing the full directory path for each module directory.
+-   `system`: The view showing the full directory path for each module directory.
 
 
 ### msgHook
 
 This hook is used to adapt the following messages:
-  * output of ``module avail``:  Add more information about how to search for software
+
+-   output of `module avail`:  Add more information about how to search for software
     and to contact LUMI User Support.
 
 
@@ -78,15 +84,15 @@ This hook is used to adapt the following messages:
 
 The visibility hook is currently used to hide the Cray modules of other CPE versions
 in a particular version of the CPE software stack. It is also used to hide the 
-``EasyBuild`` modules as users sometimes load these without loading the 
-``EasyBuild-user`` module.
+`EasyBuild` modules as users sometimes load these without loading the 
+`EasyBuild-user` module.
 
 As the hook function is called many
-times during a single call to ``module avail`` some effort was done to make it efficient
+times during a single call to `module avail` some effort was done to make it efficient
 at the cost of readability.
 
-  * The data about the Cray PE modules that should not be hidden is contained in a LUA script
-    in ``mgmt/LMOD/VisibilityHookData``. This script is read via ``require`` so that
+-   The data about the Cray PE modules that should not be hidden is contained in a LUA script
+    in `mgmt/LMOD/VisibilityHookData`. This script is read via `require` so that
     it is cached and really processed only once. Furthermore, to make locating the
     script easy, the LUMI stack module stores the path and name in two environment
     variables that are ready-to-use without further substitutions.
@@ -96,106 +102,108 @@ at the cost of readability.
     The name and location of the file is set through two environment variables set
     in the LUMI modules.
 
-  * The code to hide EasyBuild is currently rather rudimentary. It doesn't try to do 
+-   The code to hide EasyBuild is currently rather rudimentary. It doesn't try to do 
     so only for EasyBuild modules in the central software stack, but would hide an
     EasyBuild module that has been installed by a user also. This is partly the
     result of design flaws making it harder to distinguish user and central 
     modules.
 
-  * Note that the feature is turned of for power users.
+-   Note that the feature is turned of for power users.
 
 
 ## Custom LMOD functions
 
 ### detect_LUMI_partition
 
-``detect_LUMI_partition``is a function that can be used to request the current LUMI
-partition. This is used by the generic ``modules/LUMIstack`` modules files but put
-in ``SitePackage.lua`` to have a single point where this is implemented.
+`detect_LUMI_partition`is a function that can be used to request the current LUMI
+partition. This is used by the generic `modules/LUMIstack` modules files but put
+in `SitePackage.lua` to have a single point where this is implemented.
 
 The alternative would be to use a trick that is also used in some CPE module
 files to read in and execute code from an external file.
 
 LUMI_OVERWRITE_PARTITION is defined and if so, the value of that variable is used.
 It is assumed to be C, G, D or L depending on the node type (CPU compute, GPU compute,
-data and visualisation or login), or can be common to install software in the
+data visualisation, L: Login and large memory modes), or can be common to install software in the
 hidden common partition.
 
 Currently the following rules are implemented for LUMI:
 
-  * Node name starts with `uan`:  It must be a login node, so in partition/L
+-   Node name starts with `uan`:  It must be a login node, so in `partition/L`
 
-  * Nude number 16-23: LUMI-D with GPU
+-   Nude number 16-23: LUMI-D with GPU: `partition/D`
 
-  * Node number 101-108: LUMI-D without GPY, assing to partition/L
+-   Node number 101-108: LUMI-D without GPGPU, adding to `partition/L`
 
-  * Node number 1000-2535: Regular LUMI-C compute nodes, assign partition/C
+-   Node number 1000-3047: Regular LUMI-C compute nodes, assign `partition/C`
 
-  * Other nodes are for now assigned to partition/L.
+-   Node number 5000-7977: GPU compute nodes, assign to `partition/G`
 
-The idea is to ensure that a ``module update`` would reload the loaded software
-stack for the partition on which the ``module update`` command is run.
+-   If any other node would be found, assing to `partition/L`.
+
+The idea is to ensure that a `module update` would reload the loaded software
+stack for the partition on which the `module update` command is run.
 
 
 ### get_CPE_component
 
-``get_CPE_component`` is a function that can be used in modulefiles to request
+`get_CPE_component` is a function that can be used in modulefiles to request
 the version of a CPE component. The data is read from the CPE definition files
-in the ``CrayPE`` subdirectory of the repository.
+in the `CrayPE` subdirectory of the repository.
 
-The function is currently used in the ``modules/LUMIpartition`` generic implementation
+The function is currently used in the `modules/LUMIpartition` generic implementation
 of the partition modules for the LUMI stacks to determine the version of the
 Cray targeting modules to add that directory to the MODULEPATH.
 
 
 ### get_CPE_versions
 
-``get_CPE_versions`` is a function that can be used in module files to request
+`get_CPE_versions` is a function that can be used in module files to request
 a table with the version for each package in a CPE release. The data is read
-from the CPE definition files in the ``CrayPE`` subdirectory of the repository.
+from the CPE definition files in the `CrayPE` subdirectory of the repository.
 
-The function is used in the prototype in the ``cpe`` modules for the Grenoble
-system as a proof-of-concept for a generic ``cpe`` module to reduce the number
+The function is used in the prototype in the `cpe` modules for the Grenoble
+system as a proof-of-concept for a generic `cpe` module to reduce the number
 of places where the version info of the Cray packages in a CPE release is kept.
 
 
 ### get_EasyBuild_version
 
-``get_EasyBuild_version`` is a function that simply returns the version of 
+`get_EasyBuild_version` is a function that simply returns the version of 
 EasyBuild for a given software stack (and actually a given CPE version in the
 current implementation, so a `.dev` stack is assumed to have the same version
 of EasyBuild as the regular stack). Currently we abuse the CPE definition
-files in ``CrayPE`` to set the version of EasyBuild, but by making this a
+files in `CrayPE` to set the version of EasyBuild, but by making this a
 separate function this can be changed in the future.
 
 
 ### get_versionedfile
 
-``get_versionedfile`` is a function that can be used to find the suitable versioned
+`get_versionedfile` is a function that can be used to find the suitable versioned
 file for a given version of the LUMI software stack, i.e., the file which according
 to the version number is the most recent one not newer than the software stack.
 
 
 ### get_hostname
 
-``get_hostname`` gets the hostname from the output of the ``hostname`` command.
+`get_hostname` gets the hostname from the output of the `hostname` command.
 It is meant to be used by detect_LUMI_partition but is also exported so that other
 module files can use it if needed.
 
 
 ### get_user_prefix_EasyBuild
 
-``get_user_prefix_EasyBuild`` computes the root of the user EasyBuild installation
-from the environment variable ``EBU_USER_PREFIX`` and the default name in the home
+`get_user_prefix_EasyBuild` computes the root of the user EasyBuild installation
+from the environment variable `EBU_USER_PREFIX` and the default name in the home
 directory.
 
-It is used in the ``EasyBuild-config`` module, the ``LUMIpartition`` module (to include
-the user module directory in the ``MODULEPATH`) and in the ``avail_hook`` LMOD hook.
+It is used in the `EasyBuild-config` module, the `LUMIpartition` module (to include
+the user module directory in the `MODULEPATH`) and in the `avail_hook` LMOD hook.
 
 
 ### get_init_module_list
 
-``get_init_module_list`` is a function that returns the list of modules to load at
+`get_init_module_list` is a function that returns the list of modules to load at
 initialisation. This includes target modules, other modules, and optionally the
 default programming environment.
 
@@ -209,19 +217,35 @@ The function takes two arguments:
 
 ### get_motd
 
-``get_motd`` returns the message-fo-the-day as stored in ``etc/motd`` in the repository
+`get_motd` returns the message-fo-the-day as stored in `etc/motd` in the repository
 root. The function takes no input arguments.
+
+
+### get_num_motd
+
+This function gets the number of times the message-of-the-day has been shown today.
+That number is read from `.motd-day-counter` in the home directory of the user.
+If the file cannot be read or located, 0 is returned as the result.
+
+It will also return 0 if the file was created on a different date or before the last 
+change of the message-of-the-day on the system.
+
+
+### set_num_motd
+
+This is a much simpler routine thatn `get_num_motd` and simply writes its numeric argument
+to the `.motd-day-counter` file in the home directory of the user.
 
 
 ### get_fortune
 
-``get_fortune`` works as the old UNIX ``fortune`` command. It returns a random tip
-read from ``etc/lumi_fortune.txt`` in the repository root.
+`get_fortune` works as the old UNIX `fortune` command. It returns a random tip
+read from `etc/lumi_fortune.txt` in the repository root.
 
 
 ### is_interactive
 
-``is_interactive`` returns true if it is called in an interactive shell, otherwise
+`is_interactive` returns true if it is called in an interactive shell, otherwise
 false. The function takes no input arguments.
 
 It is used to ensure that the message-of-the-day is not printed in cases where Linux
@@ -230,35 +254,35 @@ would not print it.
 
 ### is_LTS_LUMI_stack
 
-``is_LTS_LUMI_stack`` takes one input argument: the version of the LUMI stack. It returns
+`is_LTS_LUMI_stack` takes one input argument: the version of the LUMI stack. It returns
 true if that version is a LTS stack and returns false otherwise.
 
 
 ### is_full_spider
 
-``is_full_spider`` takes no arguments. It returns `true` if a full indexing of all stacks in
+`is_full_spider` takes no arguments. It returns `true` if a full indexing of all stacks in
 the spider cache is preferred, and `false` otherwise.
 
 
 ### get_container_repository_root
 
-``get_container_repository_root`` takes no input arguments. It returns the location of the container
-recipe which is taken from the ``LUMI_CONTAINER_REPOSITORY_ROOT`` when defined or the default
-``/appl/local/containers`` otherwise.
+`get_container_repository_root` takes no input arguments. It returns the location of the container
+recipe which is taken from the `LUMI_CONTAINER_REPOSITORY_ROOT` when defined or the default
+`/appl/local/containers` otherwise.
 
 
 ### get_EB_container_repository
 
-``get_EB_container_repository`` takes no input arguments. It assembles the name of the
+`get_EB_container_repository` takes no input arguments. It assembles the name of the
 directory of the container repository that EasyBuild should use from the result
-of ``get_container_repository_root``. Its main function is to have the name of the
+of `get_container_repository_root`. Its main function is to have the name of the
 subdirectory in only one place of the code to have more flexibility to change it when
 needed.
 
 
 ### get_SIF_file
 
-``get_SIF_file()`` takes three arguments:
+`get_SIF_file()` takes three arguments:
 
 1.  Name of the SIF file
 
@@ -274,15 +298,15 @@ the get_container_repository function.
 
 ### convert_to_EBvar
 
-The ``convert_to_EBvar`` outine is used to create an EasyBuild-style variable
+The `convert_to_EBvar` outine is used to create an EasyBuild-style variable
 name from the package name and an optional prefix and postfix.
 It takes three arguments:
 
-1.  ``package``: Name of the package (EasyBuild-style)
+1.  `package`: Name of the package (EasyBuild-style)
 
-2.  ``prefix``: Optional prefix for the generated variable name (can be ``nil``)
+2.  `prefix`: Optional prefix for the generated variable name (can be `nil`)
 
-3.  ``postfix``: Optional postfix for the generated variable name (cam be ``nil``)
+3.  `postfix`: Optional postfix for the generated variable name (cam be `nil`)
 
 Output: The name of the variable generated from the package, by turning
 all characters uppercase and replacing a hyphen with MIN, with they
@@ -294,16 +318,16 @@ generator, but it is a start for now.
 
 ### create_container_vars
 
-The ``create_container_vars`` routine sets a number of environment variables in
+The `create_container_vars` routine sets a number of environment variables in
 the modules that we use to make some containers available.
 
 It takes three input arguments, with the last two optional:
 
-1.  ``sif_file``: Name of the SIF file
+1.  `sif_file`: Name of the SIF file
 
-2.  ``package_name``: Name of the package (EasyBuild easyconfig)
+2.  `package_name`: Name of the package (EasyBuild easyconfig)
 
-3.  ``installdir``: Installation directory (can come from %(installdir)s in an EasyConfig)
+3.  `installdir`: Installation directory (can come from %(installdir)s in an EasyConfig)
 
 Return value: None. It simply calls a Lmod functions to set some environment
 variables.
