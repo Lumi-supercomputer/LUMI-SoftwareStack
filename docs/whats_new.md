@@ -1,5 +1,19 @@
 # What's new or different?
 
+-   2025-09-16: Updated documentation of the software stack
+
+-   2025-08-14: Changed the scripts to generate the EasyConfigs for the toolchains
+    to use the `cpeToolchain` family and include the `PrgEnv-*` modules for recent
+    toolchains.
+
+-   2023-11-21: Fix a bug in the display of container modules
+
+-   2023-11-21: Show ModuleExtensions/hide and show as they are now fully supported.
+
+-   2023-11-16: Add support for installing container modules via `partition/container`.
+
+-   2023-09-12: Updated node numbers in the partition detection scheme.
+
 -   2023-06-19: `module avail` now also shows the hugepages modules
     and the relevant target modules for the partition.
 
