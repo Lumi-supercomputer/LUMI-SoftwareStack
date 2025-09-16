@@ -11,11 +11,9 @@ root=$(pwd)
 
 if [ "$#" -ne 1 ]
 then
-	# Here document, but avoid using <<- as indentation breaks when tabs would
-	# get replaced with spaces.
     echo -e "This script expects 1 argument: The tag to be used for the release. It also" \
             "\nexpects a file <tag>.txt in ${root}/LUMI-SoftwareStack-tags" \
-            "\nwith the message to use for the annotad tag.\n"
+            "\nwith the message to use for the annotated tag.\n"
 
     exit 1
 fi
