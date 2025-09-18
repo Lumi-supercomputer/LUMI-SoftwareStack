@@ -177,7 +177,8 @@ class EB_jaxlib(PythonPackage):
                 config_env_vars['HIPCC_COMPILE_FLAGS_APPEND'] = ' '.join([f'--offload-arch={tgt}' for tgt in amdgpu_targets])
                 
                 # on Cray machine use the backend compiler instead of wrapper
-                if self.toolchain.toolchain_family() is 'CPE':
+                #if self.toolchain.toolchain_family() is 'CPE':
+                if self.toolchain.toolchain_family() == toolchain.CPE:
                     gccprefix_vars = {'GCC': 'GCC_PREFIX', 'CCE': 'GCC_X86_64'}
                     
                     compfam = self.toolchain.comp_family()
@@ -193,7 +194,8 @@ class EB_jaxlib(PythonPackage):
 
                 bazel_options.append('--action_env=HIPCC_COMPILE_FLAGS_APPEND')
 
-            elif self.toolchain.toolchain_family() is 'CPE':
+            #elif self.toolchain.toolchain_family() is 'CPE':
+            elif self.toolchain.toolchain_family() == toolchain.CPE:
                 print_warning("GPU target not set! Add craype-accel-amd-* module to the dependencies or load the partition/G module.")
         else:
             options.append('--noenable_cuda')
