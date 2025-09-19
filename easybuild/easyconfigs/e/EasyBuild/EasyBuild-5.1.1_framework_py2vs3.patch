@@ -1,0 +1,31 @@
+Patch by Kurt Lust
+The (deprecated) py2vs3 tools in EasyBuild5 don't properly support OrderedDict anymore
+which we used in the EB_EasyBuildMetaLumi EasyBlock (that we try to get rid of though).
+The second component of the patch is to avoid a warning about py2vs3 being deprecated as
+it will only confuse regular users.
+diff -Nau easybuild-framework-5.1.1/easybuild/tools/py2vs3/py3.py.orig      easybuild-framework-5.1.1/easybuild/tools/py2vs3/py3.py
+diff -Nau easybuild-framework-5.1.1/easybuild/tools/py2vs3/__init__.py.orig easybuild-framework-5.1.1/easybuild/tools/py2vs3/__init__.py
+--- easybuild-framework-5.1.1/easybuild/tools/py2vs3/py3.py.orig	2025-09-18 16:14:11.000000000 +0300
+--- easybuild-framework-5.1.1/easybuild/tools/py2vs3/py3.py.orig	2025-09-18 16:14:11.000000000 +0300
++++ easybuild-framework-5.1.1/easybuild/tools/py2vs3/py3.py	2025-09-18 16:16:43.000000000 +0300
+@@ -34,6 +34,7 @@
+ # these are not used here, but imported from here in other places
+ import configparser  # noqa
+ import urllib.request as std_urllib  # noqa
++from collections import OrderedDict  # noqa
+ from collections.abc import Mapping  # noqa
+ from functools import cmp_to_key
+ from importlib.util import spec_from_file_location, module_from_spec
+--- easybuild-framework-5.1.1/easybuild/tools/py2vs3/__init__.py.orig	2025-09-18 16:45:17.000000000 +0300
++++ easybuild-framework-5.1.1/easybuild/tools/py2vs3/__init__.py	2025-09-18 16:46:10.000000000 +0300
+@@ -32,8 +32,8 @@
+ from easybuild.tools.py2vs3.py3 import *  # noqa
+ 
+ 
+-_log = fancylogger.getLogger('py2vs3', fname=False)
+-_log.deprecated("Using py2vs3 is deprecated, since EasyBuild no longer runs on Python 2.", '6.0')
++#_log = fancylogger.getLogger('py2vs3', fname=False)
++#_log.deprecated("Using py2vs3 is deprecated, since EasyBuild no longer runs on Python 2.", '6.0')
+ 
+ 
+ def python2_is_deprecated():
