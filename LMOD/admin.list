@@ -148,3 +148,8 @@ This version of lumi-container-wrapper is deprecated. Please switch to version 0
 newer, available in CrayEnv and LUMI/24.03 or newer. Please also take note of license 
 issues when using with anaconda, as mentioned in the user documentation section of 
 https://lumi-supercomputer.github.io/LUMI-EasyBuild-docs/l/lumi-container-wrapper/ .
+
+EasyBuild/5.*.*:
+Our software stacks are so far compiled with EasyBuild 4. Use EasyBuild 5 at your own
+risk. It is only offered to experiment before we offer it officially in a later 
+software stack release. Many things will be broken!
