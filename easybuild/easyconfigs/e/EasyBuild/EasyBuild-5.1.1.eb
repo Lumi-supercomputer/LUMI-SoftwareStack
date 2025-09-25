@@ -296,9 +296,9 @@ sanity_check_commands = [
 ]
 
 modextravars = {
-    'EB_INSTALLPYTHON': local_craypython_exe, # Normally set by the EasyBlock but that doesn't work when used in a bundle.
+    'EB_INSTALLPYTHON':        local_craypython_exe, # Normally set by the EasyBlock but that doesn't work when used in a bundle.
     # Some environment variables to get the old EasyBuild behaviour even before editing configuration files.
-    'EASYBUILD_DISABLE_RPATH':             '1',
+    'EASYBUILD_DISABLE_RPATH': '1',
 }
 
 modextrapaths = {
