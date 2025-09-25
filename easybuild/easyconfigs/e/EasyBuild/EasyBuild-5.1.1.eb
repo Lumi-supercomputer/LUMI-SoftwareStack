@@ -114,21 +114,23 @@ components = [
                             {'name': 'EasyBuild-5.1.1_framework_keyring-DBus.patch',                         'level': 0, 'sourcepath': '.'},
                             {'name': 'EasyBuild-5.1.1_framework_py2vs3.patch',                               'level': 0, 'sourcepath': '.'},
                             # EasyBlock patches for LUMI
+                            {'name': 'EasyBuild-5.1.1_EasyBlock_Bundle_installdir_in_module.patch',          'level': 0, 'sourcepath': '.'},
                             {'name': 'EasyBuild-5.1.1_EasyBlock_ParMETIS.patch',                             'level': 0, 'sourcepath': '.'},
                         ],
         'checksums':    [
                             # 3 EasyBuild components
-                            {'easybuild_framework-5.1.1.tar.gz':                   '4579274c758b5a01aa7996bc6e2652f6f7ff6e94320f93f22376f5b68c71d0bb'},
-                            {'easybuild_easyblocks-5.1.1.tar.gz':                  '8bc202cb203d296de7cfe1f9bb38e75c1cc7490c8bd43108469df0f7777ddd25'},
-                            {'easybuild_easyconfigs-5.1.1.tar.gz':                 'b7f1ceada6ba2c1063ff98bb3e310aca4aa48f94b4389fb26f071ff1e95ba402'},
+                            {'easybuild_framework-5.1.1.tar.gz':                            '4579274c758b5a01aa7996bc6e2652f6f7ff6e94320f93f22376f5b68c71d0bb'},
+                            {'easybuild_easyblocks-5.1.1.tar.gz':                           '8bc202cb203d296de7cfe1f9bb38e75c1cc7490c8bd43108469df0f7777ddd25'},
+                            {'easybuild_easyconfigs-5.1.1.tar.gz':                          'b7f1ceada6ba2c1063ff98bb3e310aca4aa48f94b4389fb26f071ff1e95ba402'},
                             # Standard EasyBuilders patches with late bugfixes
                             {'EasyBuild-5.1.1_framework_fix-failing-copy-of-readonly-patches.patch': '421ffc178566ad3ff5099b59748acb1ed7985b3f119e2ee80e468985b14f57f6'},
                             # EasyBuild framework patches for LUMI
-                            {'EasyBuild-5.1.1_framework_extra-file-formats.patch': '2188a8504a2ce424bc5f0498e1eb5ca0d7ae739f5b6af6a45e72c93343124e0f'},
-                            {'EasyBuild-5.1.1_framework_keyring-DBus.patch':       'dd0e943a03e3f24aee3432110ff7562fc46e94fa5d5efe8bbbeffe96476bc5ca'},
-                            {'EasyBuild-5.1.1_framework_py2vs3.patch':             '3b40de350f9783c7bf129c5b1280b21d0456f7fbc911b805d715ec2f8021679e'},
+                            {'EasyBuild-5.1.1_framework_extra-file-formats.patch':          '2188a8504a2ce424bc5f0498e1eb5ca0d7ae739f5b6af6a45e72c93343124e0f'},
+                            {'EasyBuild-5.1.1_framework_keyring-DBus.patch':                'dd0e943a03e3f24aee3432110ff7562fc46e94fa5d5efe8bbbeffe96476bc5ca'},
+                            {'EasyBuild-5.1.1_framework_py2vs3.patch':                      '3b40de350f9783c7bf129c5b1280b21d0456f7fbc911b805d715ec2f8021679e'},
                             # EasyBlock patches for LUMI
-                            {'EasyBuild-5.1.1_EasyBlock_ParMETIS.patch':           'c93877257e83110747a4b09f2c98ddbd1c19ade90b0544362e246d3fd1d40023'},
+                            {'EasyBuild-5.1.1_EasyBlock_Bundle_installdir_in_module.patch': '50abbddf03c2d3eb028dd459c3d39762160c31d28e2517735ed73f06d2d9ac54'},
+                            {'EasyBuild-5.1.1_EasyBlock_ParMETIS.patch':                    'c93877257e83110747a4b09f2c98ddbd1c19ade90b0544362e246d3fd1d40023'},
                         ],
         'install_cmds': [
                             # It turns out that the --no-index and --no-build-isolation options that EasyBuild uses in the EasyBlock,
