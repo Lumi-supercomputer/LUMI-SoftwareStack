@@ -313,7 +313,8 @@ components = [
         'checksums':     ['a41076e3710746326c3945042994ad9a4fcac0ce0277dd8fea076fec3c9772b5'],
         'start_dir':     '%(namelower)s-%(version)s',
         'preconfigopts': 'CC="gcc" CFLAGS="-O2 -march=znver1 -fPIC" ',
-        'configopts':    '--with-apr=%(installdir)s/bin/apr-1-config --enable-static --disable-shared',
+        #'unrecognized_configure_options': 'warn', # If we run into further issues
+        'configopts':    '--with-apr=%(installdir)s/bin/apr-1-config', # --enable-static --disable-shared is not supported.
         'installopts':   ' && cd %(installdir)s/lib/pkgconfig && sed -i -e "s|-lexpat|-L%(installdir)s/lib -lexpat|" apr-util-1.pc' +
                          ' && cd %(installdir)s/bin           && sed -i -e "s|-lexpat|-L%(installdir)s/lib -lexpat|" apu-1-config'
 
@@ -351,7 +352,9 @@ components = [
         'checksums':     ['21547f3516120c75597e5b30a992e27a592a31950b5140e7b8bfde3f192033c4'],
         'start_dir':     '%(namelower)s-%(version)s',
         'preconfigopts': 'CFLAGS="-O2 -march=znver1 -fPIC" CXXFLAGS="-O2 -march=znver1 -fPIC" ',
-        'configopts':    '--with-pic --disable-cpp --enable-newline-is-any ' + \
+        #'unrecognized_configure_options': 'warn', # If we run into further issues
+        # Removed --disable-cpp compared to earlier versions.
+        'configopts':    '--with-pic --enable-newline-is-any ' + \
                          '--enable-pcre2-16 --enable-pcre2-32 --enable-jit ' + \
                          '--enable-pcre2grep-libz --enable-pcre2grep-libbz2 --enable-pcre2test-libreadline ' + \
                          '--disable-shared --enable-static '
@@ -471,7 +474,9 @@ sanity_check_commands = [
     'sqlite3 -version',
     'pkg-config --libs sqlite3' ] + [
     # talloc
-    'pkg-config --libs talloc' ]
+    'pkg-config --libs talloc' ] + [
+    # Check for shared libraries. There should be none.
+    '/bin/ls -1 %(installdir)s/lib | grep -qv \'.so\'' ]
 
 modextravars = {
     'CURL_INCLUDES':                '%(installdir)s/include', # Bad idea to add the variables below as they confuse get_software_libdir
