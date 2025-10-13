@@ -1,6 +1,6 @@
 easyblock = 'Bundle'
 
-local_EasyBuild_version =         '5.1.1'
+local_EasyBuild_version =         '5.1.2'
 local_craypython_version =        '3.11.7'
 
 local_wheel_cray_version     =   '0.45.1'      # wheel      20241123 - Check on https://pypi.org/project/wheel/#history
@@ -87,51 +87,50 @@ local_craypython_exe = f'/opt/cray/pe/python/{local_craypython_version}/bin/pyth
 
 components = [
     ('EasyBuild', local_EasyBuild_version, {
-        'easyblock': 'PackedBinary',
+        'easyblock': 'Binary',
         'sources':      [
                         {
                             'filename':    'easybuild_framework-%(version)s.tar.gz',
-                            'source_urls': ['https://files.pythonhosted.org/packages/4b/2c/2e051f0c4208664cd767505335f2732e13b386d4eb0263900d650c70354e/'],
+                            'source_urls': ['https://files.pythonhosted.org/packages/03/c1/6d01271066442008e01d86d61b95db46629f6ad7afcd4df369881ea54f4c/'],
                             'extract_cmd': "tar xfvz %s && mv easybuild_framework-%(version)s easybuild-framework-%(version)s",
                         },
                         {
                             'filename':    'easybuild_easyblocks-%(version)s.tar.gz',
-                            'source_urls': ['https://files.pythonhosted.org/packages/4f/03/dcded2d959429f439951ecf59f77968b69900520ac9223562d92154ca8b9/'],
+                            'source_urls': ['https://files.pythonhosted.org/packages/73/19/66b6c51816b9a314f56678b975a8075fc76210de62d4d2b87c5f279fd80d/'],
                             'extract_cmd': "tar xfvz %s && mv easybuild_easyblocks-%(version)s easybuild-easyblocks-%(version)s",
                         },
                         {
                             'filename':    'easybuild_easyconfigs-%(version)s.tar.gz',
-                            'source_urls': ['https://files.pythonhosted.org/packages/64/04/f9b6d3babb0e6935a3d4c119f88f029aedca8d371dc7a5dac981634066ee/'],
+                            'source_urls': ['https://files.pythonhosted.org/packages/e5/23/dfefbf41e65666d252ed0203c90c410ea66625bbc2a10b7c35ef926c272a/'],
                             'extract_cmd': "tar xfvz %s && mv easybuild_easyconfigs-%(version)s easybuild-easyconfigs-%(version)s",
                         },
                         ],
         'patches':      [
                             # Patching in the bundle starts from the directory that contains all source subdirectories.
                             # Standard EasyBuilders patches with late bugfixes
-                            {'name': 'EasyBuild-5.1.1_framework_fix-failing-copy-of-readonly-patches.patch', 'level': 0, 'sourcepath': '.'},
+                            # - None in this version
                             # EasyBuild framework patches for LUMI
-                            {'name': 'EasyBuild-5.1.1_framework_extra-file-formats.patch',                   'level': 0, 'sourcepath': '.'},
-                            {'name': 'EasyBuild-5.1.1_framework_keyring-DBus.patch',                         'level': 0, 'sourcepath': '.'},
-                            {'name': 'EasyBuild-5.1.1_framework_py2vs3.patch',                               'level': 0, 'sourcepath': '.'},
+                            {'name': 'EasyBuild-5.1.2_framework_extra-file-formats.patch',                   'level': 0, 'sourcepath': '.'},
+                            {'name': 'EasyBuild-5.1.2_framework_keyring-DBus.patch',                         'level': 0, 'sourcepath': '.'},
                             # EasyBlock patches for LUMI
-                            {'name': 'EasyBuild-5.1.1_EasyBlock_Bundle_installdir_in_module.patch',          'level': 0, 'sourcepath': '.'},
-                            {'name': 'EasyBuild-5.1.1_EasyBlock_ParMETIS.patch',                             'level': 0, 'sourcepath': '.'},
+                            {'name': 'EasyBuild-5.1.2_EasyBlock_ParMETIS.patch',                             'level': 0, 'sourcepath': '.'},
+                            {'name': 'EasyBuild-5.1.2_EasyBlock_pythonpackage.patch',                        'level': 0, 'sourcepath': '.'},
                         ],
         'checksums':    [
                             # 3 EasyBuild components
-                            {'easybuild_framework-5.1.1.tar.gz':                            '4579274c758b5a01aa7996bc6e2652f6f7ff6e94320f93f22376f5b68c71d0bb'},
-                            {'easybuild_easyblocks-5.1.1.tar.gz':                           '8bc202cb203d296de7cfe1f9bb38e75c1cc7490c8bd43108469df0f7777ddd25'},
-                            {'easybuild_easyconfigs-5.1.1.tar.gz':                          'b7f1ceada6ba2c1063ff98bb3e310aca4aa48f94b4389fb26f071ff1e95ba402'},
+                            {'easybuild_framework-5.1.2.tar.gz':                            '2505834d46dab4cfde1eacac28b7516c1b92c42001236e890cf056c146341749'},
+                            {'easybuild_easyblocks-5.1.2.tar.gz':                           '68e8e39371dd4bec32bbc3aa55a053a70c0fc8b931dba0dfec25c68770b24c37'},
+                            {'easybuild_easyconfigs-5.1.2.tar.gz':                          '3427ff7d4da4291840f48b7732997453e556d9ee807e7d249399bd28c1810d9c'},
                             # Standard EasyBuilders patches with late bugfixes
-                            {'EasyBuild-5.1.1_framework_fix-failing-copy-of-readonly-patches.patch': '421ffc178566ad3ff5099b59748acb1ed7985b3f119e2ee80e468985b14f57f6'},
+                            # - None in this version
                             # EasyBuild framework patches for LUMI
-                            {'EasyBuild-5.1.1_framework_extra-file-formats.patch':          '2188a8504a2ce424bc5f0498e1eb5ca0d7ae739f5b6af6a45e72c93343124e0f'},
-                            {'EasyBuild-5.1.1_framework_keyring-DBus.patch':                'dd0e943a03e3f24aee3432110ff7562fc46e94fa5d5efe8bbbeffe96476bc5ca'},
-                            {'EasyBuild-5.1.1_framework_py2vs3.patch':                      '3b40de350f9783c7bf129c5b1280b21d0456f7fbc911b805d715ec2f8021679e'},
+                            {'EasyBuild-5.1.2_framework_extra-file-formats.patch':          'e60d4ac564ede0dc0e50183ffa5080b205ce2d1bf27f34acf9139c350254d932'},
+                            {'EasyBuild-5.1.2_framework_keyring-DBus.patch':                '5d0bf9c55a99462a0c9a901bf9a638393d42b8d431cc284c7a702178483837d8'},
                             # EasyBlock patches for LUMI
-                            {'EasyBuild-5.1.1_EasyBlock_Bundle_installdir_in_module.patch': '50abbddf03c2d3eb028dd459c3d39762160c31d28e2517735ed73f06d2d9ac54'},
-                            {'EasyBuild-5.1.1_EasyBlock_ParMETIS.patch':                    'c93877257e83110747a4b09f2c98ddbd1c19ade90b0544362e246d3fd1d40023'},
+                            {'EasyBuild-5.1.2_EasyBlock_ParMETIS.patch':                    '36a47daebb483139c7da71f36ca0a338b782b0329fa60c25f42e9ef6a45e66d2'},
+                            {'EasyBuild-5.1.2_EasyBlock_pythonpackage.patch':               '64dea071ecee7943fed321e8a3b5c7831bcc8a125b568e47c9f7ec95e14af97e'},
                         ],
+        'extract_sources': False,
         'install_cmds': [
                             # It turns out that the --no-index and --no-build-isolation options that EasyBuild uses in the EasyBlock,
                             # cause trouble with Cray Python.
@@ -141,8 +140,10 @@ components = [
                             # Robustify a number of commands by hard-coding the Python to use and integrating
                             # setting the search path for Python packages.
                             f'sed -i -e \'s|^PYTHON=.*|export PYTHONPATH="%(installdir)s/lib/python{local_pyshortver}/site-packages:%(installdir)s/lib64/python{local_pyshortver}/site-packages"\\nPYTHON=|\' '
-                                   f'-e \'s|for python_cmd in|for python_cmd in "{local_craypython_exe}"|\' '
                                     '%(installdir)s/bin/eb',
+                            #f'sed -i -e \'s|^PYTHON=.*|export PYTHONPATH="%(installdir)s/lib/python{local_pyshortver}/site-packages:%(installdir)s/lib64/python{local_pyshortver}/site-packages"\\nPYTHON=|\' '
+                            #       f'-e \'s|for python_cmd in|for python_cmd in "{local_craypython_exe}"|\' '
+                            #        '%(installdir)s/bin/eb',
                             # Copy the EasyBuild license files.
                             f'cd easybuild-framework-{version} && mkdir -p %(installdir)s/share/licenses/EasyBuild && ' +
                             'cp CONTRIBUTING.md LICENSE README.rst RELEASE_NOTES %(installdir)s/share/licenses/EasyBuild',
@@ -224,8 +225,8 @@ exts_default_options = {
     'sanity_pip_check':     False,
     'use_pip':              True,
     'pip_ignore_installed': False,
-    'req_py_majver':        local_craypython_version.split('.')[0], # Used to let EasyBuild select the right system Python executable.
-    'req_py_minver':        local_craypython_version.split('.')[1], # Used to let EasyBuild select the right system Python executable.
+    'req_py_majver':        int( local_craypython_version.split('.')[0] ), # Used to let EasyBuild select the right system Python executable.
+    'req_py_minver':        int( local_craypython_version.split('.')[1] ), # Used to let EasyBuild select the right system Python executable.
 }
 
 # All packages are pure python. We install from wheels to avoid having to install all
@@ -235,7 +236,7 @@ exts_list = [
     # rich and dependencies mdurl, pygments and markdown_it_py
     ('mdurl',             '0.1.2',    {}), # https://pypi.org/project/mdurl/
     ('pygments',          '2.19.2',   {}), # https://pypi.org/project/Pygments/
-    ('markdown_it_py',    '4.0.0',    {'modulename': 'markdown_it'}), # https://pypi.org/project/markdown-it-py/
+    ('markdown_it_py',    '4.0.0',    {'modulename': 'markdown_it'}), # https://pypi.org/project/markdown-it-py/, modulename is markdown_it
     ('rich',              '14.1.0',   {}), # https://pypi.org/project/rich/
     # Add archspec as it seems easy anyway
     ('archspec',          '0.2.5',    {}), # https://pypi.org/project/archspec/
@@ -299,19 +300,14 @@ sanity_check_commands = [
 
 modextravars = {
     'EB_INSTALLPYTHON':        local_craypython_exe, # Normally set by the EasyBlock but that doesn't work when used in a bundle.
+    'EB_PYTHON':               local_craypython_exe, # Normally set by the EasyBlock but that doesn't work when used in a bundle.
     # Some environment variables to get the old EasyBuild behaviour even before editing configuration files.
     'EASYBUILD_DISABLE_RPATH': '1',
 }
 
-modextrapaths = {
-    'PYTHONPATH': [f'lib/python{local_pyshortver}/site-packages'],
-}
-
-#
-# We wanted to avoid the next lines, but it is the only way to get through the sanity checks...
-#
-modluafooter = f"""
-append_path( 'PATH', '/opt/cray/pe/python/{local_craypython_version}/bin' )
-"""
+# The next line is only needed should we start using EasyBuild as a library.
+#modextrapaths = {
+#    'PYTHONPATH': [f'lib/python{local_pyshortver}/site-packages'],
+#}
 
 moduleclass = 'tools'

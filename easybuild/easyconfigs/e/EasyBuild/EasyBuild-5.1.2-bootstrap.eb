@@ -1,0 +1,202 @@
+easyblock = 'Bundle'
+
+local_EasyBuild_version =         '5.1.2'
+local_craypython_version =        '3.11.7'
+
+local_wheel_cray_version     =   '0.45.1'      # wheel      20241123 - Check on https://pypi.org/project/wheel/#history
+local_flit_core_cray_version =   '3.12.0'      # flit_core  20250325 - Check on https://pypi.org/project/flit-core/#history
+
+name =          'EasyBuild'
+version =       local_EasyBuild_version
+versionsuffix = '-bootstrap'
+
+local_EB_lzip_version =           '1.25'   # 20250117 - https://download.savannah.gnu.org/releases/lzip/
+local_EB_p7zip_version =          '17.05'  # 20230220 - Check on https://github.com/p7zip-project/p7zip/releases
+local_EB_PRoot_version =          '5.4.0'  # 20230513 - https://github.com/proot-me/proot/releases
+local_EB_syslibs_talloc_version = '2.4.3'  # 20250206 - https://www.samba.org/ftp/talloc/
+
+homepage = 'https://easybuilders.github.io/easybuild'
+
+whatis = [
+    "Description: EasyBuild is a software build and installation framework written in Python that allows you to install software in a structured, repeatable and robust way."
+]
+
+description = f"""
+EasyBuild is a software build and installation framework
+written in Python that allows you to install software in a structured,
+repeatable and robust way.
+    
+This EasyBuild module also provides some additional tools that can be used by
+EasyBuild but are missing in the LUMI OS image. These include
+
++ lzip {local_EB_lzip_version}: Lzip is a lossless data compressor with a user interface 
+  similar to the one of gzip or bzip2. Lzip uses a simplified form of LZMA 
+  (Lempel-Ziv-Markov chain-Algorithm) designed to achieve complete 
+  interoperability between implementations. Decompression speed is 
+  intermediate between gzip and bzip2.
+  
+  EasyBuild has also been patched to recognise .tar.lz, .tlz and .lz files.
+
++ p7zip {local_EB_p7zip_version} - https://github.com/p7zip-project/p7zip
+  It is used, e.g., in the Matlab EasyConfigs from EasyBuild but currently
+  not actively used on LUMI.
+
++ PRoot {local_EB_PRoot_version}: PRoot is a user-space implementation of chroot, mount --bind,
+  and binfmt_misc. This means that users don't need any privileges or setup to
+  do things like using an arbitrary directory as the new root filesystem,
+  making files accessible somewhere else in the filesystem hierarchy, or
+  executing programs built for another CPU architecture transparently through
+  QEMU user-mode.
+
+  It is included in the EasyBuild module as it is a useful tool to enable
+  building containers in `postinstallcmds` in the container modules on LUMI. 
+
+These tools are all build against the system libraries
+
+"""
+
+usage = """
+See the documentation on readthedocs. Only the documentation of the latest
+version is readily available.
+
+The EasyBuild module on LUMI should be used through the EasyBuild-user or
+EasyBuild-production modules. These modules ensure that EasyBuild is properly
+configured to install software on LUMI.
+  * Installing software that is common to all partitions: First load the
+    appropriate LUMI software stack module and the hidden partition/common module
+    and then load either EasyBuild-user or EasyBuild-production (the latter for
+    system managers only) module.
+  * Installing software for a specific partition works in the same way, but then
+    by loading the appropriate partition module. It is best to compile software on
+    a node of that partition as cross-compiling may not always work as some packages
+    have the nasty habit to add compiler options that conflict with the requirements
+    of cross-compiling.
+"""
+
+docurls = [
+    "Web-based documentation on https://easybuild.readthedocs.io/"
+]
+
+toolchain = SYSTEM
+
+builddependencies = [
+    (f'cray-python/{local_craypython_version}', EXTERNAL_MODULE),
+]
+
+local_pyshortver = '.'.join(local_craypython_version.split('.')[:2])
+local_craypython_exe = f'/opt/cray/pe/python/{local_craypython_version}/bin/python{local_pyshortver}'
+
+components = [
+    ('EasyBuild', local_EasyBuild_version, {
+        'easyblock': 'Binary',
+        'sources':      [
+                        {
+                            'filename':    'easybuild_framework-%(version)s.tar.gz',
+                            'source_urls': ['https://files.pythonhosted.org/packages/03/c1/6d01271066442008e01d86d61b95db46629f6ad7afcd4df369881ea54f4c/'],
+                            'extract_cmd': "tar xfvz %s && mv easybuild_framework-%(version)s easybuild-framework-%(version)s",
+                        },
+                        {
+                            'filename':    'easybuild_easyblocks-%(version)s.tar.gz',
+                            'source_urls': ['https://files.pythonhosted.org/packages/73/19/66b6c51816b9a314f56678b975a8075fc76210de62d4d2b87c5f279fd80d/'],
+                            'extract_cmd': "tar xfvz %s && mv easybuild_easyblocks-%(version)s easybuild-easyblocks-%(version)s",
+                        },
+                        ],
+      'checksums':      [
+                            # 3 EasyBuild components
+                            {'easybuild_framework-5.1.2.tar.gz':                            '2505834d46dab4cfde1eacac28b7516c1b92c42001236e890cf056c146341749'},
+                            {'easybuild_easyblocks-5.1.2.tar.gz':                           '68e8e39371dd4bec32bbc3aa55a053a70c0fc8b931dba0dfec25c68770b24c37'},
+                        ],
+        'extract_sources': False,
+        'install_cmds': [
+                            # It turns out that the --no-index and --no-build-isolation options that EasyBuild uses in the EasyBlock,
+                            # cause trouble with Cray Python.
+                            f'cd easybuild-framework-{version}   && pip{local_pyshortver} install --prefix=%(installdir)s --no-deps --ignore-installed .',
+                            f'cd easybuild-easyblocks-{version}  && pip{local_pyshortver} install --prefix=%(installdir)s --no-deps --ignore-installed .',
+                            # Robustify a number of commands by hard-coding the Python to use and integrating
+                            # setting the search path for Python packages.
+                            f'sed -i -e \'s|^PYTHON=.*|export PYTHONPATH="%(installdir)s/lib/python{local_pyshortver}/site-packages:%(installdir)s/lib64/python{local_pyshortver}/site-packages"\\nPYTHON=|\' '
+                                    '%(installdir)s/bin/eb',
+                            #f'sed -i -e \'s|^PYTHON=.*|export PYTHONPATH="%(installdir)s/lib/python{local_pyshortver}/site-packages:%(installdir)s/lib64/python{local_pyshortver}/site-packages"\\nPYTHON=|\' '
+                            #       f'-e \'s|for python_cmd in|for python_cmd in "{local_craypython_exe}"|\' '
+                            #        '%(installdir)s/bin/eb',
+                            # Copy the EasyBuild license files.
+                            f'cd easybuild-framework-{version} && mkdir -p %(installdir)s/share/licenses/EasyBuild && ' +
+                            'cp CONTRIBUTING.md LICENSE README.rst RELEASE_NOTES %(installdir)s/share/licenses/EasyBuild',
+                        ]
+    }),
+]
+
+exts_defaultclass = 'PythonPackage'
+exts_filter = (f"{local_craypython_exe} -c 'import %(ext_name)s'", '')
+exts_default_options = {
+    'source_urls':          [PYPI_SOURCE],
+    'source_tmpl':          '%(name)s-%(version)s-py3-none-any.whl', # Get wheels for packages that are pure Python anyway.
+    'download_dep_fail':    True,
+    'sanity_pip_check':     False,
+    'use_pip':              True,
+    'pip_ignore_installed': False,
+    'req_py_majver':        int( local_craypython_version.split('.')[0] ), # Used to let EasyBuild select the right system Python executable.
+    'req_py_minver':        int( local_craypython_version.split('.')[1] ), # Used to let EasyBuild select the right system Python executable.
+}
+
+# All packages are pure python. We install from wheels to avoid having to install all
+# build dependencies of those packages also that EasyBuild normally requires. We had
+# trouble installing them all. In particular, poetry failed for some reason.
+exts_list = [
+    # rich and dependencies mdurl, pygments and markdown_it_py
+    ('mdurl',             '0.1.2',    {}), # https://pypi.org/project/mdurl/
+    ('pygments',          '2.19.2',   {}), # https://pypi.org/project/Pygments/
+    ('markdown_it_py',    '4.0.0',    {'modulename': 'markdown_it'}), # https://pypi.org/project/markdown-it-py/, modulename is markdown_it
+    ('rich',              '14.1.0',   {}), # https://pypi.org/project/rich/
+]
+
+postinstallcmds = [
+    # Robustify a number of commands by hard-coding the Python to use and integrating
+    # setting the search path for Python packages.
+    f'sed -i -e \'s|/opt/.*/python|{local_craypython_exe} -E|\' '
+           f'-e \'s|import sys|import sys\\nsys.path.append("%(installdir)s/lib/python{local_pyshortver}/site-packages")|\' '
+            '%(installdir)s/bin/markdown-it',
+    f'sed -i -e \'s|/opt/.*/python|{local_craypython_exe} -E|\' '
+           f'-e \'s|import sys|import sys\\nsys.path.append("%(installdir)s/lib/python{local_pyshortver}/site-packages")|\' '
+            '%(installdir)s/bin/pygmentize',
+]
+
+sanity_check_paths = {
+    'files': #EasyBuild
+             ['bin/eb'],
+             # lzip
+    'dirs':  # EasyBuild
+             [f'lib/python{local_pyshortver}/site-packages'],
+}
+
+sanity_check_commands = [
+    'unset PYTHONPATH && markdown-it --version',
+    'unset PYTHONPATH && pygmentize -V',
+    'unset PYTHONPATH && eb --version',           # Taken from the EB_EasyBuildMeta EasyBlock
+    'unset PYTHONPATH && eb -a',                  # Taken from the EB_EasyBuildMeta EasyBlock
+    'unset PYTHONPATH && eb -e ConfigureMake -a', # Taken from the EB_EasyBuildMeta EasyBlock
+]
+
+modextravars = {
+    'EB_INSTALLPYTHON':        local_craypython_exe, # Normally set by the EasyBlock but that doesn't work when used in a bundle.
+    'EB_PYTHON':               local_craypython_exe, # Normally set by the EasyBlock but that doesn't work when used in a bundle.
+    # Some environment variables to get the old EasyBuild behaviour even before editing configuration files.
+    'EASYBUILD_DISABLE_RPATH': '1',
+}
+
+# The next line is only needed should we start using EasyBuild as a library.
+# It is needed to get through the sanity checks in EasyBuild 4.9.4
+modextrapaths = {
+    'PYTHONPATH': [f'lib/python{local_pyshortver}/site-packages'],
+}
+#
+# We wanted to avoid the next lines, but it is the only way to get through the sanity checks...
+#
+# It is needed to get through the sanity checks in EasyBuild 4.9.4
+#
+modluafooter = f"""
+append_path( 'PATH', '/opt/cray/pe/python/{local_craypython_version}/bin' )
+"""
+
+
+moduleclass = 'tools'

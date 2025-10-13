@@ -193,7 +193,7 @@ e.b., the [MATLAB EasyConfigs in the EasyBuilders repository](https://github.com
         build process in an EasyConfig to modify an existing container.
 
 
-### EasyBuild 5.1.1 (experimental for 25.03)
+### EasyBuild 5.1.2 (experimental for 25.03)
 
 -   Patches: The way of applying patches is different in an EasyConfig just for
     EasyBuild or in the Bundle.
@@ -345,9 +345,9 @@ e.b., the [MATLAB EasyConfigs in the EasyBuilders repository](https://github.com
     sanity checks that are not executed properly anyway when EasyBuild is installed as component in a Bundle as
     we started doing on LUMI at some point to include some other useful software for EasyBuild installations.
 
--   **Remaining issues** that we do not like:
+-   It turns out that EasyBuild 5.1 is less strict in its Python tests than EasyBuild 4.9:
 
-    -   We need to add Cray Python to the `PATH` even though it is needed for nothing. 
+    -   For 4.9.4, we need to add Cray Python to the `PATH` even though it is needed for nothing. 
         Otherwise the sanity checks fail.
         
         Of course, in the logic of using EasyBuild as a library, one would even need 
@@ -355,9 +355,14 @@ e.b., the [MATLAB EasyConfigs in the EasyBuilders repository](https://github.com
         when EasyBuild is then used to install another Python version or packages for a different
         Python version.
         
-    -   The EasyBuild installation directory is also added to `PYTHONPATH`. This makes sense though as 
-        EasyBuild can also be used as a library which is not a use case we currently have on LUMI.
-
+    -   For 4.9.4, we also needed to add `PYTHONPATH` (which is not done automatically in our case)
+        to pass all sanity checks.
+        
+    These are not needed anymore in 5.1.2.
+    
+    So we developed a rather minimal `EasyBuild-5.1.2-bootstrap.eb` that can be installed with 4.9.4 
+    to then use it to install `EasyBuild-5.1.2.eb` without going through our software stack build
+    bootstrap procedure as for now we stick to 4.9.4 as the default EasyBuild for 25.03.
 
 
 ## Fixes needed to EasyConfigs
