@@ -41,6 +41,9 @@ Cray's LibSci (BLAS/LAPACK et al), FFT library, etc.
 """
 import copy
 
+from easybuild.tools.version import VERSION as EB_VERSION # Note that this is already a value that went through LooseVersion
+from easybuild.tools import LooseVersion
+
 import easybuild.tools.environment as env
 from easybuild.tools.build_log import EasyBuildError
 from easybuild.tools.config import build_option
@@ -75,36 +78,73 @@ class cpeCompCCE(Compiler):
         'gpu-rdc': (False, "Enable relocatable device code (can hava a negative performance impact)"),
     }
 
-    COMPILER_UNIQUE_OPTION_MAP = {
-        # Options rooted in clang/LLVM
-        'lto': 'flto',
-        'offload-lto': 'foffload-lto',
-        # Cray-specific options
-        'mpich-mt': 'craympich-mt',        
-        'dynamic': '',  # Check: Should add code for CRAY_PE_LINK_TYPE?
-        # Overwriting or filling in default EasyBuild toolchain options.
-        'unroll': '', # As we don't know what to do in Fortran.
-        'verbose': 'craype-verbose',
-        'i8': '-s integer64',
-        'r8': '-s real64',        
-        'shared': '',
-        # We cannot assign proper precision options for the Cray compilers as they differ
-        # between their C/C++ and Fortran compilers.
-        'strict': '',
-        'precise': '',
-        'defaultprec': '',
-        'loose': '',
-        'veryloose': '',
-    }
+    if EB_VERSION < LooseVersion( '5.0.0' ):
 
-    COMPILER_CC  = 'cc'
-    COMPILER_CXX = 'CC'
-    COMPILER_C_UNIQUE_FLAGS = ['dynamic', 'mpich-mt', 'lto', 'offload-lto']
+        COMPILER_UNIQUE_OPTION_MAP = {
+            # Options rooted in clang/LLVM
+            'lto': 'flto',
+            'offload-lto': 'foffload-lto',
+            # Cray-specific options
+            'mpich-mt': 'craympich-mt',        
+            'dynamic': '',  # Check: Should add code for CRAY_PE_LINK_TYPE?
+            # Overwriting or filling in default EasyBuild toolchain options.
+            'unroll': '', # As we don't know what to do in Fortran.
+            'verbose': 'craype-verbose',
+            'i8': 's integer64',
+            'r8': 's real64',        
+            'shared': '',
+            # We cannot assign proper precision options for the Cray compilers as they differ
+            # between their C/C++ and Fortran compilers.
+            'strict': '',
+            'precise': '',
+            'defaultprec': '',
+            'loose': '',
+            'veryloose': '',
+        }
 
-    COMPILER_F77 = 'ftn'
-    COMPILER_F90 = 'ftn'
-    COMPILER_FC  = 'ftn'
-    COMPILER_F_UNIQUE_FLAGS = ['dynamic', 'mpich-mt']
+        COMPILER_CC  = 'cc'
+        COMPILER_CXX = 'CC'
+        COMPILER_C_UNIQUE_FLAGS = ['dynamic', 'mpich-mt', 'lto', 'offload-lto']
+
+        COMPILER_F77 = 'ftn'
+        COMPILER_F90 = 'ftn'
+        COMPILER_FC  = 'ftn'
+        COMPILER_F_UNIQUE_FLAGS = ['dynamic', 'mpich-mt']
+
+    else:  # EasyBuild 5 and later
+
+        COMPILER_UNIQUE_OPTION_MAP = {
+            # Options rooted in clang/LLVM
+            'lto': '-flto',
+            'offload-lto': '-foffload-lto',
+            # Cray-specific options
+            'mpich-mt': '-craympich-mt',        
+            'dynamic': '',  # Check: Should add code for CRAY_PE_LINK_TYPE?
+            # Overwriting or filling in default EasyBuild toolchain options.
+            'unroll': '', # As we don't know what to do in Fortran.
+            'verbose': '-craype-verbose',
+            'i8': '-s integer64',
+            'r8': '-s real64',        
+            'shared': '',
+            # We cannot assign proper precision options for the Cray compilers as they differ
+            # between their C/C++ and Fortran compilers.
+            'strict': '',
+            'precise': '',
+            'defaultprec': '',
+            'loose': '',
+            'veryloose': '',
+        }
+
+        COMPILER_CC  = 'cc'
+        COMPILER_CXX = 'CC'
+        COMPILER_C_UNIQUE_FLAGS = ['dynamic', 'mpich-mt', 'lto', 'offload-lto']
+
+        COMPILER_F77 = 'ftn'
+        COMPILER_F90 = 'ftn'
+        COMPILER_FC  = 'ftn'
+        COMPILER_F_UNIQUE_FLAGS = ['dynamic', 'mpich-mt']
+
+    # Back to common code for EasyBuild 4 and 5
 
     # template for craype module (determines code generator backend of Cray compiler wrappers)
     CRAYPE_MODULE_NAME_TEMPLATE = 'craype-%(craype_mod)s'
