@@ -44,6 +44,9 @@ Cray's LibSci (BLAS/LAPACK et al), FFT library, etc.
 import re
 from distutils.version import LooseVersion
 
+from easybuild.tools.version import VERSION as EB_VERSION # Note that this is already a value that went through LooseVersion
+from easybuild.tools import LooseVersion
+
 import easybuild.tools.systemtools as systemtools
 from easybuild.tools.build_log import EasyBuildError
 from easybuild.tools.modules import get_software_root, get_software_version
@@ -80,61 +83,124 @@ class cpeCompGCC(Compiler):
                                      provides fine-grained multi-threading support to applications that perform \
                                      MPI operations within threaded regions."),
     }
-    COMPILER_UNIQUE_OPTION_MAP = {
-        # Taken from GCC
-        'i8': 'fdefault-integer-8',
-        'r8': 'fdefault-real-8',
-        'unroll': 'funroll-loops',
-        'f2c': 'ff2c',
-        'loop': ['ftree-switch-conversion', 'floop-interchange', 'floop-strip-mine', 'floop-block'],
-        'lto': 'flto',
-        'gfortran9-compat': 'fallow-argument-mismatch',
-        'ieee': ['mieee-fp', 'fno-trapping-math'],
-        'strict': ['mieee-fp', 'mno-recip'],
-        'precise': ['mno-recip'],
-        'defaultprec': ['fno-math-errno'],
-        'loose': ['fno-math-errno', 'mrecip', 'mno-ieee-fp'],
-        'veryloose': ['fno-math-errno', 'mrecip=all', 'mno-ieee-fp'],
-        'vectorize': {False: 'fno-tree-vectorize', True: 'ftree-vectorize'},
-        DEFAULT_OPT_LEVEL: ['O2', 'ftree-vectorize'],
-        # Generic Cray PE options
-        'shared': '',
-        'dynamic': '',
-        'verbose': 'craype-verbose',
-        'mpich-mt': 'craympich-mt',
-    }
 
-    # gcc on aarch64 does not support -mno-recip, -mieee-fp, -mfno-math-errno...
-    # https://gcc.gnu.org/onlinedocs/gcc/AArch64-Options.html
-    if systemtools.get_cpu_architecture() == systemtools.AARCH64:
-        no_recip_alternative = ['mno-low-precision-recip-sqrt', 'mno-low-precision-sqrt', 'mno-low-precision-div']
-        COMPILER_UNIQUE_OPTION_MAP['strict'] = no_recip_alternative
-        COMPILER_UNIQUE_OPTION_MAP['precise'] = no_recip_alternative
+    if EB_VERSION < LooseVersion( '5.0.0' ):
 
-    # used when 'optarch' toolchain option is enabled (and --optarch is not specified)
-    COMPILER_OPTIMAL_ARCHITECTURE_OPTION = {
-        (systemtools.AARCH64, systemtools.ARM): 'mcpu=native',  # since GCC 6; implies -march=native and -mtune=native
-        (systemtools.X86_64, systemtools.AMD): 'march=native',  # implies -mtune=native
-        (systemtools.X86_64, systemtools.INTEL): 'march=native',  # implies -mtune=native
-    }
-    # used with --optarch=GENERIC
-    COMPILER_GENERIC_OPTION = {
-        (systemtools.AARCH64, systemtools.ARM): 'mcpu=generic',       # implies -march=armv8-a and -mtune=generic
-        (systemtools.X86_64, systemtools.AMD): 'march=x86-64 -mtune=generic',
-        (systemtools.X86_64, systemtools.INTEL): 'march=x86-64 -mtune=generic',
-    }
+        COMPILER_UNIQUE_OPTION_MAP = {
+            # Taken from GCC
+            'i8': 'fdefault-integer-8',
+            'r8': 'fdefault-real-8',
+            'unroll': 'funroll-loops',
+            'f2c': 'ff2c',
+            'loop': ['ftree-switch-conversion', 'floop-interchange', 'floop-strip-mine', 'floop-block'],
+            'lto': 'flto',
+            'gfortran9-compat': 'fallow-argument-mismatch',
+            'ieee': ['mieee-fp', 'fno-trapping-math'],
+            'strict': ['mieee-fp', 'mno-recip'],
+            'precise': ['mno-recip'],
+            'defaultprec': ['fno-math-errno'],
+            'loose': ['fno-math-errno', 'mrecip', 'mno-ieee-fp'],
+            'veryloose': ['fno-math-errno', 'mrecip=all', 'mno-ieee-fp'],
+            'vectorize': {False: 'fno-tree-vectorize', True: 'ftree-vectorize'},
+            DEFAULT_OPT_LEVEL: ['O2', 'ftree-vectorize'],
+            # Generic Cray PE options
+            'shared': '',
+            'dynamic': '',
+            'verbose': 'craype-verbose',
+            'mpich-mt': 'craympich-mt',
+        }
 
-    COMPILER_CC = 'cc'
-    COMPILER_CXX = 'CC'
-    COMPILER_C_UNIQUE_FLAGS = ['dynamic', 'mpich-mt', 'loop', 'lto']
+        # gcc on aarch64 does not support -mno-recip, -mieee-fp, -mfno-math-errno...
+        # https://gcc.gnu.org/onlinedocs/gcc/AArch64-Options.html
+        if systemtools.get_cpu_architecture() == systemtools.AARCH64:
+            no_recip_alternative = ['mno-low-precision-recip-sqrt', 'mno-low-precision-sqrt', 'mno-low-precision-div']
+            COMPILER_UNIQUE_OPTION_MAP['strict'] = no_recip_alternative
+            COMPILER_UNIQUE_OPTION_MAP['precise'] = no_recip_alternative
 
-    COMPILER_F77 = 'ftn'
-    COMPILER_F90 = 'ftn'
-    COMPILER_FC = 'ftn'
-    COMPILER_F_UNIQUE_FLAGS = ['dynamic', 'mpich-mt', 'loop', 'lto', 'f2c', 'gfortran9-compat']
+        # used when 'optarch' toolchain option is enabled (and --optarch is not specified)
+        COMPILER_OPTIMAL_ARCHITECTURE_OPTION = {
+            (systemtools.AARCH64, systemtools.ARM): 'mcpu=native',  # since GCC 6; implies -march=native and -mtune=native
+            (systemtools.X86_64, systemtools.AMD): 'march=native',  # implies -mtune=native
+            (systemtools.X86_64, systemtools.INTEL): 'march=native',  # implies -mtune=native
+        }
+        # used with --optarch=GENERIC
+        COMPILER_GENERIC_OPTION = {
+            (systemtools.AARCH64, systemtools.ARM): 'mcpu=generic',       # implies -march=armv8-a and -mtune=generic
+            (systemtools.X86_64, systemtools.AMD): 'march=x86-64 -mtune=generic',
+            (systemtools.X86_64, systemtools.INTEL): 'march=x86-64 -mtune=generic',
+        }
 
-#    LIB_MULTITHREAD = ['pthread']
-    LIB_MATH = ['m']
+        COMPILER_CC = 'cc'
+        COMPILER_CXX = 'CC'
+        COMPILER_C_UNIQUE_FLAGS = ['dynamic', 'mpich-mt', 'loop', 'lto']
+
+        COMPILER_F77 = 'ftn'
+        COMPILER_F90 = 'ftn'
+        COMPILER_FC = 'ftn'
+        COMPILER_F_UNIQUE_FLAGS = ['dynamic', 'mpich-mt', 'loop', 'lto', 'f2c', 'gfortran9-compat']
+
+        #LIB_MULTITHREAD = ['pthread']
+        LIB_MATH = ['m']
+
+    else:  # EasyBuild 5 or newer
+
+        COMPILER_UNIQUE_OPTION_MAP = {
+            # Taken from GCC
+            'i8': '-fdefault-integer-8',
+            'r8': '-fdefault-real-8',
+            'unroll': '-funroll-loops',
+            'f2c': '-ff2c',
+            'loop': ['-ftree-switch-conversion', '-floop-interchange', '-floop-strip-mine', '-floop-block'],
+            'lto': '-flto',
+            'gfortran9-compat': '-fallow-argument-mismatch',
+            'ieee': ['-mieee-fp', '-fno-trapping-math'],
+            'strict': ['-mieee-fp', '-mno-recip'],
+            'precise': ['-mno-recip'],
+            'defaultprec': ['-fno-math-errno'],
+            'loose': ['-fno-math-errno', '-mrecip', '-mno-ieee-fp'],
+            'veryloose': ['-fno-math-errno', '-mrecip=all', '-mno-ieee-fp'],
+            'vectorize': {False: '-fno-tree-vectorize', True: '-ftree-vectorize'},
+            DEFAULT_OPT_LEVEL: ['-O2', '-ftree-vectorize'],
+            # Generic Cray PE options
+            'shared': '',
+            'dynamic': '',
+            'verbose': '-craype-verbose',
+            'mpich-mt': '-craympich-mt',
+        }
+
+        # gcc on aarch64 does not support -mno-recip, -mieee-fp, -mfno-math-errno...
+        # https://gcc.gnu.org/onlinedocs/gcc/AArch64-Options.html
+        if systemtools.get_cpu_architecture() == systemtools.AARCH64:
+            no_recip_alternative = ['-mno-low-precision-recip-sqrt', '-mno-low-precision-sqrt', '-mno-low-precision-div']
+            COMPILER_UNIQUE_OPTION_MAP['strict'] = no_recip_alternative
+            COMPILER_UNIQUE_OPTION_MAP['precise'] = no_recip_alternative
+
+        # used when 'optarch' toolchain option is enabled (and --optarch is not specified)
+        COMPILER_OPTIMAL_ARCHITECTURE_OPTION = {
+            (systemtools.AARCH64, systemtools.ARM): '-mcpu=native',  # since GCC 6; implies -march=native and -mtune=native
+            (systemtools.X86_64, systemtools.AMD): '-march=native',  # implies -mtune=native
+            (systemtools.X86_64, systemtools.INTEL): '-march=native',  # implies -mtune=native
+        }
+        # used with --optarch=GENERIC
+        COMPILER_GENERIC_OPTION = {
+            (systemtools.AARCH64, systemtools.ARM): '-mcpu=generic',       # implies -march=armv8-a and -mtune=generic
+            (systemtools.X86_64, systemtools.AMD): '-march=x86-64 -mtune=generic',
+            (systemtools.X86_64, systemtools.INTEL): '-march=x86-64 -mtune=generic',
+        }
+
+        COMPILER_CC = 'cc'
+        COMPILER_CXX = 'CC'
+        COMPILER_C_UNIQUE_FLAGS = ['dynamic', 'mpich-mt', 'loop', 'lto']
+
+        COMPILER_F77 = 'ftn'
+        COMPILER_F90 = 'ftn'
+        COMPILER_FC = 'ftn'
+        COMPILER_F_UNIQUE_FLAGS = ['dynamic', 'mpich-mt', 'loop', 'lto', 'f2c', 'gfortran9-compat']
+
+        #LIB_MULTITHREAD = ['-pthread']
+        LIB_MATH = ['-m']
+
+    # Back to common code for EasyBuild 4 and 5
 
     # template for craype module (determines code generator backend of Cray compiler wrappers)
     CRAYPE_MODULE_NAME_TEMPLATE = 'craype-%(craype_mod)s'
