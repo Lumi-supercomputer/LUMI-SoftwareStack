@@ -102,6 +102,7 @@ components = [
                         'EasyBuild-4.9.4_keyring_DBus.patch',
                         'EasyBuild-4.9.4_fix-riscv-toolchain-opts-typo.patch',
                         'EasyBuild-4.9.4-EasyBlock-ParMETIS.patch',
+                        'EasyBuild-4.9.4-EasyBlock-mesonninja.patch',
                      ],
         'checksums': [
                         {'easybuild_framework-4.9.4.tar.gz':   '5b380a2e3a359f64f06789c390200b922a840f6b10b441e5163696a34bd9bc27'},
@@ -110,7 +111,8 @@ components = [
                         {'EasyBuild-4.9.4_extra_file_formats.patch':            'f21feed2ba99f0220d7cbb31a84f6632ccbfdce8f365ada99f5432a7ab016088'},
                         {'EasyBuild-4.9.4_keyring_DBus.patch':                  '70535e02b023162d422bf76c878a05912ee803c6dd54cb48be7dd54868a7d117'},
                         {'EasyBuild-4.9.4_fix-riscv-toolchain-opts-typo.patch': 'a570e9381d56cda4c281bd102db95e58125ab02dcd21814335df0cf9860b3245'},
-                        {'EasyBuild-4.9.4-EasyBlock-ParMETIS.patch':            'fb556ac83f58bdfa5dc6c14f70cd95a515d950122ad499886cdefb75783af96e'}
+                        {'EasyBuild-4.9.4-EasyBlock-ParMETIS.patch':            'fb556ac83f58bdfa5dc6c14f70cd95a515d950122ad499886cdefb75783af96e'},
+                        {'EasyBuild-4.9.4-EasyBlock-mesonninja.patch':          'd79bc74bb4a2bc5de70aa5394d4cee4ee2033f741f0af6855f977e73e422711b'},
                      ],
     }),
     ('lzip', local_EB_lzip_version, { # Useful to work with .tar.lz files
