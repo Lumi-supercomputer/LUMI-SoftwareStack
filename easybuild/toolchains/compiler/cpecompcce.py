@@ -137,12 +137,12 @@ class cpeCompCCE(Compiler):
 
         COMPILER_CC  = 'cc'
         COMPILER_CXX = 'CC'
-        COMPILER_C_UNIQUE_FLAGS = ['dynamic', 'mpich-mt', 'lto', 'offload-lto']
+        COMPILER_C_UNIQUE_OPTIONS = ['dynamic', 'mpich-mt', 'lto', 'offload-lto']
 
         COMPILER_F77 = 'ftn'
         COMPILER_F90 = 'ftn'
         COMPILER_FC  = 'ftn'
-        COMPILER_F_UNIQUE_FLAGS = ['dynamic', 'mpich-mt']
+        COMPILER_F_UNIQUE_OPTIONS = ['dynamic', 'mpich-mt']
 
     # Back to common code for EasyBuild 4 and 5
 

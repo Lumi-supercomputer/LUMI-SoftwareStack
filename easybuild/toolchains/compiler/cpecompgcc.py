@@ -190,15 +190,15 @@ class cpeCompGCC(Compiler):
 
         COMPILER_CC = 'cc'
         COMPILER_CXX = 'CC'
-        COMPILER_C_UNIQUE_FLAGS = ['dynamic', 'mpich-mt', 'loop', 'lto']
+        COMPILER_C_UNIQUE_OPTIONS = ['dynamic', 'mpich-mt', 'loop', 'lto']
 
         COMPILER_F77 = 'ftn'
         COMPILER_F90 = 'ftn'
         COMPILER_FC = 'ftn'
-        COMPILER_F_UNIQUE_FLAGS = ['dynamic', 'mpich-mt', 'loop', 'lto', 'f2c', 'gfortran9-compat']
+        COMPILER_F_UNIQUE_OPTIONS = ['dynamic', 'mpich-mt', 'loop', 'lto', 'f2c', 'gfortran9-compat']
 
-        #LIB_MULTITHREAD = ['-pthread']
-        LIB_MATH = ['-m']
+        #LIB_MULTITHREAD = ['pthread']
+        LIB_MATH = ['m']
 
     # Back to common code for EasyBuild 4 and 5
 
