@@ -115,6 +115,7 @@ components = [
                             # EasyBlock patches for LUMI
                             {'name': 'EasyBuild-5.1.2_EasyBlock_ParMETIS.patch',                             'level': 0, 'sourcepath': '.'},
                             {'name': 'EasyBuild-5.1.2_EasyBlock_pythonpackage.patch',                        'level': 0, 'sourcepath': '.'},
+                            {'name': 'EasyBuild-5.1.2_EasyBlock_mesonninja.patch',                           'level': 0, 'sourcepath': '.'},
                         ],
         'checksums':    [
                             # 3 EasyBuild components
@@ -129,6 +130,7 @@ components = [
                             # EasyBlock patches for LUMI
                             {'EasyBuild-5.1.2_EasyBlock_ParMETIS.patch':                    '36a47daebb483139c7da71f36ca0a338b782b0329fa60c25f42e9ef6a45e66d2'},
                             {'EasyBuild-5.1.2_EasyBlock_pythonpackage.patch':               '64dea071ecee7943fed321e8a3b5c7831bcc8a125b568e47c9f7ec95e14af97e'},
+                            {'EasyBuild-5.1.2_EasyBlock_mesonninja.patch':                  '8023fb0446cf7a14c0e3f589ac651613f7366fa367d9b5a2c73c9c44c21b0bd1'},
                         ],
         'extract_sources': False,
         'install_cmds': [
