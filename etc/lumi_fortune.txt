@@ -26,8 +26,8 @@ linked when the cray-libsci module is loaded.
 
 =====
 
-LUMI has no mpirun or mpiexec command. MPI programs are started using the
-Slurm srun command.
+LUMI has no mpirun or mpiexec command. MPI programs using Cray MPICH are 
+started using the Slurm srun command.
 
 =====
 
@@ -77,12 +77,11 @@ on the target modules that are loaded. All compilers on LUMI except for the
 gcc implementation provided by the operating system support proper 
 optimizations for the zen2 and zen3 processors. The zen3 architectures is 
 the core architecture of the AMD Epyc Milan CPUs in the LUMI-C compute nodes 
-and the AMD EPYC Trento CPUs in the LUMI-G compute nodes. (Except for
-gcc 10.3.0 that still lacks full zen3 support.) You may get get a little 
-extra performance by optimising for zen3 specifically. The CrayEnv environment
-will automatically load the best target CPU, network and accelerator target
-modules for each node. You can always restore them by reloading the
-CrayEnv module (and there is no need to unload first).
+and the AMD EPYC Trento CPUs in the LUMI-G compute nodes. You may get get a 
+little extra performance by optimising for zen3 specifically. The CrayEnv 
+environment will automatically load the best target CPU, network and a
+ccelerator target modules for each node. You can always restore them by 
+reloading the CrayEnv module (and there is no need to unload first).
 
 In a job script, the environment is copied from the login nodes, so you'll
 still have the Rome target modules. Here also reloading the CrayEnv module
@@ -105,9 +104,7 @@ $ module load PrgEnv-cray
 
 =====
 
-The interconnect on LUMI after the update of late June and early July 2022
-does not support UCX, so craype-network-ucx and cray-mpich-ucx no longer
-work as before or will fall back to (slow) TCP communication.
+The interconnect on LUMI does not support UCX. 
 
 For technical people: Only libfabric with the so-called cassini(CXI) provider 
 are supported for high performance communication.
@@ -129,3 +126,28 @@ On LUMI, it is not possible to use ssh to reach the compute nodes. All
 connections to the compute nodes have to be made through the resource 
 manager, so you have to use srun instead. See also
 https://docs.lumi-supercomputer.eu/runjobs/scheduled-jobs/interactive/
+
+====
+
+Sharing accounts is strictly forbidden on LUMI. When discovered, you will be 
+banned from the system. This is not only about sharing with physical people,
+but it is also forbidden to give third-party services access to your account or
+software running under your account, which is, e.g., the case when you use
+VSCode remote tunnels rather than the VSCode Remote ssh plugin, or when you
+use Ngrok. This list is not exhaustive. There are many other such services,
+e.g., some use cases of cloudflare or Gradio.
+
+Also forbidden is to run a server on LUMI and make that server accessible 
+to others than yourself, e.g., through an ssh tunnel from a publicly accessible
+machine, as that effectively allows others to trigger the execution of code
+on LUMI and hence is also a way of sharing accounts.
+
+Internet-accessible services are typically run in a fully isolated environment
+and often in a so-called "demilitarized zone" from which it is extremely hard
+to get access to other computers at that site. This is exactly the opposite of
+what a supercomputer is, as that is a "shared nearly everything" setup to enable
+users to run large parallel jobs easily and efficiently, so opening up your
+account to the outside world poses a high security risk, not only to you, but
+also to other users of LUMI. LUMI is not a cloud infrastructure where virtual
+machines and/or containers offer protection to other users and the system
+itself.
