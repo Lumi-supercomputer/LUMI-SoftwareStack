@@ -8,7 +8,11 @@ from easybuild.tools.filetools import download_file, mkdir, write_file, read_fil
 from easybuild.tools.systemtools import get_shared_lib_ext
 from easybuild.tools.run import run_cmd
 from easybuild.framework.easyconfig import CUSTOM
-from easybuild.tools import LooseVersion
+
+try:
+    from easybuild.tools import LooseVersion
+except ImportError:
+    from distutils.version import LooseVersion
 
 class EB_rocmrpms(Bundle):
 

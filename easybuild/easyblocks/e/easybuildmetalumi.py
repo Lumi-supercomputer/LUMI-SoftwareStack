@@ -31,13 +31,20 @@ import copy
 import os
 import re
 import sys
-from distutils.version import LooseVersion
+
+try:
+    from easybuild.tools import LooseVersion
+except ImportError:
+    from distutils.version import LooseVersion
+
+# Formerly from easybuild.tools.py2vs3 but as we are not using Python 2, this is not needed
+# and the next line is better:
+from collections import OrderedDict
 
 from easybuild.easyblocks.generic.pythonpackage import PythonPackage
 from easybuild.tools.build_log import EasyBuildError
 from easybuild.tools.filetools import read_file
 from easybuild.tools.modules import get_software_root_env_var_name
-from easybuild.tools.py2vs3 import OrderedDict
 from easybuild.tools.utilities import flatten
 
 

@@ -37,7 +37,11 @@ implemented as an easyblock.
 # distutils. Which we need as we still use some older versions of EasyBuild
 # that do not yet contain LooseVersion in easybuild.tools.
 #from easybuild.tools import LooseVersion
-from distutils.version import LooseVersion
+try:
+    from easybuild.tools import LooseVersion
+except ImportError:
+    from distutils.version import LooseVersion
+
 import os
 
 import easybuild.tools.toolchain as toolchain
