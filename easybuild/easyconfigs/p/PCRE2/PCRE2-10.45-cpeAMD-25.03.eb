@@ -53,7 +53,7 @@ preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
 prebuildopts = preconfigopts
 preinstallopts = preconfigopts
 
-configopts  = "--with-pic --disable-cpp --enable-newline-is-any "
+configopts  = "--with-pic --enable-newline-is-any "
 configopts += "--enable-pcre2-16 --enable-pcre2-32 "
 configopts += "--enable-jit "
 configopts += "--enable-pcre2grep-libz --enable-pcre2grep-libbz2 --enable-pcre2test-libreadline "
