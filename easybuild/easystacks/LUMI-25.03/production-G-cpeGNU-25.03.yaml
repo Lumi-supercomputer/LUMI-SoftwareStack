@@ -52,7 +52,7 @@ easyconfigs:
   - libpng-1.6.47-cpeGNU-25.03.eb
   - libreadline-8.2.13-cpeGNU-25.03.eb
   - libvorbis-1.3.7-cpeGNU-25.03.eb
-  - LLVM-18.1.8-cpeGNU-25.03.eb    # Brought in for LUMI-D
+  #- LLVM-18.1.8-cpeGNU-25.03.eb    # Brought in for LUMI-D
   - MPFR-4.2.2-cpeGNU-25.03.eb
   - Perl-5.40.0-cpeGNU-25.03.eb
   - snappy-1.2.2-cpeGNU-25.03.eb
@@ -96,7 +96,7 @@ easyconfigs:
   - X11-25.03-cpeGNU-25.03.eb
 ## Block 9
   - FFmpeg-7.1.1-cpeGNU-25.03.eb
-  - OpenGL-25.03-cpeGNU-25.03.eb    # Brought in for LUMI-D
+  #- OpenGL-25.03-cpeGNU-25.03.eb    # Brought in for LUMI-D
   - Tk-8.6.16-cpeGNU-25.03.eb
 ## Block 10
 ## Block 11

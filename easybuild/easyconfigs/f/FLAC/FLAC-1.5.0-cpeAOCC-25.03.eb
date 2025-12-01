@@ -65,9 +65,7 @@ preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
 prebuildopts = preconfigopts
 preinstallopts = preconfigopts
 
-# We donb't have xmns so we turn this off to avoid the warning during the configure
-# step.
-configopts = '--enable-static --enable-shared --disable-xmms-plugin'
+configopts = '--enable-static --enable-shared'
 
 # The tests are extremely time-consuming so you may want to skip them.
 #runtest = 'check'

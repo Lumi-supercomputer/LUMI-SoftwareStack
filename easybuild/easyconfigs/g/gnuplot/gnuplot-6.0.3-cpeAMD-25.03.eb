@@ -85,7 +85,7 @@ preconfigopts += 'LIBS="$LIBS -liconv" LDFLAGS="$LDFLAGS -L$EBROOTFREETYPE/lib" 
 configopts = '  '.join([
     '--with-gd=$EBROOTLIBGD', 
     '--with-qt=no',           # Disable support for Qt.
-    '--with-cairo'            # Enable support for cairo. Versions are recent enough now.
+    '--with-cairo',           # Enable support for cairo. Versions are recent enough now.
     '--disable-wxwidgets',    # Disable wxWidgets terminal to avoid having to install wx also.
     '--with-x',               # Enable X11 support.
     '--without-lua',          # Disable LUA/TikZ support.
