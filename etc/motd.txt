@@ -5,31 +5,31 @@
 *  | NOTE: The default version of both the Cray PE and LUMI stack   |
    | is now 24.03 and this is also the only version of the Cray PE  |
   *| officially supported on the current system. We recommend       |
-   | moving to 24.03 when possible. Base libraries for 24.03 and    |
-  *| 23.12 are already on the system and much user-installable      |
-   | software for 24.03 is already available also.                  |
+   | moving to 24.03 when possible. This will also offer the        |
+   | smoothest path for the next update.                            |
 *  |                                                                |
-   | The system update originally planned for late August 2025 has  |
-   | been postponed to a yet-to-be-decided moment. This also        |
- * | implies that for now, newer ROCm versions than 6.2 cannot be   |
-   | used reliably on LUMI, nor do programming environments that    |
-  *| rely on those versions and that we can provide in containers,  |
-   | fully work.                                                    |
-   |                                                                |
-   | The advice remains to rely on the most recent programming      |
-*  | environment where possible and to consider using containers    |
-*  | on ROCm 6.2 for AI applications, as this offers the best       |
-   | guarantee of a relatively smooth upgrade to an ultimately      |
-   | updated system.                                                |
- * |                                                                |
-*  | You can use the lumi-workspaces command (without loading an    |
+   | There is a system update planned for January 7-21, 2026,       |
+ * | which will bring ROCm 6.3 on the system (based on LLVM 18)     |
+ * | and CCE 19. Software installed on the system before the update |
+   | may require recompilation in the new programming environment.  |
+   | The 23.09 and 24.03 stacks will remain on the system but in an |
+*  | unsupported state while other versions of the HPE Cray PE will |
+   | be removed from the system (with their corresponding software  |
+  *| stacks). Containers based on ROCm 6.1 or 6.2 will likely still |
+   | function after the system update.                              |
+*  |                                                                |
+   | You can use the lumi-workspaces command (without loading an    |
    | additional module) to check your quota and allocations on      |
   *| LUMI. Also check `module help lumi-tools` for more info.       | 
    |                                                                |
    | Note that LUMI users are responsible for verifying software    |
 *  | licenses for the packages they use and must also obey to all   |
-   | export restriction laws which includes several and ever        |
-   | changing export restriction laws.                              |
+   | export restriction laws and other regulations imposed by the   |
+   | EU, Finland, and USA. Countries from which LUMI is forbidden   |
+ * | include Belarus, China, Iran and Russia, but this list is.     |
+   | non-exhaustive and restrictions includes all countries under   |
+   | EU or USA sanction affecting computer technology, including    |
+   | hardware and software for AI.                                  |
 *  .Notes-----------------------------------------------------------.
    | Make sure one of the following modules is loaded to have the   |
  * | full LUMI experience:                                          |
