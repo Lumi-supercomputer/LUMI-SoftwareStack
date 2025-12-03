@@ -151,3 +151,20 @@ account to the outside world poses a high security risk, not only to you, but
 also to other users of LUMI. LUMI is not a cloud infrastructure where virtual
 machines and/or containers offer protection to other users and the system
 itself.
+
+====
+
+CSC, the hosting organization of LUMI, adheres to the sanctions and regulations
+imposed by the EU and the Finnish government. Also, CSC is obligated through
+its agreements to comply with sanctions and restrictions imposed by the United
+States regarding the use of the LUMI supercomputer environment, as LUMI contains
+a lot of USA hardware and software which falls under export restrictions. 
+Therefore, access to LUMI is forbidden from a whole list of countries. As of 
+December 2025, the list is Afghanistan, Belarus, Cambodia, Central African 
+Republic, China (including HK), Congo, Cuba, Eritrea, Haiti, Iran, Iraq, North 
+Korea, Lebanon, Libya, Macau, Myanmar, Nicaragua, Russia, Somalia, South Sudan, 
+Sudan, Syria, Venezuela, and Zimbabwe.
+
+Trying to circumvent those restrictions by, e.g., using a VPN service or logging
+in to a machine in a different country and from there to LUMI, will lead to a 
+permanent ban on LUMI.
