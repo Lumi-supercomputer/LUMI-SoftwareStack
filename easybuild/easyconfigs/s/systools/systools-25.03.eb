@@ -1,3 +1,7 @@
+#DOC Libraries for use in LUMI/25.03 or on CrayEnv when the LUMI/25.03 stack is also on the system.
+#
+#LUMISTACK 25.03
+#
 easyblock = 'Bundle'
 
 local_LUMI_version =         '25.03'
