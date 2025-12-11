@@ -14,6 +14,8 @@
 # for which some packages may want to use toolchain-specific versions. These
 # packages should then just assure that module is loaded after buildtools.
 #
+#LUMISTACK 24.11
+#
 easyblock = 'Bundle'
 
 local_LUMI_version =        '24.11'

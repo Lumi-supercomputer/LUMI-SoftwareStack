@@ -1,3 +1,5 @@
+#LUMISTACK 24.11
+#
 easyblock = 'Bundle'
 
 local_LUMI_version =        '24.11'
