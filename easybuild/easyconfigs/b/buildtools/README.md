@@ -20,7 +20,7 @@ Links for quick checking for version updates:
 | Ninja                | [version check](https://ninja-build.org/) |
 | Meson                | [version check](https://pypi.org/project/meson/#history) |
 | SCons                | [version check](https://pypi.org/project/SCons/#history) |
-| NASM                 | [version check](http://www.nasm.us/) |
+| NASM                 | [version check](http://www.nasm.us/) or [GitHub](https://github.com/netwide-assembler/nasm/tags) |
 | Yasm                 | [version check](http://yasm.tortall.net/) |
 | patchelf             | [version check](https://github.com/NixOS/patchelf/releases) |
 | re2c                 | [version check](https://github.com/skvadrik/re2c/releases) |
@@ -134,3 +134,23 @@ Not included at the moment:
   * Total refresh of 23.12, except for those packages where newer versions offer compile problems
     with the current system compiler on LUM<I.
 
+
+### 24.11
+
+  * Trivial port of the 24.03 EasyConfig with just a lot of version updates.
+
+  * It turns out that nasm.us is down, so download sources are not available.
+    NASM does [have a GitHub however](https://github.com/netwide-assembler/nasm)
+    where sources can be found. These are raw though and we couldn't get the build
+    process to work.
+    
+      * Certainly needed is `preconfigopts = './autogen.sh && '`.
+
+      * The start directory is now '%(namelower)s-%(namelower)s-%(version)s'.
+
+      * The build process however fails to generate the man pages while the `make install`
+        phase does want to install them. It is not clear how they can be generated 
+        from the GitHub sources. In the downloaded package from `nasm.us`, they were
+        pre-generated.
+        
+      * So for now we use the web archive as a second source for downloads.

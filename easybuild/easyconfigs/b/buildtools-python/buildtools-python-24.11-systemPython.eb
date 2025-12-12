@@ -1,0 +1,120 @@
+# This easyconfig requires at least EasyBuild 3.9.4 due to a bug in the Bundle
+# EasyBlock in earlier versions. Or use the patched bundle.py of
+# https://github.com/easybuilders/easybuild-easyblocks/pull/1777 via --include-easyblocks
+#
+# NOTE: This module is developed at UAntwerp
+# NOTE: meson, which is included, requires python3 with setuptools installed in the OS.
+#
+# It is the first module we compile when starting a new toolchain.
+#
+# This bundle collects a number of GNU tools useful during the building process
+# and a few other tools.
+#
+# We do include a Flex and Bison even though they do contain libraries
+# for which some packages may want to use toolchain-specific versions. These
+# packages should then just assure that module is loaded after buildtools.
+#
+#LUMISTACK 24.11
+#
+easyblock = 'Bundle'
+
+local_LUMI_version =        '24.11'
+
+name =          'buildtools-python'
+version =       local_LUMI_version
+versionsuffix = '-systemPython'
+
+local_system_pyshortver = '3.6'
+
+# Version info:
+# Note: Meson 0.61.5 is the last version with Python 3.6 support.
+local_Meson_version =            '0.61.5'      # Meson      20220117 - Check on https://pypi.org/project/meson/#history
+local_SCons_version =            '4.4.0'       # SCons      20220730 - Check on https://github.com/SCons/scons/releases, https://scons.org/pages/download.html
+
+homepage = 'http://www.gnu.org'
+
+whatis = [
+    "Description: An addition to buildtools with tools that require Python."
+    "Contains: Meson, SCons, using the Python provided by the OS"
+]
+
+description = """
+This bundle collects a number of python-based build tools.
++ Meson {local_Meson_cray_version}    - https://mesonbuild.com/Manual.html
++ SCons {local_SCons_cray_version}    - https://www.scons.org/
+In this module, they are built against the system Python which limits the
+versions we can support. 
+"""
+
+toolchain = SYSTEM
+
+builddependencies = [
+    ('buildtools', version),
+]
+
+osdependencies = [
+    ('python3'),                                          # For git, Meson, SCons
+]
+
+
+default_easyblock = 'ConfigureMake'
+
+components = [
+    ('Meson', local_Meson_version, { # Does require Ninja
+        'easyblock':     'PythonPackage',
+        'sources':       [SOURCELOWER_TAR_GZ],
+        'source_urls':   [PYPI_SOURCE],
+        'checksums':     ['5e9a0d65c1a51936362b9686d1c5e9e184a6fd245d57e7269750ce50c20f5d9a'],
+        'start_dir':     '%(namelower)s-%(version)s',
+        'req_py_majver': 3, # Used to let EasyBuild select the right system Python executable.
+        'req_py_minver': 5, # Used to let EasyBuild select the right system Python executable.
+        'options':       {'modulename': 'mesonbuild'}
+    }),
+    ('SCons', local_SCons_version, {
+        'easyblock':        'PythonPackage',
+        'sources':          [SOURCE_TAR_GZ],
+        'source_urls':      [PYPI_SOURCE],
+        'checksums':        ['7703c4e9d2200b4854a31800c1dbd4587e1fa86e75f58795c740bcfa7eca7eaa'],
+        'start_dir':        '%(name)s-%(version)s',
+        'req_py_majver':     3, # Used to let EasyBuild select the right system Python executable.
+        'req_py_minver':     5, # Used to let EasyBuild select the right system Python executable.
+        'download_dep_fail': True,
+        'use_pip':           False,
+        'sanity_pip_check':  False,
+        'options':           {'modulename': False}
+        }),
+]
+
+sanity_check_paths = {
+    'files': # Meson
+             # SCons
+             ['bin/scons', 'bin/sconsign', 'bin/scons-configure-cache'], # scons-time is missing in SCons 4? Strange as there is a manual page for it.
+    'dirs':  [],
+}
+
+sanity_check_commands = [
+    # Meson
+    'meson --version',
+    # SCons
+    'scons --help',
+]
+
+modextrapaths = {
+    'PYTHONPATH': ['lib/python%s/site-packages' % local_system_pyshortver]
+}
+
+#
+# We set EBROOT and EBVERSION variables that correspond to each of the regular
+# EasyBuild packages that are replaced by this bundle.
+modextravars = {
+    'EBROOTMESON':                 '%(installdir)s',
+    'EBVERSIONMESON':              local_Meson_version,
+    'EBROOTSCONS':                 '%(installdir)s',
+    'EBVERSIONSCONS':              local_SCons_version,
+}
+
+moduleclass = 'devel'
+modluafooter = f"""
+extensions( "Meson/{local_Meson_version}, SCons/{local_SCons_version}"
+          )
+"""
