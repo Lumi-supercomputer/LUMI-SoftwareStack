@@ -132,7 +132,7 @@ Not included at the moment:
 ### 24.03
 
   * Total refresh of 23.12, except for those packages where newer versions offer compile problems
-    with the current system compiler on LUM<I.
+    with the current system compiler on LUMI.
 
 
 ### 24.11
