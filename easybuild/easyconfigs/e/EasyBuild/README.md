@@ -193,7 +193,7 @@ e.b., the [MATLAB EasyConfigs in the EasyBuilders repository](https://github.com
         build process in an EasyConfig to modify an existing container.
 
 
-### EasyBuild 5.1.2 (experimental for 25.03)
+### EasyBuild 5.1.2 for 25.03
 
 -   Patches: The way of applying patches is different in an EasyConfig just for
     EasyBuild or in the Bundle.
