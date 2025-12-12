@@ -1,8 +1,8 @@
 # GNU termcap
 
-  * [termcap home page](https://www.gnu.org/software/termutils/)
+-   [termcap home page](https://www.gnu.org/software/termutils/)
 
-      * [termcap downloads](https://ftp.gnu.org/gnu/termcap/)
+    -   [termcap downloads](https://ftp.gnu.org/gnu/termcap/)
 
 
 ## EasyBuild
@@ -12,22 +12,26 @@ Cray systems it seems to be missing in the default setup so this is a workaround
 those packages that require libtermcap. Also, in most cases packages should be able
 to find the required functionality in ncurses.
 
-  * There is no support in the EasyBuilders repository
+-   There is no support in the EasyBuilders repository
 
-  * There is no support in the CSCS repository
+-   There is no support in the CSCS repository
 
 
 ### Version 1.3.1 from CPE 21.06 on
 
-  * This is a new EasyConfig.
+-   This is a new EasyConfig.
 
-  * Note that this is a very primitive library. Its configure doesn't even pick up
+-   Note that this is a very primitive library. Its configure doesn't even pick up
     CFLAGS correctly so we feed it to make ourselves.
 
-  * From Clang 16 on the C standard needs to be set explicitly to c90 to avoid
+-   From Clang 16 on the C standard needs to be set explicitly to c90 to avoid
     error messages about features forbidden in C99 or newer.
 
-  * For LUMI/23.12, license information was added to the installation.
+-   For LUMI/23.12, license information was added to the installation.
 
-  * To recompile with ROCm 6.0 in 23.09 an additional toolchainopt was needed
+-   To recompile with ROCm 6.0 in 23.09 an additional toolchainopt was needed
     to force the compiler to use the C90 standard.
+
+-   For the GNU compilers in CPE 25.03, we also needed to set the language standard
+    explicitly to `c90`.    
+    

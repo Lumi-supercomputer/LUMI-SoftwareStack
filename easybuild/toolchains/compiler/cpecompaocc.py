@@ -45,6 +45,9 @@ Cray's LibSci (BLAS/LAPACK et al), FFT library, etc.
 import re
 from distutils.version import LooseVersion
 
+from easybuild.tools.version import VERSION as EB_VERSION # Note that this is already a value that went through LooseVersion
+from easybuild.tools import LooseVersion
+
 import easybuild.tools.systemtools as systemtools
 from easybuild.tools.build_log import EasyBuildError
 from easybuild.tools.modules import get_software_root, get_software_version
@@ -77,73 +80,148 @@ class cpeCompAOCC(Compiler):
                              provides fine-grained multi-threading support to applications that perform \
                              MPI operations within threaded regions."),
     }
-    COMPILER_UNIQUE_OPTION_MAP = {
-        # Options rooted in clang/LLVM
-        'lto': 'flto',
-        # Cray-specific options
-        'mpich-mt': 'craympich-mt',        
-        'dynamic': '',
-        # Overwriting or filling in default EasyBuild toolchain options.
-        'verbose': 'craype-verbose',
-        'i8': 'fdefault-integer-8',
-        'r8': 'fdefault-real-8',
-        'unroll': 'funroll-loops',
-        'shared': '',
-        # Note that vectorize is special, we cannot use the same in this construct.
-        'vectorize': {False: ['fno-vectorize', 'no-slp-vectorize'], True: ['f-vectorize', 'fslp-vectorize'] },
-        # Clang's options do not map well onto these precision modes.  The flags enable and disable certain classes of
-        # optimizations.
-        #
-        # -fassociative-math: allow re-association of operands in series of floating-point operations, violates the
-        # ISO C and C++ language standard by possibly changing computation result.
-        # -freciprocal-math: allow optimizations to use the reciprocal of an argument rather than perform division.
-        # -fsigned-zeros: do not allow optimizations to treat the sign of a zero argument or result as insignificant.
-        # -fhonor-infinities: disallow optimizations to assume that arguments and results are not +/- Infs.
-        # -fhonor-nans: disallow optimizations to assume that arguments and results are not +/- NaNs.
-        # -ffinite-math-only: allow optimizations for floating-point arithmetic that assume that arguments and results
-        # are not NaNs or +-Infs (equivalent to -fno-honor-nans -fno-honor-infinities)
-        # -funsafe-math-optimizations: allow unsafe math optimizations (implies -fassociative-math, -fno-signed-zeros,
-        # -freciprocal-math).
-        # -ffast-math: an umbrella flag that enables all optimizations listed above, provides preprocessor macro
-        # __FAST_MATH__.
-        #
-        # Using -fno-fast-math is equivalent to disabling all individual optimizations, see
-        # http://llvm.org/viewvc/llvm-project/cfe/trunk/lib/Driver/Tools.cpp?view=markup (lines 2100 and following)
-        #
-        # 'strict', 'precise' and 'defaultprec' are all ISO C++ and IEEE complaint, but we explicitly specify details
-        # flags for strict and precise for robustness against future changes.
-        'strict': ['ffp-model=strict'],
-        'precise': ['ffp-model=precise'],
-        'defaultprec': ['ffp-model=precise'],
-        'loose': ['ffp-model=fast', 'fhonor-infinities', 'fhonor-nans', 'fsigned-zeros'],
-        'veryloose': ['ffp-model=fast', 'funsafe-math-optimizations'],
-        'ieee': '',
-        # At optimzation level -O2 or above vectorisation is turned on by default so no need to turn it on
-        # for DEFAULT_OPT_LEVEL as in the GCC compiler defintion.
-    }
 
-    # used when 'optarch' toolchain option is enabled (and --optarch is not specified)
-    COMPILER_OPTIMAL_ARCHITECTURE_OPTION = {
-        (systemtools.X86_64, systemtools.AMD): 'march=native',
-        (systemtools.X86_64, systemtools.INTEL): 'march=native'
-    }
-    # used with --optarch=GENERIC
-    COMPILER_GENERIC_OPTION = {
-        (systemtools.X86_64, systemtools.AMD): 'march=x86-64 -mtune=generic',
-        (systemtools.X86_64, systemtools.INTEL): 'march=x86-64 -mtune=generic',
-    }
+    if EB_VERSION < LooseVersion( '5.0.0' ):
 
-    COMPILER_CC = 'cc'
-    COMPILER_CXX = 'CC'
-    COMPILER_C_UNIQUE_FLAGS = ['dynamic', 'mpich-mt', 'lto']
+        COMPILER_UNIQUE_OPTION_MAP = {
+            # Options rooted in clang/LLVM
+            'lto': 'flto',
+            # Cray-specific options
+            'mpich-mt': 'craympich-mt',        
+            'dynamic': '',
+            # Overwriting or filling in default EasyBuild toolchain options.
+            'verbose': 'craype-verbose',
+            'i8': 'fdefault-integer-8',
+            'r8': 'fdefault-real-8',
+            'unroll': 'funroll-loops',
+            'shared': '',
+            # Note that vectorize is special, we cannot use the same in this construct.
+            'vectorize': {False: ['fno-vectorize', 'no-slp-vectorize'], True: ['fvectorize', 'fslp-vectorize'] },
+            # Clang's options do not map well onto these precision modes.  The flags enable and disable certain classes of
+            # optimizations.
+            #
+            # -fassociative-math: allow re-association of operands in series of floating-point operations, violates the
+            # ISO C and C++ language standard by possibly changing computation result.
+            # -freciprocal-math: allow optimizations to use the reciprocal of an argument rather than perform division.
+            # -fsigned-zeros: do not allow optimizations to treat the sign of a zero argument or result as insignificant.
+            # -fhonor-infinities: disallow optimizations to assume that arguments and results are not +/- Infs.
+            # -fhonor-nans: disallow optimizations to assume that arguments and results are not +/- NaNs.
+            # -ffinite-math-only: allow optimizations for floating-point arithmetic that assume that arguments and results
+            # are not NaNs or +-Infs (equivalent to -fno-honor-nans -fno-honor-infinities)
+            # -funsafe-math-optimizations: allow unsafe math optimizations (implies -fassociative-math, -fno-signed-zeros,
+            # -freciprocal-math).
+            # -ffast-math: an umbrella flag that enables all optimizations listed above, provides preprocessor macro
+            # __FAST_MATH__.
+            #
+            # Using -fno-fast-math is equivalent to disabling all individual optimizations, see
+            # http://llvm.org/viewvc/llvm-project/cfe/trunk/lib/Driver/Tools.cpp?view=markup (lines 2100 and following)
+            #
+            # 'strict', 'precise' and 'defaultprec' are all ISO C++ and IEEE complaint, but we explicitly specify details
+            # flags for strict and precise for robustness against future changes.
+            'strict': ['ffp-model=strict'],
+            'precise': ['ffp-model=precise'],
+            'defaultprec': ['ffp-model=precise'],
+            'loose': ['ffp-model=fast', 'fhonor-infinities', 'fhonor-nans', 'fsigned-zeros'],
+            'veryloose': ['ffp-model=fast', 'funsafe-math-optimizations'],
+            'ieee': '',
+            # At optimzation level -O2 or above vectorisation is turned on by default so no need to turn it on
+            # for DEFAULT_OPT_LEVEL as in the GCC compiler defintion.
+        }
 
-    COMPILER_F77 = 'ftn'
-    COMPILER_F90 = 'ftn'
-    COMPILER_FC = 'ftn'
-    COMPILER_F_UNIQUE_FLAGS = ['dynamic', 'mpich-mt', 'lto']
+        # used when 'optarch' toolchain option is enabled (and --optarch is not specified)
+        COMPILER_OPTIMAL_ARCHITECTURE_OPTION = {
+            (systemtools.X86_64, systemtools.AMD): 'march=native',
+            (systemtools.X86_64, systemtools.INTEL): 'march=native'
+        }
+        # used with --optarch=GENERIC
+        COMPILER_GENERIC_OPTION = {
+            (systemtools.X86_64, systemtools.AMD): 'march=x86-64 -mtune=generic',
+            (systemtools.X86_64, systemtools.INTEL): 'march=x86-64 -mtune=generic',
+        }
 
-#    LIB_MULTITHREAD = ['pthread']
-    LIB_MATH = ['m']
+        COMPILER_CC = 'cc'
+        COMPILER_CXX = 'CC'
+        COMPILER_C_UNIQUE_FLAGS = ['dynamic', 'mpich-mt', 'lto']
+
+        COMPILER_F77 = 'ftn'
+        COMPILER_F90 = 'ftn'
+        COMPILER_FC = 'ftn'
+        COMPILER_F_UNIQUE_FLAGS = ['dynamic', 'mpich-mt', 'lto']
+
+        #LIB_MULTITHREAD = ['pthread']
+        LIB_MATH = ['m']
+
+    else:  # EasyBuild 5 and later
+
+        COMPILER_UNIQUE_OPTION_MAP = {
+            # Options rooted in clang/LLVM
+            'lto': '-flto',
+            # Cray-specific options
+            'mpich-mt': '-craympich-mt',        
+            'dynamic': '',
+            # Overwriting or filling in default EasyBuild toolchain options.
+            'verbose': '-craype-verbose',
+            'i8': '-fdefault-integer-8',
+            'r8': '-fdefault-real-8',
+            'unroll': '-funroll-loops',
+            'shared': '',
+            # Note that vectorize is special, we cannot use the same in this construct.
+            'vectorize': {False: ['-fno-vectorize', '-no-slp-vectorize'], True: ['-fvectorize', '-fslp-vectorize'] },
+            # Clang's options do not map well onto these precision modes.  The flags enable and disable certain classes of
+            # optimizations.
+            #
+            # -fassociative-math: allow re-association of operands in series of floating-point operations, violates the
+            # ISO C and C++ language standard by possibly changing computation result.
+            # -freciprocal-math: allow optimizations to use the reciprocal of an argument rather than perform division.
+            # -fsigned-zeros: do not allow optimizations to treat the sign of a zero argument or result as insignificant.
+            # -fhonor-infinities: disallow optimizations to assume that arguments and results are not +/- Infs.
+            # -fhonor-nans: disallow optimizations to assume that arguments and results are not +/- NaNs.
+            # -ffinite-math-only: allow optimizations for floating-point arithmetic that assume that arguments and results
+            # are not NaNs or +-Infs (equivalent to -fno-honor-nans -fno-honor-infinities)
+            # -funsafe-math-optimizations: allow unsafe math optimizations (implies -fassociative-math, -fno-signed-zeros,
+            # -freciprocal-math).
+            # -ffast-math: an umbrella flag that enables all optimizations listed above, provides preprocessor macro
+            # __FAST_MATH__.
+            #
+            # Using -fno-fast-math is equivalent to disabling all individual optimizations, see
+            # http://llvm.org/viewvc/llvm-project/cfe/trunk/lib/Driver/Tools.cpp?view=markup (lines 2100 and following)
+            #
+            # 'strict', 'precise' and 'defaultprec' are all ISO C++ and IEEE complaint, but we explicitly specify details
+            # flags for strict and precise for robustness against future changes.
+            'strict': ['-ffp-model=strict'],
+            'precise': ['-ffp-model=precise'],
+            'defaultprec': ['-ffp-model=precise'],
+            'loose': ['-ffp-model=fast', '-fhonor-infinities', '-fhonor-nans', '-fsigned-zeros'],
+            'veryloose': ['-ffp-model=fast', '-funsafe-math-optimizations'],
+            'ieee': '',
+            # At optimzation level -O2 or above vectorisation is turned on by default so no need to turn it on
+            # for DEFAULT_OPT_LEVEL as in the GCC compiler defintion.
+        }
+
+        # used when 'optarch' toolchain option is enabled (and --optarch is not specified)
+        COMPILER_OPTIMAL_ARCHITECTURE_OPTION = {
+            (systemtools.X86_64, systemtools.AMD): '-march=native',
+            (systemtools.X86_64, systemtools.INTEL): '-march=native'
+        }
+        # used with --optarch=GENERIC
+        COMPILER_GENERIC_OPTION = {
+            (systemtools.X86_64, systemtools.AMD): '-march=x86-64 -mtune=generic',
+            (systemtools.X86_64, systemtools.INTEL): '-march=x86-64 -mtune=generic',
+        }
+
+        COMPILER_CC = 'cc'
+        COMPILER_CXX = 'CC'
+        COMPILER_C_UNIQUE_OPTIONS = ['dynamic', 'mpich-mt', 'lto']
+
+        COMPILER_F77 = 'ftn'
+        COMPILER_F90 = 'ftn'
+        COMPILER_FC = 'ftn'
+        COMPILER_F_UNIQUE_OPTIONS = ['dynamic', 'mpich-mt', 'lto']
+
+        #LIB_MULTITHREAD = ['pthread']
+        LIB_MATH = ['m']
+
+    # Back to common code for EasyBuild 4 and 5
 
     # template for craype module (determines code generator backend of Cray compiler wrappers)
     CRAYPE_MODULE_NAME_TEMPLATE = 'craype-%(craype_mod)s'
