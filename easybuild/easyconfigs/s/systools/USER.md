@@ -1,11 +1,8 @@
 # systools user instructions
 
-<<<<<<< HEAD
 Available tools depend on the version of the module. This list is for the latest
 version of the module.
 
-=======
->>>>>>> 82274776 (Added pbzip2 to systools and updated the documentation.)
 
 ### The `gpp` command
 
