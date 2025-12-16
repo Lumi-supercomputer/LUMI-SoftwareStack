@@ -236,7 +236,7 @@ This module is deprecated and will be removed from LUMI after the January 2026 u
 parallel/20240422:
 This module is deprecated and will be removed from LUMI after the January 2026 update.
 
-ccpe/25.03-.*:
+ccpe/25.03%-.*:
 This module also serves as a preview of the software stack for 25.03. Note
 however that GPU software may not work properly due to driver incompatibilities
 that cannot be solved with a container.
