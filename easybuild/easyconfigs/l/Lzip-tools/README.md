@@ -64,4 +64,8 @@ The module contains:
 ### Lzip-tools for 25.03
 
 -   Identical to the 24.11 version.   
- 
+
+
+### Lzip-tools for 25.09
+
+-   A trivial port with updates to the version of 2 packages compared to 25.03.
