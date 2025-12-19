@@ -123,3 +123,5 @@ use.
 
 -   Trivial update of 25.03 with just some version updates.
 
+-   For a reason not clear to us we needed to add configure options to install all libraries
+    in `lib` as some packages put their libraries in `lib64` when building in the container.
