@@ -54,7 +54,7 @@ newer version of Python as the system Python.
 toolchain = SYSTEM
 
 builddependencies = [
-    ('buildtools', version),
+    ('buildtools', version, '-bootstrap'),
 ]
 
 dependencies = [
