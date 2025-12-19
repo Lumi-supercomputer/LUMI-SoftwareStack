@@ -1,0 +1,176 @@
+# This easyconfig requires at least EasyBuild 3.9.4 due to a bug in the Bundle
+# EasyBlock in earlier versions. Or use the patched bundle.py of
+# https://github.com/easybuilders/easybuild-easyblocks/pull/1777 via --include-easyblocks
+#
+# NOTE: This module is developed at UAntwerp
+# NOTE: meson, which is included, requires python3 with setuptools installed in the OS.
+#
+# It is the first module we compile when starting a new toolchain.
+#
+# This bundle collects a number of GNU tools useful during the building process
+# and a few other tools.
+#
+# We do include a Flex and Bison even though they do contain libraries
+# for which some packages may want to use toolchain-specific versions. These
+# packages should then just assure that module is loaded after buildtools.
+#
+easyblock = 'Bundle'
+
+local_LUMI_version =         '25.09'
+
+name =          'buildtools-python'
+version =       local_LUMI_version
+versionsuffix = '-systemPython'
+
+local_system_pyshortver = '3.6'
+
+# Version info:
+# Note: Meson 0.61.5 is the last version with Python 3.6 support.
+local_Meson_version =            '0.61.5'      # Meson      20220117 - Check on https://pypi.org/project/meson/#history
+local_SCons_version =            '4.4.0'       # SCons      20220730 - Check on https://github.com/SCons/scons/releases, https://scons.org/pages/download.html
+local_StrEnum_version =          '0.4.8'       # StrEnum    20220622 - Check on https://pypi.org/project/StrEnum/#history, last version for Python 3.6
+# For now needed for the container
+local_wheel_version     =        '0.37.1'      # wheel      20211222 - Check on https://pypi.org/project/wheel/#history, version for Python 3.6.
+
+homepage = 'http://www.gnu.org'
+
+whatis = [
+    "Description: An addition to buildtools with tools that require Python."
+    "Contains: Meson, SCons, using the Python provided by the OS"
+]
+
+description = """
+This bundle collects a number of python-based build tools.
++ Meson {local_Meson_cray_version}    - https://mesonbuild.com/Manual.html
++ SCons {local_SCons_cray_version}    - https://www.scons.org/
+In this module, they are built against the system Python which limits the
+versions we can support. 
+"""
+
+toolchain = SYSTEM
+
+builddependencies = [
+    ('buildtools', version, '-bootstrap'),
+]
+
+osdependencies = [
+    ('python3'),                                          # For git, Meson, SCons
+]
+
+
+default_easyblock = 'ConfigureMake'
+
+components = [
+    # wheel is definitely needed in the container.
+    ('wheel', local_wheel_version, {
+        'easyblock':         'PythonPackage',
+        'sources':           [SOURCELOWER_TAR_GZ],
+        'source_urls':       [PYPI_SOURCE],
+        'checksums':         ['e9a504e793efbca1b8e0e9cb979a249cf4a0a7b5b8c9e8b65a5e39d49529c1c4'],
+        'start_dir':         '%(namelower)s-%(version)s',
+        'req_py_majver':     int( local_system_pyshortver.split('.')[0] ), # Used to let EasyBuild select the right system Python executable.
+        'req_py_minver':     int( local_system_pyshortver.split('.')[1] ), # Used to let EasyBuild select the right system Python executable.
+        'max_py_majver':     int( local_system_pyshortver.split('.')[0] ), # Used to let EasyBuild select the right system Python executable.
+        'max_py_minver':     int( local_system_pyshortver.split('.')[1] ), # Used to let EasyBuild select the right system Python executable.
+        'download_dep_fail': True,
+        'use_pip':           True,
+        'sanity_pip_check':  False,
+    }), 
+    ('StrEnum', local_StrEnum_version, { # https://files.pythonhosted.org/packages/81/69/297302c5f5f59c862faa31e6cb9a4cd74721cd1e052b38e464c5b402df8b/StrEnum-0.4.15-py3-none-any.whl
+        'easyblock':     'PythonPackage',
+        'sources':       [SOURCE_TAR_GZ],
+        'source_urls':   [PYPI_SOURCE],
+        'checksums':     ['08a7647f4fac2977470e5618cccd5e8b939768f02e5f5dd7864adaa329559949'],
+        'start_dir':     '%(name)s-%(version)s',
+        'req_py_majver': int( local_system_pyshortver.split('.')[0] ), # Used to let EasyBuild select the right system Python executable.
+        'req_py_minver': int( local_system_pyshortver.split('.')[1] ), # Used to let EasyBuild select the right system Python executable.
+        'max_py_majver': int( local_system_pyshortver.split('.')[0] ), # Used to let EasyBuild select the right system Python executable.
+        'max_py_minver': int( local_system_pyshortver.split('.')[1] ), # Used to let EasyBuild select the right system Python executable.
+        'options':       {'modulename': 'strenum'}
+    }),
+    ('Meson', local_Meson_version, { # https://files.pythonhosted.org/packages/18/db/3feb3cfa102553b9329d0c887b3c10480381de69abf6e8629f6b32f450df/meson-0.61.5-py3-none-any.whl
+        'easyblock':              'PythonPackage',
+        'sources':                [SOURCELOWER_TAR_GZ],
+        'source_urls':            [PYPI_SOURCE],
+        'checksums':              ['5e9a0d65c1a51936362b9686d1c5e9e184a6fd245d57e7269750ce50c20f5d9a'],
+        'start_dir':              '%(namelower)s-%(version)s',
+        'req_py_majver':          int( local_system_pyshortver.split('.')[0] ), # Used to let EasyBuild select the right system Python executable.
+        'req_py_minver':          int( local_system_pyshortver.split('.')[1] ), # Used to let EasyBuild select the right system Python executable.
+        'max_py_majver':          int( local_system_pyshortver.split('.')[0] ), # Used to let EasyBuild select the right system Python executable.
+        'max_py_minver':          int( local_system_pyshortver.split('.')[1] ), # Used to let EasyBuild select the right system Python executable.
+        'fix_python_shebang_for': [],
+        'options':                {'modulename': 'mesonbuild'}
+    }),
+    ('SCons', local_SCons_version, { # https://files.pythonhosted.org/packages/1a/e1/7fad50e1baa7068e3e2382b11c4d00190238798d62bfa6bbfa8619c19f39/SCons-4.4.0-py3-none-any.whl
+        'easyblock':              'PythonPackage',
+        'sources':                [SOURCE_TAR_GZ],
+        'source_urls':            [PYPI_SOURCE],
+        'checksums':              ['7703c4e9d2200b4854a31800c1dbd4587e1fa86e75f58795c740bcfa7eca7eaa'],
+        'start_dir':              '%(name)s-%(version)s',
+        'req_py_majver':          int( local_system_pyshortver.split('.')[0] ), # Used to let EasyBuild select the right system Python executable.
+        'req_py_minver':          int( local_system_pyshortver.split('.')[1] ), # Used to let EasyBuild select the right system Python executable.
+        'max_py_majver':          int( local_system_pyshortver.split('.')[0] ), # Used to let EasyBuild select the right system Python executable.
+        'max_py_minver':          int( local_system_pyshortver.split('.')[1] ), # Used to let EasyBuild select the right system Python executable.
+        'download_dep_fail':      True,
+        'use_pip':                False,
+        'sanity_pip_check':       False,
+        'fix_python_shebang_for': [],
+        'options':                {'modulename': False}
+        }),
+]
+
+postinstallcmds = [
+    # Fix scons for use in the container as we don't have the python link at the moment
+    'sed -e \'s|#!.*python.*|#!/usr/bin/python3.6|\' '
+       f'-e \'s|import sys|import sys\\nsys.path.append("%(installdir)s/lib/python{local_system_pyshortver}/site-packages")|\' '
+        '-i %(installdir)s/bin/scons*',
+    # Do the same fixes to the easy_install scripts
+    'sed -e \'s|#!.*python.*|#!/usr/bin/python3.6|\' '
+       f'-e \'s|import sys|import sys\\nsys.path.append("%(installdir)s/lib/python{local_system_pyshortver}/site-packages")|\' '
+        '-i %(installdir)s/bin/easy_install*',
+    # Do the same fixes to the wheel command
+    'sed -e \'s|#!.*python.*|#!/usr/bin/python3.6|\' '
+       f'-e \'s|import sys|import sys\\nsys.path.append("%(installdir)s/lib/python{local_system_pyshortver}/site-packages")|\' '
+        '-i %(installdir)s/bin/wheel',
+]
+
+sanity_check_paths = {
+    'files': # wheel
+             ['bin/wheel'] +
+             # Meson
+             ['bin/meson'] +
+             # SCons
+             ['bin/scons', 'bin/sconsign', 'bin/scons-configure-cache'], # scons-time is missing in SCons 4? Strange as there is a manual page for it.
+    'dirs':  [],
+}
+
+sanity_check_commands = [
+    # wheel
+    'wheel --help',
+     # Meson
+    'meson --version',
+    # SCons
+    'scons --help',
+]
+
+modextrapaths = {
+    'PYTHONPATH': ['lib/python%s/site-packages' % local_system_pyshortver]
+}
+
+#
+# We set EBROOT and EBVERSION variables that correspond to each of the regular
+# EasyBuild packages that are replaced by this bundle.
+modextravars = {
+    'EBROOTMESON':    '%(installdir)s',
+    'EBVERSIONMESON': local_Meson_version,
+    'EBROOTSCONS':    '%(installdir)s',
+    'EBVERSIONSCONS': local_SCons_version,
+    'EBROOTWHEEL':    '%(installdir)s',
+    'EBVERSIONWHEEL': local_wheel_version,
+}
+
+moduleclass = 'devel'
+modluafooter = f"""
+extensions( "Meson/{local_Meson_version}, SCons/{local_SCons_version}, wheel/{local_wheel_version}"
+          )
+"""

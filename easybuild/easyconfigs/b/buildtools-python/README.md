@@ -61,4 +61,13 @@ Links for quick checking for version updates:
 -   Meson was installed from a wheel to avoid having to install additional build dependencies
     of Meson.
 
+
+### 25.09
+
+-   As the heavy lifting was done for the transition to EasyBuild 5 in 25.03 not long
+    before 25.09 was started, changes are minimal and this is mostly a trivial port of the
+    EasyConfig for 25.03.
+    
+-   We stuck to the same version of SCons as in 25.03 as the newer version required 
+    a newer version of some setup tools in Cray Python (likely setuptools).
     
