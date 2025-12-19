@@ -171,7 +171,7 @@ builddependencies = [
 default_easyblock = 'ConfigureMake'
 
 local_common_ncurses_configopts  = '--without-shared --with-normal --with-termlib --with-ticlib --enable-overwrite --without-ada --enable-symlinks --with-versioned-syms '
-local_common_ncurses_configopts += '--enable-pc-files --with-pkg-config-libdir=%(installdir)s/lib/pkgconfig '
+local_common_ncurses_configopts += '--enable-pc-files --libdir=%(installdir)s/lib --with-pkg-config-libdir=%(installdir)s/lib/pkgconfig '
 
 components = [
 #    ('Brotli', local_syslibs_Brotli_version, { # Usefull for cURL but fail to do a static only build or to put in lib instead of lib64.
@@ -223,7 +223,7 @@ components = [
         'start_dir':     'readline-%(version)s',
         'preconfigopts': "LD_LIBRARY_PATH=%(installdir)s/lib:$LD_LIBRARY_PATH LDFLAGS='-L%(installdir)s/lib -lncurses' " +
                          "CFLAGS='-O2 -march=znver1 -fPIC' CXXFLAGS='-O2 -march=znver1 -fPIC' ",
-        'configopts':    '--enable-static --disable-shared',
+        'configopts':    '--enable-static --disable-shared --libdir=%(installdir)s/lib',
         'buildopts':     "SHLIB_LIBS='-lncurses'",
     }),
     ('bzip2', local_syslibs_bzip2_version, {
@@ -250,7 +250,7 @@ components = [
         'checksums':     ['9a93b2b7dfdac77ceba5a558a580e74667dd6fede4585b91eefb60f03b72df23'],
         'start_dir':     '%(namelower)s-%(version)s',
         'preconfigopts': 'CFLAGS="-O2 -march=znver1 -fPIC" CXXFLAGS="-O2 -march=znver1 -fPIC" ',
-        'configopts':    '--static'
+        'configopts':    '--static --libdir=%(installdir)s/lib'
     }),
     ('lz4', local_syslibs_lz4_version, {
         'easyblock':   'ConfigureMake',
@@ -294,7 +294,7 @@ components = [
         'checksums':     ['59c31441fec9a66205307749eccfee551055f2d792f329f18d97099e919a3b2f'],
         'start_dir':     '%(namelower)s-%(version)s',
         'preconfigopts': 'CFLAGS="-O2 -march=znver1 -fPIC" CXXFLAGS="-O2 -march=znver1 -fPIC" ',
-        'configopts':    '--enable-static --disable-shared'
+        'configopts':    '--enable-static --disable-shared --libdir=%(installdir)s/lib'
     }),
     ('APR', local_syslibs_APR_version, {
         'easyblock':   'ConfigureMake',
@@ -306,7 +306,7 @@ components = [
         'checksums':     ['49030d92d2575da735791b496dc322f3ce5cff9494779ba8cc28c7f46c5deb32'],
         'start_dir':     '%(namelower)s-%(version)s',
         'preconfigopts': 'CC="gcc" CFLAGS="-O2 -march=znver1 -fPIC" ',
-        'configopts':    '--enable-static --disable-shared'
+        'configopts':    '--enable-static --disable-shared --libdir=%(installdir)s/lib'
     }),
     ('APR-util', local_syslibs_APR_util_version, {
         'easyblock':   'ConfigureMake',
@@ -319,7 +319,7 @@ components = [
         'start_dir':     '%(namelower)s-%(version)s',
         'preconfigopts': 'CC="gcc" CFLAGS="-O2 -march=znver1 -fPIC" ',
         #'unrecognized_configure_options': 'warn', # If we run into further issues
-        'configopts':    '--with-apr=%(installdir)s/bin/apr-1-config', # --enable-static --disable-shared is not supported.
+        'configopts':    '--with-apr=%(installdir)s/bin/apr-1-config --libdir=%(installdir)s/lib', # --enable-static --disable-shared is not supported.
         'installopts':   ' && cd %(installdir)s/lib/pkgconfig && sed -i -e "s|-lexpat|-L%(installdir)s/lib -lexpat|" apr-util-1.pc' +
                          ' && cd %(installdir)s/bin           && sed -i -e "s|-lexpat|-L%(installdir)s/lib -lexpat|" apu-1-config'
 
@@ -347,7 +347,7 @@ components = [
         'checksums':     ['c9cc77c7c560c543135edc555af609d5619dbef011997e988ce40a3d75d86088'],
         'start_dir':     '%(namelower)s-%(version)s',
         'preconfigopts': 'CFLAGS="-O2 -march=znver1 -fPIC" CXXFLAGS="-O2 -march=znver1 -fPIC" ',
-        'configopts':    '--enable-static --disable-shared'
+        'configopts':    '--enable-static --disable-shared --libdir=%(installdir)s/lib'
     }),
     ('PCRE2', local_syslibs_PCRE2_version, {
         'easyblock':   'ConfigureMake',
@@ -362,7 +362,8 @@ components = [
         'configopts':    '--with-pic --enable-newline-is-any ' + \
                          '--enable-pcre2-16 --enable-pcre2-32 --enable-jit ' + \
                          '--enable-pcre2grep-libz --enable-pcre2grep-libbz2 --enable-pcre2test-libreadline ' + \
-                         '--disable-shared --enable-static '
+                         '--disable-shared --enable-static ' + \
+                         '--libdir=%(installdir)s/lib '
     }),
     ('SQLite3', local_syslibs_SQLite3_version, {
         'easyblock':   'ConfigureMake',
@@ -374,7 +375,7 @@ components = [
         'checksums':     ['4f2445cd70479724d32ad015ec7fd37fbb6f6130013bd4bfbc80c32beb42b7e0'],
         'start_dir':     'sqlite-autoconf-' + local_SQLite3_filename_version,
         'preconfigopts': 'CC="gcc" CFLAGS="-O2 -march=znver1 -fPIC" ',
-        'configopts':    '--enable-static --disable-shared',
+        'configopts':    '--enable-static --disable-shared --libdir=%(installdir)s/lib',
         'max_parallel':  1,
     }),
     ('talloc', local_syslibs_talloc_version, {
@@ -385,7 +386,7 @@ components = [
         'checksums':     ['dc46c40b9f46bb34dd97fe41f548b0e8b247b77a918576733c528e83abd854dd'],
         'start_dir':     '%(namelower)s-%(version)s',
         'preconfigopts': 'CC="gcc" CFLAGS="-O2 -march=znver1" ',
-        'configopts':    '--disable-python --disable-rpath',
+        'configopts':    '--disable-python --disable-rpath --libdir=%(installdir)s/lib',
     }),
 ]
 
