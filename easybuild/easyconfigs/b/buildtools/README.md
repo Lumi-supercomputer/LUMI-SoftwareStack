@@ -66,56 +66,56 @@ Not included at the moment:
 
 ### 21.12
 
-  * Version update of all components to the most recent version as of 4 February 2022.
+-   Version update of all components to the most recent version as of 4 February 2022.
 
-  * SCons 4.3 now builds without problems. (in 21.08 the 4.x branch was avoided). Downloads
+-   SCons 4.3 now builds without problems. (in 21.08 the 4.x branch was avoided). Downloads
     changed to PyPi; SourceForge does no longer seem to contain the newest version.
 
-  * Added `xxd`, a hexadecimal editor that comes with `vim`, as it is a build dependency
+-   Added `xxd`, a hexadecimal editor that comes with `vim`, as it is a build dependency
     for recent PLUMED versions. This ensures that the command will be present even if
     `vim` would be deleted again from the system images.
     
 ### 22.06
 
-  * Version updates of components.
+-   Version updates of components.
   
 ### 22.08
 
-  * Major change: Split into a -minimal version which is linked against the system 
+-   Major change: Split into a -minimal version which is linked against the system 
     libraries but does not have all functionality (left out some tools that are not
     needed in that version, and some commands, e.g., ccmake, are missing) and then the
     full version which is linked against the static library package `syslibs` which
     allows us to use `ncurses` and to minimize interference with other tools.
     
-  * Major change: A `-noPython` version that leaves out Meson and SCons as those require
+-   Major change: A `-noPython` version that leaves out Meson and SCons as those require
     Python and can interfer with software that needs a different version of Python.
     
-  * Some version updates.
+-   Some version updates.
 
     
 ### 22.12 and 23.03
 
-  * Further implementation of the changes
+-   Further implementation of the changes
   
-      * Version that is used to bootstrap until we can build a proper `buildtools` 
+    -   Version that is used to bootstrap until we can build a proper `buildtools` 
         module now has the version suffix `-bootstrap`.
         
-      * The regular `buildtools` module no longer contains any Python-based tool that
+    -   The regular `buildtools` module no longer contains any Python-based tool that
         require `PYTHONPATH` to be set due to interference with other tools that might
         need a different version of Python.
         
-      * The separate `buildtools-python` modules provide the Python-based tools.
+    -   The separate `buildtools-python` modules provide the Python-based tools.
       
-  * Otherwise just version updates of the packages used in 22.08.
+-   Otherwise just version updates of the packages used in 22.08.
   
-  * Note that we first tried with SCons 4.5.1 but that version was too new for some
+-   Note that we first tried with SCons 4.5.1 but that version was too new for some
     other packages. Serf in syslibs, e.g., failed.
 
 
 
 ### 23.09
 
-  * Some components have been updated to the latest version, others (SCons and Meson) were kept
+-   Some components have been updated to the latest version, others (SCons and Meson) were kept
     at the current version. Meson because it is the last version compatible with the system Python,
     and SCons because we've had problems with other software at the previous update.
     
@@ -125,38 +125,44 @@ Not included at the moment:
 
 ### 23.12
 
-  * Minimal version updates, only CMake was updated as there it is important to have the 
+-   Minimal version updates, only CMake was updated as there it is important to have the 
     latest.
     
 
 ### 24.03
 
-  * Total refresh of 23.12, except for those packages where newer versions offer compile problems
+-   Total refresh of 23.12, except for those packages where newer versions offer compile problems
     with the current system compiler on LUM<I.
 
 
 ### 24.11
 
-  * Trivial port of the 24.03 EasyConfig with just a lot of version updates.
+-   Trivial port of the 24.03 EasyConfig with just a lot of version updates.
 
-  * It turns out that nasm.us is down, so download sources are not available.
+-   It turns out that nasm.us is down, so download sources are not available.
     NASM does [have a GitHub however](https://github.com/netwide-assembler/nasm)
     where sources can be found. These are raw though and we couldn't get the build
     process to work.
     
-      * Certainly needed is `preconfigopts = './autogen.sh && '`.
+    -   Certainly needed is `preconfigopts = './autogen.sh && '`.
 
-      * The start directory is now '%(namelower)s-%(namelower)s-%(version)s'.
+    -   The start directory is now '%(namelower)s-%(namelower)s-%(version)s'.
 
-      * The build process however fails to generate the man pages while the `make install`
+    -   The build process however fails to generate the man pages while the `make install`
         phase does want to install them. It is not clear how they can be generated 
         from the GitHub sources. In the downloaded package from `nasm.us`, they were
         pre-generated.
         
-      * So for now we use the web archive as a second source for downloads.
+    -   So for now we use the web archive as a second source for downloads.
 
       
 ### 25.03
       
-  * Minor update of 24.11, few packages changed as these were developed within three 
-    weeks of each other.      
+-   Initially a minor update of 24.11, few packages changed as these were developed within three 
+    weeks of each other.
+
+-   Further corrections to installation directories and EasyConfig parameters were needed when
+    moving to EasyBuild 5.
+
+-   SCons was moved out of the `-bootstrap` version as it triggered an internal sanity check that
+    failed as it insisted on having an executable called `python` rather than `python3`.
