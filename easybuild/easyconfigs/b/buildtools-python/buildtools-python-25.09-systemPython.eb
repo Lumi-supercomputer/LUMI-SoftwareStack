@@ -132,6 +132,8 @@ postinstallcmds = [
     'sed -e \'s|#!.*python.*|#!/usr/bin/python3.6|\' '
        f'-e \'s|import sys|import sys\\nsys.path.append("%(installdir)s/lib/python{local_system_pyshortver}/site-packages")|\' '
         '-i %(installdir)s/bin/wheel',
+    # For some reason, an empty lib64 directory structure was also created.
+    'cd %(installdir)s && /bin/rm -rf lib64 %% ln -s lib lib64',
 ]
 
 sanity_check_paths = {
