@@ -134,7 +134,14 @@ The current content is
 -   Tried htop 3.4.1 in 24.03-1 but had to switch back to 3.3.0. 3.4.1 still segfaults, 
     but it did not show in the ccpe container for some unknown reason.
 
+
 ### 25.03
 
 -   Identical to the 24.11 version
+
+
+### 25.09
+
+-   Identical to the 25.03 version
+
 
