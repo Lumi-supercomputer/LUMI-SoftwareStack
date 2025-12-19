@@ -185,7 +185,7 @@ components = [
         'source_urls': [GNU_SOURCE],
         'checksums':   ['f81f5860666b0bc7d84baddefa60d1cb9fa6fceb2398cc3baca6afaa60266675'],
         'start_dir':   '%(namelower)s-%(version)s',
-        'configopts':  '--enable-static --disable-shared '
+        'configopts':  '--enable-static --disable-shared --libdir=%(installdir)s/lib'
         }),
     ('Autoconf', local_Autoconf_version, { # Uses M4
         'sources':     [SOURCELOWER_TAR_XZ],
@@ -197,7 +197,8 @@ components = [
         'sources':     ['texinfo-%(version)s.tar.xz'],
         'source_urls': ['https://ftpmirror.gnu.org/gnu/texinfo'],
         'checksums':   ['0329d7788fbef113fa82cb80889ca197a344ce0df7646fe000974c5d714363a6'],
-        'start_dir':   'texinfo-%(version)s'
+        'start_dir':   'texinfo-%(version)s',
+        'configopts':  ' --libdir=%(installdir)s/lib', 
         }),
     ('Autoconf-archive', local_Autoconf_archive_version, { # Uses M4
         'sources':     [SOURCELOWER_TAR_XZ],
@@ -215,13 +216,15 @@ components = [
         'sources':     [SOURCELOWER_TAR_XZ],
         'source_urls': [GNU_SOURCE],
         'checksums':   ['4d7e4fdef2eca6afe07a2682151cea78781e0a4e8f9622142d9f70c083a2fd4f'],
-        'start_dir':   '%(namelower)s-%(version)s'
+        'start_dir':   '%(namelower)s-%(version)s',
+        'configopts':  ' --libdir=%(installdir)s/lib', 
         }),
     ('Bison', local_Bison_version, {
         'sources':      [SOURCELOWER_TAR_XZ],
         'source_urls':  [GNU_SOURCE],
         'checksums':    ['9bba0214ccf7f1079c5d59210045227bcf619519840ebfa80cd3849cff5a5bf2'],
         'start_dir':    '%(namelower)s-%(version)s',
+        'configopts':   ' --libdir=%(installdir)s/lib', 
         'buildopts':    'V=1',
         'max_parallel': '1', # Building the examples fails in some Bison version when doing a parallel
                              # build, likely due to incomplete dependencies and a file being removed
@@ -233,7 +236,7 @@ components = [
         'checksums':     ['e87aae032bf07c26f85ac0ed3250998c37621d95f8bd748b31f15b33c45ee995'],
         'start_dir':     '%(namelower)s-%(version)s',
         'preconfigopts': 'export CPPFLAGS="$CPPFLAGS -D_GNU_SOURCE" && ',
-        'configopts':    '--enable-static --disable-shared '
+        'configopts':    '--enable-static --disable-shared --libdir=%(installdir)s/lib'
         }),
     ('sed', local_sed_version, {
         'sources':     [SOURCELOWER_TAR_XZ],
@@ -278,7 +281,8 @@ components = [
         'sources':     [SOURCELOWER_TAR_GZ],
         'source_urls': ['http://www.tortall.net/projects/yasm/releases/'],
         'checksums':   ['3dce6601b495f5b3d45b59f7d2492a340ee7e84b5beca17e48f862502bd5603f'],
-        'start_dir':   '%(namelower)s-%(version)s'
+        'start_dir':   '%(namelower)s-%(version)s',
+        'configopts':   ' --libdir=%(installdir)s/lib', 
         }),
     ('patchelf', local_patchelf_version, {
         'sources':       [ { 'download_filename' : '%(version)s.tar.gz',
