@@ -166,3 +166,12 @@ Not included at the moment:
 
 -   SCons was moved out of the `-bootstrap` version as it triggered an internal sanity check that
     failed as it insisted on having an executable called `python` rather than `python3`.
+
+    
+### 25.09
+
+-   As the big work was done in the same period for 25.03 and the move to EasyBuild 5, the 25.09
+    EasyConfigs are just a minor change of the 25.03 ones.
+    
+-   We made preparations to integrate both CMake 3 and 4, but in the end decided not to do as the
+    CMake recipes are likely incompatible.
