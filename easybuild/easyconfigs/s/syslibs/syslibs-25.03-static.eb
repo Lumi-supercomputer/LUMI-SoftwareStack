@@ -164,7 +164,8 @@ local_SQLite3_filename_version =  '%1d%02d%02d00' % (int(local_syslibs_SQLite3_v
 toolchain = SYSTEM
 
 builddependencies = [
-    ('buildtools', local_LUMI_version, '-bootstrap'),   # Needed for Serf, useful for the rest.
+    ('buildtools',        local_LUMI_version, '-bootstrap'),    # Uniform build environment.
+    ('buildtools-python', local_LUMI_version, '-systemPython'), # Needed for Serf
 ]
 
 default_easyblock = 'ConfigureMake'
