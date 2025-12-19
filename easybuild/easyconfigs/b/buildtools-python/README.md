@@ -49,9 +49,16 @@ Links for quick checking for version updates:
 
 ### 25.03 versions
 
--   For now direct copies from the 24.11 ones.
+-   Started from direct copies of the 24.11
 
 -   But added the StreNum package as that was used by one of the packages in the 
     X11 bundle.
+
+-   For the move to EasyBuild 5, we also moved up the package in the build sequence and
+    it now uses the `-bootstrap` version of `buildtools`. This was done because we failed
+    to install SCons properly in `buildtools`.
+
+-   Meson was installed from a wheel to avoid having to install additional build dependencies
+    of Meson.
 
     

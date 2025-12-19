@@ -113,3 +113,7 @@ use.
 -   When testing with EasyBuild 5, we bumped into some configure options that are no longer
     supported. Those were removed, and we also added a simple sanity check to check for shared
     libraries.
+
+-   For EasyBuild 5, we also needed to update our build dependencies as we have changed the 
+    bootstrapping process of the build tools and SCons now has to come from `buildtools-python` 
+    already.
