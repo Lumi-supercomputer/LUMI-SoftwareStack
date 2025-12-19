@@ -91,8 +91,8 @@ local_lunzip_version =      '1.15'   # https://download.savannah.gnu.org/release
 local_plzip_version =       '1.12'   # https://download.savannah.gnu.org/releases/lzip/plzip/
 local_lzlib_version =       '1.15'   # https://download.savannah.gnu.org/releases/lzip/lzlib/
 local_lziprecover_version = '1.25'   # https://download.savannah.gnu.org/releases/lzip/lziprecover/
-local_tarlz_version =       '0.27.1' # https://download.savannah.gnu.org/releases/lzip/tarlz/
-local_Zutils_version =      '1.14'   # https://download.savannah.gnu.org/releases/zutils/
+local_tarlz_version =       '0.28.1' # https://download.savannah.gnu.org/releases/lzip/tarlz/
+local_Zutils_version =      '1.15'   # https://download.savannah.gnu.org/releases/zutils/
 
 #
 # Some SYSTEM applications
