@@ -117,3 +117,9 @@ use.
 -   For EasyBuild 5, we also needed to update our build dependencies as we have changed the 
     bootstrapping process of the build tools and SCons now has to come from `buildtools-python` 
     already.
+    
+    
+### 25.09
+
+-   Trivial update of 25.03 with just some version updates.
+
