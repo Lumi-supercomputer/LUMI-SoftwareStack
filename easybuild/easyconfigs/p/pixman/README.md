@@ -16,9 +16,14 @@
 -   The EasyConfig is derived from the University of Antwerpen one which itself
     is a variant of the default EasyBuilders one.
 
+
+### 0.42.2 from CPE 22.12 on
+
+-   Trivial port of the EasyConfig for 0.40.0 in 21.06 and later.
+
 -   From LUMI/23.12 on, license information was added to the installation.
 
 -   Stuck to 0.42.2 for 25.03 even though 2025a uses 0.46.2. The latter version makes 
     Meson and Ninja mandatory and after an hour of work still did not compile properly
-    with the AMD ROCm compiler and this is at least parly due to dirty code.
+    with the AMD ROCm compiler and this is at least partly due to dirty code.
   
