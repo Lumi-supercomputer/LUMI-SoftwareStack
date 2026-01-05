@@ -32,6 +32,7 @@ if os.getenv( 'LUMI_LMOD_POWERUSER' ) == nil then
     hide_version( 'cpe-cuda/23.12' )
     hide_version( 'cpe-cuda/24.03' )
     hide_version( 'cpe-cuda/24.11' )
+    hide_version( 'cpe-cuda/25.03' )
     hide_version( 'PrgEnv-nvhpc/8.3.3' )
     hide_version( 'PrgEnv-nvidia/8.3.3' )
     hide_version( 'PrgEnv-nvhpc/8.4.0' )
@@ -77,29 +78,35 @@ if os.getenv( 'LUMI_STACK_NAME' ) ~= nil then
 end
 
 -- Solve a problem for users who were previously using ROCm 5.0.2
-module_version( 'rocm/6.0.3', '5.0.2' )
-module_version( 'amd/6.0.3',  '5.0.2' )
+module_version( 'rocm/6.3.0', '5.0.2' )
+module_version( 'amd/6.3.0',  '5.0.2' )
 
 -- Solve a potential problem with the Cray PE cpe modules.
 -- For the ROCm version as it was on the system in the period before the
 -- August 2024 update:
-module_version( 'rocm/6.0.3', '5.2.3' )
-module_version( 'amd/6.0.3',  '5.2.3' )
+module_version( 'rocm/6.3.0', '5.2.3' )
+module_version( 'amd/6.3.0',  '5.2.3' )
+-- August 2025 update
+module_version( 'rocm/6.3.0', '6.0.3' )
+module_version( 'amd/6.3.0',  '6.0.3' )
 -- For cpe/22.08
-module_version( 'rocm/6.0.3', '5.1.0' )
-module_version( 'amd/6.0.3',  '5.1.0' )
+module_version( 'rocm/6.3.0', '5.1.0' )
+module_version( 'amd/6.3.0',  '5.1.0' )
 -- For cpe/22.12 and cpe/23.03
-module_version( 'rocm/6.0.3', '5.2.0' )
-module_version( 'amd/6.0.3',  '5.2.0' )
+module_version( 'rocm/6.3.0', '5.2.0' )
+module_version( 'amd/6.3.0',  '5.2.0' )
 -- For cpe/23.09:
-module_version( 'rocm/6.0.3', '5.5.1' )
-module_version( 'amd/6.0.3',  '5.5.1' )
+module_version( 'rocm/6.3.0', '5.5.1' )
+module_version( 'amd/6.3.0',  '5.5.1' )
 -- For cpe/23.12:
-module_version( 'rocm/6.0.3', '5.7.0' )
-module_version( 'amd/6.0.3',  '5.7.0' )
+module_version( 'rocm/6.3.0', '5.7.0' )
+module_version( 'amd/6.3.0',  '5.7.0' )
 -- For cpe/24.03
-module_version( 'rocm/6.0.3', '6.0.0' )
-module_version( 'amd/6.0.3',  '6.0.0' )
+module_version( 'rocm/6.3.0', '6.0.0' )
+module_version( 'amd/6.3.0',  '6.0.0' )
+-- For cpe/25.03
+module_version( 'rocm/6.3.0', '6.2.1' )
+module_version( 'amd/6.3.0',  '6.2.1' )
 
 -- Fix for the missing cray-mpich modules or modules that are not fully functional
 -- anymore.
