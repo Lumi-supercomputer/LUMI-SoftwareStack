@@ -1,6 +1,6 @@
 #! /bin/bash
 #
-# Script to makea backup of CrayEnv
+# Script to make a backup of CrayEnv
 #
 
 
