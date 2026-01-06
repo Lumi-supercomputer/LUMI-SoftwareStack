@@ -4,6 +4,8 @@
 # data from the system HPE Cray PE configuration file
 # /etc/cray-pe.de/cray-pe-configuration.sh.
 #
+# Usage: eval $(<path_to_this_script>/enable_LUMI.sh)
+#
 
 # That cd will work if the script is called by specifying the path or is simply
 # found on PATH. It will not expand symbolic links.
