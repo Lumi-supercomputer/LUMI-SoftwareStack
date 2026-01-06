@@ -13,6 +13,8 @@ repo=${PWD##*/}
 cd ..
 installroot=$(pwd)
 
+LMOD='/opt/cray/pe/lmod/lmod'
+
 #
 # Print the commands that should be executed via eval to initialise
 # the LUMI module system from the location based on the location of this
@@ -26,7 +28,7 @@ installroot=$(pwd)
 #   somehow even if the parent claims it is running Environment Modules
 #   if that parent is on a compute node obtained from an LMOD session.
 #   Hence we always re-initialise just to clear immediately again.
-echo "source /usr/share/lmod/lmod/init/profile ; "
+echo "source $LMOD/init/profile ; "
 echo "clearLmod ; "
 #echo "unset _LUMI_INIT_FIRST_LOAD ; "
 
@@ -42,5 +44,5 @@ echo "export MODULEPATH=/opt/cray/pe/lmod/modulefiles/core:/opt/cray/pe/lmod/mod
 echo "export LMOD_SYSTEM_DEFAULT_MODULES=craype-x86-rome:craype-network-ofi:perftools-base:xpmem:PrgEnv-cray:init-lumi ; "
 
 # - Initialize LMOD but
-echo "source /usr/share/lmod/lmod/init/profile ; "
+echo "source $LMOD/init/profile ; "
 echo "module --initial_load --no_redirect restore ; "
