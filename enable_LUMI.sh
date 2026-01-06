@@ -1,4 +1,10 @@
 #! /bin/bash
+#
+# Enable this LUMI software stack.
+#
+# Usage: eval $(<path_to_this_script>/enable_LUMI.sh)
+#
+
 
 # That cd will work if the script is called by specifying the path or is simply
 # found on PATH. It will not expand symbolic links.
