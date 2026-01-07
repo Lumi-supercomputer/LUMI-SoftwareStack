@@ -2,6 +2,9 @@ easyblock = 'ConfigureMake'
 
 local_libpsl_version =       '0.21.5'        # https://github.com/rockdaboot/libpsl/releases
 
+local_libidn2_version =      '2.3.7'         # https://ftp.gnu.org/gnu/libidn/
+local_libunistring_version = '1.3'           # https://ftp.gnu.org/gnu/libunistring/
+
 name =    'libpsl'
 version = local_libpsl_version
 
@@ -36,9 +39,16 @@ builddependencies = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
 ]
 
+dependencies = [
+    ('libidn2',      local_libidn2_version),
+    ('libunistring', local_libunistring_version),
+]
+
 # Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
 preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
 prebuildopts = preconfigopts
+
+configopts = '--enable-runtime=libidn2 --enable-builtin'
 
 postinstallcmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',

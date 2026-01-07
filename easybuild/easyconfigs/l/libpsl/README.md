@@ -24,3 +24,8 @@
 ### Version 0.21.5 from LUMI/24.03 on
 
 -   Trivial port of the EasyConfig for version 0.21.1 for LUMI/23.12.
+
+-   For 25.03: Needed to add libidn2 and libunistring as dependencies, causing a reorganisation
+    in the EasyStack files. It picked up a libidn2 from the system but couldn't find a libunistring.
+    The other solution would have been to explicitly turn the runtime off (which may still leave
+    a sufficiently capable package).
