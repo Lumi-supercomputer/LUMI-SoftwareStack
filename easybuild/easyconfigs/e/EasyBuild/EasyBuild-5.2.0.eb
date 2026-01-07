@@ -86,6 +86,30 @@ local_pyshortver = '.'.join(local_craypython_version.split('.')[:2])
 local_craypython_exe = f'/opt/cray/pe/python/{local_craypython_version}/bin/python{local_pyshortver}'
 
 components = [
+    ('flit_core', local_flit_core_cray_version, {
+        'easyblock':         'PythonPackage',
+        'sources':           [SOURCELOWER_TAR_GZ],
+        'source_urls':       [PYPI_SOURCE],   
+        'checksums':         ['18f63100d6f94385c6ed57a72073443e1a71a4acb4339491615d0f16d6ff01b2'],
+        'start_dir':         '%(namelower)s-%(version)s',
+        'req_py_majver':     local_craypython_version.split('.')[0], # Used to let EasyBuild select the right system Python executable.
+        'req_py_minver':     local_craypython_version.split('.')[1], # Used to let EasyBuild select the right system Python executable.
+        'download_dep_fail': True,
+        'use_pip':           True,
+        'sanity_pip_check':  False,
+    }),
+    ('wheel', local_wheel_cray_version, {
+        'easyblock':         'PythonPackage',
+        'sources':           [SOURCELOWER_TAR_GZ],
+        'source_urls':       [PYPI_SOURCE],
+        'checksums':         ['661e1abd9198507b1409a20c02106d9670b2576e916d58f520316666abca6729'],
+        'start_dir':         '%(namelower)s-%(version)s',
+        'req_py_majver':     local_craypython_version.split('.')[0], # Used to let EasyBuild select the right system Python executable.
+        'req_py_minver':     local_craypython_version.split('.')[1], # Used to let EasyBuild select the right system Python executable.
+        'download_dep_fail': True,
+        'use_pip':           True,
+        'sanity_pip_check':  False,
+    }), 
     ('EasyBuild', local_EasyBuild_version, {
         'easyblock': 'Binary',
         'sources':      [
@@ -134,9 +158,9 @@ components = [
         'install_cmds': [
                             # It turns out that the --no-index and --no-build-isolation options that EasyBuild uses in the EasyBlock,
                             # cause trouble with Cray Python.
-                            f'cd easybuild-framework-{version}   && pip{local_pyshortver} install --prefix=%(installdir)s --no-deps --ignore-installed .',
-                            f'cd easybuild-easyblocks-{version}  && pip{local_pyshortver} install --prefix=%(installdir)s --no-deps --ignore-installed .',
-                            f'cd easybuild-easyconfigs-{version} && pip{local_pyshortver} install --prefix=%(installdir)s --no-deps --ignore-installed .',
+                            f'cd easybuild-framework-{version}   && PYTHONPATH=%(installdir)s/lib/python{local_pyshortver}/site-packages:$PYTHONPATH pip{local_pyshortver} install --prefix=%(installdir)s --no-deps --ignore-installed .',
+                            f'cd easybuild-easyblocks-{version}  && PYTHONPATH=%(installdir)s/lib/python{local_pyshortver}/site-packages:$PYTHONPATH pip{local_pyshortver} install --prefix=%(installdir)s --no-deps --ignore-installed .',
+                            f'cd easybuild-easyconfigs-{version} && PYTHONPATH=%(installdir)s/lib/python{local_pyshortver}/site-packages:$PYTHONPATH pip{local_pyshortver} install --prefix=%(installdir)s --no-deps --ignore-installed .',
                             # Robustify a number of commands by hard-coding the Python to use and integrating
                             # setting the search path for Python packages.
                             f'sed -i -e \'s|^PYTHON=.*|export PYTHONPATH="%(installdir)s/lib/python{local_pyshortver}/site-packages:%(installdir)s/lib64/python{local_pyshortver}/site-packages"\\nPYTHON=|\' '
@@ -263,7 +287,9 @@ postinstallcmds = [
             '%(installdir)s/bin/pycodestyle',
     # p7zip: Create the 7z script in the bin directory.
     'echo \'#!/bin/sh\n%(installdir)s/libexec/7z $@\' > %(installdir)s/bin/7z',
-    'chmod +x %(installdir)s/bin/7z',  # set execution bits according to current umask
+    'chmod 755 %(installdir)s/bin/7z',  # set execution bits according to current umask
+    # Permission issue that we noted on the TDS with EasyBuild 5.2.0
+    'cd %(installdir)s/bin && chmod 755 *',
 ]
 
 sanity_check_paths = {
