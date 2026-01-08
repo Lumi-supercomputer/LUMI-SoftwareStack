@@ -534,8 +534,8 @@ then
     #
     # - Clean up files that are not needed anymore
     #
-    #rm -rf ${EBF_file%.tar.gz}
-    #rm -rf ${EBB_file%.tar.gz}
+    rm -rf ${EBF_file%.tar.gz}
+    rm -rf ${EBB_file%.tar.gz}
 
     #
     # - Activate that install
