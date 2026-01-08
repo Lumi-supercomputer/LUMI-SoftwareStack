@@ -364,6 +364,16 @@ e.b., the [MATLAB EasyConfigs in the EasyBuilders repository](https://github.com
     to then use it to install `EasyBuild-5.1.2.eb` without going through our software stack build
     bootstrap procedure as for now we stick to 4.9.4 as the default EasyBuild for 25.03.
 
+-   To make our EasyConfig work on the TDS without internet access, we also needed to install the
+    `flit_core` and `wheel` package and make sure they were in the `PYTHONPATH` while doing the pip 
+    installs of EasyBuild.
+
+
+### EasyBuild 5.2.0 for 25.03 final
+
+-   This is a straightforward port of the EasyConfig for 5.1.2. Some patches needed reworking and 
+    the pythonpackage patch is no longer needed as this change is part of EasyBuild 5.2.0.
+
 
 ## Fixes needed to EasyConfigs
 

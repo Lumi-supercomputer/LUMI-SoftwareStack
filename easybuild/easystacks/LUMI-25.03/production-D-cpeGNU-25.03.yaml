@@ -50,13 +50,13 @@ easyconfigs:
   - libpng-1.6.47-cpeGNU-25.03.eb
   - libreadline-8.2.13-cpeGNU-25.03.eb
   - libvorbis-1.3.7-cpeGNU-25.03.eb
-  #- LLVM-18.1.8-cpeGNU-25.03.eb    # Brought in for LUMI-D
+  - LLVM-18.1.8-cpeGNU-25.03.eb    # Brought in for LUMI-D
   - MPFR-4.2.2-cpeGNU-25.03.eb
   - Perl-5.40.0-cpeGNU-25.03.eb
   - snappy-1.2.2-cpeGNU-25.03.eb
   - Tcl-8.6.16-cpeGNU-25.03.eb
   - UDUNITS-2.2.28-cpeGNU-25.03.eb
-## Block 3
+# Block 3
   - freetype-2.13.3-cpeGNU-25.03.eb
   - libiconv-1.18-cpeGNU-25.03.eb
   - libsndfile-1.2.2-cpeGNU-25.03.eb
@@ -65,21 +65,21 @@ easyconfigs:
   - pixman-0.42.2-cpeGNU-25.03.eb
   - SQLite-3.47.2-cpeGNU-25.03.eb
   - XZ-5.6.3-cpeGNU-25.03.eb
-## Block 4
+# Block 4
   - file-5.46-cpeGNU-25.03.eb
   - libunistring-1.3-cpeGNU-25.03.eb
   - libunwind-1.8.1-cpeGNU-25.03.eb
   - libxml2-2.13.4-cpeGNU-25.03.eb
   - zstd-1.5.7-cpeGNU-25.03.eb
-## Block 5
+# Block 5
   - Boost-1.88.0-cpeGNU-25.03.eb
   - gettext-0.24-cpeGNU-25.03.eb
   - libarchive-3.7.7-cpeGNU-25.03.eb
   - libpsl-0.21.5-cpeGNU-25.03.eb
   - LibTIFF-4.7.0-cpeGNU-25.03.eb
   - libxslt-1.1.42-cpeGNU-25.03.eb
-## Block 6
-## TODO: New Boost.python.
+# Block 6
+# TODO: New Boost.python.
   - cURL-8.11.1-cpeGNU-25.03.eb
   - gdbm-1.25-cpeGNU-25.03.eb
   - intltool-0.51.0-cpeGNU-25.03.eb
@@ -87,52 +87,52 @@ easyconfigs:
   - LittleCMS-2.17-cpeGNU-25.03.eb
   - util-linux-2.40.4-cpeGNU-25.03.eb
   - wget-1.25.0-cpeGNU-25.03.eb
-## Block 7
+# Block 7
   - fontconfig-2.16.2-cpeGNU-25.03.eb
   - OpenJPEG-2.5.3-cpeGNU-25.03.eb
   - PROJ-9.6.2-cpeGNU-25.03.eb
-## Block 8
+# Block 8
   - libgd-2.3.3-cpeGNU-25.03.eb
   - X11-25.03-cpeGNU-25.03.eb
-## Block 9
+# Block 9
   - FFmpeg-7.1.1-cpeGNU-25.03.eb
-  #- OpenGL-25.03-cpeGNU-25.03.eb    # Brought in for LUMI-D
+  - OpenGL-25.03-cpeGNU-25.03.eb    # Brought in for LUMI-D
   - Tk-8.6.16-cpeGNU-25.03.eb
-## Block 10
-## Block 11
-## Block 12
-## Some libraries from the apps section of before, and applications(s)
-##  - ELPA: Wait a bit, it looks like we need multiple versions and that it may need more testing.
-  - METIS-5.1.0-cpeGNU-25.03.eb
-  - ParMETIS-4.0.3-cpeGNU-25.03.eb
-  - SCOTCH-6.1.3-cpeGNU-25.03.eb
-  - SCOTCH-7.0.8-cpeGNU-25.03.eb  # Check if the EasyBlock needs an update!
-#  - ESMF-8.6.0-cpeGNU-25.03.eb
-#  - ESMF-8.6.0-cpeGNU-25.03-MPI-PIO.eb
-  - SuiteSparse-5.13.0-cpeGNU-25.03-OpenMP.eb
-## Some apps
+# Block 10
+  - Qt5-5.15.15-cpeGNU-24.03.eb
+# Block 11
+  - Qwt-6.3.0-cpeGNU-24.03.eb
+# Block 12
+# Some apps
   - lumi-CPEtools-1.2-cpeGNU-25.03-hpcat-0.9.eb
-##  - VampirServer
-##  - Score-P
-##
-## Low-priority packages
-##
-## Line 1: Extensions for Perl
-##
-## With block 4
-#  - Perl-packages-CPAN-5.40.0-cpeGNU-25.03.eb
-##
-## Line 2: Gnome graphics
-##
-## With block 7
+#  - VampirServer
+#  - Score-P
+#
+# Low-priority packages
+#
+# Line 1: Extensions for Perl
+#
+# With block 4
+  - Perl-packages-CPAN-5.40.0-cpeGNU-25.03.eb
+#
+# Line 2: Gnome graphics
+#
+# With block 7
   - GLib-2.85.1-cpeGNU-25.03.eb
-## With block 9
+# With block 9
   - cairo-1.18.4-cpeGNU-25.03.eb
-## With block 10
+# With block 10
   - GObject-Introspection-1.84.0-cpeGNU-25.03-cray-python3.11.eb
-## With block 11
+# With block 11
   - HarfBuzz-11.2.1-cpeGNU-25.03.eb
-## With block 12
+# With block 12
   - Pango-1.56.3-cpeGNU-25.03.eb
-## With apps (as they depend on other low-priority packages)
+# With apps (as they depend on other low-priority packages)
   - gnuplot-6.0.3-cpeGNU-25.03.eb
+#
+# Line 3: LUMI-D specific
+#
+# With block 1
+  - CUDA-12.2.2.eb
+# With block 3
+  - IntelRenderingToolkit-1.10.0-cpeGNU-24.03.eb

@@ -4,6 +4,8 @@
 # data from the system HPE Cray PE configuration file
 # /etc/cray-pe.de/cray-pe-configuration.sh.
 #
+# Usage: eval $(<path_to_this_script>/enable_LUMI.sh)
+#
 
 # That cd will work if the script is called by specifying the path or is simply
 # found on PATH. It will not expand symbolic links.
@@ -42,6 +44,9 @@ echo "export MODULEPATH=/opt/cray/pe/lmod/modulefiles/core:/opt/cray/pe/lmod/mod
 
 # - Set the initial list of modules
 echo "export LMOD_SYSTEM_DEFAULT_MODULES=craype-x86-rome:craype-network-ofi:perftools-base:xpmem:PrgEnv-cray:init-lumi ; "
+
+# - Clear the LMOD cache just to be on the safe side
+/bin/rm -rf "$HOME/.cache/lmod"
 
 # - Initialize LMOD but
 echo "source $LMOD/init/profile ; "

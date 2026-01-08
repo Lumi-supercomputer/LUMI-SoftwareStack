@@ -500,7 +500,7 @@ modextravars = {
     'EBVERSIONHELP2MAN':           local_help2man_version,
     'EBROOTDOXYGEN':               '%(installdir)s',
     'EBVERSIONDOXYGEN':            local_Doxygen_version,
-    'EBROOTDXXD':                  '%(installdir)s',
+    'EBROOTXXD':                   '%(installdir)s',
     'EBVERSIONXXD':                local_xxd_version,
 }
 
