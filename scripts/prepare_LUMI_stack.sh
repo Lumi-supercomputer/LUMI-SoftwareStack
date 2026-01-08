@@ -487,26 +487,6 @@ then
     make_dir $workdir
     pushd $workdir
 
-    # - Select the Python command to use
-    
-    case $EBversion in
-
-    4.*) 
-        usepython=/usr/bin/python3.6
-        pythonpathpostfix=''
-        ;;
-
-    5.*)
-        #usepython=/usr/bin/python3.11
-        usepython=/opt/cray/pe/python/3.11.7/bin/python3.11
-        pythonpathpostfix=':/opt/cray/pe/python/3.11.7'
-        ;;
-
-    *)
-        echo "Check the script, don't know which Python to use."
-
-    esac
-
     # - Untar the sources
 
     tar -xf $EB_tardir/$EBF_file
@@ -514,34 +494,70 @@ then
 
     make_dir $workdir/easybuild
 
-    pushd ${EBF_file%.tar.gz}
-    $usepython setup.py install --prefix=$workdir/easybuild
-    cd ../${EBB_file%.tar.gz}
-    $usepython setup.py install --prefix=$workdir/easybuild
-    popd
+    # - Install EasyBuild in the work directory
+    
+    case $EBversion in
+
+    4.*) 
+        usepython=/usr/bin/python3.6
+        pythonpathpostfix=''
+
+        pushd ${EBF_file%.tar.gz}
+        $usepython setup.py install --prefix=$workdir/easybuild
+        cd ../${EBB_file%.tar.gz}
+        $usepython setup.py install --prefix=$workdir/easybuild
+        popd
+
+        ;;
+
+    5.*)
+	# Somehow when using python3.11 from Cray Python we get an incomplete install and I can't
+	# see why for now.
+        usepython=/usr/bin/python3.11
+        pythonpathpostfix=''
+        #usepython=/opt/cray/pe/python/3.11.7/bin/python3.11
+        #pythonpathpostfix=':/opt/cray/pe/python/3.11.7'
+
+        pushd ${EBF_file%.tar.gz}
+        $usepython setup.py install --prefix=$workdir/easybuild
+        cd ../${EBB_file%.tar.gz}
+        $usepython setup.py install --prefix=$workdir/easybuild
+        popd
+
+        ;;
+
+    *)
+        echo "Check the script, don't know which Python to use."
+
+    esac
 
     #
     # - Clean up files that are not needed anymore
     #
-    rm -rf ${EBF_file%.tar.gz}
-    rm -rf ${EBB_file%.tar.gz}
+    #rm -rf ${EBF_file%.tar.gz}
+    #rm -rf ${EBB_file%.tar.gz}
 
     #
     # - Activate that install
     #
-    export EB_PYTHON="$usepython"
-    export PYTHONPATH="$(find $workdir/easybuild -name site-packages)${pythonpathpostfix}"
+    #export EB_PYTHON="$usepython"
+    #export PYTHONPATH="$(find $workdir/easybuild -name site-packages)${pythonpathpostfix}"
 
     #
     # - Install EasyBuild in the common directory of the $EBstack software stack
     #
     # Need to use the full module name as the module is hidden in the default view!
     echo -e "\n## Now properly installing Easybuild/$EBversion...\n"
+
     module load EasyBuild-unlock/LUMI
     module load EasyBuild-production/LUMI
-    #export EB_VERBOSE=1
-    #echo "EB_PYTHON is $EB_PYTHON"
-    #echo "PYTHONPATH is $PYTHONPATH"
+
+    export EB_PYTHON="$usepython"
+    export PYTHONPATH="$(find $workdir/easybuild -name site-packages)${pythonpathpostfix}"
+    export EB_VERBOSE=1
+    echo "EB_PYTHON is $EB_PYTHON"
+    echo "PYTHONPATH is $PYTHONPATH"
+
     $workdir/easybuild/bin/eb --show-config || die "Something wrong with the work copy of EasyBuild, eb --show-config fails."
     $workdir/easybuild/bin/eb $installroot/$repo/easybuild/easyconfigs/e/EasyBuild/EasyBuild-${EBversion}.eb \
       || die "EasyBuild failed to install EasyBuild-${EBversion}.eb."
