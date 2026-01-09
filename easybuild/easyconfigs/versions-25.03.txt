@@ -10,7 +10,7 @@ local_ROCm_version =         '6.3.4'
 #
 # EasyBuild EasyConfig
 #
-local_EasyBuild_version =         '4.9.4'
+local_EasyBuild_version =         '5.1.2'
 local_EB_lzip_version =           '1.25'   # https://download.savannah.gnu.org/releases/lzip/
 local_EB_p7zip_version =          '17.05'  # 20240220 - Check on https://github.com/p7zip-project/p7zip/releases
 local_EB_PRoot_version =          '5.4.0'  # https://github.com/proot-me/proot/releases
