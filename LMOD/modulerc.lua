@@ -108,6 +108,8 @@ module_version( 'amd/6.3.0',  '6.0.0' )
 -- For cpe/25.03
 module_version( 'rocm/6.3.0', '6.2.1' )
 module_version( 'amd/6.3.0',  '6.2.1' )
+module_version( 'rocm/6.3.0', '6.3.4' )
+module_version( 'amd/6.3.0',  '6.3.4' )
 
 -- Fix for the missing cray-mpich modules or modules that are not fully functional
 -- anymore.
