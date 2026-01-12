@@ -2,6 +2,13 @@ easyblock = 'ConfigureMake'
 
 local_parallel_version =     '20240522'      # https://ftp.gnu.org/gnu/parallel/
 
+# The two lines below are a dirty trick not very much loved by the EasyBuild developers but
+# it helps to make this EasyConfig independent of the LUMI software stack version as there is
+# no other reference to that version in the file that we can use since it relies on the
+# SYSTEM toolchain.
+import os as local_os
+local_LUMI_version = local_os.environ['LUMI_STACK_CPE_VERSION']
+
 name =    'parallel'
 version = local_parallel_version
 
@@ -50,6 +57,10 @@ checksums =   ['67ed9fad31bf3e25f09d500e7e8ca7df9e3ac380fe4ebd16c6f014448a346928
 
 osdependencies = [
     ('perl')
+]
+
+builddependencies = [
+    ('buildtools', local_LUMI_version), # For sed, as the default one in SP6 changes permissions when doing in-place editing.
 ]
 
 postinstallcmds = [

@@ -58,3 +58,10 @@
 
 -   Trivial version bump of the EasyConfig for 20250322.
 
+-   Added `buildtools` as a build dependency for the `sed` command as in
+    SUSE 15 SP6, `sed` resets the permissions to `600` independent of the umask
+    when doing in-place editing of a file.
+
+    **Retro-actively applied this change to some older EasyConfigs to be able to 
+    re-build on SP6.**
+
