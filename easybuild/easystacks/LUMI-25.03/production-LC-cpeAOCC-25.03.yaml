@@ -80,6 +80,7 @@ easyconfigs:
   - gdbm-1.25-cpeAOCC-25.03.eb
   - intltool-0.51.0-cpeAOCC-25.03.eb
   - libwebp-1.5.0-cpeAOCC-25.03.eb
+  - LittleCMS-2.17-cpeAOCC-25.03.eb
   - util-linux-2.40.4-cpeAOCC-25.03.eb
   - wget-1.25.0-cpeAOCC-25.03.eb
 ## Block 7
