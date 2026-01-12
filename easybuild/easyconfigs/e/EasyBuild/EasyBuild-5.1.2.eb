@@ -290,7 +290,8 @@ postinstallcmds = [
     # p7zip: Create the 7z script in the bin directory.
     'echo \'#!/bin/sh\n%(installdir)s/libexec/7z $@\' > %(installdir)s/bin/7z',
     'chmod 755 %(installdir)s/bin/7z',  # set execution bits according to current umask
-    # Permission issue that we noted on the TDS with EasyBuild 5.2.0
+    # Permission issue ins SUSE 15 SP6: sed changes permissions to 600 when doing an in-place edit.
+    # Do it the lazy way as there are only executables in that directory.
     'cd %(installdir)s/bin && chmod 755 *',
 ]
 

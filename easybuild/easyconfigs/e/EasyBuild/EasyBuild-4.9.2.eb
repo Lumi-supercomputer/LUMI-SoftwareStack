@@ -112,6 +112,9 @@ postinstallcmds = [ # Robustify a number of commands.
     f'sed -i -e \'s|bin/python3|bin/python{local_pyshortver} -E|\' -e \'s|import sys|import sys\\nsys.path.append("%(installdir)s/lib/python{local_pyshortver}/site-packages")|\' %(installdir)s/bin/cmark',
     f'sed -i -e \'s|bin/python3|bin/python{local_pyshortver} -E|\' -e \'s|import sys|import sys\\nsys.path.append("%(installdir)s/lib/python{local_pyshortver}/site-packages")|\' %(installdir)s/bin/pygmentize',
     f'sed -i -e \'s|^PYTHON=.*|export PYTHONPATH="%(installdir)s/lib/python{local_pyshortver}/site-packages:%(installdir)s/lib64/python{local_pyshortver}/site-packages"\\nPYTHON=|\' -e \'s|for python_cmd in|for python_cmd in "/usr/bin/python{local_pyshortver}"|\' %(installdir)s/bin/eb',
+    # Permission issue ins SUSE 15 SP6: sed changes permissions to 600 when doing an in-place edit.
+    # Do it the lazy way as there are only executables in that directory.
+    'cd %(installdir)s/bin && chmod 755 *',
 ]
 
 sanity_check_paths = {

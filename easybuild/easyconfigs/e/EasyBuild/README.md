@@ -368,6 +368,10 @@ e.b., the [MATLAB EasyConfigs in the EasyBuilders repository](https://github.com
     `flit_core` and `wheel` package and make sure they were in the `PYTHONPATH` while doing the pip 
     installs of EasyBuild.
 
+-   On SUSE 15 SP6, the semantics of the `sed` command have changed and it now resets the permissions of
+    a file that is edited in-place to `600`, independent of the value of `umask`. So we need to restore
+    the permissions on some of the scripts in the `bin` subdirectory.
+
 
 ### EasyBuild 5.2.0 for 25.03 final
 
