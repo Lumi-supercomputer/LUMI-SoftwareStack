@@ -2,6 +2,9 @@ easyblock = 'ConfigureMake'
 
 local_libpsl_version =       '0.21.5'        # https://github.com/rockdaboot/libpsl/releases
 
+local_libidn2_version =      '2.3.7'         # https://ftp.gnu.org/gnu/libidn/
+local_libunistring_version = '1.1'           # https://ftp.gnu.org/gnu/libunistring/
+
 name =    'libpsl'
 version = local_libpsl_version
 
@@ -34,6 +37,11 @@ checksums =   ['1dcc9ceae8b128f3c0b3f654decd0e1e891afc6ff81098f227ef260449dae208
 
 builddependencies = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
+]
+
+dependencies = [
+    ('libidn2',      local_libidn2_version),
+    ('libunistring', local_libunistring_version),
 ]
 
 # Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
