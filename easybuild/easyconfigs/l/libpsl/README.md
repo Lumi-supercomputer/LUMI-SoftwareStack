@@ -30,6 +30,6 @@
     The other solution would have been to explicitly turn the runtime off (which may still leave
     a sufficiently capable package).
 
--   The version for 24.03 has been reworked for the system update of January 2026 so that it would
+-   The versions for 23.09 and 24.03 have been reworked for the system update of January 2026 so that it would
     still rebuild and link correctly now that libidn2 seems missing on the system (at least, it was
     missing on the TDS).
