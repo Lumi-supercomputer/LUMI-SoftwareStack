@@ -160,6 +160,10 @@ e.b., the [MATLAB EasyConfigs in the EasyBuilders repository](https://github.com
     one of those variables generated automatically by EasyBuild if it finds a certain directory,
     and (2) it is still needed when using EasyBuild as a library.
 
+-   During the lifetime of 24.03, we switched to patched EasyBlocks for MesonNinja and for
+    ParMETIS. Though the patch was first manually applied on LUMI, the EasyConfig was later 
+    modified for easier re-installation on the TDS with an appropriate patch for both files.
+
     
 ### Version 4.9.4 for LUMI/24.11
 

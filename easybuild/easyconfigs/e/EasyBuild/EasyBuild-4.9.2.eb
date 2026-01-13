@@ -69,12 +69,18 @@ sources = [
 patches = [
     'EasyBuild-4.4.2_keyring_DBus.patch',
     'EasyBuild-4.9.2_LibSci.patch',
+    ('EasyBuild-4.9.2-EasyBlock-mesonninja.patch', '..'),
+    ('EasyBuild-4.9.2-EasyBlock-ParMETIS.patch', '..'),
 ]
 
 checksums = [
-    {'easybuild_framework-4.9.2.tar.gz': 'cc6e0fe7bab2a96d424656ed70bf33e3b083eef5ceaa5d5fed88aa7b91dd3d63'},
-    {'easybuild_easyblocks-4.9.2.tar.gz': '48202a89995a3d0a19228a35e409228bb6aa190ec7d7a7560e449303954953df'},
+    {'easybuild_framework-4.9.2.tar.gz':   'cc6e0fe7bab2a96d424656ed70bf33e3b083eef5ceaa5d5fed88aa7b91dd3d63'},
+    {'easybuild_easyblocks-4.9.2.tar.gz':  '48202a89995a3d0a19228a35e409228bb6aa190ec7d7a7560e449303954953df'},
     {'easybuild_easyconfigs-4.9.2.tar.gz': '52d6f6378fc331cda8a94ff196d5bd6bb74c8029c973ee6a92763c256571eec7'},
+    {'EasyBuild-4.4.2_keyring_DBus.patch':         'd823213811e610fae568dbb0d010b4460f75e23902ed56dddca892f3dc0c9976'},
+    {'EasyBuild-4.9.2_LibSci.patch':               'a32ce3c9e72a11010e82d46fa261cc575108991598af8b48c245a6fa423d0368'},
+    {'EasyBuild-4.9.2-EasyBlock-mesonninja.patch': '9b44dfa1d8f8a01df41fc21c3d42f67578b969f7ab7783c1cddd12421ae19d80'},
+    {'EasyBuild-4.9.2-EasyBlock-ParMETIS.patch':   'a7148c7f9eda53b5c6bc8c83725951a45b49e33eba9974917e81821e5687a7fd'},
 ]
 
 # order matters a lot, to avoid having dependencies auto-resolved (--no-deps easy_install option doesn't work?)
