@@ -373,12 +373,6 @@ e.b., the [MATLAB EasyConfigs in the EasyBuilders repository](https://github.com
     the permissions on some of the scripts in the `bin` subdirectory.
 
 
-### EasyBuild 5.2.0 for 25.03 final
-
--   This is a straightforward port of the EasyConfig for 5.1.2. Some patches needed reworking and 
-    the pythonpackage patch is no longer needed as this change is part of EasyBuild 5.2.0.
-
-
 ## Fixes needed to EasyConfigs
 
 ### ParMETIS
