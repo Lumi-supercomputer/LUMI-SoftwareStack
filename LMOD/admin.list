@@ -5,99 +5,69 @@ and US government agencies only. See http://glaros.dtc.umn.edu/gkhome/metis/parm
 for further information.
 
 LUMI/22.08:
-The LUMI/22.08 stack has reached end-of-life and will be removed after the 
-sJanuary 2026 system update.
+The LUMI/22.08 stack does not work anymore as essential components are no
+longer on the system. This module will be removed soon.
 
 LUMI/22.12:
-The LUMI/22.12 stack has reached end-of-life and will be removed after the 
-January 2026 system update.
+The LUMI/22.12 stack does not work anymore as essential components are no
+longer on the system. This module will be removed soon.
 
 LUMI/23.03:
-The LUMI/23.03 stack has reached end-of-life and will be removed after the 
-January 2026 system update.
+The LUMI/23.03 stack does not work anymore as essential components are no
+longer on the system. This module will be removed soon.
 
 LUMI/23.09:
-Though before the summer-of-2024 system update we expected to be capable to
-support this LUMI stack longer, the choice for ROCm 6.0 rather than 5.7 may
-cause problems that we cannot fix and may require updating to 24.03.
-We expect that the problems will only get worse after the January 2026 
-update. This toolchain will remain on the system during the January 2026
-update, but is fully unsupported by LUST, HPE and AMD.
+The LUMI/23.09 stack is now totally unsupported. It was designed to be used
+with ROCm 5.5.1 and not the ROCm version we have now on the system, and was
+also never tested with this version of SUSE Linux. Use at your own risk, but
+the LUMI User Support Team will not solve any issue with it, and HPE and
+AMD will also not solve any issues.
 
 LUMI/23.12:
-The LUMI/23.12 stack has reached end-of-life and will be removed after the 
-January 2026 system update.
+The LUMI/23.12 stack does not work anymore as essential components are no
+longer on the system. This module will be removed soon.
 
 LUMI/24.03:
-The LUMI/24.03 stack remains on the system also after the January 2026 system
-update, but will be unsupported afterwards as it is based on a version of 
-ROCm that will be unsupported by the ROCm drivers. Due to the OS and network
-stack update, we can also not guarantee that CPU-only software will still
-work as intended.
-
-cpe/22.08
-The 22.08 version of the HPE Cray Programming Environment will be removed from
-the system in the January 2026 update.
-
-cpe/22.12
-The 22.12 version of the HPE Cray Programming Environment will be removed from
-the system in the January 2026 update.
-
-cpe/23.03
-The 23.03 version of the HPE Cray Programming Environment will be removed from
-the system in the January 2026 update.
-
-cpe/23.12
-The 23.12 version of the HPE Cray Programming Environment will be removed from
-the system in the January 2026 update.
+The LUMI/24.03 stack is currently unsupported as it was never tested with
+the version of ROCm that is now on the system (and the version it was 
+designed for is actually too old for the current GPU driver). Due to the OS 
+and network stack update, we can also not guarantee that CPU-only software 
+will still work as intended.
 
 rocm/6.[1-2].*singularity.*:
 These containers should be fine with the ROCm driver on LUMI, but interfacing
-with the Cray PE outside the container may not always work as expected.
+with the Cray PE outside the container may not always work as expected. Note 
+that after the January 2026 update, they also have to work with a different
+kernel, network drivers and GPU driver then before, so containers that worked
+before that update may now have issues.
 
-rocm/5.[6-7].*singularity.*:
-These containers should be fine with the ROCm driver on LUMI, but interfacing
-with the Cray PE outside the container may not always work as expected.
+rocm/5.[4-7].*singularity.*:
+The ROCm version in these containers is not supported by the ROCm driver on LUMI,
+so some features might be broken.
 
-rocm/5.[4-5].*singularity.*:
+rocm/6.0.*singularity.*:
 The ROCm version in these containers is not supported by the ROCm driver on LUMI,
 so some features might be broken.
 
 rocm/5.2.5:
-The ROCm 5.6.1 module comes without warranty nor support as it is not installed in
-the regular directories as suggested by AMD, which may break links encoded in RPMs.
-It is also not officially supported by the driver version currently on the system
-(which we cannot update at the moment), and is also not officially supported by HPE.
-When we observe problems, we'll document then on the ROCm page in the LUMI Software 
-Library: https://lumi-supercomputer.github.io/LUMI-EasyBuild-docs/r/rocm/
+The ROCm 5.2.5 module is no longer supported on LUMI as it is too old for the
+current driver version.
 
 rocm/5.3.3:
-The ROCm 5.6.1 module comes without warranty nor support as it is not installed in
-the regular directories as suggested by AMD, which may break links encoded in RPMs.
-It is also not officially supported by the driver version currently on the system
-(which we cannot update at the moment), and is also not officially supported by HPE.
-When we observe problems, we'll document then on the ROCm page in the LUMI Software 
-Library: https://lumi-supercomputer.github.io/LUMI-EasyBuild-docs/r/rocm/
+The ROCm 5.2.5 module is no longer supported on LUMI as it is too old for the
+current driver version.
 
 rocm/5.4.6:
-The ROCm 5.6.1 module comes without warranty nor support as it is not installed in
-the regular directories as suggested by AMD, which may break links encoded in RPMs.
-It is also not officially supported by the driver version currently on the system
-(which we cannot update at the moment), and is also not officially supported by HPE.
-When we observe problems, we'll document then on the ROCm page in the LUMI Software 
-Library: https://lumi-supercomputer.github.io/LUMI-EasyBuild-docs/r/rocm/
+The ROCm 5.2.5 module is no longer supported on LUMI as it is too old for the
+current driver version.
 
 rocm/5.6.1:
-This module is not installed the way it is intended by AMD. Hence some parts of ROCm may
-be broken or offer slower than expected performance and there is nothing the LUMI
-User Support Team can do about that. As the module is also not an official HPE Cray 
-module there is no guarantee that it will integrate properly with HPE Cray PE modules
-or work correctly in that environment. 
+The ROCm 5.2.5 module is no longer supported on LUMI as it is too old for the
+current driver version.
 
 amd/5.6.1:
-This module mimics the behaviour of the HPE CPE amd modules but cannot fully work
-in the same way, so problems may occur. Also check the instructions in the LUMI
-Software Library at https://lumi-supercomputer.github.io/LUMI-EasyBuild-docs/a/amd.
+The ROCm 5.2.5 module is no longer supported on LUMI as it is too old for the
+current driver version.
 
 rocm/6.2.2:
 This module is not installed the way it is intended by AMD. Hence some parts of ROCm may
@@ -138,16 +108,12 @@ pre-installed central software stack and we try to offer occasional support via 
 contributed EasyBuild recipes.
 
 spack/22.08.*:
-Spack modules based on the 22.08 programming environment will be removed from the system
-soon as this programming environment doesn't function well anymore. Please prepare to
-rebuild with a newer version (preferably 24.03 as soon as a spack setup based on this
-version becomes available).
+The spack/22.08 modules are no longer supported as essential system components are no
+longer on the system.
 
 spack/23.03.*:
-Spack modules based on the 23.03 programming environment will be removed from the system
-soon as this programming environment doesn't function well anymore. Please prepare to
-rebuild with a newer version (preferably 24.03 as soon as a spack setup based on this
-version becomes available).
+The spack/22.08 modules are no longer supported as essential system components are no
+longer on the system.
 
 spack/23.09:
 The Spack module based on the 23.09 programming environment is deprecated as we cannot
@@ -237,9 +203,8 @@ parallel/20240422:
 This module is deprecated and will be removed from LUMI after the January 2026 update.
 
 ccpe/25.03%-.*:
-This module also serves as a preview of the software stack for 25.03. Note
-however that GPU software may not work properly due to driver incompatibilities
-that cannot be solved with a container.
+We recommend using this module only if you want to extend the container or believe this
+is a way to keep your software running after the next update.
 
 EasyBuild/4.9.4:
 The 25.03 stack was initially developed with EasyBuild 4.9.4 and the module is still
