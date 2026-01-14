@@ -32,6 +32,9 @@
 -   Had to disable tests for cpeCray/23.12 as 3 tests failed (in addition to two tests
     that are skipped with clang-based compilers).
 
+-    When recompiling 24.03 on SUSE 15SP6 we also had to skip tests in cpeGNU/24.03 as one
+     of the tests failed.
+
     
 ### Version 4.2.2 from 24.03 on
 
