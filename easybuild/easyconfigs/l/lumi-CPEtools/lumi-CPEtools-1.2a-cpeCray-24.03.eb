@@ -104,6 +104,7 @@ components = [
                            { f'libfort-{local_hpcat_libfort_version}.tar.gz': '8f7b03f1aa526e50c9828f09490f3c844b73d5f9ca72493fe81931746f75e489' },
                          ],
         'start_dir':     '%(name)s-%(version)s',
+        'preconfigopts': 'CFLAGS="$CFLAGS -I/opt/rocm/include"', # Work around an issue where for some reason CMake fails to add the correct path to the include files.
         'prebuildopts':  local_hpcat_prebuildopts, 
         'installopts':   '&& mkdir -p %(installdir)s/share/licenses/hpcat && cp LICENSE README.md %(installdir)s/share/licenses/hpcat',
         })

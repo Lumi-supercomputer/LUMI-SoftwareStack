@@ -100,7 +100,8 @@ for the CrayEnv software stack.
     
     -   For the 24.11 container, we needed to add a workaround as CMake for some reason failed to 
         add the proper include dir for HIP files even though this seems specified in the CMakeLists.txt
-        file.
+        file. This was later backported to 24.03 as recompilation after the system update of January 2026
+        was otherwise impossible.
 
         
 ### Version 1.2-cpe*-hpcat-0.9
