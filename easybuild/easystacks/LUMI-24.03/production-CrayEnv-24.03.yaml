@@ -6,7 +6,7 @@ easyconfigs:
   - buildtools-python-24.03-systemPython.eb
   - buildtools-python-24.03-cray-python3.11.eb
   - systools-24.03.eb
-  - systools-24.03-1.eb
+#  - systools-24.03-1.eb
   - lumi-CPEtools-1.0.eb
   - nano-8.0.eb
   - Vim-9.1.0447.eb
