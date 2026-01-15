@@ -1,0 +1,95 @@
+local_Perl_version =         '5.40.2'        # https://www.perl.org/get.html
+
+local_expat_version =        '2.7.3'         # https://github.com/libexpat/libexpat/releases
+
+name =          'Perl'
+version =       local_Perl_version
+
+homepage = 'http://www.perl.org/'
+
+whatis = [
+    "Description: PERL 5 interpreter (Practical Extraction and Report Language)"
+]
+
+description = """
+PERL 5, Larry Wall's Practical Extraction and Report Language.
+
+This module already contains a lot of packages based on the default
+EasyBuild perl configuration.
+
+From this version on, we only include a minimal number of packages to
+speed up development of a new software stack. Over time, Perl-packages-*
+modules may be made available with additional packages.
+"""
+
+software_license_urls = [
+    'https://dev.perl.org/licenses/',
+]
+
+toolchain = {'name': 'cpeCray', 'version': '25.09'}
+toolchainopts = {'pic': True}
+
+source_urls = ['https://www.cpan.org/src/%(version_major)s.0']
+sources =     [SOURCELOWER_TAR_GZ]
+checksums =   ['c740348f357396327a9795d3e8323bafd0fe8a5c7835fc1cbaba0cc8dfe7161f']
+
+builddependencies = [ # Create a reproducible build environment.
+    ('buildtools', '%(toolchain_version)s', '', True),
+]
+
+dependencies = [
+    ('expat',       local_expat_version),        # for XML::Parser
+]
+
+osdependencies = [
+    ('groff'),                                           # build dependency only
+]
+
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+pretestopts = preconfigopts
+preinstallopts = preconfigopts
+
+#skipsteps = ['test']
+
+# !! order of extensions is important !!
+# extensions updated on 2023-09-03
+# includes all dependencies for Autotools
+exts_list = [
+    ('Getopt::Long', '2.58', {
+        'source_tmpl': 'Getopt-Long-%(version)s.tar.gz',
+        'source_urls': ['https://cpan.metacpan.org/authors/id/J/JV/JV'],
+        'checksums':   ['1305ed46ea21f794304e97aa3dcd3a38519059785e9db7415daf2c218506c569'],
+    }),
+    ('File::Path', '2.18', {
+        'source_tmpl': 'File-Path-%(version)s.tar.gz',
+        'source_urls': ['https://cpan.metacpan.org/authors/id/J/JK/JKEENAN/'],
+        'checksums':   ['980f0a17edb353df46e9cd7b357f9f5929cde0f80c45fd7a06cf7e0e8bd6addd'],
+    }),
+    ('File::Spec', '3.75', {
+        'source_tmpl': 'PathTools-%(version)s.tar.gz',
+        'source_urls': ['https://cpan.metacpan.org/authors/id/X/XS/XSAWYERX'],
+        'checksums':   ['a558503aa6b1f8c727c0073339081a77888606aa701ada1ad62dd9d8c3f945a2'],
+    }),
+    ('Text::ParseWords', '3.31', {
+        'source_tmpl': 'Text-ParseWords-%(version)s.tar.gz',
+        'source_urls': ['https://cpan.metacpan.org/authors/id/N/NE/NEILB/'],
+        'checksums':   ['2ae555ba084d75b2b8feeeb8d1a00911276815ada86bccb1452236964d5a2fc7'],
+    }),
+    #
+    # Own additions
+    #
+    ('XML::Parser', '2.47', { # Needed for intltool. See if this works without all dependencies... Needs expat
+        'source_tmpl': 'XML-Parser-%(version)s.tar.gz',
+        'source_urls': ['https://cpan.metacpan.org/authors/id/T/TO/TODDR'],
+        'checksums':   ['ad4aae643ec784f489b956abe952432871a622d4e2b5c619e8855accbfc4d1d8'],
+    }),
+]
+
+postinstallcmds = [ # Problem: This seems to run from the last extension.
+    'mkdir -p %(installdir)s/share/licenses/%(name)s',
+    'cd %(start_dir)s && cp AUTHORS Copying README README.linux SECURITY.md %(installdir)s/share/licenses/%(name)s',   
+]
+
+moduleclass = 'lang'
