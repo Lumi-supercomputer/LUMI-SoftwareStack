@@ -72,3 +72,8 @@
 -   Straightforward port of the EasyConfig for 9.3.1 in 24.03/24.11, but some changes needed
     to the copying of the license files at the end.
 
+
+### Version 9.7.0 for 25.09
+
+-   Straightforward port of the EasyConfig for 9.6.2 in 25.03.
+

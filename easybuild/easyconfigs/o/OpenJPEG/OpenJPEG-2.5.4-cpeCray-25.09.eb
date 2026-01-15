@@ -1,0 +1,74 @@
+easyblock = 'CMakeMake'
+
+local_libpng_version =       '1.6.53'        # http://www.libpng.org/pub/png/libpng.html (Not yet in EB 2025a when checking)
+local_libtiff_version =      '4.7.1'         # https://download.osgeo.org/libtiff/
+local_LittleCMS_version =    '2.17'          # https://sourceforge.net/projects/lcms/files/lcms/
+local_zlib_version =         '1.3.1'         # https://zlib.net/
+
+local_OpenJPEG_version =     '2.5.4'         # https://github.com/uclouvain/openjpeg/releases
+
+name =    'OpenJPEG'
+version = '2.5.3'
+
+homepage = 'https://www.openjpeg.org/'
+
+whatis = [
+    'Description: OpenJPEG is an open-source JPEG 2000 codec'
+]
+
+description = """
+OpenJPEG is an open-source JPEG 2000 codec written in
+C language. It has been developed in order to promote the use of JPEG 2000,
+a still-image compression standard from the Joint Photographic Experts Group
+(JPEG). Since may 2015, it is officially recognized by ISO/IEC and ITU-T as
+a JPEG 2000 Reference Software.
+"""
+
+toolchain = {'name': 'cpeCray', 'version': '25.09'}
+toolchainopts = {'pic': True}
+
+source_urls = ['https://github.com/uclouvain/%(namelower)s/archive']
+sources = ['v%(version)s.tar.gz']
+checksums = ['368fe0468228e767433c9ebdea82ad9d801a3ad1e4234421f352c8b06e7aa707']
+
+builddependencies = [
+    ('buildtools', '%(toolchain_version)s', '', SYSTEM),
+]
+
+# for running the binary of openjpeg like opj_compress you need the libraries like zlib etc.
+dependencies = [
+    ('zlib',      local_zlib_version),
+    ('libpng',    local_libpng_version),
+    ('LibTIFF',   local_libtiff_version),
+    ('LittleCMS', local_LittleCMS_version)
+]
+
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+preinstallopts = pretestopts = prebuildopts = preconfigopts
+
+configopts = '-DCMAKE_INSTALL_LIBDIR=lib ' # It will install shared and static libraries automatically.
+
+postinstallcmds = [
+    'mkdir -p %(installdir)s/share/licenses/%(name)s',
+    'cd ../%(namelower)s-%(version)s && cp AUTHORS.md CHANGELOG.md LICENSE NEWS.md README.md THANKS.md %(installdir)s/share/licenses/%(name)s',   
+]
+
+sanity_check_paths = {
+    'files': [
+        'bin/opj_compress',
+        'bin/opj_decompress',
+        'bin/opj_dump',
+        'include/openjpeg-%(version_major)s.%(version_minor)s/openjpeg.h',
+        'lib/libopenjp2.%s' % SHLIB_EXT,
+        'share/licenses/%(name)s/LICENSE'
+    ],
+    'dirs': ['bin', 'include', 'lib'],
+}
+
+sanity_check_commands = [ # No easy test on the executables themselves though...
+    f'pkg-config --modversion libopenjp2 | grep -q {local_OpenJPEG_version}',
+    'pkg-config --libs libopenjp2 | grep -q lopenjp2',
+]
+
+moduleclass = 'lib'

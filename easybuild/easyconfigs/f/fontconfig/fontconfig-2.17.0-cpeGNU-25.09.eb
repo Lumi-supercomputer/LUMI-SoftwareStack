@@ -1,0 +1,72 @@
+easyblock = 'ConfigureMake'
+
+local_expat_version =        '2.7.3'         # https://github.com/libexpat/libexpat/releases
+local_util_version =         '2.41.3'        # https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/ (Not yet in EB 2025a when checking)
+local_freetype_version =     '2.14.1'        # https://download.savannah.gnu.org/releases/freetype/ (Not yet in EB 2025a when checking)
+local_fontconfig_version =   '2.17.0'        # https://www.freedesktop.org/software/fontconfig/release/
+
+name =    'fontconfig'
+version = local_fontconfig_version
+
+homepage = 'http://www.freedesktop.org/software/fontconfig'
+
+whatis = [
+    'Description: A library for system-wide font configuration',
+    'The module contains a number of command line tools and a shared library',
+]
+
+description = """
+Fontconfig is a library designed to provide system-wide font configuration,
+customization and application access.
+
+The module contains a number of command line tools and a shared library.
+"""
+
+software_license_urls = [
+    f'https://gitlab.freedesktop.org/fontconfig/fontconfig/-/blob/{version}/COPYING?ref_type=tags',    
+]
+
+toolchain = {'name': 'cpeGNU', 'version': '25.09'}
+toolchainopts = {'pic': True}
+
+source_urls = ['https://gitlab.freedesktop.org/api/v4/projects/890/packages/generic/fontconfig/%(version)s/']
+sources =     [SOURCE_TAR_XZ]
+checksums =   ['165b8fd2a119864c87464b233986c4a1bc09efb09c65de1ca40cc1e85ffb77e2']
+
+builddependencies = [ # Create a reproducible build environment.
+    ('buildtools', '%(toolchain_version)s', '', True), # for gperf
+]
+
+dependencies = [
+    ('expat',      local_expat_version),
+    ('util-linux', local_util_version),
+    ('freetype',   local_freetype_version),
+]
+
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+preinstallopts = preconfigopts
+
+configopts = '--enable-static --enable-shared --disable-docs '
+
+postinstallcmds = [
+    'mkdir -p %(installdir)s/share/licenses/%(name)s',
+    'cp AUTHORS COPYING NEWS README.md %(installdir)s/share/licenses/%(name)s',   
+]
+
+sanity_check_paths = {
+    'files': ['lib/libfontconfig.%s' % x for x in ['la', SHLIB_EXT]] +
+             ['include/fontconfig/%s.h'% x for x in ['fcfreetype', 'fcprivate', 'fontconfig']] +
+             ['bin/fc-%s' % x for x in ['cache', 'cat', 'conflist', 'list', 'match', 'pattern', 'query', 'scan', 'validate']] +
+             ['lib/pkgconfig/fontconfig.pc', f'share/licenses/{name}/COPYING'],
+    'dirs':  []
+}
+
+sanity_check_commands = [
+    'pkg-config --libs fontconfig',
+] + [
+    'fc-%s -V' % x for x in ['cache', 'cat', 'conflist', 'list', 'match', 'pattern', 'query', 'scan', 'validate']
+]
+
+moduleclass = 'vis'

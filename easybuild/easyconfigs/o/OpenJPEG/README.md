@@ -25,3 +25,7 @@
 -   LUMIfied the EasyConfig.
 
 
+### Version 2.5.4 for 25.09
+
+-   Trivial port of the EasyConfig of 2.5.3 for 25.03.
+
