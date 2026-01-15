@@ -66,3 +66,9 @@ in EasyBuild.
 -   SDL2, a dependency in the EasyBuilders version, was still deliberately left
     out, also because a full-featured version may actually require building on top
     of the LUMI-D stack.
+
+
+### Version 7.1.3 for 25.09
+
+-   The EasyConfig is a straightforward port of the 7.1.1 EasyConfig for 25.03.
+

@@ -108,3 +108,7 @@ This is a bundle of X11 tools provided by EasyBuild.
     `-Dmodular_tests=disabled`.
 
 
+### Bundle for 25.09
+
+-   Used the same software versions as for 25.03 due to the need to rush development.
+

@@ -1,0 +1,315 @@
+easyblock = 'Bundle'
+
+local_bzip2_version =        '1.0.8'         # http://www.bzip.org/downloads.html
+local_fontconfig_version =   '2.17.0'        # https://www.freedesktop.org/software/fontconfig/release/
+local_freetype_version =     '2.14.1'        # https://download.savannah.gnu.org/releases/freetype/ (Not yet in EB 2025a when checking)
+local_intltool_version =     '0.51.0'        # https://launchpad.net/intltool/+download
+local_libpciaccess_version = '0.18.1'        # https://cgit.freedesktop.org/xorg/lib/libpciaccess/
+local_xorg_macros_version =  '1.20.2'        # https://cgit.freedesktop.org/xorg/util/macros
+local_zlib_version =         '1.3.1'         # https://zlib.net/
+local_PCRE2_version =        '10.47'         # https://github.com/PCRE2Project/pcre2/releases  # Not yet in EB 2025a when checked for installation
+
+local_craypython_version =   '3.11.7'
+
+local_xterm_version =        '405'           # https://github.com/ThomasDickey/xterm-snapshots/tags
+
+local_craypython_maj_min = '.'.join( local_craypython_version.split('.')[:2] )
+
+name =    'X11'
+version = '%(toolchain_version)s'
+
+homepage = 'https://www.x.org'
+
+whatis = [
+    'Description: X Window System (X11) static and shared libraries and some X11 tools',
+    'Extensions: xproto, xdipyinfo, x11perf, xterm',
+]
+
+description = """
+The X Window System (X11, or shortened to simply X) is a windowing system for
+bitmap displays, common on UNIX-like computer operating systems.
+
+X provides the basic framework for a GUI environment: drawing and moving windows
+on the display device and interacting with a mouse and keyboard. X does not
+mandate the user interface – this is handled by individual programs. As such,
+the visual styling of X-based environments varies greatly; different programs
+may present radically different interfaces.
+
+This module contains static and shared libraries for a lot of libraries from the X11 system.
+
+This version does contain some additional tools and libraries on top of the standard
+EasyBuild X11 modules:
+* libdrm: Direct Rendering Manager runtime library.
+* DBus: D-Bus is a message bus system, a simple way for applications to talk
+  to one another.  In addition to interprocess communication, D-Bus helps
+  coordinate process lifecycle; it makes it simple and reliable to code
+  a "single instance" application or daemon, and to launch applications
+  and daemons on demand when their services are needed. D-Bus may not be
+  fully functional on the compute nodes.
+* libXaw3D: A set of simple widgets
+* xporp: The xprop utility is for displaying window and font properties in an X server.
+  One window or font is selected using the command line arguments or possibly
+  in the case of a window, by clicking on the desired window. A list of
+  properties is then given, possibly with formatting information.
+* xdpyinfo and x11perf to quickly test if remote X is working.
+* xterm
+"""
+
+toolchain = {'name': 'cpeAOCC', 'version': '25.09'}
+
+source_urls = [
+    XORG_LIB_SOURCE,
+    XORG_PROTO_SOURCE,
+    'https://xcb.freedesktop.org/dist/',
+    'https://xkbcommon.org/download/',
+    'https://github.com/xkbcommon/libxkbcommon/archive/refs/tags/',
+    XORG_DATA_SOURCE + '/xkeyboard-config',
+    XORG_DATA_SOURCE,
+]
+
+builddependencies = [ # Create a reproducible build environment.
+    ('buildtools' ,       '%(toolchain_version)s', '',                                        SYSTEM),
+    ('buildtools-python', '%(toolchain_version)s', f'-cray-python{local_craypython_maj_min}', SYSTEM),
+    ('intltool',          local_intltool_version),
+]
+
+dependencies = [
+    ('bzip2',        local_bzip2_version),
+    ('fontconfig',   local_fontconfig_version),
+    ('freetype',     local_freetype_version),
+    ('zlib',         local_zlib_version),
+    ('libpciaccess', local_libpciaccess_version),
+    ('xorg-macros',  local_xorg_macros_version, '', True),  # Why here? To not have to add it as a build dependency in other packages???
+    ('PCRE2',        local_PCRE2_version), # For xterm
+]
+
+
+default_easyblock = 'ConfigureMake'
+
+default_component_specs = {
+    'sources':        [SOURCE_TAR_GZ],
+    'start_dir':      '%(name)s-%(version)s',
+    'preconfigopts':  'module unload cray-libsci cray-mpich rocm xpmem && ',
+    'prebuildopts':   'module unload cray-libsci cray-mpich rocm xpmem && ',
+    'pretestopts':    'module unload cray-libsci cray-mpich rocm xpmem && ',
+    'preinstallopts': 'module unload cray-libsci cray-mpich rocm xpmem && ',
+}
+
+components = [ # List taken from the GCCcore 14.2.0 (2025a) common toolchain with own additions at the end
+    ('libpthread-stubs', '0.5', {  # 2023-07-18
+        'checksums': ['593196cc746173d1e25cb54a93a87fd749952df68699aab7e02c085530e87747'],
+    }),
+    ('xorgproto', '2024.1', {  # 2024-03-26
+        'checksums': ['4f6b9b4faf91e5df8265b71843a91fc73dc895be6210c84117a996545df296ce'],
+    }),
+    ('libXau', '1.0.12', {  # 2024-12-14
+        'checksums': ['2402dd938da4d0a332349ab3d3586606175e19cb32cb9fe013c19f1dc922dcee'],
+    }),
+    ('libXdmcp', '1.1.5', {  # 2024-03-02
+        'checksums': ['31a7abc4f129dcf6f27ae912c3eedcb94d25ad2e8f317f69df6eda0bc4e4f2f3'],
+    }),
+    ('xcb-proto', '1.17.0', {  # 2024-04-15
+        'checksums': ['392d3c9690f8c8202a68fdb89c16fd55159ab8d65000a6da213f4a1576e97a16'],
+    }),
+    ('libxcb', '1.17.0', {  # 2024-04-15
+        'checksums': ['2c69287424c9e2128cb47ffe92171e10417041ec2963bceafb65cb3fcf8f0b85'],
+    }),
+    ('xtrans', '1.6.0', {  # 2025-03-08
+        'checksums': ['936b74c60b19c317c3f3cb1b114575032528dbdaf428740483200ea874c2ca0a'],
+    }),
+    ('libxkbcommon', '1.10.0', {  # 2025-05-21
+        'easyblock': 'MesonNinja',
+        'sources': ['xkbcommon-%(version)s.tar.gz'],
+        'start_dir': 'libxkbcommon-xkbcommon-%(version)s',
+        'checksums': ['0427585a4d6ca17c9fc1ac4b539bf303348e9080af70c5ea402503bc370a9631'],
+        #'preconfigopts': '',
+        'configopts': '-Denable-wayland=false -Denable-docs=false ',
+    }),
+    ('libX11', '1.8.12', {  # 2025-03-09
+        'checksums': ['220fbcf54b6e4d8dc40076ff4ab87954358019982490b33c7802190b62d89ce1'],
+    }),
+    ('libXext', '1.3.6', {  # 2024-02-04
+        'checksums': ['1a0ac5cd792a55d5d465ced8dbf403ed016c8e6d14380c0ea3646c4415496e3d'],
+    }),
+    ('libFS', '1.0.10', {  # 2024-08-02
+        'checksums': ['38daddf6aaad25d93c6ff762c9629b8f10b19e8c4b70fcf117ec38c440ff9ae2'],
+    }),
+    ('libICE', '1.1.2', {  # 2024-12-13
+        'checksums': ['1da62f732f8679c20045708a29372b82dff9e7eceee543ed488b845002b3b0ff'],
+    }),
+    ('libSM', '1.2.6', {  # 2025-03-09
+        'checksums': ['166b4b50d606cdd83f1ddc61b5b9162600034f848b3e32ccbb0e63536b7d6cdd'],
+    }),
+    ('libXScrnSaver', '1.2.4', {  # 2022-12-05
+        'checksums': ['0656b2630475104d6df75d91ebb8e0153e61d14e9871ef1f403bcda4a62a838a'],
+    }),
+    ('libXt', '1.3.1', {  # 2024-11-17
+        'checksums': ['cf2212189869adb94ffd58c7d9a545a369b83d2274930bfbe148da354030b355'],
+    }),
+    ('libXmu', '1.2.1', {  # 2024-04-16
+        'checksums': ['bf0902583dd1123856c11e0a5085bd3c6e9886fbbd44954464975fd7d52eb599'],
+    }),
+    ('libXpm', '3.5.17', {  # 2023-10-03
+        'checksums': ['959466c7dfcfcaa8a65055bfc311f74d4c43d9257900f85ab042604d286df0c6'],
+    }),
+    ('libXaw', '1.0.16', {  # 2024-03-10
+        'checksums': ['012f90adf8739f2f023d63a5fee1528949cf2aba92ef7ac1abcfc2ae9cf28798'],
+    }),
+    ('libXfixes', '6.0.1', {  # 2023-04-09
+        'checksums': ['e69eaa321173c748ba6e2f15c7cf8da87f911d3ea1b6af4b547974aef6366bec'],
+    }),
+    ('libXcomposite', '0.4.6', {  # 2022-12-04
+        'checksums': ['3599dfcd96cd48d45e6aeb08578aa27636fa903f480f880c863622c2b352d076'],
+    }),
+    ('libXrender', '0.9.12', {  # 2024-12-13
+        'checksums': ['0fff64125819c02d1102b6236f3d7d861a07b5216d8eea336c3811d31494ecf7'],
+    }),
+    ('libXcursor', '1.2.3', {  # 2024-11-04
+        'checksums': ['74e72da27e61cc2cfd2e267c14f500ea47775850048ee0b00362a55c9b60ee9b'],
+    }),
+    ('libXdamage', '1.1.6', {  # 2022-12-04
+        'checksums': ['2afcc139eb6eb926ffe344494b1fc023da25def42874496e6e6d3aa8acef8595'],
+    }),
+    ('libfontenc', '1.1.8', {  # 2024-03-02
+        'checksums': ['b55039f70959a1b2f02f4ec8db071e5170528d2c9180b30575dccf7510d7fb9f'],
+    }),
+    ('libXfont', '1.5.4', {  # 2017-11-28
+        'checksums': ['59be6eab53f7b0feb6b7933c11d67d076ae2c0fd8921229c703fc7a4e9a80d6e'],
+    }),
+    ('libXfont2', '2.0.7', {  # 2024-08-02
+        'checksums': ['90b331c2fd2d0420767c4652e007d054c97a3f03a88c55e3b986bd3acfd7e338'],
+    }),
+    ('libXft', '2.3.9', {  # 2025-04-20
+        'checksums': ['47c157fb4d0308f8b9604b74c29bb902b019eb97031f8fbf5ab62aa9f147a104'],
+    }),
+    ('libXi', '1.8.2', {  # 2024-09-05
+        'checksums': ['5542daec66febfeb6f51d57abfa915826efe2e3af57534f4105b82240ea3188d'],
+    }),
+    ('libXinerama', '1.1.5', {  # 2022-10-29
+        'checksums': ['2efa855cb42dc620eff3b77700d8655695e09aaa318f791f201fa60afa72b95c'],
+    }),
+    ('libXrandr', '1.5.4', {  # 2023-10-04
+        'checksums': ['c72c94dc3373512ceb67f578952c5d10915b38cc9ebb0fd176a49857b8048e22'],
+    }),
+    ('libXres', '1.2.2', {  # 2022-12-05
+        'checksums': ['8abce597ced4a7ab89032aee91f6f784d9960adc772b2b59f17e515cd4127950'],
+    }),
+    ('libXtst', '1.2.5', {  # 2024-08-02
+        'checksums': ['244ba6e1c5ffa44f1ba251affdfa984d55d99c94bb925a342657e5e7aaf6d39c'],
+    }),
+    ('libXv', '1.0.13', {  # 2024-12-14
+        'checksums': ['9a0c31392b8968a4f29a0ad9c51e7ce225bcec3c4cbab9f2a241f921776b2991'],
+    }),
+    ('libXvMC', '1.0.14', {  # 2024-02-04
+        'checksums': ['3ad5d2b991219e2bf9b2f85d40b12c16f1afec038715e462f6058af73a9b5ef8'],
+    }),
+    ('libXxf86dga', '1.1.6', {  # 2022-12-05
+        'checksums': ['87c7482b1e29b4eeb415815641c4f69c00545a8138e1b73ff1f361f7d9c22ac4'],
+    }),
+    ('libXxf86vm', '1.1.6', {  # 2024-12-14
+        'checksums': ['d2b4b1ec4eb833efca9981f19ed1078a8a73eed0bb3ca5563b64527ae8021e52'],
+    }),
+    ('libdmx', '1.1.5', {  # 2023-06-03
+        'checksums': ['070e82cc1daa1b21ee1339aef56a909eab04cbe7d430fabfbb01ecd21b2dd9f3'],
+    }),
+    ('libxkbfile', '1.1.3', {  # 2024-02-04
+        'checksums': ['c4c2687729d1f920f165ebb96557a1ead2ef655809ab5eaa66a1ad36dc31050d'],
+    }),
+    ('libxshmfence', '1.3.3', {  # 2024-12-14
+        'checksums': ['6233ccd9fa80198835efc3039cdf8086ab2b218b17e77ebdb0a19913fcee58d3'],
+    }),
+    ('xcb-util', '0.4.1', {  # 2022-12-20 ???
+        'checksums': ['21c6e720162858f15fe686cef833cf96a3e2a79875f84007d76f6d00417f593a'],
+    }),
+    ('xcb-util-image', '0.4.1', {  # 2022-10-18
+        'checksums': ['0ebd4cf809043fdeb4f980d58cdcf2b527035018924f8c14da76d1c81001293b'],
+    }),
+    ('xcb-util-keysyms', '0.4.1', {  # 2022-10-19
+        'checksums': ['1fa21c0cea3060caee7612b6577c1730da470b88cbdf846fa4e3e0ff78948e54'],
+    }),
+    ('xcb-util-renderutil', '0.3.10', {  # 2022-10-19
+        'checksums': ['e04143c48e1644c5e074243fa293d88f99005b3c50d1d54358954404e635128a'],
+    }),
+    ('xcb-util-wm', '0.4.2', {  # 2022-10-19
+        'checksums': ['dcecaaa535802fd57c84cceeff50c64efe7f2326bf752e16d2b77945649c8cd7'],
+    }),
+    ('xcb-util-cursor', '0.1.5', {  # 2023-10-19
+        'checksums': ['0e9c5446dc6f3beb8af6ebfcc9e27bcc6da6fe2860f7fc07b99144dfa568e93b'],
+    }),
+    ('xkeyboard-config', '2.44', {  # 2025-02
+        'easyblock': 'MesonNinja',
+        'sources': [SOURCE_TAR_XZ],
+        'checksums': ['54d2c33eeebb031d48fa590c543e54c9bcbd0f00386ebc6489b2f47a0da4342a'],
+        # required to overrule parent preconfigopts that runs autogen.sh if configure script is missing
+        #'preconfigopts': '',
+    }),
+    ('printproto', '1.0.5', {  # 2011-01-06
+        'checksums': ['e8b6f405fd865f0ea7a3a2908dfbf06622f57f2f91359ec65d13b955e49843fc'],
+    }),
+    ('libXp', '1.0.4', {  # 2022-09-12
+        'checksums': ['05e46af1ccb68f1752cca5879774a4fb9bf3b19fe088eb745034956e0c6fadba'],
+    }),
+    ('xbitmaps', '1.1.3', {  # 2023-02-23
+        'checksums': ['93b433b7ff223c4685fdba583b4bd30f2706be2413a670021084422d85b0269d'],
+    }),
+#
+# Local additions
+#
+    ('libXaw3d', '1.6.6', {  # 2024-03-02, https://www.x.org/releases/individual/lib/
+        'checksums': ['0cdb8f51c390b0f9f5bec74454e53b15b6b815bc280f6b7c969400c9ef595803'],
+    }),
+    ('libdrm', '2.4.125', { # 2025-06-08 http://dri.freedesktop.org/libdrm/, used by Qt5
+        'easyblock':     'MesonNinja',
+        'sources':       [SOURCELOWER_TAR_XZ],
+        'source_urls':   ['http://dri.freedesktop.org/libdrm/'],
+        'checksums':     ['d4bae92797a50f81a93524762e0410a49cd84cfa0f997795bc0172ac8fb1d96a'],
+    }),
+    ('DBus', '1.16.2', {# 2025-02-27 http://dbus.freedesktop.org/releases/dbus
+        'easyblock':   'MesonNinja',
+        'sources':     [SOURCELOWER_TAR_XZ],
+        'source_urls': ['http://dbus.freedesktop.org/releases/dbus'],
+        'checksums':   ['0ba2a1a4b16afe7bceb2c07e9ce99a8c2c3508e5dec290dbb643384bd6beb7e2'],
+        'start_dir':   '%(namelower)s-%(version)s',
+        'configopts':  ' '.join([
+                           '-Dsystemd=disabled',
+                           '-Ddoxygen_docs=disabled -Dducktype_docs=disabled -Dxml_docs=disabled',
+                           '-Dqt_help=disabled',
+                           '-Dmodular_tests=disabled', # Otherwise GLib is needed and it will install its own, breaking later builds.
+                       ]),
+    }),
+    ('xprop', '1.2.7', { # 2024-02-03 https://www.x.org/archive/individual/app/, used by FLTK
+        'sources':     [SOURCELOWER_TAR_XZ],
+        'source_urls': ['http://ftp.x.org/archive/individual/app/'],
+        'checksums':   ['4436e3148bb91a162406230d9f736a49ca8b50b74790015dc15d78d6ce8e825f'],
+    }),
+    ('xdpyinfo', '1.3.4', { # 2022-04-07 https://www.x.org/archive/individual/app/, simply to test the screen
+        'sources':     [SOURCELOWER_TAR_XZ],
+        'source_urls': ['http://ftp.x.org/archive/individual/app/'],
+        'checksums':   ['a8ada581dbd7266440d7c3794fa89edf6b99b8857fc2e8c31042684f3af4822b'],
+    }),
+    ('x11perf', '1.6.1', { # 2019-03-16 https://www.x.org/archive/individual/app/, simply to test the screen
+        'sources':     [SOURCELOWER_TAR_BZ2],
+        'source_urls': ['http://ftp.x.org/archive/individual/app/'],
+        'checksums':   ['1c7e0b8ffc2794b4ccf11e04d551823abe0ea47b4f7db0637390db6fbe817c34'],
+    }),
+    ('xauth', '1.1.4', { # 2025-03-09 https://www.x.org/archive/individual/app/, sometimes useful
+        'sources':     [SOURCELOWER_TAR_XZ],
+        'source_urls': ['http://ftp.x.org/archive/individual/app/'],
+        'checksums':   ['e9318141464ad7b4dc0f8564a580f0d20f977c85a388cc40d5a766206151c690'],
+    }),
+#    ('xterm', local_xterm_version, { # https://github.com/ThomasDickey/xterm-snapshots/archive/refs/tags/xterm-401.tar.gz
+#        'sources':     [SOURCELOWER_TAR_GZ],
+#        'source_urls': ['https://github.com/ThomasDickey/xterm-snapshots/archive/refs/tags'],
+#        'checksums':   ['c9df2063cf62f59143b2e300263c4dcf4f685bdea03b3f94b852392e83d43d6f'],
+#        'start_dir':   'xterm-snapshots-xterm-%(version)s',
+#        'configopts':  '--with-pcre2',
+#    }),
+]
+
+sanity_check_paths = {
+    'files': ['include/X11/Xlib.h', 'include/X11/Xutil.h'],
+    'dirs':  ['include/GL', 'include/X11', 'include/X11/extensions', 'lib/pkgconfig',
+              'share/pkgconfig', 'share/X11/xkb'],
+}
+
+moduleclass = 'vis'

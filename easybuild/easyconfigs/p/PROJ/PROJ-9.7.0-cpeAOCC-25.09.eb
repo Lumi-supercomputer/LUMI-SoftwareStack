@@ -1,0 +1,94 @@
+# Contributed by Theofilos Manitaras and Luca Marsella (CSCS)
+# Adapted by Kurt Lust (kurt.lust@uantwerpen.be) for the LUMI consortium
+easyblock = 'CMakeMake'
+
+local_cURL_version =         '8.17.0'        # https://curl.haxx.se/download/
+local_googletest_version =   '1.17.0'        # https://github.com/google/googletest/releases
+local_libtiff_version =      '4.7.1'         # https://download.osgeo.org/libtiff/
+local_nlohmannjson_version = '3.12.0'        # https://github.com/nlohmann/json/releases
+local_SQLite_version =       '3.51.1'        # https://www.sqlite.org/
+
+local_PROJ_version =         '9.7.0'         # https://proj.org/download.html
+
+name =    'PROJ'
+version = local_PROJ_version
+
+homepage = 'https://proj.org'
+
+whatis = [
+    'Description: PROJ is a generic coordinate transformation software that transforms geospatial coordinates from one coordinate reference system (CRS) to another.'
+]
+
+description = """
+PROJ is a generic coordinate transformation software that transforms geospatial
+coordinates from one coordinate reference system (CRS) to another. This
+includes cartographic projections as well as geodetic transformations. PROJ is
+released under the X/MIT open source license
+
+PROJ includes command line applications for easy conversion of coordinates from
+text files or directly from user input. In addition to the command line
+utilities PROJ also exposes an application programming interface, or API in
+short. The API lets developers use the functionality of PROJ in their own
+software without having to implement similar functionality themselves.
+
+PROJ started purely as a cartography application letting users convert geodetic
+coordinates into projected coordinates using a number of different cartographic
+projections. Over the years, as the need has become apparent, support for datum
+shifts has slowly worked its way into PROJ as well. Today PROJ supports more than
+a hundred different map projections and can transform coordinates between datums
+using all but the most obscure geodetic techniques.
+"""
+
+software_license_urls = [
+    'https://proj.org/about.html#license',
+    f'https://github.com/OSGeo/PROJ/blob/{version}/COPYING',
+]
+
+toolchain = {'name': 'cpeAOCC', 'version': '25.09'}
+toolchainopts = {'pic': True, 'usempi': True}
+
+source_urls = ['http://download.osgeo.org/%(namelower)s/']
+sources =     [SOURCELOWER_TAR_GZ]
+checksums =   ['53d0cafaee3bb2390264a38668ed31d90787de05e71378ad7a8f35bb34c575d1']
+
+builddependencies = [ # Create a reproducible build environment.
+    ('buildtools',   '%(toolchain_version)s',   '', True),
+    ('googletest',   local_googletest_version),
+    ('nlohmann-json', local_nlohmannjson_version),
+]
+
+dependencies = [
+    ('LibTIFF',       local_libtiff_version),
+    ('SQLite',        local_SQLite_version),
+    ('cURL',          local_cURL_version),
+]
+
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+preinstallopts = preconfigopts
+
+# build twice, once for static, once for shared libraries
+configopts = [
+    '-DCMAKE_INSTALL_LIBDIR=lib -DBUILD_SHARED_LIBS=OFF', 
+    '-DCMAKE_INSTALL_LIBDIR=lib -DBUILD_SHARED_LIBS=ON'
+]
+
+postinstallcmds = [
+    'mkdir -p %(installdir)s/share/licenses/%(name)s',
+    'cd %(start_dir)s && cp AUTHORS.md ChangeLog CITATION CITATION.cff COPYING NEWS.md README.md %(installdir)s/share/licenses/%(name)s',   
+]
+
+sanity_check_paths = {
+    'files': ['bin/cct', 'bin/cs2cs', 'bin/geod', 'bin/gie', 'bin/proj', 'bin/projinfo',
+              'lib/libproj.a', 'lib/libproj.%s' % SHLIB_EXT,
+              f'share/licenses/{name}/COPYING'],
+    'dirs':  ['include'],
+}
+
+sanity_check_commands = [ 
+    'cct -h',
+    'gie -h',
+]
+
+moduleclass = 'lib'

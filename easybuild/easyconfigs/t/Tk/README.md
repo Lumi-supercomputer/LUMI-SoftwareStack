@@ -34,3 +34,7 @@
 
 -   Trivial port of the EasyConfig for 6.1.13 in 24.03/24.11.
 
+
+### Version 9.0.3 from 25.09 on
+
+-   Trivial port of the EasyConfig for 8.6.16 for 25.03.
