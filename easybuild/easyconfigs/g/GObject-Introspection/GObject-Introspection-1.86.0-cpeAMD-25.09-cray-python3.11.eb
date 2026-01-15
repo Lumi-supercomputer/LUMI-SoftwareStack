@@ -47,11 +47,12 @@ software_license_urls = [
 toolchain = {'name': 'cpeAMD', 'version': '25.09'}
 toolchainopts={'extra_cflags': '-Qunused-arguments'}
 
+# https://download.gnome.org/sources/gobject-introspection/1.86/gobject-introspection-1.86.0.tar.xz
 source_urls = [FTPGNOME_SOURCE]
 sources =     [SOURCELOWER_TAR_XZ]
 patches = ['GObject-Introspection-1.80.1_install-GLib-GIR-files.patch']
 checksums = [
-    {'gobject-introspection-1.84.0.tar.xz':                       '945b57da7ec262e5c266b89e091d14be800cc424277d82a02872b7d794a84779'},
+    {'gobject-introspection-1.86.0.tar.xz':                       '920d1a3fcedeadc32acff95c2e203b319039dd4b4a08dd1a2dfd283d19c0b9ae'},
     {'GObject-Introspection-1.80.1_install-GLib-GIR-files.patch': 'c1909f1b7fd30784ae789ac0b5e45e0ca3dd2456890b864efa86a2f8c2e563aa'},
 ]
 
