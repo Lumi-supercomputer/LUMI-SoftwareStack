@@ -1,0 +1,90 @@
+easyblock = 'ConfigureMake'
+
+local_METIS_version =        '5.1.0'         # https:/http://glaros.dtc.umn.edu/gkhome/metis/metis/download
+local_MPFR_version =         '4.2.2'         # https://ftp.gnu.org/gnu/mpfr/
+local_SuiteSparse5_version = '5.13.0'        # https://github.com/DrTimothyAldenDavis/SuiteSparse/releases
+
+name =          'SuiteSparse'
+version =       local_SuiteSparse5_version
+versionsuffix = '-OpenMP'
+
+homepage = 'https://faculty.cse.tamu.edu/davis/suitesparse.html'
+
+whatis = ['Description: SuiteSparse is a collection of libraries to manipulate sparse matrices.']
+
+description = """
+SuiteSparse is a suite of sparse matrix algorithms. This package include:
+
+  - AMD       : approximate minimum degree ordering
+  - BTF       : permutation to block triangular form
+  - CAMD      : constrained approximate minimum degree ordering
+  - CCOLAMD   : constrained column approximate minimum degree ordering
+  - CHOLMOD   : sparse Cholesky factorization
+  - COLAMD    : column approximate minimum degree ordering
+  - CXSparse  : CSparse Extended, includes support for complex matrices
+  - KLU       : parse LU factorization, primarily for circuit simulation
+  - LDL       : a very concise LDL' factorization package
+  - RBio      : read/write sparse matrices in Rutherford/Boeing format
+  - SPQR      : sparse QR factorization.
+  - UMFPACK   : sparse LU factorization
+"""
+
+toolchain = {'name': 'cpeGNU', 'version': '25.09'}
+toolchainopts = {'unroll': True, 'pic': True, 'openmp': True}
+
+source_urls = ['https://github.com/DrTimothyAldenDavis/SuiteSparse/archive']
+sources = ['v%(version)s.tar.gz']
+checksums = ['59c6ca2959623f0c69226cf9afb9a018d12a37fab3a8869db5f6d7f83b6b147d']
+
+builddependencies = [
+    ('buildtools',          '%(toolchain_version)s', '', True),
+    ('craype-network-none', EXTERNAL_MODULE),
+    ('craype-accel-host',   EXTERNAL_MODULE),
+]
+
+dependencies = [
+    ('METIS', local_METIS_version),
+    ('MPFR',  local_MPFR_version),
+]
+
+skipsteps = ['configure']
+
+prebuildopts = ' && '.join([
+    'export LD_LIBRARY_PATH=%(builddir)s/SuiteSparse-%(version)s/lib:$LD_LIBRARY_PATH',
+    'export CMAKE_OPTIONS="-DCMAKE_INSTALL_PREFIX=%(installdir)s"',
+    'rm -f GraphBLAS/CUDA/test/graphblascuda_test',
+    'module unload cray-mpich rocm xpmem',
+]) + ' && '
+
+
+# Make sure we only link the multithreaded variant of libsci
+prebuildopts += 'LDFLAGS="-fopenmp" '
+preinstallopts = prebuildopts
+
+local_commonopts = ' '.join([
+    'BLAS="" LAPACK=""',
+    'MY_METIS_LIB="$EBROOTMETIS/lib/libmetis.%s"' % SHLIB_EXT,
+    'MY_METIS_INC="$EBROOTMETIS/include"',
+]) + ' '
+
+buildopts =   local_commonopts
+installopts = local_commonopts + 'INSTALL="%(installdir)s"'
+
+postinstallcmds = [
+    'mkdir -p %(installdir)s/share/licenses/%(name)s',
+    'cd ../%(name)s-%(version)s && cp LICENSE.txt CITATION.bib %(installdir)s/share/licenses/%(name)s',
+]
+
+local_libnames = [
+    'AMD', 'BTF', 'CAMD', 'CCOLAMD', 'CHOLMOD', 'COLAMD', 
+    'CXSparse', 'KLU', 'LDL', 'RBio', 'SPQR', 'UMFPACK'
+]
+
+sanity_check_paths = {
+    'files': [
+        'lib/lib%s.%s' % (lib.lower(), SHLIB_EXT) for lib in local_libnames 
+    ],
+    'dirs': []
+}
+
+moduleclass = 'numlib'
