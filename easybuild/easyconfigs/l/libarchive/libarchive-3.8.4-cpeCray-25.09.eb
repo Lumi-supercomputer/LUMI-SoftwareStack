@@ -31,9 +31,10 @@ software_license_urls = [
 toolchain = {'name': 'cpeCray', 'version': '25.09'}
 toolchainopts = {'pic': True}
 
+# https://www.libarchive.org/downloads/libarchive-3.8.4.tar.gz
 source_urls = ['https://www.libarchive.org/downloads/']
 sources =     [SOURCE_TAR_GZ]
-checksums =   ['4cc540a3e9a1eebdefa1045d2e4184831100667e6d7d5b315bb1cbc951f8ddff']
+checksums =   ['b2c75b132a0ec43274d2867221befcb425034cd038e465afbfad09911abb1abb']
 
 builddependencies = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),

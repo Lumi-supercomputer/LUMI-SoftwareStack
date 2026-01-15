@@ -38,3 +38,7 @@
 ### Version 9.0.3 from 25.09 on
 
 -   Trivial port of the EasyConfig for 8.6.16 for 25.03.
+
+-   Changed the download site to have one level of redirection less.
+
+-   Updated `postinstallcmds` with commands found in the EasyBuilders EasyConfig.

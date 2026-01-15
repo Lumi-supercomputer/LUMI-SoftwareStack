@@ -41,7 +41,7 @@ toolchain = {'name': 'cpeAOCC', 'version': '25.09'}
 toolchainopts = {'pic': True}
 
 sources = [
-    {   # https://gitlab.inria.fr/scotch/scotch/-/archive/v7.0.8/scotch-v7.0.8.tar.gz
+    {   # https://gitlab.inria.fr/scotch/scotch/-/archive/v7.0.10/scotch-v7.0.10.tar.gz
         'filename': '%(namelower)s_v%(version)s.tar.gz',
         'source_urls': ['https://gitlab.inria.fr/scotch/scotch/-/archive/v%(version)s/'],
         'extract_cmd': 'tar xvf %s ; mv scotch-v%(version)s* scotch-%(version)s'
@@ -52,7 +52,7 @@ sources = [
     },
 ]
 checksums = [
-    {'scotch_v7.0.8.tar.gz':         '35bcb50fee8ceec6f4cb04dab1a8e0bbd7fc806e5e92001d4162f4983eb7ecaa'},
+    {'scotch_v7.0.10.tar.gz':        '8327725a08cdd4fc7575e291251883b4f93f75b07a54bc58f89f50dcbba7b244'},
     {'Makefile.inc.CPE.%(version)s': '39d34c95446e68e6010f7a0ad72009efd9c913644abb2ca284b68ea048155974'},
 ]
 

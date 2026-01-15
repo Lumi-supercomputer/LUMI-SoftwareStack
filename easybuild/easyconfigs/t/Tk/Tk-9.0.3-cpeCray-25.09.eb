@@ -29,10 +29,11 @@ software_license_urls = [
 
 toolchain = {'name': 'cpeCray', 'version': '25.09'}
 
-source_urls = ["https://prdownloads.sourceforge.net/tcl"]
+# https://downloads.sourceforge.net/project/tcl/Tcl/9.0.3/tk9.0.3-src.tar.gz
+source_urls = ["https://downloads.sourceforge.net/project/tcl/Tcl/%(version)s"]
 sources =     ['%(namelower)s%(version)s-src.tar.gz']
 checksums =   [
-    {'tk8.6.16-src.tar.gz': 'be9f94d3575d4b3099d84bc3c10de8994df2d7aa405208173c709cc404a7e5fe'},
+    {'tk9.0.3-src.tar.gz': 'bf344efadb618babb7933f69275620f72454d1c8220130da93e3f7feb0efbf9b'},
 ]
 
 builddependencies = [ # Create a reproducible build environment.
@@ -58,7 +59,10 @@ configopts = '--enable-threads --with-tcl=$EBROOTTCL/lib CFLAGS="-I$EBROOTTCL/in
 installopts = "&& make install-private-headers"
 
 postinstallcmds = [
+    # From EasyBuilders
     'ln -s wish%(version_major_minor)s %(installdir)s/bin/wish',
+    f"ln -s libtcl%(version_major)stk%(version_major_minor)s.{SHLIB_EXT} %(installdir)s/lib/libtk.{SHLIB_EXT}",
+    # Copy license information
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
     'cd .. && cp license.terms changes README.md %(installdir)s/share/licenses/%(name)s',   
 ]

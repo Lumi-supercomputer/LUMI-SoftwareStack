@@ -2,7 +2,7 @@
 easyblock = 'ConfigureMake'
 
 local_zlib_version =         '1.3.1'         # https://zlib.net/
-local_libpng_version =       '1.6.53'        # http://www.libpng.org/pub/png/libpng.html (Not yet in EB 2025a when checking)
+local_libpng_version =       '1.6.54'        # http://www.libpng.org/pub/png/libpng.html (Not yet in EB 2025a when checking)
 
 name =    'libpng'
 version = local_libpng_version
@@ -35,12 +35,13 @@ software_license_urls = [
     f'https://sourceforge.net/p/libpng/code/ci/v{version}/tree/LICENSE',   
 ]
 
-toolchain = {'name': 'cpeAOCC', 'version': '25.09'}
+toolchain = {'name': 'cpeCray', 'version': '25.09'}
 toolchainopts = {'pic': True}
 
+# https://sourceforge.net/projects/libpng/files/libpng16/1.6.54/libpng-1.6.54.tar.xz/download
 source_urls = [SOURCEFORGE_SOURCE]
-sources =     [SOURCELOWER_TAR_GZ]
-checksums =   ['084115c62fe023e3d88cd78764a4d8e89763985ee4b4a085825f7a00d85eafbb']
+sources =     [SOURCELOWER_TAR_XZ]
+checksums =   ['01c9d8a303c941ec2c511c14312a3b1d36cedb41e2f5168ccdaa85d53b887805']
 
 builddependencies = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),

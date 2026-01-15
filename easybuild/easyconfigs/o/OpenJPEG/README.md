@@ -29,3 +29,4 @@
 
 -   Trivial port of the EasyConfig of 2.5.3 for 25.03.
 
+-   Renamed the downloaded sources so that the package could be used in a Bundle.

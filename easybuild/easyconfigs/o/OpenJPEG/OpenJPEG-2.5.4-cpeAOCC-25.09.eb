@@ -1,6 +1,6 @@
 easyblock = 'CMakeMake'
 
-local_libpng_version =       '1.6.53'        # http://www.libpng.org/pub/png/libpng.html (Not yet in EB 2025a when checking)
+local_libpng_version =       '1.6.54'        # http://www.libpng.org/pub/png/libpng.html (Not yet in EB 2025a when checking)
 local_libtiff_version =      '4.7.1'         # https://download.osgeo.org/libtiff/
 local_LittleCMS_version =    '2.17'          # https://sourceforge.net/projects/lcms/files/lcms/
 local_zlib_version =         '1.3.1'         # https://zlib.net/
@@ -27,9 +27,13 @@ a JPEG 2000 Reference Software.
 toolchain = {'name': 'cpeAOCC', 'version': '25.09'}
 toolchainopts = {'pic': True}
 
-source_urls = ['https://github.com/uclouvain/%(namelower)s/archive']
-sources = ['v%(version)s.tar.gz']
-checksums = ['368fe0468228e767433c9ebdea82ad9d801a3ad1e4234421f352c8b06e7aa707']
+# https://github.com/uclouvain/openjpeg/archive/v2.5.4.tar.gz
+sources = [{
+               'download_filename': 'v%(version)s.tar.gz',
+               'filename':          SOURCE_TAR_GZ,
+               'sourceurls':        ['https://github.com/uclouvain/%(namelower)s/archive'], 
+}]
+checksums =   ['a695fbe19c0165f295a8531b1e4e855cd94d0875d2f88ec4b61080677e27188a']
 
 builddependencies = [
     ('buildtools', '%(toolchain_version)s', '', SYSTEM),

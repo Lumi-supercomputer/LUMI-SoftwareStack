@@ -47,9 +47,10 @@ software_license_urls = [
 toolchain = {'name': 'cpeAOCC', 'version': '25.09'}
 toolchainopts = {'pic': True, 'usempi': True}
 
-source_urls = ['http://download.osgeo.org/%(namelower)s/']
+# https://download.osgeo.org/proj/proj-9.7.0.tar.gz
+source_urls = ['https://download.osgeo.org/%(namelower)s/']
 sources =     [SOURCELOWER_TAR_GZ]
-checksums =   ['53d0cafaee3bb2390264a38668ed31d90787de05e71378ad7a8f35bb34c575d1']
+checksums =   ['65705ecd987b50bf63e15820ce6bd17c042feaabda981249831bd230f6689709']
 
 builddependencies = [ # Create a reproducible build environment.
     ('buildtools',   '%(toolchain_version)s',   '', True),

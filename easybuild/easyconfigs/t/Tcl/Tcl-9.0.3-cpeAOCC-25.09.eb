@@ -26,9 +26,10 @@ software_license_urls = [
 
 toolchain = {'name': 'cpeAOCC', 'version': '25.09'}
 
-source_urls = ['http://prdownloads.sourceforge.net/%(namelower)s']
+# https://downloads.sourceforge.net/project/tcl/Tcl/9.0.3/tcl9.0.3-src.tar.gz
+source_urls = ['https://downloads.sourceforge.net/project/%(namelower)s/%(name)s/%(version)s']
 sources =     ['%(namelower)s%(version)s-src.tar.gz']
-checksums =   ['91cb8fa61771c63c262efb553059b7c7ad6757afa5857af6265e4b0bdc2a14a5']
+checksums =   ['2537ba0c86112c8c953f7c09d33f134dd45c0fb3a71f2d7f7691fd301d2c33a6']
 
 builddependencies = [ # Create a reproducible build environment.
     ('buildtools',   '%(toolchain_version)s',   '', True),

@@ -37,10 +37,10 @@ software_license_urls = [
 toolchain = {'name': 'cpeAMD', 'version': '25.09'}
 toolchainopts = {'pic': True}
 
-# https://jugit.fz-juelich.de/mlz/libcerf/-/archive/v1.13/libcerf-v1.13.tar.bz2
+# https://jugit.fz-juelich.de/mlz/libcerf/-/archive/v3.3/libcerf-v3.3.tar.bz2
 sources =     [ '%(name)s-v%(version)s.tar.bz2' ]
 source_urls = [ 'https://jugit.fz-juelich.de/mlz/libcerf/-/archive/v%(version)s' ]
-checksums =   [ '9cafef93e00bd5b799a3d82f1044497281fa487009638ae9e3035f4cd19d4917' ]
+checksums =   [ '6177829f3ebbe52970aa784de2de68d0e2a450e6d20eb78f4d14f6f2b6119572' ]
 
 builddependencies = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True), # For CMake but perl is actually needed to and for now taken from the system

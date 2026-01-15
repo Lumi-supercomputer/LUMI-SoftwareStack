@@ -2,7 +2,7 @@ easyblock = 'ConfigureMake'
 
 local_fontconfig_version =   '2.17.0'        # https://www.freedesktop.org/software/fontconfig/release/
 local_libjpegturbo_version = '3.1.3'         # https://github.com/libjpeg-turbo/libjpeg-turbo/releases
-local_libpng_version =       '1.6.53'        # http://www.libpng.org/pub/png/libpng.html (Not yet in EB 2025a when checking)
+local_libpng_version =       '1.6.54'        # http://www.libpng.org/pub/png/libpng.html (Not yet in EB 2025a when checking)
 local_zlib_version =         '1.3.1'         # https://zlib.net/
 
 local_libgd_version =        '2.3.3'         # http://www.libgd.org/

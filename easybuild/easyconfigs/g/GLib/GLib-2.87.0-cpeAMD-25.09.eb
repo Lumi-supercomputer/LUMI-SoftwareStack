@@ -52,11 +52,12 @@ toolchain = {'name': 'cpeAMD', 'version': '25.09'}
 toolchainopts = {'pic': True, 'extra_cflags': '-Wno-unsupported-target-opt'}
 
 # Check on https://ftp.gnome.org/pub/GNOME/sources/glib/
+# https://download.gnome.org/sources/glib/2.87/glib-2.87.0.tar.xz
 source_urls = [FTPGNOME_SOURCE]
 sources =     [SOURCELOWER_TAR_XZ]
 patches = ['GLib-2.85.1_add-ldl.patch']
 checksums = [
-    {'glib-2.85.1.tar.xz': 'd3f57bcd4202d93aa547ffa1d2a5dbd380a05dbaac04cc291bd7dfce93b4a8e5'},
+    {'glib-2.87.0.tar.xz': '926cf73d8eb90ea341cc2d6fc7b258901e1a086a3808b166b4476d69a98b2401'},
     {'GLib-2.85.1_add-ldl.patch': '780b4da7e33158e2fda21e5fab11cd451f8d63fc2d0b0530113fa75a3b4a2099'},
 ]
 
