@@ -1,0 +1,69 @@
+easyblock = 'ConfigureMake'
+
+local_libpsl_version =       '0.21.5'        # https://github.com/rockdaboot/libpsl/releases
+
+local_libidn2_version =      '2.3.8'         # https://ftp.gnu.org/gnu/libidn/
+local_libunistring_version = '1.4.1'         # https://ftp.gnu.org/gnu/libunistring/
+
+name =    'libpsl'
+version = local_libpsl_version
+
+homepage = 'https://rockdaboot.github.io/libpsl'
+
+whatis = [
+    'Description: PSL is a C library to handle the Public Suffix List'
+]
+description = """"
+PSL is a C library to handle the Public Suffix List
+
+A Public Suffix List is a collection of Top Level Domains (TLDs) suffixes. TLDs
+include Global Top Level Domains (gTLDs) like .com and .net; Country Top Level 
+Domains (ccTLDs) like .de and .cn; and Brand Top Level Domains like .apple and 
+.google. Brand TLDs allows users to register their own top level domain that 
+exist at the same level as ICANN's gTLDs. Brand TLDs are sometimes referred to 
+as Vanity Domains.
+"""
+
+software_license_urls = [
+    f'https://github.com/rockdaboot/libpsl/blob/{version}/LICENSE',
+    f'https://github.com/rockdaboot/libpsl/blob/{version}/COPYING',
+]
+
+toolchain = {'name': 'cpeAOCC', 'version': '25.09'}
+
+source_urls = ['https://github.com/rockdaboot/%(name)s/releases/download/%(version)s']
+sources =     [SOURCELOWER_TAR_GZ]
+checksums =   ['1dcc9ceae8b128f3c0b3f654decd0e1e891afc6ff81098f227ef260449dae208']
+
+builddependencies = [ # Create a reproducible build environment.
+    ('buildtools', '%(toolchain_version)s', '', True),
+]
+
+dependencies = [
+    ('libidn2',      local_libidn2_version),
+    ('libunistring', local_libunistring_version),
+]
+
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+
+configopts = '--enable-runtime=libidn2 --enable-builtin'
+
+postinstallcmds = [
+    'mkdir -p %(installdir)s/share/licenses/%(name)s',
+    'cp AUTHORS COPYING LICENSE NEWS README %(installdir)s/share/licenses/%(name)s',   
+]
+
+sanity_check_paths = {
+    'files': ['lib/libpsl.%s' % x for x in ['a', 'la', SHLIB_EXT]] +
+             ['bin/psl', 'include/libpsl.h', 'lib/pkgconfig/libpsl.pc', f'share/licenses/libpsl/LICENSE'],
+    'dirs':  ['share/man/man1']
+}
+
+sanity_check_commands = [
+    'psl --version',
+    'pkg-config --libs libpsl | grep "%(installdir)s/lib"',
+]
+
+moduleclass = 'lib'

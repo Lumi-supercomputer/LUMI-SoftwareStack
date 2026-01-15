@@ -33,3 +33,8 @@
 
 -   Version bump of the 1.6.2 EasyConfig for 24.03/24.11, but switched to sources from 
     GitHub.
+
+
+### Version 1.8.3 for 25.09
+
+-   Trivial version bump of 1.8.1 for 25.03.

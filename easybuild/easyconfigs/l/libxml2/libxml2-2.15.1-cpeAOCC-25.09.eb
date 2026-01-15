@@ -1,0 +1,86 @@
+# contributed by Luca Marsella (CSCS)
+easyblock = 'ConfigureMake'
+
+local_ICU_version =          '78.1'          # http://site.icu-project.org/home
+local_zlib_version =         '1.3.1'         # https://zlib.net/
+local_XZ_version =           '5.8.1'         # https://tukaani.org/xz/
+local_libxml2_version =      '2.15.1'        # http://xmlsoft.org/sources/
+
+name =    'libxml2'
+version = local_libxml2_version
+
+homepage = 'http://xmlsoft.org/'
+
+whatis = [
+    'The XML C parcer and toolkit of Gnome, but usable outside of the Gnome platform also',
+    'This module provides command line tools and static and shared libraries',
+]
+
+description = """
+Libxml2 is the XML C parser and toolkit developed for the Gnome project (but
+usable outside of the Gnome platform), it is free software available under the
+MIT License. XML itself is a metalanguage to design markup languages, i.e. text
+language where semantic and structure are added to the content using extra
+"markup" information enclosed between angle brackets. HTML is the most
+well-known markup language. Though the library is written in C a variety of
+language bindings make it available in other environments.
+
+This module provides command line tools and static and shared libraries.
+"""
+
+usage = """
+The module provides a number of command line tools
++ xmlcatalog: Parse and manipulate XML or SGML catalog files
++ xmllint:    Comand-line XML parser
++ xml-config: Provides information about the installed version of the library
+xmlcatalog and xmllint also support --help
+
+The library API is documented on the libxml website.
+"""
+
+docurls = [
+    'Web-based documentation: http://xmlsoft.org/html/index.html',
+    'Man pages for the command line tools and libxml',
+]
+
+software_license_urls = [
+    f'https://gitlab.gnome.org/GNOME/libxml2/-/blob/v{version}/Copyright?ref_type=tags',    
+]
+
+toolchain = {'name': 'cpeAOCC', 'version': '25.09'}
+toolchainopts = {'pic': True}
+
+source_urls = ['https://download.gnome.org/sources/libxml2/%(version_major)s.%(version_minor)s/']
+sources =     [SOURCELOWER_TAR_XZ]
+checksums =   ['65d042e1c8010243e617efb02afda20b85c2160acdbfbcb5b26b80cec6515650']
+
+dependencies = [
+    ('ICU',  local_ICU_version),
+    ('zlib', local_zlib_version),
+    ('XZ',   local_XZ_version),
+]
+
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+
+configopts = 'CC="$CC" CXX="$CXX" --enable-static --enable-shared --with-pic --without-python --with-zlib --with-lzma --with-icu'
+
+postinstallcmds = [
+    'mkdir -p %(installdir)s/share/licenses/%(name)s',
+    'cp Copyright NEWS README.md %(installdir)s/share/licenses/%(name)s',   
+]
+
+sanity_check_paths = {
+    'files': [('lib/%(name)s.a', 'lib64/%(name)s.a'), ('lib/%(name)s.so', 'lib64/%(name)s.so'),
+              f'share/licenses/{name}/Copyright'],
+    'dirs':  ['bin', 'include/%(name)s/libxml'],
+}
+sanity_check_commands = [
+    'xmlcatalog -v',
+    'xmllint --version',
+    'xml2-config --help',
+    'pkg-config --libs libxml-2.0',
+]
+
+moduleclass = 'lib'

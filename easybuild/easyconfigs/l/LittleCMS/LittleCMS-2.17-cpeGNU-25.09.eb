@@ -1,0 +1,65 @@
+easyblock = 'ConfigureMake'
+
+local_libjpegturbo_version = '3.1.3'         # https://github.com/libjpeg-turbo/libjpeg-turbo/releases
+local_libtiff_version =      '4.7.1'         # https://download.osgeo.org/libtiff/
+local_zlib_version =         '1.3.1'         # https://zlib.net/
+
+local_LittleCMS_version =    '2.17'          # https://sourceforge.net/projects/lcms/files/lcms/
+
+name =    'LittleCMS'
+version = local_LittleCMS_version
+
+homepage = 'https://www.littlecms.com/'
+
+whatis = [
+    'Description: LittleCMS or lcms2 is a small-footprint color management engine'    
+]
+
+description = """
+Little CMS intends to be an OPEN SOURCE small-footprint color management engine,
+with special focus on accuracy and performance.
+"""
+
+toolchain = {'name': 'cpeGNU', 'version': '25.09'}
+
+source_urls = ['https://sourceforge.net/projects/lcms/files/lcms/%s/' % '.'.join(version.split('.')[:2])]
+sources =     ['lcms2-%(version)s.tar.gz']
+checksums =   ['d11af569e42a1baa1650d20ad61d12e41af4fead4aa7964a01f93b08b53ab074']
+
+builddependencies = [
+    ('buildtools', '%(toolchain_version)s', '', SYSTEM),
+]
+
+dependencies = [ # Based on docs, not EasyBuilders EasyConfig.
+    ('zlib',          local_zlib_version),
+    ('libjpeg-turbo', local_libjpegturbo_version),
+    ('LibTIFF',       local_libtiff_version),
+]
+
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+preinstallopts = pretestopts = prebuildopts = preconfigopts
+
+postinstallcmds = [
+    'mkdir -p %(installdir)s/share/licenses/%(name)s',
+    'cp AUTHORS ChangeLog LICENSE README.md SECURITY.md %(installdir)s/share/licenses/%(name)s',   
+]
+
+sanity_check_paths = {
+    'files': ['bin/jpgicc', 'bin/linkicc', 'bin/psicc', 'bin/transicc', 'include/lcms2.h', 'include/lcms2_plugin.h',
+              'lib/liblcms2.a', 'lib/liblcms2.%s' % SHLIB_EXT, 'lib/pkgconfig/lcms2.pc',
+              'share/licenses/%(name)s/LICENSE'],
+    'dirs':  ['share/man'],
+}
+
+sanity_check_commands = [ # No easy test on the executables themselves though...
+    f'pkg-config --modversion lcms2 | grep -q {local_LittleCMS_version}',
+    'pkg-config --libs lcms2 | grep -q llcms2',
+    f'jpgicc   2>&1 | grep -q "LittleCMS {local_LittleCMS_version}"',
+    f'linkicc  2>&1 | grep -q "LittleCMS {local_LittleCMS_version}"',
+    f'psicc    2>&1 | grep -q "LittleCMS {local_LittleCMS_version}"',
+    f'tificc   2>&1 | grep -q "LittleCMS {local_LittleCMS_version}"',
+    f'transicc 2>&1 | grep -q "LittleCMS {local_LittleCMS_version}"',
+]
+
+moduleclass = 'vis'

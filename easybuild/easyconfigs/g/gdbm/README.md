@@ -31,3 +31,8 @@
 
 -   The EasyConfig is a trivial port of the 1.23 EasyConfig for 24.03/24.11.
 
+
+### Version 1.26 for 25.09
+
+-   The EasyConfig is a trivial port of the 1.25 EasyConfig for 25.09.
+

@@ -1,0 +1,69 @@
+# Contributed by Kurt Lust, LUMI project & UAntwerpen
+easyblock = 'ConfigureMake'
+
+local_libiconv_version =     '1.18'          # https://ftp.gnu.org/pub/gnu/libiconv/
+local_libunistring_version = '1.4.1'         # https://ftp.gnu.org/gnu/libunistring/
+
+name =          'libunistring'
+version =       local_libunistring_version
+
+homepage = 'http://www.gnu.org/software/libunistring/'
+
+whatis = [
+    'Description: This library provides functions for manipulating Unicode strings and for manipulating C strings according to the Unicode standard.',
+    'This module provides static and shared libraries.',
+]
+
+description = """
+Text files are nowadays usually encoded in Unicode, and may consist of very
+different scripts – from Latin letters to Chinese Hanzi –, with many kinds of
+special characters – accents, right-to-left writing marks, hyphens, Roman
+numbers, and much more. But the POSIX platform APIs for text do not contain
+adequate functions for dealing with particular properties of many Unicode
+characters. In fact, the POSIX APIs for text have several assumptions at their
+base which don't hold for Unicode text.
+
+This library provides functions for manipulating Unicode strings and for
+manipulating C strings according to the Unicode standard.
+"""
+
+docurls = [
+    'Web-based manual: https://www.gnu.org/software/libunistring/manual/libunistring.html',
+    'The package supports the info command, start with info libunistring',
+]
+
+
+toolchain = {'name': 'cpeCray', 'version': '25.09'}
+toolchainopts = {'pic': True}
+
+sources =     [SOURCELOWER_TAR_XZ]
+source_urls = [GNU_SOURCE]
+checksums =   ['f245786c831d25150f3dfb4317cda1acc5e3f79a5da4ad073ddca58886569527']
+
+builddependencies = [ # Create a reproducible build environment.
+    ('buildtools', '%(toolchain_version)s', '', True),
+]
+
+dependencies = [
+    ('libiconv', local_libiconv_version),
+]
+
+parallel = 1
+
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+preinstallopts = preconfigopts
+
+sanity_check_paths = {
+    'files': ['lib/libunistring.a', 'lib/libunistring.%s' % SHLIB_EXT] +
+             ['include/uni%s.h' % x for x in ['case', 'conv', 'ctype', 'lbrk', 'name', 'norm',
+                                              'stdio', 'str', 'types', 'wbrk', 'width']],
+    'dirs':  ['include/unistring'],
+}
+
+modextrapaths = {
+    'INFOPATH' : 'share/info',
+}
+
+moduleclass = 'lib'

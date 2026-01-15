@@ -51,3 +51,9 @@
 ### 1.5.0 for 25.03
 
 -   Trivial port of the EasyConfig of version 1.3.2 for 24.03/24.11.
+
+
+### 1.6.0 for 25.09
+
+-   Trivial port of the EasyConfig of version 1.5.0 for 25.03.
+

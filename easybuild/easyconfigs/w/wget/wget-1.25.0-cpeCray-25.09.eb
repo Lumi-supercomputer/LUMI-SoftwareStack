@@ -1,0 +1,96 @@
+# Installation test before inclusion in the baselibs 2020a bundle.
+easyblock = 'ConfigureMake'
+
+local_zlib_version =         '1.3.1'         # https://zlib.net/
+local_libidn2_version =      '2.3.8'         # https://ftp.gnu.org/gnu/libidn/
+local_libpsl_version =       '0.21.5'        # https://github.com/rockdaboot/libpsl/releases
+local_PCRE2_version =        '10.47'         # https://github.com/PCRE2Project/pcre2/releases  # Not yet in EB 2025a when checked for installation
+local_wget_version =         '1.25.0'        # https://ftp.gnu.org/gnu/wget/
+
+name =    'wget'
+version = local_wget_version
+
+homepage = 'https://www.gnu.org/software/%(name)s/'
+
+whatis = [
+    "Description: wget - GNU wget, a free software package for retrieving files using HTTP, HTTPS and FTP"
+]
+
+description = """
+GNU Wget is a free software package for retrieving files using HTTP, HTTPS and FTP,
+the most widely-used Internet protocols. It is a non-interactive command line tool,
+so it may easily be called from scripts, cron jobs, terminals without X-Windows support, etc.
+"""
+
+docurls = [
+    "Man page for the wget command (section 1)",
+    "Support for the info command (info wget)",
+    "Web-based manuals on https://www.gnu.org/software/wget/manual/",
+]
+
+software_license_urls = [
+    'https://www.gnu.org/licenses/gpl-3.0.html',
+    f'https://gitlab.com/gnuwget/wget/-/blob/v{version}/COPYING?ref_type=tags',
+]
+
+toolchain = {'name': 'cpeCray', 'version': '25.09'}
+toolchainopts = {'extra_cflags': '-Wno-unsupported-target-opt'}
+
+source_urls = [GNU_SOURCE]
+sources =     [SOURCE_TAR_GZ]
+checksums =   ['766e48423e79359ea31e41db9e5c289675947a7fcf2efdcedb726ac9d0da3784']
+
+builddependencies = [ # Create a reproducible build environment.
+    ('buildtools', '%(toolchain_version)s', '', True),
+]
+
+dependencies = [
+    ('zlib',    local_zlib_version),
+    ('libidn2', local_libidn2_version),
+    ('libpsl',  local_libpsl_version),
+    ('PCRE2',   local_PCRE2_version),
+    # OS dependency should be preferred if the os version is more recent then this version,
+    # it's nice to have an up to date openssl for security reasons
+    # ('OpenSSL', '1.0.1s'),
+    #('OpenSSL', '1.1', '', SYSTEM), # Can be used as a placeholder in a container where OpenSSL is not properly installed.
+    # OS dependency should be preferred if the os version is more recent then this version,
+    # it's nice to have an up to date gnutls for security reasons
+    # ('GnuTLS', '3.4.11'),
+]
+
+osdependencies = [
+    ('openssl-devel', 'libssl-dev', 'libopenssl-devel'),
+    # Optionally, you can use gnutls (default) instead of OpenSSL.
+    # Do not forget to comment out configopts in that case.
+    # osdependencies = [('gnutls-devel', 'gnutls-dev', 'libgnutls-devel')]
+]
+
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+preinstallopts = preconfigopts
+
+# make sure pkg-config picks up system packages (OpenSSL & co)
+preconfigopts += "export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/usr/lib64/pkgconfig:/usr/lib/pkgconfig:/usr/lib/x86_64-linux-gnu/pkgconfig && "
+configopts =    '--with-ssl=openssl '
+
+postinstallcmds = [
+    'mkdir -p %(installdir)s/share/licenses/%(name)s',
+    'cp AUTHORS ChangeLog COPYING NEWS README %(installdir)s/share/licenses/%(name)s',   
+]
+
+sanity_check_paths = {
+    'files': ['bin/%(name)s', 'etc/wgetrc', 'share/man/man1/wget.1', 'share/info/wget.info',
+              f'share/licenses/{name}/COPYING'],
+    'dirs':  []
+}
+
+sanity_check_commands = [
+    'wget -V',
+]
+
+modextrapaths = {
+    'INFOPATH' : 'share/info',
+}
+
+moduleclass = 'devel'
