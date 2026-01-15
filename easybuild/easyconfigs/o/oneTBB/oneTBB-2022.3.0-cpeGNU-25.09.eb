@@ -1,0 +1,47 @@
+easyblock = 'CMakeMake'
+
+local_oneTBB_version =       '2022.3.0'      # https://github.com/uxlfoundation/oneTBB/releases
+
+name =    'oneTBB'
+version = local_oneTBB_version
+
+homepage = 'https://github.com/oneapi-src/oneTBB'
+
+whatis = ['Description: Intel(R) oneAPI Threading Building Blocks library']
+
+description = """
+Intel(R) Threading Building Blocks (Intel(R) TBB) lets you easily write
+parallel C++ programs that take full advantage of multicore performance, 
+that are portable, composable and have future-proof scalability.
+"""
+
+docurls = ['https://oneapi-src.github.io/oneTBB/']
+software_license_urls = ['https://github.com/oneapi-src/oneTBB/blob/master/LICENSE.txt']
+
+toolchain = {'name': 'cpeGNU', 'version': '25.09'}
+
+# https://github.com/oneapi-src/oneTBB/issues/1180#issuecomment-1690958371
+toolchainopts = {'extra_cxxflags': '-Wno-error=stringop-overflow'}
+
+source_urls = ['https://github.com/oneapi-src/oneTBB/archive/refs/tags/']
+sources =     ['v%(version)s.tar.gz']
+checksums =   ['f0f78001c8c8edb4bddc3d4c5ee7428d56ae313254158ad1eec49eced57f6a5b']
+
+builddependencies = [
+    ('buildtools',         '%(toolchain_version)s', '', True),
+    ('craype-network-none', EXTERNAL_MODULE),
+    ('craype-accel-host',   EXTERNAL_MODULE),
+]
+
+postinstallcmds = [
+    'mkdir -p %(installdir)s/share/licenses/%(name)s && '
+    'cd ../%(name)s-%(version)s && '
+    'cp CONTRIBUTING.md LICENSE.txt README.md RELEASE_NOTES.md SECURITY.md SUPPORT.md SYSTEM_REQUIREMENTS.md third-party-programs.txt %(installdir)s/share/licenses/%(name)s',   
+]
+
+sanity_check_paths = {
+    'files': ['lib/libtbb.%s' % SHLIB_EXT, 'lib/libtbbmalloc.%s' % SHLIB_EXT],
+    'dirs':  ['lib', 'include', 'share'],
+}
+
+moduleclass = 'lib'

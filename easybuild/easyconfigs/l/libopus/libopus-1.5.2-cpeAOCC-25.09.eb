@@ -1,0 +1,62 @@
+easyblock = 'ConfigureMake'
+
+local_libopus_version =      '1.5.2'         # http://opus-codec.org/downloads/
+
+name =    'libopus'
+version = local_libopus_version
+
+homepage = 'https://opus-codec.org/'
+
+whatis = [
+    "Description: libopus provides support for Opus, a royalty-free audio codec",
+]
+
+description = """
+Opus is a totally open, royalty-free, highly versatile audio codec. Opus is
+unmatched for interactive speech and music transmission over the Internet,
+but is also intended for storage and streaming applications. It is
+standardized by the Internet Engineering Task Force (IETF) as RFC 6716
+which incorporated technology from Skype’s SILK codec and Xiph.Org’s
+CELT codec.
+"""
+
+docurls = [
+    "Man pages in section 3"
+]
+
+software_license_urls = [
+    'https://opus-codec.org/license/',
+    f'https://gitlab.xiph.org/xiph/opus/-/blob/v{version}/COPYING?ref_type=tags',
+]
+
+toolchain = {'name': 'cpeAOCC', 'version': '25.09'}
+toolchainopts = {'pic': True}
+
+source_urls = ['https://downloads.xiph.org/releases/opus/']
+sources =     ['opus-%(version)s.tar.gz']
+checksums =   ['65c1d2f78b9f2fb20082c38cbe47c951ad5839345876e46941612ee87f9a7ce1']
+
+builddependencies = [ # Create a reproducible build environment.
+    ('buildtools', '%(toolchain_version)s', '', True),
+]
+
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+
+postinstallcmds = [
+    'mkdir -p %(installdir)s/share/licenses/%(name)s',
+    'cp AUTHORS ChangeLog COPYING NEWS README %(installdir)s/share/licenses/%(name)s',   
+]
+
+sanity_check_paths = {
+    'files': ['lib/libopus.%s' % x for x in ['a', 'la', SHLIB_EXT]] +
+             ['include/opus/opus.h'],
+    'dirs':  ['share/man/man3']
+}
+
+sanity_check_commands = [
+    'pkg-config --libs opus',    
+]
+
+moduleclass = 'lib'

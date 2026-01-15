@@ -1,0 +1,64 @@
+# Contributed by Kurt Lust, LUMI project & UAntwerpen
+easyblock = 'ConfigureMake'
+
+local_lz4_version =          '1.10.0'        # https://github.com/lz4/lz4/releases
+
+name =    'lz4'
+version = local_lz4_version
+
+homepage = 'https://lz4.github.io/lz4/'
+
+whatis = [
+    "Description: LZ4 is lossless compression algorithm, providing compression speed at 400 MB/s per core"
+]
+
+description = """
+LZ4 is lossless compression algorithm, providing compression speed at 400 MB/s per core.
+It features an extremely fast decoder, with speed in multiple GB/s per core.
+"""
+
+software_license_urls = [
+    f'https://raw.githubusercontent.com/lz4/lz4/v{version}/LICENSE',
+]
+
+toolchain = {'name': 'cpeGNU', 'version': '25.09'}
+toolchainopts = {'pic': True}
+
+sources = {
+    'download_filename': 'v%(version)s.tar.gz',
+    'filename':          SOURCELOWER_TAR_GZ,
+    'source_urls':       ['https://github.com/lz4/lz4/archive/']
+}
+checksums = ['537512904744b35e232912055ccf8ec66d768639ff3abe5788d90d792ec5f48b']
+
+builddependencies = [ # Create a reproducible build environment.
+    ('buildtools', '%(toolchain_version)s', '', True),
+]
+
+skipsteps = ['configure']
+
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+prebuildopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+pretestopts = prebuildopts
+preinstallopts = prebuildopts
+
+installopts = "PREFIX=%(installdir)s"
+
+runtest = 'check'
+
+postinstallcmds = [
+    'mkdir -p %(installdir)s/share/licenses/%(name)s',
+    'cp LICENSE NEWS README.md %(installdir)s/share/licenses/%(name)s',   
+]
+
+sanity_check_paths = {
+    'files': ['bin/lz4', 'lib/liblz4.a', 'lib/liblz4.%s' % SHLIB_EXT, 'include/lz4.h', f'share/licenses/{name}/LICENSE'],
+    'dirs':  ['lib/pkgconfig']
+}
+
+sanity_check_commands = [
+    'lz4 -V',
+    'pkg-config --libs liblz4',
+]
+
+moduleclass = 'lib'

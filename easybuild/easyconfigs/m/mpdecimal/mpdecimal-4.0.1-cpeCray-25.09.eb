@@ -1,0 +1,82 @@
+# This EasyConfig is mostly here for testing the installation procedure of mpdecimal/libmpdec.
+# It is included in the baselibs from the 2020a edition onwards.
+easyblock = 'ConfigureMake'
+
+local_mpdecimal_version =    '4.0.1'         # https://www.bytereef.org/mpdecimal/
+
+name =    'mpdecimal'
+version = local_mpdecimal_version
+
+homepage = 'https://www.bytereef.org/mpdecimal/'
+
+whatis = [
+    'Description: mpdecimal is a package for correctly-rounded arbitrary precision decimal floating point arithmetic..',
+]
+
+description = """
+mpdecimal is a package for correctly-rounded arbitrary precision decimal
+floating point arithmetic. Starting from version 2.4.0, mpdecimal includes
+only the libmpdec library. Further mpdecimal development will focus
+exclusively on libmpdec.
+
+libmpdec is a complete implementation of the General Decimal Arithmetic
+Specification. The specification, written by Mike Cowlishaw from IBM,
+defines a general purpose arbitrary precision data type together with
+rigorously specified functions and rounding behavior. As described in the
+scope section of the specification, libmpdec will - with minor restrictions -
+also conform to the IEEE 754-2008 Standard for Floating-Point Arithmetic,
+provided that the appropriate context parameters are set.
+
+libmpdec is written in C, but the header files are prepared for use with a
+C++ compiler. It is intended to be cross platform and has been tested on
+64/32-bit Linux, 64/32-bit FreeBSD and OpenBSD, 64/32-bit Windows,
+64-bit AIX, 64/32-bit OpenSolaris and 32-bit Debian Mips.
+
+Starting from Python-3.3, libmpdec is the basis for Python’s decimal module.
+"""
+
+docurls = [
+    'Web-based documentation on https://www.bytereef.org/mpdecimal/doc/libmpdec/index.html'
+]
+
+software_license_urls = [
+    'https://opensource.org/licenses/BSD-2-Clause',
+]
+
+toolchain = {'name': 'cpeCray', 'version': '25.09'}
+toolchainopts = {'defaultprec': False}
+
+# https://www.bytereef.org/software/mpdecimal/releases/mpdecimal-2.5.1.tar.gz
+source_urls = ['https://www.bytereef.org/software/mpdecimal/releases/']
+sources =     [SOURCELOWER_TAR_GZ]
+checksums =   ['96d33abb4bb0070c7be0fed4246cd38416188325f820468214471938545b1ac8']
+
+builddependencies = [ # Create a reproducible build environment.
+    ('buildtools', '%(toolchain_version)s', '', True),
+]
+
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+
+# Some default options that we want for sure in case the defaults would change in
+# future versions.
+configopts = '--enable-shared --enable-cxx'
+
+postinstallcmds = [
+    'mkdir -p %(installdir)s/share/licenses/%(name)s',
+    'cp CHANGELOG.txt COPYRIGHT.txt README.txt %(installdir)s/share/licenses/%(name)s',   
+]
+
+sanity_check_paths = {
+    'files': ['lib/lib%s.%s' % (x, y) for x in [ 'mpdec', 'mpdec++'] for y in ['a', SHLIB_EXT]] +
+             ['include/mpdecimal.h', 'include/decimal.hh', f'share/licenses/{name}/COPYRIGHT.txt'],
+    'dirs':  ['share/doc/mpdecimal'],
+}
+
+sanity_check_commands = [
+    'pkg-config --libs libmpdec',    
+    'pkg-config --libs libmpdec++',    
+]
+
+moduleclass = 'math'

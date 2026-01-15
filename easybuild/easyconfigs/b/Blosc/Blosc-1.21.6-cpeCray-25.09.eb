@@ -1,0 +1,79 @@
+easyblock = 'CMakeMake'
+
+local_Blosc_version =        '1.21.6'        # https://github.com/Blosc/c-blosc/releases
+
+name =    'Blosc'
+version = local_Blosc_version
+
+homepage = 'https://www.blosc.org/'
+
+whatis = [
+    "Description: Blosc is an extremely fast, multi-threaded, meta-compressor library"
+]
+
+description = """
+Blosc is a high performance compressor optimized for binary data. It has been
+designed to transmit data to the processor cache faster than the traditional,
+non-compressed, direct memory fetch approach via a memcpy() OS call. Blosc is
+the first compressor (that I'm aware of) that is meant not only to reduce the
+size of large datasets on-disk or in-memory, but also to accelerate
+memory-bound computations (which is typical in vector-vector operations).
+
+It uses the blocking technique (as described in this article) to reduce activity
+on the memory bus as much as possible. In short, the blocking technique works
+by dividing datasets in blocks that are small enough to fit in L1 cache of
+modern processor and perform compression/decompression there. It also
+leverages SIMD (SSE2) and multi-threading capabilities present in nowadays
+multi-core processors so as to accelerate the compression/decompression
+process to a maximum.
+"""
+
+software_license_urls = [
+    'https://raw.githubusercontent.com/Blosc/c-blosc/v%(version)s/LICENSE.txt',
+    'https://raw.githubusercontent.com/Blosc/c-blosc/v%(version)s/LICENSES/BITSHUFFLE.txt',
+    'https://raw.githubusercontent.com/Blosc/c-blosc/v%(version)s/LICENSES/FASTLZ.txt',
+    'https://raw.githubusercontent.com/Blosc/c-blosc/v%(version)s/LICENSES/LZ4.txt',
+    'https://raw.githubusercontent.com/Blosc/c-blosc/v%(version)s/LICENSES/SNAPPY.txt',
+    'https://raw.githubusercontent.com/Blosc/c-blosc/v%(version)s/LICENSES/STDINT.txt',
+    'https://raw.githubusercontent.com/Blosc/c-blosc/v%(version)s/LICENSES/ZLIB-NG.txt',
+    'https://raw.githubusercontent.com/Blosc/c-blosc/v%(version)s/LICENSES/ZLIB.txt',
+]
+
+toolchain = {'name': 'cpeCray', 'version': '25.09'}
+toolchainopts = {'pic': True}
+
+#source_urls = ['https://github.com/Blosc/c-blosc/archive/']
+#sources =     ['v%(version)s.tar.gz']
+sources = [ { 'filename': SOURCELOWER_TAR_GZ,
+              'download_filename': 'v%(version)s.tar.gz',
+              'source_urls': ['https://github.com/Blosc/c-blosc/archive/'] } ]
+checksums =   ['9fcd60301aae28f97f1301b735f966cc19e7c49b6b4321b839b4579a0c156f38']
+
+builddependencies = [
+    ('buildtools', '%(toolchain_version)s', '', True),
+]
+
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+
+# Make the directory structure uniform with ConfigureMake software.
+configopts = '-DCMAKE_INSTALL_LIBDIR=lib'
+
+postinstallcmds = [
+    'mkdir -p %(installdir)s/share/licenses/%(name)s',
+    'cd ../c-blosc-%(version)s && cp ANNOUNCE.rst FAQ.md LICENSE.txt LICENSES/*.txt README.md RELEASE_NOTES.rst THANKS.rst %(installdir)s/share/licenses/%(name)s',   
+]
+
+sanity_check_paths = {
+    'files': ['include/blosc-export.h', 'include/blosc.h', 'lib/libblosc.a',
+              'lib/libblosc.%s' % SHLIB_EXT,
+              'share/licenses/%(name)s/LICENSE.txt'],
+    'dirs':  [],
+}
+
+sanity_check_commands = [
+   'pkg-config --libs blosc',
+]
+
+moduleclass = 'lib'

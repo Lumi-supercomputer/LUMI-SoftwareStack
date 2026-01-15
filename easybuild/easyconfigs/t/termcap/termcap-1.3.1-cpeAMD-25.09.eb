@@ -1,0 +1,75 @@
+# contributed by Luca Marsella (CSCS)
+easyblock = 'ConfigureMake'
+
+local_termcap_version =      '1.3.1'         # https://ftp.gnu.org/gnu/termcap/
+
+name =    'termcap'
+version = local_termcap_version
+
+homepage = 'https://www.gnu.org/software/termutils/manual/termcap-1.3/termcap.html'
+
+whatis = [
+    'Description: GNU termcap libreary for those systems where it is missing from the system install'
+]
+
+description = """
+Termcap is a library and data base that enables programs to use display
+terminals in a terminal-independent manner. It originated in Berkeley Unix.
+
+The termcap data base describes the capabilities of hundreds of different
+display terminals in great detail. Some examples of the information
+recorded for a terminal could include how many columns wide it is, what
+string to send to move the cursor to an arbitrary position (including how
+to encode the row and column numbers), how to scroll the screen up one or
+several lines, and how much padding is needed for such a scrolling operation.
+
+The termcap library is provided for easy access this data base in programs
+that want to do terminal-independent character-based display output.
+
+"""
+
+software_license_urls = [
+    'https://www.gnu.org/licenses/old-licenses/gpl-2.0.html',
+]
+
+docurls = [
+   'Web-based documentation on https://www.gnu.org/software/termutils/manual/termcap-1.3/html_mono/termcap.html',
+   'Support for the info command: info termcap',
+]
+
+toolchain = {'name': 'cpeAMD', 'version': '25.09'}
+toolchainopts = {'pic': True, 'cstd': 'c90'}
+
+# https://ftp.gnu.org/gnu/termcap/termcap-1.3.1.tar.gz
+source_urls = ['http://ftp.gnu.org/gnu/termcap']
+sources =     ['termcap-%(version)s.tar.gz']
+checksums =   ['91a0e22e5387ca4467b5bcb18edf1c51b930262fd466d5fda396dd9d26719100']
+
+builddependencies = [ # Create a reproducible build environment.
+    ('buildtools', '%(toolchain_version)s', '', True),
+]
+
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+
+# termcap configure doesn't pick up the C flags so we feed them directly to make.
+buildopts = 'CFLAGS="$CFLAGS"'
+
+installopts = ' && mkdir -p %(installdir)s/share && mv %(installdir)s/info %(installdir)s/share'
+
+postinstallcmds = [
+    'mkdir -p %(installdir)s/share/licenses/%(name)s',
+    'cp COPYING NEWS README %(installdir)s/share/licenses/%(name)s',   
+]
+
+sanity_check_paths = {
+    'files': ['lib/libtermcap.a', 'include/termcap.h', 'share/info/termcap.info', f'share/licenses/{name}/COPYING'],
+    'dirs':  [],
+}
+
+modextrapaths = {
+    'INFOPATH' : 'share/info',
+}
+
+moduleclass = 'lib'

@@ -1,0 +1,71 @@
+easyblock = 'ConfigureMake'
+
+local_LMDB_version =         '0.9.31'        # https://github.com/LMDB/lmdb/releases
+
+name =    'LMDB'
+version = local_LMDB_version
+
+homepage = 'https://symas.com/lmdb/'
+
+whatis = [
+    "Description: LMDB: OpenLDAP's Lightning Memory-Mapped Database (LMDB) library."
+]
+
+description = """
+LMDB is an extraordinarily fast, memory-efficient database developed
+for the OpenLDAP Project. With memory-mapped files, it has the read performance
+of a pure in-memory database while retaining the persistence of standard
+disk-based databases.
+"""
+
+docurls = [
+    'Man pages in section 1 for mdb_copy, mdb_dump, mdb_load and mdb_stat',
+]
+
+software_license_urls = [
+    f'https://raw.githubusercontent.com/LMDB/lmdb/LMDB_{version}/libraries/liblmdb/LICENSE',
+    f'https://github.com/LMDB/lmdb/blob/LMDB_{version}/libraries/liblmdb/COPYRIGHT',
+]
+
+toolchain = {'name': 'cpeAOCC', 'version': '25.09'}
+
+sources =     ['%(name)s_%(version)s.tar.gz']
+source_urls = ['https://github.com/LMDB/lmdb/archive/']
+checksums =   ['dd70a8c67807b3b8532b3e987b0a4e998962ecc28643e1af5ec77696b081c9b0']
+
+builddependencies = [ # Create a reproducible build environment.
+    ('buildtools', '%(toolchain_version)s', '', True),
+]
+
+skipsteps = ['configure']
+
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+prebuildopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+pretestopts = prebuildopts
+preinstallopts = prebuildopts
+
+# The Makefile defines its own CFLAGS rather than picking it out of the environment
+# It also defines it own value for CC and AR.
+buildopts = 'CC="$CC" OPT="$CFLAGS"'
+
+runtest = 'test'
+
+installopts = 'prefix="%(installdir)s"'
+
+postinstallcmds = [
+    'mkdir -p %(installdir)s/share/licenses/%(name)s',
+    'cp CHANGES COPYRIGHT LICENSE %(installdir)s/share/licenses/%(name)s',   
+]
+
+local_sanity_list = ['mdb_copy', 'mdb_dump', 'mdb_load', 'mdb_stat']
+sanity_check_paths = {
+    'files': ['bin/%s' % x for x in local_sanity_list] +
+             ['share/man/man1/%s.1'% x for x in local_sanity_list] +
+             ['lib/liblmdb.a', 'lib/liblmdb.%s' % SHLIB_EXT, 'include/lmdb.h',
+              f'share/licenses/{name}/LICENSE'],
+    'dirs':  [],
+}
+
+sanity_check_commands = ['%s -V' % x for x in local_sanity_list]
+
+moduleclass = 'devel'

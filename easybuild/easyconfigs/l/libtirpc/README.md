@@ -58,4 +58,8 @@
 -   We then also added an additional sanity check to ensure that `hostname` does not produce
     the warnings about missing version information.
 
+
+### Version 1.3.7 from 25.09 on
+
+-   Trivial port of the EasyConfig for 1.3.6 in 25.09.
    

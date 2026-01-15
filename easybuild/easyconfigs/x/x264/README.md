@@ -31,4 +31,8 @@ versions on the home page so we simply follow the state in EasyBuild.
     
 -   Trivial port of the EasyConfig for 20231019 for 24.03/24.11.
 
+
+### Version 20250831 from CPE 25.09 on
+
+-   Trivial port of the EasyConfig for 20250619 for 25.03.
     

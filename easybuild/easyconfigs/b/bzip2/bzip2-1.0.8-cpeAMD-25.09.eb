@@ -1,0 +1,81 @@
+# Contributed by Kurt Lust, LUMI project & UAntwerpen
+
+
+local_bzip2_version =        '1.0.8'         # http://www.bzip.org/downloads.html
+
+name =    'bzip2'
+version = local_bzip2_version
+
+homepage = 'https://www.sourceware.org/bzip2/'
+
+whatis = [
+    'Description: bzip2 is a freely available, patent free, high-quality data compressor.',
+    'Remarks: The module contains both executables and libraries.'
+    'Keywords: BZ2',
+]
+
+description = """
+bzip2 is a freely available, patent free, high-quality data compressor. It
+typically compresses files to within 10% to 15% of the best available techniques
+(the PPM family of statistical compressors), whilst being around twice as fast
+at compression and six times faster at decompression. It is based on the
+Burrows-Wheeler block-sorting text compression algorithm and Huffman coding.
+"""
+
+usage = """
+Check the man pages for the available commands or the web-based documentation for the
+library functions.
+"""
+
+docurls = [
+    'Web-based documentation: http://www.bzip.org/docs.html',
+    'Man pages available for bzcmp, bzdiff, bzegrep, bzfgrep, bzgrep, bzip2, bunzip2, bzless and bzmore',
+]
+
+software_license_urls = [
+    'https://www.sourceware.org/bzip2/manual/manual.html',
+]
+
+toolchain = {'name': 'cpeAMD', 'version': '25.09'}
+toolchainopts = {'pic': True}
+
+source_urls = ['https://sourceware.org/pub/%(name)s/']
+sources =     [SOURCE_TAR_GZ]
+patches =     ['bzip2-%(version)s-pkgconfig-manpath.patch']
+checksums = [
+    {'bzip2-1.0.8.tar.gz': 'ab5a03176ee106d3f0fa90e381da478ddae405918153cca248e682cd0c4a2269'},
+    {'bzip2-1.0.8-pkgconfig-manpath.patch': 'de11269dc6e4917023af4cee9ff83b204953ad9cde561dbc9d6fc70d9b9578e3'}
+]
+
+builddependencies = [ # Create a reproducible build environment.
+    ('buildtools', '%(toolchain_version)s', '', True),
+]
+
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+
+postinstallcmds = [
+    'mkdir -p %(installdir)s/share/licenses/%(name)s',
+    'cp LICENSE README %(installdir)s/share/licenses/%(name)s',   
+]
+
+local_bzip2_major_minor =  '.'.join(local_bzip2_version.split('.')[:2])
+
+sanity_check_paths = {
+    'files': [ 'lib/pkgconfig/bzip2.pc', 'lib/libbz2.a', 'lib/libbz2.%s' % SHLIB_EXT,
+               'lib/libbz2.%s.%s' % (SHLIB_EXT, local_bzip2_major_minor),
+               'lib/libbz2.%s.%s' % (SHLIB_EXT, local_bzip2_version),
+               'include/bzlib.h' ] +
+             [ 'bin/b%s' % x for x in ['unzip2', 'zcat', 'zdiff', 'zgrep', 'zip2', 'zip2recover', 'zmore'] ] +
+             [ 'share/man/man1/bz%s.1' % x for x in ['cmp', 'diff', 'egrep', 'fgrep', 'grep', 'ip2', 'less', 'more'] ] +
+             [ 'share/licenses/%(name)s/LICENSE' ],
+    'dirs':  []
+}
+
+sanity_check_commands = [
+    'bzip2 --help',
+    'pkg-config --libs bzip2',
+]
+
+moduleclass = 'tools'

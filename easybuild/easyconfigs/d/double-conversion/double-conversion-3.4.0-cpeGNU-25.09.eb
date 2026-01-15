@@ -1,0 +1,70 @@
+easyblock = 'CMakeMake'
+
+local_double_conv_version =  '3.4.0'         # https://github.com/google/double-conversion/releases
+
+name =    'double-conversion'
+version = local_double_conv_version
+
+homepage = 'https://github.com/google/double-conversion'
+
+whatis = [
+    'Description: double-conversion is a library of efficient binary-decimal and decimal-binary conversion routines for IEEE doubles.'
+]
+
+description = """
+The double-conversion project provides binary-decimal and decimal-binary
+routines for IEEE doubles.
+
+The library consists of efficient conversion routines that have been
+extracted from the V8 JavaScript engine. The code has been refactored and
+improved so that it can be used more easily in other projects.
+"""
+
+software_license_urls = [
+    'https://github.com/google/double-conversion/blob/master/LICENSE',
+]
+
+toolchain = {'name': 'cpeGNU', 'version': '25.09'}
+
+sources = [{
+    'download_filename': 'v%(version)s.tar.gz',
+    'filename':          SOURCE_TAR_GZ,
+    'source_urls':       ['https://github.com/google/%(name)s/archive']
+}]
+checksums =   ['fe54901055c71302dcdc5c3ccbe265a6c191978f3761ce1414d0895d6b0ea90e']
+
+builddependencies = [ # Create a reproducible build environment.
+    ('buildtools', '%(toolchain_version)s', '', True), # For CMake
+]
+
+# In the Bundle, as of EasyBuild 4.2, it is better to set this to False,
+# though it does give a cleaner build procedure when this is set to True...
+separate_build_dir = False
+
+build_type = 'Release'
+
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+
+# Build static lib, static lib with -fPIC and shared lib
+configopts = [
+    '-DCMAKE_INSTALL_LIBDIR=lib',
+    '-DCMAKE_INSTALL_LIBDIR=lib -DCMAKE_POSITION_INDEPENDENT_CODE=ON -DCMAKE_STATIC_LIBRARY_SUFFIX_CXX=_pic.a',
+    '-DCMAKE_INSTALL_LIBDIR=lib -DBUILD_SHARED_LIBS=ON'
+]
+
+postinstallcmds = [
+    'mkdir -p %(installdir)s/share/licenses/%(name)s',
+    'cd ../%(namelower)s-%(version)s && cp AUTHORS COPYING LICENSE README.md %(installdir)s/share/licenses/%(name)s',   
+]
+
+sanity_check_paths = {
+    'files': ['include/double-conversion/%s.h' % h for h in ['bignum', 'cached-powers', 'diy-fp', 'double-conversion',
+                                                             'fast-dtoa', 'fixed-dtoa', 'ieee', 'strtod', 'utils']] +
+             ['lib/libdouble-conversion.%s' % e for e in ['a', SHLIB_EXT]] + ['lib/libdouble-conversion_pic.a'] +
+             ['share/licenses/%(name)s/LICENSE'],
+    'dirs':  ['lib/cmake/double-conversion'],
+}
+
+moduleclass = 'lib'

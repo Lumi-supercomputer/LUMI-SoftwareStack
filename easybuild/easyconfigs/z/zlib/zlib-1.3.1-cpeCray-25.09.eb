@@ -1,0 +1,62 @@
+# Contributed by Kurt Lust, LUMI project & UAntwerpen
+easyblock = 'CMakeMake'
+
+local_zlib_version =         '1.3.1'         # https://zlib.net/
+
+name =    'zlib'
+version = local_zlib_version
+
+homepage = 'http://www.zlib.net/'
+
+whatis = [
+    'Description: Free lossless data-compression library, not covered by any patents.',
+    'This package provides istatic and shared libraries compiled with the Intel compilers'
+]
+
+description = """
+zlib is designed to be a free, general-purpose, legally unencumbered -- that is,
+not covered by any patents -- lossless data-compression library for use on
+virtually any computer hardware and operating system. The zlib data format is
+itself portable across platforms. Unlike the LZW compression method used in Unix
+compress(1) and in the GIF image format, the compression method currently used
+in zlib essentially never expands the data. (LZW can double or triple the file
+size in extreme cases.) zlib's memory footprint is also independent of the input
+data and can be reduced, if necessary, at some cost in compression.
+"""
+
+docurls = [
+    'Web-based manual: http://www.zlib.net/manual.html',
+    'Manual page zlib (section 3)',
+]
+
+toolchain = {'name': 'cpeCray', 'version': '25.09'}
+toolchainopts = {'pic': True}
+
+source_urls = ['https://zlib.net/fossils']
+sources =     [SOURCELOWER_TAR_GZ]
+checksums =   ['9a93b2b7dfdac77ceba5a558a580e74667dd6fede4585b91eefb60f03b72df23']
+
+builddependencies = [ # Create a reproducible build environment.
+    ('buildtools', '%(toolchain_version)s', '', True),
+]
+
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+
+postinstallcmds = [
+    'mkdir -p %(installdir)s/share/licenses/%(name)s',
+    'cd ../%(name)s-%(version)s && cp ChangeLog FAQ LICENSE README %(installdir)s/share/licenses/%(name)s',   
+]
+
+sanity_check_paths = {
+    'files': ['include/zconf.h', 'include/zlib.h', 'lib/libz.a', 'lib/libz.%s' % SHLIB_EXT,
+              f'share/licenses/{name}/LICENSE'],
+    'dirs':  [],
+}
+
+sanity_check_commands = [
+    'pkg-config --libs zlib',
+]
+
+moduleclass = 'lib'

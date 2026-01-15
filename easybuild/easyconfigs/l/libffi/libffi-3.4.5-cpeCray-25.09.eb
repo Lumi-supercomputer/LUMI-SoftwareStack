@@ -1,0 +1,78 @@
+easyblock = 'ConfigureMake'
+
+local_libffi_version =       '3.4.5'         # https://sourceware.org/libffi/
+
+name =    'libffi'
+version = local_libffi_version
+
+homepage = 'http://sourceware.org/libffi/'
+
+whatis = [
+    'Description: Foreing Function Interface, portable, high level programming interface to various calling conventions, allowing a programmer to call any function specified by a call interface description at run-time.'
+    'This module provides both static and shared libraries.'
+]
+
+description = """
+FFI stands for Foreign Function Interface. A foreign function interface is the
+popular name for the interface that allows code written in one language to call
+code written in another language. The libffi library really only provides the
+lowest, machine dependent layer of a fully featured foreign function interface.
+A layer must exist above libffi that handles type conversions for values passed
+between the two languages.
+
+The library provides a portable, high level programming interface to various
+calling conventions. This allows a programmer to call any function specified by
+a call interface description at run-time.
+"""
+
+docurls = [
+    'Man pages for the library (ffi) and the functions ffi_prep_cif, ffi_prep_cif_var and ffi_call in section 3',
+    'Support for the info command (info libffi)',
+]
+
+software_license_urls = [
+   f'https://github.com/libffi/libffi/blob/v{version}/LICENSE',
+]
+
+toolchain = {'name': 'cpeCray', 'version': '25.09'}
+toolchainopts = {'pic': True}
+
+# https://github.com/libffi/libffi/releases/download/v3.4.2/libffi-3.4.2.tar.gz
+sources =     [SOURCELOWER_TAR_GZ]
+source_urls = ['https://github.com/libffi/libffi/releases/download/v%(version)s']
+checksums =   ['96fff4e589e3b239d888d9aa44b3ff30693c2ba1617f953925a70ddebcc102b2']
+
+builddependencies = [ # Create a reproducible build environment.
+    ('buildtools', '%(toolchain_version)s', '', True),
+]
+
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+
+# We'll install everything in lib rather than lib64 so as to do the same as for most
+# other basic libraries installed by EasyBuild in our software stack.
+configopts = '--disable-multi-os-directory --disable-exec-static-tramp'
+
+postinstallcmds = [
+    'mkdir -p %(installdir)s/share/licenses/%(name)s',
+    'cp ChangeLog LICENSE LICENSE-BUILDTOOLS README.md %(installdir)s/share/licenses/%(name)s',   
+]
+
+sanity_check_paths = {
+    'files': ['lib/libffi.%s' % x for x in ['a', 'la', SHLIB_EXT]] +
+             ['lib/pkgconfig/libffi.pc', 'share/info/libffi.info'] +
+             ['share/man/man3/%s.3' % x for x in ['ffi', 'ffi_call', 'ffi_prep_cif', 'ffi_prep_cif_var']] +
+             [f'share/licenses/{name}/LICENSE'],
+    'dirs':  [],
+}
+
+sanity_check_commands = [
+    'pkg-config --libs libffi'
+]
+
+modextrapaths = {
+    'INFOPATH' : 'share/info',
+}
+
+moduleclass = 'lib'
