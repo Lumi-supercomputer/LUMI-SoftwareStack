@@ -138,6 +138,5 @@ easyconfigs:
   - Qt5-5.15.15-cpeGNU-24.03.eb
 # Block 13
   - Qwt-6.3.0-cpeGNU-24.03.eb
-
 # With apps (as they depend on other low-priority packages)
   - gnuplot-5.4.10-cpeGNU-24.03.eb

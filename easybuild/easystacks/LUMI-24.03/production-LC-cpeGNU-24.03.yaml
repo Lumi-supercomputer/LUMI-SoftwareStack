@@ -99,11 +99,6 @@ easyconfigs:
   - FFmpeg-6.1.1-cpeGNU-24.03.eb
   - OpenGL-24.03-cpeGNU-24.03.eb
   - Tk-8.6.13-cpeGNU-24.03.eb
-# Block 10
-  - Qt5-5.15.15-cpeGNU-24.03.eb
-# Block 11
-  - Qwt-6.3.0-cpeGNU-24.03.eb
-# Block 12
 # Some libraries from the apps section of before, and applications(s)
 #  - ELPA: Wait a bit, it looks like we need multiple versions and that it may need more testing.
   - METIS-5.1.0-cpeGNU-24.03.eb
@@ -139,5 +134,8 @@ easyconfigs:
   - HarfBuzz-8.2.2-cpeGNU-24.03.eb
 # With block 12
   - Pango-1.51.0-cpeGNU-24.03.eb
+  - Qt5-5.15.15-cpeGNU-24.03.eb
+# Block 13
+  - Qwt-6.3.0-cpeGNU-24.03.eb
 # With apps (as they depend on other low-priority packages)
   - gnuplot-5.4.10-cpeGNU-24.03.eb
