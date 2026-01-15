@@ -1,0 +1,92 @@
+# Developed by Kurt Lust, UAntwerp
+easyblock = 'ConfigureMake'
+
+local_FLAC_version =         '1.5.0'         # https://xiph.org/downloads/ or https://github.com/xiph/flac/releases
+#local_LAME_version =         '3.100'         # http://lame.sourceforge.net/
+local_libsndfile_version =   '1.2.2'         # https://github.com/libsndfile/libsndfile/releases
+local_libogg_version =       '1.3.6'         # https://www.xiph.org/downloads/ or https://github.com/xiph/ogg/releases
+local_libopus_version =      '1.5.2'         # http://opus-codec.org/downloads/
+local_libvorbis_version =    '1.3.7'         # https://xiph.org/downloads/ or https://github.com/xiph/vorbis/releases
+
+name =    'libsndfile'
+version = local_libsndfile_version
+
+homepage = 'http://www.mega-nerd.com/libsndfile/'
+
+whatis = [
+    "Description: Library and tools encapsulating various audio codecs",
+]
+
+description = """
+Libsndfile is a C library for reading and writing files containing sampled sound
+(such as MS Windows WAV and the Apple/SGI AIFF format) through one standard
+library interface. It is released in source code format under the Gnu Lesser
+General Public License.
+
+The library was written to compile and run on a Linux system but should compile
+and run on just about any Unix (including MacOS X). There are also pre-compiled
+binaries available for 32 and 64 bit windows.
+
+It was designed to handle both little-endian (such as WAV) and big-endian (such
+as AIFF) data, and to compile and run correctly on little-endian (such as Intel
+and DEC/Compaq Alpha) processor systems as well as big-endian processor systems
+such as Motorola 68k, Power PC, MIPS and Sparc. Hopefully the design of the
+library will also make it easy to extend for reading and writing new sound file
+formats.
+
+This module includes support for the FLAC, Opus and OggVorbis codecs, but does
+not include support for the obsoleet Speex codec. It also does not include support
+for ALSA and SQLite.
+"""
+
+docurls = [
+    'Web-based API documentation on http://www.mega-nerd.com/libsndfile/api.html',
+    'Manual pages for the tools in section 1',
+]
+
+software_license_urls = [
+    f'https://github.com/libsndfile/libsndfile/blob/{version}/COPYING',    
+]
+
+toolchain = {'name': 'cpeCray', 'version': '25.09'}
+toolchainopts = {'pic': True}
+
+# https://github.com/libsndfile/libsndfile/releases/download/1.1.0/libsndfile-1.1.0.tar.xz
+source_urls = ['https://github.com/libsndfile/libsndfile/releases/download/%(version)s/']
+sources =     [SOURCE_TAR_XZ]
+checksums =   ['3799ca9924d3125038880367bf1468e53a1b7e3686a934f098b7e1d286cdb80e']
+
+builddependencies = [ # Create a reproducible build environment.
+    ('buildtools', '%(toolchain_version)s', '', True),
+]
+
+dependencies = [
+    ( 'libopus',   local_libopus_version),
+    ( 'libogg',    local_libogg_version),
+    ( 'libvorbis', local_libvorbis_version),
+    ( 'FLAC',      local_FLAC_version),
+#    ( 'LAME',      local_LAME_version),
+]
+
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+
+configopts  = '--disable-alsa --disable-sqlite --disable-octave '
+configopts += '--disable-mpeg '
+configopts += '--enable-static --enable-shared '
+
+postinstallcmds = [
+    'mkdir -p %(installdir)s/share/licenses/%(name)s',
+    'cp AUTHORS ChangeLog CHANGELOG.md COPYING README SECURITY.md %(installdir)s/share/licenses/%(name)s',   
+]
+
+sanity_check_paths = {
+    'files': ['include/sndfile.h', 'lib/libsndfile.a', 'lib/libsndfile.%s' % SHLIB_EXT,
+              f'share/licenses/{name}/COPYING'],
+    'dirs':  [],
+}
+
+# The bin directory contains several commands but none seem to have easy options to test.
+
+moduleclass = 'data'

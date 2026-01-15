@@ -1,0 +1,72 @@
+easyblock = 'ConfigureMake'
+
+local_libpng_version =       '1.6.53'        # http://www.libpng.org/pub/png/libpng.html (Not yet in EB 2025a when checking)
+local_pixman_version =       '0.42.2'        # https://www.cairographics.org/releases/
+
+name =    'pixman'
+version = local_pixman_version
+
+homepage = 'http://www.pixman.org/'
+
+whatis = [
+    'Description: A low-level library for pixel manipulation',
+    'The module includes both static and dynamic libraries and supports pkg-config'
+]
+
+description = """
+Pixman is a low-level software library for pixel manipulation, providing
+features such as image compositing and trapezoid rasterization. Important users
+of pixman are the cairo graphics library and the X server.
+
+Pixman is implemented as a library in the C programming language. It runs on
+many platforms, including Linux, BSD Derivatives, MacOS X, and Windows.
+
+Pixman is free and open source software. It is available to be redistributed
+and/or modified under the terms of the MIT license.
+
+Documentation is inexistent.
+"""
+
+software_license_urls = [
+    'https://cgit.freedesktop.org/pixman/tree/COPYING', # TODO: The site was down when adding this, is a versioned link possible?
+]
+
+toolchain = {'name': 'cpeAMD', 'version': '25.09'}
+toolchainopts = {'pic': True}
+
+sources =     [SOURCE_TAR_GZ]
+source_urls = ['http://cairographics.org/releases/']
+checksums =   ['ea1480efada2fd948bc75366f7c349e1c96d3297d09a3fe62626e38e234a625e']
+
+builddependencies = [ # Create a reproducible build environment.
+    ('buildtools', '%(toolchain_version)s', '', True),
+]
+
+dependencies = [
+    ('libpng', local_libpng_version),
+]
+
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+preinstallopts = preconfigopts
+
+configopts = '--enable-gnuplot ' # Should be possible to use without first installing GNUplot?
+
+postinstallcmds = [
+    'mkdir -p %(installdir)s/share/licenses/%(name)s',
+    'cd ../%(namelower)s-%(version)s && cp AUTHORS COPYING NEWS README %(installdir)s/share/licenses/%(name)s',   
+]
+
+sanity_check_paths = {
+    'files': ['lib/libpixman-1.%s' % x for x in ['a', 'la', SHLIB_EXT]] +
+             ['lib/pkgconfig/pixman-1.pc', 'include/pixman-1/pixman.h', 'include/pixman-1/pixman-version.h',
+              f'share/licenses/{name}/COPYING'],
+    'dirs':  []
+}
+
+sanity_check_commands = [
+    'pkg-config --libs pixman-1',
+]
+
+moduleclass = 'vis'
