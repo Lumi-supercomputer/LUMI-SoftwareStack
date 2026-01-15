@@ -50,4 +50,9 @@
 
 -   Note that the 3.8.x branch already existed, but we stuck to the version used in 
     EasyBuild common toolchains version 2025a.
-    
+
+
+### Version 3.8.4 for 25.09
+
+-   Trivial version bump of the 3.7.7 EasyConfig in 25.03.
+

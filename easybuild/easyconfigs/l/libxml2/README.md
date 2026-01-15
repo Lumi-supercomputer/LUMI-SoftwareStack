@@ -45,3 +45,8 @@
 
 -   Trivial version bump of the EasyConfig for 2.11.5.
 
+
+### Version 2.15.1 for LUMI/25.09
+
+-   Trivial version bump of the EasyConfig for 2.13.4 in 25.03.
+

@@ -1,0 +1,76 @@
+# Possible further additions:
+# * libb2: Likely https://github.com/BLAKE2/libb2
+easyblock = 'CMakeMake'
+
+local_bzip2_version =        '1.0.8'         # http://www.bzip.org/downloads.html
+local_XZ_version =           '5.8.1'         # https://tukaani.org/xz/
+local_zlib_version =         '1.3.1'         # https://zlib.net/
+local_lz4_version =          '1.10.0'        # https://github.com/lz4/lz4/releases
+local_zstd_version =         '1.5.7'         # https://github.com/facebook/zstd/releases
+local_libb2_version =        '0.98.1'        # https://github.com/BLAKE2/libb2/releases
+local_libxml2_version =      '2.15.1'        # http://xmlsoft.org/sources/
+local_libarchive_version =   '3.8.4'         # https://github.com/libarchive/libarchive/releases
+
+name =    'libarchive'
+version = local_libarchive_version
+
+homepage = 'https://www.libarchive.org/'
+
+whatis = [
+    "Description: libarchive is a multi-format archive and compression library."
+]
+
+description = """
+libarchive is a multi-format archive and compression library..
+"""
+
+software_license_urls = [
+    f'https://github.com/libarchive/libarchive/blob/v{version}/COPYING',
+]
+
+toolchain = {'name': 'cpeAMD', 'version': '25.09'}
+toolchainopts = {'pic': True}
+
+source_urls = ['https://www.libarchive.org/downloads/']
+sources =     [SOURCE_TAR_GZ]
+checksums =   ['4cc540a3e9a1eebdefa1045d2e4184831100667e6d7d5b315bb1cbc951f8ddff']
+
+builddependencies = [ # Create a reproducible build environment.
+    ('buildtools', '%(toolchain_version)s', '', True),
+]
+
+dependencies = [
+    ('bzip2',   local_bzip2_version),
+    ('XZ',      local_XZ_version),
+    ('zlib',    local_zlib_version),
+    ('lz4',     local_lz4_version),
+    ('zstd',    local_zstd_version),
+    ('libb2',   local_libb2_version),
+    ('libxml2', local_libxml2_version),
+]
+
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+preinstallopts = preconfigopts
+
+postinstallcmds = [
+    'mkdir -p %(installdir)s/share/licenses/%(name)s',
+    'cd ../%(namelower)s-%(version)s && cp COPYING NEWS README.md %(installdir)s/share/licenses/%(name)s',   
+]
+
+local_exe = ['bsdcat', 'bsdcpio', 'bsdtar', 'bsdunzip']
+sanity_check_paths = {
+    'files': ['lib/libarchive.%s' % x for x in ['a', SHLIB_EXT]] +
+             ['bin/%s' % x for x in local_exe] +
+             ['include/archive.h'],
+    'dirs':  ['share/man/man1', 'share/man/man3', 'share/man/man5'],
+}
+
+sanity_check_commands = [
+    '%s --version' % x for x in local_exe
+    ] + [
+    'pkg-config --libs libarchive'
+]
+
+moduleclass = 'vis'

@@ -54,3 +54,9 @@
 -   Not the most recent version, but this one aligns with the 2025a toolchains.
 
 -   Trivial port of the EasyConfig for 8.3.0 for 24.03/24.11.
+
+
+### Version 8.17.0 for 25.09
+
+-   Trivial port of the EasyConfig for 8.11.1 for 25.03.
+

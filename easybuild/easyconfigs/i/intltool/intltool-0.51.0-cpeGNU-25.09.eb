@@ -1,0 +1,81 @@
+easyblock = 'ConfigureMake'
+
+local_intltool_version =     '0.51.0'        # https://launchpad.net/intltool/+download
+
+local_Perl_version =         '5.40.2'        # https://www.perl.org/get.html
+
+name =    'intltool'
+version = local_intltool_version
+
+homepage = 'http://freedesktop.org/wiki/Software/intltool/'
+
+whatis = [
+    'Description: intltool is a set of tools to centralize translation of many different file formats using GNU gettext-compatible PO files',
+]
+
+description = """
+intltool is a set of tools to centralize translation of
+many different file formats using GNU gettext-compatible PO files.
+
+The intltool collection can be used to do these things:
+* Extract translatable strings from various source files (.xml.in, glade,
+  .desktop.in, .server.in, .oaf.in).
+* Collect the extracted strings together with messages from traditional source
+  files (.c, .h) in po/$(PACKAGE).pot.
+* Merge back the translations from .po files into .xml, .desktop and oaf files.
+  This merge step will happen at build resp. installation time.§
+
+The module provides the commands intltool-extract, intltoolize,
+intltool-merge, intltool-prepare and intltool-update, all documented
+through man pages.
+"""
+
+docurls = [
+    "Man pages (section 8) for all commands",
+]
+
+software_license_urls = [
+    'https://www.gnu.org/licenses/old-licenses/gpl-2.0.html',
+]
+
+toolchain = {'name': 'cpeGNU', 'version': '25.09'}
+
+source_urls = ['http://launchpad.net/intltool/trunk/%(version)s/+download/']
+sources =     [SOURCE_TAR_GZ]
+patches = ['intltool-%(version)s_fix-Perl-compat.patch']
+checksums = [
+    '67c74d94196b153b774ab9f89b2fa6c6ba79352407037c8c14d5aeb334e959cd',  # intltool-0.51.0.tar.gz
+    'e839f7228b2b92301831bca88ed0bc7bce5dbf862568f1644642988204903db6',  # intltool-0.51.0_fix-Perl-compat.patch
+]
+
+builddependencies = [ # Create a reproducible build environment.
+    ('buildtools', '%(toolchain_version)s', '', True),
+]
+
+dependencies = [
+    ('Perl', local_Perl_version),  # Already contains XML::Parser in our setup
+]
+
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+preinstallopts = preconfigopts
+
+postinstallcmds = [
+    'mkdir -p %(installdir)s/share/licenses/%(name)s',
+    'cp AUTHORS ChangeLog COPYING NEWS README %(installdir)s/share/licenses/%(name)s',   
+]
+
+sanity_check_paths = {
+    'files': ['bin/intltool%s' % x for x in ['-extract', '-merge', '-prepare', '-update', 'ize']] +
+             [f'share/licenses/{name}/COPYING'],
+    'dirs':  []
+}
+
+sanity_check_commands = [
+    'intltool%s --version' % x for x in ['-extract', '-merge', '-prepare', '-update', 'ize']
+]
+
+
+
+moduleclass = 'devel'

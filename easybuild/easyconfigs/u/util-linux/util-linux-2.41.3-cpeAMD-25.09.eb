@@ -1,0 +1,146 @@
+easyblock = 'ConfigureMake'
+
+local_ncurses_version =      '6.5'           # https://ftp.gnu.org/pub/gnu/ncurses/
+local_libreadline_version =  '8.3'.          # https://ftp.gnu.org/pub/gnu/readline/, also look at the patches
+local_zlib_version =         '1.3.1'         # https://zlib.net/
+local_libxslt_version =      '1.1.45'        # http://xmlsoft.org/sources/
+local_gettext_version =      '0.26'          # https://ftp.gnu.org/pub/gnu/gettext/
+local_file_version =         '5.46'          # ftp://ftp.astron.com/pub/file/ (not yet in EB 2025a when checking)
+local_SQLite_version =       '3.51.1'        # https://www.sqlite.org/
+local_util_version =         '2.41.3'        # https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/ (Not yet in EB 2025a when checking)
+
+name =    'util-linux'
+version = local_util_version
+
+homepage = 'http://www.kernel.org/pub/linux/utils/util-linux'
+
+whatis = [
+   'Description: A number of libraries and linux utilities used by Glib'
+]
+
+description = """
+A set of Linux utilities and libraries used by Glib. Many of the commands
+are standard on Linux systems.
+"""
+
+software_license_urls = [
+    'https://www.gnu.org/licenses/old-licenses/gpl-2.0.html',
+]
+
+toolchain = {'name': 'cpeAMD', 'version': '25.09'}
+toolchainopts = {'pic': True}
+
+source_urls = ['%s/v%%(version_major_minor)s' % homepage]
+sources =     [SOURCELOWER_TAR_XZ]
+checksums =   ['5c1daf733b04e9859afdc3bd87cc481180ee0f88b5c0946b16fdec931975fb79']
+
+builddependencies = [ # Create a reproducible build environment.
+    ('buildtools', '%(toolchain_version)s', '', True),
+]
+
+dependencies = [
+    ('ncurses',     local_ncurses_version),
+    ('libreadline', local_libreadline_version),
+    ('zlib',        local_zlib_version),
+    ('libxslt',     local_libxslt_version),  # Not clear if this is a true dependency or only a build dependency, but configure looks for it.
+    ('gettext',     local_gettext_version),
+    ('file',        local_file_version),     # For libmagic.
+    ('SQLite',      local_SQLite_version),
+]
+
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+preinstallopts = preconfigopts
+
+# disable account related utilities (they need OS dependent pam-devel files)
+# disable wall and friends (requires group changing permissions for install user)
+# install systemd service files in install dir
+# install bash completion files in install dir
+configopts  = "--disable-chfn-chsh --disable-login --disable-su --disable-rfkill "
+configopts += "--disable-wall --disable-use-tty-group "
+configopts += "--disable-makeinstall-chown --disable-makeinstall-setuid "
+configopts += "--with-systemdsystemunitdir='${prefix}/systemd' "
+configopts += "--with-bashcompletiondir='${prefix}/share/bash-completion/completions' "
+# disable building Python bindings (since we don't include Python as a dep)
+configopts += "--without-python "
+# We need to leave out tinfo as it doesn't seem to find the library, leading
+# to a failure to find cur_term.
+configopts += "--without-tinfo "
+
+postinstallcmds = [
+    'mkdir -p %(installdir)s/share/licenses/%(name)s',
+    'cp AUTHORS ChangeLog COPYING NEWS README README.licensing %(installdir)s/share/licenses/%(name)s',   
+]
+
+sanity_check_paths = {
+    'files': ['lib/lib%s.a' % x for x in ['blkid', 'mount', 'uuid']] +
+             [f'share/licenses/{name}/COPYING'],
+    'dirs':  ['include', 'bin', 'share', 'sbin'],
+}
+
+sanity_check_commands = [
+    'cal --version',
+    'chmem --version',
+    'choom --version',
+    'chrt --version',
+    'col --version',
+    'colcrt --version',
+    'colrm --version',
+    'column --version',
+    'dmesg --version',
+    'eject --version',
+    'fallocate --version',
+    'fincore --version',
+    'findmnt --version',
+    'flock --version',
+    'getopt --version',
+    'hardlink --version',
+    'hexdump --version',
+    'ionice --version',
+    'ipcmk --version',
+    'ipcrm --version',
+    'ipcs --version',
+    'irqtop --version',
+    'isosize --version',
+    'last --version',
+    'logger --version',
+    'look --version',
+    'lsblk --version',
+    'lscpu --version',
+    'lsipc --version',
+    'lsirq --version',
+    'lslocks --version',
+    'lslogins --version',
+    'lsmem --version',
+    'lsns --version',
+    'mcookie --version',
+    'mesg --version',
+    'more --version',
+    'mount --version',
+    'mountpoint --version',
+    'namei --version',
+    'nsenter --version',
+    'prlimit --version',
+    'rename --version',
+    'renice --version',
+    'rev --version',
+    'script --version',
+    'scriptlive --version',
+    'scriptreplay --version',
+    'setarch --version',
+    'setsid --version',
+    'setterm --version',
+    'taskset --version',
+    'uclampset --version',
+    'ul --version',
+    'umount --version',
+    'unshare --version',
+    'utmpdump --version',
+    'uuidgen --version',
+    'uuidparse --version',
+    'wdctl --version',
+    'whereis --version',
+]
+
+moduleclass = 'tools'

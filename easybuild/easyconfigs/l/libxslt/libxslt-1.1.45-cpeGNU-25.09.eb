@@ -1,0 +1,86 @@
+# NOTE: Could use libgcrupt
+# NOTE: Somewhere in the build process, the generation of a lot of wrapper functions
+# trhough a Python script fails, but it is not clear from the error message what could
+# be the cause.
+easyblock = 'ConfigureMake'
+
+local_libxml2_version =      '2.15.1'        # http://xmlsoft.org/sources/
+local_libxslt_version =      '1.1.45'        # http://xmlsoft.org/sources/
+
+name =    'libxslt'
+version = local_libxslt_version
+
+homepage = 'http://xmlsoft.org/xslt'
+
+whatis = [
+   'Description: XSLT C library for the Gnome project',
+   'This module provides the command line tool and static and shared libraries',
+]
+
+description = """
+Libxslt is the XSLT C library developed for the GNOME project (but usable
+outside of the Gnome platform). XSLT itself is a an XML language to define
+transformation for XML. Libxslt is based on libxml2 the XML C library developed
+for the GNOME project. It also implements most of the EXSLT set of
+processor-portable extensions functions and some of Saxon's evaluate and
+expressions extensions.
+
+People can either embed the library in their application or use xsltproc the
+command line processing tool. This library is free software and can be reused in
+commercial applications.
+
+Besides the xsltproc command line tool, the module also provides static and
+shared libraries.
+"""
+
+docurls = [
+    'Web-based documentation on the home page: http://xmlsoft.org/libxslt/',
+    'Man pages for xsltproc, libxslt and libexslt',
+]
+
+software_license_urls = [
+    f'https://gitlab.gnome.org/GNOME/libxslt/-/blob/v{version}/Copyright?ref_type=tags'
+]
+
+toolchain = {'name': 'cpeGNU', 'version': '25.09'}
+toolchainopts = {'pic': True}
+
+source_urls = ['https://download.gnome.org/sources/libxslt/%(version_major_minor)s/']
+sources =     [SOURCE_TAR_XZ]
+checksums =   ['85ca62cac0d41fc77d3f6033da9df6fd73d20ea2fc18b0a3609ffb4110e1baeb']
+
+builddependencies = [ # Create a reproducible build environment.
+    ('buildtools', '%(toolchain_version)s', '', True),
+]
+
+dependencies = [ # zlib, also used in the EasyBuilders version, comes in via libxml2.
+    ('libxml2', local_libxml2_version),
+]
+
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+preinstallopts = preconfigopts
+
+# Make sure it doesn't pick up OS installed libgcrypt or Python
+configopts = '--enable-static --enable-shared --with-crypto=no --with-python=no '
+
+postinstallcmds = [
+    'mkdir -p %(installdir)s/share/licenses/%(name)s',
+    'cp AUTHORS COPYING Copyright NEWS README.md %(installdir)s/share/licenses/%(name)s',   
+]
+
+sanity_check_paths = {
+    'files': ['lib/lib%s.%s' % (x, y) for x in ['xslt', 'exslt'] for y in ['a', 'la', SHLIB_EXT]] + 
+             ['bin/xsltproc', 'include/libxslt/xslt.h'],
+    'dirs':  ['lib/cmake', 'lib/pkgconfig', 'share/man/man1', 'share/man/man3'],
+}
+
+sanity_check_commands = [
+    'xsltproc --version',
+    'xslt-config --version',
+    'pkg-config --libs libxslt',
+    'pkg-config --libs libexslt',
+]
+
+moduleclass = 'lib'
