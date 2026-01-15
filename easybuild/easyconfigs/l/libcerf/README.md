@@ -40,3 +40,7 @@
     
 -   Hence a rather trivial port of the EasyConfig for 2.3 for 24.03/24.22.
 
+
+### Version 3.3 for 25.09
+
+-   Switching to a 3.X version as EasyBuild has also switched over.

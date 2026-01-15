@@ -1,0 +1,61 @@
+easyblock = 'CMakeMake'
+
+local_googletest_version =   '1.17.0'        # https://github.com/google/googletest/releases
+
+name =    'googletest'
+version = local_googletest_version
+
+homepage = 'https://github.com/google/googletest'
+
+whatis = [
+    'Description: GoogleTest is Google’s C++ testing and mocking framework.',
+]
+
+description = """
+GoogleTest is Google’s C++ testing and mocking framework.
+"""
+
+docurls = ['https://google.github.io/googletest/']
+
+software_license_urls = [f'https://github.com/google/googletest/blob/v{version}/LICENSE']
+
+toolchain = {'name': 'cpeCray', 'version': '25.09'}
+
+sources = [{
+    'download_filename': 'v%(version)s.tar.gz',
+    'filename':          SOURCE_TAR_GZ,
+    'source_urls':       ['https://github.com/google/googletest/archive/refs/tags/']
+}]
+checksums = ['65fab701d9829d38cb77c14acdc431d2108bfdbf8979e40eb8ae567edf10b27c']
+
+builddependencies = [
+    ('buildtools', '%(toolchain_version)s', '', True),
+]
+
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+
+# build twice, once for static, once for shared libraries
+configopts = [
+    '-DBUILD_SHARED_LIBS=OFF', 
+    '-DBUILD_SHARED_LIBS=ON'
+]
+
+postinstallcmds = [
+    'mkdir -p %(installdir)s/share/licenses/%(name)s',
+    'cd ../%(namelower)s-%(version)s && cp CONTRIBUTING.md CONTRIBUTORS LICENSE README.md %(installdir)s/share/licenses/%(name)s',   
+]
+
+sanity_check_paths = {
+    'files': ['lib/lib%s.%s' % (local_lib, local_ext) for local_lib in ['gmock', 'gmock_main', 'gtest', 'gtest_main']
+              for local_ext in ['a', SHLIB_EXT]] +
+             [f'share/licenses/{name}/LICENSE'] ,
+    'dirs':  ['include/gmock', 'include/gtest'],
+}
+
+sanity_check_commands = [
+    'pkg-config --libs %s' % local_lib for local_lib in ['gmock', 'gmock_main', 'gtest', 'gtest_main']
+]
+
+moduleclass = 'tools'

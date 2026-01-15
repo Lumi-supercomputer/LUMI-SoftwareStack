@@ -1,0 +1,68 @@
+easyblock = 'CMakeMake'
+
+local_x265_version =         '4.1'           # http://download.videolan.org/pub/videolan/x265/
+
+name =    'x265'
+version = local_x265_version
+
+homepage = 'http://x265.org/'
+
+whatis = [
+    "Description: x265 is a free library and application for H.265 AVC encoding, made by the VideoLAN organization",
+    "This module provides both the command line tool and static and shared libraries"
+]
+
+description = """
+x265 is a free software library and application for encoding video streams into
+the H.265 AVC compression format, and is released under the terms of the
+GNU GPL. It is developed by the VideoLAN organization.
+
+This module provides the encodign tool x265 and static and shared libraries.
+"""
+
+examples = """
+Documentation for the x265 command line tool is available through the --help
+command line option.
+
+Both the command line tool and API are also documented on the web.
+"""
+
+docurls = [
+    'Web-based documentation: http://x265.readthedocs.io/en/default/',
+]
+
+toolchain = {'name': 'cpeAMD', 'version': '25.09'}
+toolchainopts = {'pic': True}
+
+source_urls = ['https://bitbucket.org/multicoreware/x265_git/downloads/']
+sources =     ['%(name)s_%(version)s.tar.gz']
+checksums =   ['a31699c6a89806b74b0151e5e6a7df65de4b49050482fe5ebf8a4379d7af8f29']
+
+builddependencies = [ # Create a reproducible build environment.
+    ('buildtools',        '%(toolchain_version)s', '', True), # For CMake and YAsm
+]
+
+#osdependencies = [
+#    ('numactl-devel'), # Optional dependency, but can benefit from libnuma and its header file
+#]
+
+preconfigopts = 'module unload cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+
+start_dir = 'source'
+
+configopts = '-DGIT_ARCHETYPE=1 -DENABLE_PIC=ON'
+
+#installopts = ' && cp ../COPYING %(installdir)s'
+
+postinstallcmds = [
+    'mkdir -p %(installdir)s/share/licenses/%(name)s',
+    'cd ../%(namelower)s_%(version)s && cp COPYING %(installdir)s/share/licenses/%(name)s',   
+]
+
+sanity_check_paths = {
+    'files': ['bin/x265', 'include/x265_config.h', 'include/x265.h', 'lib/libx265.a', 'lib/libx265.%s' % SHLIB_EXT],
+    'dirs':  [],
+}
+
+moduleclass = 'vis'

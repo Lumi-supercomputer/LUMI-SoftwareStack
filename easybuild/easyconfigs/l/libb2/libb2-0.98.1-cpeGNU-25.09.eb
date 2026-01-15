@@ -1,0 +1,56 @@
+# Contributed by Kurt Lust, LUMI project & UAntwerpen
+easyblock = 'ConfigureMake'
+
+local_libb2_version =        '0.98.1'        # https://github.com/BLAKE2/libb2/releases
+
+name =    'libb2'
+version = local_libb2_version
+
+homepage = 'https://github.com/BLAKE2/libb2'
+
+whatis = [
+    'Description: libb2 is a C library providing BLAKE2b, BLAKE2s, BLAKE2bp, BLAKE2sp'
+]
+
+description = """
+libb2 is a C library providing BLAKE2b, BLAKE2s, BLAKE2bp, BLAKE2sp
+"""
+
+software_license_urls = [
+   f'https://github.com/BLAKE2/libb2/blob/v{version}/COPYING',
+]
+
+toolchain = {'name': 'cpeGNU', 'version': '25.09'}
+toolchainopts = {'pic': True}
+
+# https://github.com/BLAKE2/libb2/releases/download/v0.98.1/libb2-0.98.1.tar.gz
+sources     = [SOURCELOWER_TAR_GZ]
+source_urls = ['https://github.com/BLAKE2/libb2/releases/download/v%(version)s']
+checksums   = ['53626fddce753c454a3fea581cbbc7fe9bbcf0bc70416d48fdbbf5d87ef6c72e']
+
+builddependencies = [
+    ('buildtools', '%(toolchain_version)s', '', True),
+]
+
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+
+configopts = '--enable-native=no'
+
+postinstallcmds = [
+    'mkdir -p %(installdir)s/share/licenses/%(name)s',
+    'cp COPYING %(installdir)s/share/licenses/%(name)s',   
+]
+
+sanity_check_paths = {
+    'files': ['lib/pkgconfig/libb2.pc', 'lib/libb2.a', 'lib/libb2.%s' % SHLIB_EXT,
+              f'share/licenses/{name}/COPYING'],
+    'dirs':  ['include', 'lib'],
+}
+
+sanity_check_commands = [
+    'pkg-config --libs libb2',
+]
+
+moduleclass = 'lib'

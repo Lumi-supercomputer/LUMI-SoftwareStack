@@ -46,6 +46,6 @@
   * From CPE 23.12 on, switching to installing in lib instead of lib64 for more uniformity.
  
  
-### Version 1.21.6 for CPE 25.03
+### Version 1.21.6 for CPE 25.03 and 25.09
 
 -   Trivial version update of 1.21.5 for 24.03

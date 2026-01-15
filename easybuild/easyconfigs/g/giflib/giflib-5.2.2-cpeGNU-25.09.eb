@@ -1,0 +1,64 @@
+easyblock = 'ConfigureMake'
+
+local_giflib_version =       '5.2.2'         # https://sourceforge.net/projects/giflib/files/
+
+name =    'giflib'
+version = local_giflib_version
+
+homepage = 'http://giflib.sourceforge.net/'
+
+whatis = [
+    "Description: giflib is a library for reading and writing gif images compatible with libungif",
+]
+
+description = """
+giflib is a library for reading and writing gif images. It is API and ABI
+compatible with libungif which was in wide use while the LZW compression
+algorithm was patented.
+"""
+
+software_license_urls = [
+    f'https://sourceforge.net/p/giflib/code/ci/{version}/tree/COPYING',
+]
+
+toolchain = {'name': 'cpeGNU', 'version': '25.09'}
+toolchainopts = {'pic': True}
+
+source_urls = [('http://sourceforge.net/projects/giflib/files', 'download')]
+sources =     [SOURCE_TAR_GZ]
+checksums =   ['be7ffbd057cadebe2aa144542fd90c6838c6a083b5e8a9048b8ee3b66b29d5fb']
+
+builddependencies = [ # Create a reproducible build environment.
+    ('buildtools', '%(toolchain_version)s', '', True),
+]
+
+# No configure
+skipsteps = ['configure']
+
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+prebuildopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+preinstallopts = prebuildopts
+
+# Skip building the docs to avoid ImageMagick (convert) build dependency
+prebuildopts += "sed -i '/$(MAKE) -C doc/d' Makefile &&"
+
+# Override CXX and CFLAGS variables from Makefile
+buildopts = 'CC="$CC" CFLAGS="$CXXFLAGS"'
+
+# Override PREFIX variable from Makefile
+installopts = "PREFIX=%(installdir)s"
+
+postinstallcmds = [
+    'mkdir -p %(installdir)s/share/licenses/%(name)s',
+    'cp COPYING NEWS README %(installdir)s/share/licenses/%(name)s',   
+]
+
+sanity_check_paths = {
+    'files': ['bin/gif%s' %x for x in ['2rgb', 'build', 'clrmp', 'fix', 'text', 'tool']] + 
+             ['lib/libgif.%s' % x for x in ['a', SHLIB_EXT]],
+    'dirs':  []
+}
+
+# There are several commands but that have no easy options for a sanity check.
+
+moduleclass = 'lib'

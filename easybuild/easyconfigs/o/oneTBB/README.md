@@ -30,3 +30,8 @@ The oneTBB package is often also just known as TBB or tbb.
     
 -   The upgrade is otherwise a trivial upgrade of the 2021.13.0 EasyConfig for 24.03.
 
+
+### Version 2022.3.0 for 25.09
+
+-   Trivial port of the EasyConfig for 2022.2.0 in 25.03.
+

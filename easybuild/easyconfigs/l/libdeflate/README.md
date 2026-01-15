@@ -48,3 +48,7 @@
 
 -   Trivial port of the 1.19 EasyConfig for 24.03/24.11.
 
+
+### Version 1.25 from 25.09 on
+
+-   Trivial port of the 1.24 EasyConfig for 25.03.

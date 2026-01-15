@@ -1,0 +1,139 @@
+# contributed by Luca Marsella (CSCS)
+# Modified by Kurt Lust for the LUMI consortium.
+
+easyblock = 'ConfigureMake'
+
+local_ncurses_version =      '6.5'           # https://ftp.gnu.org/pub/gnu/ncurses/
+
+local_LUMI_version =         '25.09'
+local_gcc_version =          '14'
+
+name =    'ncurses'
+version = local_ncurses_version
+
+homepage = 'http://www.gnu.org/software/ncurses/'
+
+description = """
+The Ncurses (new curses) library is a free software emulation
+of curses in System V Release 4.0, and more. It uses Terminfo format, supports
+pads and color and multiple highlights and forms characters and function-key
+mapping, and has all the other SYSV-curses enhancements over BSD Curses.
+"""
+
+software_license_urls = [
+    'https://invisible-island.net/ncurses/ncurses-license.html',
+    'https://ncurses.scripts.mit.edu/?p=ncurses.git;a=blob_plain;f=COPYING;hb=79b9071f2be20a24c7be031655a5638f6032f29f',  # For version 6.4
+]
+
+toolchain = {'name': 'cpeAMD', 'version': '25.09'}
+toolchainopts = {'optarch': True, 'pic': True}
+
+source_urls = [GNU_SOURCE]
+sources =     [SOURCE_TAR_GZ]
+checksums =   ['136d91bc269a9a5785e5f9e980bc76ab57428f604ce3e5a5a90cebc767971cc6']
+
+builddependencies = [ # Create a reproducible build environment.
+    ('buildtools', '%(toolchain_version)s', '', True),
+]
+
+# We'll compile with gcc-native whatever the toolchain is to stay close to 
+# what SUSE does.
+# This is based on the spec sheet https://build.opensuse.org/projects/SUSE:SLE-15:Update/packages/ncurses/files/ncurses.spec?expand=1
+
+local_gcc_major = local_gcc_version.split( '.' )[0]
+
+preconfigopts  = 'module unload cray-libsci cray-mpich rocm xpmem craype && '
+preconfigopts += f'module load gcc-native/{local_gcc_version} && '
+preconfigopts += ' '.join( [
+    f'CC=gcc-{local_gcc_major} CXX=g++-{local_gcc_major} ',
+    'CFLAGS="-O2 -march=znver2 -pipe -D_REENTRANT" ',
+    'CXXFLAGS="-O2 -march=znver2 -fweak" ',
+    'LDFLAGS="-Wl,-O2 -Wl,-Bsymbolic-functions -Wl,--hash-size=8599 -Wl,--as-needed" '  
+] )
+
+prebuildopts = preconfigopts
+pretestopts = preconfigopts
+preinstallopts = preconfigopts
+
+local_common_configopts = ' '.join( [
+    '--with-shared --with-normal ',                # Generate shared and normal libraries
+    '--with-debug ',                               # SUSE uses --without-debug to not generate debug libraries, but EasyBuild does generate them.
+    '--without-tests ',                            # Suppress building test programs
+    '--without-ada ',                              # Don't check for the ADA compiler
+    '--with-cxx-shared ',                          # Genereate C++ share libraries
+    '--without-manpage-tbl --with-manpage-format=gzip --with-manpage-aliases ', # Manpage processing with tbl, compress with gzip, specify manpage-aliases using .so
+    '--with-ospeed=speed_t ',                      # Override type of ospeed variable
+    '--with-gpm ',                                 # Use Alessandro Rubini's GPM library
+    #l'--with-default-terminfo-dir=/usr/share/terminfo --with-terminfo-dirs=/etc/terminfo:/usr/share/terminfo ',
+    '--with-xterm-kbs=del ',                       # xterm backspace sends DEL
+    '--disable-stripping ',                        # Do not strip installed executables
+    '--disable-root-environ ',                     # Restrict root use of ncurses environment variables
+    '--disable-overwrite ',                        # Put headers in subdir, omit link to -lcurses
+    '--disable-xmc-glitch ',                       # Compile without support for xmc (magic-cookie)
+    '--enable-big-core ',                          # Do not assume the machine has little memory
+    '--disable-termcap ',                          # Do not compile in termcap fallback support
+    '--with-termlib ',                             # Generate separate terminfo library
+    '--with-ticlib ',                              # Generate separate tic library
+    '--enable-symlinks ',                          # Make tic use symbolic links not hard links
+    '--disable-tic-depends ',                      # Link tic library without explicit dependency on ncurses library
+    '--disable-rpath --disable-rpath-hack ',       # Don't use rpath; don't add rpath options for additional libraries
+    '--enable-string-hacks ',                      # Work around bogus compiler/loader warnings
+    '--with-pc-suffix --enable-pc-files --with-pkg-config-libdir=%(installdir)s/lib/pkgconfig ',
+    # Extensions and experimental code
+    '--enable-sp-funcs ',                          # Enable SCREEN-extensions
+    '--enable-ext-mouse ',                         # Compile for extended mouse-encoding
+    '--enable-no-padding ',                        # Compile with $NCURSES_NO_PADDING code
+    '--enable-sigwinch ',                          # Compile with SIGWINCH handler
+    '--enable-hashmap ',                           # Compile with hashmap srolling-optimization
+    '--enable-colorfgbg ',                         # Compile-in experimental $COLORFGBG code
+    '--enable-interop ',                           # Compile-in interop bindings
+    '--enable-wgetch-events ',                     # Compile with wgetch-events code
+    # Crucial for SUSE behaviour
+    '--with-versioned-syms=${PWD}/package/ncursestw.map ',
+    '--with-pthread --enable-pthreads-eintr --enable-reentrant --enable-weak-symbols ',
+    # Related to reentrant code
+    '--enable-opaque-curses --enable-opaque-form --enable-opaque-menu --enable-opaque-panel '
+] )
+
+configopts = [
+    # default build
+    local_common_configopts + '--disable-widec',
+    # the UTF-8 enabled version (ncursesw)
+    local_common_configopts + "--enable-ext-colors --enable-widec --includedir=%(installdir)s/include/ncursesw/ ",
+]
+
+postinstallcmds = [
+    # Remove --hash-size in the link options in the .pc files and ncurses*6-config commands
+    'cd %(installdir)s/lib/pkgconfig ; for file in $(/bin/ls *.pc) ; do sed -e "s| -Wl,--hash-size=8599||" -i $file ; done',
+    'cd %(installdir)s/bin && sed -e "s| -Wl,--hash-size=8599||" -i ncurses6-config',
+    'cd %(installdir)s/bin && sed -e "s| -Wl,--hash-size=8599||" -i ncursesw6-config',
+    # Copy the license files
+    'mkdir -p %(installdir)s/share/licenses/%(name)s',
+    'cp ANNOUNCE AUTHORS COPYING MANIFEST NEWS README %(installdir)s/share/licenses/%(name)s',   
+]
+
+local_libs = ["form", "menu", "ncurses", "panel"]
+
+sanity_check_paths = {
+    'files': ['bin/%s' % x for x in ["captoinfo", "clear", "infocmp", "infotocap", 
+                                     "ncurses%(version_major)s-config", "ncursesw%(version_major)s-config",
+                                     "reset", "tabs", "tic", "toe", "tput", "tset"]] +
+             ['lib/lib%s%s.a' % (x, y) for x in local_libs for y in ['', '_g', 'w', 'w_g']] +
+             ['lib/lib%s%s.%s' % (x, y, SHLIB_EXT) for x in local_libs for y in ['', 'w']] +
+             ['lib/libncurses++%s.a' % x for x in ['', 'w']] +
+             ['lib/pkgconfig/%s%s.pc' % (x, y) for x in local_libs for y in ['', 'w']] + 
+             [f'share/licenses/{name}/COPYING'],
+    'dirs':  ['include', 'include/ncursesw'],
+}
+
+sanity_check_commands = [
+    'infocmp -V',
+    'ncurses6-config --version',
+    'tabs -V',
+    'tic -V',
+    'toe -V',
+    'tput -V',
+    'tset -V',
+] + [ 'pkg-config --libs %s%s' % (x, y) for x in local_libs for y in ['', 'w'] ]
+
+moduleclass = 'devel'

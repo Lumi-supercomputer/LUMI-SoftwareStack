@@ -1,0 +1,63 @@
+# Test build for inclusion in the baselibs 2020a bundle.
+easyblock = 'ConfigureMake'
+
+local_libidn2_version =      '2.3.8'         # https://ftp.gnu.org/gnu/libidn/
+
+name =    'libidn2'
+version = local_libidn2_version
+
+homepage = 'http://www.gnu.org/software/%(name)s'
+
+whatis = [
+    "Description: libidn2 is the new GNU implementation of the Stringprep, Punycode and IDNA 2003 specifications."
+]
+
+description = """
+Libidn2 is an implementation of the IDNA2008 + TR46 specifications (RFC 5890,
+RFC 5891, RFC 5892, RFC 5893, TR 46). Libidn2 is a standalone library,
+without any dependency on Libidn. Libidn2 is believed to be a complete
+IDNA2008 / TR46 implementation, but has yet to be as extensively used as
+the original Libidn library.
+"""
+
+docurls = [
+    'web-based manual pages on https://www.gnu.org/software/libidn2/manual',
+    'man pages for the idn2 command (section 1) and the API (section 3)',
+]
+
+software_license_urls = [
+    f'https://gitlab.com/libidn/libidn2/-/blob/v{version}/COPYING?ref_type=tags',
+]
+
+toolchain = {'name': 'cpeAOCC', 'version': '25.09'}
+
+source_urls = ['https://ftp.gnu.org/gnu/libidn/']
+sources =     [SOURCELOWER_TAR_GZ]
+checksums =   ['4c21a791b610b9519b9d0e12b8097bf2f359b12f8dd92647611a929e6bfd7d64']
+
+builddependencies = [ # Create a reproducible build environment.
+    ('buildtools', '%(toolchain_version)s', '', True),
+]
+
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+
+postinstallcmds = [
+    'mkdir -p %(installdir)s/share/licenses/%(name)s',
+    'cp ABOUT-NLS AUTHORS COPYING* NEWS README README.md %(installdir)s/share/licenses/%(name)s',   
+]
+
+sanity_check_paths = {
+    'files': ['lib/libidn2.%s' % x for x in ['a', 'la', SHLIB_EXT]] +
+             ['bin/idn2', 'include/idn2.h', 'lib/pkgconfig/libidn2.pc',
+              f'share/licenses/{name}/COPYING'],
+    'dirs':  ['share/man/man1', 'share/man/man3'],
+}
+
+sanity_check_commands = [
+    'idn2 --help',
+    'pkg-config --libs libidn2',
+]
+
+moduleclass = 'lib'
