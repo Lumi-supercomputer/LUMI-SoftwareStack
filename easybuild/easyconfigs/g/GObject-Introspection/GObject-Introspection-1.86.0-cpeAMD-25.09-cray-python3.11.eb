@@ -1,0 +1,127 @@
+# Based on an EasyConfig developed by CSCS
+# Adapted by Kurt Lust (kurt.lust@uantwerpen.be) for the LUMI consortium
+easyblock = 'MesonNinja'
+
+local_cairo_version =        '1.18.4'        # https://www.cairographics.org/
+local_libffi_version =       '3.4.5'         # https://sourceware.org/libffi/
+local_GLib_version =         '2.87.0'        # https://ftp.gnome.org/pub/GNOME/sources/glib/ Not the one from 2025a, but with newer versions we had trouble with GObject-Introspection
+local_util_version =         '2.41.3'        # https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/ (Not yet in EB 2025a when checking)
+
+local_craypython_version =   '3.11.7'
+
+local_GObject_version =      '1.86.0'        # https://github.com/GNOME/gobject-introspection/releases
+
+local_craypython_maj_min = '.'.join( local_craypython_version.split('.')[:2] )
+
+name =          'GObject-Introspection'
+version =       local_GObject_version
+versionsuffix = '-cray-python%s' % local_craypython_maj_min
+
+homepage = 'https://gi.readthedocs.io/en/latest/'
+
+whatis = [
+    'Description: GNOME middleware layer between C libraries and language bindings',
+    'This module provides the command line utilities and static and shared libraries',
+]
+
+description = """
+GObject introspection is a middleware layer between C libraries (using GObject)
+and language bindings. The C library can be scanned at compile time and generate
+a metadata file, in addition to the actual native C library. Then at runtime,
+language bindings can read this metadata and automatically provide bindings to
+call into the C library.
+
+This module provides the command line tools and static and shared libraries.
+"""
+
+docurls = [
+    'Web-based documentation: https://developer.gnome.org/gi/',
+]
+
+software_license_urls = [
+    f'https://gitlab.gnome.org/GNOME/gobject-introspection/-/blob/{version}/COPYING?ref_type=tags',
+    f'https://gitlab.gnome.org/GNOME/gobject-introspection/-/blob/{version}/COPYING.LGPL?ref_type=tags',
+    f'https://gitlab.gnome.org/GNOME/gobject-introspection/-/blob/{version}/COPYING.GPL?ref_type=tags',
+]
+
+toolchain = {'name': 'cpeAMD', 'version': '25.09'}
+toolchainopts={'extra_cflags': '-Qunused-arguments'}
+
+source_urls = [FTPGNOME_SOURCE]
+sources =     [SOURCELOWER_TAR_XZ]
+patches = ['GObject-Introspection-1.80.1_install-GLib-GIR-files.patch']
+checksums = [
+    {'gobject-introspection-1.84.0.tar.xz':                       '945b57da7ec262e5c266b89e091d14be800cc424277d82a02872b7d794a84779'},
+    {'GObject-Introspection-1.80.1_install-GLib-GIR-files.patch': 'c1909f1b7fd30784ae789ac0b5e45e0ca3dd2456890b864efa86a2f8c2e563aa'},
+]
+
+builddependencies = [
+    ('buildtools' ,       '%(toolchain_version)s', '',                                        SYSTEM), # For Ninja, flex, bison
+    ('buildtools-python', '%(toolchain_version)s', f'-cray-python{local_craypython_maj_min}', SYSTEM), # For Meson
+    ('cairo',             local_cairo_version),
+]
+
+dependencies = [
+    (f'cray-python/{local_craypython_version}', EXTERNAL_MODULE),
+    ('libffi',     local_libffi_version),
+    ('util-linux', local_util_version),
+    ('GLib',       local_GLib_version),
+]
+
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+preinstallopts = pretestopts = prebuildopts = preconfigopts
+
+preconfigopts += "env GI_SCANNER_DISABLE_CACHE=true "
+
+configopts = ' '.join([
+    '--buildtype=release',       # Release build (the default actually)
+    '--default-library=shared',  # Specifying --default-library=both makes no sense as only shared libraries are supported by this package.
+    '--libdir=lib',              # Install libraries in lib (also the default it seems)
+    '--buildtype=release --libdir=lib', # Specifying --default-library=both makes no sense as only shared libraries are supported by this package.
+    f'-Dcairo=enabled',
+    '-Ddoctool=disabled', # This is actually the default, but just to be sure if this ever changes. 
+    f'-Dpython=$(which python{local_craypython_maj_min})' # This will make it very sure that cray-python is used.
+])
+
+# For debugging
+#buildopts = '-v'
+#maxparallel = 1
+
+postinstallcmds = [
+    # Fix shebangs and make very sure it uses cray-python.
+    f'module load cray-python/{local_craypython_version} && ' +
+    f'sed -i -e "s|#!.*python[0-9.]*$|#!$(which python{local_craypython_maj_min})|" %(installdir)s/bin/*',
+    # Copy license information etc.
+    'mkdir -p %(installdir)s/share/licenses/%(name)s',
+    'cd %(start_dir)s && cp COPYING* NEWS README.rst %(installdir)s/share/licenses/%(name)s',   
+]
+
+sanity_check_paths = {
+    'files': ['bin/g-ir-%s' % x for x in ['annotation-tool', 'compiler', 'generate', 'scanner']] +
+             ['lib/libgirepository-1.0.' + SHLIB_EXT] +
+             [f'share/licenses/{name}/%s' %x for x in ['COPYING', 'COPYING.LGPL', 'COPYING.GPL']],
+    'dirs':  ['include', 'share']
+}
+
+sanity_check_commands = [
+    f'g-ir-annotation-tool --version | grep -q {local_GObject_version}',
+    'g-ir-annotation-tool --help',
+    f'g-ir-compiler --version | grep -q {local_GObject_version}',
+    'g-ir-compiler --help',
+    f'g-ir-generate --version | grep -q {local_GObject_version}',
+    'g-ir-generate --help',
+    'g-ir-inspect --help',
+    f'g-ir-scanner --version | grep -q {local_GObject_version}',
+    'g-ir-scanner --help',
+    f'pkg-config --modversion gobject-introspection-1.0 | grep -q {local_GObject_version}',
+    'pkg-config --libs gobject-introspection-1.0',
+    f'pkg-config --modversion gobject-introspection-no-export-1.0 | grep -q {local_GObject_version}',
+    'pkg-config --libs gobject-introspection-no-export-1.0',
+]
+
+modextrapaths = {
+    'GI_TYPELIB_PATH': 'share',
+}
+
+moduleclass = 'devel'

@@ -1,0 +1,112 @@
+# Based on the easyduilders recipe.
+# Adapted by Kurt Lust (kurt.lust@uantwerpen.be) for the LUMI consortium.
+easyblock = 'MesonNinja'
+
+local_cairo_version =        '1.18.4'        # https://www.cairographics.org/
+local_GLib_version =         '2.87.0'        # https://ftp.gnome.org/pub/GNOME/sources/glib/ Not the one from 2025a, but with newer versions we had trouble with GObject-Introspection
+local_ICU_version =          '78.1'          # http://site.icu-project.org/home
+local_freetype_version =     '2.14.1'        # https://download.savannah.gnu.org/releases/freetype/ (Not yet in EB 2025a when checking)
+local_GObject_version =      '1.86.0'        # https://github.com/GNOME/gobject-introspection/releases
+
+local_craypython_version =   '3.11.7'
+
+local_HarfBuzz_version =     '12.2.0'        # https://github.com/harfbuzz/harfbuzz/releases
+
+local_craypython_maj_min = '.'.join( local_craypython_version.split('.')[:2] )
+
+name =    'HarfBuzz'
+version = local_HarfBuzz_version
+
+homepage = 'http://www.freedesktop.org/wiki/Software/HarfBuzz'
+
+whatis = [
+    'Description: HarfBuzz is an OpenType text shaping engine',
+    'This module provides the command line tools and static and shared libraries'
+]
+
+description = """
+HarfBuzz is an OpenType text shaping engine.
+
+The current HarfBuzz codebase, formerly known as harfbuzz-ng, is versioned 1.x.x
+and is stable and under active maintenance. This is what is used in latest
+versions of Firefox, GNOME, ChromeOS, Chrome, LibreOffice, XeTeX, Android, and
+KDE, among other places.
+
+This module provides the command line tools and static and shared libraries.
+"""
+
+docpaths = [
+    'share/gtk-doc/html/harfbuzz',
+]
+
+software_license_urls = [
+    f'https://github.com/harfbuzz/harfbuzz/blob/{version}/COPYING',
+]
+
+toolchain = {'name': 'cpeGNU', 'version': '25.09'}
+
+# https://github.com/harfbuzz/harfbuzz/releases/download/4.2.1/harfbuzz-4.2.1.tar.xz
+source_urls = ['https://github.com/harfbuzz/harfbuzz/releases/download/%(version)s']
+sources =     [SOURCELOWER_TAR_XZ]
+checksums =   ['093714c8548a285094685f0bdc999e202d666b59eeb3df2ff921ab68b8336a49']
+
+builddependencies = [
+    ('buildtools' ,           '%(toolchain_version)s', '',                                        SYSTEM),
+    ('buildtools-python',     '%(toolchain_version)s', f'-cray-python{local_craypython_maj_min}', SYSTEM),
+    ('GObject-Introspection', local_GObject_version,   '-cray-python' + local_craypython_maj_min),
+]
+
+dependencies = [
+    ('ICU',      local_ICU_version),
+    ('freetype', local_freetype_version),
+    ('GLib',     local_GLib_version),     # Needed, even without cairo. It is a direct dependency and meson doesn't find the (partial?) version of GObject-Introspection
+    ('cairo',    local_cairo_version),
+]
+
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+preinstallopts = pretestopts = prebuildopts = preconfigopts
+
+configopts = ' '.join([
+    '--buildtype=release',     # Release build (the default actually)
+    '--default-library=both',  # static and shared library
+    '--libdir=lib',            # Install libraries in lib (also the default it seems)
+    ' -Dgobject=enabled -Dintrospection=enabled',
+    ' -Dglib=enabled',
+    ' -Dicu=enabled',
+    ' -Dcairo=enabled',
+    ' -Dfreetype=enabled',
+])
+
+runtest  = 'meson'
+testopts = 'test -C %(builddir)s/easybuild_obj -t 60'
+
+postinstallcmds = [
+    'mkdir -p %(installdir)s/share/licenses/%(name)s',
+    'cd %(start_dir)s && cp AUTHORS COPYING NEWS README.md THANKS %(installdir)s/share/licenses/%(name)s',   
+]
+
+local_HarfBuzz_commands_with_version = ['hb-info', 'hb-shape', 'hb-subset', 'hb-view']
+local_HarfBuzz_pc = ['-cairo', '-gobject', '-icu',  '', '-subset']
+
+sanity_check_paths = {
+    'files': ['lib/libharfbuzz.%s' % SHLIB_EXT] +
+             ['bin/%s' % x for x in local_HarfBuzz_commands_with_version] +
+             ['lib/pkgconfig/harfbuzz%s.pc' % x for x in local_HarfBuzz_pc] +
+             [f'share/licenses/{name}/COPYING'],
+    'dirs':  []
+}
+
+sanity_check_commands = [
+    f'%s --version | grep -q {local_HarfBuzz_version}' % x for x in local_HarfBuzz_commands_with_version
+] + [
+    f'pkg-config --modversion harfbuzz%s | grep -q {local_HarfBuzz_version}' % x for x in local_HarfBuzz_pc
+] + [
+    'pkg-config --libs harfbuzz%s | egrep -q "\-L%s/lib.* -lharfbuzz%s"' % (x, '%(installdir)s', x) for x in local_HarfBuzz_pc
+]
+
+modextrapaths = {
+    'GI_TYPELIB_PATH': 'share',
+}
+
+moduleclass = 'vis'

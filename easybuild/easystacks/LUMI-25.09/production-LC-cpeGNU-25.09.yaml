@@ -105,7 +105,7 @@ easyconfigs:
   - METIS-5.1.0-cpeGNU-25.03.eb
   - ParMETIS-4.0.3-cpeGNU-25.03.eb
   - SCOTCH-6.1.3-cpeGNU-25.03.eb
-  - SCOTCH-7.0.8-cpeGNU-25.03.eb  # Check if the EasyBlock needs an update!
+  - SCOTCH-7.0.10-cpeGNU-25.03.eb  # Check if the EasyBlock needs an update!
 #  - ESMF-8.6.0-cpeGNU-25.03.eb
 #  - ESMF-8.6.0-cpeGNU-25.03-MPI-PIO.eb
   - SuiteSparse-5.13.0-cpeGNU-25.03-OpenMP.eb
@@ -124,14 +124,14 @@ easyconfigs:
 ## Line 2: Gnome graphics
 ##
 ## With block 7
-  - GLib-2.85.1-cpeGNU-25.03.eb
+  - GLib-2.87.0-cpeGNU-25.03.eb
 ## With block 9
   - cairo-1.18.4-cpeGNU-25.03.eb
 ## With block 10
-  - GObject-Introspection-1.84.0-cpeGNU-25.03-cray-python3.11.eb
+  - GObject-Introspection-1.86.0-cpeGNU-25.03-cray-python3.11.eb
 ## With block 11
   - HarfBuzz-11.2.1-cpeGNU-25.03.eb
 ## With block 12
-  - Pango-1.56.3-cpeGNU-25.03.eb
+  - Pango-1.57.0-cpeGNU-25.03.eb
 ## With apps (as they depend on other low-priority packages)
   - gnuplot-6.0.3-cpeGNU-25.03.eb

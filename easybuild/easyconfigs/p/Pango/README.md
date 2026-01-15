@@ -51,3 +51,8 @@
 -   Removed the explicit path addition to `XDG_DATA_DIRS` as EasyBuild does this
     automatically. This removed a warning.
 
+
+### Version 1.57.0 for 25.09
+
+-   Trivial version update of the EasyConfig for version 1.56.3 in 25.03.
+
