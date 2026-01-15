@@ -54,9 +54,10 @@ software_license_urls = [
 
 toolchain = {'name': 'cpeCray', 'version': '25.09'}
 
+# https://ftp.gnu.org/pub/gnu/gettext/gettext-0.26.tar.xz
 source_urls = [GNU_SOURCE]
 sources =     [SOURCE_TAR_XZ]
-checksums =   ['e1620d518b26d7d3b16ac570e5018206e8b0d725fb65c02d048397718b5cf318']
+checksums =   ['d1fb86e260cfe7da6031f94d2e44c0da55903dbae0a2fa0fae78c91ae1b56f00']
 
 dependencies = [
     ('libxml2', local_libxml2_version),

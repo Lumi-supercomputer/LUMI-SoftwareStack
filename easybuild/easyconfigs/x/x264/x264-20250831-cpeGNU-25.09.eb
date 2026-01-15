@@ -30,9 +30,13 @@ the --help option, which includes a few examples.
 toolchain = {'name': 'cpeGNU', 'version': '25.09'}
 toolchainopts = {'pic': True}
 
+# https://code.videolan.org/videolan/x264/-/archive/0480cb05/x264-0480cb05.tar.gz
 source_urls = [f'https://code.videolan.org/videolan/x264/-/archive/{local_x264_commit}/']
-sources =     [{'download_filename': f'x264-{local_x264_commit}.tar.gz', 'filename': SOURCE_TAR_GZ}]
-checksums =   ['3573e4b86887a762ff138597737fa2e573a1567323bcbc8eeef73da81232257a']
+sources =     [{
+                    'download_filename': f'x264-{local_x264_commit}.tar.gz', 
+                    'filename': SOURCE_TAR_GZ
+               }]
+checksums =   ['b336cdb04eeca5d15a53db323bc716fd7a1dae7bf19df0a8a41379d2d65e05d0']
 
 builddependencies = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True), # USes NASM

@@ -33,7 +33,7 @@ toolchain = {'name': 'cpeAMD', 'version': '25.09'}
 
 source_urls = ['https://ftp.gnu.org/gnu/libidn/']
 sources =     [SOURCELOWER_TAR_GZ]
-checksums =   ['4c21a791b610b9519b9d0e12b8097bf2f359b12f8dd92647611a929e6bfd7d64']
+checksums =   ['f557911bf6171621e1f72ff35f5b1825bb35b52ed45325dcdee931e5d3c0787a']
 
 builddependencies = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),

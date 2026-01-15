@@ -41,7 +41,7 @@ toolchainopts = {'pic': True}
 
 source_urls = ['https://github.com/libexpat/libexpat/releases/download/R_%s/' % version.replace('.', '_')]
 sources =     [SOURCE_TAR_BZ2]
-checksums =   ['8dc480b796163d4436e6f1352e71800a774f73dbae213f1860b60607d2a83ada']
+checksums =   ['59c31441fec9a66205307749eccfee551055f2d792f329f18d97099e919a3b2f']
 
 builddependencies = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),

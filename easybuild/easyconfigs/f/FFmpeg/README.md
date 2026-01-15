@@ -72,3 +72,5 @@ in EasyBuild.
 
 -   The EasyConfig is a straightforward port of the 7.1.1 EasyConfig for 25.03.
 
+-   Switched to https for downloading the source tarballs.
+

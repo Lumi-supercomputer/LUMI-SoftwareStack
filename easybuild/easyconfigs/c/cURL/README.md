@@ -60,3 +60,5 @@
 
 -   Trivial port of the EasyConfig for 8.11.1 for 25.03.
 
+-   Switched to the https protocol.
+
