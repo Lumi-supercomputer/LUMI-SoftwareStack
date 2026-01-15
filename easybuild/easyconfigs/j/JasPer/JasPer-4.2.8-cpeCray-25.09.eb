@@ -1,0 +1,104 @@
+# NOTE: Be careful when building this on a node that has OpenGL support.
+# CMake configure process detects this so it may use those libraries in
+# in that case.
+easyblock = 'CMakeMake'
+
+local_libjpegturbo_version = '3.1.3'         # https://github.com/libjpeg-turbo/libjpeg-turbo/releases
+local_JasPer_version =       '4.2.8'         # https://github.com/jasper-software/jasper/releases
+
+name =    'JasPer'
+version = local_JasPer_version
+
+homepage = 'http://www.ece.uvic.ca/~frodo/jasper/'
+
+whatis = [
+    'Description: Open-source software-based reference implementation of the codec specified in the JPEG-2000 Part-1 standard (i.e., ISO/IEC 15444-1)',
+    'The module contains both command line tools and shared libraries.',
+]
+
+description = """
+The JasPer Project is an open-source initiative to provide a free software-based
+reference implementation of the codec specified in the JPEG-2000 Part-1 standard
+(i.e., ISO/IEC 15444-1).
+
+The JasPer software is written in the C programming language.
+
+The JasPer software has been included in the JPEG-2000 Part-5 standard (i.e.,
+ISO/IEC 15444-5), as an official reference implementation of the JPEG-2000
+Part-1 codec. This software has also been incorporated into numerous other
+software projects (some commercial and some non-commercial).
+"""
+
+usage = """
+The following command line utilities support the --help option:
++ imgcmp: Image comparison utility
++ imginfo: Displays information about an image
++ jasper: File format converter specialized in JPEG-2000 encoding
+
+More information on the library is available in the Software Reference Manual.
+"""
+
+docurls = [
+    'JasPer Software Reference Manual: http://www.ece.uvic.ca/~frodo/jasper/jasper.pdf',
+    'Man pages and --help option for the command line tools imgcmp, imginfo and jasper',
+]
+
+software_license_urls = [
+    f'https://github.com/jasper-software/jasper/blob/version-{version}/LICENSE.txt',
+]
+
+toolchain = {'name': 'cpeCray', 'version': '25.09'}
+toolchainopts = {'pic': True}
+
+github_account = 'jasper-software'
+sources = {
+    'download_filename': 'version-%(version)s.tar.gz',
+    'filename':          SOURCELOWER_TAR_GZ,
+    'source_urls':       [GITHUB_SOURCE]
+}
+checksums = ['3f4b1df7cab7a3cc67b9f6e28c730372f030b54b0faa8548a9ee04ae83fffd44']
+
+builddependencies = [ # Create a reproducible build environment.
+    ('buildtools', '%(toolchain_version)s', '', True),
+]
+
+dependencies = [
+    ('libjpeg-turbo', local_libjpegturbo_version),
+]
+
+separate_build_dir = True
+
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+
+local_configopts  = '-DJAS_ENABLE_DOC=0 '  # No PDFLaTeX on our systems.
+local_configopts += '-DJAS_ENABLE_OPENGL=0 '
+local_configopts += '-DJAS_ENABLE_LIBJPEG=1 '
+# Checked the other options, they were mostly for debugging.
+
+configopts = [
+    f'-DBUILD_SHARED_LIBS=OFF -DCMAKE_INSTALL_LIBDIR=lib {local_configopts}',    
+    f'-DBUILD_SHARED_LIBS=ON  -DCMAKE_INSTALL_LIBDIR=lib {local_configopts}',   
+]
+
+postinstallcmds = [
+    'mkdir -p %(installdir)s/share/licenses/%(name)s',
+    'cd ../%(namelower)s-version-%(version)s && cp COPYRIGHT.txt LICENSE.txt NEWS.txt README.md %(installdir)s/share/licenses/%(name)s',   
+]
+
+sanity_check_paths = {
+    'files': ['lib/libjasper.%s' % x for x in ['a', SHLIB_EXT]] +
+             ['bin/jasper', 'bin/imgcmp', 'bin/imginfo', 'include/jasper/jasper.h',
+              f'share/licenses/{name}/LICENSE.txt'],
+    'dirs' : ["share/man/man1"],
+}
+
+sanity_check_commands = [
+    'jasper --version',
+    'imgcmp --version',
+    'imginfo --version',
+    'pkg-config --libs jasper',
+]
+
+moduleclass = 'vis'

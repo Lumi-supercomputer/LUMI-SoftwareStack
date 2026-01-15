@@ -1,0 +1,80 @@
+easyblock = 'ConfigureMake'
+
+local_libogg_version =       '1.3.6'         # https://www.xiph.org/downloads/ or https://github.com/xiph/ogg/releases
+local_libvorbis_version =    '1.3.7'         # https://xiph.org/downloads/ or https://github.com/xiph/vorbis/releases
+
+name =    'libvorbis'
+version = local_libvorbis_version
+
+homepage = 'https://xiph.org/vorbis/'
+
+whatis = [
+    "Description: Library to work with the vorbis audio codec",
+]
+
+description = """
+Ogg Vorbis is a fully open, non-proprietary, patent-and-royalty-free,
+general-purpose compressed audio format for mid to high quality
+(8kHz-48.0kHz, 16+ bit, polyphonic) audio and music at fixed and variable
+bitrates from 16 to 128 kbps/channel. This places Vorbis in the same
+competitive class as audio representations such as MPEG-4 (AAC), and
+similar to, but higher performance than MPEG-1/2 audio layer 3, MPEG-4
+audio (TwinVQ), WMA and PAC.
+
+The bitstream format for Vorbis I was frozen Monday, May 8th 2000.
+All bitstreams encoded since will remain compatible with all future
+releases of Vorbis.
+"""
+
+docurls = [
+    'Web-based documentation on https://xiph.org/vorbis/doc/',
+]
+
+software_license_urls = [
+    f'https://github.com/xiph/vorbis/blob/v{version}/COPYING',
+]
+
+toolchain = {'name': 'cpeAOCC', 'version': '25.09'}
+toolchainopts = {'pic': True}
+
+# http://downloads.xiph.org/releases/vorbis/libvorbis-1.3.6.tar.xz
+sources =     [SOURCELOWER_TAR_XZ]
+source_urls = ['http://downloads.xiph.org/releases/vorbis/']
+checksums =   ['b33cc4934322bcbf6efcbacf49e3ca01aadbea4114ec9589d1b1e9d20f72954b']
+
+builddependencies = [ # Create a reproducible build environment.
+    ('buildtools', '%(toolchain_version)s', '', True),
+]
+
+dependencies = [
+    ( 'libogg', local_libogg_version),
+]
+
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+preinstallopts = preconfigopts
+
+configopts = '--enable-static --enable-shared'
+
+buildopts = 'V=1'
+
+postinstallcmds = [
+    'mkdir -p %(installdir)s/share/licenses/%(name)s',
+    'cp AUTHORS CHANGES COPYING %(installdir)s/share/licenses/%(name)s',   
+]
+
+sanity_check_paths = {
+    'files': ['lib/libvorbis%s.%s' % (x,y) for x in ['', 'enc', 'file'] for y in ['a', 'la', SHLIB_EXT]] +
+             ['include/vorbis/%s.h' % x for x in ['codec', 'vorbisenc', 'vorbisfile']] +
+             [f'share/licenses/{name}/COPYING'],
+    'dirs':  ['share/aclocal'],
+}
+
+sanity_check_commands = [
+    'pkg-config --libs vorbis',    
+    'pkg-config --libs vorbisenc',    
+    'pkg-config --libs vorbisfile',    
+]
+
+moduleclass = 'data'

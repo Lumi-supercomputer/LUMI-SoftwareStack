@@ -1,0 +1,74 @@
+easyblock = 'CMakeMake'
+
+local_LZO_version =          '2.10'          # http://www.oberhumer.com/opensource/lzo/#download
+local_snappy_version =       '1.2.2'         # https://github.com/google/snappy/releases
+local_zlib_version =         '1.3.1'         # https://zlib.net/
+
+name =    'snappy'
+version = local_snappy_version
+
+homepage = 'https://github.com/google/snappy'
+
+whatis = [
+    'Description: Snappy is a compression/decompression library aiming for very high speeds and reasonable compression'
+]
+
+description = """
+Snappy is a compression/decompression library. It does not aim
+for maximum compression, or compatibility with any other compression library;
+instead, it aims for very high speeds and reasonable compression.
+"""
+
+software_license_urls = [
+    f'https://github.com/google/snappy/blob/{version}/COPYING',
+]
+
+toolchain = {'name': 'cpeGNU', 'version': '25.09'}
+toolchainopts = {'pic': True}
+
+sources = [{
+    'download_filename': '%(version)s.tar.gz',
+    'filename':          SOURCE_TAR_GZ,
+    'source_urls':       ['https://github.com/google/snappy/archive/']
+}]
+checksums = [
+    '90f74bc1fbf78a6c56b3c4a082a05103b3a56bb17bca1a27e052ea11723292dc',  # snappy-1.1.10.tar.gz
+]
+
+builddependencies = [
+    ('buildtools', '%(toolchain_version)s', '', True),
+]
+
+dependencies = [
+    ('zlib', local_zlib_version),
+    ('LZO',  local_LZO_version),
+]
+
+# In the Bundle, as of EasyBuild 4.2, it is better to set this to False,
+# though it does give a cleaner build procedure when this is set to True...
+separate_build_dir = False
+
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+
+local_snappy_opts = ' -DSNAPPY_REQUIRE_AVX2=ON -DCMAKE_INSTALL_LIBDIR=lib -DSNAPPY_BUILD_TESTS=OFF -DSNAPPY_BUILD_BENCHMARKS=OFF'
+
+configopts = [
+    '-DBUILD_SHARED_LIBS=OFF' + local_snappy_opts,
+    '-DBUILD_SHARED_LIBS=ON'  + local_snappy_opts
+]
+
+buildopts = 'VERBOSE=1'
+
+postinstallcmds = [
+    'mkdir -p %(installdir)s/share/licenses/%(name)s',
+    'cd ../%(namelower)s-%(version)s && cp AUTHORS COPYING NEWS README.md %(installdir)s/share/licenses/%(name)s',   
+]
+
+sanity_check_paths = {
+    'files': ['lib/libsnappy.a', 'lib/libsnappy.%s' % SHLIB_EXT, 'include/snappy.h', f'share/licenses/{name}/COPYING'],
+    'dirs':  ['lib/cmake/Snappy']
+}
+
+moduleclass = 'lib'
