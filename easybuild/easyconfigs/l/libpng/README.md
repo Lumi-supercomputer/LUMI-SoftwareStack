@@ -38,6 +38,8 @@
 -   The EasyConfig is a trivial update of the 1.6.40 one for LUMI/23.12.
 
 
-### Version 1.6.53 from 25.09 on
+### Version 1.6.54 from 25.09 on
 
 -   Trivial update of the EasyConfig for 1.6.47 in 25.03.
+
+-   But switched to .tar.xz files that are smaller.
