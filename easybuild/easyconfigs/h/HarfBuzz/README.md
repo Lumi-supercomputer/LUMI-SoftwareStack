@@ -58,4 +58,9 @@
 
 -   Disabled testing in the Cray version as one test fails. We deemed this not enough 
     to really block the package, even though it may point to a real issue.
-    
+
+
+### Version 12.2.0 for 25.09
+
+-   Trivial version bump of the 11.2.1 EasyConfig for 25.09.
+
