@@ -1,0 +1,49 @@
+easyblock = 'ConfigureMake'
+
+local_gzip_version =         '1.14'          # https://ftp.gnu.org/gnu/gzip/
+
+name =    'gzip'
+version = local_gzip_version
+
+homepage = 'http://www.gnu.org/software/gzip/'
+
+whatis = [
+    "Description: gzip provides the gzip data compression programs",
+]
+
+description = """
+gzip (GNU zip) is a popular data compression program as a replacement for compress
+"""
+
+software_license_urls = [
+    'https://www.gnu.org/licenses/gpl.html',
+]
+
+toolchain = {'name': 'cpeCray', 'version': '25.09'}
+toolchainopts = {'pic': True}
+
+source_urls = [GNU_SOURCE]
+sources =     [SOURCE_TAR_XZ]
+checksums = ['01a7b881bd220bfdf615f97b8718f80bdfd3f6add385b993dcf6efd14e8c0ac6']
+
+builddependencies = [ # Create a reproducible build environment.
+    ('buildtools', '%(toolchain_version)s', '', True),
+]
+
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+
+postinstallcmds = [
+    'mkdir -p %(installdir)s/share/licenses/%(name)s',
+    'cp AUTHORS COPYING NEWS README THANKS %(installdir)s/share/licenses/%(name)s',   
+]
+
+sanity_check_paths = {
+    'files': ['bin/gunzip', 'bin/gzip', 'bin/uncompress', 'share/licenses/gzip/COPYING'],
+    'dirs':  [],
+}
+
+sanity_check_commands = [True, ('gzip', '--version')]
+
+moduleclass = 'tools'

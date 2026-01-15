@@ -75,5 +75,10 @@
 -   Changed the syntax of the `configopts`
 
 -   Switched to the same set of source files currently used in EasyBuild for 25.03.
- 
+
+
+### Version 3.1.3 for 25.09
+
+-   Trivial port of the 3.1.0 EasyConfig for 25.03.
+
  

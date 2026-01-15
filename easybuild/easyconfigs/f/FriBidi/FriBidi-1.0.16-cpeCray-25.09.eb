@@ -1,0 +1,68 @@
+# Authors:: Jack Perdue <j-perdue@tamu.edu> - TAMU HPRC - http://hprc.tamu.edu
+
+easyblock = 'ConfigureMake'
+
+local_fribidi_version =      '1.0.16'        # https://github.com/fribidi/fribidi/releases
+
+name =    'FriBidi'
+version = local_fribidi_version
+
+homepage = 'https://github.com/fribidi/fribidi'
+
+whatis = [
+    "Description: FriBidi: The Free Implementation of the Unicode Bidirectional Algorithm",
+    "The module provides the fribidi binary and shared libraries",
+]
+
+description = """
+GNU FriBidi is the Free Implementation of the Unicode Bidirectional Algorithm.
+
+The package provides both the fribidi binary and shared libraries. The library
+functions are documented through man pages in section 3 while the fribidi
+executable supports the --help command line option.
+"""
+
+docurls = [
+    "man pages for the FriBidi library functions (section 3)",
+]
+
+software_license_urls = [
+    f'https://github.com/fribidi/fribidi/blob/f{version}/COPYING'
+]
+
+toolchain = {'name': 'cpeCray', 'version': '25.09'}
+toolchainopts = {'pic': True}
+
+# https://github.com/fribidi/fribidi/releases/download/v1.0.10/fribidi-1.0.10.tar.xz
+source_urls = ['https://github.com/%(namelower)s/%(namelower)s/releases/download/v%(version)s']
+sources =     [SOURCELOWER_TAR_XZ]
+checksums =   ['1b1cde5b235d40479e91be2f0e88a309e3214c8ab470ec8a2744d82a5a9ea05c']
+
+builddependencies = [ # Create a reproducible build environment.
+    ('buildtools', '%(toolchain_version)s', '', True),
+]
+
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+
+#configopts = '--disable-docs' # Option no longer supported by configure
+
+postinstallcmds = [
+    'mkdir -p %(installdir)s/share/licenses/%(name)s',
+    'cp AUTHORS COPYING NEWS README README.md %(installdir)s/share/licenses/%(name)s',   
+]
+
+sanity_check_paths = {
+    'files': ['bin/%(namelower)s', 'include/%(namelower)s/%(namelower)s.h',
+              'lib/lib%%(namelower)s.%s' % SHLIB_EXT,
+              f'share/licenses/{name}/COPYING'],
+    'dirs':  ['share/man/man3']
+}
+
+sanity_check_commands = [
+    'fribidi -h',
+    'pkg-config --libs fribidi',
+]
+
+moduleclass = 'lang'

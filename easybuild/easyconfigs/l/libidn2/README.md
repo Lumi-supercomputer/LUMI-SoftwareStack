@@ -34,3 +34,7 @@
 
 -   2.3.8 was out for 25.03, but as 2025a was still using 2.3.7, we stuck to it.
 
+
+### Version 2.3.8 from 25.09 on
+
+-   Trivial port of the 2.3.7 EasyConfig for 25.03.

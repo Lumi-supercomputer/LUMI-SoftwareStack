@@ -1,0 +1,74 @@
+##
+# Author:    Robert Mijakovic <robert.mijakovic@lxp.lu>
+# Ported to Cray by Kurt Lust (University of Antwerpen and LUMI consortium)
+##
+
+local_DB_version =           '18.1.40'       # https://www.oracle.com/database/technologies/related/berkeleydb-downloads.html
+
+name =    'DB'
+version = local_DB_version
+
+homepage = 'https://www.oracle.com/technetwork/products/berkeleydb'
+
+whatis = [
+    'Description: Berkeley DB, a family of embedded key-value database libraries'
+]
+
+description = """
+Berkeley DB is a family of embedded key-value database libraries providing
+scalable high-performance data management services to applications. The
+Berkeley DB products use simple function-call APIs for data access and
+management.
+
+Berkeley DB enables the development of custom data management solutions,
+without the overhead traditionally associated with such custom projects.
+Berkeley DB provides a collection of well-proven building-block technologies
+that can be configured to address any application need from the hand-held
+device to the data center, from a local storage solution to a world-wide
+distributed one, from kilobytes to petabytes.
+"""
+
+software_license_urls = [
+    'https://www.oracle.com/database/technologies/related/berkeleydb/berkeleydb-licensing.html',
+]
+
+toolchain = {'name': 'cpeAMD', 'version': '25.09'}
+
+# use http to allow auto-downloading...
+source_urls = ['http://download.oracle.com/berkeley-db/']
+sources =     [SOURCELOWER_TAR_GZ]
+patches =     ['%(name)s-%(version)s_fix_doc_install.patch']
+checksums =   [
+    {'db-18.1.40.tar.gz':                '0cecb2ef0c67b166de93732769abdeba0555086d51de1090df325e18ee8da9c8'},
+    {'DB-18.1.40_fix_doc_install.patch': '441f48568156f72f02a8662998d293cc7edad687604b4f8af722f21c6db2a52d'}
+]
+
+builddependencies = [ # Create a reproducible build environment.
+    ('buildtools', '%(toolchain_version)s', '', True),
+]
+
+osdependencies = [
+    ('openssl-devel', 'libssl-dev', 'libopenssl-devel'),
+]
+
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+
+postinstallcmds = [
+    'mkdir -p %(installdir)s/share/licenses/%(name)s',
+    'cp ../LICENSE ../README %(installdir)s/share/licenses/%(name)s',   
+]
+
+sanity_check_paths = {
+    'files': ['bin/db_%s' % x for x in ['archive', 'checkpoint', 'convert', 'deadlock', 'dump', 'hotbackup',
+                                        'load', 'log_verify', 'printlog', 'recover', 'replicate', 'stat',
+                                        'tuner', 'upgrade', 'verify']] +
+             ['include/db.h', 'lib/libdb.a', 'lib/libdb.%s' % SHLIB_EXT] +
+             ['share/licenses/%(name)s/LICENSE'],
+    'dirs':  [],
+}
+
+# No easy check with running commands possible.
+
+moduleclass = 'tools'

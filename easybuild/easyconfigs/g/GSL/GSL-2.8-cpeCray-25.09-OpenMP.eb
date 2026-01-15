@@ -1,0 +1,70 @@
+#DOC This version of GSL is compiled with OpenMP support and hence uses the
+#DOC OpenMP parallel multithreaded version of the Cray Scientific Libraries.
+#
+easyblock = 'ConfigureMake'
+
+local_GSL_version =          '2.8'           # https://ftp.gnu.org/gnu/gsl/
+
+name =          'GSL'
+version =       local_GSL_version
+versionsuffix = '-OpenMP'
+
+homepage = 'http://www.gnu.org/software/gsl/'
+
+whatis = [
+    "Description: GSL is the GNU Scientific Library, a numerical library for C and C++ programmers."
+]
+
+description = """
+The GNU Scientific Library (GSL) is a numerical library for C and C++
+programmers. The library provides a wide range of mathematical routines
+such as random number generators, special functions and least-squares
+fitting.
+
+This version of GSL is compiled with OpenMP support and hence uses the
+OpenMP parallel multithreaded version of the Cray Scientific Libraries.
+"""
+
+software_license_urls = [
+    'https://www.gnu.org/licenses/gpl.html',
+]
+
+toolchain = {'name': 'cpeCray', 'version': '25.09'}
+toolchainopts = {'opt': True, 'optarch': True, 'unroll': True, 'pic': True, 'verbose': True, 'openmp': True}
+
+source_urls = [GNU_SOURCE]
+sources =     [SOURCELOWER_TAR_GZ]
+checksums =   ['6a99eeed15632c6354895b1dd542ed5a855c0f15d9ad1326c6fe2b2c9e423190']
+
+builddependencies = [ # Create a reproducible build environment.
+    ('buildtools', '%(toolchain_version)s', '', True),
+]
+
+# Doesn't need MPI or ROCm, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-mpich rocm xpmem craype-accel-amd-gfx90a && '
+prebuildopts = preconfigopts
+pretestopts = preconfigopts
+preinstallopts = preconfigopts
+
+configopts = "--with-pic"
+
+postinstallcmds = [
+    'mkdir -p %(installdir)s/share/licenses/%(name)s',
+    'cp AUTHORS BUGS COPYING NEWS README THANKS %(installdir)s/share/licenses/%(name)s',   
+]
+
+sanity_check_paths = {
+    'files': ['lib/libgsl.so', 'lib/libgsl.a', 'lib/libgslcblas.so', 'lib/libgslcblas.a',
+              f'share/licenses/{name}/COPYING'],
+    'dirs':  ['include', 'lib'],
+}
+
+sanity_check_commands = [
+    'gsl-config --version',
+    'gsl-histogram --version',
+    'gsl-randist 0 10000 cauchy 30 | gsl-histogram -100 100 200 >/dev/null',
+    'pkg-config --libs gsl',
+]
+
+moduleclass = 'numlib'
+

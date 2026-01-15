@@ -1,0 +1,56 @@
+easyblock = 'ConfigureMake'
+
+local_Lzip_version =         '1.25'          # http://download.savannah.gnu.org/releases/lzip/
+
+name =    'Lzip'
+version = local_Lzip_version
+
+homepage = 'https://www.nongnu.org/lzip/'
+
+whatis = [
+    "Description: Lzip is a lossless data compressor with a user interface similar to the one of gzip or bzip2",
+]
+
+description = """
+Lzip is a lossless data compressor with a user interface
+similar to the one of gzip or bzip2. Lzip can compress about as fast as gzip
+(lzip -0) or compress most files more than bzip2 (lzip -9). Decompression
+speed is intermediate between gzip and bzip2. Lzip is better than gzip
+and bzip2 from a data recovery perspective. Lzip has been designed,
+written, and tested with great care to replace gzip and bzip2 as the
+standard general-purpose compressed format for unix-like systems.
+"""
+
+software_license_urls = [
+    'https://www.gnu.org/licenses/old-licenses/gpl-2.0.html',
+]
+
+toolchain = {'name': 'cpeAOCC', 'version': '25.09'}
+toolchainopts = {'pic': True}
+
+# https://download.savannah.gnu.org/releases/lzip/lzip-1.22.tar.gz
+source_urls = ['https://download.savannah.gnu.org/releases/lzip']
+sources =     [SOURCELOWER_TAR_GZ]
+checksums =   ['09418a6d8fb83f5113f5bd856e09703df5d37bae0308c668d0f346e3d3f0a56f']
+
+builddependencies = [ # Create a reproducible build environment.
+    ('buildtools', '%(toolchain_version)s', '', True),
+]
+
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+
+postinstallcmds = [
+    'mkdir -p %(installdir)s/share/licenses/%(name)s',
+    'cp AUTHORS ChangeLog COPYING NEWS README %(installdir)s/share/licenses/%(name)s',   
+]
+
+sanity_check_paths = {
+    'files': ['bin/lzip', f'share/licenses/{name}/COPYING'],
+    'dirs':  [],
+}
+
+sanity_check_commands = [True, ('lzip', '--version')]
+
+moduleclass = 'tools'

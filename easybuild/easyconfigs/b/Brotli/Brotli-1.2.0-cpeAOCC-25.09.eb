@@ -1,0 +1,77 @@
+# Contributed by Kurt Lust, LUMI project & UAntwerpen
+easyblock = 'CMakeMake'
+
+local_Brotli_version =       '1.2.0'         # https://github.com/google/brotli/releases (not yet in EB 2025a when checking)
+
+name =    'Brotli'
+version = local_Brotli_version
+
+homepage = 'https://github.com/google/brotli'
+
+whatis = [
+    "Description: brotli is a lossless compression technique used by browsers and web servers and better than zlib"
+]
+
+description = """
+Brotli is a generic-purpose lossless compression algorithm that compresses data
+using a combination of a modern variant of the LZ77 algorithm, Huffman coding
+and 2nd order context modeling, with a compression ratio comparable to the best
+currently available general-purpose compression methods. It is similar in speed
+with deflate but offers more dense compression.
+
+The specification of the Brotli Compressed Data Format is defined in RFC 7932
+https://tools.ietf.org/html/rfc7932
+
+Brotli is open-sourced under the MIT License, see the LICENSE file in
+$EBROOTTBROTLI/share/licenses/Brotli.
+"""
+
+software_license_urls = [
+    'https://raw.githubusercontent.com/google/brotli/v%(version)s/LICENSE',
+]
+
+toolchain = {'name': 'cpeAOCC', 'version': '25.09'}
+toolchainopts = {'pic': True}
+
+sources = [ {
+              'download_filename': 'v%(version)s.tar.gz',
+              'filename':          SOURCELOWER_TAR_GZ,
+              'source_urls':       ['https://github.com/google/brotli/archive']
+            } ]
+checksums =   ['e720a6ca29428b803f4ad165371771f5398faba397edf6778837a18599ea13ff']
+
+builddependencies = [ # Create a reproducible build environment.
+    ('buildtools', '%(toolchain_version)s', '', True),
+]
+
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+
+# Build twice, once for shared, once for static libraries, and install in lib 
+# for consistency with ConfigureMake installs.
+configopts = [
+    '-DCMAKE_INSTALL_LIBDIR=lib -DBUILD_SHARED_LIBS=ON', 
+    '-DCMAKE_INSTALL_LIBDIR=lib -DBUILD_SHARED_LIBS=OFF'
+]
+
+postinstallcmds = [
+    'mkdir -p %(installdir)s/share/licenses/%(name)s',
+    'cd ../%(namelower)s-%(version)s && cp CHANGELOG.md CONTRIBUTING.md LICENSE README README.md SECURITY.md %(installdir)s/share/licenses/%(name)s',   
+]
+
+sanity_check_paths = {
+    'files': ['bin/brotli'] +
+             ['lib/libbrotli%s.%s' % (x,y) for x in ['common', 'dec', 'enc'] for y in ['a', SHLIB_EXT]] +
+             ['share/licenses/%(name)s/LICENSE'],
+    'dirs':  ['lib64/pkgconfig'],
+}
+
+sanity_check_commands = [
+    'pkg-config --libs libbrotlicommon',    
+    'pkg-config --libs libbrotlidec',    
+    'pkg-config --libs libbrotlienc',
+    'brotli -h',
+]
+
+moduleclass = 'lib'
