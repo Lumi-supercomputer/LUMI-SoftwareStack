@@ -30,9 +30,10 @@ software_license_urls = [
 toolchain = {'name': 'cpeAOCC', 'version': '25.09'}
 toolchainopts = {'pic': True}
 
+# https://storage.googleapis.com/downloads.webmproject.org/releases/webp/libwebp-1.6.0.tar.gz
 source_urls = ['https://storage.googleapis.com/downloads.webmproject.org/releases/webp']
 sources =     [SOURCELOWER_TAR_GZ]
-checksums =   ['7d6fab70cf844bf6769077bd5d7a74893f8ffd4dfb42861745750c63c2a5c92c']
+checksums =   ['e4ab7009bf0629fd11982d4c2aa83964cf244cffba7347ecd39019a9e38c4564']
 
 builddependencies = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
