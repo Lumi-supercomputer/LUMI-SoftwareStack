@@ -109,3 +109,8 @@
 -   Did the package clean-up that is also done in the EasyBuilders recipe as several
     modules are nowadays part of Perl.
 
+
+### Version 5.40.2 for LUMI/25.09
+
+-   Straightforward port of the EasyConfig for 5.40.0.
+

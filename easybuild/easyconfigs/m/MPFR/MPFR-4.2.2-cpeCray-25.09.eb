@@ -1,0 +1,96 @@
+easyblock = 'ConfigureMake'
+
+local_GMP_version =          '6.3.0'         # https://ftp.gnu.org/gnu/gmp/
+local_MPFR_version =         '4.2.2'         # https://ftp.gnu.org/gnu/mpfr/
+
+name =   'MPFR'
+version = local_MPFR_version
+
+homepage = 'http://www.mpfr.org'
+
+whatis = [
+    'Description: The MPFR library is a C library for multiple-precision floating-point computations with correct rounding.',
+    'This module provides both static and shared libraries',
+]
+
+description = """
+The MPFR library is a C library for multiple-precision floating-point
+computations with correct rounding. MPFR is based on the GMP multiple-precision
+library.
+
+The main goal of MPFR is to provide a library for multiple-precision
+floating-point computation which is both efficient and has a well-defined
+semantics. It copies the good ideas from the ANSI/IEEE-754 standard for
+double-precision floating-point arithmetic (53-bit significand).
+
+MPFR is free. It is distributed under the GNU Lesser General Public License
+(GNU Lesser GPL), version 3 or later.\
+
+The module provides both static and shared libraries.
+
+NOTE: When running the included tests, two tests are skipped when using
+Clang-based compilers so the library may be less complete than the
+cpeGNU-based one. Moreover, in CCE 17 three other tests fail.
+"""
+
+docurls = [
+    'Support for the info command (info mpfr)'
+]
+
+software_license_urls = [
+    'https://www.gnu.org/licenses/lgpl-3.0.html',
+    f'https://gitlab.inria.fr/mpfr/mpfr/-/blob/{version}/COPYING.LESSER?ref_type=tags',    
+]
+
+toolchain = {'name': 'cpeCray', 'version': '25.09'}
+toolchainopts = {'pic': True}
+
+source_urls = ['http://www.mpfr.org/mpfr-%(version)s/']
+sources =     [SOURCELOWER_TAR_XZ]
+checksums =   ['b67ba0383ef7e8a8563734e2e889ef5ec3c3b898a01d00fa0a6869ad81c6ce01']
+
+builddependencies = [ # Create a reproducible build environment.
+    ('buildtools', '%(toolchain_version)s', '', True),
+]
+
+dependencies = [
+    ('GMP',         local_GMP_version),
+]
+
+skipsteps = ['test'] 
+
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+pretestopts = preconfigopts
+preinstallopts = preconfigopts
+
+#runtest = 'check' # Time-consuming, 5 times the build time.
+
+## copy libmpfr.so* to <installdir>/lib to make sure that it  is picked up by tests
+## when EasyBuild is configured with --rpath, and clean up afterwards (let 'make install' do its job)
+#pretestopts += "mkdir -p %%(installdir)s/lib && cp -a src/.libs/libmpfr.%s* %%(installdir)s/lib && " % SHLIB_EXT
+#testopts = " && rm -r %(installdir)s/lib"
+
+postinstallcmds = [
+    'mkdir -p %(installdir)s/share/licenses/%(name)s',
+    'cp AUTHORS BUGS COPYING COPYING.LESSER NEWS README %(installdir)s/share/licenses/%(name)s',   
+]
+
+sanity_check_paths = {
+    'files': ['lib/libmpfr.%s' % x for x in [ 'a', 'la', SHLIB_EXT]] +
+             ['include/mpfr.h','include/mpf2mpfr.h', 'lib/pkgconfig/mpfr.pc'] +
+             [f'share/licenses/{name}/COPYING.LESSER'],
+    'dirs':  ['share/doc/mpfr', 'share/info'],
+}
+
+# No binaries to easily check, but we do check if pkg-config can read the .pc files.
+sanity_check_commands = [
+    'pkg-config --libs mpfr',
+]
+
+modextrapaths = {
+    'INFOPATH' : 'share/info',
+}
+
+moduleclass = 'math'

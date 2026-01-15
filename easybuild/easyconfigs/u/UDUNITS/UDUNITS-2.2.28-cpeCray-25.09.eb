@@ -1,0 +1,97 @@
+##
+# This file is an EasyBuild reciPY as per https://github.com/easybuilders/easybuild
+#
+# Copyright:: Copyright 2012-2013 University of Luxembourg, Ghent University
+# Authors::   Fotis Georgatos <fotis@cern.ch>, Kenneth Hoste (Ghent University)
+# License::   MIT/GPL
+# $Id$
+#
+# This work implements a part of the HPCBIOS project and is a component of the policy:
+# http://hpcbios.readthedocs.org/en/latest/HPCBIOS_2012-97.html
+##
+
+easyblock = 'ConfigureMake'
+
+local_expat_version =        '2.7.3'         # https://github.com/libexpat/libexpat/releases
+local_UDUNITS_version =      '2.2.28'        # https://artifacts.unidata.ucar.edu/service/rest/repository/browse/downloads-udunits/
+
+name =    'UDUNITS'
+version = local_UDUNITS_version
+
+homepage = 'http://www.unidata.ucar.edu/software/udunits/'
+
+whatis = [
+    "Description: UDUNITS is a toolset to work with various unit systems",
+    "This module provides both static and shared libraries, and a command line utility",
+]
+
+description = """
+UDUNITS supports conversioOThe UDUNITS package supports units of physical
+quantities. Its C library provides for arithmetic manipulation of units and
+for conversion of numeric values between compatible units. The package contains
+an extensive unit database, which is in XML format and user-extendable. The
+package also contains a command-line utility for investigating units and
+converting values.
+
+This module provides both static and shared libraries, and a command line
+utility.
+"""
+
+docurls = [
+    "The package supports the info command (info udunits2, info udunits2prog, info udunits2lib)"
+]
+
+software_license_urls = [
+    'https://github.com/Unidata/UDUNITS-2/blob/master/COPYRIGHT,'
+]
+
+toolchain = {'name': 'cpeCray', 'version': '25.09'}
+toolchainopts = {'pic': True}
+
+sources =     [SOURCELOWER_TAR_GZ]
+source_urls = [
+    'https://artifacts.unidata.ucar.edu/repository/downloads-udunits/',
+    'https://sources.easybuild.io/u/UDUNITS/',
+]
+checksums =   ['590baec83161a3fd62c00efa66f6113cec8a7c461e3f61a5182167e0cc5d579e']
+
+builddependencies = [ # Create a reproducible build environment.
+    ('buildtools', '%(toolchain_version)s', '', True),
+]
+
+dependencies = [
+    ('expat', local_expat_version),
+]
+
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+
+parallel = 1
+
+postinstallcmds = [
+    'mkdir -p %(installdir)s/share/licenses/%(name)s',
+    'cp CHANGE_LOG COPYRIGHT README %(installdir)s/share/licenses/%(name)s',   
+]
+
+sanity_check_paths = {
+    'files': ['lib/libudunits2.%s' % x for x in ['a', 'la', SHLIB_EXT]] +
+             ['bin/udunits2', 'include/converter.h', 'include/udunits2.h', 'include/udunits.h', f'share/licenses/{name}/COPYRIGHT'],
+    'dirs':  ['share/udunits'],
+}
+
+sanity_check_commands = [
+    'udunits2 -h',
+    'udunits2 -H "80 km/h" -W m/s',
+]
+
+# In case we'd experience problems that the data files are not found, this might help.
+#modextravars = {
+#    'UDUNITS2_XML_PATH': '%(installdir)s/share/udunits/udunits2.xml',
+#}
+
+modextrapaths = {
+    'INFOPATH' : 'share/info',
+}
+
+moduleclass = 'phys'

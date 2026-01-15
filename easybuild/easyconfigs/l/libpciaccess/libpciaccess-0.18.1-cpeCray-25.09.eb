@@ -1,0 +1,61 @@
+easyblock = 'MesonNinja'
+
+local_xorg_macros_version =  '1.20.2'        # https://cgit.freedesktop.org/xorg/util/macros
+local_craypython_version =   '3.11.7'
+
+local_libpciaccess_version = '0.18.1'        # https://cgit.freedesktop.org/xorg/lib/libpciaccess/
+
+local_craypython_maj_min = '.'.join( local_craypython_version.split('.')[:2] )
+
+name =    'libpciaccess'
+version = local_libpciaccess_version
+
+homepage = 'https://cgit.freedesktop.org/xorg/lib/libpciaccess/'
+
+whatis = [
+    'Description: Generic PCI access library.'
+]
+
+description = """
+Generic PCI access library.
+"""
+
+software_license_urls  = [
+    f'https://cgit.freedesktop.org/xorg/lib/libpciaccess/tree/COPYING?h=libpciaccess-{version}',
+]
+
+toolchain = {'name': 'cpeCray', 'version': '25.09'}
+
+source_urls = ['https://www.x.org/releases/individual/lib/']
+sources =     [SOURCE_TAR_XZ]
+checksums =   ['4af43444b38adb5545d0ed1c2ce46d9608cc47b31c2387fc5181656765a6fa76']
+
+builddependencies = [ # Create a reproducible build environment.
+    ('buildtools',        '%(toolchain_version)s',   '',                                        True),
+    ('buildtools-python', '%(toolchain_version)s',   f'-cray-python{local_craypython_maj_min}', True), # For Meson
+    ('xorg-macros',       local_xorg_macros_version, '',                                        True),
+]
+
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+preinstallopts = prebuildopts = preconfigopts
+
+configopts = "--default-library=both"  # static and shared library
+
+postinstallcmds = [
+    'mkdir -p %(installdir)s/share/licenses/%(name)s',
+    'cd ../%(namelower)s-%(version)s && cp AUTHORS COPYING README.md %(installdir)s/share/licenses/%(name)s',   
+]
+
+sanity_check_paths = {
+    'files': ['lib/libpciaccess.%s' % x for x in ['a', SHLIB_EXT]] +
+             ['include/pciaccess.h', 'lib/pkgconfig/pciaccess.pc', f'share/licenses/{name}/COPYING'],
+    'dirs':  [],
+}
+
+# Just to be sure, check for pkg-config compatibility with Cray pkg-config.
+sanity_check_commands = [
+    'pkg-config --libs pciaccess | grep "%(installdir)s/lib"',
+]
+
+moduleclass = 'system'

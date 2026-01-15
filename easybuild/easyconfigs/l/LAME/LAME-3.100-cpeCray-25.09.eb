@@ -1,0 +1,92 @@
+# NOTE: Requires libnuma and its development package.
+#
+##
+# This file is an EasyBuild reciPY as per https://github.com/easybuilders/easybuild
+#
+# Author:    Stephane Thiell <sthiell@stanford.edu>
+###
+
+easyblock = 'ConfigureMake'
+
+local_ncurses_version =      '6.5'           # https://ftp.gnu.org/pub/gnu/ncurses/
+local_LAME_version =         '3.100'         # http://lame.sourceforge.net/
+
+name =    'LAME'
+version = local_LAME_version
+
+homepage = 'http://lame.sourceforge.net/'
+
+whatis = [
+    "Description: LAME is a high quality MPEG Audio Layer III (mp3) encoder",
+    "This module provides the lame command line tool and static and shared libraries",
+]
+
+description = """
+LAME is a high quality MPEG Audio Layer III (MP3) encoder licensed under the
+LGPL.
+
+This module provides the command line tool lame and static and shared
+libraries
+"""
+
+examples = """
+Run lame with the --help option to get some help on the command line options
+of the lame command line tool. There is also a manual page for the lame
+command.
+
+The API is very poorly documented (basically through the source code).
+"""
+
+docurls = [
+    "Web-based documentation: http://lame.sourceforge.net/using.php",
+    "Man page for lame (section 1)",
+]
+
+docpaths = [
+    'share/doc/lame/html'
+]
+
+software_license_urls = [
+    'https://lame.sourceforge.io/license.txt',
+]
+
+toolchain = {'name': 'cpeCray', 'version': '25.09'}
+toolchainopts = {'pic': True}
+
+source_urls = ['https://sourceforge.net/projects/lame/files/lame/%(version_major_minor)s/']
+sources =     [SOURCELOWER_TAR_GZ]
+patches =     ['LAME-3.99.5_check-tgetent.patch']
+checksums = [
+    'ddfe36cab873794038ae2c1210557ad34857a4b6bdc515785d1da9e175b1da1e',  # lame-3.100.tar.gz
+    '8bfb6a73f2db1511baf90fbd7174f11043ec4b592a4917edc30ccfb53bf37256',  # LAME-3.99.5_check-tgetent.patch
+]
+
+builddependencies = [ # Create a reproducible build environment.
+    ('buildtools', '%(toolchain_version)s', '', True), # For autoconf
+]
+
+dependencies = [
+    ('ncurses',    local_ncurses_version)
+]
+
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+
+preconfigopts += 'autoconf && LDFLAGS="$LDFLAGS -Wl,--undefined-version" '
+
+# configure is broken: add workaround to find libncurses...
+configure_cmd_prefix = "FRONTEND_LDADD='-L${EBROOTNCURSES}/lib' "
+
+postinstallcmds = [
+    'mkdir -p %(installdir)s/share/licenses/%(name)s',
+    'cp ChangeLog COPYING LICENSE README USAGE %(installdir)s/share/licenses/%(name)s',   
+]
+
+sanity_check_paths = {
+    'files': ['bin/lame', 'include/lame/lame.h', 'lib/libmp3lame.%s' % SHLIB_EXT,
+              f'share/licenses/{name}/LICENSE'],
+    'dirs':  [],
+}
+
+moduleclass = 'data'
