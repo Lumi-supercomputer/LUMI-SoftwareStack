@@ -1,0 +1,111 @@
+##
+# This file is an EasyBuild reciPY as per https://github.com/hpcugent/easybuild
+#
+# Copyright:: Copyright 2012-2013 University of Luxembourg/Luxembourg Centre for Systems Biomedicine
+# Authors::   Fotis Georgatos <fotis.georgatos@uni.lu>
+# License::   MIT/GPL
+# $Id$
+#
+# This work implements a part of the HPCBIOS project and is a component of the policy:
+# http://hpcbios.readthedocs.org/en/latest/HPCBIOS_2012-97.html
+##
+easyblock = 'ConfigureMake'
+
+local_cairo_version =        '1.18.4'        # https://www.cairographics.org/
+local_libcerf_version =      '3.3'           # https://jugit.fz-juelich.de/mlz/libcerf/-/releases
+local_libgd_version =        '2.3.3'         # http://www.libgd.org/
+local_libiconv_version =     '1.18'          # https://ftp.gnu.org/pub/gnu/libiconv/
+local_libjpegturbo_version = '3.1.3'         # https://github.com/libjpeg-turbo/libjpeg-turbo/releases
+local_ncurses_version =      '6.5'           # https://ftp.gnu.org/pub/gnu/ncurses/
+local_Pango_version =        '1.57.0'        # http://ftp.gnome.org/pub/GNOME/sources/pango/
+local_libpng_version =       '1.6.53'        # http://www.libpng.org/pub/png/libpng.html (Not yet in EB 2025a when checking)
+
+local_gnuplot_version =      '6.0.3'         # http://gnuplot.sourceforge.net/
+
+name =    'gnuplot'
+version = local_gnuplot_version
+
+homepage = 'http://gnuplot.sourceforge.net/'
+
+whatis = [
+    'Description: Gnuplot is a portable command-line driven graphing utility',
+    'This version of GNUplot does not use Qt5 graphics'
+]
+
+description = """
+Gnuplot is a portable command-line driven graphing utility available for many
+platforms. The source code is copyrighted but freely distributed (i.e., you
+don't have to pay for it). It was originally created to allow scientists and
+students to visualize mathematical functions and data interactively, but has
+grown to support many non-interactive uses such as web scripting. It is also
+used as a plotting engine by third-party applications like Octave. Gnuplot has
+been supported and under active development since 1986.
+
+This version of GNUplot does not use Qt5 for its GUI, so the GUI is rather
+primitive.
+"""
+
+docurls = [
+    'Web-based documentation: http://gnuplot.sourceforge.net/documentation.html',
+    'Manual page for gnuplot',
+]
+
+software_license_urls = [
+    f'https://sourceforge.net/p/gnuplot/gnuplot-main/ci/{version}/tree/Copyright',
+]
+
+toolchain = {'name': 'cpeAMD', 'version': '25.09'}
+
+source_urls = [('https://sourceforge.net/projects/gnuplot/files/gnuplot/%(version)s', 'download')]
+sources =     [SOURCE_TAR_GZ]
+checksums =   ['ec52e3af8c4083d4538152b3f13db47f6d29929a3f6ecec5365c834e77f251ab']
+
+builddependencies = [
+    ('buildtools', '%(toolchain_version)s', '', SYSTEM), # For ninja, meson, pkg-config and for help2man to generate the man page.
+]
+
+dependencies = [
+    ('ncurses',       local_ncurses_version),
+    ('cairo',         local_cairo_version),
+    ('libjpeg-turbo', local_libjpegturbo_version),
+    ('libpng',        local_libpng_version),
+    ('libgd',         local_libgd_version),
+    ('Pango',         local_Pango_version),
+    ('libcerf',       local_libcerf_version),
+    ('libiconv',      local_libiconv_version),
+    ('X11',           '%(toolchain_version)s'),
+]
+
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+preinstallopts = pretestopts = prebuildopts = preconfigopts
+
+preconfigopts += 'LIBS="$LIBS -liconv" LDFLAGS="$LDFLAGS -L$EBROOTFREETYPE/lib" '
+
+configopts = '  '.join([
+    '--with-gd=$EBROOTLIBGD', 
+    '--with-qt=no',           # Disable support for Qt.
+    '--with-cairo',           # Enable support for cairo. Versions are recent enough now.
+    '--disable-wxwidgets',    # Disable wxWidgets terminal to avoid having to install wx also.
+    '--with-x',               # Enable X11 support.
+    '--without-lua',          # Disable LUA/TikZ support.
+    '--without-latex',        # Disable LaTeX support, we don't want that on our parallel file systems.
+])
+
+postinstallcmds = [
+    'mkdir -p %(installdir)s/share/licenses/%(name)s',
+    'cp BUGS Copyright NEWS README %(installdir)s/share/licenses/%(name)s',
+    'mkdir -p %(installdir)s/easybuild/test-results'
+]
+
+sanity_check_paths = {
+    'files': ['bin/gnuplot', f'share/licenses/{name}/Copyright'],
+    'dirs':  []
+}
+
+sanity_check_commands = [
+    'gnuplot -V',
+    'gnuplot -e \'set term svg ; set output "%(installdir)s/easybuild/test-results/picture.svg" ; set xrange [-1:1] ; set yrange [-1:1] ; unset key ; plot [t=0:2*pi] sin(2*t), cos(3*t)\' ',
+]
+
+moduleclass = 'vis'

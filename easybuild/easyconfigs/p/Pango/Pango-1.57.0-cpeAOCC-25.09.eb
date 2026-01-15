@@ -1,0 +1,109 @@
+# This one does not yet work as HarBuzz >= 2.0 is needed for it....
+easyblock = 'MesonNinja'
+
+local_cairo_version =        '1.18.4'        # https://www.cairographics.org/
+local_fribidi_version =      '1.0.16'        # https://github.com/fribidi/fribidi/releases
+local_GLib_version =         '2.87.0'        # https://ftp.gnome.org/pub/GNOME/sources/glib/ Not the one from 2025a, but with newer versions we had trouble with GObject-Introspection
+local_GObject_version =      '1.86.0'        # https://github.com/GNOME/gobject-introspection/releases
+local_HarfBuzz_version =     '12.2.0'        # https://github.com/harfbuzz/harfbuzz/releases
+
+local_craypython_version =   '3.11.7'
+
+local_Pango_version =        '1.57.0'        # http://ftp.gnome.org/pub/GNOME/sources/pango/
+
+local_craypython_maj_min = '.'.join( local_craypython_version.split('.')[:2] )
+
+name =    'Pango'
+version = local_Pango_version
+
+homepage = 'http://www.pango.org/'
+
+whatis = [
+    'Description: Text layout and rendering library',
+    'This module provides a command line utility and static and shared libraries'
+]
+
+description = """
+Pango is a library for laying out and rendering of text, with an emphasis on
+internationalization.  Pango can be used anywhere that text layout is needed,
+though most of the work on Pango so far has been done in the context of the GTK+
+widget toolkit. Pango forms the core of text and font handling for GTK+-2.x.
+
+This module provides a command line utility pango-view and static and shared
+libraries.
+"""
+
+docurls = [
+    'Web based documentation: https://developer.gnome.org/pango/unstable/',
+    'Man page for pango-view',
+]
+
+docpaths = [
+    'share/gtk-doc/html/pango'
+]
+
+software_license_urls = [
+    'https://www.gnu.org/licenses/old-licenses/lgpl-2.0.html',
+    f'https://gitlab.gnome.org/GNOME/pango/-/blob/{version}/COPYING?ref_type=tags',
+]
+
+toolchain = {'name': 'cpeAOCC', 'version': '25.09'}
+
+source_urls = [FTPGNOME_SOURCE]
+sources =     [SOURCELOWER_TAR_XZ]
+checksums =   ['2606252bc25cd8d24e1b7f7e92c3a272b37acd6734347b73b47a482834ba2491']
+
+builddependencies = [
+    ('buildtools' ,           '%(toolchain_version)s', '',                                        SYSTEM), # For Ninja
+    ('buildtools-python',     '%(toolchain_version)s', f'-cray-python{local_craypython_maj_min}', SYSTEM), # For Meson
+    ('GObject-Introspection', local_GObject_version,   f'-cray-python{local_craypython_maj_min}'),
+]
+
+dependencies = [
+    ('FriBidi',  local_fribidi_version),
+    ('X11',      '%(toolchain_version)s'),
+    ('GLib',     local_GLib_version),
+    ('cairo',    local_cairo_version),
+    ('HarfBuzz', local_HarfBuzz_version),
+]
+
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+preinstallopts = pretestopts = prebuildopts = preconfigopts
+
+configopts = ' '.join([
+    '--buildtype=release',
+    '--default-library=both', # Create both static and shared libraries.
+    '--libdir=lib',    
+])
+
+postinstallcmds = [
+    'mkdir -p %(installdir)s/share/licenses/%(name)s',
+    'cd %(start_dir)s && cp COPYING NEWS README.md %(installdir)s/share/licenses/%(name)s',   
+]
+
+local_pango_commands_with_version = ['pango-list', 'pango-segmentation', 'pango-view']
+local_pango_pc = ['cairo', 'fc', 'ft2', 'ot', '', 'xft']
+
+sanity_check_paths = {
+    'files': ['lib/libpango-1.0.%s' % SHLIB_EXT, 'lib/libpangocairo-1.0.%s' % SHLIB_EXT,
+              'lib/libpangoft2-1.0.%s' % SHLIB_EXT, 'lib/libpangoxft-1.0.%s' % SHLIB_EXT,
+              f'share/licenses/{name}/COPYING'] + 
+             ['bin/%s' % x for x in local_pango_commands_with_version] + 
+             ['lib/pkgconfig/pango%s.pc' % x for x in local_pango_pc],
+    'dirs':  [],
+}
+
+sanity_check_commands = [
+    f'%s --version | grep -q {local_Pango_version}' % x for x in local_pango_commands_with_version
+] + [
+    f'pkg-config --modversion pango%s | grep -q {local_Pango_version}' % x for x in local_pango_pc
+] + [
+    'pkg-config --libs pango%s | egrep -q "\-L%s/lib.*-lpango-1.0"' % (x, '%(installdir)s') for x in local_pango_pc # Not every pc file corresponds to a library with the same name burt all use -lpango-1.0.
+]
+
+modextrapaths = {
+    'GI_TYPELIB_PATH': 'share',
+}
+
+moduleclass = 'vis'
