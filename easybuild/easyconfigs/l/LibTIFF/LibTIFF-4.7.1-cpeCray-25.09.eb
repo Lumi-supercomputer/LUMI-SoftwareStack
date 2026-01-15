@@ -1,0 +1,135 @@
+# NOTE: Can use libwebp too but then we have a circular dependency...
+# NOTE: Also checks for JBIG-KIT. Since this library hasn't been updated
+# since 2014 we do not include it, though the code is still used as part
+# of some other tools (e.g., it is included in ImageMagick).
+# NOTE: The configure routine also checks for OpenGL. Not clear which
+# features this enables though...
+#
+##
+# This file is an EasyBuild reciPY as per https://github.com/hpcugent/easybuild
+#
+# Copyright:: Copyright 2012-2014 Uni.Lu/LCSB, NTUA
+# Authors::   Fotis Georgatos <fotis@cern.ch>, Alan O'Cais (JSC)
+# License::   MIT/GPL
+# $Id$
+#
+# This work implements a part of the HPCBIOS project and is a component of the policy:
+# http://hpcbios.readthedocs.org/en/latest/
+##
+easyblock = 'ConfigureMake'
+
+local_libdeflate_version =   '1.25'          # https://github.com/ebiggers/libdeflate/releases
+local_XZ_version =           '5.8.1'         # https://tukaani.org/xz/
+local_zlib_version =         '1.3.1'         # https://zlib.net/
+local_zstd_version =         '1.5.7'         # https://github.com/facebook/zstd/releases
+local_giflib_version =       '5.2.2'         # https://sourceforge.net/projects/giflib/files/
+local_libjpegturbo_version = '3.1.3'         # https://github.com/libjpeg-turbo/libjpeg-turbo/releases
+local_libtiff_version =      '4.7.1'         # https://download.osgeo.org/libtiff/
+
+name =    'LibTIFF'
+version = local_libtiff_version
+
+homepage = 'http://simplesystems.org/libtiff/'
+
+whatis = [
+    'Description: Tools and library for reading and writing TIFF data files',
+    'This package provides a number of command line tools and static and share libraries',
+    'Keywords: TIFF, PPM, PGM, PBM, PDF, PostScript',
+]
+
+description = """
+This software provides support for the Tag Image File Format (TIFF), a widely
+used format for storing image data. The latest version of the TIFF specification
+is available on-line in several different formats.
+
+Included in this software distribution is a library, libtiff, for reading and
+writing TIFF, a small collection of tools for doing simple manipulations of TIFF
+images, and documentation on the library and tools. Libtiff is a portable
+software, it was built and tested on various systems: UNIX flavors (Linux, BSD,
+Solaris, MacOS X), Windows, and OpenVMS. It should be possible to port libtiff
+and additional tools on other OSes.
+
+The library, along with associated tool programs, should handle most of your
+needs for reading and writing TIFF images.
+"""
+
+usage = """
+This package provides a number of command line tools:
++ fax2ps     - convert a TIFF facsimile to compressed PostScript
++ fax2tiff   - create a TIFF Class F fax file from raw fax data
++ pal2rgb    - convert a palette color TIFF image to a full color image
++ ppm2tiff   - create a TIFF file from PPM, PGM and PBM image files
++ raw2tiff   - create a TIFF file from a raw data
++ tiff2bw    - convert a color TIFF image to greyscale
++ tiff2pdf   - convert a TIFF image to a PDF document
++ tiff2ps    - convert a TIFF image to PostScript
++ tiff2rgba  - convert a TIFF image to RGBA color space
++ tiffcmp    - compare two TIFF files
++ tiffcp     - copy (and possibly convert) a TIFF file
++ tiffcrop   - select, copy, crop, convert, extract, and/or process one or more TIFF files.
++ tiffdither - convert a greyscale image to bilevel using dithering
++ tiffdump   - print verbatim information about TIFF files
++ tiffinfo   - print information about TIFF files
++ tiffmedian - apply the median cut algorithm to data in a TIFF file
++ tiffset    - set or unset a field in a TIFF header
++ tiffsplit  - split a multi-image TIFF into single-image TIFF files
+Help for these tools is supplied via Linux man pages, and some tools support
+the -help command line option.
+
+The API is documented on the web and via Linux man pages. You can start
+searching the latter via the entry page libtiffi (try man libtiff).
+"""
+
+docurls = [
+    'Web-based documentation for the tools: http://simplesystems.org/libtiff/tools.html',
+    'Web-based documentation for the library: http://simplesystems.org/libtiff/libtiff.html',
+]
+
+software_license_urls = [
+    f'https://gitlab.com/libtiff/libtiff/-/blob/v{version}/LICENSE.md?ref_type=tags'
+    f'https://gitlab.com/libtiff/libtiff/-/blob/v{version}/README.md?ref_type=tags'
+]
+
+toolchain = {'name': 'cpeCray', 'version': '25.09'}
+toolchainopts = {'pic': True}
+
+source_urls = ['https://download.osgeo.org/libtiff/']
+sources =     ['tiff-%(version)s.tar.gz']
+checksums =   ['67160e3457365ab96c5b3286a0903aa6e78bdc44c4bc737d2e486bcecb6ba976']
+
+builddependencies = [ # Create a reproducible build environment.
+    ('buildtools', '%(toolchain_version)s', '', True),
+]
+
+dependencies = [
+    ('libdeflate',    local_libdeflate_version),
+    ('zlib',          local_zlib_version),
+    ('zstd',          local_zstd_version),
+    ('XZ',            local_XZ_version),
+    ('libjpeg-turbo', local_libjpegturbo_version),
+]
+
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+prebuildopts = preconfigopts
+
+postinstallcmds = [
+    'mkdir -p %(installdir)s/share/licenses/%(name)s',
+    'cp ChangeLog LICENSE.md README.md %(installdir)s/share/licenses/%(name)s',   
+]
+
+local_exe = ['tiffcp', 'tiffdump', 'tiffinfo', 'tiffset', 'tiffsplit']
+sanity_check_paths = {
+    'files': ['lib/libtiff%s.%s' % (x, y) for x in ['', 'xx'] for y in ['a', 'la', SHLIB_EXT]] +
+             ['bin/%s' % x for x in local_exe],
+    'dirs':  [],
+}
+
+sanity_check_commands = [ # Test just a few of the commands; return codes for -h are also inconsistent.
+    'tiffinfo -h',
+    'tiffcp -h',
+    'tiffsplit -h',
+    'pkg-config --libs libtiff-4'
+]
+
+moduleclass = 'lib'
