@@ -50,13 +50,14 @@ software_license_urls = [
 toolchain = {'name': 'cpeAMD', 'version': '25.09'}
 toolchainopts = {'pic': True}
 
+# https://github.com/jasper-software/jasper/archive/refs/tags/version-4.2.8.tar.gz
 github_account = 'jasper-software'
 sources = {
     'download_filename': 'version-%(version)s.tar.gz',
     'filename':          SOURCELOWER_TAR_GZ,
     'source_urls':       [GITHUB_SOURCE]
 }
-checksums = ['3f4b1df7cab7a3cc67b9f6e28c730372f030b54b0faa8548a9ee04ae83fffd44']
+checksums = ['987e8c8b4afcff87553833b6f0fa255b5556a0ecc617b45ee1882e10c1b5ec14']
 
 builddependencies = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
