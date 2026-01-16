@@ -45,7 +45,7 @@ easyconfigs:
   - cURL-8.11.1-cpeGNU-25.03.eb
   - FLAC-1.5.0-cpeGNU-25.03.eb
   - gettext-0.24-cpeGNU-25.03-minimal.eb
-  - JasPer-4.2.5-cpeGNU-25.03.eb
+  - JasPer-4.2.8-cpeGNU-25.03.eb
   - LAME-3.100-cpeGNU-25.03.eb
   - libevent-2.1.12-cpeGNU-25.03.eb
   - libpciaccess-0.18.1-cpeGNU-25.03.eb
