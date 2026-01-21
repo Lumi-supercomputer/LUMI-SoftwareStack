@@ -6,7 +6,8 @@
    | is now 25.03, while 25.09 is also offered. We recommend moving |
   *| to 25.03 or 25.09 when possible. This will offer the smoothest |
    | part for the next update. The system default version of ROCm   |
-   | is now 6.3.0, with a GPU driver from the same series.          |
+   | is now 6.3.0, with a GPU driver from the same series. Older    |
+   | versions of the programming environment are not supported.     |
 *  |                                                                |
  * | We cannot guarantee that software installed before the         |
    | January 2026 update will still run on the system. In some      |
