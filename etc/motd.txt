@@ -3,30 +3,25 @@
  * | https://lumi-supercomputer.github.io/update-202601/            |
    |                                                                |
 *  | NOTE: The default version of both the Cray PE and LUMI stack   |
-   | is now 25.03 and this is also the only version of the Cray PE  |
-  *| officially supported on the current system. We recommend       |
-   | moving to 25.03 when possible. This will also offer the        |
-   | smoothest path for the next update.                            |
+   | is now 25.03, while 25.09 is also offered. We recommend moving |
+  *| to 25.03 or 25.09 when possible. This will offer the smoothest |
+   | part for the next update. The system default version of ROCm   |
+   | is now 6.3.4, with a GPU driver from the same series. Older    |
+   | versions of the programming environment are not supported.     |
 *  |                                                                |
-NOTE: The default version of both the Cray PE and LUMI stack   |
-is now 25.03, while 25.09 is also offered. We recommend moving
-to 25.03 or 25.09 when possible. This will offer the smoothest
-part for the next update.
-
-NOTE: The default version of both the Cray PE and LUMI stack   |
-We cannot guarantee that software installed before the 
-January 2026 update will still run on the system. In some
-cases, recompilation may help while in other cases moving to
-software compiled with 25.03 or 25.09 is the only solution. 
-
-A LUMI software stack based on 25.03 will appear on LUMI in
-weeks after the update. A LUMI stack based on 25.09 will be
-developed after that, as will new spack modules. Local 
-software stacks (e.g., CSC modules and quantum computer
-modules) will be developed by the organisations responsible
-for these modules, and new containers with AI software will
-be developed by the LUMI AI factory an no longer be offered 
-by CSC.
+ * | We cannot guarantee that software installed before the         |
+   | January 2026 update will still run on the system. In some      |
+ * | cases, recompilation may help while in other cases moving to   |
+   | software compiled with 25.03 or 25.09 is the only solution.    |
+   |                                                                |
+  *| A LUMI software stack based on 25.03 will appear on LUMI in    |
+   | weeks after the update. A LUMI stack based on 25.09 will be    |
+* *| developed after that, as will new spack modules. Local         |
+   | software stacks (e.g., CSC modules and quantum computer        |
+   | modules) will be developed by the organisations responsible    |
+ * | for these modules, and new containers with AI software will    |
+   | be developed by the LUMI AI factory an no longer be offered    |
+   | by CSC.                                                        |
 *  |                                                                |
    | You can use the lumi-workspaces command (without loading an    |
    | additional module) to check your quota and allocations on      |
@@ -36,7 +31,7 @@ by CSC.
 *  | licenses for the packages they use and must also obey to all   |
    | export restriction laws and other regulations imposed by the   |
    | EU, Finland, and USA. Countries from which LUMI is forbidden   |
- * | include Belarus, China, Iran and Russia, but this list is.     |
+ * | include Belarus, China, Iran and Russia, but this list is      |
    | non-exhaustive and restrictions includes all countries under   |
    | EU or USA sanction affecting computer technology, including    |
    | hardware and software for AI.                                  |

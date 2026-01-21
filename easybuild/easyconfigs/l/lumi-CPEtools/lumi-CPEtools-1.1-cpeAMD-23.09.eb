@@ -45,7 +45,7 @@ builddependencies = [
 ]
 
 dependencies = [
-    ('rocm/6.0.3', EXTERNAL_MODULE),
+    ('rocm/6.3.4', EXTERNAL_MODULE),
 ]
 
 import os as local_os
