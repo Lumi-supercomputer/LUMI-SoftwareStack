@@ -288,8 +288,9 @@ components = [
 #    }),
     ('expat', local_syslibs_expat_version, {
         'sources':       [ {
+                            # https://github.com/libexpat/libexpat/releases/download/R_2_7_3/expat-2.7.3.tar.bz2
                             'filename':    SOURCELOWER_TAR_BZ2,
-                            'source_urls': [SOURCEFORGE_SOURCE]
+                            'source_urls': ['https://github.com/libexpat/libexpat/releases/download/R_%s/' % local_syslibs_expat_version.replace('.', '_')]
                          }],
         'checksums':     ['59c31441fec9a66205307749eccfee551055f2d792f329f18d97099e919a3b2f'],
         'start_dir':     '%(namelower)s-%(version)s',
