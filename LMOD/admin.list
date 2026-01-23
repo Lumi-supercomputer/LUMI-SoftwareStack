@@ -80,19 +80,15 @@ requires SuiteSparse, and since that one uses BLAS and LAPACK, it depends on the
 programming environment so is a separate module that needs to be loaded if you use
 hipSolver.
 
-.*/.*%-rocm%-5.[2-5].*%-singularity%-.*:
-These containers are based on older versions of ROCm than officially supported by
-the ROCm driver on the system, so some features may be broken. These containers,
-when offered through the LUMI Software Library, are offered as a convenience but
-without guarantee that the LUMI User Support Team can fix all problems with them
-due to the mismatch between ROCM driver and libraries versions.
+.*/.*%-rocm%-5.[2-7].*%-singularity%-.*:
+The container module you're loading is for a container based on a ROCm version that
+is no longer supported by the GPU driver. Only containers with ROCm versions between
+6.1 and 6.4 can be used.
 
-.*/.*%-rocm%-5.[6-7].*%-singularity%-.*:
-Though this container is based on a version of ROCm that is officially supported
-by the ROCm driver on the system, we cannot exclude that there will be problems
-when, e.g., the container integrates with the Cray PE as it may be trying to
-link to libraries that were meant to be used with a different version of ROCm.
-In particular, we expect that mpi4py may produce warnings.
+.*/.*%-rocm%-6.0.*%-singularity%-.*:
+The container module you're loading is for a container based on a ROCm version that
+is no longer supported by the GPU driver. Only containers with ROCm versions between
+6.1 and 6.4 can be used.
 
 .*/.*%-rocm%-6.[1-2].*%-singularity%-.*:
 Though this container is based on a version of ROCm that is officially supported
