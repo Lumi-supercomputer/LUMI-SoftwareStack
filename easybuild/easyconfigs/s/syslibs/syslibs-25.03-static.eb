@@ -287,9 +287,10 @@ components = [
 ##        'configopts':    '--enable-static --disable-shared --with-zlib=%(installdir)s --with-brotli=%(installdir)s --with-zstd=%(installdir)s --with-openssl'
 #    }),
     ('expat', local_syslibs_expat_version, {
+        # https://github.com/libexpat/libexpat/releases/download/R_2_7_1/expat-2.7.1.tar.bz2
         'sources':       [ {
                             'filename':    SOURCELOWER_TAR_BZ2,
-                            'source_urls': [SOURCEFORGE_SOURCE]
+                            'source_urls': ['https://github.com/libexpat/libexpat/releases/download/R_%s/' % local_syslibs_expat_version.replace('.', '_')]
                          }],
         'checksums':     ['45c98ae1e9b5127325d25186cf8c511fa814078e9efeae7987a574b482b79b3d'],
         'start_dir':     '%(namelower)s-%(version)s',

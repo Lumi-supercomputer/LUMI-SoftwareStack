@@ -109,6 +109,8 @@ use.
 ### 25.03
 
 -   Trivial update of 24.11 with just some version check.
+
+-   Needed to change the download location as the location on sourceforge is no longer valid.
   
 -   When testing with EasyBuild 5, we bumped into some configure options that are no longer
     supported. Those were removed, and we also added a simple sanity check to check for shared

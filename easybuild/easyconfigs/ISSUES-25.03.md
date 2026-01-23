@@ -14,3 +14,5 @@
 
 -   There are issues with ParMETIS on cpeAMD.
 
+-   The `htop` command in the `systools` module does not work anymore. Since the system update,
+    all versions since 24.03 are affected.
