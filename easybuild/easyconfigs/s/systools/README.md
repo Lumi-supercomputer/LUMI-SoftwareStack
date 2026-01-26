@@ -134,17 +134,20 @@ The current content is
 -   Tried htop 3.4.1 in 24.03-1 but had to switch back to 3.3.0. 3.4.1 still segfaults, 
     but it did not show in the ccpe container for some unknown reason.
 
+-   Needed to remove `--static` from the `configopts` after the LUMI upgrade to SUSE 15SP6 and needed
+    to rebuild.
+
 
 ### 25.03
 
 -   Identical to the 24.11 version
 
--   Stuck again to htop 3.3.0 due to segfaults.
+-   Found the issue that prevented us from using 3.4.1 (and backported the fix to 24.03 but without updating
+    to 3.4.1 there): Configure was picking up version 5 header files from the system while using version
+    6 libraries from `systools`. We needed to add `--with-curses=ncursesw` to use the proper header files
+    and keep UNICODE support also enabled.
 
 
 ### 25.09
 
 -   Identical to the 25.03 version
-
--   Stuck again to htop 3.3.0 due to segfaults.
-
