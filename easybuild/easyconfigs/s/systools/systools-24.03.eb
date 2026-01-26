@@ -105,7 +105,8 @@ components = [
         'preconfigopts': 'CFLAGS="-O2 -march=znver1" CXXFLAGS="-O2 -march=znver1" ',
         # Core dumps when compiled with unicode support, there must be something wrong in
         # our ncursesw library.
-        'configopts':    '--enable-static --enable-unicode --enable-affinity',
+        #'configopts':    '--enable-static --enable-unicode --enable-affinity',
+        'configopts':    '--enable-unicode --enable-affinity', # A fully static build causes issues when upgrading the OS...
 #        'prebuildopts':  'module unload sysibs && ',
         'installopts':   ' && mkdir -p %(installdir)s/share/licenses/%(name)s' +
                          ' && cp COPYING %(installdir)s/share/licenses/%(name)s'

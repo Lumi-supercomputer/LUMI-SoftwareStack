@@ -139,9 +139,12 @@ The current content is
 
 -   Identical to the 24.11 version
 
+-   Stuck again to htop 3.3.0 due to segfaults.
+
 
 ### 25.09
 
 -   Identical to the 25.03 version
 
+-   Stuck again to htop 3.3.0 due to segfaults.
 
