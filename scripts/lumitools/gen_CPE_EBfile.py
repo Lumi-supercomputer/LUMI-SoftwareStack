@@ -159,10 +159,10 @@ def gen_CPE_EBfile( CPEmodule, PEversion, CPEpackages_dir, EBfile_dir ):
             }
     #
     # We switched to explicitly loading the PrgEnv module also and to make the toolchain
-    # module a member of the cpeToolchain family in 24.11 as several compiler modules
-    # loaded the corresponding PrgEnv module anyway.
+    # module a member of the cpeToolchain family in 23.09 and later as several compiler
+    # modules loaded the corresponding PrgEnv module anyway.
     #
-    if float( PEversion ) < 24.11 :
+    if float( PEversion ) < 23.09 :
         PrgEnv_load   = False
         PrgEnv_family = 'PrgEnv'
     else :
