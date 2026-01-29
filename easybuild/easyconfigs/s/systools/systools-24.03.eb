@@ -101,12 +101,9 @@ components = [
                          }],
         'checksums':     ['a69acf9b42ff592c4861010fce7d8006805f0d6ef0e8ee647a6ee6e59b743d5c'],
         'start_dir':     '%(name)s-%(version)s',
-#        'preconfigopts': 'module unload syslibs && CFLAGS="-O2 -march=znver1" CXXFLAGS="-O2 -march=znver1" ',
-        'preconfigopts': 'CFLAGS="-O2 -march=znver1" CXXFLAGS="-O2 -march=znver1" ',
-        # Core dumps when compiled with unicode support, there must be something wrong in
-        # our ncursesw library.
-        'configopts':    '--enable-static --enable-unicode --enable-affinity',
-#        'prebuildopts':  'module unload sysibs && ',
+        'preconfigopts': 'CFLAGS="-O2 -march=znver1" CXXFLAGS="-O2 -march=znver1" LDFLAGS="-L$EBROOTNCURSES/lib" ',
+        #'configopts':    '--enable-static --enable-unicode --enable-affinity',
+        'configopts':    '--with-curses=ncursesw --enable-unicode --enable-affinity', # A fully static build causes issues when upgrading the OS...
         'installopts':   ' && mkdir -p %(installdir)s/share/licenses/%(name)s' +
                          ' && cp COPYING %(installdir)s/share/licenses/%(name)s'
     }),

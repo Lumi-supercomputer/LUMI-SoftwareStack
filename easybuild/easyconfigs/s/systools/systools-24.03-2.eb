@@ -124,12 +124,10 @@ components = [
                          } ],
         'checksums':     ['a69acf9b42ff592c4861010fce7d8006805f0d6ef0e8ee647a6ee6e59b743d5c'],
         'start_dir':     '%(name)s-%(version)s',
-#        'preconfigopts': 'module unload syslibs && CFLAGS="-O2 -march=znver1" CXXFLAGS="-O2 -march=znver1" ',
-        'preconfigopts': 'CFLAGS="-O2 -march=znver1" CXXFLAGS="-O2 -march=znver1" ',
+        'preconfigopts': 'CFLAGS="-O2 -march=znver1" CXXFLAGS="-O2 -march=znver1" LDFLAGS="-L$EBROOTNCURSES/lib" ',
         # Core dumps when compiled with unicode support, there must be something wrong in
         # our ncursesw library.
-        'configopts':    '--enable-static --enable-unicode --enable-affinity',
-#        'prebuildopts':  'module unload sysibs && ',
+        'configopts':    '--with-curses=ncursesw --enable-unicode --enable-affinity',
         'installopts':   ' && mkdir -p %(installdir)s/share/licenses/%(name)s' +
                          ' && cp COPYING %(installdir)s/share/licenses/%(name)s'
     }),

@@ -2,10 +2,14 @@
 # packages, largely based on the EasyBuild 2022b toolchain as 2023a was not yet available
 # when development started.
 local_LUMI_version =         '25.03'
-local_craypython_version =   '3.11.7'
-local_crayfftw_version =     '3.3.10.10'
 local_gcc_version =          '14.2'
 local_ROCm_version =         '6.3.4'
+
+#
+# Cray packages
+#
+local_craypython_version =   '3.11.7'
+local_crayfftw_version =     '3.3.10.10'
 
 #
 # EasyBuild EasyConfig
