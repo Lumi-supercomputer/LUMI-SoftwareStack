@@ -12,8 +12,13 @@
 #     (especially CMake).
 #
 local_LUMI_version =        '23.09'
-local_craypython_version =  '3.10.10'
 local_EasyBuild_version =   '4.8.1'
+
+#
+# Cray packages
+#
+local_craypython_version =  '3.10.10'
+local_crayfftw_version =    '3.3.10.5'
 
 #
 # Components of buildtools
