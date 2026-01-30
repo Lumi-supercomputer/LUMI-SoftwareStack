@@ -1,0 +1,23 @@
+Patch by Kurt Lust for LUMI.
+Extend the ParMETIS EasyBlock so that it not only honours prebuildopts, but also
+preconfigopts and preinstallopts.
+--- easybuild-easyblocks-4.8.2/easybuild/easyblocks/p/parmetis.py.orig	2025-07-18 18:27:42.178775095 +0300
++++ easybuild-easyblocks-4.8.2/easybuild/easyblocks/p/parmetis.py	2025-07-18 18:31:54.676306669 +0300
+@@ -92,7 +92,7 @@
+             self.parmetis_builddir = 'build'
+             try:
+                 os.chdir(self.parmetis_builddir)
+-                cmd = 'cmake .. %s -DCMAKE_INSTALL_PREFIX="%s"' % (self.cfg['configopts'],
++                cmd = '%s cmake .. %s -DCMAKE_INSTALL_PREFIX="%s"' % (self.cfg['preconfigopts'], self.cfg['configopts'],
+                                                                    self.installdir)
+                 run_cmd(cmd, log_all=True, simple=True)
+                 os.chdir(self.cfg['start_dir'])
+@@ -138,7 +138,7 @@
+ 
+         if LooseVersion(self.version) >= LooseVersion("4"):
+             # includedir etc changed in v4, use a normal make install
+-            cmd = "make install %s" % self.cfg['installopts']
++            cmd = "%s make install %s" % (self.cfg['preinstallopts'], self.cfg['installopts'])
+             try:
+                 os.chdir(self.parmetis_builddir)
+                 run_cmd(cmd, log_all=True, simple=True)
