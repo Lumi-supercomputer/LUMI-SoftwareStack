@@ -58,12 +58,17 @@ sources = [
 
 patches = [
     'EasyBuild-4.4.2_keyring_DBus.patch',
+    ('EasyBuild-4.8.2-EasyBlock-mesonninja.patch', '..'),
+    ('EasyBuild-4.8.2-EasyBlock-ParMETIS.patch', '..'),
 ]
 
 checksums = [
     {'easybuild-framework-4.8.2.tar.gz':   '87852289d099aed18e6778c556d8aed173ab1ff711c20e7d9ad32803336b3610'},
     {'easybuild-easyblocks-4.8.2.tar.gz':  '796ba8268e2832c6cb78c681401ce401f4d3a6471e1407a3987e76e6f42b3fd7'},
     {'easybuild-easyconfigs-4.8.2.tar.gz': 'c191b09f68cc3a0be33d248edfb892a143424af119f6ae6fd076c7880343cd63'},
+    {'EasyBuild-4.4.2_keyring_DBus.patch':         'd823213811e610fae568dbb0d010b4460f75e23902ed56dddca892f3dc0c9976'},
+    {'EasyBuild-4.8.2-EasyBlock-mesonninja.patch': 'df773b0a42bb65240c8069d48d275d53fd2e6e0b123d5a5cacfa70e9084cc93f'},
+    {'EasyBuild-4.8.2-EasyBlock-ParMETIS.patch':   '7adbe2993ced79b92b090cad5de1e06d2cda485b92148b4a84feefb7920633f4'},
 ]
 
 # order matters a lot, to avoid having dependencies auto-resolved (--no-deps easy_install option doesn't work?)
