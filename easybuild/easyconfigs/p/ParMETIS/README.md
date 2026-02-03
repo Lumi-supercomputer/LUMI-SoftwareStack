@@ -55,3 +55,16 @@ The 4.0.3 release is from 2013.
     difficult-to-maintain own EasyBlock.
 
 -   From 25.03 on, we include both static and dynamic libraries in the same module.
+
+
+### Version 4.0.3 with precision versionsuffix
+
+-   Thanks to a user ticket, we found out that METIS and ParMETIS (which uses a built-in METIS)
+    used a different precision for the floating point data, and nothing in the module name indicated
+    that. So we have made the EasyConfig more universal, making it easy to select the precision for
+    the indices and the real data format, and also reflect that choice in the versionsuffix and document
+    it in the module help.
+
+    So rather than a patch which was used by EasyBuilders in their METIS EasyConfig we work with a `sed`
+    to edit the `metis.h` header file. The procedure could actually be done in a modified EasyBlock, but
+    we want to continue using the standard EasyBlock with just a small patch.

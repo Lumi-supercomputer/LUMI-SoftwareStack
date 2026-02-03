@@ -42,3 +42,18 @@ The 5.1.0 release is from 2013, but then there was a 5.2.1 release onb GitHub.
     cannot find a certain header file) and as we are concerned that dependencies cannot
     yet use that new version. We did update all URLs though as the old URLs in the 
     EasyConfig no longer existed.
+
+
+### Version 5.1.0 with precision versionsuffix from 25.03 on
+
+-   Thanks to a user ticket, we found out that METIS and ParMETIS (which uses a built-in METIS)
+    used a different precision for the floating point data, and nothing in the module name indicated
+    that. So we have made the EasyConfig more universal, making it easy to select the precision for
+    the indices and the real data format, and also reflect that choice in the versionsuffix and document
+    it in the module help.
+
+    So rather than a patch which was used by EasyBuilders in their METIS EasyConfig we work with a `sed`
+    to edit the `metis.h` header file. The procedure could actually be done in a modified EasyBlock, but
+    we want to continue using the standard EasyBlock with just a small patch.
+
+    We did need to patch the EasyBlock for METIS as it did not honour `preconfigopts`.
