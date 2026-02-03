@@ -379,12 +379,28 @@ e.b., the [MATLAB EasyConfigs in the EasyBuilders repository](https://github.com
 
 ## Fixes needed to EasyConfigs
 
+### METIS
+
+Issue: `preconfigopts` is not honoured while we want to use it to edit `metis.h` with `sed`.
+
+The fix required changing 1 line the EasyBlock in 5.1.2:
+[Line 62](https://github.com/easybuilders/easybuild-easyblocks/blob/easybuild-easyblocks-v5.1.2/easybuild/easyblocks/m/metis.py#L62):
+
+```
+            cmd = "make %s config prefix=%s" % (self.cfg['configopts'], self.installdir)
+```
+becomes
+```
+            cmd = "%s make %s config prefix=%s" % (self.cfg['preconfigopts'], self.cfg['configopts'], self.installdir)
+```
+
+
 ### ParMETIS
 
 Issue: `prebuildopts` is honoured correctly, `preconfigopts` and `preinstallopts` are 
 not.
 
-The fix requires changes to only 2 lines in the EasyConfig:
+The fix requires changes to only 2 lines in the EasyBlock:
 
 -   [Line 95-96](https://github.com/easybuilders/easybuild-easyblocks/blob/easybuild-easyblocks-v4.9.4/easybuild/easyblocks/p/parmetis.py#L95):
 
