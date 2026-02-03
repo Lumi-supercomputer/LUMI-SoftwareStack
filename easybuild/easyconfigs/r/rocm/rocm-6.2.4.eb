@@ -1,0 +1,379 @@
+easyblock = 'EB_rocmrpms'
+name = 'rocm'
+version = '6.2.4'
+
+homepage = 'https://www.amd.com/en/developer/resources/rocm-hub.html'
+
+whatis = [
+    "Description: AMD ROCm is the first open-source software development platform for "
+    "HPC/Hyperscale-class GPU computing"
+]
+
+description = """
+AMD ROCm is the first open-source software development platform for
+HPC/Hyperscale-class GPU computing. AMD ROCm brings the UNIX philosophy of
+choice, minimalism and modular software development to GPU computing.
+"""
+
+description = """
+AMD ROCm is the first open-source software development platform for
+HPC/Hyperscale-class GPU computing. AMD ROCm brings the UNIX philosophy of
+choice, minimalism and modular software development to GPU computing.
+
+ROCm provides the tools required for the development of code using HIP, OpenCL
+and OpenMP programming models including tools for profiling and debugging.
+
+This is an experimental module provided for the convenience of the users.
+This is ROCm installed in a way it is not meant to be installed so we cannot
+offer any guarantee that this module will work properly with HPE Cray PE modules
+nor can we offer any support. Some parts are almost certain to be broken, at
+least in a way that can lead to reduced performance, as ROCm tends to contain
+hidden hard-coded links to the regular installation directories. As the inner
+workings of the HPE Cray PE are not public and as the PE (at least the versions
+up to 23.09 on the system) has even never been tested with this version of ROCm
+by HPE there is absolutely no guarantee that this module will play nice with,
+e.g., Cray MPICH.
+"""
+
+docurls = [
+    'Web-based documentation on https://rocm.docs.amd.com/en/docs-%(version)s/',
+    'PDF documentation in $EBROOTROCM/share/doc/rocgdb',
+    'PDF documentation in $EBROOTROCM/share/doc/roctracer',
+    'PDF documentation in $EBROOTROCM/share/doc/rocm_smi',
+    'PDF documentation in $EBROOTROCM/share/doc/amd-dbgapi',
+]
+
+toolchain = SYSTEM
+
+import os;
+local_lumi_stack_version = os.getenv('LUMI_STACK_VERSION', default='24.03')
+
+builddependencies = [
+    # For patchelf
+    ('buildtools',  local_lumi_stack_version, '', True),
+]
+
+index_url = 'https://repo.radeon.com/rocm/zyp/%(version)s/main/'
+gpu_archs = ['gfx90a']
+
+# Exclude MIVisionX and rocAL because of the OpenCV dependency
+# Exclude rocDecode because of the libva dependency
+exclude_packages = [
+  'mivisionx', 
+  'mivisionx-asan',
+  'mivisionx-debuginfo',
+  'mivisionx-devel',
+  'rocal',
+  'rocal-devel',
+  'rocal-test',
+  'rocdecode',
+  'rocdecode-devel',
+  'rocdecode-test',
+  'rocm-khronos-cts', 
+  'rocm-khronos-cts-debuginfo',
+  'hipcc-nvidia-debuginfo'
+]
+
+exclude_asan=False
+exclude_debug=False
+
+
+component_checksums = {
+    'amd-smi-lib'                                   :  '3885b7965e2abf58e89ce62fdd1964c03cab38e1c1f85204c0a3232f8da11fc4',
+    'amd-smi-lib-asan'                              :  '22b7fe1026dbce422feb351a030903c0ac722328327350e14a3c1a2d8640ea87',
+    'amd-smi-lib-asan-debuginfo'                    :  '5e4b9461b7e3dcd5311b9d7b8e5520f8a8e29277ec8fc5e1b345ec51a1741917',
+    'amd-smi-lib-debuginfo'                         :  'd2eb6ec376c673778617305d7f4552ee06676eec95b206a34f027ab20826510b',
+    'comgr'                                         :  'd886e9da62a91690eff94a3ea2ec77acb326a811f3b0897de3db087f4173ec7f',
+    'comgr-asan'                                    :  'd5d4eccef2640ece4ce5f882e078f33e3bcd88b990619092874d31c7a83f7185',
+    'comgr-asan-debuginfo'                          :  '45c7a5227ef03af1172b61234a775adf6b45350b2ef71084a644c8421caf7e41',
+    'comgr-debuginfo'                               :  '46ce8c27211f9daaf6e0cd1487810ec5dda02cc0cad47cc671112f4d80149f9a',
+    'composablekernel-ckprofiler_gfx90'             :  'ae0fb1fbdf24dafa99093cd360e6f4e551cd7ffb353dc9426daaf4ba632563bf',
+    'composablekernel-devel'                        :  '9b1709e714fa216072482644c96de6020953192aae24fe2759ebeda7b3041a4d',
+    'half'                                          :  '7000d94fa04843bb051b4132bc0cbfdaa8611124b6073e26e6aa42bb6e6c63f4',
+    'hip-devel'                                     :  '9c86ce811cef9ad40d291dd4ec9427a5d0f03f221badc0935cabe6aaa5dad9eb',
+    'hip-doc'                                       :  'd3e5b7e71d2663945ae6b5dafc8c02950c9c771b6a4d1611cbc57e34346dea3f',
+    'hip-runtime-amd'                               :  '2df744a630d9bc698f6436f6c1fd50baacb667cb70198288601cdc4a64760712',
+    'hip-runtime-amd-asan'                          :  'ec8bd933acd16140efc5c770bfcd35d94dd15892310a03206c5bc1a0ead2f599',
+    'hip-runtime-amd-asan-debuginfo'                :  'ead01ced3554edc53c4251834a1b1627ce3ca4354daffc007378a48cea27fff0',
+    'hip-runtime-amd-debuginfo'                     :  '8c2730ad8cc68e4f53220b79ee32ad2a2f59fd2d990c7962b05ce11a844d5c7e',
+    'hip-samples'                                   :  '906e94ff18125a68c3600126df8c840d15e82feb94259109ee29b85ea2af2166',
+    'hipblas'                                       :  '781d1fef474dd67d61883e63ad3b8798251fa62c602d4a8e415e431b60fb94a3',
+    'hipblas-asan'                                  :  '4f9322a3a659c9490080c06ee684cbf3b451021794cc2a830c61954134ee85c6',
+    'hipblas-debuginfo'                             :  '7ffaaa0975d03a4c9e4bffbe1edfacb27c561cf15616f929810292e7116ae60f',
+    'hipblas-devel'                                 :  '71de06c5b562a9c5074669b4354cb908f79cf4fb1b5068479d0c40e6d6f425c9',
+    'hipblaslt'                                     :  '73487721e638d67c2a5623b519fdf88ee4fd6eea7f9b6eb5166e91817593a026',
+    'hipblaslt-asan'                                :  '435d2e3ef15660851370dca7a5dccc43ce956b572c76f8ba63272b5a792d9647',
+    'hipblaslt-devel'                               :  'fbe1a42f7c6df893115d3f54a647b765bded03ad2edfde9b36f2fa6e9c6255bd',
+    'hipcc'                                         :  '52d229f5ce1531d88c5e071843aa0fef04529701cfa2a6e7c6e23769a41610ab',
+    'hipcc-debuginfo'                               :  '8174979d2e726199ffdc3ec8b93a2878b1c652c18640a798a7b696d06ca6e886',
+    'hipcub-devel'                                  :  '70af9a877567005e4a9a3d36f729d66c023e4e85257aa0ea76ea0990a1983394',
+    'hipfft'                                        :  '49b46c7bc8f2a2f2d18a6cf6d180866c0431f0b6e852166a146b484f3177ee90',
+    'hipfft-asan'                                   :  '698dc053c2feb00e8e950755754f32efe2b127c8d2c06d7766ab38f3e290abd4',
+    'hipfft-debuginfo'                              :  '5c33676174e69d1639c172cb40375c2076baaf6f743a90569aa94da4e0ead607',
+    'hipfft-devel'                                  :  '260d8407856aa557d80641c8d7720a7a2ba10c7c3e73333b584388255b8b6890',
+    'hipfort-devel'                                 :  'fc9494dbe2a5d3986e4f5f23121f58851eaef075a438668985189b6e77a28535',
+    'hipify-clang'                                  :  '652954a1d748f6f2988adca3274ec3630ffa7bce3fbdefd5894909fb7bf19dc9',
+    'hiprand'                                       :  '6b817af0e52c2c781e5e2cccb07018f030eddc36b86c6d90c3e43688927a2444',
+    'hiprand-asan'                                  :  '5460ba7f9e1ba313379ddbde3c41a01fbcc29d90a4d2aa4818de7c6dd232e055',
+    'hiprand-debuginfo'                             :  'f19444e0fa415f5a1bd0f0029bfa453f5528bb76b89fa4ed7132edb6144bf150',
+    'hiprand-devel'                                 :  '928c39547848c3ebd51b7f2fadb532c32c3ef052ed2ba810eaa76ab0a8c3d4c5',
+    'hipsolver'                                     :  'f0c234989d8013423e81623cec800d3ca6357b1f0c60a1f9ecad2b4537d22d09',
+    'hipsolver-asan'                                :  '04a981fd31618363440d76e24d83cae9492f2b05adb58bb8bf4464a14c681a79',
+    'hipsolver-debuginfo'                           :  'eb93187b6d44535aeaaeac4a6d074bd8e2c7efc0939775ff0b1c47d159e4bce4',
+    'hipsolver-devel'                               :  'e6ad15927489c53f905dbe52f68039842aae90939c5c412fcb3bcd8dbc3783c6',
+    'hipsparse'                                     :  '451e0a8a69dc9fb83a5042c88a27bf7f439be25de1ab65262db54ffe84c56098',
+    'hipsparse-asan'                                :  '360b012fa950d0f3969128fd930339151f4c8b93d9f34fe7567570bd6a5f592f',
+    'hipsparse-debuginfo'                           :  'cbd3403c4f9f82c12bcfafadcc38ced073e599edbe69ce520a12ea5185dab795',
+    'hipsparse-devel'                               :  'ad07319bcb2e74025929a1677a601229809d97c1870d83f0bff9c235c110d948',
+    'hipsparselt'                                   :  'c2b526c1b606fd08efe7f533751bcd0e72edc54f8e9ba38fe61dc5e9140ec29b',
+    'hipsparselt-asan'                              :  '82741fb3ba79b7ea0a9e9f69a943e5559c4e0659d0de52ff515c43985bfc2f62',
+    'hipsparselt-devel'                             :  '3f44001e57713d77254fe256b7b0a32998669fa143769e69926d1d3f408b2147',
+    'hiptensor'                                     :  'f0cbb6537bf714c4f367e6f51b5b45d5a889f82744e8c7ab6cacd8fd6b86bca1',
+    'hiptensor-asan'                                :  '7decfd8976e03f9c6aa8b908a6240fb363f08e57e316538372abee642ca68331',
+    'hiptensor-devel'                               :  'add64efd21729eccf3a649b544b18eaa197018797eac3f387e52c02629519acc',
+    'hsa-amd-aqlprofile'                            :  '7109118f0edce2f85e5554330ce6f6c6519d45558d8912940c9f7ee9c01fc4dd',
+    'hsa-amd-aqlprofile-asan'                       :  'b7adc9c5acc09230cbebcd9ffa55f790f2f9cb5ca822ee108d64d8ae0cba654c',
+    'hsa-rocr'                                      :  '68af28da1b19b639ddf83a1225475d6df5d8a9033d435b14fcdd6c0c6de34a87',
+    'hsa-rocr-asan'                                 :  '8c79c527d37280657ac3c883d18a6be0e83a809c3e109c1eb3149d5b44651202',
+    'hsa-rocr-asan-debuginfo'                       :  'd6b25c1fd9d450f04c85c27abd75f45ee9dbba7fc7dbe279e66c66cef55f1318',
+    'hsa-rocr-debuginfo'                            :  'ea624679627288ac11bc765f76de1b38cb1185a44e2458f1138288a330604cfd',
+    'hsa-rocr-devel'                                :  'd2662a96d7f2a42c7dfa1cc88a430d64890a6c51983821533146bb2893dfa7f6',
+    'hsakmt-roct-asan'                              :  '8f9e0d1ea8d9bd894872b9dad0079337b41611cdfc593be7816425cf782d4707',
+    'hsakmt-roct-devel'                             :  '7712ddd7f867ddbb399349a6ee938bea3b799ce51691df35443e5dee1aa93bcd',
+    'migraphx'                                      :  '7f690f1f980232f31ea5c285de61d0ad01f3ef6e730052f6aaa51c8899cccbcd',
+    'migraphx-asan'                                 :  'dc61a3a5ab83cd00009092db1ddf88f1935d2cac707b4ae6f9a35a2b500075e9',
+    'migraphx-debuginfo'                            :  'e6ba76082938f0ae921ae87d53862779b221bf494253b7f2be1f2ce2267558ce',
+    'migraphx-devel'                                :  '05cb7467f3bcd1625b81cdabe28caca69e341aafd02ead140c74351542a8fb76',
+    'miopen-hip'                                    :  '78c8108470184947d488d98d0578341175c7734addee409bdbbf4c97a892dc6e',
+    'miopen-hip-asan'                               :  '40a567a7b97734cc30a982e966c5e7395c27b5416692219cb57ad6be9754b96f',
+    'miopen-hip-client'                             :  'cbe680aa8a8f4d73748e67b42202bc20488e40279179b65563a162331710bebf',
+    'miopen-hip-devel'                              :  'dacda3c38ff55e98d416fce5bd8bf1fe056422021e25e0610e8e6b0b6afc3529',
+    'miopen-hip-gfx90akdb'                          :  'f242a8e3f7b67f75acebc7cd3e7dea512796cccd037f6a85bd6c1dfd810d98d1',
+    'mivisionx'                                     :  'f9e39efbd1d89a7714fe0c9fcae117a7e9a321992274fb2c7d720b0b3b5b3bb4',
+    'mivisionx-asan'                                :  '325a020077cb817fb59fe152b78894f78402d4fc1ebc5fe639f1b82c219ce8f6',
+    'mivisionx-debuginfo'                           :  'e2d5d0f9f02cd9ddbecf8995440c36a233f6f10c670061ba7d749227eed62be9',
+    'mivisionx-devel'                               :  '6cd99d7f2cd81c105353636fff537f1ceb7170bec4e56f33eaa9effddbc66ba0',
+    'omniperf'                                      :  '4056b9265b128b301b2d6bd8e53ff6d7db78c447c727cee1c6c1a12f143c11cb',
+    'omnitrace'                                     :  'e0e7c29f2bdcd666d6a9b29827f5460c1527242b7123db0c6d52ff06764365c1',
+    'omnitrace-debuginfo'                           :  'adf61cdc86a908cdef276cfbed5d2f771d3d33a6f33ea172dfcd83c3bbee3517',
+    'openmp-extras-asan'                            :  '8869dcf7af183c611d92bd585ca4684d1c17c966f6384496db04753169a3ef2f',
+    'openmp-extras-devel'                           :  '5bfd4396a6ee6e8bafa0ff106ad4652f4ba68d950cc4eaefcbcbe06b3ed4daec',
+    'openmp-extras-runtime'                         :  '8ef1d72e965019f7878fddb27b131ef4dcd7d47c99fabbdf9250145e72f8b976',
+    'rccl'                                          :  '41bf00d7ecd0dd8d9b8d32ffff863196baf6e12305214a094175fc2809c5766a',
+    'rccl-asan'                                     :  '699f08e16dd9480125840ebbf148705fc9b062be2da4d3701e7e8bb4f7dd0020',
+    'rccl-debuginfo'                                :  'a84ffb1914aa9a5c2027c21f4bbcf0df9933ecd1fb2826fb3fb17597e7495cea',
+    'rccl-devel'                                    :  '06af8c942f25194137d468853bce2bc0c0ef6d43a2a216a1f58151e79822cc66',
+    'rccl-unittests'                                :  '45e40c924399c5141eafc3058722d27afe9961912469c979e7edfcb0f48e2cb1',
+    'rccl-unittests-debuginfo'                      :  'b7082dc3632e86f9f46e1006e868da13adcf6b8bbd9a3033586c2ca94b34d2d4',
+    'rdc'                                           :  '49d49ea63aa374b3e2e4a65ec4f2d352da56698a3d43e858dee30fb44030182c',
+    'rocal'                                         :  'a01e51aa8ebea031106c64dcea8890848a9dd8d86b577d3c37061852823814c0',
+    'rocal-devel'                                   :  '539eb9fe43031647eead6497509f0eaf65df2723e2c7202633010bbf55133323',
+    'rocal-test'                                    :  '1122e018c125455ab7c6e39fe18d0a1143b8de492e67598e3102b46e722988af',
+    'rocalution'                                    :  '7bb165a79ab92139eeca15864622dffb0537f7f994f225b0acc2a78257540f01',
+    'rocalution-asan'                               :  '1ef04667f0e54f90d39751885e6238b3331a7318b01bbb9a004628d68bd64258',
+    'rocalution-debuginfo'                          :  'de96c72fb0a6e368f1bca135a14ce6d9acb239e55a84e5579ef2bb13c386e8b8',
+    'rocalution-devel'                              :  'eddd51f410483a3c319378363fbe810c7e65131f0b9f57d9dfdd526aa9460ddb',
+    'rocblas'                                       :  '9853d4d36aec2f86e517589a76930db5abc0748432dd1892993b02f4c244cc0a',
+    'rocblas-asan'                                  :  '87bb06e29bd8e7c995661d436d5f8146b14d40c9312b360d3448138bb70138a7',
+    'rocblas-devel'                                 :  'bd46e324b2e8d453d226a88f3886f6b0359f2e4485e81ed87bfc4c86172878f3',
+    'rocdecode'                                     :  'e12ebbc2e95de8356027cbf25ef9921584427ce3130ffb92319cde4c46efcd11',
+    'rocdecode-devel'                               :  '5d0638462ded61101f797ae0be8b2f6e81cd18713eb01bd331a8d4736e3d2dd1',
+    'rocdecode-test'                                :  '1d3a4df26ad46f3e2707b1b9a2f56f8cbe5ed04aa2d88a9d07a904bcaca78c43',
+    'rocfft'                                        :  '2a95455d86b7a82b7e71653c1b8bbdd0b1f7e7766fb2eeebc77752a7650c276e',
+    'rocfft-asan'                                   :  '5f67cf2bfb4b0142cb85c2141106ba2224271a97958ca39298db3ee37492902b',
+    'rocfft-debuginfo'                              :  'a6dded131161b7fb55e64a84d0a1c084ece904a6e0f5652f667b10b2884a95f3',
+    'rocfft-devel'                                  :  'a9694b23ab205395913090ec93c6d94833321f2564afa72d8434ce1298921972',
+    'rocm'                                          :  '30ec4f832ddf081ca70f9c2323ce9aef3998507977ebaaf95e3aec0cf219bb33',
+    'rocm-asan'                                     :  '145f59e92bafab189e66df10a6764d9a2ca35d7763346a11d204c0e89ce4a5e3',
+    'rocm-bandwidth-test'                           :  'd7a93b335694266724cf967bdb1ca4ba6b7139e2e87deb109ced0ff922fb8bc3',
+    'rocm-cmake'                                    :  'd2ba8061cc231a784ed9c003f17ab806bb505d58c9f80bc161b270290be1c582',
+    'rocm-core'                                     :  '57fe629d4b8ea2462e0644cea8f745dc860aa3d435f043189b2fa0a3858cb194',
+    'rocm-core-asan'                                :  '960206f5640e48b97bd397eb2029e9312d7ed1db6609bf76cfde76f022a1817b',
+    'rocm-dbgapi'                                   :  '3ee58ddd46a30f608157564fcad67979ae394827613037258a943c59c3bbb380',
+    'rocm-dbgapi-asan'                              :  '1069da86d00228dea093d6840607ce15d1eec83d5c3cf333c091b3efd7e2f5e7',
+    'rocm-dbgapi-asan-debuginfo'                    :  'd4420548d8db47011799529290d2924fa6545db1ded8ba8c8ecde18cf8a40554',
+    'rocm-dbgapi-debuginfo'                         :  'cdf4af9a314c36cd6ed947ad00bc72a899bcb99d55f2fbdfa5c8522012b08083',
+    'rocm-debug-agent'                              :  'ad8b63755e79f22a7258b9e691510dee105c8e9d55fa9b1f7ecdd1e89513b864',
+    'rocm-debug-agent-asan'                         :  '412c20ebae546ff0979b3aaa592e2e4ceb2c4d8709cea78cabc918cc1429cfe0',
+    'rocm-debug-agent-asan-debuginfo'               :  '3703e44bb8ca633b913348d5fb89afb6db1aec16e61ceb9dd90d801243a0a2ee',
+    'rocm-debug-agent-debuginfo'                    :  'f6857615215a4fd5d4283999fe213e442282b7244f10ba331d7ab49e8c55c101',
+    'rocm-dev'                                      :  'dafefd0d9e9b679c97c917a1dd7c533b8c9431f6ae2365565cb06a588ea2023d',
+    'rocm-dev-asan'                                 :  'd6994cf02606585dfc39fd3ecc42a0bce3770c77a6eadb42154f045dca71b7a9',
+    'rocm-developer-tools'                          :  'b2833f316b3e5123f0c981af8ee0d0c8eccd5f5f9dd8539289624fc5b9dfe5fb',
+    'rocm-developer-tools-asan'                     :  'd54fc0c9cd73fbd95e6887e6b243277b8d6c19fa79c353babaea392ccd1c185c',
+    'rocm-device-libs'                              :  '154e29950ab962a91facd3fb9bdf23fe300faf229384dd19b90d4d2d95191b88',
+    'rocm-gdb'                                      :  '86df6d9d96df30ee9c14aab18fc216dac89915c80e5c264052a406287ab6551e',
+    'rocm-hip-libraries'                            :  'd97281ff502256c5b13654dc6bb83f5812e02e51fc48ed10e2107c545e2bf27d',
+    'rocm-hip-libraries-asan'                       :  '0bd5a1823aed1e06462dcbe77cc9f9073c79fb878a80ade1dd93c51c96704c3d',
+    'rocm-hip-runtime'                              :  '4c2028b4e7bf4948fbf6032148d25e84f65b031460a4117a9a6af2dd5accd4a2',
+    'rocm-hip-runtime-asan'                         :  'ba712985ffba02910320933c92a4f52df9b609ae9baffab7e705a7ed907e9dbb',
+    'rocm-hip-runtime-devel'                        :  'd7841b8ac85579fc814ecb62a66f29f2da2639de8f4f27b6574062e5cf574469',
+    'rocm-hip-sdk'                                  :  '04d850c4183375b938cfb86c394e5de88a05d92c3f6f020967a958bc1e897788',
+    'rocm-khronos-cts'                              :  'ccd198c3bdd86cf5895a3be65eba8b6b12f6c247389897208c65bb7c56663592',
+    'rocm-khronos-cts-debuginfo'                    :  '5f54aa2a2becc4371bc369b768a42ef73f1c6ddd8fe5614fb0672d2de8ffb598',
+    'rocm-language-runtime'                         :  'cc921c07ec434670966427d22e1e4bb257e354b790e445402b82617c26adb263',
+    'rocm-language-runtime-asan'                    :  '7f710a365bed7f9047f3595ada5e7c566cb021c51abcf53708fe129582e16c59',
+    'rocm-libs'                                     :  'ec438db668654d81850f633f602425f2bed595f18298f40a9e7a91b6db139cbc',
+    'rocm-llvm'                                     :  'cda59b3fadb6911b00994112a40a18d383e7f50fdb8d3bada555cfe3bd2b482a',
+    'rocm-llvm-devel'                               :  '51b9f86658c8096ad6cf1dd35592f82b7a772aca1d3595cc776b335b0bd16875',
+    'rocm-llvm-docs'                                :  'e9ca2daf10f102c410ba27434c780170594b9e600a62856e289e5f5d4a96b67f',
+    'rocm-ml-libraries'                             :  '63319af5f80053f8f475e3473b43ce54116304e53dfcfdc6f2fd288164c61ace',
+    'rocm-ml-libraries-asan'                        :  '3d96d780f2a01069593f528ff590ad4aef659c653119ad1372e06ec8acb44f1a',
+    'rocm-ml-sdk'                                   :  '484e84b767cd737c99955e5878bfffb1b20c693d8ba445bf9a4d38c1741650fd',
+    'rocm-ml-sdk-asan'                              :  'f85a366946cbc935097d6da6d17f737621179dc9eaafc55b8e08a35bd22f0d0c',
+    'rocm-ocltst'                                   :  '8197f5b7c5d83cf3ae3086abb250efbb4ab2e69037346bf46cb41cd8ecdcd7c3',
+    'rocm-ocltst-debuginfo'                         :  'c3fcfe428d0b99868d3e871cc933ecfec2fc03df27cc230f139ea6a99f5dc26c',
+    'rocm-opencl'                                   :  '7af8fa0bb8481aec93c7016619ae2967eb88e5336dbb09cb1de0f0597e3674db',
+    'rocm-opencl-asan'                              :  'ca7c05899309c9849fedd42760f44613d88e00ac1efb4bb992af7a94abefeea5',
+    'rocm-opencl-asan-debuginfo'                    :  '818dc218d94bf9be08373ac544a3b57122fded05d63ed84214c194b0ba302b50',
+    'rocm-opencl-debuginfo'                         :  '3592c496ca81cf9fa2acef1a3c58f228dfcd4132748a84a5f45f6f3718c7f2f9',
+    'rocm-opencl-devel'                             :  '7c762f9f1b9460f6597d8e4855743bc37172e6612323253b637b0caaacbc90a8',
+    'rocm-opencl-icd-loader'                        :  '86d91a6a9feb456359c5e6891046928ce14c2e0989ee8a7efca6b06fe19cbbfd',
+    'rocm-opencl-icd-loader-debuginfo'              :  '1d0b79678b6b6cc051243b5961cee5e76bbf7f2a06cea84047841b76f4e8611c',
+    'rocm-opencl-runtime'                           :  '2bc00083eb6d5019bad1fa2198c36e5b412de5a5f371ea6308152cc17d1eaeb3',
+    'rocm-opencl-runtime-asan'                      :  '5353747f6b29149ee046c3bf24ac2815a821f6ba32f4259fc3d358f385ea265b',
+    'rocm-opencl-sdk'                               :  'a406a16ceff74ffbafd1512a88120fd94eebbee9bf1017f055423d367580d8ec',
+    'rocm-openmp-sdk'                               :  '7131267debed350f7b47e229695a80617bd3b50743e8a94bf7d8853c5c2c8f1b',
+    'rocm-smi-lib'                                  :  'a2187bbb0509b9e9a1aac18857e47817187156df1f4533838416f1dddd7437ed',
+    'rocm-smi-lib-asan'                             :  'b24b1c74b33a88d052259820fa98be5cc1811ca909a38586c67042bcd90b4f3d',
+    'rocm-smi-lib-asan-debuginfo'                   :  '8406baeb9900e6bb44e31f4a25130b8a18db06698cd98d551946c46ad1eb2080',
+    'rocm-smi-lib-debuginfo'                        :  'ac6d24555208ffe7ecf63b3d6a08d7d06ab82358c01dc42c9a09968ec2bc2cf9',
+    'rocm-utils'                                    :  '993e07678706bb0fcbbc0c60ed42285e5523bc6805e1f2cc6991e6c16cca1f7a',
+    'rocm-validation-suite'                         :  'ff612e3f3888835b8c8865f27a4d56473228df4ff2b338f803343814a07774b0',
+    'rocminfo'                                      :  '78518c397745d44188305fc747374d02a2ea6d0ebda64b70a7b93dd224c034ab',
+    'rocminfo-debuginfo'                            :  '6c0cba205ac9fd48c9d93642244d218bb4265ae99aaf17fd5618c130596ea7c6',
+    'rocprim-devel'                                 :  '157695b340e9031bd9c59054d9099ce51164514f47e1fa1a7297998a39773dbd',
+    'rocprofiler'                                   :  '292bc39d90efebcf563649c9ca71b6347dde01f803edd6c5183c30556e70bcee',
+    'rocprofiler-asan'                              :  '6f8d558aa0752834e225ae5b9d30f85fff2741acaa81ad696b88490f4338356f',
+    'rocprofiler-asan-debuginfo'                    :  'fc7c598601b53a9a3ad5c39cb12581a436fe7ee3f6754a554a501a65f72830d6',
+    'rocprofiler-debuginfo'                         :  '6c4329677b8b09b6070401ca155170a4271d21161d609b3cbdee222bfaa2cb19',
+    'rocprofiler-devel'                             :  '5446d672c3ee1f18c43a91f3ffae932d864a49c23ed5043f07ffd7a457803450',
+    'rocprofiler-docs'                              :  '6d5fb6b0b24949bd3637e0c875d69e40ba9650d2255dfec2e744a93d5ea031e1',
+    'rocprofiler-plugins'                           :  '38f325f90077ea9228d30b37a475019b630ce9596a52aa5665060bc050bd23e8',
+    'rocprofiler-plugins-debuginfo'                 :  '6d916c6467a3f040c1d9f8a66b7591f0d7963631bdebc5960a2967f2c0a17c64',
+    'rocprofiler-register'                          :  'b8be6c55e97ee0f341c8685c2852c52dfcf0a748cfaebda0874878bb32ff3a4f',
+    'rocprofiler-sdk'                               :  'df015bf40a154cba13c4cea43bcb9940ed5f9e1debaafa1d431f9dd090770cdc',
+    'rocprofiler-sdk-debuginfo'                     :  '6fbb07f74c22fd0affe722a87b92fa525e840ee5901ad590110816f724e9d0a3',
+    'rocprofiler-sdk-roctx'                         :  '6b9bdb46eda2332ead11a957e898b9752c6aab803a596b00e85f271866c940de',
+    'rocprofiler-sdk-roctx-debuginfo'               :  'f2f2d30d3f2b9742f7a6444a8e5f631b170959fa3636340bc85cffb2ccc41f3d',
+    'rocrand'                                       :  '2e243c9752c1573bb08056c96371a82e0d9e0641d2a928d22600840680d0a45a',
+    'rocrand-asan'                                  :  'cd3126c4cadc73e7a71fe3d29b1cdc8044e2f9c77bc64a931f30627aa46aab50',
+    'rocrand-debuginfo'                             :  '379c5ed8454539825041e2f55db014e0fd9d213a9db320f6a888d2b1af1dcd5c',
+    'rocrand-devel'                                 :  '598598c5a3e0976795ea31fee649267d8e43bc9d4cc7207d0bc2d4999cec71ae',
+    'rocsolver'                                     :  'a74ddef6b4983517a0d53e12cf6d8a757781419398bae1aad3ee00034e541c36',
+    'rocsolver-asan'                                :  '84f47c6519b68a1f2521065b1f1f6f3f6f87e958cd4b190bd896cea4cc4051bf',
+    'rocsolver-debuginfo'                           :  '4edba0b58dd66480fd7dd8c08a17fa33ab07ddd2a3594f99a42a714613b0f43d',
+    'rocsolver-devel'                               :  'dda539014dc6934155413bcc49aee7fc32355ce3234f84a6210a1ca0163d481b',
+    'rocsparse'                                     :  'b079d8308a3d212b2067865d5d3f2f3b5a56765d0e656d3948c8e01049e1e21a',
+    'rocsparse-asan'                                :  '6b50d9153b82eedefc1f6b522c72c53d9a3ceab3484e5fd0920414d3e28f226c',
+    'rocsparse-debuginfo'                           :  '8ddfd39dc1aecb8a084f487f1f5ef8e1c8c485738a669b3d89b150107f8e3cdf',
+    'rocsparse-devel'                               :  '9b02c93d639675541f98ad321d15f3d26c08a2003f959b3ea4d0d139531b4cf6',
+    'rocthrust-devel'                               :  'a85c0257c36e299540e086df5c8165ab01634d8df4e0e1ffad50a00e7d1f80a7',
+    'roctracer'                                     :  '2fa621e16d9924506bd5a3e0be99d55610fe61d5489025f74c16858ed2e428f6',
+    'roctracer-asan'                                :  '0ead3a0aff6724965cc968556e0fdaa89400f898016d291fbfe3bbab634f237d',
+    'roctracer-asan-debuginfo'                      :  '3dd9921cd0a995a137bba890c321026b186f163fd80cb5bad6a2fbf88f02d896',
+    'roctracer-debuginfo'                           :  'c71c732d2db08e3d98c7265ac8ce7c78427f6f218daea2f602bb6ed3fc42ffef',
+    'roctracer-devel'                               :  '84f7a5e5c6343c15bf8440f81084d19a57e727082133c5f93bf2de3b6221c193',
+    'rocwmma-devel'                                 :  '5cccbac695756f6239535fe38f75076eac44d1113ecc8e7bdc280b465026ff7e',
+    'rpp'                                           :  '63b9a3eb2bf3165df854ea5252c49344e5e5e85be307200124b79497292adc65',
+    'rpp-asan'                                      :  'd7187c4ac425002778dca6cb2798cbfb4cf1be70ba1ad30803745a641682d1d0',
+    'rpp-debuginfo'                                 :  'aabf99a14df572e912749e4ea4432eb4e20b05f9b511f651e58a527db392ca8e',
+    'rpp-devel'                                     :  '7ea2627c5e05aa1bdd3aafd6860abd0663b7703a944156f8b47ae351ec521839',
+    'rpp-test'                                      :  'eae5c2894829b9ae4d6f399b07a9cc8373eb7d886f45eb6ba12dc824b4bab9dd',
+}
+
+postinstall_script = """
+echo "gfx90a" > %(installdir)s/bin/target.lst
+
+pushd %(installdir)s/lib
+
+find . -maxdepth 1 -type f -name "*.so*" -exec sh -c '
+  if file $0 | grep -q "dynamically"; then
+    patchelf --force-rpath --set-rpath "\$ORIGIN:\$ORIGIN/llvm/lib" $0
+  fi' {} \;
+
+for subdir in roctracer omnitrace migraphx; do
+  pushd $subdir
+  find . -maxdepth 1 -type f -name "*.so*" -exec sh -c '
+    if file $0 | grep -q "dynamically"; then
+      patchelf --force-rpath --set-rpath "\$ORIGIN:\$ORIGIN/../:\$ORIGIN/../llvm/lib" $0
+    fi' {} \;
+  popd
+done
+
+for lib in "*migraphx*.so*"; do
+  if file $lib | grep -q "dynamically"; then
+    patchelf --force-rpath --set-rpath "\$ORIGIN:\$ORIGIN/llvm/lib:\$ORIGIN/migraphx/lib" $lib
+  fi
+done
+
+for lib in "*omnitrace*.so*"; do
+  if file $lib | grep -q "dynamically"; then
+    patchelf --force-rpath --set-rpath "\$ORIGIN:\$ORIGIN/llvm/lib:\$ORIGIN/omnitrace" $lib
+  fi
+done
+
+for compiler in clang++ clang-cpp clang; do
+  echo "-Wl,-rpath=$PWD" >> ./llvm/bin/$compiler.cfg
+  echo "-Wl,-rpath=$PWD/llvm/lib" >> ./llvm/bin/$compiler.cfg
+done
+
+sed -i "s/enable-new-dtags/disable-new-dtags/" ./llvm/bin/rocm.cfg
+
+popd
+
+omniperfdir=%(installdir)s/libexec/omniperf
+mkdir -p $omniperfdir/deps
+
+sed -i '34i sys.path.insert(0, f"'$omniperfdir'/deps/lib/python3.{sys.version_info[1]}/site-packages")' $omniperfdir/omniperf
+
+unset PYTHONPATH
+
+for pythonmod in $(module --terse av cray-python 2>&1 | grep ^cray-python); do
+  module load $pythonmod
+  python_minmaj=$(python -c 'import sys; print(f"{sys.version_info[0]}.{sys.version_info[1]}")')
+  
+  if [[ ! -d $omniperfdir/deps/lib/python$python_minmaj ]]; then
+    pip install --ignore-installed --no-cache-dir --prefix=$omniperfdir/deps -r $omniperfdir/requirements.txt
+  fi
+done
+"""
+
+pkg_config = """
+Name: rocm-%(version)s
+Version: %(version)s
+Description: ROCm Toolkit
+
+rocm_prefix=%(installdir)s
+includedir=${rocm_prefix}/include
+libdir=${rocm_prefix}/lib
+
+profiler_includedir=${rocm_prefix}/include/rocprofiler
+profiler_libdir=${rocm_prefix}/lib/rocprofiler
+
+tracer_includedir=${rocm_prefix}/include/roctracer
+tracer_libdir=${rocm_prefix}/lib/roctracer
+
+Cflags: -I${includedir} -I${profiler_includedir} -I${tracer_includedir} -D__HIP_PLATFORM_AMD__
+Libs: -L${libdir} -L${profiler_libdir} -L${tracer_libdir} -lamdhip64
+"""
+
+modextravars = {
+  'CRAY_ROCM_VERSION'         : '%(version)s',
+  'CRAY_ROCM_DIR'             : '%(installdir)s',
+  'CRAY_ROCM_PREFIX'          : '%(installdir)s',
+  'CRAY_AMD_COMPILER_PREFIX'  : '%(installdir)s',
+  'CRAY_AMD_COMPILER_VERSION' : '%(version)s',
+}
+
+modluafooter = """
+append_path("PE_PRODUCT_LIST", "CRAY_ROCM")
+prepend_path("PE_PKGCONFIG_LIBS", "rocm-%(version_major_minor)s")
+LmodMessage('Warning For advanced users: This module comes with the asan and debug libraries installed' ..
+        'However, to make sure that in the runtime the libraries are correctly loaded from this module' ..
+        'and not from /opt/rocm, we have hardcoded the correct paths in the module libraries and executables.' ..
+        'If you need to use the asan or debug versions of the libraries you will have to LD_PRELOAD ' ..
+        'them instead of just prepending LD_LIBRARY_PATH')
+"""
+
+moduleclass = 'devel'
