@@ -1,3 +1,6 @@
+#DOC This version may be useful as an upgrade in 24.03 or a downgrade of the
+#DOC default ROCm in 25.03, and is known to solve some rare issues when using
+#DOC the Cray compilers in 25.03.
 easyblock = 'EB_rocmrpms'
 name = 'rocm'
 version = '6.2.4'

@@ -1,3 +1,5 @@
+#DOC This version of ROCm(tm) is the base version for the experimental 25.09 
+#DOC stack and is available in `CrayEnv` and `LUMI/25.09`.
 easyblock = 'EB_rocmrpms'
 name = 'rocm'
 version = '6.4.4'
