@@ -51,16 +51,27 @@ class EB_rocmrpms(Bundle):
         sed_cmd_ver   = 'sed -i s#/opt/'     + rocm_dir_name + '#' + self.installdir + '# {} +'
         sed_cmd_nover = 'sed -i s#/opt/rocm'                 + '#' + self.installdir + '# {} +'
 
-        install_cmds = [
-            'cd ' + component_dir,
-            'rpm2cpio %s | cpio -idmv' % rpm,
-            'cd ' + os.path.join(component_dir, os.path.join('opt', rocm_dir_name)),
-            find_cmd + sed_cmd_ver,
-            find_cmd + sed_cmd_nover,
-            'cp -ar . ' + self.installdir,
-            'cd ' + self.builddir,
-            'rm -rf ' + component_dir,
-        ]
+        install_cmds = []    
+        if '-debuginfo' in name :
+            install_cmds = [
+                'cd ' + component_dir,
+                'rpm2cpio %s | cpio -idmv' % rpm,
+                'cd ' + os.path.join(component_dir, os.path.join('usr/lib/debug/opt', rocm_dir_name)),
+                'cp -ar . ' + os.path.join(self.installdir,'debug'),
+                'cd ' + self.builddir,
+                'rm -rf ' + component_dir,
+            ]
+        else : 
+            install_cmds = [
+                'cd ' + component_dir,
+                'rpm2cpio %s | cpio -idmv' % rpm,
+                'cd ' + os.path.join(component_dir, os.path.join('opt', rocm_dir_name)),
+                find_cmd + sed_cmd_ver,
+                find_cmd + sed_cmd_nover,
+                'cp -ar . ' + self.installdir,
+                'cd ' + self.builddir,
+                'rm -rf ' + component_dir,
+            ]
 
         component_cfgs = {
             'easyblock'       : 'Binary',
@@ -92,10 +103,11 @@ class EB_rocmrpms(Bundle):
             'index_url'           : [None, 'URL of the index file', CUSTOM],
             'pkg_config'          : [None, 'Content of the pkgconfig file', CUSTOM],
             'exclude_packages'    : [None, 'List of package names to exclude', CUSTOM],
-            'extra_components'    : [None, 'Additional components to be added to the compoents list', CUSTOM],
             'gpu_archs'           : [None, 'List of GPU architecture used to filter miopen compiled for specific a architecture', CUSTOM],
             'component_checksums' : [None, 'Checksums of the ROCm RPMs', CUSTOM],
             'postinstall_script'  : [None, 'The content of a script to run after installation', CUSTOM],
+            'exclude_asan'        : [True, 'exclude asan packages (default true)', CUSTOM],
+            'exclude_debug'       : [True, 'exclude debug packages (default true)', CUSTOM],
         })
 
         return Bundle.extra_options(extra_vars=extra_vars)
@@ -126,6 +138,8 @@ class EB_rocmrpms(Bundle):
         version = self.version.split('.')
         self.version_major = version[0]
         self.version_minor = version[1]
+        exclude_asan=self.cfg.get('exclude_asan')
+        exclude_debug=self.cfg.get('exclude_debug')
 
         components = []
         for (name, version, rpm) in self._process_index(read_file(index_path)):
@@ -135,10 +149,10 @@ class EB_rocmrpms(Bundle):
             if name.startswith('miopen-opencl'):
                 self.log.debug('%s excluded, only miopen-hip is supported', rpm)
                 continue
-            if '-debuginfo' in name:
+            if '-debuginfo' in name and exclude_debug:
                 self.log.debug('%s excluded (debuginfo variant)', rpm)
                 continue;
-            if '-asan' in name:
+            if '-asan' in name and exclude_asan:
                 self.log.debug('%s excluded (ASAN variant)', rpm)
                 continue;
             if '-rpath' in name:
@@ -164,10 +178,6 @@ class EB_rocmrpms(Bundle):
 
             components.append(self._process_component(name, version, rpm))
             exclude.append(name)
-
-        if self.cfg.get('extra_components'):
-            for comp in self.cfg.get('extra_components'):
-                components.append(comp)
 
         self.cfg['components'] = components
 

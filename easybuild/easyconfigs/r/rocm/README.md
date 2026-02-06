@@ -49,4 +49,17 @@ Early Access Platform can compile their code from the login node.
     
 		-   [ROCm 5.4.6 documentation](https://rocm.docs.amd.com/en/docs-5.4.3/)
 		-   [ROCm 5.6.1 documentation](https://rocm.docs.amd.com/en/docs-5.6.1/)
-        -   [ROCm 6.2.2 documantation](https://rocm.docs.amd.com/en/docs-6.2.2/)
+        -   [ROCm 6.2.2 documentation](https://rocm.docs.amd.com/en/docs-6.2.2/)
+
+
+### 6.2.4 and 6.4.4
+
+-   As previous ROCm Easyconfigs, but with support for the address sanitizer and 
+    debug symbols also. However, the libraries for the address sanitizer and 
+    debug symbols need to be activated with `LD_PRELOAD`.
+
+-   Documentation:
+
+        -   [ROCm 6.2.4 documentation](https://rocm.docs.amd.com/en/docs-6.2.4/)
+        -   [ROCm 6.4.4 documentation (6.4.3 as this is the closest available)](https://rocm.docs.amd.com/en/docs-6.4.3/)
+
