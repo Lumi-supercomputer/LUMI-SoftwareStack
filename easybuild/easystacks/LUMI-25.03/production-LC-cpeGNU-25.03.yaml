@@ -103,6 +103,7 @@ easyconfigs:
 ## Block 12
 ## Some libraries from the apps section of before, and applications(s)
   - METIS-5.1.0-cpeGNU-25.03.eb    # Deprecated but there as we installed it at the start.
+  - METIS-5.1.0-cpeGNU-25.03-idx32-fp32.eb
   - METIS-5.1.0-cpeGNU-25.03-idx32-fp64.eb
   - ParMETIS-4.0.3-cpeGNU-25.03.eb # Deprecated but there as we installed it at the start.
   - ParMETIS-4.0.3-cpeGNU-25.03-idx32-fp32.eb
