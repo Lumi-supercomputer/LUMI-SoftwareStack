@@ -1,0 +1,15 @@
+Patch by Kurt Lust for LUMI.
+Extend the METIS EasyBlock so that it honours preconfigopts also as we need this to 
+edit the metis.h header file to set the datatypes to build with.
+diff -Nau easybuild_easyblocks-5.1.2/easybuild/easyblocks/m/metis.py.orig easybuild_easyblocks-5.1.2/easybuild/easyblocks/m/metis.py
+--- easybuild-easyblocks-5.1.2/easybuild/easyblocks/m/metis.py.orig	2026-02-03 17:07:41.000000000 +0200
++++ easybuild-easyblocks-5.1.2/easybuild/easyblocks/m/metis.py	2026-02-03 17:08:29.000000000 +0200
+@@ -59,7 +59,7 @@
+                 # patch Makefile to tell CMake not to wipe the RPATHs we inject...
+                 apply_regex_substitutions('Makefile', [(r'^(CONFIG_FLAGS\s*=\s*)', r'\1 -DCMAKE_SKIP_RPATH=ON ')])
+ 
+-            cmd = "make %s config prefix=%s" % (self.cfg['configopts'], self.installdir)
++            cmd = "%s make %s config prefix=%s" % (self.cfg['preconfigopts'], self.cfg['configopts'], self.installdir)
+             run_shell_cmd(cmd)
+ 
+             if 'shared=1' in self.cfg['configopts']:

@@ -206,3 +206,19 @@ EasyBuild/4.9.4:
 The 25.03 stack was initially developed with EasyBuild 4.9.4 and the module is still
 present for testing and debugging purposes. However, EasyConfigs have been adapted
 to EasyBuild 5 and some may even not work anymore with EasyBuild 4.9.4.
+
+cray-python/3.10.10:
+The mpi4py package in this version of Cray Python is incompatible with the current
+network stack. The only solution is to move to a newer version of Cray Python. No fix 
+will be made available.
+
+cray-mpich/8.1.27:
+This version of the MPI library which came with the currently unsupported 23.09 version
+of the programming environment, is no longer compatible with the network stack on the
+system. For users of the GNU compilers, there is no solution. Users of other compilers:
+Unless you use rpath linking or prepend/append CRAY_LD_LIBRARYPATH to LD_LIBRARYPATH, 
+programs will likely run as they will effectively use the MPI libraries from the 
+default version of the programming environment. If you don't understand this text, then
+you should start using version 25.03 of the programming environment as you will have more
+issues.
+

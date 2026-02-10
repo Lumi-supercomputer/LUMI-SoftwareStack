@@ -6,8 +6,8 @@ local_craypython_version =        '3.11.7'
 local_wheel_cray_version     =   '0.45.1'      # wheel      20241123 - Check on https://pypi.org/project/wheel/#history
 local_flit_core_cray_version =   '3.12.0'      # flit_core  20250325 - Check on https://pypi.org/project/flit-core/#history
 
-name =          'EasyBuild'
-version =       local_EasyBuild_version
+name =    'EasyBuild'
+version = local_EasyBuild_version
 
 local_EB_lzip_version =           '1.25'   # 20250117 - https://download.savannah.gnu.org/releases/lzip/
 local_EB_p7zip_version =          '17.05'  # 20230220 - Check on https://github.com/p7zip-project/p7zip/releases
@@ -137,6 +137,7 @@ components = [
                             {'name': 'EasyBuild-5.1.2_framework_extra-file-formats.patch',                   'level': 0, 'sourcepath': '.'},
                             {'name': 'EasyBuild-5.1.2_framework_keyring-DBus.patch',                         'level': 0, 'sourcepath': '.'},
                             # EasyBlock patches for LUMI
+                            {'name': 'EasyBuild-5.1.2_EasyBlock_METIS.patch',                                'level': 0, 'sourcepath': '.'},
                             {'name': 'EasyBuild-5.1.2_EasyBlock_ParMETIS.patch',                             'level': 0, 'sourcepath': '.'},
                             {'name': 'EasyBuild-5.1.2_EasyBlock_pythonpackage.patch',                        'level': 0, 'sourcepath': '.'},
                             {'name': 'EasyBuild-5.1.2_EasyBlock_mesonninja.patch',                           'level': 0, 'sourcepath': '.'},
@@ -152,6 +153,7 @@ components = [
                             {'EasyBuild-5.1.2_framework_extra-file-formats.patch':          'e60d4ac564ede0dc0e50183ffa5080b205ce2d1bf27f34acf9139c350254d932'},
                             {'EasyBuild-5.1.2_framework_keyring-DBus.patch':                '5d0bf9c55a99462a0c9a901bf9a638393d42b8d431cc284c7a702178483837d8'},
                             # EasyBlock patches for LUMI
+                            {'EasyBuild-5.1.2_EasyBlock_METIS.patch':                       '77218739440fab71c8d9ab943d03fed2773c88d1941558bb2a2d591929bfd8d5'},
                             {'EasyBuild-5.1.2_EasyBlock_ParMETIS.patch':                    '36a47daebb483139c7da71f36ca0a338b782b0329fa60c25f42e9ef6a45e66d2'},
                             {'EasyBuild-5.1.2_EasyBlock_pythonpackage.patch':               '64dea071ecee7943fed321e8a3b5c7831bcc8a125b568e47c9f7ec95e14af97e'},
                             {'EasyBuild-5.1.2_EasyBlock_mesonninja.patch':                  '8023fb0446cf7a14c0e3f589ac651613f7366fa367d9b5a2c73c9c44c21b0bd1'},
