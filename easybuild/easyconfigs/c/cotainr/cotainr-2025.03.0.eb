@@ -59,13 +59,13 @@ local_systems = """{
     "base-image": "docker://ubuntu:24.04"
   },
   "lumi-g": {
-    "base-image": "/appl/local/containers/sif-images/lumi-rocm-rocm-6.0.3.sif"
+    "base-image": "/appl/local/containers/easybuild-sif-images/cotainr/lumi-rocm-rocm-6.0.3.sif"
   },
   "rocm-6.1": {
-    "base-image": "/appl/local/containers/sif-images/lumi-rocm-rocm-6.1.3.sif"
+    "base-image": "/appl/local/containers/easybuild-sif-images/cotainr/lumi-rocm-rocm-6.1.3.sif"
   },
   "rocm-6.2": {
-    "base-image": "/appl/local/containers/sif-images/lumi-rocm-rocm-6.2.2.sif"
+    "base-image": "/appl/local/containers/easybuild-sif-images/cotainr/lumi-rocm-rocm-6.2.4.sif"
   }
 }"""
 
