@@ -1,6 +1,8 @@
 #DOC This version of ROCm(tm) is the base version for the experimental 25.09 
 #DOC stack and is available in `CrayEnv` and `LUMI/25.09`.
 easyblock = 'EB_rocmrpms'
+easybuild_version = '5.0.0'
+
 name = 'rocm'
 version = '6.4.4'
 
@@ -334,16 +336,41 @@ Libs: -L${libdir} -L${profiler_libdir} -L${tracer_libdir} -lamdhip64
 """
 
 modextravars = {
+  # rocm version
   'CRAY_ROCM_VERSION'         : '%(version)s',
+  # CrayPE uses this to find location of rocm
   'CRAY_ROCM_DIR'             : '%(installdir)s',
+  # Old duplicate value of CRAY_ROCM_DIR
   'CRAY_ROCM_PREFIX'          : '%(installdir)s',
+  # In discussion at HPE: May not need to be in the rocm module (may bring in gpu links)
+  #'ROCM_PATH'                 : '%(installdir)s', # Set by the EasyBlock.
+  # Used to override the standard hip dir. (CrayPE doesnt use this.) In here for compatibility with the Cray ROCm modules
+  'HIP_LIB_PATH'              : '%(installdir)s/lib',
+  # Set Cray module environment variables (perftools related)
+  'CRAY_ROCM_INCLUDE_OPTS'    : '-I %(installdir)s/include -I %(installdir)s/rocprofiler -I %(installdir)s/include/roctracer -I %(installdir)s/include/hip -D__HIP_PLATFORM_AMD__',
+  # Not sure if the next one is needed, but it is in the Cray PE ROCm modules
+  'CRAY_ROCM_POST_LINK_OPTS'  : '-L %(installdir)s/lib -L %(installdir)s/lib/rocprofiler -L %(installdir)s/include/roctracer -lamdhip64',
+  # The next variables come from the amd module and ensure that this ROCm module can also be used with a non-matching
+  # amd module if it is loaded after that amd module.
   'CRAY_AMD_COMPILER_PREFIX'  : '%(installdir)s',
   'CRAY_AMD_COMPILER_VERSION' : '%(version)s',
 }
 
-modluafooter = """
-append_path("PE_PRODUCT_LIST", "CRAY_ROCM")
-prepend_path("PE_PKGCONFIG_LIBS", "rocm-%(version_major_minor)s")
+local_version_major_minor = '.'.join( version.split('.') )
+
+modextrapaths = {
+    'CMAKE_PREFIX_PATH' : 'lib/lib/cmake/hip',
+    'LD_LIBRARY_PATH': {
+        'paths':   ['lib', 'lib/rocprofiler', 'lib/roctracer'],
+        'prepend': True,
+    },
+    'PKG_CONFIG_PATH': 'lib/pkgconfig',
+}
+
+modluafooter = f"""
+append_path(  "PE_PRODUCT_LIST",   "CRAY_ROCM" )
+prepend_path( "PE_PKGCONFIG_LIBS", "rocm-{local_version_major_minor}" )
+
 if mode() == "load" then
     LmodMessage( '\\nWarning For advanced users: This module comes with the asan and debug libraries installed.\\n' ..
                  'However, to make sure that in the runtime the libraries are correctly loaded from this module\\n' ..

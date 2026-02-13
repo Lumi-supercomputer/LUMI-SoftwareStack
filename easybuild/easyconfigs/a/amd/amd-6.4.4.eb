@@ -1,0 +1,112 @@
+easyblock = 'Bundle'
+
+name =    'amd'
+version = '6.4.4'
+
+homepage = 'https://docs.lumi-supercomputer.eu/'
+
+whatis = [
+    'Description: defines the system paths and environment variables needed to use the AMD ROCm compilers.'
+]
+
+description = f"""
+The amd module defines the system paths and environment variables needed to use
+the AMD ROCm compilers.
+
+This module is not part of the official Cray Programming Environment. It's
+provided by the LUMI user support team to allow the users to use the 
+rocm/{version} module with the Cray compiler wrappers as if it was the official 
+Cray amd compiler module for which we have no proper version of the
+amd module.
+"""
+
+toolchain = SYSTEM
+
+dependencies = [
+    ('rocm', version),
+]
+
+import subprocess
+local_rocm_root = subprocess.run(
+  f'module load rocm/{version} && echo $ROCM_PATH', 
+   shell=True,
+   stdout=subprocess.PIPE
+).stdout.decode('utf-8').strip()
+
+local_amd_lmod = 'amd/4.0' # LMOD_DIR/COMPAT_VERSION from the amd module from Cray
+local_ofi = 'ofi/1.0'
+
+local_pkgconfig_content = """
+Name: amdcompiler
+Description: ROCm AMD compiler
+Version: %(rocm_version)s
+Requires.private: gcc-toolchain
+Cflags: -Wno-unused-command-line-argument
+Libs: -Wl,-rpath=%(rocm_root)s/llvm/lib -Wl,-rpath=/opt/cray/pe/gcc-libs
+
+""" % {
+    'rocm_root'    : local_rocm_root,
+    'rocm_version' : '%(version)s',
+}
+
+postinstallcmds = [
+    'mkdir -p %(installdir)s/pkgconfig', 
+    'cd %(installdir)s/pkgconfig ; cat >amdcompiler-%(version)s.pc <<EOF\n' + local_pkgconfig_content.replace('$', '\$') + '\nEOF\n',
+    'cd %(installdir)s/pkgconfig ; ln -s amdcompiler-%(version)s.pc amdcompiler.pc',
+]
+
+modluafooter = """
+
+family("compiler")
+conflict("amd-mixed")
+
+local rocm_root = "%(rocm_root)s"
+-- local rocm_was_loaded = isloaded("rocm")
+
+-- if rocm_was_loaded then 
+--   -- Unload rocm; we'll load it again at the end.
+--   unload("rocm") 
+-- end
+
+-- prepend_path("PATH", pathJoin(rocm_root, "bin")) -- Comes in via the ROCm module for this version
+prepend_path("LIBRARY_PATH", pathJoin(rocm_root, "llvm/lib"))
+prepend_path("LD_LIBRARY_PATH", pathJoin(rocm_root, "llvm/lib"))
+prepend_path("C_INCLUDE_PATH", pathJoin(rocm_root, "llvm/include"))
+prepend_path("CPLUS_INCLUDE_PATH", pathJoin(rocm_root, "llvm/include"))
+prepend_path("CMAKE_PREFIX_PATH", rocm_root)
+-- prepend_path("CMAKE_PREFIX_PATH", pathJoin(rocm_root, "hip")) -- Already done in the rocm module
+
+-- Environment variables for Cray compilers used by CrayPE
+-- setenv("CRAY_AMD_COMPILER_PREFIX", rocm_root)           -- Comes in via the rocm module
+-- setenv("CRAY_AMD_COMPILER_VERSION", "%(rocm_version)s") -- Comes in via the rocm module
+
+-- LMOD stuff
+setenv("CRAY_LMOD_COMPILER", "%(amd_lmod)s")
+-- AMD_MIX_MOD_PATH from the amd module
+prepend_path("MODULEPATH", "/opt/cray/pe/lmod/modulefiles/mix_compilers")
+-- AMD_MOD_LIB_PATH from the amd module
+prepend_path("MODULEPATH", pathJoin("/opt/cray/pe/lmod/modulefiles/compiler", "%(amd_lmod)s"))
+-- This is the tricky one that in the real amd module is set only if certain conditions are met
+prepend_path("MODULEPATH", pathJoin("/opt/cray/pe/lmod/modulefiles/comnet", "%(amd_lmod)s", "%(ofi)s"))
+
+-- Code straight from the amd module from Cray
+if os.getenv("LMOD_FAMILY_PRGENV") ~= nil then
+    if not isloaded("PrgEnv-amd") then
+        load("PrgEnv-amd")
+    end
+end
+
+-- if rocm_was_loaded then 
+--     load("rocm/%(rocm_version)s")
+-- end
+
+""" % {
+  'rocm_root'    : local_rocm_root,
+  'rocm_version' : '%(version)s',
+  'install_root' : '%(installdir)s',
+  'amd_lmod'     : local_amd_lmod,
+  'ofi'          : local_ofi,
+}
+
+moduleclass = 'compiler'
+
