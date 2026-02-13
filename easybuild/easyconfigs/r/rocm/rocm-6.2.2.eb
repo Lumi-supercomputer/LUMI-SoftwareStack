@@ -237,6 +237,10 @@ for pythonmod in $(module --terse av cray-python 2>&1 | grep ^cray-python); do
     pip install --ignore-installed --no-cache-dir --prefix=$omniperfdir/deps -r $omniperfdir/requirements.txt
   fi
 done
+
+pushd %(installdir)s
+find . -type f -perm /111 -exec chmod go+rx '{}' \;
+popd
 """
 
 pkg_config = """

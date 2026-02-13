@@ -79,7 +79,6 @@ exclude_packages = [
 exclude_asan=False
 exclude_debug=False
 
-
 component_checksums = {
     'amd-smi-lib'                      :  '16375f89c5b7754ddeabd8f1d4b6407626158cc492449dcaf02eba26daead992',
     'amd-smi-lib-asan'                 :  '2ff3f1a2d42481b5fec696475a235360b3aad015de5c8bf5ca1614e434a41fb7',
@@ -310,6 +309,9 @@ sed -i "s/enable-new-dtags/disable-new-dtags/" ./llvm/bin/rocm.cfg
 
 popd
 
+pushd %(installdir)s
+find . -type f -perm /111 -exec chmod go+rx '{}' \;
+popd
 """
 
 pkg_config = """
