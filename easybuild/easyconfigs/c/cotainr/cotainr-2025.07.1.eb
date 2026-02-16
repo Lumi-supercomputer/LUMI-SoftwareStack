@@ -2,7 +2,7 @@
 easyblock = 'Tarball'
 
 name =          'cotainr'
-version =       '2025.07.1'
+version =       '2025.7.1'
 #versionsuffix = '-20240909'
 
 homepage = 'https://github.com/DeiC-HPC/container-builder'
