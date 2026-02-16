@@ -114,6 +114,7 @@ EOF
 if [ -n "$SINGULARITY_CONTAINER" ]
 then
 	partitions=( 'C' 'G' 'L' )
+    GPUpartitions=( 'G' )
 	cpeGNU=( 'C:G:L' )
     cpeCray=( 'C:G:L' )
     cpeAMD=( 'G' )
@@ -121,16 +122,13 @@ then
 elif [[ -d '/appl/lumi' ]]
 then
 	#partitions=( 'C' 'G' 'D' 'L' 'EAP' )
+    #GPUpartitions=( 'G' 'EAP' )
 	#cpeGNU=( 'common:C:G:D:L:EAP' )
     #cpeCray=( 'common:C:G:D:L:EAP' )
     #cpeAOCC=( 'common:C:D:L' )
     #cpeAMD=( 'G:EAP' )
-	#partitions=( 'C' 'G' 'D' 'L' )
-	#cpeGNU=( 'common:C:G:D:L' )
-    #cpeCray=( 'common:C:G:D:L' )
-    #cpeAOCC=( 'common:C:D:L' )
-    #cpeAMD=( 'G' )
 	partitions=( 'C' 'D' 'G' 'L' )
+    GPUpartitions=( 'G' )
 	cpeGNU=( 'common:C:D:G:L' )
     cpeCray=( 'common:C:G:L' )
     cpeAOCC=( 'common:C:L' )
@@ -138,6 +136,7 @@ then
     declare -A cpeENV=( ['cpeGNU']=$cpeGNU ['cpeCray']=$cpeCray ['cpeAOCC']=$cpeAOCC ['cpeAMD']=$cpeAMD )
 else # We're likely on eiger, we can't test everything here.
 	partitions=( 'L' )
+    GPUpartitions=(  )
 	cpeGNU=( 'common:L' )
     cpeCray=( 'common:L' )
     cpeAOCC=( 'common:L' )
@@ -615,6 +614,25 @@ then
     # The next line will actually not cause an error if it is not set, so this is safe.
     unset cpeENV[cpeAMD]
     echo -e '\n\n\n!!! No amd module found so not installing cpeAMD.\n\n'
+    # Now remove the GPU partitions everywhere as when amd is not there, rocm isn't either.
+    for cpe in ${!cpeENV[@]}
+    do
+        #echo "\n\nDEBUG Processing $cpe.\n\n"
+        newpartitions=()
+        for partition in ${cpeENV[$cpe]//:/ }
+	    do
+            #echo "DEBUG: Processing partition $partition in $cpe."
+            # Add $partition to the array of new partitions if it is not in GPUpartitions.
+            # Coded with some AI help but checked
+            [[ " ${GPUpartitions[@]} " =~ " $partition " ]] || newpartitions+=( $partition )
+        done
+        # Merge all partitions in the array newpartitions using : as the separator.
+        # Tried with playing with IFS but that didn;t always work.
+        work="${newpartitions[@]}"
+        cpeENV[$cpe]="${work// /:}"
+        echo -e "Building $cpe for partitions ${cpeENV[$cpe]} instead."
+        unset newpartitions
+    done
 fi
 
 #
