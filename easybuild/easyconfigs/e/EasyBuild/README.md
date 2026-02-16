@@ -377,6 +377,14 @@ e.b., the [MATLAB EasyConfigs in the EasyBuilders repository](https://github.com
     the permissions on some of the scripts in the `bin` subdirectory.
 
 
+### 5.2.0 for 25.09
+
+-   Likely a temporary version as we will switch to 5.2.1 when this becomes available.
+
+-   Direct port of the 5.1.2 EasyConfig but an extra LUMI-specific patch was needed to fix a regression.
+    The patch is taken from the development version of EasyBuild 5.2.1.
+
+
 ## Fixes needed to EasyConfigs
 
 ### METIS
