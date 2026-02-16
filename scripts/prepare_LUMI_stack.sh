@@ -4,7 +4,6 @@
 #
 # The script takes the following arguments:
 #  * Version of the software stack
-#  * Version of EasyBuild to use
 #  * Work directory for temporary files
 #
 # The root of the installation is derived from the place where the script is found.
@@ -18,7 +17,7 @@
 # Checks of the arguments
 #
 
-if [ "$#" -ne 3 ]
+if [ "$#" -ne 2 ]
 then
 	# Here document, but avoid using <<- as indentation breaks when tabs would
 	# get replaced with spaces.
@@ -26,7 +25,6 @@ then
 
 This script expects 3 and only 3 command line arguments:
    * The version of the software stack (CPE version, with the extension .dev for a development stack)
-   * The version of EasyBuild to install in the software stack
    * A work directory for temporary files
 
 EOF
@@ -42,18 +40,32 @@ cd ..
 installroot=$(pwd)
 
 stack_version="$1"
-EBversion="$2"
-workdir="$3"
+workdir="$2"
 CPEversion=${stack_version%.dev}
 
-cat <<EOF
+#
+# Check: Does the CPE_packages-*.csv file exist?
+#
+CPEpackages_file="$installroot/$repo/CrayPE/CPEpackages_$CPEversion.csv"
+if [ ! -f "$CPEpackages_file" ]
+then
+	# Here document, but avoid using <<- as indentation breaks when tabs would
+	# get replaced with spaces.
+    cat <<EOF 1>&2
 
-  * Initialising software stack LUMI/$stack_version
-  * Using EasyBuild $EBversion
-  * Root of the installation: $installroot
-  * Using the work directory $workdir
+Failed to find the CPE package file CPEpackages_$CPEversion.csv for the requested
+software stack. The file should be in
+$installroot/$repo/CrayPE
+before running this script.
 
 EOF
+    exit 1
+fi
+
+#
+# Detecting EasyBuild version
+#
+EBversion="$(grep EasyBuild $installroot/$repo/CrayPE/CPEpackages_${stack_version}.csv | sed -e 's|EasyBuild,||')"
 
 #
 # Check: Does the EasyConfig exist?
@@ -76,23 +88,22 @@ EOF
 fi
 
 #
-# Check: Does the CPE_packages-*.csv file exist?
+# Detecting version of ROCm to use
 #
-CPEpackages_file="$installroot/$repo/CrayPE/CPEpackages_$CPEversion.csv"
-if [ ! -f "$CPEpackages_file" ]
-then
-	# Here document, but avoid using <<- as indentation breaks when tabs would
-	# get replaced with spaces.
-    cat <<EOF 1>&2
+ROCMversion="$(grep ROCM $installroot/$repo/CrayPE/CPEpackages_${stack_version}.csv | sed -e 's|ROCM,||')"
 
-Failed to find the CPE package file CPEpackages_$CPEversion.csv for the requested
-software stack. The file should be in
-$installroot/$repo/CrayPE
-before running this script.
+#
+# Print a message
+#
+cat <<EOF
+
+  * Initialising software stack LUMI/$stack_version
+  * Using EasyBuild $EBversion
+  * Root of the installation: $installroot
+  * Using the work directory $workdir
+  * Detected ROCm version: $ROCMversion
 
 EOF
-    exit 1
-fi
 
 
 ###############################################################################
@@ -589,6 +600,26 @@ done
 #
 
 echo -e "\n## Initialising the main toolchains...\n"
+
+#
+# First check if we can find a proper amd module
+#
+AMDfound=$(module load LUMI/$stack_version partition/G >& /dev/null ; module show amd/$ROCMversion |& grep -q amd/${ROCMversion}.lua ; echo $?)
+
+#
+# Without proper amd module, we have to skip installing cpeAMD.
+# We can then still do so by re-running this script after installing an amd and ROCm module.
+#
+if [[ $AMDfound -ne 0 ]] 
+then 
+    # The next line will actually not cause an error if it is not set, so this is safe.
+    unset cpeENV[cpeAMD]
+    echo -e '\n\n\n!!! No amd module found so not installing cpeAMD.\n\n'
+fi
+
+#
+# Now go on and install.
+#
 
 pushd $installroot/$repo/easybuild/easyconfigs/c
 
