@@ -23,6 +23,7 @@ local_makeinfo_version =         '7.2'         # texinfo    20241223 - Check on 
 local_Autoconf_version =         '2.72'        # Autoconf   20231222 - Check on https://ftp.gnu.org/gnu/autoconf/
 local_Autoconf_archive_version = '2024.10.16'  # Autoconf-Archive 20241016 - check on https://ftp.gnu.org/gnu/autoconf-archive/
 local_Automake_version =         '1.17'        # Automake   20240712 - Check on https://ftp.gnu.org/gnu/automake/
+local_CMake3_version =           '3.31.11'     # CMake      20260213 - Check on https://cmake.org/download/ (newer than EB 2025a)
 local_CMake_version =            '4.2.3'       # CMake      20260129 - Check on https://cmake.org/download/ (newer than EB 2025a)
 local_Ninja_version =            '1.13.1'      # Ninja      20250710 - Check on https://ninja-build.org/
 local_Doxygen_version =          '1.15.0'      # Doxygen    20240109 - Check on https://www.doxygen.nl/download.html (not yet in EB 2025a when checking)

@@ -1,0 +1,22 @@
+Patch by Kurt Lust to deal with different ways of working with submodules in different
+versions of Cray Fortran. The format must have changed in 18.0.0 or 18.0.1.
+diff -Nau cmake-3.31.11/Modules/Compiler/Cray-Fortran.cmake.orig cmake-3.31.11/Modules/Compiler/Cray-Fortran.cmake > CMake-3.31.11_Cray_Fortran_Submodules.patch
+--- cmake-3.31.11/Modules/Compiler/Cray-Fortran.cmake.orig	2026-02-13 19:41:30.000000000 +0200
++++ cmake-3.31.11/Modules/Compiler/Cray-Fortran.cmake	2026-02-13 19:43:00.000000000 +0200
+@@ -4,8 +4,14 @@
+ include(Compiler/Cray)
+ __compiler_cray(Fortran)
+ 
+-set(CMAKE_Fortran_SUBMODULE_SEP "")
+-set(CMAKE_Fortran_SUBMODULE_EXT ".mod")
++if (NOT CMAKE_Fortran_COMPILER_VERSION VERSION_LESS 18.0.1)
++  set(CMAKE_Fortran_SUBMODULE_SEP ".")
++  set(CMAKE_Fortran_SUBMODULE_EXT ".smod")
++else()
++  set(CMAKE_Fortran_SUBMODULE_SEP "")
++  set(CMAKE_Fortran_SUBMODULE_EXT ".mod")
++endif()
++
+ set(CMAKE_Fortran_MODOUT_FLAG -em)
+ set(CMAKE_Fortran_MODDIR_FLAG -J)
+ set(CMAKE_Fortran_MODDIR_DEFAULT .)

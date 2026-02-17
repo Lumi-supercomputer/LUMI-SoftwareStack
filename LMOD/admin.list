@@ -196,6 +196,10 @@ This module is deprecated and will be removed from LUMI after the January 2026 u
 parallel/20240422:
 This module is deprecated and will be removed from LUMI after the January 2026 update.
 
+buildtools/25.09-CMake3:
+This module is meant for those packages that require an older CMake version than offered
+by the regular buildtools/25.09 module (which uses CMake 4.2.3).
+
 ccpe/25.03%-.*:
 We recommend using this module only if you want to extend the container or believe this
 is a way to keep your software running after the next update.

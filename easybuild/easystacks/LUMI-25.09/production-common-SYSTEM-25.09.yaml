@@ -4,6 +4,7 @@ easyconfigs:
   - buildtools-python-25.09-cray-python3.11.eb
   - syslibs-25.09-static.eb
   - buildtools-25.09.eb
+  - buildtools-25.09-CMake3.eb
   - systools-25.09.eb
   - Lzip-tools-25.09.eb
   - nano-8.5.eb       # System nano is good enough though so update not really needed
