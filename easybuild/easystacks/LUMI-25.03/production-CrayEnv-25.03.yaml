@@ -17,5 +17,4 @@ easyconfigs:
   - cotainr-2025.7.1.eb
   - parallel-20260122.eb
   - lumi-CrayPath-0.1.eb
-  - rocm-6.4.4.eb
-  - amd-6.4.4.eb
+  
