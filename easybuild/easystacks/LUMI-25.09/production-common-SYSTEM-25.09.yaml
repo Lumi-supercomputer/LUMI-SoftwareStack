@@ -8,12 +8,12 @@ easyconfigs:
   - Lzip-tools-25.09.eb
   - nano-8.5.eb       # System nano is good enough though so update not really needed
 #  - Vim-9.1.0447.eb   # System vim is good enough
-  - git-2.49.0.eb
+  - git-2.53.0.eb
   - Subversion-1.14.5.eb
   - Eigen-3.4.0.eb
   - xorg-macros-1.20.2.eb 
 #  - lumi-container-wrapper-0.4.2-cray-python-3.11.7.eb  # Ready but makes no sense in a containerised environment.
 #  - cotainr-2025.09.0-cray-python-3.11.7.eb  # Ready but makes no sense in a containerised environment
-  - parallel-20250422.eb
+  - parallel-20260122.eb
   - lumi-CrayPath-0.1.eb
   

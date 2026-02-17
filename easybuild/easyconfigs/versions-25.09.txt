@@ -96,7 +96,7 @@ local_Zutils_version =      '1.15'   # https://download.savannah.gnu.org/release
 #
 # Some SYSTEM applications
 #
-local_git_version =          '2.49.0'        # https://github.com/git/git/tags
+local_git_version =          '2.53.0'        # https://github.com/git/git/tags
 local_nano_version =         '8.5'           # https://www.nano-editor.org/download.php
 local_parallel_version =     '20260122'      # https://ftp.gnu.org/gnu/parallel/ (Not yet in EB 2025a when checking)
 local_Vim_version =          '9.1.1202'      # https://github.com/vim/vim/tags

@@ -65,3 +65,7 @@
     **Retro-actively applied this change to some older EasyConfigs to be able to 
     re-build on SP6.**
 
+
+### Version 20260122 using the system perl for 25.09
+
+-   Trivial version bump of the EasyConfig for 20250422.
