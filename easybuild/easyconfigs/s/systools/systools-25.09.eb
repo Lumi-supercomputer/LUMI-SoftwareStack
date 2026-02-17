@@ -17,7 +17,7 @@ whatis = [
 ]
 
 local_systools_GPP_version =          '2.28'         # https://github.com/logological/gpp/releases
-local_systools_htop_version =         '3.3.0'        # https://github.com/htop-dev/htop/releases
+local_systools_htop_version =         '3.4.1'        # https://github.com/htop-dev/htop/releases
 local_systools_pbzip2_version =       '1.1.13'       # http://compression.great-site.net/pbzip2/
 local_systools_libtree_version =      '3.1.1'        # https://github.com/haampie/libtree/releases
 local_systools_tree_version =         '2.2.1'        # https://gitlab.com/OldManProgrammer/unix-tree/-/tags
@@ -125,7 +125,7 @@ components = [
                             'filename':          SOURCE_TAR_XZ,
                             'source_urls':       [f'https://github.com/htop-dev/htop/releases/download/{local_systools_htop_version}']
                          } ],
-        'checksums':     ['a69acf9b42ff592c4861010fce7d8006805f0d6ef0e8ee647a6ee6e59b743d5c'],
+        'checksums':     ['904f7d4580fc11cffc7e0f06895a4789e0c1c054435752c151e812fead9f6220'],
         'start_dir':     '%(name)s-%(version)s',
         'preconfigopts': 'CFLAGS="-O2 -march=znver1" CXXFLAGS="-O2 -march=znver1" LDFLAGS="-L$EBROOTNCURSES/lib" ',
         #'configopts':    '--enable-static --enable-unicode --enable-affinity',

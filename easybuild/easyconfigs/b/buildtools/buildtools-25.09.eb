@@ -31,8 +31,7 @@ local_makeinfo_version =         '7.2'         # texinfo    20241223 - Check on 
 local_Autoconf_version =         '2.72'        # Autoconf   20231222 - Check on https://ftp.gnu.org/gnu/autoconf/
 local_Autoconf_archive_version = '2024.10.16'  # Autoconf-Archive 20241016 - check on https://ftp.gnu.org/gnu/autoconf-archive/
 local_Automake_version =         '1.17'        # Automake   20240712 - Check on https://ftp.gnu.org/gnu/automake/
-local_CMake3_version =           '3.31.10'     # CMake      20251117 - Check on https://cmake.org/download/ (newer than EB 2025a)
-local_CMake4_version =           '4.2.1'       # CMake      20251209 - Check on https://cmake.org/download/ (newer than EB 2025a)
+local_CMake_version =            '4.2.3'       # CMake      20260129 - Check on https://cmake.org/download/ (newer than EB 2025a)
 local_Ninja_version =            '1.13.1'      # Ninja      20250710 - Check on https://ninja-build.org/
 local_Doxygen_version =          '1.15.0'      # Doxygen    20240109 - Check on https://www.doxygen.nl/download.html (not yet in EB 2025a when checking)
 local_help2man_version =         '1.49.3'      # help2man   20221215 - Check on https://ftp.gnu.org/gnu/help2man/
@@ -103,7 +102,7 @@ Note that makeinfo is not fully functional as there is no TeX on the system.
     'bison'           : local_Bison_version,
     'flex'            : local_flex_version,
     'byacc'           : local_byacc_version,
-    'cmake'           : local_CMake3_version,
+    'cmake'           : local_CMake_version,
     'ninja'           : local_Ninja_version,
     'nasm'            : local_NASM_version,
     'yasm'            : local_Yasm_version,
@@ -244,10 +243,14 @@ components = [
         'checksums':   ['6e226b732e1cd739464ad6862bd1a1aba42d7982922da7a53519631d24975181'],
         'start_dir':   '%(namelower)s-%(version)s'
         }),
-    ('CMake', local_CMake3_version, {
+    ('CMake', local_CMake_version, {
         'sources':     [SOURCELOWER_TAR_GZ],
         'source_urls': ['https://cmake.org/files/v%(version_major_minor)s'],
-        'checksums':   ['cf06fadfd6d41fa8e1ade5099e54976d1d844fd1487ab99942341f91b13d3e29'],
+        'patches':     ['CMake-%(version)s_Cray_Fortran_Submodules.patch'],
+        'checksums':   [
+                           '7efaccde8c5a6b2968bad6ce0fe60e19b6e10701a12fce948c2bf79bac8a11e9', # cmake-4.2.3.tar.gz
+                           '6d24684a3f4563341dd4ca234753c5e45924c7c5c791e96158a2f3c52ead5b6d', # CMake-4.2.3_Cray_Fortran_Submodules.patch
+                       ],
         'start_dir':   '%(namelower)s-%(version)s',
         'configopts':  '-- -DCMAKE_USE_OPENSSL=1'
         }),
@@ -390,7 +393,7 @@ sanity_check_paths = {
               'share/aclocal-' +  '.'.join(local_Automake_version.split('.')[:2]),
               'share/automake-' + '.'.join(local_Automake_version.split('.')[:2])] +
              # CMake
-             ['share/cmake-' + '.'.join(local_CMake3_version.split('.')[:2])] +
+             ['share/cmake-' + '.'.join(local_CMake_version.split('.')[:2])] +
              ['share/info'],
 }
 
@@ -483,7 +486,7 @@ modextravars = {
     'EBROOTSED':                   '%(installdir)s',
     'EBVERSIONSED':                local_sed_version,
     'EBROOTCMAKE':                 '%(installdir)s',
-    'EBVERSIONCMAKE':              local_CMake3_version,
+    'EBVERSIONCMAKE':              local_CMake_version,
     'EBROOTNINJA':                 '%(installdir)s',
     'EBVERSIONNINJA':              local_Ninja_version,
     'EBROOTNASM':                  '%(installdir)s',
@@ -524,7 +527,7 @@ extensions( "Autoconf/%(autoconf)s, Autoconf-archive/%(autoconfarchive)s, Automa
     'bison'           : local_Bison_version,
     'flex'            : local_flex_version,
     'byacc'           : local_byacc_version,
-    'cmake'           : local_CMake3_version,
+    'cmake'           : local_CMake_version,
     'ninja'           : local_Ninja_version,
     'nasm'            : local_NASM_version,
     'yasm'            : local_Yasm_version,

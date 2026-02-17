@@ -1,12 +1,11 @@
 easyblock = 'ConfigureMake'
 
-import os as local_os
-
 # The first line below is a dirty trick not very much loved by the EasyBuild developers but
-# it helps to make this EasyConfig indpendent of the LUMI software stack version as there is
+# it helps to make this EasyConfig independent of the LUMI software stack version as there is
 # no other reference to that version in the file that we can use since it relies on the
 # SYSTEM toolchain.
-local_LUMI_version =         '25.03'
+import os as local_os
+local_LUMI_version = local_os.getenv('LUMI_STACK_VERSION', default='25.03')
 
 local_xorg_macros_version =  '1.20.2'        # https://cgit.freedesktop.org/xorg/util/macros
 
