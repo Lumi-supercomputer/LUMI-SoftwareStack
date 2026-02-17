@@ -48,7 +48,7 @@ toolchainopts = {'pic': True}
 
 source_urls = [GNU_SAVANNAH_SOURCE]
 sources =     [SOURCE_TAR_GZ]
-checksums =   ['5c3a8e78f7b24c20b25b54ee575d6daa40007a5f4eea2845861c3409b3021747']
+checksums =   ['174d9e53402e1bf9ec7277e22ec199ba3e55a6be2c0740cb18c0ee9850fc8c34']
 
 builddependencies = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),

@@ -52,7 +52,7 @@ toolchainopts = {'pic': True}
 
 source_urls = ['https://download.gnome.org/sources/libxml2/%(version_major)s.%(version_minor)s/']
 sources =     [SOURCELOWER_TAR_XZ]
-checksums =   ['65d042e1c8010243e617efb02afda20b85c2160acdbfbcb5b26b80cec6515650']
+checksums =   ['c008bac08fd5c7b4a87f7b8a71f283fa581d80d80ff8d2efd3b26224c39bc54c']
 
 dependencies = [
     ('ICU',  local_ICU_version),

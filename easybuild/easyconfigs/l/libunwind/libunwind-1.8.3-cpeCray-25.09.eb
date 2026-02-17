@@ -47,7 +47,7 @@ toolchain = {'name': 'cpeCray', 'version': '25.09'}
 
 source_urls = ['https://github.com/libunwind/libunwind/releases/download/v%(version)s/']
 sources =     [SOURCE_TAR_GZ]
-checksums =   ['ddf0e32dd5fafe5283198d37e4bf9decf7ba1770b6e7e006c33e6df79e6a6157']
+checksums =   ['be30d910e67f58d82e753231f1357f326a1a088acf126b21ff77e60aab19b90b']
 
 builddependencies = [
     ('buildtools', '%(toolchain_version)s', '', True),

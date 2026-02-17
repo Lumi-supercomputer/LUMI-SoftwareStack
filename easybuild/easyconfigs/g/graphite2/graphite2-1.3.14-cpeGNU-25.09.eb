@@ -35,6 +35,8 @@ builddependencies = [
 preconfigopts = 'module unload cray-libsci rocm xpmem && '
 prebuildopts  = preconfigopts
 
+configopts = '-DCMAKE_POLICY_VERSION_MINIMUM=3.5' # Needed for CMake 4.
+
 postinstallcmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
     'cd ../graphite-%(version)s && cp COPYING ChangeLog LICENSE README.md %(installdir)s/share/licenses/%(name)s'

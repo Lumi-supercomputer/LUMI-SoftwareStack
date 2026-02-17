@@ -52,7 +52,7 @@ sources = [
     },
 ]
 checksums = [
-    {'scotch_v7.0.10.tar.gz':        '8327725a08cdd4fc7575e291251883b4f93f75b07a54bc58f89f50dcbba7b244'},
+    {'scotch_v7.0.10.tar.gz':        '9ce24e2419da7c4e22dec3377cf3dad098aa0951be1118810b19a5f829522e12'},
     {'Makefile.inc.CPE.%(version)s': '39d34c95446e68e6010f7a0ad72009efd9c913644abb2ca284b68ea048155974'},
 ]
 

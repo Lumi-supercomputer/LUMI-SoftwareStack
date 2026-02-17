@@ -21,3 +21,4 @@
 -   The EasyConfig is developed based on the one in the EasyBuilders repository but
     with the LUST layout and conventions.
 
+-   Needed to add `-DCMAKE_POLICY_VERSION_MINIMUM=3.5` to `configopts` 

@@ -51,9 +51,9 @@ toolchainopts = {'pic': True}
 
 # https://www.sqlite.org/2021/sqlite-autoconf-3350500.tar.gz
 local_filename_version = '%1d%02d%02d00' % (int(version.split('.')[0]), int(version.split('.')[1]), int(version.split('.')[2]))
-source_urls = ['https://www.sqlite.org/2024/']
+source_urls = ['https://www.sqlite.org/2025/']
 sources =     ['%%(namelower)s-autoconf-%s.tar.gz' % (local_filename_version)]
-checksums =   ['f1b2ee412c28d7472bc95ba996368d6f0cdcf00362affdadb27ed286c179540b']
+checksums =   ['4f2445cd70479724d32ad015ec7fd37fbb6f6130013bd4bfbc80c32beb42b7e0']
 
 builddependencies = [ # Create a reproducible build environment.
     ('buildtools',   '%(toolchain_version)s',   '', True),

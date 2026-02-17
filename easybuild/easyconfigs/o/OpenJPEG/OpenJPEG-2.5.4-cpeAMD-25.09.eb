@@ -31,9 +31,9 @@ toolchainopts = {'pic': True}
 sources = [{
                'download_filename': 'v%(version)s.tar.gz',
                'filename':          SOURCE_TAR_GZ,
-               'sourceurls':        ['https://github.com/uclouvain/%(namelower)s/archive'], 
+               'source_urls':       ['https://github.com/uclouvain/%(namelower)s/archive'], 
 }]
-checksums =   ['a695fbe19c0165f295a8531b1e4e855cd94d0875d2f88ec4b61080677e27188a']
+checksums =   ['368fe0468228e767433c9ebdea82ad9d801a3ad1e4234421f352c8b06e7aa707']
 
 builddependencies = [
     ('buildtools', '%(toolchain_version)s', '', SYSTEM),

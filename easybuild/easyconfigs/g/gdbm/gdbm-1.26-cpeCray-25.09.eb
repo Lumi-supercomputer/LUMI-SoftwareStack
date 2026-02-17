@@ -51,7 +51,7 @@ toolchainopts = {'pic': True}
 # ftp://ftp.gnu.org/gnu/gdbm/gdbm-1.18.1.tar.gz
 sources =     [SOURCELOWER_TAR_GZ]
 source_urls = [GNU_SOURCE]
-checksums =   ['d02db3c5926ed877f8817b81cd1f92f53ef74ca8c6db543fbba0271b34f393ec']
+checksums =   ['6a24504a14de4a744103dcb936be976df6fbe88ccff26065e54c1c47946f4a5e']
 
 builddependencies = [
     ('buildtools', '%(toolchain_version)s', '', True),

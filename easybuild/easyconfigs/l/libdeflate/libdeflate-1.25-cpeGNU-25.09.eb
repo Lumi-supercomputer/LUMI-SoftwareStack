@@ -49,7 +49,7 @@ sources = {
     'filename':          SOURCELOWER_TAR_GZ,
     'source_urls':       [GITHUB_SOURCE],
 }
-checksums = ['fed5cd22f00f30cc4c2e5329f94e2b8a901df9fa45ee255cb70e2b0b42344477']
+checksums = ['d11473c1ad4c57d874695e8026865e38b47116bbcb872bfc622ec8f37a86017d']
 
 builddependencies = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True), # For CMake

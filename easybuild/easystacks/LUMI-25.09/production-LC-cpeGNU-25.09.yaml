@@ -4,7 +4,7 @@ easyconfigs:
   - Brotli-1.2.0-cpeGNU-25.09.eb
   - bzip2-1.0.8-cpeGNU-25.09.eb
   - DB-18.1.40-cpeGNU-25.09.eb
-  - double-conversion-3.3.1-cpeGNU-25.09.eb
+  - double-conversion-3.4.0-cpeGNU-25.09.eb
   - expat-2.7.3-cpeGNU-25.09.eb
   - FriBidi-1.0.16-cpeGNU-25.09.eb
   - gc-8.2.8-cpeGNU-25.09.eb
@@ -25,7 +25,7 @@ easyconfigs:
   - libjpeg-turbo-3.1.3-cpeGNU-25.09.eb
   - libogg-1.3.6-cpeGNU-25.09.eb
   - libopus-1.5.2-cpeGNU-25.09.eb
-  - libtirpc-1.3.6-cpeGNU-25.09.eb
+  - libtirpc-1.3.7-cpeGNU-25.09.eb
   - LMDB-0.9.31-cpeGNU-25.09.eb
   - lz4-1.10.0-cpeGNU-25.09.eb
   - Lzip-1.25-cpeGNU-25.09.eb
@@ -34,7 +34,7 @@ easyconfigs:
   - mpdecimal-4.0.1-cpeGNU-25.09.eb
   - ncurses-6.5-cpeGNU-25.09.eb
   - nlohmann-json-3.12.0-cpeGNU-25.09.eb
-  - oneTBB-2022.2.0-cpeGNU-25.09.eb    # Brought in for LUMI-D
+  - oneTBB-2022.3.0-cpeGNU-25.09.eb    # Brought in for LUMI-D
   - Szip-2.1.1-cpeGNU-25.09.eb
   - termcap-1.3.1-cpeGNU-25.09.eb # Haven't found how to get rid of it for for Term::ReadLine::Gnu
   - x264-20250831-cpeGNU-25.09.eb
@@ -43,12 +43,12 @@ easyconfigs:
 # Block 2
   - FLAC-1.5.0-cpeGNU-25.09.eb
   - gettext-0.26-cpeGNU-25.09-minimal.eb
-  - JasPer-4.2.5-cpeGNU-25.09.eb
+  - JasPer-4.2.8-cpeGNU-25.09.eb
   - LAME-3.100-cpeGNU-25.09.eb
   - libevent-2.1.12-cpeGNU-25.09.eb
   - libpciaccess-0.18.1-cpeGNU-25.09.eb
-  - libpng-1.6.53-cpeGNU-25.09.eb
-  - libreadline-8.3-cpeGNU-25.09.eb
+  - libpng-1.6.54-cpeGNU-25.09.eb
+  - libreadline-8.3.3-cpeGNU-25.09.eb
   - libvorbis-1.3.7-cpeGNU-25.09.eb
   #- LLVM-18.1.8-cpeGNU-25.09.eb    # Brought in for LUMI-D
   - MPFR-4.2.2-cpeGNU-25.09.eb
@@ -57,27 +57,27 @@ easyconfigs:
   - Tcl-9.0.3-cpeGNU-25.09.eb
   - UDUNITS-2.2.28-cpeGNU-25.09.eb
 ## Block 3
-  - freetype-2.13.3-cpeGNU-25.09.eb
+  - freetype-2.14.1-cpeGNU-25.09.eb
   - libiconv-1.18-cpeGNU-25.09.eb
   - libsndfile-1.2.2-cpeGNU-25.09.eb
   - MPC-1.3.1-cpeGNU-25.09.eb
-  - PCRE2-10.45-cpeGNU-25.09.eb
+  - PCRE2-10.47-cpeGNU-25.09.eb
   - pixman-0.42.2-cpeGNU-25.09.eb
-  - SQLite-3.47.2-cpeGNU-25.09.eb
-  - XZ-5.6.3-cpeGNU-25.09.eb
+  - SQLite-3.51.1-cpeGNU-25.09.eb
+  - XZ-5.8.1-cpeGNU-25.09.eb
 ## Block 4
   - file-5.46-cpeGNU-25.09.eb
-  - libunistring-1.3-cpeGNU-25.09.eb
-  - libunwind-1.8.1-cpeGNU-25.09.eb
-  - libxml2-2.13.4-cpeGNU-25.09.eb
+  - libunistring-1.4.1-cpeGNU-25.09.eb
+  - libunwind-1.8.3-cpeGNU-25.09.eb
+  - libxml2-2.15.1-cpeGNU-25.09.eb
   - zstd-1.5.7-cpeGNU-25.09.eb
 ## Block 5
   - Boost-1.90.0-cpeGNU-25.09.eb
   - gettext-0.26-cpeGNU-25.09.eb
   - libarchive-3.8.4-cpeGNU-25.09.eb
   - libpsl-0.21.5-cpeGNU-25.09.eb
-  - LibTIFF-4.7.0-cpeGNU-25.09.eb
-  - libxslt-1.1.42-cpeGNU-25.09.eb
+  - LibTIFF-4.7.1-cpeGNU-25.09.eb
+  - libxslt-1.1.45-cpeGNU-25.09.eb
 ## Block 6
 ## TODO: New Boost.python.
   - cURL-8.17.0-cpeGNU-25.09.eb
@@ -130,7 +130,7 @@ easyconfigs:
 ## With block 10
   - GObject-Introspection-1.86.0-cpeGNU-25.09-cray-python3.11.eb
 ## With block 11
-  - HarfBuzz-11.2.1-cpeGNU-25.09.eb
+  - HarfBuzz-12.2.0-cpeGNU-25.09.eb
 ## With block 12
   - Pango-1.57.0-cpeGNU-25.09.eb
 ## With apps (as they depend on other low-priority packages)

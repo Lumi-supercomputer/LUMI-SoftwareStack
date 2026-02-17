@@ -47,7 +47,7 @@ toolchainopts = {'pic': True}
 
 source_urls = ['https://download.gnome.org/sources/libxslt/%(version_major_minor)s/']
 sources =     [SOURCE_TAR_XZ]
-checksums =   ['85ca62cac0d41fc77d3f6033da9df6fd73d20ea2fc18b0a3609ffb4110e1baeb']
+checksums =   ['9acfe68419c4d06a45c550321b3212762d92f41465062ca4ea19e632ee5d216e']
 
 builddependencies = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),

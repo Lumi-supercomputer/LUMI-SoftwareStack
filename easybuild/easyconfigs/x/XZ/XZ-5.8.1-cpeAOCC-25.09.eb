@@ -73,7 +73,7 @@ toolchainopts = {'pic': True}
 
 sources =     [SOURCELOWER_TAR_XZ]
 source_urls = ['http://tukaani.org/xz/']
-checksums =   ['db0590629b6f0fa36e74aea5f9731dc6f8df068ce7b7bafa45301832a5eebc3a',]  # xz-5.6.3.tar.xz
+checksums =   ['0b54f79df85912504de0b14aec7971e3f964491af1812d83447005807513cd9e',]  # xz-5.8.1.tar.xz
 
 builddependencies = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '',        True),

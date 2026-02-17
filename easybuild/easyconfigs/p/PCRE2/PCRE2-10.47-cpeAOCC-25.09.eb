@@ -31,12 +31,12 @@ software_license_urls = [
     f'https://github.com/PCRE2Project/pcre2/blob/pcre2-{version}/LICENCE',
 ]
 
-toolchain = {'name': 'cpeAMD', 'version': '25.09'}
+toolchain = {'name': 'cpeAOCC', 'version': '25.09'}
 toolchainopts = {'pic': True}
 
 source_urls = ['https://github.com/PCRE2Project/%(namelower)s/releases/download/%(namelower)s-%(version)s']
 sources =     [SOURCELOWER_TAR_BZ2]
-checksums =   ['21547f3516120c75597e5b30a992e27a592a31950b5140e7b8bfde3f192033c4']
+checksums =   ['47fe8c99461250d42f89e6e8fdaeba9da057855d06eb7fc08d9ca03fd08d7bc7']
 
 builddependencies = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),

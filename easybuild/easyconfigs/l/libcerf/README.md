@@ -44,3 +44,6 @@
 ### Version 3.3 for 25.09
 
 -   Switching to a 3.X version as EasyBuild has also switched over.
+
+-   Disabling running `pkg-config` for now as the structure of the .pc-file is not
+    compatible with the command on LUMI.

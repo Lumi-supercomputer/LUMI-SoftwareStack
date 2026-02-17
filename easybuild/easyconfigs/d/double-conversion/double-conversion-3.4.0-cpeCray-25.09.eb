@@ -31,7 +31,7 @@ sources = [{
     'filename':          SOURCE_TAR_GZ,
     'source_urls':       ['https://github.com/google/%(name)s/archive']
 }]
-checksums =   ['fe54901055c71302dcdc5c3ccbe265a6c191978f3761ce1414d0895d6b0ea90e']
+checksums =   ['42fd4d980ea86426e457b24bdfa835a6f5ad9517ddb01cdb42b99ab9c8dd5dc9']
 
 builddependencies = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True), # For CMake

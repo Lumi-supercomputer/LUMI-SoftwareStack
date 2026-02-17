@@ -38,7 +38,7 @@ toolchainopts = {'pic': True}
 
 sources =     [SOURCELOWER_TAR_XZ]
 source_urls = [GNU_SOURCE]
-checksums =   ['f245786c831d25150f3dfb4317cda1acc5e3f79a5da4ad073ddca58886569527']
+checksums =   ['67d88430892527861903788868c77802a217b0959990f7449f2976126a307763']
 
 builddependencies = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
