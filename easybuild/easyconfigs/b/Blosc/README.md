@@ -49,3 +49,6 @@
 ### Version 1.21.6 for CPE 25.03 and 25.09
 
 -   Trivial version update of 1.21.5 for 24.03
+
+-   For 25.09, we needed to add ` -DCMAKE_POLICY_VERSION_MINIMUM=3.5` to the `configopts`
+    for compatibility with CMake 4.

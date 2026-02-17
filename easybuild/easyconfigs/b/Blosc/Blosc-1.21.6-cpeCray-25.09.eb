@@ -58,7 +58,7 @@ preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
 prebuildopts = preconfigopts
 
 # Make the directory structure uniform with ConfigureMake software.
-configopts = '-DCMAKE_INSTALL_LIBDIR=lib'
+configopts = '-DCMAKE_INSTALL_LIBDIR=lib -DCMAKE_POLICY_VERSION_MINIMUM=3.5'
 
 postinstallcmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
