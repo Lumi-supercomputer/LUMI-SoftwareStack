@@ -70,7 +70,7 @@ prebuildopts = preconfigopts
 
 # enable additional APIs that provide access to meta-data about tables and queries
 # needed for GDAL when it used as a dep for QGIS
-buildopts = 'CC="$CC" CFLAGS="$CFLAGS -DSQLITE_ENABLE_COLUMN_METADATA"'
+buildopts = 'CC="$CC" CFLAGS="$CFLAGS -DSQLITE_ENABLE_COLUMN_METADATA -lm"'
 
 #max_parallel = 1
 
