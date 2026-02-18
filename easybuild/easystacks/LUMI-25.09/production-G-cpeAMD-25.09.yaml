@@ -98,8 +98,10 @@ easyconfigs:
 ## Block 12
 ## Some libraries from the apps section of before, and applications(s)
 ##  - ELPA: Wait a bit, it looks like we need multiple versions and that it may need more testing.
-  - METIS-5.1.0-cpeAMD-25.09.eb
-  - ParMETIS-4.0.3-cpeAMD-25.09.eb
+  - METIS-5.1.0-cpeAMD-25.09-idx32-fp32.eb
+  - METIS-5.1.0-cpeAMD-25.09-idx32-fp64.eb
+  - ParMETIS-4.0.3-cpeAMD-25.09-idx32-fp32.eb
+  - ParMETIS-4.0.3-cpeAMD-25.09-idx32-fp64.eb
   - SCOTCH-6.1.3-cpeAMD-25.09.eb
   - SCOTCH-7.0.10-cpeAMD-25.09.eb
   - SuiteSparse-5.13.0-cpeAMD-25.09-OpenMP.eb

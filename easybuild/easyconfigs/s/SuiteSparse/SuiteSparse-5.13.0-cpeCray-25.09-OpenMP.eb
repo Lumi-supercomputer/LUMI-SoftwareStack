@@ -43,7 +43,7 @@ builddependencies = [
 ]
 
 dependencies = [
-    ('METIS', local_METIS_version),
+    ('METIS', local_METIS_version, '-idx32-fp64'), # This is not the default configuration of METIS, but done that way in EasyBuild.
     ('MPFR',  local_MPFR_version),
 ]
 

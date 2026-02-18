@@ -102,8 +102,10 @@ easyconfigs:
 ## Block 11
 ## Block 12
 ## Some libraries from the apps section of before, and applications(s)
-  - METIS-5.1.0-cpeGNU-25.09.eb
-  - ParMETIS-4.0.3-cpeGNU-25.09.eb
+  - METIS-5.1.0-cpeGNU-25.09-idx32-fp32.eb
+  - METIS-5.1.0-cpeGNU-25.09-idx32-fp64.eb
+  - ParMETIS-4.0.3-cpeGNU-25.09-idx32-fp32.eb
+  - ParMETIS-4.0.3-cpeGNU-25.09-idx32-fp64.eb
   - SCOTCH-6.1.3-cpeGNU-25.09.eb
   - SCOTCH-7.0.10-cpeGNU-25.09.eb  # Check if the EasyBlock needs an update!
 #  - ESMF-8.6.0-cpeGNU-25.09.eb
