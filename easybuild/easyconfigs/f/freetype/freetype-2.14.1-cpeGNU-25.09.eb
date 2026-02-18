@@ -67,7 +67,7 @@ prebuildopts = preconfigopts
 
 configopts = '--enable-freetype-config --with-harfbuzz=no'
 
-maxparallel = 1
+max_parallel = 1
 
 postinstallcmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',

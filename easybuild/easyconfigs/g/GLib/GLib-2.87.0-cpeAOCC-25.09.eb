@@ -91,7 +91,7 @@ preinstallopts = pretestopts = prebuildopts = preconfigopts
 
 configopts  = '--buildtype=release --default-library=both --libdir=lib'
 
-#parallel = 1 # For debugging
+#max_parallel = 1 # For debugging
 
 postinstallcmds = [
     # Fix shebangs and make very sure it uses cray-python.

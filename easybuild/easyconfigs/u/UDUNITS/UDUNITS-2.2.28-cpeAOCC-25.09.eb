@@ -67,7 +67,7 @@ dependencies = [
 preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
 prebuildopts = preconfigopts
 
-parallel = 1
+max_parallel = 1
 
 postinstallcmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',

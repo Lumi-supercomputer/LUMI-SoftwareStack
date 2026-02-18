@@ -71,7 +71,7 @@ prebuildopts = preconfigopts
 # needed for GDAL when it used as a dep for QGIS
 buildopts = 'CC="$CC" CFLAGS="$CFLAGS -DSQLITE_ENABLE_COLUMN_METADATA"'
 
-#parallel = 1
+#max_parallel = 1
 
 # No license information in the distribution, so can't copy that.
 
