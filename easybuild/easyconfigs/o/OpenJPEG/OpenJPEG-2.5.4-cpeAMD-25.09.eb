@@ -33,7 +33,7 @@ sources = [{
                'filename':          SOURCE_TAR_GZ,
                'source_urls':       ['https://github.com/uclouvain/%(namelower)s/archive'], 
 }]
-checksums =   ['368fe0468228e767433c9ebdea82ad9d801a3ad1e4234421f352c8b06e7aa707']
+checksums =   ['a695fbe19c0165f295a8531b1e4e855cd94d0875d2f88ec4b61080677e27188a']
 
 builddependencies = [
     ('buildtools', '%(toolchain_version)s', '', SYSTEM),
