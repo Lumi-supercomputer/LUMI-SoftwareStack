@@ -45,7 +45,7 @@ prebuildopts = preconfigopts
 pretestopts = preconfigopts
 preinstallopts = preconfigopts
 
-configopts = '--enable-threads EXTRA_INSTALL="install-private-headers"'
+configopts = 'EXTRA_INSTALL="install-private-headers"'
 
 start_dir = 'unix'
 
@@ -54,13 +54,13 @@ runtest = 'test'
 postinstallcmds = [
     'ln -s %(installdir)s/bin/tclsh%(version_major)s.%(version_minor)s %(installdir)s/bin/tclsh',
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
-    'cd .. && cp license.terms changes README.md %(installdir)s/share/licenses/%(name)s',   
+    'cd .. && cp license.terms changes.md README.md %(installdir)s/share/licenses/%(name)s',   
 ]
 
 sanity_check_paths = {
     'files': ['bin/tclsh%(version_major)s.%(version_minor)s', 'bin/tclsh',
               'include/tcl.h', 'lib/libtcl%%(version_major)s.%%(version_minor)s.%s' % SHLIB_EXT,
-              'lib/tclConfig.sh', 'man/man1/tclsh.1', f'share/licenses/{name}/license.terms'],
+              'lib/tclConfig.sh', 'share/man/man1/tclsh.1', f'share/licenses/{name}/license.terms'],
     'dirs':  ['share'],
 }
 
