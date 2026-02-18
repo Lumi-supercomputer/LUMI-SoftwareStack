@@ -50,3 +50,5 @@
 
 -   Trivial version bump of the EasyConfig for 2.13.4 in 25.03.
 
+-   Version 2.15 does no longer support LZMA, so the `XZ` dependency
+    has been dropped.
