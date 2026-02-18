@@ -54,7 +54,7 @@ prebuildopts = preconfigopts
 pretestopts = preconfigopts
 preinstallopts = preconfigopts
 
-configopts = '--enable-threads --with-tcl=$EBROOTTCL/lib CFLAGS="-I$EBROOTTCL/include"'
+configopts = '--with-tcl=$EBROOTTCL/lib CFLAGS="-I$EBROOTTCL/include"'
 
 installopts = "&& make install-private-headers"
 
@@ -64,12 +64,12 @@ postinstallcmds = [
     f"ln -s libtcl%(version_major)stk%(version_major_minor)s.{SHLIB_EXT} %(installdir)s/lib/libtk.{SHLIB_EXT}",
     # Copy license information
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
-    'cd .. && cp license.terms changes README.md %(installdir)s/share/licenses/%(name)s',   
+    'cd .. && cp license.terms changes.md README.md %(installdir)s/share/licenses/%(name)s',   
 ]
 
 sanity_check_paths = {
-    'files': ['bin/wish', 'lib/tkConfig.sh',   'include/tkInt.h', 'lib/libtk%(version_major_minor)s.' + SHLIB_EXT,
-              f'share/licenses/{name}/license.terms'],
+    'files': ['bin/wish', 'lib/tkConfig.sh',   'include/tkInt.h', 'lib/libtcl%(version_major)stk%(version_major_minor)s.' + SHLIB_EXT,
+              'lib/libtk.' + SHLIB_EXT, f'share/licenses/{name}/license.terms'],
     'dirs':  ['lib/tk%(version_major_minor)s'],
 }
 
