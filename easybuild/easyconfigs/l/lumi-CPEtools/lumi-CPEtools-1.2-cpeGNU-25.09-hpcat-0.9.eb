@@ -39,7 +39,7 @@ toolchain = {'name': 'cpeGNU', 'version': '25.09'}
 toolchainopts = {'usempi': False,'openmp': False}
 
 builddependencies = [
-    ('buildtools', '%(toolchain_version)s', '', SYSTEM), # For make
+    ('buildtools', '%(toolchain_version)s', '-CMake3', SYSTEM), # For make
 ]
 
 import os as local_os
