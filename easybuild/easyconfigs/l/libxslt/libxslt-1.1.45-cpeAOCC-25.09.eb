@@ -67,7 +67,7 @@ configopts = '--enable-static --enable-shared --with-crypto=no --with-python=no 
 
 postinstallcmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
-    'cp AUTHORS COPYING Copyright NEWS README.md %(installdir)s/share/licenses/%(name)s',   
+    'cp AUTHORS Copyright FEATURES NEWS README.md %(installdir)s/share/licenses/%(name)s',   
 ]
 
 sanity_check_paths = {
