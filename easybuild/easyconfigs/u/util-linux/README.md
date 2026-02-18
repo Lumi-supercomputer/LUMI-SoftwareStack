@@ -69,3 +69,5 @@
 
 -   Trivial port of the 2.40.0 EasyConfig for 25.03.
 
+-   There is still an issue with the cpeAOCC option which in turn may be due to an issue
+    with SQLite.
