@@ -151,3 +151,6 @@ The current content is
 ### 25.09
 
 -   Identical to the 25.03 version
+
+-   Except that we switched over to the new set of EasyConfig parameters to prepare for EasyBuild 6.
+

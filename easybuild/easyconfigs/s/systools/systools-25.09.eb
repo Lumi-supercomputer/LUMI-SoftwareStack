@@ -70,7 +70,7 @@ Overview of included tools:
     
   + libtree (version {local_systools_libtree_version}) is a tool that turns ldd into a tree, explains why
     shared libraries are found and why not and optionally deploys executables and
-    dependencies into a single directory.
+    deps into a single directory.
 
   + tree (version {local_systools_tree_version}): a recursive directory listing command that produces a depth indented
     listing of files, which is colorized ala dircolors if the LS_COLORS environment
@@ -98,7 +98,7 @@ docurls = [
 
 toolchain = SYSTEM
 
-builddependencies = [
+build_deps = [
     ('buildtools', local_LUMI_version),
     ('syslibs',    local_LUMI_version, '-static'), # for libreadline
 ]
@@ -108,48 +108,48 @@ default_easyblock = 'ConfigureMake'
 
 components = [
     ('GPP', local_systools_GPP_version, {
-        'easyblock':     'ConfigureMake',
-        'sources':       [ {
-                            'filename':    SOURCELOWER_TAR_BZ2,
-                            'source_urls': ['https://github.com/logological/gpp/releases/download/%(version)s']
-                         } ],
-        'checksums':     ['343d33d562e2492ca9b51ff2cc4b06968a17a85fdc59d5d4e78eed3b1d854b70'],
-        'start_dir':     '%(namelower)s-%(version)s',
-        'preconfigopts': 'CFLAGS="-O2 -march=znver1" CXXFLAGS="-O2 -march=znver1" ',
-        'installopts':   ' && mkdir -p %(installdir)s/share/licenses/%(name)s' +
-                         ' && cp COPYING COPYING.LESSER NEWS THANKS %(installdir)s/share/licenses/%(name)s'
+        'easyblock':          'ConfigureMake',
+        'sources':            [ {
+                                  'filename':    SOURCELOWER_TAR_BZ2,
+                                  'source_urls': ['https://github.com/logological/gpp/releases/download/%(version)s']
+                              } ],
+        'checksums':          ['343d33d562e2492ca9b51ff2cc4b06968a17a85fdc59d5d4e78eed3b1d854b70'],
+        'start_dir':          '%(namelower)s-%(version)s',
+        'pre_configure_opts': 'CFLAGS="-O2 -march=znver1" CXXFLAGS="-O2 -march=znver1" ',
+        'install_opts':       ' && mkdir -p %(installdir)s/share/licenses/%(name)s' +
+                              ' && cp COPYING COPYING.LESSER NEWS THANKS %(installdir)s/share/licenses/%(name)s'
     }),
     ('htop', local_systools_htop_version, {
-        'easyblock':     'ConfigureMake',
-        'sources':       [ { # https://github.com/htop-dev/htop/releases/download/3.3.0/htop-3.3.0.tar.xz
-                            'filename':          SOURCE_TAR_XZ,
-                            'source_urls':       [f'https://github.com/htop-dev/htop/releases/download/{local_systools_htop_version}']
-                         } ],
-        'checksums':     ['904f7d4580fc11cffc7e0f06895a4789e0c1c054435752c151e812fead9f6220'],
-        'start_dir':     '%(name)s-%(version)s',
-        'preconfigopts': 'CFLAGS="-O2 -march=znver1" CXXFLAGS="-O2 -march=znver1" LDFLAGS="-L$EBROOTNCURSES/lib" ',
-        #'configopts':    '--enable-static --enable-unicode --enable-affinity',
-        'configopts':    '--with-curses=ncursesw --enable-unicode --enable-affinity', # A fully static build causes issues when upgrading the OS...
-        'installopts':   ' && mkdir -p %(installdir)s/share/licenses/%(name)s' +
-                         ' && cp COPYING %(installdir)s/share/licenses/%(name)s'
+        'easyblock':          'ConfigureMake',
+        'sources':            [ { # https://github.com/htop-dev/htop/releases/download/3.3.0/htop-3.3.0.tar.xz
+                                  'filename':          SOURCE_TAR_XZ,
+                                  'source_urls':       [f'https://github.com/htop-dev/htop/releases/download/{local_systools_htop_version}']
+                              } ],
+        'checksums':          ['904f7d4580fc11cffc7e0f06895a4789e0c1c054435752c151e812fead9f6220'],
+        'start_dir':          '%(name)s-%(version)s',
+        'pre_configure_opts': 'CFLAGS="-O2 -march=znver1" CXXFLAGS="-O2 -march=znver1" LDFLAGS="-L$EBROOTNCURSES/lib" ',
+        #'configure_opts':    '--enable-static --enable-unicode --enable-affinity',
+        'configure_opts':     '--with-curses=ncursesw --enable-unicode --enable-affinity', # A fully static build causes issues when upgrading the OS...
+        'install_opts':       ' && mkdir -p %(installdir)s/share/licenses/%(name)s' +
+                              ' && cp COPYING %(installdir)s/share/licenses/%(name)s'
     }),
     ('pbzip2', local_systools_pbzip2_version, {
-        'easyblock':     'ConfigureMake',
-        'sources':       [ { # https://github.com/haampie/libtree/archive/refs/tags/v3.1.1.tar.gz
-                            'filename':          SOURCELOWER_TAR_GZ,
-                            'source_urls':       ['https://launchpad.net/pbzip2/1.1/1.1.13/+download']
-                         } ],
-        'patches':       ['%(name)s-%(version)s_LUMI.patch'],
-        'checksums':     [
+        'easyblock':      'ConfigureMake',
+        'sources':        [ { # https://github.com/haampie/libtree/archive/refs/tags/v3.1.1.tar.gz
+                             'filename':          SOURCELOWER_TAR_GZ,
+                             'source_urls':       ['https://launchpad.net/pbzip2/1.1/1.1.13/+download']
+                          } ],
+        'patches':        ['%(name)s-%(version)s_LUMI.patch'],
+        'checksums':      [
                               {'pbzip2-1.1.13.tar.gz':     '8fd13eaaa266f7ee91f85c1ea97c86d9c9cc985969db9059cdebcb1e1b7bdbe6'},
                               {'pbzip2-1.1.13_LUMI.patch': 'eae828715f36d125cb6319af15c517818b20bc783c86e201df471c32e705acc3'}
-                         ],
-        'start_dir':     '%(name)s-%(version)s',
-        'skipsteps':     ['configure'],
-        'prebuildopts':  'sed -e "s|CXXFLAGS = -O2|CXXFLAGS = -O2 -march=znver1 -std=c++98 -DLUMI_PATCH|" -i Makefile &&',
-        'installopts':   'PREFIX=%(installdir)s' +
-                         ' && mkdir -p %(installdir)s/share/licenses/%(name)s' +
-                         ' && cp AUTHORS COPYING README %(installdir)s/share/licenses/%(name)s',
+                          ],
+        'start_dir':      '%(name)s-%(version)s',
+        'skip_steps':     ['configure'],
+        'pre_build_opts': 'sed -e "s|CXXFLAGS = -O2|CXXFLAGS = -O2 -march=znver1 -std=c++98 -DLUMI_PATCH|" -i Makefile &&',
+        'install_opts':   'PREFIX=%(installdir)s' +
+                          ' && mkdir -p %(installdir)s/share/licenses/%(name)s' +
+                          ' && cp AUTHORS COPYING README %(installdir)s/share/licenses/%(name)s',
     }),
     ('libtree', local_systools_libtree_version, {
         'easyblock':     'MakeCp',
@@ -160,7 +160,7 @@ components = [
                          } ],
         'checksums':     ['6148436f54296945d22420254dd78e1829d60124bb2f5b9881320a6550f73f5c'],
         'start_dir':     '%(name)s-%(version)s',
-        'buildopts':     'CC="gcc" CFLAGS="-O2 -march=znver1" LDFLAGS="-static"',
+        'build_opts':    'CC="gcc" CFLAGS="-O2 -march=znver1" LDFLAGS="-static"',
         'files_to_copy': [(['libtree'], 'bin'), (['doc/libtree.1'], 'share/man/man1'), (['LICENSE'], 'share/licenses/%(name)s')]
     }),
     ('tree', local_systools_tree_version, {
@@ -171,24 +171,24 @@ components = [
                          } ],
         'checksums':     ['70d9c6fc7c5f4cb1f7560b43e2785194594b9b8f6855ab53376f6bd88667ee04'],
         'start_dir':     'unix-tree-%(version)s',
-        'buildopts':     'CC="gcc" CFLAGS="-O2 -march=znver1 -ggdb -pedantic -Wall -DLINUX -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64"',
+        'build_opts':     'CC="gcc" CFLAGS="-O2 -march=znver1 -ggdb -pedantic -Wall -DLINUX -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64"',
         'files_to_copy': [(['tree'], 'bin'), (['doc/tree.1'], 'share/man/man1'), (['LICENSE'], 'share/licenses/%(name)s')]
     }),
     ('PRoot', local_systools_PRoot_version, {
-        'sources':       [ { # https://github.com/haampie/libtree/archive/refs/tags/v3.1.1.tar.gz
-                            'download_filename': 'v%(version)s.zip',
-                            'filename':          SOURCELOWER_ZIP,
-                            'source_urls':       ['https://github.com/proot-me/proot/archive/refs/tags']
-                         } ],
-        'checksums':     ['8812f3a6c224bdd6a316f13689377e7543e7e3cebcdef6ec98827abee60fa327'],
-        'start_dir':     '%(namelower)s-%(version)s/src',
-        'skipsteps':     [ 'configure' ],
-        'prebuildopts':  'sed -e "s/.*GIT_.*//" -i GNUmakefile && ',
-        'buildopts':     'proot V=1 CFLAGS="-O2 -march=znver1" VERSION="%(version)s"',
-        'installopts':   'V=1 PREFIX="%(installdir)s"' +
-                         ' && mkdir -p %(installdir)s/share/licenses/%(name)s' +
-                         ' && cd ..' +
-                         ' && cp AUTHORS CHANGELOG.rst COPYING README.rst %(installdir)s/share/licenses/%(name)s',
+        'sources':        [ { # https://github.com/haampie/libtree/archive/refs/tags/v3.1.1.tar.gz
+                             'download_filename': 'v%(version)s.zip',
+                             'filename':          SOURCELOWER_ZIP,
+                             'source_urls':       ['https://github.com/proot-me/proot/archive/refs/tags']
+                          } ],
+        'checksums':      ['8812f3a6c224bdd6a316f13689377e7543e7e3cebcdef6ec98827abee60fa327'],
+        'start_dir':      '%(namelower)s-%(version)s/src',
+        'skip_steps':     [ 'configure' ],
+        'pre_build_opts': 'sed -e "s/.*GIT_.*//" -i GNUmakefile && ',
+        'build_opts':     'proot V=1 CFLAGS="-O2 -march=znver1" VERSION="%(version)s"',
+        'install_opts':   'V=1 PREFIX="%(installdir)s"' +
+                          ' && mkdir -p %(installdir)s/share/licenses/%(name)s' +
+                          ' && cd ..' +
+                          ' && cp AUTHORS CHANGELOG.rst COPYING README.rst %(installdir)s/share/licenses/%(name)s',
     }),
 ]
 
@@ -202,7 +202,7 @@ sanity_check_paths = {
     'dirs':  []
 }
 
-sanity_check_commands = [
+sanity_check_cmds = [
     'gpp --version',
     'htop --version',
     'pbzip2 -h 2>&1 | grep "Parallel BZIP2 v%(version)s"'
@@ -212,9 +212,9 @@ sanity_check_commands = [
     'proot --version'
 ]
 
-modluafooter = f"""
+env_mod_lua_footer = f"""
 extensions( "GPP/{local_systools_GPP_version}, htop/{local_systools_htop_version}, pbzip2/{local_systools_pbzip2_version}, " ..
             "libtree/{local_systools_libtree_version}, tree/{local_systools_tree_version}, PRoot/{local_systools_PRoot_version}" )
 """
 
-moduleclass = 'tools'
+env_mod_category = 'tools'
