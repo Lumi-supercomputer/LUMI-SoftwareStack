@@ -6,9 +6,9 @@ easyblock = 'Bundle'
 
 local_LUMI_version =         '25.09'
 
-name =          'syslibs'
-version =       local_LUMI_version
-versionsuffix = '-static'
+name =           'syslibs'
+version =        local_LUMI_version
+version_suffix = '-static'
 
 homepage = '(none)'
 
@@ -16,7 +16,7 @@ homepage = '(none)'
 # Contrary to what the LMOD documentation makes you believe, it seems that help is
 # not searched when using module keyword.
 whatis = [
-    "Description: A number of libraries that are mostly also on the system but as static libraries to be used as build dependencies.",
+    "Description: A number of libraries that are mostly also on the system but as static libraries to be used as build deps.",
     "Contains: ncurses/ncursesw, readline, bzip2, zlib, lz4, cURL, expat, APR/APR-util, file, PCRE2, SQLite3",
 ]
 
@@ -39,8 +39,8 @@ local_syslibs_talloc_version =       '2.4.3'         # https://www.samba.org/ftp
 
 description = f"""
 This module provides a number of libraries that are mostly also found on the
-system but as static libraries meant to be used as build dependencies for a
-number of tools that should not introduce dependencies when being used so that
+system but as static libraries meant to be used as build deps for a
+number of tools that should not introduce deps when being used so that
 their impact on other software remains minimal.
 
 Contrary to previous versions of this module, the versions do no longer correspond
@@ -163,15 +163,15 @@ local_SQLite3_filename_version =  '%1d%02d%02d00' % (int(local_syslibs_SQLite3_v
 
 toolchain = SYSTEM
 
-builddependencies = [
+build_deps = [
     ('buildtools',        local_LUMI_version, '-bootstrap'),    # Uniform build environment.
     ('buildtools-python', local_LUMI_version, '-systemPython'), # Needed for Serf
 ]
 
 default_easyblock = 'ConfigureMake'
 
-local_common_ncurses_configopts  = '--without-shared --with-normal --with-termlib --with-ticlib --enable-overwrite --without-ada --enable-symlinks --with-versioned-syms '
-local_common_ncurses_configopts += '--enable-pc-files --libdir=%(installdir)s/lib --with-pkg-config-libdir=%(installdir)s/lib/pkgconfig '
+local_common_ncurses_configure_opts  = '--without-shared --with-normal --with-termlib --with-ticlib --enable-overwrite --without-ada --enable-symlinks --with-versioned-syms '
+local_common_ncurses_configure_opts += '--enable-pc-files --libdir=%(installdir)s/lib --with-pkg-config-libdir=%(installdir)s/lib/pkgconfig '
 
 components = [
 #    ('Brotli', local_syslibs_Brotli_version, { # Usefull for cURL but fail to do a static only build or to put in lib instead of lib64.
@@ -183,48 +183,48 @@ components = [
 #                         } ],
 #        'checksums':     ['f9e8d81d0405ba66d181529af42a3354f838c939095ff99930da6aa9cdf6fe46'],
 #        'start_dir':     '%(namelower)s-%(version)s',
-#        'preconfigopts': 'CFLAGS="-O2 -march=znver1 -fPIC" CXXFLAGS="-O2 -march=znver1 -fPIC" ',
-#        'configopts':    '-DBUILD_STATIC_LIBS=ON -DBUILD_SHARED_LIBS=OFF'
+#        'pre_configure_opts': 'CFLAGS="-O2 -march=znver1 -fPIC" CXXFLAGS="-O2 -march=znver1 -fPIC" ',
+#        'configure_opts':    '-DBUILD_STATIC_LIBS=ON -DBUILD_SHARED_LIBS=OFF'
 #    }),
 #
 # Terminal libraries
 #
     ('ncurses', local_syslibs_ncurses_version, {
-        'easyblock':   'ConfigureMake',
-        'sources':       [ {
-                            'filename':    SOURCE_TAR_GZ,
-                            'source_urls': [GNU_SOURCE]
-                         } ],
-        'checksums':     ['136d91bc269a9a5785e5f9e980bc76ab57428f604ce3e5a5a90cebc767971cc6'],
-        'start_dir':     '%(namelower)s-%(version)s',
-        'preconfigopts': 'CFLAGS="-O2 -march=znver1" CXXFLAGS="-O2 -march=znver1" ',
-        'configopts':    local_common_ncurses_configopts + 
-                         '--disable-widec', # First build: default build.
+        'easyblock':          'ConfigureMake',
+        'sources':            [ {
+                                 'filename':    SOURCE_TAR_GZ,
+                                 'source_urls': [GNU_SOURCE]
+                              } ],
+        'checksums':          ['136d91bc269a9a5785e5f9e980bc76ab57428f604ce3e5a5a90cebc767971cc6'],
+        'start_dir':          '%(namelower)s-%(version)s',
+        'pre_configure_opts': 'CFLAGS="-O2 -march=znver1" CXXFLAGS="-O2 -march=znver1" ',
+        'configure_opts':     local_common_ncurses_configure_opts + 
+                              '--disable-widec', # First build: default build.
     }),
     ('ncurses', local_syslibs_ncurses_version, {
-        'easyblock':   'ConfigureMake',
-        'sources':       [ {
-                            'filename':    SOURCE_TAR_GZ,
-                            'source_urls': [GNU_SOURCE]
-                         } ],
-        'checksums':     ['136d91bc269a9a5785e5f9e980bc76ab57428f604ce3e5a5a90cebc767971cc6'],
-        'start_dir':     '%(namelower)s-%(version)s',
-        'preconfigopts': 'make distclean && CFLAGS="-O2 -march=znver1" CXXFLAGS="-O2 -march=znver1" ',
-        'configopts':    local_common_ncurses_configopts + 
-                         '--enable-ext-colors --enable-widec --includedir=%(installdir)s/include/ncursesw/', # Second build: the UTF-8 enabled version (ncursesw)
+        'easyblock':          'ConfigureMake',
+        'sources':            [ {
+                                 'filename':    SOURCE_TAR_GZ,
+                                 'source_urls': [GNU_SOURCE]
+                              } ],
+        'checksums':          ['136d91bc269a9a5785e5f9e980bc76ab57428f604ce3e5a5a90cebc767971cc6'],
+        'start_dir':          '%(namelower)s-%(version)s',
+        'pre_configure_opts': 'make distclean && CFLAGS="-O2 -march=znver1" CXXFLAGS="-O2 -march=znver1" ',
+        'configure_opts':     local_common_ncurses_configure_opts + 
+                              '--enable-ext-colors --enable-widec --includedir=%(installdir)s/include/ncursesw/', # Second build: the UTF-8 enabled version (ncursesw)
     }),
     ('libreadline', local_syslibs_libreadline_version, {
-        'easyblock':   'ConfigureMake',
-        'sources':       [ {
-                            'filename':    'readline-%(version)s.tar.gz',
-                            'source_urls': ['http://ftp.gnu.org/gnu/readline']
-                         }],
-        'checksums':     ['fe5383204467828cd495ee8d1d3c037a7eba1389c22bc6a041f627976f9061cc'],
-        'start_dir':     'readline-%(version)s',
-        'preconfigopts': "LD_LIBRARY_PATH=%(installdir)s/lib:$LD_LIBRARY_PATH LDFLAGS='-L%(installdir)s/lib -lncurses' " +
-                         "CFLAGS='-O2 -march=znver1 -fPIC' CXXFLAGS='-O2 -march=znver1 -fPIC' ",
-        'configopts':    '--enable-static --disable-shared --libdir=%(installdir)s/lib',
-        'buildopts':     "SHLIB_LIBS='-lncurses'",
+        'easyblock':          'ConfigureMake',
+        'sources':            [ {
+                                 'filename':    'readline-%(version)s.tar.gz',
+                                 'source_urls': ['http://ftp.gnu.org/gnu/readline']
+                              }],
+        'checksums':          ['fe5383204467828cd495ee8d1d3c037a7eba1389c22bc6a041f627976f9061cc'],
+        'start_dir':          'readline-%(version)s',
+        'pre_configure_opts': "LD_LIBRARY_PATH=%(installdir)s/lib:$LD_LIBRARY_PATH LDFLAGS='-L%(installdir)s/lib -lncurses' " +
+                              "CFLAGS='-O2 -march=znver1 -fPIC' CXXFLAGS='-O2 -march=znver1 -fPIC' ",
+        'configure_opts':     '--enable-static --disable-shared --libdir=%(installdir)s/lib',
+        'build_opts':         "SHLIB_LIBS='-lncurses'",
     }),
     ('bzip2', local_syslibs_bzip2_version, {
         # The bzip2 EasyBlock does not work in a bundle since there is a problem with with_shared_libs
@@ -236,162 +236,161 @@ components = [
         'checksums':     ['ab5a03176ee106d3f0fa90e381da478ddae405918153cca248e682cd0c4a2269'],
         'patches':     ['bzip2-%(version)s-pkgconfig.patch'],
         'start_dir':   '%(namelower)s-%(version)s',
-        'skipsteps':   ['configure'],
-        'buildopts':   'CC="$CC" CFLAGS="-Wall -Winline -O2 -march=znver1 -fPIC -g \$(BIGFILES)"',
-        'installopts': 'PREFIX="%(installdir)s" ',
+        'skip_steps':   ['configure'],
+        'build_opts':   'CC="$CC" CFLAGS="-Wall -Winline -O2 -march=znver1 -fPIC -g \$(BIGFILES)"',
+        'install_opts': 'PREFIX="%(installdir)s" ',
     }),
     ('zlib', local_syslibs_zlib_version, {
-        'easyblock':   'ConfigureMake',
-        'sources':       [ {
-                            # https://www.zlib.net/zlib-1.2.11.tar.gz
-                            'filename':    SOURCELOWER_TAR_GZ,
-                            'source_urls': ['https://zlib.net/fossils']
-                         } ],
-        'checksums':     ['9a93b2b7dfdac77ceba5a558a580e74667dd6fede4585b91eefb60f03b72df23'],
-        'start_dir':     '%(namelower)s-%(version)s',
-        'preconfigopts': 'CFLAGS="-O2 -march=znver1 -fPIC" CXXFLAGS="-O2 -march=znver1 -fPIC" ',
-        'configopts':    '--static --libdir=%(installdir)s/lib'
+        'easyblock':          'ConfigureMake',
+        'sources':            [ {
+                                  # https://www.zlib.net/zlib-1.2.11.tar.gz
+                                  'filename':    SOURCELOWER_TAR_GZ,
+                                  'source_urls': ['https://zlib.net/fossils']
+                              } ],
+        'checksums':          ['9a93b2b7dfdac77ceba5a558a580e74667dd6fede4585b91eefb60f03b72df23'],
+        'start_dir':          '%(namelower)s-%(version)s',
+        'pre_configure_opts': 'CFLAGS="-O2 -march=znver1 -fPIC" CXXFLAGS="-O2 -march=znver1 -fPIC" ',
+        'configure_opts':     '--static --libdir=%(installdir)s/lib'
     }),
     ('lz4', local_syslibs_lz4_version, {
-        'easyblock':   'ConfigureMake',
-        'sources':     [ {
-                          'download_filename': 'v%(version)s.tar.gz',
-                          'filename':          SOURCELOWER_TAR_GZ,
-                          'source_urls':       ['https://github.com/lz4/lz4/archive/']
-                       } ],
-        'checksums':     ['537512904744b35e232912055ccf8ec66d768639ff3abe5788d90d792ec5f48b'],
-        'start_dir':   '%(namelower)s-%(version)s',
-        'skipsteps':   ['configure'],
-        'buildopts':   'BUILD_STATIC="yes" BUILD_SHARED="no" CFLAGS="-O3 -march=znver1 -fPIC" ',
-        'runtest':     'check',
-        'installopts': 'PREFIX=%(installdir)s BUILD_STATIC="yes" BUILD_SHARED="no"',
+        'easyblock':    'ConfigureMake',
+        'sources':      [ {
+                           'download_filename': 'v%(version)s.tar.gz',
+                           'filename':          SOURCELOWER_TAR_GZ,
+                           'source_urls':       ['https://github.com/lz4/lz4/archive/']
+                        } ],
+        'checksums':    ['537512904744b35e232912055ccf8ec66d768639ff3abe5788d90d792ec5f48b'],
+        'start_dir':    '%(namelower)s-%(version)s',
+        'skip_steps':   ['configure'],
+        'build_opts':   'BUILD_STATIC="yes" BUILD_SHARED="no" CFLAGS="-O3 -march=znver1 -fPIC" ',
+        'run_test':     'check',
+        'install_opts': 'PREFIX=%(installdir)s BUILD_STATIC="yes" BUILD_SHARED="no"',
     }),
     ('lzlib', local_syslibs_lzlib_version, {
-        'easyblock':   'ConfigureMake',
+        'easyblock':      'ConfigureMake',
         # https://download.savannah.gnu.org/releases/lzip/lzlib/lzlib-1.15.tar.gz
-        'sources':     [SOURCELOWER_TAR_GZ], # .tar.lz not yet supported on our systems and not available as a constant in EasyBuild.
-        'source_urls': ['https://download.savannah.gnu.org/releases/lzip/lzlib'],
-        'checksums':   ['4afab907a46d5a7d14e927a1080c3f4d7e3ca5a0f9aea81747d8fed0292377ff'],
-        'start_dir':   '%(namelower)s-%(version)s',
-        'configopts':  'CXXFLAGS="-march=znver1 -O2 -Wall -W"',
+        'sources':        [SOURCELOWER_TAR_GZ], # .tar.lz not yet supported on our systems and not available as a constant in EasyBuild.
+        'source_urls':    ['https://download.savannah.gnu.org/releases/lzip/lzlib'],
+        'checksums':      ['4afab907a46d5a7d14e927a1080c3f4d7e3ca5a0f9aea81747d8fed0292377ff'],
+        'start_dir':      '%(namelower)s-%(version)s',
+        'configure_opts': 'CXXFLAGS="-march=znver1 -O2 -Wall -W"',
     }),
 #    ('cURL', local_syslibs_cURL_version, {
-#        'sources':       [ {
-#                            'filename':    SOURCELOWER_TAR_XZ,
-#                            'source_urls': ['http://curl.haxx.se/download/']
-#                         }],
-#        'checksums':     ['2cb9c2356e7263a1272fd1435ef7cdebf2cd21400ec287b068396deb705c22c4'],
-#        'start_dir':     '%(namelower)s-%(version)s',
-#        'preconfigopts': 'CFLAGS="-O2 -march=znver1 -fPIC" CXXFLAGS="-O2 -march=znver1 -fPIC" ',
-#        'configopts':    '--enable-static --disable-shared --with-zlib=%(installdir)s --with-openssl'
-##        'configopts':    '--enable-static --disable-shared --with-zlib=%(installdir)s --with-brotli=%(installdir)s --with-zstd=%(installdir)s --with-openssl'
+#        'sources':            [ {
+#                                  'filename':    SOURCELOWER_TAR_XZ,
+#                                  'source_urls': ['http://curl.haxx.se/download/']
+#                              }],
+#        'checksums':          ['2cb9c2356e7263a1272fd1435ef7cdebf2cd21400ec287b068396deb705c22c4'],
+#        'start_dir':          '%(namelower)s-%(version)s',
+#        'pre_configure_opts': 'CFLAGS="-O2 -march=znver1 -fPIC" CXXFLAGS="-O2 -march=znver1 -fPIC" ',
+#        'configure_opts':     '--enable-static --disable-shared --with-zlib=%(installdir)s --with-openssl'
+##        'configure_opts':    '--enable-static --disable-shared --with-zlib=%(installdir)s --with-brotli=%(installdir)s --with-zstd=%(installdir)s --with-openssl'
 #    }),
     ('expat', local_syslibs_expat_version, {
-        'sources':       [ {
-                            # https://github.com/libexpat/libexpat/releases/download/R_2_7_3/expat-2.7.3.tar.bz2
-                            'filename':    SOURCELOWER_TAR_BZ2,
-                            'source_urls': ['https://github.com/libexpat/libexpat/releases/download/R_%s/' % local_syslibs_expat_version.replace('.', '_')]
-                         }],
-        'checksums':     ['59c31441fec9a66205307749eccfee551055f2d792f329f18d97099e919a3b2f'],
-        'start_dir':     '%(namelower)s-%(version)s',
-        'preconfigopts': 'CFLAGS="-O2 -march=znver1 -fPIC" CXXFLAGS="-O2 -march=znver1 -fPIC" ',
-        'configopts':    '--enable-static --disable-shared --libdir=%(installdir)s/lib'
+        'sources':            [ {
+                                  # https://github.com/libexpat/libexpat/releases/download/R_2_7_3/expat-2.7.3.tar.bz2
+                                  'filename':    SOURCELOWER_TAR_BZ2,
+                                  'source_urls': ['https://github.com/libexpat/libexpat/releases/download/R_%s/' % local_syslibs_expat_version.replace('.', '_')]
+                              }],
+        'checksums':          ['59c31441fec9a66205307749eccfee551055f2d792f329f18d97099e919a3b2f'],
+        'start_dir':          '%(namelower)s-%(version)s',
+        'pre_configure_opts': 'CFLAGS="-O2 -march=znver1 -fPIC" CXXFLAGS="-O2 -march=znver1 -fPIC" ',
+        'configure_opts':     '--enable-static --disable-shared --libdir=%(installdir)s/lib'
     }),
     ('APR', local_syslibs_APR_version, {
-        'easyblock':   'ConfigureMake',
-        'sources':       [ {
-                            'filename':    SOURCELOWER_TAR_BZ2,
-                            'source_urls': ['https://downloads.apache.org/apr',
-                                            'https://archive.apache.org/dist/apr/']
-                         }],
-        'checksums':     ['49030d92d2575da735791b496dc322f3ce5cff9494779ba8cc28c7f46c5deb32'],
-        'start_dir':     '%(namelower)s-%(version)s',
-        'preconfigopts': 'CC="gcc" CFLAGS="-O2 -march=znver1 -fPIC" ',
-        'configopts':    '--enable-static --disable-shared --libdir=%(installdir)s/lib'
+        'easyblock':          'ConfigureMake',
+        'sources':            [ {
+                                  'filename':    SOURCELOWER_TAR_BZ2,
+                                  'source_urls': ['https://downloads.apache.org/apr',
+                                                  'https://archive.apache.org/dist/apr/']
+                              }],
+        'checksums':          ['49030d92d2575da735791b496dc322f3ce5cff9494779ba8cc28c7f46c5deb32'],
+        'start_dir':          '%(namelower)s-%(version)s',
+        'pre_configure_opts': 'CC="gcc" CFLAGS="-O2 -march=znver1 -fPIC" ',
+        'configure_opts':     '--enable-static --disable-shared --libdir=%(installdir)s/lib'
     }),
     ('APR-util', local_syslibs_APR_util_version, {
-        'easyblock':   'ConfigureMake',
-        'sources':       [ {
-                            'filename':    SOURCELOWER_TAR_BZ2,
-                            'source_urls': ['https://downloads.apache.org/apr',
-                                            'https://archive.apache.org/dist/apr/']
-                         }],
-        'checksums':     ['a41076e3710746326c3945042994ad9a4fcac0ce0277dd8fea076fec3c9772b5'],
-        'start_dir':     '%(namelower)s-%(version)s',
-        'preconfigopts': 'CC="gcc" CFLAGS="-O2 -march=znver1 -fPIC" ',
+        'easyblock':          'ConfigureMake',
+        'sources':            [ {
+                                  'filename':    SOURCELOWER_TAR_BZ2,
+                                  'source_urls': ['https://downloads.apache.org/apr',
+                                                  'https://archive.apache.org/dist/apr/']
+                              }],
+        'checksums':          ['a41076e3710746326c3945042994ad9a4fcac0ce0277dd8fea076fec3c9772b5'],
+        'start_dir':          '%(namelower)s-%(version)s',
+        'pre_configure_opts': 'CC="gcc" CFLAGS="-O2 -march=znver1 -fPIC" ',
         #'unrecognized_configure_options': 'warn', # If we run into further issues
-        'configopts':    '--with-apr=%(installdir)s/bin/apr-1-config --libdir=%(installdir)s/lib', # --enable-static --disable-shared is not supported.
-        'installopts':   ' && cd %(installdir)s/lib/pkgconfig && sed -i -e "s|-lexpat|-L%(installdir)s/lib -lexpat|" apr-util-1.pc' +
-                         ' && cd %(installdir)s/bin           && sed -i -e "s|-lexpat|-L%(installdir)s/lib -lexpat|" apu-1-config'
+        'configure_opts':     '--with-apr=%(installdir)s/bin/apr-1-config --libdir=%(installdir)s/lib', # --enable-static --disable-shared is not supported.
+        'install_opts':       ' && cd %(installdir)s/lib/pkgconfig && sed -i -e "s|-lexpat|-L%(installdir)s/lib -lexpat|" apr-util-1.pc' +
+                              ' && cd %(installdir)s/bin           && sed -i -e "s|-lexpat|-L%(installdir)s/lib -lexpat|" apu-1-config'
 
     }),
     ('Serf', local_syslibs_Serf_version, {
-        'easyblock':     'SCons',
-        'sources':       [ {
-                            'filename':    SOURCELOWER_TAR_BZ2,
-                            'source_urls': ['https://archive.apache.org/dist/%(namelower)s']
-                         }],
-        #'patches':       ['Serf-%(version)s_python3_scons.patch'],
-        'checksums':     ['be81ef08baa2516ecda76a77adf7def7bc3227eeb578b9a33b45f7b41dc064e6'],
-        'start_dir':     '%(namelower)s-%(version)s',
-        'buildopts':     'APR=%(installdir)s/bin/apr-1-config APU=%(installdir)s/bin/apu-1-config APR_STATIC=True ' +
-                         'ZLIB=%(installdir)s ' +
-                         'CFLAGS="-O3 -march=znver1 -fPIC -Wno-pointer-sign" ',
-        'installopts':   ' && cd %(installdir)s/lib && /bin/rm *.so*'
+        'easyblock':   'SCons',
+        'sources':     [ {
+                           'filename':    SOURCELOWER_TAR_BZ2,
+                           'source_urls': ['https://archive.apache.org/dist/%(namelower)s']
+                       }],
+        #'patches':     ['Serf-%(version)s_python3_scons.patch'],
+        'checksums':    ['be81ef08baa2516ecda76a77adf7def7bc3227eeb578b9a33b45f7b41dc064e6'],
+        'start_dir':    '%(namelower)s-%(version)s',
+        'build_opts':   'APR=%(installdir)s/bin/apr-1-config APU=%(installdir)s/bin/apu-1-config APR_STATIC=True ' +
+                        'ZLIB=%(installdir)s ' +
+                        'CFLAGS="-O3 -march=znver1 -fPIC -Wno-pointer-sign" ',
+        'install_opts': ' && cd %(installdir)s/lib && /bin/rm *.so*'
     }),
     ('file', local_syslibs_file_version, {
-        'easyblock':   'ConfigureMake',
-        'sources':       [ {
-                            'filename':    SOURCE_TAR_GZ,
-                            'source_urls': ['http://ftp.astron.com/pub/file/']
-                         } ],
-        'checksums':     ['c9cc77c7c560c543135edc555af609d5619dbef011997e988ce40a3d75d86088'],
-        'start_dir':     '%(namelower)s-%(version)s',
-        'preconfigopts': 'CFLAGS="-O2 -march=znver1 -fPIC" CXXFLAGS="-O2 -march=znver1 -fPIC" ',
-        'configopts':    '--enable-static --disable-shared --libdir=%(installdir)s/lib'
+        'easyblock':          'ConfigureMake',
+        'sources':            [ {
+                                  'filename':    SOURCE_TAR_GZ,
+                                  'source_urls': ['http://ftp.astron.com/pub/file/']
+                              } ],
+        'checksums':          ['c9cc77c7c560c543135edc555af609d5619dbef011997e988ce40a3d75d86088'],
+        'start_dir':          '%(namelower)s-%(version)s',
+        'pre_configure_opts': 'CFLAGS="-O2 -march=znver1 -fPIC" CXXFLAGS="-O2 -march=znver1 -fPIC" ',
+        'configure_opts':     '--enable-static --disable-shared --libdir=%(installdir)s/lib'
     }),
     ('PCRE2', local_syslibs_PCRE2_version, {
         'easyblock':   'ConfigureMake',
         # https://github.com/PhilipHazel/pcre2/releases/download/pcre2-10.39/pcre2-10.39.tar.bz2
-        'sources':       [SOURCELOWER_TAR_BZ2],
-        'source_urls':   ['https://github.com/PhilipHazel/pcre2/releases/download/pcre2-%(version)s'],
-        'checksums':     ['47fe8c99461250d42f89e6e8fdaeba9da057855d06eb7fc08d9ca03fd08d7bc7'],
-        'start_dir':     '%(namelower)s-%(version)s',
-        'preconfigopts': 'CFLAGS="-O2 -march=znver1 -fPIC" CXXFLAGS="-O2 -march=znver1 -fPIC" ',
+        'sources':            [SOURCELOWER_TAR_BZ2],
+        'source_urls':        ['https://github.com/PhilipHazel/pcre2/releases/download/pcre2-%(version)s'],
+        'checksums':          ['47fe8c99461250d42f89e6e8fdaeba9da057855d06eb7fc08d9ca03fd08d7bc7'],
+        'start_dir':          '%(namelower)s-%(version)s',
+        'pre_configure_opts': 'CFLAGS="-O2 -march=znver1 -fPIC" CXXFLAGS="-O2 -march=znver1 -fPIC" ',
         #'unrecognized_configure_options': 'warn', # If we run into further issues
         # Removed --disable-cpp compared to earlier versions.
-        'configopts':    '--with-pic --enable-newline-is-any ' + \
-                         '--enable-pcre2-16 --enable-pcre2-32 --enable-jit ' + \
-                         '--enable-pcre2grep-libz --enable-pcre2grep-libbz2 --enable-pcre2test-libreadline ' + \
-                         '--disable-shared --enable-static ' + \
-                         '--libdir=%(installdir)s/lib '
+        'configure_opts':     '--with-pic --enable-newline-is-any ' + \
+                              '--enable-pcre2-16 --enable-pcre2-32 --enable-jit ' + \
+                              '--enable-pcre2grep-libz --enable-pcre2grep-libbz2 --enable-pcre2test-libreadline ' + \
+                              '--disable-shared --enable-static ' + \
+                              '--libdir=%(installdir)s/lib '
     }),
     ('SQLite3', local_syslibs_SQLite3_version, {
         'easyblock':   'ConfigureMake',
         # https://www.sqlite.org/2025/sqlite-autoconf-3490100.tar.gz
-        'sources':       [ {
-                            'filename':    'sqlite-autoconf-%s.tar.gz' % local_SQLite3_filename_version,
-                            'source_urls': ['https://www.sqlite.org/2025']
-                         } ],
-        'checksums':     ['4f2445cd70479724d32ad015ec7fd37fbb6f6130013bd4bfbc80c32beb42b7e0'],
-        'start_dir':     'sqlite-autoconf-' + local_SQLite3_filename_version,
-        'preconfigopts': 'CC="gcc" CFLAGS="-O2 -march=znver1 -fPIC" ',
-        'configopts':    '--enable-static --disable-shared --libdir=%(installdir)s/lib',
-        'max_parallel':  1,
+        'sources':            [ {
+                                  'filename':    'sqlite-autoconf-%s.tar.gz' % local_SQLite3_filename_version,
+                                  'source_urls': ['https://www.sqlite.org/2025']
+                              } ],
+        'checksums':          ['4f2445cd70479724d32ad015ec7fd37fbb6f6130013bd4bfbc80c32beb42b7e0'],
+        'start_dir':          'sqlite-autoconf-' + local_SQLite3_filename_version,
+        'pre_configure_opts': 'CC="gcc" CFLAGS="-O2 -march=znver1 -fPIC" ',
+        'configure_opts':     '--enable-static --disable-shared --libdir=%(installdir)s/lib',
+        'max_parallel':       1,
     }),
     ('talloc', local_syslibs_talloc_version, {
-        'easyblock':   'ConfigureMake',
-        # https://www.sqlite.org/2022/sqlite-autoconf-3370200.tar.gz
-        'sources':       [SOURCELOWER_TAR_GZ],
-        'source_urls':   ['https://www.samba.org/ftp/talloc'],
-        'checksums':     ['dc46c40b9f46bb34dd97fe41f548b0e8b247b77a918576733c528e83abd854dd'],
-        'start_dir':     '%(namelower)s-%(version)s',
-        'preconfigopts': 'CC="gcc" CFLAGS="-O2 -march=znver1" ',
-        'configopts':    '--disable-python --disable-rpath --libdir=%(installdir)s/lib',
+        'easyblock':          'ConfigureMake',
+        'sources':            [SOURCELOWER_TAR_GZ],
+        'source_urls':        ['https://www.samba.org/ftp/talloc'],
+        'checksums':          ['dc46c40b9f46bb34dd97fe41f548b0e8b247b77a918576733c528e83abd854dd'],
+        'start_dir':          '%(namelower)s-%(version)s',
+        'pre_configure_opts': 'CC="gcc" CFLAGS="-O2 -march=znver1" ',
+        'configure_opts':     '--disable-python --disable-rpath --libdir=%(installdir)s/lib',
     }),
 ]
 
-postinstallcmds = [
+post_install_cmds = [
     f'cd %(builddir)s/talloc-{local_syslibs_talloc_version}/bin/default ; /usr/bin/ar rcs %(installdir)s/lib/libtalloc.a talloc.c.*.o',
     '/bin/rm %(installdir)s/lib/libtalloc.so*'
 ]
@@ -446,7 +445,7 @@ sanity_check_paths = {
              ["include/apr-1"]
 }
 
-sanity_check_commands = [
+sanity_check_cmds = [
     # ncurses
     'pkg-config --libs %s%s' % (x, y) for x in ['form', 'menu', 'ncurses', 'ncurses++', 'panel'] for y in ['', 'w'] ] + [
     # bzip2
@@ -485,7 +484,7 @@ sanity_check_commands = [
     # Check for shared libraries. There should be none.
     '/bin/ls -1 %(installdir)s/lib | grep -qv \'.so\'' ]
 
-modextravars = {
+env_mod_extra_vars = {
     'CURL_INCLUDES':                '%(installdir)s/include', # Bad idea to add the variables below as they confuse get_software_libdir
 # in some EasyBlocks. It will be very tricy to only add those that
 # we need for certain packages and avoid others...
@@ -520,5 +519,4 @@ modextravars = {
     'EBVERSIONTALLOC':              local_syslibs_talloc_version,
 }
 
-
-moduleclass = 'lib'
+env_mod_category = 'lib'

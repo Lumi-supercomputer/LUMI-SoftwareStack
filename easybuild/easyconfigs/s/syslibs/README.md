@@ -127,3 +127,6 @@ use.
 
 -   For a reason not clear to us we needed to add configure options to install all libraries
     in `lib` as some packages put their libraries in `lib64` when building in the container.
+
+-   Also switched to the new set of EasyConfig parameters to prepare for EasyBuild 6.
+
