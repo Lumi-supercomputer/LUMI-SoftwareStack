@@ -2,6 +2,7 @@
 # Author:    Robert Mijakovic <robert.mijakovic@lxp.lu>
 # Reworked by Kurt Lust (kurt.lust@uantwerpen.be) for LUMI.
 ##
+easybuild_version = '5.0.0'
 easyblock = 'ConfigureMake'
 
 import os as local_os
@@ -16,7 +17,7 @@ local_git_version =          '2.53.0'        # https://github.com/git/git/tags
 
 name =    'git'
 version = local_git_version
-#versionsuffix = '-nodocs'
+#version_suffix = '-nodocs'
 
 homepage = 'https://git-scm.com/'
 
@@ -53,15 +54,15 @@ sources = {
 }
 checksums = ['0492bcd8a9fc99bedca75dbec7c8c15b24dd1501c82d4518294ee0850f91f219']
 
-builddependencies = [
+build_deps = [
     ('buildtools', local_LUMI_autoversion),
     ('syslibs',    local_LUMI_autoversion, '-static'), # for zlib, expat and PCRE2.
 ]
 
-dependencies = [
+deps = [
 ]
 
-osdependencies = [
+os_deps = [
     ('glibc-headers-x86', 'glibc-devel'),                # libintl.h, iconv.h
 #    ('zlib-devel'),                                      # zlib.h
 #    ('libexpat-devel'),                                  # expat.h, not yet available on LUMI.
@@ -69,26 +70,26 @@ osdependencies = [
     ('openssl-devel', 'libssl-dev', 'libopenssl-devel'),
 ]
 
-preconfigopts = 'make configure && CFLAGS="-O2 -march=znver1" CXXFLAGS="-O2 -march=znver1" '
+pre_configure_opts = 'make configure && CFLAGS="-O2 -march=znver1" CXXFLAGS="-O2 -march=znver1" '
 # Work around git build system bug.  If LIBS contains -lpthread, then configure
 # will not append -lpthread to LDFLAGS, but Makefile ignores LIBS.
-configopts = "--with-openssl --with-libpcre2 --without-tcltk --with-zlib --with-curl --with-expat --enable-pthreads='-lpthread'"
+configure_opts = "--with-openssl --with-libpcre2 --without-tcltk --with-zlib --with-curl --with-expat --enable-pthreads='-lpthread'"
 # Other options to specify paths: --with-perl --with-python --with-zlib
 
 #
 # The system by default does not contain the tools needed to build the documentation for git.
 #
-#buildopts = 'all doc info'
-#installopts = 'install install-doc install-info'
+#build_opts = 'all doc info'
+#install_opts = 'install install-doc install-info'
 
 sanity_check_paths = {
     'files': ['bin/git'],
     'dirs':  ['libexec/git-core', 'share'],
 }
 
-sanity_check_commands = [
+sanity_check_cmds = [
     'git --version',
     'git-cvsserver --version',
 ]
 
-moduleclass = 'tools'
+env_mod_category = 'tools'

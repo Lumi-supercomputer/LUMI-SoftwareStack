@@ -175,3 +175,6 @@ Not included at the moment:
     
 -   We made preparations to integrate both CMake 3 and 4, but in the end decided not to do as the
     CMake recipes are likely incompatible.
+
+-   Also switched to the new set of EasyConfig parameters to prepare for EasyBuild 6.
+

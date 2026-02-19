@@ -3,12 +3,13 @@
 #DOC First install `lzip-bootstrap-1.25.eb`: `eb lzip-bootstrap-1.25.eb`, then load
 #DOC that module: `module load lzip-bootstrap/1.25`, and then install this EasyConfig:
 #DOC `eb lzip-tools-24.03.eb`. 
+easybuild_version = '5.0.0'
 easyblock = 'Bundle'
 
 local_LUMI_version =         '25.09'
 
-name =          'Lzip-tools'
-version =       local_LUMI_version
+name =    'Lzip-tools'
+version = local_LUMI_version
 
 local_lzip_version =        '1.25'   # https://download.savannah.gnu.org/releases/lzip/
 local_lunzip_version =      '1.15'   # https://download.savannah.gnu.org/releases/lzip/lunzip/
@@ -86,7 +87,7 @@ docurls = [
 
 toolchain = SYSTEM
 
-builddependencies = [
+build_deps = [
     ('buildtools',     local_LUMI_version),  # Needed for Serf, useful for the rest.
 ]
 
@@ -94,83 +95,83 @@ default_easyblock = 'ConfigureMake'
 
 components = [
     ('lzlib', local_lzlib_version, {
-        'easyblock':   'ConfigureMake',
+        'easyblock':      'ConfigureMake',
         # https://download.savannah.gnu.org/releases/lzip/lzlib/lzlib-1.15.tar.gz
-        'sources':     [SOURCELOWER_TAR_GZ], # .tar.lz not yet supported on our systems and not available as a constant in EasyBuild.
-        'source_urls': ['https://download.savannah.gnu.org/releases/lzip/lzlib'],
-        'checksums':   ['4afab907a46d5a7d14e927a1080c3f4d7e3ca5a0f9aea81747d8fed0292377ff'],
-        'start_dir':   '%(namelower)s-%(version)s',
-        'configopts':  'CXXFLAGS="-march=znver1 -O2 -Wall -W"',
+        'sources':        [SOURCELOWER_TAR_GZ], # .tar.lz not yet supported on our systems and not available as a constant in EasyBuild.
+        'source_urls':    ['https://download.savannah.gnu.org/releases/lzip/lzlib'],
+        'checksums':      ['4afab907a46d5a7d14e927a1080c3f4d7e3ca5a0f9aea81747d8fed0292377ff'],
+        'start_dir':      '%(namelower)s-%(version)s',
+        'configure_opts': 'CXXFLAGS="-march=znver1 -O2 -Wall -W"',
     }),
     ('lzip', local_lzip_version, {
-        'easyblock':   'ConfigureMake',
+        'easyblock':      'ConfigureMake',
         # https://download.savannah.gnu.org/releases/lzip/lzip-1.25.tar.gz
-        'sources':         [SOURCELOWER_TAR_GZ], # .tar.lz not yet supported on our systems and not available as a constant in EasyBuild.
-        'source_urls':     ['https://download.savannah.gnu.org/releases/lzip'],
-        'checksums':       ['09418a6d8fb83f5113f5bd856e09703df5d37bae0308c668d0f346e3d3f0a56f'],
-        'start_dir':       '%(namelower)s-%(version)s',
-        'configopts':      'CXXFLAGS="-march=znver1 -O2 -Wall -W"',
+        'sources':        [SOURCELOWER_TAR_GZ], # .tar.lz not yet supported on our systems and not available as a constant in EasyBuild.
+        'source_urls':    ['https://download.savannah.gnu.org/releases/lzip'],
+        'checksums':      ['09418a6d8fb83f5113f5bd856e09703df5d37bae0308c668d0f346e3d3f0a56f'],
+        'start_dir':      '%(namelower)s-%(version)s',
+        'configure_opts': 'CXXFLAGS="-march=znver1 -O2 -Wall -W"',
     }),
     ('lunzip', local_lunzip_version, {
-        'easyblock':   'ConfigureMake',
+        'easyblock':      'ConfigureMake',
         # https://download.savannah.gnu.org/releases/lzip/lunzip/lunzip-1.15.tar.gz
-        'sources':         [SOURCELOWER_TAR_GZ], # .tar.lz not yet supported on our systems and not available as a constant in EasyBuild.
-        'source_urls':     ['https://download.savannah.gnu.org/releases/lzip/lunzip'],
-        'checksums':       ['fdb930b87672a238a54c4b86d63df1c86038ff577d512adbc8e2c754c046d8f2'],
-        'start_dir':       '%(namelower)s-%(version)s',
-        'configopts':      'CFLAGS="-march=znver1 -O2 -Wall -W"',
+        'sources':        [SOURCELOWER_TAR_GZ], # .tar.lz not yet supported on our systems and not available as a constant in EasyBuild.
+        'source_urls':    ['https://download.savannah.gnu.org/releases/lzip/lunzip'],
+        'checksums':      ['fdb930b87672a238a54c4b86d63df1c86038ff577d512adbc8e2c754c046d8f2'],
+        'start_dir':      '%(namelower)s-%(version)s',
+        'configure_opts': 'CFLAGS="-march=znver1 -O2 -Wall -W"',
     }),
     ('lziprecover', local_lziprecover_version, {
-        'easyblock':   'ConfigureMake',
+        'easyblock':      'ConfigureMake',
         # https://https://download.savannah.gnu.org/releases/lzip//lziprecover/lziprecover-1.25.tar.gz
-        'sources':     [SOURCELOWER_TAR_GZ], # .tar.lz not yet supported on our systems and not available as a constant in EasyBuild.
-        'source_urls': ['https://download.savannah.gnu.org/releases/lzip/lziprecover'],
-        'checksums':   ['4f392f9c780ae266ee3d0db166b0f1b4d3ae07076e401dc2b199dc3a0fff8b45'],
-        'start_dir':   '%(namelower)s-%(version)s',
-        'configopts':  'CXXFLAGS="-march=znver1 -O2 -Wall -W"',
+        'sources':        [SOURCELOWER_TAR_GZ], # .tar.lz not yet supported on our systems and not available as a constant in EasyBuild.
+        'source_urls':    ['https://download.savannah.gnu.org/releases/lzip/lziprecover'],
+        'checksums':      ['4f392f9c780ae266ee3d0db166b0f1b4d3ae07076e401dc2b199dc3a0fff8b45'],
+        'start_dir':      '%(namelower)s-%(version)s',
+        'configure_opts': 'CXXFLAGS="-march=znver1 -O2 -Wall -W"',
     }),
     ('plzip', local_plzip_version, {
         'easyblock':   'ConfigureMake',
         # https://download.savannah.gnu.org/releases/lzip/plzip/plzip-1.12.tar.gz
-        'sources':     [SOURCELOWER_TAR_GZ], # .tar.lz not yet supported on our systems and not available as a constant in EasyBuild.
-        'source_urls': ['https://download.savannah.gnu.org/releases/lzip/plzip'],
-        'checksums':   ['50d71aad6fa154ad8c824279e86eade4bcf3bb4932d757d8f281ac09cfadae30'],
-        'start_dir':   '%(namelower)s-%(version)s',
-        'configopts':  'CXXFLAGS="-march=znver1 -O2 -Wall -W" ' +
-                       'CPPFLAGS="-I%(installdir)s/include" ' +
-                       'LDFLAGS="-L%(installdir)s/lib"',
+        'sources':        [SOURCELOWER_TAR_GZ], # .tar.lz not yet supported on our systems and not available as a constant in EasyBuild.
+        'source_urls':    ['https://download.savannah.gnu.org/releases/lzip/plzip'],
+        'checksums':      ['50d71aad6fa154ad8c824279e86eade4bcf3bb4932d757d8f281ac09cfadae30'],
+        'start_dir':      '%(namelower)s-%(version)s',
+        'configure_opts': 'CXXFLAGS="-march=znver1 -O2 -Wall -W" ' +
+                          'CPPFLAGS="-I%(installdir)s/include" ' +
+                          'LDFLAGS="-L%(installdir)s/lib"',
     }),
     ('tarlz', local_tarlz_version, {
-        'easyblock':   'ConfigureMake',
+        'easyblock':      'ConfigureMake',
         # https://download.savannah.gnu.org/releases/lzip/tarlz/tarlz-0.27.1.tar.lz
-        'sources':     [{
-                           'filename':    '%(name)s-%(version)s.tar.lz', # Needs LUMI/24.11 as otherwise EasyBuild has no access to lzip.
-                           'source_urls': ['https://download.savannah.gnu.org/releases/lzip/tarlz'],
-                           #'extract_cmd': 'lzip -cd %s | tar -xf -',
-                       }],
-        'checksums':   ['ab3c92b7f7f10c9539bc7be691fba648af21d4c89e55d81ec66d761f8dd8b5a9'],
-        'start_dir':   '%(namelower)s-%(version)s',
-        'configopts':  'CXXFLAGS="-march=znver1 -O2 -Wall -W" ' +
-                       'CPPFLAGS="-I%(installdir)s/include" ' +
-                       'LDFLAGS="-L%(installdir)s/lib"',
+        'sources':        [{
+                              'filename':    '%(name)s-%(version)s.tar.lz', # Needs LUMI/24.11 as otherwise EasyBuild has no access to lzip.
+                              'source_urls': ['https://download.savannah.gnu.org/releases/lzip/tarlz'],
+                              #'extract_cmd': 'lzip -cd %s | tar -xf -',
+                          }],
+        'checksums':      ['ab3c92b7f7f10c9539bc7be691fba648af21d4c89e55d81ec66d761f8dd8b5a9'],
+        'start_dir':      '%(namelower)s-%(version)s',
+        'configure_opts': 'CXXFLAGS="-march=znver1 -O2 -Wall -W" ' +
+                          'CPPFLAGS="-I%(installdir)s/include" ' +
+                          'LDFLAGS="-L%(installdir)s/lib"',
     }),
     ('Zutils', local_Zutils_version, {
-        'easyblock':   'ConfigureMake',
+        'easyblock':      'ConfigureMake',
         # ttps://download.savannah.gnu.org/releases/zutils/zutils-1.14.tar.lz
-        'sources':     [{
-                           'filename':    '%(namelower)s-%(version)s.tar.lz',# Needs LUMI/24.11 as otherwise EasyBuild has no access to lzip.
-                           'source_urls': ['https://download.savannah.gnu.org/releases/zutils'],
-                           #'extract_cmd': 'lzip -cd %s | tar -xf -',
-                       }],
-        'checksums':   ['05e6b03f333eabd78a1055139557e8ada6b634f1a58e8501f3b8f111a705cb87'],
-        'start_dir':   '%(namelower)s-%(version)s',
-        'configopts':  'CXXFLAGS="-march=znver1 -O2 -Wall -W" ' +
-                       'CPPFLAGS="-I%(installdir)s/include" ' +
-                       'LDFLAGS="-L%(installdir)s/lib"',
+        'sources':        [{
+                              'filename':    '%(namelower)s-%(version)s.tar.lz',# Needs LUMI/24.11 as otherwise EasyBuild has no access to lzip.
+                              'source_urls': ['https://download.savannah.gnu.org/releases/zutils'],
+                              #'extract_cmd': 'lzip -cd %s | tar -xf -',
+                          }],
+        'checksums':      ['05e6b03f333eabd78a1055139557e8ada6b634f1a58e8501f3b8f111a705cb87'],
+        'start_dir':      '%(namelower)s-%(version)s',
+        'configure_opts': 'CXXFLAGS="-march=znver1 -O2 -Wall -W" ' +
+                          'CPPFLAGS="-I%(installdir)s/include" ' +
+                          'LDFLAGS="-L%(installdir)s/lib"',
     }),
 ]
 
-postinstallcmds = [
+post_install_cmds = [
     # Don't need the static library anymore, delete
     '/bin/rm -rf %(installdir)s/lib',
     'mkdir -p %(installdir)s/share/licenses/lzip && ' +
@@ -193,9 +194,9 @@ sanity_check_paths = {
     'dirs':  ['share/man/man1']
 }
 
-modluafooter = f"""
+env_mod_lua_footer = f"""
 extensions( "lzip/{local_lzip_version}, lunzip/{local_lunzip_version}, lziprecover/{local_lziprecover_version}, " ..
             "plzip/{local_plzip_version}, tarlz/{local_tarlz_version}, Zutils/{local_Zutils_version}" )
 """
 
-moduleclass = 'tools'
+env_mod_category = 'tools'

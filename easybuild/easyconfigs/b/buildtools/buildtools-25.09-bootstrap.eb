@@ -19,9 +19,9 @@ easyblock = 'Bundle'
 
 local_LUMI_version =         '25.09'
 
-name =          'buildtools'
-version =       local_LUMI_version
-versionsuffix = '-bootstrap'
+name =           'buildtools'
+version  =       local_LUMI_version
+version_suffix = '-bootstrap'
 
 # Version info:
 local_makeinfo_version =         '7.2'         # texinfo    20241223 - Check on https://gnu.askapache.com/texinfo/ (not yet in 2025a when checked)
@@ -99,14 +99,14 @@ Note that makeinfo is not fully functional as there is no TeX on the system.
 
 toolchain = SYSTEM
 
-dependencies = [ ]
+deps = [ ]
 
-builddependencies = [
+build_deps = [
 #    ('flex',  local_flex_version),   # For Doxygen
 #    ('Bison', local_Bison_version),  # For Doxygen
 ]
 
-osdependencies = [
+os_deps = [
     ('openssl-devel', 'libssl-dev', 'libopenssl-devel'), # For CMake, suse is libopenssl-devel
 ##    ('ncurses-devel'),                                   # For CMake - RE-enable if installed on LUMI.
     ('libcurl-devel'),                                   # For CMake
@@ -128,14 +128,14 @@ components = [
         }),
     ('byacc', local_byacc_version, { 
         # From https://invisible-mirror.net/archives/byacc/byacc-20230521.tgz
-        'sources':     [SOURCELOWER_TGZ],
-        'source_urls': ['https://invisible-mirror.net/archives/byacc'],
-        'checksums':   ['192c2fae048d4e7f514ba451627f9c4e612765099f819c19191f9fde3e609673'],
-        'start_dir':   '%(namelower)s-%(version)s',
-        'configopts':  ' --libdir=%(installdir)s/lib', 
+        'sources':        [SOURCELOWER_TGZ],
+        'source_urls':    ['https://invisible-mirror.net/archives/byacc'],
+        'checksums':      ['192c2fae048d4e7f514ba451627f9c4e612765099f819c19191f9fde3e609673'],
+        'start_dir':      '%(namelower)s-%(version)s',
+        'configure_opts': ' --libdir=%(installdir)s/lib', 
         # Not sure why, but sometimes it installs as yacc and sometimes as byacc. 
-        'installopts': ' && if [ -f "%(installdir)s/bin/yacc" ]; then mv %(installdir)s/bin/yacc %(installdir)s/bin/byacc ; fi '
-                       ' && if [ -f "%(installdir)s/share/man/man1/yacc.1" ]; then mv %(installdir)s/share/man/man1/yacc.1 %(installdir)s/share/man/man1/byacc.1 ; fi',
+        'install_opts':   ' && if [ -f "%(installdir)s/bin/yacc" ]; then mv %(installdir)s/bin/yacc %(installdir)s/bin/byacc ; fi '
+                          ' && if [ -f "%(installdir)s/share/man/man1/yacc.1" ]; then mv %(installdir)s/share/man/man1/yacc.1 %(installdir)s/share/man/man1/byacc.1 ; fi',
         }),
     ('M4', local_M4_version, { # Uses gawk which for now we assume to be on the system
         'sources':     [SOURCELOWER_TAR_XZ],
@@ -144,11 +144,11 @@ components = [
         'start_dir':   '%(namelower)s-%(version)s',
         }),
     ('libtool', local_libtool_version, { # Uses M4
-        'sources':     [SOURCELOWER_TAR_XZ],
-        'source_urls': [GNU_SOURCE],
-        'checksums':   ['f81f5860666b0bc7d84baddefa60d1cb9fa6fceb2398cc3baca6afaa60266675'],
-        'start_dir':   '%(namelower)s-%(version)s',
-        'configopts':  '--enable-static --disable-shared --libdir=%(installdir)s/lib',
+        'sources':        [SOURCELOWER_TAR_XZ],
+        'source_urls':    [GNU_SOURCE],
+        'checksums':      ['f81f5860666b0bc7d84baddefa60d1cb9fa6fceb2398cc3baca6afaa60266675'],
+        'start_dir':      '%(namelower)s-%(version)s',
+        'configure_opts': '--enable-static --disable-shared --libdir=%(installdir)s/lib',
         }),
     ('Autoconf', local_Autoconf_version, { # Uses M4
         'sources':     [SOURCELOWER_TAR_XZ],
@@ -157,11 +157,11 @@ components = [
         'start_dir':   '%(namelower)s-%(version)s',
         }),
     ('makeinfo', local_makeinfo_version, { # Uses the system perl
-        'sources':     ['texinfo-%(version)s.tar.xz'],
-        'source_urls': ['https://ftpmirror.gnu.org/gnu/texinfo'],
-        'checksums':   ['0329d7788fbef113fa82cb80889ca197a344ce0df7646fe000974c5d714363a6'],
-        'start_dir':   'texinfo-%(version)s',
-        'configopts':  ' --libdir=%(installdir)s/lib', 
+        'sources':        ['texinfo-%(version)s.tar.xz'],
+        'source_urls':    ['https://ftpmirror.gnu.org/gnu/texinfo'],
+        'checksums':      ['0329d7788fbef113fa82cb80889ca197a344ce0df7646fe000974c5d714363a6'],
+        'start_dir':      'texinfo-%(version)s',
+        'configure_opts': ' --libdir=%(installdir)s/lib', 
         }),
     ('Autoconf-archive', local_Autoconf_archive_version, { # Uses M4
         'sources':     [SOURCELOWER_TAR_XZ],
@@ -176,30 +176,30 @@ components = [
         'start_dir':   '%(namelower)s-%(version)s',
         }),
     ('help2man', local_help2man_version, {
-        'sources':     [SOURCELOWER_TAR_XZ],
-        'source_urls': [GNU_SOURCE],
-        'checksums':   ['4d7e4fdef2eca6afe07a2682151cea78781e0a4e8f9622142d9f70c083a2fd4f'],
-        'start_dir':   '%(namelower)s-%(version)s',
-        'configopts':  ' --libdir=%(installdir)s/lib', 
+        'sources':        [SOURCELOWER_TAR_XZ],
+        'source_urls':    [GNU_SOURCE],
+        'checksums':      ['4d7e4fdef2eca6afe07a2682151cea78781e0a4e8f9622142d9f70c083a2fd4f'],
+        'start_dir':      '%(namelower)s-%(version)s',
+        'configure_opts': ' --libdir=%(installdir)s/lib', 
         }),
     ('Bison', local_Bison_version, {
-        'sources':      [SOURCELOWER_TAR_XZ],
-        'source_urls':  [GNU_SOURCE],
-        'checksums':    ['9bba0214ccf7f1079c5d59210045227bcf619519840ebfa80cd3849cff5a5bf2'],
-        'start_dir':    '%(namelower)s-%(version)s',
-        'configopts':   ' --libdir=%(installdir)s/lib', 
-        'buildopts':    'V=1',
-        'max_parallel': '1',  # Building the examples fails in some Bison version when doing a parallel
-                              # build, likely due to incomplete dependencies and a file being removed
-                              # while it is still needed.
+        'sources':        [SOURCELOWER_TAR_XZ],
+        'source_urls':    [GNU_SOURCE],
+        'checksums':      ['9bba0214ccf7f1079c5d59210045227bcf619519840ebfa80cd3849cff5a5bf2'],
+        'start_dir':      '%(namelower)s-%(version)s',
+        'configure_opts': ' --libdir=%(installdir)s/lib', 
+        'build_opts':     'V=1',
+        'max_parallel':   '1',  # Building the examples fails in some Bison version when doing a parallel
+                                # build, likely due to incomplete deps and a file being removed
+                                # while it is still needed.
         }),
     ('flex', local_flex_version, {
         'sources':       [SOURCELOWER_TAR_GZ],
         'source_urls':   ['https://github.com/westes/flex/releases/download/v' + local_flex_version + '/'],
         'checksums':     ['e87aae032bf07c26f85ac0ed3250998c37621d95f8bd748b31f15b33c45ee995'],
         'start_dir':     '%(namelower)s-%(version)s',
-        'preconfigopts': 'export CPPFLAGS="$CPPFLAGS -D_GNU_SOURCE" && ',
-        'configopts':    '--enable-static --disable-shared  --libdir=%(installdir)s/lib',
+        'pre_configure_opts': 'export CPPFLAGS="$CPPFLAGS -D_GNU_SOURCE" && ',
+        'configure_opts':    '--enable-static --disable-shared  --libdir=%(installdir)s/lib',
         }),
     ('sed', local_sed_version, {
         'sources':     [SOURCELOWER_TAR_XZ],
@@ -208,11 +208,11 @@ components = [
         'start_dir':   '%(namelower)s-%(version)s'
         }),
     ('CMake', local_CMake_version, {
-        'sources':     [SOURCELOWER_TAR_GZ],
-        'source_urls': ['https://cmake.org/files/v%(version_major_minor)s'],
-        'checksums':   ['7efaccde8c5a6b2968bad6ce0fe60e19b6e10701a12fce948c2bf79bac8a11e9'],
-        'start_dir':   '%(namelower)s-%(version)s',
-        'configopts':  '-- -DCMAKE_USE_OPENSSL=1'
+        'sources':        [SOURCELOWER_TAR_GZ],
+        'source_urls':    ['https://cmake.org/files/v%(version_major_minor)s'],
+        'checksums':      ['7efaccde8c5a6b2968bad6ce0fe60e19b6e10701a12fce948c2bf79bac8a11e9'],
+        'start_dir':      '%(namelower)s-%(version)s',
+        'configure_opts': '-- -DCMAKE_USE_OPENSSL=1'
         }),
     ('gperf', local_gperf_version, {
         'sources':     [SOURCELOWER_TAR_GZ],
@@ -221,13 +221,13 @@ components = [
         'start_dir':   '%(namelower)s-%(version)s'
         }),
     ('patchelf', local_patchelf_version, {
-        'sources':       [ { 'download_filename' : '%(version)s.tar.gz',
-                             'filename'          : 'patchelf-%(version)s.tar.gz',
-                             'source_urls'       : ['https://github.com/NixOS/patchelf/archive/'],
-                         } ],
-        'checksums':     ['039f755bd3533f92cc07b8034419117c763d8a97a909aefbef6a6ecf86e679fc'],
-        'start_dir':     '%(namelower)s-%(version)s',
-        'preconfigopts': 'sh bootstrap.sh && '
+        'sources':            [ { 'download_filename' : '%(version)s.tar.gz',
+                                  'filename'          : 'patchelf-%(version)s.tar.gz',
+                                  'source_urls'       : ['https://github.com/NixOS/patchelf/archive/'],
+                              } ],
+        'checksums':          ['039f755bd3533f92cc07b8034419117c763d8a97a909aefbef6a6ecf86e679fc'],
+        'start_dir':          '%(namelower)s-%(version)s',
+        'pre_configure_opts': 'sh bootstrap.sh && '
         }),
     ('re2c', local_re2c_version, {
         'sources':     [SOURCE_TAR_XZ],
@@ -238,11 +238,11 @@ components = [
     ('Doxygen', local_Doxygen_version, {  # Note that the build process already requires CMake, flex and Bison
         'easyblock':     'CMakeMake',
         # Download as http://doxygen.nl/files/doxygen-1.8.15.src.tar.gz
-        'sources':       ['%(namelower)s-%(version)s.src.tar.gz'],
-        'source_urls':   ['http://doxygen.nl/files/'],
-        'configopts':    '-DBUILD_SHARED_LIBS=OFF -DCMAKE_INSTALL_LIBDIR=lib ',
-        'checksums':     ['a8cafe605867ad475aaf288a3852783076e1df83aabf16488bbfa958062e7440'],
-        'start_dir':     '%(namelower)s-%(version)s',
+        'sources':        ['%(namelower)s-%(version)s.src.tar.gz'],
+        'source_urls':    ['http://doxygen.nl/files/'],
+        'configure_opts': '-DBUILD_SHARED_LIBS=OFF -DCMAKE_INSTALL_LIBDIR=lib ',
+        'checksums':      ['a8cafe605867ad475aaf288a3852783076e1df83aabf16488bbfa958062e7440'],
+        'start_dir':      '%(namelower)s-%(version)s',
         }),
 ]
 #
@@ -252,7 +252,7 @@ components = [
 
 #parallel = 1
 
-postinstallcmds = [
+post_install_cmds = [
     # Fix scons for use in the container as we don't have the python link at the moment
     #'cd %(installdir)s && '
     #'sed -e \'s|#!.*python.*|#!/usr/bin/python3.6|\' '
@@ -325,7 +325,7 @@ sanity_check_paths = {
              ['share/info'],
 }
 
-sanity_check_commands = [
+sanity_check_cmds = [
     # Make
     'make --version',
     # byacc
@@ -376,14 +376,14 @@ sanity_check_commands = [
 
 # We may not even need this, EasyBuildmay add it automatically, and we may
 # not even want it if we make all commands that we want to offer independent of it.
-#modextrapaths = {
+#env_mod_extra_paths = {
 #    'PYTHONPATH': ['lib/python%s/site-packages' % local_system_pyshortver]
 #}
 
 #
 # We set EBROOT and EBVERSION variables that correspond to each of the regular
 # EasyBuild packages that are replaced by this bundle.
-modextravars = {
+env_mod_extra_vars = {
     'EBROOTBYACC':                 '%(installdir)s',
     'EBVERSIONBYACC':              local_byacc_version,
     'EBROOTFLEX':                  '%(installdir)s',
@@ -422,8 +422,7 @@ modextravars = {
     'EBVERSIONDOXYGEN':            local_Doxygen_version,
 }
 
-moduleclass = 'devel'
-modluafooter = """
+env_mod_lua_footer = """
 extensions( "Autoconf/%(autoconf)s, Autoconf-archive/%(autoconfarchive)s, Automake/%(automake)s, " ..
             "makeinfo/%(makeinfo)s, libtool/%(libtool)s, M4/%(m4)s, make/%(make)s, sec/%(sed)s, Bison/%(bison)s, flex/%(flex)s, " ..
             "byacc/%(byacc)s, CMake/%(cmake)s, patchelf/%(patchelf)s, " ..
@@ -448,3 +447,5 @@ extensions( "Autoconf/%(autoconf)s, Autoconf-archive/%(autoconfarchive)s, Automa
     'help2man'        : local_help2man_version,
     'doxygen'         : local_Doxygen_version,
 }
+
+env_mod_category = 'devel'

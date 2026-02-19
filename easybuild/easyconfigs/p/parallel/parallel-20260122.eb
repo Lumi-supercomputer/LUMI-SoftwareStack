@@ -1,3 +1,4 @@
+easybuild_version = '5.0.0'
 easyblock = 'ConfigureMake'
 
 local_parallel_version =     '20260122'      # https://ftp.gnu.org/gnu/parallel/ (Not yet in EB 2025a when checking)
@@ -55,15 +56,15 @@ sources =     [SOURCELOWER_TAR_BZ2]
 source_urls = [GNU_SOURCE]
 checksums =   ['831f78e01f3f28ac2441e66b10171562c71a0300353893aa05bbc277f13cc596']
 
-osdependencies = [
+os_deps = [
     ('perl')
 ]
 
-builddependencies = [
+build_deps = [
     ('buildtools', local_LUMI_version), # For sed, as the default one in SP6 changes permissions when doing in-place editing.
 ]
 
-postinstallcmds = [
+post_install_cmds = [
     # Correct the shebang to enforce system Perl
     'cd %(installdir)s/bin && sed -i -e \'s|#!/usr/bin/env perl|#!/usr/bin/perl|\' parallel',
     # Copy license information
@@ -78,7 +79,7 @@ sanity_check_paths = {
 # Note that some of these commands actually complain about unknown versions 
 # but nicely print some text and then return error code 0 so have some value
 # as a test.
-sanity_check_commands = [ # Note that some of these commands actually complain about unknown versions but ret
+sanity_check_cmds = [ # Note that some of these commands actually complain about unknown versions but ret
     'parallel --version',
     'sem --version',
     'parsort --version',
@@ -88,4 +89,4 @@ sanity_check_commands = [ # Note that some of these commands actually complain a
     'env_parallel --version',
 ]
 
-moduleclass = 'tools'
+env_mod_category = 'tools'

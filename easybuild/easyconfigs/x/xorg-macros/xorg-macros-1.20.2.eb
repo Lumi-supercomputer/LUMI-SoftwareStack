@@ -1,3 +1,4 @@
+easybuild_version = '5.0.5'
 easyblock = 'ConfigureMake'
 
 # The first line below is a dirty trick not very much loved by the EasyBuild developers but
@@ -30,15 +31,15 @@ source_urls = ['https://gitlab.freedesktop.org/xorg/util/macros/-/archive/util-m
 sources =     ['macros-util-macros-%(version)s.tar.gz']
 checksums =   ['beac7e00e5996bd0c9d9bd8cf62704583b22dbe8613bd768626b95fcac955744']
 
-builddependencies = [ # Create a reproducible build environment
+build_deps = [ # Create a reproducible build environment
     ('buildtools', local_LUMI_version), # Uses autotools
 ]
 
-preconfigopts = './autogen.sh && '
+pre_configure_opts = './autogen.sh && '
 
 sanity_check_paths = {
     'files': ['share/pkgconfig/xorg-macros.pc'],
     'dirs':  [],
 }
 
-moduleclass = 'devel'
+env_mod_category = 'devel'

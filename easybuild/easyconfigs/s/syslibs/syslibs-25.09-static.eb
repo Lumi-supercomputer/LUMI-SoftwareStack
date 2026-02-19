@@ -2,6 +2,7 @@
 #
 #LUMISTACK 25.03
 #
+easybuild_version = '5.0.0'
 easyblock = 'Bundle'
 
 local_LUMI_version =         '25.09'

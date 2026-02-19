@@ -69,3 +69,5 @@
 ### Version 20260122 using the system perl for 25.09
 
 -   Trivial version bump of the EasyConfig for 20250422.
+
+-   Updated the EasyConfig parameter names to the new ones for EasyBuild 6.

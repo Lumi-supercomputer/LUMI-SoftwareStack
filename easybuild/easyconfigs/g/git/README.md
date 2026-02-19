@@ -89,3 +89,5 @@ cluster).
 ### git 2.53.0 for 25.09
 
 -   Straightforward update of the EasyConfig for 2.49.0.
+
+-   But we did switch to the new set of EasyConfig parameters to prepare for EasyBuild 6.
