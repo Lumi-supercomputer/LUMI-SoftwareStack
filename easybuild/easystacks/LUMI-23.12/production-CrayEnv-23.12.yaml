@@ -10,6 +10,6 @@ easyconfigs:
   - Vim-9.1.0050.eb
   - git-2.43.4.eb
   - Subversion-1.14.3.eb
-  - parallel-20240422.eb
+  - parallel-20240122.eb
   - lumi-CrayPath-0.1.eb
   
