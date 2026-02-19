@@ -26,13 +26,13 @@ software_license_urls = [
 ]
 
 toolchain = {'name': 'cpeAOCC', 'version': '25.09'}
-toolchainopts = {'optarch': True, 'pic': True}
+toolchain_opts = {'optarch': True, 'pic': True}
 
 source_urls = [GNU_SOURCE]
 sources =     [SOURCE_TAR_GZ]
 checksums =   ['136d91bc269a9a5785e5f9e980bc76ab57428f604ce3e5a5a90cebc767971cc6']
 
-builddependencies = [ # Create a reproducible build environment.
+build_deps = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
 ]
 
@@ -42,20 +42,20 @@ builddependencies = [ # Create a reproducible build environment.
 
 local_gcc_major = local_gcc_version.split( '.' )[0]
 
-preconfigopts  = 'module unload cray-libsci cray-mpich rocm xpmem craype && '
-preconfigopts += f'module load gcc-native/{local_gcc_version} && '
-preconfigopts += ' '.join( [
+pre_configure_opts  = 'module unload cray-libsci cray-mpich rocm xpmem craype && '
+pre_configure_opts += f'module load gcc-native/{local_gcc_version} && '
+pre_configure_opts += ' '.join( [
     f'CC=gcc-{local_gcc_major} CXX=g++-{local_gcc_major} ',
     'CFLAGS="-O2 -march=znver2 -pipe -D_REENTRANT" ',
     'CXXFLAGS="-O2 -march=znver2 -fweak" ',
     'LDFLAGS="-Wl,-O2 -Wl,-Bsymbolic-functions -Wl,--hash-size=8599 -Wl,--as-needed" '  
 ] )
 
-prebuildopts = preconfigopts
-pretestopts = preconfigopts
-preinstallopts = preconfigopts
+pre_build_opts = pre_configure_opts
+pre_test_opts = pre_configure_opts
+pre_install_opts = pre_configure_opts
 
-local_common_configopts = ' '.join( [
+local_common_configure_opts = ' '.join( [
     '--with-shared --with-normal ',                # Generate shared and normal libraries
     '--with-debug ',                               # SUSE uses --without-debug to not generate debug libraries, but EasyBuild does generate them.
     '--without-tests ',                            # Suppress building test programs
@@ -95,14 +95,14 @@ local_common_configopts = ' '.join( [
     '--enable-opaque-curses --enable-opaque-form --enable-opaque-menu --enable-opaque-panel '
 ] )
 
-configopts = [
+configure_opts = [
     # default build
-    local_common_configopts + '--disable-widec',
+    local_common_configure_opts + '--disable-widec',
     # the UTF-8 enabled version (ncursesw)
-    local_common_configopts + "--enable-ext-colors --enable-widec --includedir=%(installdir)s/include/ncursesw/ ",
+    local_common_configure_opts + "--enable-ext-colors --enable-widec --includedir=%(installdir)s/include/ncursesw/ ",
 ]
 
-postinstallcmds = [
+post_install_cmds = [
     # Remove --hash-size in the link options in the .pc files and ncurses*6-config commands
     'cd %(installdir)s/lib/pkgconfig ; for file in $(/bin/ls *.pc) ; do sed -e "s| -Wl,--hash-size=8599||" -i $file ; done',
     'cd %(installdir)s/bin && sed -e "s| -Wl,--hash-size=8599||" -i ncurses6-config',
@@ -126,7 +126,7 @@ sanity_check_paths = {
     'dirs':  ['include', 'include/ncursesw'],
 }
 
-sanity_check_commands = [
+sanity_check_cmds = [
     'infocmp -V',
     'ncurses6-config --version',
     'tabs -V',
@@ -136,4 +136,4 @@ sanity_check_commands = [
     'tset -V',
 ] + [ 'pkg-config --libs %s%s' % (x, y) for x in local_libs for y in ['', 'w'] ]
 
-moduleclass = 'devel'
+env_mod_category = 'devel'

@@ -35,22 +35,22 @@ source_urls = ['https://github.com/rockdaboot/%(name)s/releases/download/%(versi
 sources =     [SOURCELOWER_TAR_GZ]
 checksums =   ['1dcc9ceae8b128f3c0b3f654decd0e1e891afc6ff81098f227ef260449dae208']
 
-builddependencies = [ # Create a reproducible build environment.
+build_deps = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
 ]
 
-dependencies = [
+deps = [
     ('libidn2',      local_libidn2_version),
     ('libunistring', local_libunistring_version),
 ]
 
 # Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
-preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
-prebuildopts = preconfigopts
+pre_configure_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+pre_build_opts = pre_configure_opts
 
-configopts = '--enable-runtime=libidn2 --enable-builtin'
+configure_opts = '--enable-runtime=libidn2 --enable-builtin'
 
-postinstallcmds = [
+post_install_cmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
     'cp AUTHORS COPYING LICENSE NEWS README %(installdir)s/share/licenses/%(name)s',   
 ]
@@ -61,9 +61,9 @@ sanity_check_paths = {
     'dirs':  ['share/man/man1']
 }
 
-sanity_check_commands = [
+sanity_check_cmds = [
     'psl --version',
     'pkg-config --libs libpsl | grep "%(installdir)s/lib"',
 ]
 
-moduleclass = 'lib'
+env_mod_category = 'lib'

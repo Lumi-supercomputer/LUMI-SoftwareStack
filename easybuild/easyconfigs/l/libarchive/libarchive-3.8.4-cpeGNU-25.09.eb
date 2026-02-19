@@ -29,18 +29,18 @@ software_license_urls = [
 ]
 
 toolchain = {'name': 'cpeGNU', 'version': '25.09'}
-toolchainopts = {'pic': True}
+toolchain_opts = {'pic': True}
 
 # https://www.libarchive.org/downloads/libarchive-3.8.4.tar.gz
 source_urls = ['https://www.libarchive.org/downloads/']
 sources =     [SOURCE_TAR_GZ]
 checksums =   ['b2c75b132a0ec43274d2867221befcb425034cd038e465afbfad09911abb1abb']
 
-builddependencies = [ # Create a reproducible build environment.
+build_deps = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
 ]
 
-dependencies = [
+deps = [
     ('bzip2',   local_bzip2_version),
     ('XZ',      local_XZ_version),
     ('zlib',    local_zlib_version),
@@ -51,11 +51,11 @@ dependencies = [
 ]
 
 # Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
-preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
-prebuildopts = preconfigopts
-preinstallopts = preconfigopts
+pre_configure_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+pre_build_opts = pre_configure_opts
+pre_install_opts = pre_configure_opts
 
-postinstallcmds = [
+post_install_cmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
     'cd ../%(namelower)s-%(version)s && cp COPYING NEWS README.md %(installdir)s/share/licenses/%(name)s',   
 ]
@@ -68,10 +68,10 @@ sanity_check_paths = {
     'dirs':  ['share/man/man1', 'share/man/man3', 'share/man/man5'],
 }
 
-sanity_check_commands = [
+sanity_check_cmds = [
     '%s --version' % x for x in local_exe
     ] + [
     'pkg-config --libs libarchive'
 ]
 
-moduleclass = 'vis'
+env_mod_category = 'vis'

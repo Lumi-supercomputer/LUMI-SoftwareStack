@@ -30,7 +30,7 @@ software_license_urls = [ # Dual license scheme
 ]
 
 toolchain = {'name': 'cpeAOCC', 'version': '25.09'}
-toolchainopts = {'pic': True}
+toolchain_opts = {'pic': True}
 
 sources =   [ {
                 # https://github.com/facebook/zstd/releases/download/v1.5.0/zstd-1.5.0.tar.gz
@@ -43,29 +43,29 @@ sources =   [ {
 
 checksums = ['37d7284556b20954e56e1ca85b80226768902e2edabd3b649e9e72c0c9012ee3']
 
-builddependencies = [ # Create a reproducible build environment.
+build_deps = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
 ]
 
-dependencies = [
+deps = [
     ('zlib', local_zlib_version),
     ('gzip', local_gzip_version),
     ('XZ',   local_XZ_version),
     ('lz4',  local_lz4_version),
 ]
 
-skipsteps = ['configure']
+skip_steps = ['configure']
 
 # Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
-prebuildopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
-pretestopts = prebuildopts
-preinstallopts = prebuildopts
+pre_build_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+pre_test_opts = pre_build_opts
+pre_install_opts = pre_build_opts
 
-runtest = 'check'
+run_test = 'check'
 
-installopts = "PREFIX=%(installdir)s"
+install_opts = "PREFIX=%(installdir)s"
 
-postinstallcmds = [
+post_install_cmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
     'cp CHANGELOG COPYING LICENSE README.md %(installdir)s/share/licenses/%(name)s',   
 ]
@@ -76,9 +76,9 @@ sanity_check_paths = {
     'dirs':  ['lib/pkgconfig']
 }
 
-sanity_check_commands = [ 
+sanity_check_cmds = [ 
     'zstd --version',
     'pkg-config --libs libzstd',
 ]
 
-moduleclass = 'lib'
+env_mod_category = 'lib'

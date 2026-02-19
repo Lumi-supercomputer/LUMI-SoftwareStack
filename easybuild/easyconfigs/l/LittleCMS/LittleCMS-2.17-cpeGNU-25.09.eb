@@ -26,21 +26,21 @@ source_urls = ['https://sourceforge.net/projects/lcms/files/lcms/%s/' % '.'.join
 sources =     ['lcms2-%(version)s.tar.gz']
 checksums =   ['d11af569e42a1baa1650d20ad61d12e41af4fead4aa7964a01f93b08b53ab074']
 
-builddependencies = [
+build_deps = [
     ('buildtools', '%(toolchain_version)s', '', SYSTEM),
 ]
 
-dependencies = [ # Based on docs, not EasyBuilders EasyConfig.
+deps = [ # Based on docs, not EasyBuilders EasyConfig.
     ('zlib',          local_zlib_version),
     ('libjpeg-turbo', local_libjpegturbo_version),
     ('LibTIFF',       local_libtiff_version),
 ]
 
 # Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
-preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
-preinstallopts = pretestopts = prebuildopts = preconfigopts
+pre_configure_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+pre_install_opts = pre_test_opts = pre_build_opts = pre_configure_opts
 
-postinstallcmds = [
+post_install_cmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
     'cp AUTHORS ChangeLog LICENSE README.md SECURITY.md %(installdir)s/share/licenses/%(name)s',   
 ]
@@ -52,7 +52,7 @@ sanity_check_paths = {
     'dirs':  ['share/man'],
 }
 
-sanity_check_commands = [ # No easy test on the executables themselves though...
+sanity_check_cmds = [ # No easy test on the executables themselves though...
     f'pkg-config --modversion lcms2 | grep -q {local_LittleCMS_version}',
     'pkg-config --libs lcms2 | grep -q llcms2',
     f'jpgicc   2>&1 | grep -q "LittleCMS {local_LittleCMS_version}"',
@@ -62,4 +62,4 @@ sanity_check_commands = [ # No easy test on the executables themselves though...
     f'transicc 2>&1 | grep -q "LittleCMS {local_LittleCMS_version}"',
 ]
 
-moduleclass = 'vis'
+env_mod_category = 'vis'

@@ -28,7 +28,7 @@ the --help option, which includes a few examples.
 """
 
 toolchain = {'name': 'cpeCray', 'version': '25.09'}
-toolchainopts = {'pic': True}
+toolchain_opts = {'pic': True}
 
 # https://code.videolan.org/videolan/x264/-/archive/0480cb05/x264-0480cb05.tar.gz
 source_urls = [f'https://code.videolan.org/videolan/x264/-/archive/{local_x264_commit}/']
@@ -38,19 +38,19 @@ sources =     [{
                }]
 checksums =   ['b336cdb04eeca5d15a53db323bc716fd7a1dae7bf19df0a8a41379d2d65e05d0']
 
-builddependencies = [ # Create a reproducible build environment.
+build_deps = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True), # USes NASM
 ]
 
 # Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
-preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
-prebuildopts = preconfigopts
+pre_configure_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+pre_build_opts = pre_configure_opts
 
-configopts = " --enable-shared --enable-static"
+configure_opts = " --enable-shared --enable-static"
 
-installopts  = ' && cp -r doc %(installdir)s'
-installopts += ' && mkdir -p %(installdir)s/share/licenses/%(name)s'
-installopts += ' && cp AUTHORS COPYING %(installdir)s/share/licenses/%(name)s'
+install_opts  = ' && cp -r doc %(installdir)s'
+install_opts += ' && mkdir -p %(installdir)s/share/licenses/%(name)s'
+install_opts += ' && cp AUTHORS COPYING %(installdir)s/share/licenses/%(name)s'
 
 sanity_check_paths = {
     'files': ['bin/x264', 'include/x264_config.h', 'include/x264.h',
@@ -58,9 +58,9 @@ sanity_check_paths = {
     'dirs':  [],
 }
 
-sanity_check_commands = [
+sanity_check_cmds = [
     'x264 --version',
     'pkg-config --libs x264',
 ]
 
-moduleclass = 'vis'
+env_mod_category = 'vis'

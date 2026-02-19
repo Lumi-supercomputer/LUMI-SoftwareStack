@@ -22,7 +22,7 @@ software_license_urls = [
 ]
 
 toolchain = {'name': 'cpeGNU', 'version': '25.09'}
-toolchainopts = {'pic': True}
+toolchain_opts = {'pic': True}
 
 sources = {
     'download_filename': 'v%(version)s.tar.gz',
@@ -31,22 +31,22 @@ sources = {
 }
 checksums = ['537512904744b35e232912055ccf8ec66d768639ff3abe5788d90d792ec5f48b']
 
-builddependencies = [ # Create a reproducible build environment.
+build_deps = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
 ]
 
-skipsteps = ['configure']
+skip_steps = ['configure']
 
 # Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
-prebuildopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
-pretestopts = prebuildopts
-preinstallopts = prebuildopts
+pre_build_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+pre_test_opts = pre_build_opts
+pre_install_opts = pre_build_opts
 
-installopts = "PREFIX=%(installdir)s"
+install_opts = "PREFIX=%(installdir)s"
 
-runtest = 'check'
+run_test = 'check'
 
-postinstallcmds = [
+post_install_cmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
     'cp LICENSE NEWS README.md %(installdir)s/share/licenses/%(name)s',   
 ]
@@ -56,9 +56,9 @@ sanity_check_paths = {
     'dirs':  ['lib/pkgconfig']
 }
 
-sanity_check_commands = [
+sanity_check_cmds = [
     'lz4 -V',
     'pkg-config --libs liblz4',
 ]
 
-moduleclass = 'lib'
+env_mod_category = 'lib'

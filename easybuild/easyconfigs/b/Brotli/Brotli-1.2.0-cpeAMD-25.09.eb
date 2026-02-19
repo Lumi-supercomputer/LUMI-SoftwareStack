@@ -31,7 +31,7 @@ software_license_urls = [
 ]
 
 toolchain = {'name': 'cpeAMD', 'version': '25.09'}
-toolchainopts = {'pic': True}
+toolchain_opts = {'pic': True}
 
 sources = [ {
               'download_filename': 'v%(version)s.tar.gz',
@@ -40,22 +40,22 @@ sources = [ {
             } ]
 checksums =   ['816c96e8e8f193b40151dad7e8ff37b1221d019dbcb9c35cd3fadbfe6477dfec']
 
-builddependencies = [ # Create a reproducible build environment.
+build_deps = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
 ]
 
 # Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
-preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
-prebuildopts = preconfigopts
+pre_configure_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+pre_build_opts = pre_configure_opts
 
 # Build twice, once for shared, once for static libraries, and install in lib 
 # for consistency with ConfigureMake installs.
-configopts = [
+configure_opts = [
     '-DCMAKE_INSTALL_LIBDIR=lib -DBUILD_SHARED_LIBS=ON', 
     '-DCMAKE_INSTALL_LIBDIR=lib -DBUILD_SHARED_LIBS=OFF'
 ]
 
-postinstallcmds = [
+post_install_cmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
     'cd ../%(namelower)s-%(version)s && cp CHANGELOG.md CONTRIBUTING.md LICENSE README README.md SECURITY.md %(installdir)s/share/licenses/%(name)s',   
 ]
@@ -67,11 +67,11 @@ sanity_check_paths = {
     'dirs':  ['lib64/pkgconfig'],
 }
 
-sanity_check_commands = [
+sanity_check_cmds = [
     'pkg-config --libs libbrotlicommon',    
     'pkg-config --libs libbrotlidec',    
     'pkg-config --libs libbrotlienc',
     'brotli -h',
 ]
 
-moduleclass = 'lib'
+env_mod_category = 'lib'

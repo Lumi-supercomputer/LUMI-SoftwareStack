@@ -44,41 +44,41 @@ software_license_urls = [
 ]
 
 toolchain = {'name': 'cpeCray', 'version': '25.09'}
-toolchainopts = {'pic': True}
+toolchain_opts = {'pic': True}
 
 # https://curl.haxx.se/download/curl-8.17.0.tar.xz
 sources =     [SOURCELOWER_TAR_XZ]
 source_urls = ['https://curl.haxx.se/download/']
 checksums =   ['955f6e729ad6b3566260e8fef68620e76ba3c31acf0a18524416a185acf77992']
 
-builddependencies = [ # Create a reproducible build environment.
+build_deps = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
 ]
 
-dependencies = [
+deps = [
     ('zlib',   local_zlib_version),
     ('Brotli', local_Brotli_version),
     ('libpsl', local_libpsl_version),
 ]
 
-osdependencies = [
+os_deps = [
     ('openssl-devel', 'libssl-dev', 'libopenssl-devel'),
 #    ('libssh2-devel'),
 ]
 
-# dependencies = [('OpenSSL', '1.1.0e')]
+# deps = [('OpenSSL', '1.1.0e')]
 
 # Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
-preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
-prebuildopts = preconfigopts
+pre_configure_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+pre_build_opts = pre_configure_opts
 
-# configopts = "--with-ssl=$EBROOTOPENSSL"
-configopts  = "--with-zlib=$EBROOTZLIB --with-openssl"
-#configopts += '--with-nghttp2 '           # Does not yet work at UAntwerp, requires an external library
-#configopts += '--with-ssh2 '              # Does not yet work at UAntwerp
-#configopts  = "--with-zlib=$EBROOTZLIB --without-ssl" # To try in a container without OpenSSL development packages.
+# configure_opts = "--with-ssl=$EBROOTOPENSSL"
+configure_opts  = "--with-zlib=$EBROOTZLIB --with-openssl"
+#configure_opts += '--with-nghttp2 '           # Does not yet work at UAntwerp, requires an external library
+#configure_opts += '--with-ssh2 '              # Does not yet work at UAntwerp
+#configure_opts  = "--with-zlib=$EBROOTZLIB --without-ssl" # To try in a container without OpenSSL development packages.
 
-postinstallcmds = [
+post_install_cmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
     'cp CHANGES.md COPYING README RELEASE-NOTES %(installdir)s/share/licenses/%(name)s',   
 ]
@@ -88,14 +88,14 @@ sanity_check_paths = {
     'dirs':  ['lib/pkgconfig'],
 }
 
-sanity_check_commands = [
+sanity_check_cmds = [
     '%(namelower)s --version',
     'curl-config --version',
     'pkg-config --libs libcurl',
 ]
 
-modextravars = {
+env_mod_extra_vars = {
     'CURL_INCLUDES': '%(installdir)s/include',
 }
 
-moduleclass = 'tools'
+env_mod_category = 'tools'

@@ -34,26 +34,26 @@ docurls = [
 
 
 toolchain = {'name': 'cpeAOCC', 'version': '25.09'}
-toolchainopts = {'pic': True}
+toolchain_opts = {'pic': True}
 
 sources =     [SOURCELOWER_TAR_XZ]
 source_urls = [GNU_SOURCE]
 checksums =   ['67d88430892527861903788868c77802a217b0959990f7449f2976126a307763']
 
-builddependencies = [ # Create a reproducible build environment.
+build_deps = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
 ]
 
-dependencies = [
+deps = [
     ('libiconv', local_libiconv_version),
 ]
 
 max_parallel = 1
 
 # Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
-preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
-prebuildopts = preconfigopts
-preinstallopts = preconfigopts
+pre_configure_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+pre_build_opts = pre_configure_opts
+pre_install_opts = pre_configure_opts
 
 sanity_check_paths = {
     'files': ['lib/libunistring.a', 'lib/libunistring.%s' % SHLIB_EXT] +
@@ -62,8 +62,8 @@ sanity_check_paths = {
     'dirs':  ['include/unistring'],
 }
 
-modextrapaths = {
+env_mod_extra_paths = {
     'INFOPATH' : 'share/info',
 }
 
-moduleclass = 'lib'
+env_mod_category = 'lib'

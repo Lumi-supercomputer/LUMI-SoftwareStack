@@ -21,24 +21,24 @@ software_license_urls = [
 ]
 
 toolchain = {'name': 'cpeAOCC', 'version': '25.09'}
-toolchainopts = {'pic': True}
+toolchain_opts = {'pic': True}
 
 # https://github.com/BLAKE2/libb2/releases/download/v0.98.1/libb2-0.98.1.tar.gz
 sources     = [SOURCELOWER_TAR_GZ]
 source_urls = ['https://github.com/BLAKE2/libb2/releases/download/v%(version)s']
 checksums   = ['53626fddce753c454a3fea581cbbc7fe9bbcf0bc70416d48fdbbf5d87ef6c72e']
 
-builddependencies = [
+build_deps = [
     ('buildtools', '%(toolchain_version)s', '', True),
 ]
 
 # Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
-preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
-prebuildopts = preconfigopts
+pre_configure_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+pre_build_opts = pre_configure_opts
 
-configopts = '--enable-native=no'
+configure_opts = '--enable-native=no'
 
-postinstallcmds = [
+post_install_cmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
     'cp COPYING %(installdir)s/share/licenses/%(name)s',   
 ]
@@ -49,8 +49,8 @@ sanity_check_paths = {
     'dirs':  ['include', 'lib'],
 }
 
-sanity_check_commands = [
+sanity_check_cmds = [
     'pkg-config --libs libb2',
 ]
 
-moduleclass = 'lib'
+env_mod_category = 'lib'

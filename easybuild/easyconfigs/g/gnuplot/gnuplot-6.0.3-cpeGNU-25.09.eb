@@ -60,11 +60,11 @@ source_urls = [('https://sourceforge.net/projects/gnuplot/files/gnuplot/%(versio
 sources =     [SOURCE_TAR_GZ]
 checksums =   ['ec52e3af8c4083d4538152b3f13db47f6d29929a3f6ecec5365c834e77f251ab']
 
-builddependencies = [
+build_deps = [
     ('buildtools', '%(toolchain_version)s', '', SYSTEM), # For ninja, meson, pkg-config and for help2man to generate the man page.
 ]
 
-dependencies = [
+deps = [
     ('ncurses',       local_ncurses_version),
     ('cairo',         local_cairo_version),
     ('libjpeg-turbo', local_libjpegturbo_version),
@@ -77,12 +77,12 @@ dependencies = [
 ]
 
 # Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
-preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
-preinstallopts = pretestopts = prebuildopts = preconfigopts
+pre_configure_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+pre_install_opts = pre_test_opts = pre_build_opts = pre_configure_opts
 
-preconfigopts += 'LIBS="$LIBS -liconv"'
+pre_configure_opts += 'LIBS="$LIBS -liconv"'
 
-configopts = '  '.join([
+configure_opts = '  '.join([
     '--with-gd=$EBROOTLIBGD', 
     '--with-qt=no',           # Disable support for Qt.
     '--with-cairo',           # Enable support for cairo. Versions are recent enough now.
@@ -92,7 +92,7 @@ configopts = '  '.join([
     '--without-latex',        # Disable LaTeX support, we don't want that on our parallel file systems.
 ])
 
-postinstallcmds = [
+post_install_cmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
     'cp BUGS Copyright NEWS README %(installdir)s/share/licenses/%(name)s',
     'mkdir -p %(installdir)s/easybuild/test-results'
@@ -103,9 +103,9 @@ sanity_check_paths = {
     'dirs':  []
 }
 
-sanity_check_commands = [
+sanity_check_cmds = [
     'gnuplot -V',
     'gnuplot -e \'set term svg ; set output "%(installdir)s/easybuild/test-results/picture.svg" ; set xrange [-1:1] ; set yrange [-1:1] ; unset key ; plot [t=0:2*pi] sin(2*t), cos(3*t)\' ',
 ]
 
-moduleclass = 'vis'
+env_mod_category = 'vis'

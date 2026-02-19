@@ -30,21 +30,21 @@ docurls = [
 ]
 
 toolchain = {'name': 'cpeAMD', 'version': '25.09'}
-toolchainopts = {'pic': True}
+toolchain_opts = {'pic': True}
 
 source_urls = ['https://zlib.net/fossils']
 sources =     [SOURCELOWER_TAR_GZ]
 checksums =   ['9a93b2b7dfdac77ceba5a558a580e74667dd6fede4585b91eefb60f03b72df23']
 
-builddependencies = [ # Create a reproducible build environment.
+build_deps = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
 ]
 
 # Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
-preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
-prebuildopts = preconfigopts
+pre_configure_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+pre_build_opts = pre_configure_opts
 
-postinstallcmds = [
+post_install_cmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
     'cd ../%(name)s-%(version)s && cp ChangeLog FAQ LICENSE README %(installdir)s/share/licenses/%(name)s',   
 ]
@@ -55,8 +55,8 @@ sanity_check_paths = {
     'dirs':  [],
 }
 
-sanity_check_commands = [
+sanity_check_cmds = [
     'pkg-config --libs zlib',
 ]
 
-moduleclass = 'lib'
+env_mod_category = 'lib'

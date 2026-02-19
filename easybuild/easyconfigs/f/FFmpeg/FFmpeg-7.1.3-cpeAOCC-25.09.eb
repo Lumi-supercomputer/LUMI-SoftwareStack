@@ -42,7 +42,7 @@ and playing.
 The FFmpeg project tries to provide the best technically possible solution
 for developers of applications and end users alike. To achieve this we combine
 the best free software options available. We slightly favor our own code to keep
-the dependencies on other libs low and to maximize code sharing between parts of
+the deps on other libs low and to maximize code sharing between parts of
 FFmpeg. Wherever the question of "best" cannot be answered we support both
 options so the end user can choose.
 """
@@ -63,11 +63,11 @@ source_urls = ['https://ffmpeg.org/releases/']
 sources =     [SOURCELOWER_TAR_BZ2]
 checksums =   ['e7df715136a1231598dadb70fe6abd5cd66abc1ac2f470a02c567b2600c5292b']
 
-builddependencies = [
+build_deps = [
     ('buildtools', '%(toolchain_version)s', '', True), # For NASM, see remarks in the README.md
 ]
 
-dependencies = [
+deps = [
     ('zlib',       local_zlib_version),
     ('bzip2',      local_bzip2_version),
     ('LAME',       local_LAME_version),
@@ -80,9 +80,9 @@ dependencies = [
 ]
 
 # Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
-preconfigopts = prebuildopts = pretestopts = preinstallopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+pre_configure_opts = pre_build_opts = pre_test_opts = pre_install_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
 
-configopts = ' '.join([
+configure_opts = ' '.join([
     '--cc="$CC"',
     '--cxx="$CXX"',
     '--enable-pic',
@@ -100,7 +100,7 @@ configopts = ' '.join([
     '--disable-htmlpages --disable-podpages --disable-txtpages', # Disable some help formats. the HTML page generation fails in the 24.11 container.
 ])
 
-postinstallcmds = [
+post_install_cmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
     'cp Changelog COPYING.* CREDITS LICENSE.md README.md RELEASE_NOTES %(installdir)s/share/licenses/%(name)s',   
 ]
@@ -113,9 +113,9 @@ sanity_check_paths = {
     'dirs': ['include']
 }
 
-sanity_check_commands = [
+sanity_check_cmds = [
     'ffmpeg -version',
     'ffprobe -version',
 ]
 
-moduleclass = 'vis'
+env_mod_category = 'vis'

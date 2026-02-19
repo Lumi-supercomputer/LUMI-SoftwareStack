@@ -43,36 +43,36 @@ software_license_urls = [
 ]
 
 toolchain = {'name': 'cpeCray', 'version': '25.09'}
-toolchainopts = {'pic': True}
+toolchain_opts = {'pic': True}
 
 source_urls = ['http://www.mpfr.org/mpfr-%(version)s/']
 sources =     [SOURCELOWER_TAR_XZ]
 checksums =   ['b67ba0383ef7e8a8563734e2e889ef5ec3c3b898a01d00fa0a6869ad81c6ce01']
 
-builddependencies = [ # Create a reproducible build environment.
+build_deps = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
 ]
 
-dependencies = [
+deps = [
     ('GMP',         local_GMP_version),
 ]
 
-skipsteps = ['test'] 
+skip_steps = ['test'] 
 
 # Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
-preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
-prebuildopts = preconfigopts
-pretestopts = preconfigopts
-preinstallopts = preconfigopts
+pre_configure_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+pre_build_opts = pre_configure_opts
+pre_test_opts = pre_configure_opts
+pre_install_opts = pre_configure_opts
 
-#runtest = 'check' # Time-consuming, 5 times the build time.
+#run_test = 'check' # Time-consuming, 5 times the build time.
 
 ## copy libmpfr.so* to <installdir>/lib to make sure that it  is picked up by tests
 ## when EasyBuild is configured with --rpath, and clean up afterwards (let 'make install' do its job)
-#pretestopts += "mkdir -p %%(installdir)s/lib && cp -a src/.libs/libmpfr.%s* %%(installdir)s/lib && " % SHLIB_EXT
-#testopts = " && rm -r %(installdir)s/lib"
+#pre_test_opts += "mkdir -p %%(installdir)s/lib && cp -a src/.libs/libmpfr.%s* %%(installdir)s/lib && " % SHLIB_EXT
+#test_opts = " && rm -r %(installdir)s/lib"
 
-postinstallcmds = [
+post_install_cmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
     'cp AUTHORS BUGS COPYING COPYING.LESSER NEWS README %(installdir)s/share/licenses/%(name)s',   
 ]
@@ -85,12 +85,12 @@ sanity_check_paths = {
 }
 
 # No binaries to easily check, but we do check if pkg-config can read the .pc files.
-sanity_check_commands = [
+sanity_check_cmds = [
     'pkg-config --libs mpfr',
 ]
 
-modextrapaths = {
+env_mod_extra_paths = {
     'INFOPATH' : 'share/info',
 }
 
-moduleclass = 'math'
+env_mod_category = 'math'

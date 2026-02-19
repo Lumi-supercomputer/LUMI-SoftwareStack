@@ -49,19 +49,19 @@ software_license_urls = [
 ]
 
 toolchain = {'name': 'cpeAOCC', 'version': '25.09'}
-#toolchainopts = {'usempi': True, 'pic': True, 'verbose': True, 'cstd': 'c++11'}
-toolchainopts = {'usempi': True, 'pic': True, 'verbose': False}
+#toolchain_opts = {'usempi': True, 'pic': True, 'verbose': True, 'cstd': 'c++11'}
+toolchain_opts = {'usempi': True, 'pic': True, 'verbose': False}
 
 # https://archives.boost.io/release/1.90.0/source/boost_1_90_0.tar.bz2
 source_urls = ['https://archives.boost.io/release/%(version)s/source/']
 sources =     ['%(namelower)s_%(version_major)s_%(version_minor)s_0.tar.bz2']
 checksums =   ['49551aff3b22cbc5c5a9ed3dbc92f0e23ea50a0f7325b0d198b705e8ee3fc305']
 
-builddependencies = [ # Create a reproducible build environment.
+build_deps = [ # Create a reproducible build environment.
     ('buildtools',   '%(toolchain_version)s',   '', True),
 ]
 
-dependencies = [
+deps = [
     ('bzip2', local_bzip2_version),
     #('libunwind', local_libunwind_version),
     ('zlib',  local_zlib_version),
@@ -69,9 +69,9 @@ dependencies = [
     ('ICU',   local_ICU_version),
 ]
 
-configopts = '--without-libraries=python'
+configure_opts = '--without-libraries=python'
 
-#prebuildopts = 'export CCC_OVERRIDE_OPTIONS="x--target=x86_64-pc-linux" && '
+#pre_build_opts = 'export CCC_OVERRIDE_OPTIONS="x--target=x86_64-pc-linux" && '
 
 # Also build boost_mpi - not needed as we already set use_mpi to True
 # boost_mpi = True
@@ -80,11 +80,11 @@ configopts = '--without-libraries=python'
 # toolset = 'clang'
 # build_toolset = 'clang'
 
-postinstallcmds = [
+post_install_cmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
     'cp LICENSE_1_0.txt README.md %(installdir)s/share/licenses/%(name)s',   
 ]
 
-modextravars = {'BOOST_ROOT': '%(installdir)s'}
+env_mod_extra_vars = {'BOOST_ROOT': '%(installdir)s'}
 
-moduleclass = 'devel'
+env_mod_category = 'devel'

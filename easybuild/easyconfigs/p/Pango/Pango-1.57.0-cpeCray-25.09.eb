@@ -54,13 +54,13 @@ source_urls = [FTPGNOME_SOURCE]
 sources =     [SOURCELOWER_TAR_XZ]
 checksums =   ['890640c841dae77d3ae3d8fe8953784b930fa241b17423e6120c7bfdf8b891e7']
 
-builddependencies = [
+build_deps = [
     ('buildtools' ,           '%(toolchain_version)s', '',                                        SYSTEM), # For Ninja
     ('buildtools-python',     '%(toolchain_version)s', f'-cray-python{local_craypython_maj_min}', SYSTEM), # For Meson
     ('GObject-Introspection', local_GObject_version,   f'-cray-python{local_craypython_maj_min}'),
 ]
 
-dependencies = [
+deps = [
     ('FriBidi',  local_fribidi_version),
     ('X11',      '%(toolchain_version)s'),
     ('GLib',     local_GLib_version),
@@ -69,16 +69,16 @@ dependencies = [
 ]
 
 # Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
-preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
-preinstallopts = pretestopts = prebuildopts = preconfigopts
+pre_configure_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+pre_install_opts = pre_test_opts = pre_build_opts = pre_configure_opts
 
-configopts = ' '.join([
+configure_opts = ' '.join([
     '--buildtype=release',
     '--default-library=both', # Create both static and shared libraries.
     '--libdir=lib',    
 ])
 
-postinstallcmds = [
+post_install_cmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
     'cd %(start_dir)s && cp COPYING NEWS README.md %(installdir)s/share/licenses/%(name)s',   
 ]
@@ -95,7 +95,7 @@ sanity_check_paths = {
     'dirs':  [],
 }
 
-sanity_check_commands = [
+sanity_check_cmds = [
     f'%s --version | grep -q {local_Pango_version}' % x for x in local_pango_commands_with_version
 ] + [
     f'pkg-config --modversion pango%s | grep -q {local_Pango_version}' % x for x in local_pango_pc
@@ -103,8 +103,8 @@ sanity_check_commands = [
     'pkg-config --libs pango%s | egrep -q "\-L%s/lib.*-lpango-1.0"' % (x, '%(installdir)s') for x in local_pango_pc # Not every pc file corresponds to a library with the same name burt all use -lpango-1.0.
 ]
 
-modextrapaths = {
+env_mod_extra_paths = {
     'GI_TYPELIB_PATH': 'share',
 }
 
-moduleclass = 'vis'
+env_mod_category = 'vis'

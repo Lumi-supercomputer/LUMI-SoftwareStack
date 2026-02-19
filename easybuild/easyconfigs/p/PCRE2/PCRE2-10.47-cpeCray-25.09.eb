@@ -32,35 +32,35 @@ software_license_urls = [
 ]
 
 toolchain = {'name': 'cpeCray', 'version': '25.09'}
-toolchainopts = {'pic': True}
+toolchain_opts = {'pic': True}
 
 source_urls = ['https://github.com/PCRE2Project/%(namelower)s/releases/download/%(namelower)s-%(version)s']
 sources =     [SOURCELOWER_TAR_BZ2]
 checksums =   ['47fe8c99461250d42f89e6e8fdaeba9da057855d06eb7fc08d9ca03fd08d7bc7']
 
-builddependencies = [ # Create a reproducible build environment.
+build_deps = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
 ]
 
-dependencies = [
+deps = [
     ('libreadline', local_libreadline_version),
     ('zlib',        local_zlib_version),
     ('bzip2',       local_bzip2_version),
 ]
 
 # Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
-preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
-prebuildopts = preconfigopts
-preinstallopts = preconfigopts
+pre_configure_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+pre_build_opts = pre_configure_opts
+pre_install_opts = pre_configure_opts
 
-configopts  = "--with-pic --enable-newline-is-any "
-configopts += "--enable-pcre2-16 --enable-pcre2-32 "
-configopts += "--enable-jit "
-configopts += "--enable-pcre2grep-libz --enable-pcre2grep-libbz2 --enable-pcre2test-libreadline "
+configure_opts  = "--with-pic --enable-newline-is-any "
+configure_opts += "--enable-pcre2-16 --enable-pcre2-32 "
+configure_opts += "--enable-jit "
+configure_opts += "--enable-pcre2grep-libz --enable-pcre2grep-libbz2 --enable-pcre2test-libreadline "
 
-#configopts = "--enable-shared --enable-jit --enable-pcre2-16 --enable-unicode"
+#configure_opts = "--enable-shared --enable-jit --enable-pcre2-16 --enable-unicode"
 
-postinstallcmds = [
+post_install_cmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
     'cp AUTHORS.md ChangeLog COPYING LICENCE.md NEWS README SECURITY.md %(installdir)s/share/licenses/%(name)s',   
 ]
@@ -76,12 +76,12 @@ sanity_check_paths = {
     'dirs': ['share/doc/pcre2/html', 'share/man/man3'],
 }
 
-sanity_check_commands = [
+sanity_check_cmds = [
     '%s --version' % x for x in local_executables] + [
     'pkg-config --libs libpcre2-%s' % x for x in local_lib_variants]
 
-sanity_check_commands = [
+sanity_check_cmds = [
     '%s --version' % x for x in local_executables] + [
     'pkg-config --libs libpcre2-%s' % x for x in local_lib_variants]
 
-moduleclass = 'devel'
+env_mod_category = 'devel'

@@ -52,23 +52,23 @@ software_license_urls = [
 ]
 
 toolchain = {'name': 'cpeAOCC', 'version': '25.09'}
-toolchainopts = {'pic': True}
+toolchain_opts = {'pic': True}
 
 # https://github.com/libjpeg-turbo/libjpeg-turbo/releases/download/3.1.3/libjpeg-turbo-3.1.3.tar.gz
 source_urls = ['https://github.com/libjpeg-turbo/libjpeg-turbo/releases/download/%(version)s/']
 sources =     [SOURCELOWER_TAR_GZ]
 checksums =   ['075920b826834ac4ddf97661cc73491047855859affd671d52079c6867c1c6c0']
 
-builddependencies = [ # Create a reproducible build environment.
+build_deps = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True), # NASM and CMake
 ]
 
 # Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
-preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
-prebuildopts = preconfigopts
-pretestopts = preconfigopts
+pre_configure_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+pre_build_opts = pre_configure_opts
+pre_test_opts = pre_configure_opts
 
-configopts = ' '.join([
+configure_opts = ' '.join([
     '-G"Unix Makefiles"',
     '-DCMAKE_INSTALL_LIBDIR:PATH=lib',
     '-DWITH_JPEG7=1',
@@ -76,10 +76,10 @@ configopts = ' '.join([
     '-DWITH_12BIT=1', 
 ])
 
-pretestopts += 'sed -e \'/djpeg12-.*-3x2-float-prog-cmp/d\' -i CTestTestfile.cmake && '
-runtest = "test"
+pre_test_opts += 'sed -e \'/djpeg12-.*-3x2-float-prog-cmp/d\' -i CTestTestfile.cmake && '
+run_test = "test"
 
-postinstallcmds = [
+post_install_cmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
     'cd ../%(namelower)s-%(version)s && cp ChangeLog.md LICENSE.md README.md %(installdir)s/share/licenses/%(name)s',   
 ]
@@ -92,7 +92,7 @@ sanity_check_paths = {
     'dirs':  ['share/man/man1'],
 }
 
-sanity_check_commands = [ # Not that much needed as there is a test procedure during the build.
+sanity_check_cmds = [ # Not that much needed as there is a test procedure during the build.
     'cjpeg -version',
     'djpeg -version',
     'jpegtran -version',
@@ -101,4 +101,4 @@ sanity_check_commands = [ # Not that much needed as there is a test procedure du
     'pkg-config --libs libturbojpeg',
 ]
 
-moduleclass = 'lib'
+env_mod_category = 'lib'

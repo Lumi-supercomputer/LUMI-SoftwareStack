@@ -34,7 +34,7 @@ software_license_urls = [
 
 
 toolchain = {'name': 'cpeCray', 'version': '25.09'}
-toolchainopts = {'optarch': True, 'pic': True}
+toolchain_opts = {'optarch': True, 'pic': True}
 
 source_urls = [
     'https://karypis.github.io/glaros/files/sw/metis',
@@ -45,28 +45,28 @@ checksums = [
     '76faebe03f6c963127dbb73c13eab58c9a3faeae48779f049066a21c087c5db2', # metis-5.1.0.tar.gz
 ]
 
-builddependencies = [ # Create a reproducible build environment.
+build_deps = [ # Create a reproducible build environment.
     ('buildtools',   '%(toolchain_version)s', '-CMake3', True), # For CMake
 ]
 
 # Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
-preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
-prebuildopts = preconfigopts
-preinstallopts = preconfigopts
+pre_configure_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+pre_build_opts = pre_configure_opts
+pre_install_opts = pre_configure_opts
 
 # Note that the configure step simply runs in the source directory.
-preconfigopts += ( f'pwd && sed -e \'s|^#define[[:space:]]*IDXTYPEWIDTH.*|#define IDXTYPEWIDTH {local_idxtypewidth}|\' '
+pre_configure_opts += ( f'pwd && sed -e \'s|^#define[[:space:]]*IDXTYPEWIDTH.*|#define IDXTYPEWIDTH {local_idxtypewidth}|\' '
                       f'-e \'s|^#define[[:space:]]*REALTYPEWIDTH.*|#define REALTYPEWIDTH {local_realtypewidth}|\' '
                       '-i include/metis.h && ' ) 
 
-configopts = [
+configure_opts = [
     '', 
     'shared=1'
 ]
 
-postinstallcmds = [
+post_install_cmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
     'cp Changelog LICENSE.txt %(installdir)s/share/licenses/%(name)s',   
 ]
 
-moduleclass = 'math'
+env_mod_category = 'math'

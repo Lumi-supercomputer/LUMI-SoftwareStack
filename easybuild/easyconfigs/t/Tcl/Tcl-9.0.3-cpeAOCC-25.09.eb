@@ -31,27 +31,27 @@ source_urls = ['https://downloads.sourceforge.net/project/%(namelower)s/%(name)s
 sources =     ['%(namelower)s%(version)s-src.tar.gz']
 checksums =   ['2537ba0c86112c8c953f7c09d33f134dd45c0fb3a71f2d7f7691fd301d2c33a6']
 
-builddependencies = [ # Create a reproducible build environment.
+build_deps = [ # Create a reproducible build environment.
     ('buildtools',   '%(toolchain_version)s',   '', True),
 ]
 
-dependencies = [
+deps = [
     ('zlib', local_zlib_version),
 ]
 
 # Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
-preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
-prebuildopts = preconfigopts
-pretestopts = preconfigopts
-preinstallopts = preconfigopts
+pre_configure_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+pre_build_opts = pre_configure_opts
+pre_test_opts = pre_configure_opts
+pre_install_opts = pre_configure_opts
 
-configopts = 'EXTRA_INSTALL="install-private-headers"'
+configure_opts = 'EXTRA_INSTALL="install-private-headers"'
 
 start_dir = 'unix'
 
-runtest = 'test'
+run_test = 'test'
 
-postinstallcmds = [
+post_install_cmds = [
     'ln -s %(installdir)s/bin/tclsh%(version_major)s.%(version_minor)s %(installdir)s/bin/tclsh',
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
     'cd .. && cp license.terms changes.md README.md %(installdir)s/share/licenses/%(name)s',   
@@ -64,4 +64,4 @@ sanity_check_paths = {
     'dirs':  ['share'],
 }
 
-moduleclass = 'lang'
+env_mod_category = 'lang'

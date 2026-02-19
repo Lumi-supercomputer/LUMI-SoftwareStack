@@ -20,7 +20,7 @@ are:
    data type. We used all the operator magic of modern C++ to achieve the same
    feeling in your code.
  - Trivial integration. Our whole code consists of a single header file 
-   json.hpp. That's it. No library, no subproject, no dependencies, no complex
+   json.hpp. That's it. No library, no subproject, no deps, no complex
    build system. The class is written in vanilla C++11. All in all, everything
    should require no adjustment of your compiler flags or project settings.
  - Serious testing. Our code is heavily unit-tested and covers 100% of the code,
@@ -33,7 +33,7 @@ docurls = ['https://json.nlohmann.me/']
 software_license_urls = ['https://json.nlohmann.me/home/license/']
 
 toolchain = {'name': 'cpeAOCC', 'version': '25.09'}
-toolchainopts = {'pic': True}
+toolchain_opts = {'pic': True}
 
 sources = [{
     'download_filename': 'v%(version)s.tar.gz',
@@ -42,11 +42,11 @@ sources = [{
 }]
 checksums =   ['4b92eb0c06d10683f7447ce9406cb97cd4b453be18d7279320f7b2f025c10187']
 
-builddependencies = [
+build_deps = [
     ('buildtools', '%(toolchain_version)s', '', True),
 ]
 
-postinstallcmds = [
+post_install_cmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
     'cd ../json-%(version)s && cp CITATION.cff ChangeLog.md LICENSE.MIT README.md %(installdir)s/share/licenses/%(name)s',   
 ]
@@ -56,4 +56,4 @@ sanity_check_paths = {
     'dirs':  ['include/nlohmann'],
 }
 
-moduleclass = 'devel'
+env_mod_category = 'devel'

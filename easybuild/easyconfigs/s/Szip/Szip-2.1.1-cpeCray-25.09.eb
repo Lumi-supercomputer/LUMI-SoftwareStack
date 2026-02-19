@@ -23,7 +23,7 @@ software_license_urls = [
 ]
 
 toolchain = {'name': 'cpeCray', 'version': '25.09'}
-toolchainopts = {'pic': True}
+toolchain_opts = {'pic': True}
 
 # Old URL: http://www.hdfgroup.org/ftp/lib-external/szip/2.1.1/src/szip-2.1.1.tar.gz
 # New URL: https://support.hdfgroup.org/ftp/lib-external/szip/2.1.1/src/szip-2.1.1.tar.gz
@@ -31,17 +31,17 @@ source_urls = ['https://support.hdfgroup.org/ftp/lib-external/szip/%(version)s/s
 sources =     [SOURCELOWER_TAR_GZ]
 checksums =   ['21ee958b4f2d4be2c9cabfa5e1a94877043609ce86fde5f286f105f7ff84d412']
 
-builddependencies = [ # Create a reproducible build environment.
+build_deps = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
 ]
 
 # Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
-preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
-prebuildopts = preconfigopts
+pre_configure_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+pre_build_opts = pre_configure_opts
 
-configopts = "--with-pic"
+configure_opts = "--with-pic"
 
-postinstallcmds = [
+post_install_cmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
     'cp COPYING HISTORY.txt README RELEASE.txt %(installdir)s/share/licenses/%(name)s',   
 ]
@@ -53,4 +53,4 @@ sanity_check_paths = {
     'dirs':  [],
 }
 
-moduleclass = 'tools'
+env_mod_category = 'tools'

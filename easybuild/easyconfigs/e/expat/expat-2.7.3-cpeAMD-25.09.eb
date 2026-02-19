@@ -34,26 +34,26 @@ docurls = [
 
 
 toolchain = {'name': 'cpeAMD', 'version': '25.09'}
-toolchainopts = {'pic': True}
+toolchain_opts = {'pic': True}
 
 source_urls = ['https://github.com/libexpat/libexpat/releases/download/R_%s/' % version.replace('.', '_')]
 sources =     [SOURCE_TAR_BZ2]
 checksums =   ['59c31441fec9a66205307749eccfee551055f2d792f329f18d97099e919a3b2f']
 
-builddependencies = [ # Create a reproducible build environment.
+build_deps = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
 ]
 
 # Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
-preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
-prebuildopts = preconfigopts
+pre_configure_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+pre_build_opts = pre_configure_opts
 
 # Since expat 2.2.6, docbook2X is needed to produce manpage of xmlwf.
 # Docbook2X needs XML-Parser and XML-Parser needs expat.
 # -> circular dependency. "--without-docbook" breaks this circle.
-configopts = ['--without-docbook']
+configure_opts = ['--without-docbook']
 
-postinstallcmds = [
+post_install_cmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
     'cp AUTHORS COPYING README.md %(installdir)s/share/licenses/%(name)s',   
 ]
@@ -64,9 +64,9 @@ sanity_check_paths = {
     'dirs':  [],
 }
 
-sanity_check_commands = [
+sanity_check_cmds = [
     'xmlwf -h',
     'pkg-config --libs %(namelower)s',
 ]
 
-moduleclass = 'tools'
+env_mod_category = 'tools'

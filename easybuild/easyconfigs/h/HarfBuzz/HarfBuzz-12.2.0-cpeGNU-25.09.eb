@@ -50,13 +50,13 @@ source_urls = ['https://github.com/harfbuzz/harfbuzz/releases/download/%(version
 sources =     [SOURCELOWER_TAR_XZ]
 checksums =   ['ecb603aa426a8b24665718667bda64a84c1504db7454ee4cadbd362eea64e545']
 
-builddependencies = [
+build_deps = [
     ('buildtools' ,           '%(toolchain_version)s', '',                                        SYSTEM),
     ('buildtools-python',     '%(toolchain_version)s', f'-cray-python{local_craypython_maj_min}', SYSTEM),
     ('GObject-Introspection', local_GObject_version,   '-cray-python' + local_craypython_maj_min),
 ]
 
-dependencies = [
+deps = [
     ('ICU',      local_ICU_version),
     ('freetype', local_freetype_version),
     ('GLib',     local_GLib_version),     # Needed, even without cairo. It is a direct dependency and meson doesn't find the (partial?) version of GObject-Introspection
@@ -64,10 +64,10 @@ dependencies = [
 ]
 
 # Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
-preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
-preinstallopts = pretestopts = prebuildopts = preconfigopts
+pre_configure_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+pre_install_opts = pre_test_opts = pre_build_opts = pre_configure_opts
 
-configopts = ' '.join([
+configure_opts = ' '.join([
     '--buildtype=release',     # Release build (the default actually)
     '--default-library=both',  # static and shared library
     '--libdir=lib',            # Install libraries in lib (also the default it seems)
@@ -78,10 +78,10 @@ configopts = ' '.join([
     ' -Dfreetype=enabled',
 ])
 
-runtest  = 'meson'
-testopts = 'test -C %(builddir)s/easybuild_obj -t 60'
+run_test  = 'meson'
+test_opts = 'test -C %(builddir)s/easybuild_obj -t 60'
 
-postinstallcmds = [
+post_install_cmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
     'cd %(start_dir)s && cp AUTHORS COPYING NEWS README.md THANKS %(installdir)s/share/licenses/%(name)s',   
 ]
@@ -97,7 +97,7 @@ sanity_check_paths = {
     'dirs':  []
 }
 
-sanity_check_commands = [
+sanity_check_cmds = [
     f'%s --version | grep -q {local_HarfBuzz_version}' % x for x in local_HarfBuzz_commands_with_version
 ] + [
     f'pkg-config --modversion harfbuzz%s | grep -q {local_HarfBuzz_version}' % x for x in local_HarfBuzz_pc
@@ -105,8 +105,8 @@ sanity_check_commands = [
     'pkg-config --libs harfbuzz%s | egrep -q "\-L%s/lib.* -lharfbuzz%s"' % (x, '%(installdir)s', x) for x in local_HarfBuzz_pc
 ]
 
-modextrapaths = {
+env_mod_extra_paths = {
     'GI_TYPELIB_PATH': 'share',
 }
 
-moduleclass = 'vis'
+env_mod_category = 'vis'

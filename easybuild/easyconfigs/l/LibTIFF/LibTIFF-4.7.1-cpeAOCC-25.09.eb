@@ -91,17 +91,17 @@ software_license_urls = [
 ]
 
 toolchain = {'name': 'cpeAOCC', 'version': '25.09'}
-toolchainopts = {'pic': True}
+toolchain_opts = {'pic': True}
 
 source_urls = ['https://download.osgeo.org/libtiff/']
 sources =     ['tiff-%(version)s.tar.gz']
 checksums =   ['f698d94f3103da8ca7438d84e0344e453fe0ba3b7486e04c5bf7a9a3fabe9b69']
 
-builddependencies = [ # Create a reproducible build environment.
+build_deps = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
 ]
 
-dependencies = [
+deps = [
     ('libdeflate',    local_libdeflate_version),
     ('zlib',          local_zlib_version),
     ('zstd',          local_zstd_version),
@@ -110,10 +110,10 @@ dependencies = [
 ]
 
 # Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
-preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
-prebuildopts = preconfigopts
+pre_configure_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+pre_build_opts = pre_configure_opts
 
-postinstallcmds = [
+post_install_cmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
     'cp ChangeLog LICENSE.md README.md %(installdir)s/share/licenses/%(name)s',   
 ]
@@ -125,11 +125,11 @@ sanity_check_paths = {
     'dirs':  [],
 }
 
-sanity_check_commands = [ # Test just a few of the commands; return codes for -h are also inconsistent.
+sanity_check_cmds = [ # Test just a few of the commands; return codes for -h are also inconsistent.
     'tiffinfo -h',
     'tiffcp -h',
     'tiffsplit -h',
     'pkg-config --libs libtiff-4'
 ]
 
-moduleclass = 'lib'
+env_mod_category = 'lib'

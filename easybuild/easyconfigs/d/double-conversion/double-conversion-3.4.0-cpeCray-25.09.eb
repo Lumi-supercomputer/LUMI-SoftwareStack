@@ -33,7 +33,7 @@ sources = [{
 }]
 checksums =   ['42fd4d980ea86426e457b24bdfa835a6f5ad9517ddb01cdb42b99ab9c8dd5dc9']
 
-builddependencies = [ # Create a reproducible build environment.
+build_deps = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True), # For CMake
 ]
 
@@ -44,17 +44,17 @@ separate_build_dir = False
 build_type = 'Release'
 
 # Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
-preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
-prebuildopts = preconfigopts
+pre_configure_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+pre_build_opts = pre_configure_opts
 
 # Build static lib, static lib with -fPIC and shared lib
-configopts = [
+configure_opts = [
     '-DCMAKE_INSTALL_LIBDIR=lib',
     '-DCMAKE_INSTALL_LIBDIR=lib -DCMAKE_POSITION_INDEPENDENT_CODE=ON -DCMAKE_STATIC_LIBRARY_SUFFIX_CXX=_pic.a',
     '-DCMAKE_INSTALL_LIBDIR=lib -DBUILD_SHARED_LIBS=ON'
 ]
 
-postinstallcmds = [
+post_install_cmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
     'cd ../%(namelower)s-%(version)s && cp AUTHORS COPYING LICENSE README.md %(installdir)s/share/licenses/%(name)s',   
 ]
@@ -67,4 +67,4 @@ sanity_check_paths = {
     'dirs':  ['lib/cmake/double-conversion'],
 }
 
-moduleclass = 'lib'
+env_mod_category = 'lib'

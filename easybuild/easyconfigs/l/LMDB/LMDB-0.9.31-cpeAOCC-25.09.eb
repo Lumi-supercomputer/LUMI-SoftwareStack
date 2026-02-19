@@ -33,26 +33,26 @@ sources =     ['%(name)s_%(version)s.tar.gz']
 source_urls = ['https://github.com/LMDB/lmdb/archive/']
 checksums =   ['dd70a8c67807b3b8532b3e987b0a4e998962ecc28643e1af5ec77696b081c9b0']
 
-builddependencies = [ # Create a reproducible build environment.
+build_deps = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
 ]
 
-skipsteps = ['configure']
+skip_steps = ['configure']
 
 # Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
-prebuildopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
-pretestopts = prebuildopts
-preinstallopts = prebuildopts
+pre_build_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+pre_test_opts = pre_build_opts
+pre_install_opts = pre_build_opts
 
 # The Makefile defines its own CFLAGS rather than picking it out of the environment
 # It also defines it own value for CC and AR.
-buildopts = 'CC="$CC" OPT="$CFLAGS"'
+build_opts = 'CC="$CC" OPT="$CFLAGS"'
 
-runtest = 'test'
+run_test = 'test'
 
-installopts = 'prefix="%(installdir)s"'
+install_opts = 'prefix="%(installdir)s"'
 
-postinstallcmds = [
+post_install_cmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
     'cp CHANGES COPYRIGHT LICENSE %(installdir)s/share/licenses/%(name)s',   
 ]
@@ -66,6 +66,6 @@ sanity_check_paths = {
     'dirs':  [],
 }
 
-sanity_check_commands = ['%s -V' % x for x in local_sanity_list]
+sanity_check_cmds = ['%s -V' % x for x in local_sanity_list]
 
-moduleclass = 'devel'
+env_mod_category = 'devel'

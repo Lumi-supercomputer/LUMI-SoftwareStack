@@ -49,22 +49,22 @@ source_urls = ['https://github.com/libunwind/libunwind/releases/download/v%(vers
 sources =     [SOURCE_TAR_GZ]
 checksums =   ['be30d910e67f58d82e753231f1357f326a1a088acf126b21ff77e60aab19b90b']
 
-builddependencies = [
+build_deps = [
     ('buildtools', '%(toolchain_version)s', '', True),
 ]
 
-dependencies = [
+deps = [
     ('XZ', local_XZ_version),
 ]
 
 # Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
-preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
-prebuildopts = preconfigopts
-preinstallopts = preconfigopts
+pre_configure_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+pre_build_opts = pre_configure_opts
+pre_install_opts = pre_configure_opts
 
-preconfigopts += 'export LIBS="$LIBS -llzma" && export CFLAGS="$CFLAGS -fuse-ld=bfd -fno-common" && '
+pre_configure_opts += 'export LIBS="$LIBS -llzma" && export CFLAGS="$CFLAGS -fuse-ld=bfd -fno-common" && '
 
-postinstallcmds = [
+post_install_cmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
     'cp AUTHORS ChangeLog COPYING NEWS README %(installdir)s/share/licenses/%(name)s',   
 ]
@@ -75,4 +75,4 @@ sanity_check_paths = {
     'dirs':  []
 }
 
-moduleclass = 'lib'
+env_mod_category = 'lib'

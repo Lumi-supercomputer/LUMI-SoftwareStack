@@ -35,26 +35,26 @@ software_license_urls = [
 ]
 
 toolchain = {'name': 'cpeGNU', 'version': '25.09'}
-toolchainopts = {'pic': True}
+toolchain_opts = {'pic': True}
 
 # https://github.com/libffi/libffi/releases/download/v3.4.2/libffi-3.4.2.tar.gz
 sources =     [SOURCELOWER_TAR_GZ]
 source_urls = ['https://github.com/libffi/libffi/releases/download/v%(version)s']
 checksums =   ['96fff4e589e3b239d888d9aa44b3ff30693c2ba1617f953925a70ddebcc102b2']
 
-builddependencies = [ # Create a reproducible build environment.
+build_deps = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
 ]
 
 # Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
-preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
-prebuildopts = preconfigopts
+pre_configure_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+pre_build_opts = pre_configure_opts
 
 # We'll install everything in lib rather than lib64 so as to do the same as for most
 # other basic libraries installed by EasyBuild in our software stack.
-configopts = '--disable-multi-os-directory --disable-exec-static-tramp'
+configure_opts = '--disable-multi-os-directory --disable-exec-static-tramp'
 
-postinstallcmds = [
+post_install_cmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
     'cp ChangeLog LICENSE LICENSE-BUILDTOOLS README.md %(installdir)s/share/licenses/%(name)s',   
 ]
@@ -67,12 +67,12 @@ sanity_check_paths = {
     'dirs':  [],
 }
 
-sanity_check_commands = [
+sanity_check_cmds = [
     'pkg-config --libs libffi'
 ]
 
-modextrapaths = {
+env_mod_extra_paths = {
     'INFOPATH' : 'share/info',
 }
 
-moduleclass = 'lib'
+env_mod_category = 'lib'

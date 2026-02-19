@@ -45,34 +45,34 @@ software_license_urls = [
 ]
 
 toolchain = {'name': 'cpeAOCC', 'version': '25.09'}
-toolchainopts = {'pic': True}
-#toolchainopts = {'pic': True, 'precise': True}
+toolchain_opts = {'pic': True}
+#toolchain_opts = {'pic': True, 'precise': True}
 
 # ftp://ftp.gnu.org/gnu/gdbm/gdbm-1.18.1.tar.gz
 sources =     [SOURCELOWER_TAR_GZ]
 source_urls = [GNU_SOURCE]
 checksums =   ['6a24504a14de4a744103dcb936be976df6fbe88ccff26065e54c1c47946f4a5e']
 
-builddependencies = [
+build_deps = [
     ('buildtools', '%(toolchain_version)s', '', True),
     ('libiconv',   local_libiconv_version),
     ('gettext',    local_gettext_version), # Really a build dependency? It doesn't seem to link to it.
 ]
 
-dependencies = [
+deps = [
     ('ncurses',     local_ncurses_version),
     ('libreadline', local_libreadline_version),
 ]
 
 # Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
-preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
-prebuildopts = preconfigopts
-preinstallopts = preconfigopts
+pre_configure_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+pre_build_opts = pre_configure_opts
+pre_install_opts = pre_configure_opts
 
 # Note there is also libintl but that is part of the GNU C library so we son\'t use our own.
-configopts = '--enable-libgdbm-compat --with-libiconv-prefix=$EBROOTLIBICONV'
+configure_opts = '--enable-libgdbm-compat --with-libiconv-prefix=$EBROOTLIBICONV'
 
-postinstallcmds = [
+post_install_cmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
     'cp AUTHORS ChangeLog COPYING NEWS NOTE-WARNING README THANKS %(installdir)s/share/licenses/%(name)s',   
 ]
@@ -84,14 +84,14 @@ sanity_check_paths = {
     'dirs':  ['share/info', 'share/man', 'share/locale'],
 }
 
-sanity_check_commands = [
+sanity_check_cmds = [
     'gdbmtool -V',
     'gdbm_dump -V',
     'gdbm_load -V',
 ]
 
-modextrapaths = {
+env_mod_extra_paths = {
     'INFOPATH' : 'share/info',
 }
 
-moduleclass = 'devel'
+env_mod_category = 'devel'

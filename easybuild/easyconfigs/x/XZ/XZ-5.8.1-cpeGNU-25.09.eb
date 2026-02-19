@@ -69,27 +69,27 @@ software_license_urls = [
 ]
 
 toolchain = {'name': 'cpeGNU', 'version': '25.09'}
-toolchainopts = {'pic': True}
+toolchain_opts = {'pic': True}
 
 sources =     [SOURCELOWER_TAR_XZ]
 source_urls = ['http://tukaani.org/xz/']
 checksums =   ['0b54f79df85912504de0b14aec7971e3f964491af1812d83447005807513cd9e',]  # xz-5.8.1.tar.xz
 
-builddependencies = [ # Create a reproducible build environment.
+build_deps = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '',        True),
     ('gettext',    local_gettext_version,   '-minimal'),
 ]
 
-dependencies = [
+deps = [
 ]
 
 # Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
-preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
-prebuildopts = preconfigopts
+pre_configure_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+pre_build_opts = pre_configure_opts
 
-#configopts = '--disable-nls --disable-xz --disable-xzdec' # Use this if there is no gettext. xz and xzdec are two executables the require gettext.
+#configure_opts = '--disable-nls --disable-xz --disable-xzdec' # Use this if there is no gettext. xz and xzdec are two executables the require gettext.
 
-postinstallcmds = [
+post_install_cmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
     'cp AUTHORS ChangeLog COPYING* NEWS README THANKS %(installdir)s/share/licenses/%(name)s',   
 ]
@@ -100,7 +100,7 @@ sanity_check_paths = {
     'dirs':  ['share/man/man1']
 }
 
-sanity_check_commands = [
+sanity_check_cmds = [
     'pkg-config --libs liblzma',
     'xz --version',
     'unxz --help',
@@ -113,4 +113,4 @@ sanity_check_commands = [
     'lzmainfo --version',
 ]
 
-moduleclass = 'tools'
+env_mod_category = 'tools'

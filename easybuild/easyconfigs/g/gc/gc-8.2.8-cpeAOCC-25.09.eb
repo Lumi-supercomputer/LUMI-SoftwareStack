@@ -28,7 +28,7 @@ software_license_urls = [ # Will change in 8.3!
 ]
 
 toolchain = {'name': 'cpeAOCC', 'version': '25.09'}
-toolchainopts = {'pic': True}
+toolchain_opts = {'pic': True}
 
 source_urls = [
     'https://github.com/ivmai/bdwgc/releases/download/v%(version)s/',  # preferred for gc-%(version)s.tar.gz
@@ -44,20 +44,20 @@ checksums = [
     {'libatomic_ops-7.10.0.tar.gz': '0db3ebff755db170f65e74a64ec4511812e9ee3185c232eeffeacd274190dfb0'},
 ]
 
-builddependencies = [ # Create a reproducible build environment.
+build_deps = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
 ]
 
 # Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
-preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
-prebuildopts = preconfigopts
-preinstallopts = preconfigopts
+pre_configure_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+pre_build_opts = pre_configure_opts
+pre_install_opts = pre_configure_opts
 
-preconfigopts += "ln -s %(builddir)s/libatomic_ops*/ libatomic_ops && "
+pre_configure_opts += "ln -s %(builddir)s/libatomic_ops*/ libatomic_ops && "
 
-configopts = '--enable-static --enable-threads=posix'
+configure_opts = '--enable-static --enable-threads=posix'
 
-postinstallcmds = [
+post_install_cmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
     'cp AUTHORS README.md README.QUICK %(installdir)s/share/licenses/%(name)s',
     'mkdir -p %(installdir)s/share/licenses/libatomic_ops',
@@ -71,8 +71,8 @@ sanity_check_paths = {
     'dirs':  ['include/gc', 'share'],
 }
 
-sanity_check_commands = [
+sanity_check_cmds = [
     'pkg-config --libs bdw-gc'
 ]
 
-moduleclass = 'lib'
+env_mod_category = 'lib'

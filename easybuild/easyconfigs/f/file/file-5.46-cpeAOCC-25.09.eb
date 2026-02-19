@@ -41,30 +41,30 @@ software_license_urls = [
 ]
 
 toolchain = {'name': 'cpeAOCC', 'version': '25.09'}
-toolchainopts = {'pic': True}
+toolchain_opts = {'pic': True}
 
 # https://www.astron.com/pub/file/file-5.41.tar.gz
 source_urls = ['https://www.astron.com/pub/file']
 sources =     [SOURCE_TAR_GZ]
 checksums =   ['c9cc77c7c560c543135edc555af609d5619dbef011997e988ce40a3d75d86088']
 
-builddependencies = [ # Create a reproducible build environment.
+build_deps = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True), # for autotools
 ]
 
-dependencies = [
+deps = [
     ('zlib',  local_zlib_version),
     ('bzip2', local_bzip2_version),
     ('XZ',    local_XZ_version),
 ]
 
 # Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
-preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
-prebuildopts =   preconfigopts
-pretestopts =    preconfigopts
-preinstallopts = preconfigopts
+pre_configure_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+pre_build_opts =   pre_configure_opts
+pre_test_opts =    pre_configure_opts
+pre_install_opts = pre_configure_opts
 
-postinstallcmds = [
+post_install_cmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
     'cp AUTHORS ChangeLog COPYING NEWS README.md %(installdir)s/share/licenses/%(name)s',   
 ]
@@ -76,9 +76,9 @@ sanity_check_paths = {
     'dirs':  []
 }
 
-sanity_check_commands = [
+sanity_check_cmds = [
     'file --version',
     'pkg-config --libs libmagic',
 ]
 
-moduleclass = 'system'
+env_mod_category = 'system'

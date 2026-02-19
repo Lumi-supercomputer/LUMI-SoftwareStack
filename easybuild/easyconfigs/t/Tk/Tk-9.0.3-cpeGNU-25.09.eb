@@ -36,11 +36,11 @@ checksums =   [
     {'tk9.0.3-src.tar.gz': 'bf344efadb618babb7933f69275620f72454d1c8220130da93e3f7feb0efbf9b'},
 ]
 
-builddependencies = [ # Create a reproducible build environment.
+build_deps = [ # Create a reproducible build environment.
     ('buildtools',   '%(toolchain_version)s',   '', True),
 ]
 
-dependencies = [
+deps = [
     ('Tcl',  local_Tcl_version),
     ('X11',  '%(toolchain_version)s'),
     ('zlib', local_zlib_version),
@@ -49,16 +49,16 @@ dependencies = [
 start_dir = 'unix'
 
 # Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
-preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
-prebuildopts = preconfigopts
-pretestopts = preconfigopts
-preinstallopts = preconfigopts
+pre_configure_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+pre_build_opts = pre_configure_opts
+pre_test_opts = pre_configure_opts
+pre_install_opts = pre_configure_opts
 
-configopts = '--with-tcl=$EBROOTTCL/lib CFLAGS="-I$EBROOTTCL/include"'
+configure_opts = '--with-tcl=$EBROOTTCL/lib CFLAGS="-I$EBROOTTCL/include"'
 
-installopts = "&& make install-private-headers"
+install_opts = "&& make install-private-headers"
 
-postinstallcmds = [
+post_install_cmds = [
     # From EasyBuilders
     'ln -s wish%(version_major_minor)s %(installdir)s/bin/wish',
     f"ln -s libtcl%(version_major)stk%(version_major_minor)s.{SHLIB_EXT} %(installdir)s/lib/libtk.{SHLIB_EXT}",
@@ -73,9 +73,9 @@ sanity_check_paths = {
     'dirs':  ['lib/tk%(version_major_minor)s'],
 }
 
-sanity_check_commands = [
+sanity_check_cmds = [
     # No test for wish possible as that requires DISPLAY to be set.
     'pkg-config --libs tk',
 ]
 
-moduleclass = 'vis'
+env_mod_category = 'vis'

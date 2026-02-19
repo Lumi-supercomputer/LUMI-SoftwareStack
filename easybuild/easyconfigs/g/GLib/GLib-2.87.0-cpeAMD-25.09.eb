@@ -49,7 +49,7 @@ software_license_urls = [
 ]
 
 toolchain = {'name': 'cpeAMD', 'version': '25.09'}
-toolchainopts = {'pic': True, 'extra_cflags': '-Wno-unsupported-target-opt'}
+toolchain_opts = {'pic': True, 'extra_cflags': '-Wno-unsupported-target-opt'}
 
 # Check on https://ftp.gnome.org/pub/GNOME/sources/glib/
 # https://download.gnome.org/sources/glib/2.87/glib-2.87.0.tar.xz
@@ -61,7 +61,7 @@ checksums = [
     {'GLib-2.85.1_add-ldl.patch': '780b4da7e33158e2fda21e5fab11cd451f8d63fc2d0b0530113fa75a3b4a2099'},
 ]
 
-builddependencies = [
+build_deps = [
     # Python is required for building against GLib, at least when
     # gdbus-codegen or one of the other python scripts are used.
     # Since Meson 0.50 and later are Python >=3.5 only we can't build
@@ -74,7 +74,7 @@ builddependencies = [
     ('buildtools-python', '%(toolchain_version)s', f'-cray-python{local_craypython_maj_min}', SYSTEM),
 ]
 
-dependencies = [
+deps = [
     ('libffi',     local_libffi_version),
     ('gettext',    local_gettext_version),
     ('libxml2',    local_libxml2_version),
@@ -83,17 +83,17 @@ dependencies = [
 ]
 
 # Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
-preconfigopts = ' && '.join([
+pre_configure_opts = ' && '.join([
     'module unload cray-libsci cray-mpich rocm xpmem',
     f'export PYTHON=python{local_craypython_maj_min}',
 ]) + ' && '
-preinstallopts = pretestopts = prebuildopts = preconfigopts
+pre_install_opts = pre_test_opts = pre_build_opts = pre_configure_opts
 
-configopts  = '--buildtype=release --default-library=both --libdir=lib'
+configure_opts  = '--buildtype=release --default-library=both --libdir=lib'
 
 #max_parallel = 1 # For debugging
 
-postinstallcmds = [
+post_install_cmds = [
     # Fix shebangs and make very sure it uses cray-python.
     f'module load cray-python/{local_craypython_version} && ' +
     f'sed -i -e "s|#!.*python[0-9.]*$|#!$(which python{local_craypython_maj_min})|" %(installdir)s/bin/*',
@@ -108,7 +108,7 @@ sanity_check_paths = {
     'dirs':  ['bin', 'include'],
 }
 
-sanity_check_commands = [
+sanity_check_cmds = [
     f'pkg-config --modversion gio-2.0               | grep -q {local_GLib_version}',
     f'pkg-config --modversion gio-unix-2.0          | grep -q {local_GLib_version}',
     f'pkg-config --modversion girepository-2.0      | grep -q {local_GLib_version}',
@@ -137,4 +137,4 @@ sanity_check_commands = [
     f'gtester-report --version | grep -q {local_GLib_version}',
 ]
 
-moduleclass = 'vis'
+env_mod_category = 'vis'

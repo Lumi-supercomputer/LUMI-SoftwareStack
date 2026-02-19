@@ -40,7 +40,7 @@ software_license_urls = [
 ]
 
 toolchain = {'name': 'cpeCray', 'version': '25.09'}
-toolchainopts = {'pic': True}
+toolchain_opts = {'pic': True}
 
 #source_urls = ['https://github.com/Blosc/c-blosc/archive/']
 #sources =     ['v%(version)s.tar.gz']
@@ -49,18 +49,18 @@ sources = [ { 'filename': SOURCELOWER_TAR_GZ,
               'source_urls': ['https://github.com/Blosc/c-blosc/archive/'] } ]
 checksums =   ['9fcd60301aae28f97f1301b735f966cc19e7c49b6b4321b839b4579a0c156f38']
 
-builddependencies = [
+build_deps = [
     ('buildtools', '%(toolchain_version)s', '', True),
 ]
 
 # Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
-preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
-prebuildopts = preconfigopts
+pre_configure_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+pre_build_opts = pre_configure_opts
 
 # Make the directory structure uniform with ConfigureMake software.
-configopts = '-DCMAKE_INSTALL_LIBDIR=lib -DCMAKE_POLICY_VERSION_MINIMUM=3.5'
+configure_opts = '-DCMAKE_INSTALL_LIBDIR=lib -DCMAKE_POLICY_VERSION_MINIMUM=3.5'
 
-postinstallcmds = [
+post_install_cmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
     'cd ../c-blosc-%(version)s && cp ANNOUNCE.rst FAQ.md LICENSE.txt LICENSES/*.txt README.md RELEASE_NOTES.rst THANKS.rst %(installdir)s/share/licenses/%(name)s',   
 ]
@@ -72,8 +72,8 @@ sanity_check_paths = {
     'dirs':  [],
 }
 
-sanity_check_commands = [
+sanity_check_cmds = [
    'pkg-config --libs blosc',
 ]
 
-moduleclass = 'lib'
+env_mod_category = 'lib'

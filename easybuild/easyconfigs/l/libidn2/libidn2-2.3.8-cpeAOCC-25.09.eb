@@ -35,15 +35,15 @@ source_urls = ['https://ftp.gnu.org/gnu/libidn/']
 sources =     [SOURCELOWER_TAR_GZ]
 checksums =   ['f557911bf6171621e1f72ff35f5b1825bb35b52ed45325dcdee931e5d3c0787a']
 
-builddependencies = [ # Create a reproducible build environment.
+build_deps = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
 ]
 
 # Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
-preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
-prebuildopts = preconfigopts
+pre_configure_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+pre_build_opts = pre_configure_opts
 
-postinstallcmds = [
+post_install_cmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
     'cp ABOUT-NLS AUTHORS COPYING* NEWS README README.md %(installdir)s/share/licenses/%(name)s',   
 ]
@@ -55,9 +55,9 @@ sanity_check_paths = {
     'dirs':  ['share/man/man1', 'share/man/man3'],
 }
 
-sanity_check_commands = [
+sanity_check_cmds = [
     'idn2 --help',
     'pkg-config --libs libidn2',
 ]
 
-moduleclass = 'lib'
+env_mod_category = 'lib'

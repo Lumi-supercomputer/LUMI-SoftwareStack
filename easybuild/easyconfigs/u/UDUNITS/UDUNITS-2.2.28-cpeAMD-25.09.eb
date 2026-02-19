@@ -46,7 +46,7 @@ software_license_urls = [
 ]
 
 toolchain = {'name': 'cpeAMD', 'version': '25.09'}
-toolchainopts = {'pic': True}
+toolchain_opts = {'pic': True}
 
 sources =     [SOURCELOWER_TAR_GZ]
 source_urls = [
@@ -55,21 +55,21 @@ source_urls = [
 ]
 checksums =   ['590baec83161a3fd62c00efa66f6113cec8a7c461e3f61a5182167e0cc5d579e']
 
-builddependencies = [ # Create a reproducible build environment.
+build_deps = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
 ]
 
-dependencies = [
+deps = [
     ('expat', local_expat_version),
 ]
 
 # Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
-preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
-prebuildopts = preconfigopts
+pre_configure_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+pre_build_opts = pre_configure_opts
 
 max_parallel = 1
 
-postinstallcmds = [
+post_install_cmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
     'cp CHANGE_LOG COPYRIGHT README %(installdir)s/share/licenses/%(name)s',   
 ]
@@ -80,18 +80,18 @@ sanity_check_paths = {
     'dirs':  ['share/udunits'],
 }
 
-sanity_check_commands = [
+sanity_check_cmds = [
     'udunits2 -h',
     'udunits2 -H "80 km/h" -W m/s',
 ]
 
 # In case we'd experience problems that the data files are not found, this might help.
-#modextravars = {
+#env_mod_extra_vars = {
 #    'UDUNITS2_XML_PATH': '%(installdir)s/share/udunits/udunits2.xml',
 #}
 
-modextrapaths = {
+env_mod_extra_paths = {
     'INFOPATH' : 'share/info',
 }
 
-moduleclass = 'phys'
+env_mod_category = 'phys'

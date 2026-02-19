@@ -32,28 +32,28 @@ software_license_urls = [
 ]
 
 toolchain = {'name': 'cpeGNU', 'version': '25.09'}
-toolchainopts = {'pic': True}
+toolchain_opts = {'pic': True}
 
 sources =     [SOURCE_TAR_GZ]
 source_urls = ['http://cairographics.org/releases/']
 checksums =   ['ea1480efada2fd948bc75366f7c349e1c96d3297d09a3fe62626e38e234a625e']
 
-builddependencies = [ # Create a reproducible build environment.
+build_deps = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
 ]
 
-dependencies = [
+deps = [
     ('libpng', local_libpng_version),
 ]
 
 # Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
-preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
-prebuildopts = preconfigopts
-preinstallopts = preconfigopts
+pre_configure_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+pre_build_opts = pre_configure_opts
+pre_install_opts = pre_configure_opts
 
-configopts = '--enable-gnuplot ' # Should be possible to use without first installing GNUplot?
+configure_opts = '--enable-gnuplot ' # Should be possible to use without first installing GNUplot?
 
-postinstallcmds = [
+post_install_cmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
     'cd ../%(namelower)s-%(version)s && cp AUTHORS COPYING NEWS README %(installdir)s/share/licenses/%(name)s',   
 ]
@@ -65,8 +65,8 @@ sanity_check_paths = {
     'dirs':  []
 }
 
-sanity_check_commands = [
+sanity_check_cmds = [
     'pkg-config --libs pixman-1',
 ]
 
-moduleclass = 'vis'
+env_mod_category = 'vis'

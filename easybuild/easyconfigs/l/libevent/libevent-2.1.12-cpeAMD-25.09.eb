@@ -30,31 +30,31 @@ software_license_urls = [
 ]
 
 toolchain = {'name': 'cpeAMD', 'version': '25.09'}
-toolchainopts = {'pic': True}
+toolchain_opts = {'pic': True}
 
 source_urls = ['https://github.com/%(name)s/%(name)s/releases/download/release-%(version)s-stable/']
 sources =     ['%(name)s-%(version)s-stable.tar.gz']
 checksums =   ['92e6de1be9ec176428fd2367677e61ceffc2ee1cb119035037a27d346b0403bb']
 
-builddependencies = [ # Create a reproducible build environment.
+build_deps = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
 ]
 
-dependencies = [
+deps = [
     ('zlib', local_zlib_version),
 ]
 
-osdependencies = [
+os_deps = [
     ('openssl-devel', 'libssl-dev', 'libopenssl-devel'),
 ]
 
 # Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
-preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
-prebuildopts = preconfigopts
+pre_configure_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+pre_build_opts = pre_configure_opts
 
-#configopts = '--disable-openssl'
+#configure_opts = '--disable-openssl'
 
-postinstallcmds = [
+post_install_cmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
     'cp LICENSE README.md %(installdir)s/share/licenses/%(name)s',   
 ]
@@ -70,8 +70,8 @@ sanity_check_paths = {
     'dirs':  [],
 }
 
-sanity_check_commands = [ 
+sanity_check_cmds = [ 
     'pkg-config --libs libevent%s' % x for x in local_lib_exts
 ]
 
-moduleclass = 'lib'
+env_mod_category = 'lib'

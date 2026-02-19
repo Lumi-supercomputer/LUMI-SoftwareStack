@@ -49,18 +49,18 @@ software_license_urls = [
 ]
 
 toolchain = {'name': 'cpeAOCC', 'version': '25.09'}
-toolchainopts = {'pic': True}
+toolchain_opts = {'pic': True}
 
 # https://github.com/libsndfile/libsndfile/releases/download/1.1.0/libsndfile-1.1.0.tar.xz
 source_urls = ['https://github.com/libsndfile/libsndfile/releases/download/%(version)s/']
 sources =     [SOURCE_TAR_XZ]
 checksums =   ['3799ca9924d3125038880367bf1468e53a1b7e3686a934f098b7e1d286cdb80e']
 
-builddependencies = [ # Create a reproducible build environment.
+build_deps = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
 ]
 
-dependencies = [
+deps = [
     ( 'libopus',   local_libopus_version),
     ( 'libogg',    local_libogg_version),
     ( 'libvorbis', local_libvorbis_version),
@@ -69,14 +69,14 @@ dependencies = [
 ]
 
 # Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
-preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
-prebuildopts = preconfigopts
+pre_configure_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+pre_build_opts = pre_configure_opts
 
-configopts  = '--disable-alsa --disable-sqlite --disable-octave '
-configopts += '--disable-mpeg '
-configopts += '--enable-static --enable-shared '
+configure_opts  = '--disable-alsa --disable-sqlite --disable-octave '
+configure_opts += '--disable-mpeg '
+configure_opts += '--enable-static --enable-shared '
 
-postinstallcmds = [
+post_install_cmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
     'cp AUTHORS ChangeLog CHANGELOG.md COPYING README SECURITY.md %(installdir)s/share/licenses/%(name)s',   
 ]
@@ -89,4 +89,4 @@ sanity_check_paths = {
 
 # The bin directory contains several commands but none seem to have easy options to test.
 
-moduleclass = 'data'
+env_mod_category = 'data'

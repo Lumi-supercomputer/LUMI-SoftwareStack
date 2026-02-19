@@ -30,26 +30,26 @@ SuiteSparse is a suite of sparse matrix algorithms. This package include:
 """
 
 toolchain = {'name': 'cpeCray', 'version': '25.09'}
-toolchainopts = {'unroll': True, 'pic': True, 'openmp': True}
+toolchain_opts = {'unroll': True, 'pic': True, 'openmp': True}
 
 source_urls = ['https://github.com/DrTimothyAldenDavis/SuiteSparse/archive']
 sources = ['v%(version)s.tar.gz']
 checksums = ['59c6ca2959623f0c69226cf9afb9a018d12a37fab3a8869db5f6d7f83b6b147d']
 
-builddependencies = [
+build_deps = [
     ('buildtools',          '%(toolchain_version)s', '', True),
     ('craype-network-none', EXTERNAL_MODULE),
     ('craype-accel-host',   EXTERNAL_MODULE),
 ]
 
-dependencies = [
+deps = [
     ('METIS', local_METIS_version, '-idx32-fp64'), # This is not the default configuration of METIS, but done that way in EasyBuild.
     ('MPFR',  local_MPFR_version),
 ]
 
-skipsteps = ['configure']
+skip_steps = ['configure']
 
-prebuildopts = ' && '.join([
+pre_build_opts = ' && '.join([
     'export LD_LIBRARY_PATH=%(builddir)s/SuiteSparse-%(version)s/lib:$LD_LIBRARY_PATH',
     'export CMAKE_OPTIONS="-DCMAKE_INSTALL_PREFIX=%(installdir)s"',
     'rm -f GraphBLAS/CUDA/test/graphblascuda_test',
@@ -58,8 +58,8 @@ prebuildopts = ' && '.join([
 
 
 # Make sure we only link the multithreaded variant of libsci
-prebuildopts += 'LDFLAGS="-fopenmp" '
-preinstallopts = prebuildopts
+pre_build_opts += 'LDFLAGS="-fopenmp" '
+pre_install_opts = pre_build_opts
 
 local_commonopts = ' '.join([
     'BLAS="" LAPACK=""',
@@ -67,10 +67,10 @@ local_commonopts = ' '.join([
     'MY_METIS_INC="$EBROOTMETIS/include"',
 ]) + ' '
 
-buildopts = local_commonopts
-installopts = local_commonopts + 'INSTALL="%(installdir)s"'
+build_opts = local_commonopts
+install_opts = local_commonopts + 'INSTALL="%(installdir)s"'
 
-postinstallcmds = [
+post_install_cmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
     'cd ../%(name)s-%(version)s && cp LICENSE.txt CITATION.bib %(installdir)s/share/licenses/%(name)s',
 ]
@@ -87,4 +87,4 @@ sanity_check_paths = {
     'dirs': []
 }
 
-moduleclass = 'numlib'
+env_mod_category = 'numlib'

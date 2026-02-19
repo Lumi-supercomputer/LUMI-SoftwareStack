@@ -38,7 +38,7 @@ software_license_urls = [
 ]
 
 toolchain = {'name': 'cpeAMD', 'version': '25.09'}
-toolchainopts = {'pic': True}
+toolchain_opts = {'pic': True}
 
 sources = [
     {   # https://gitlab.inria.fr/scotch/scotch/-/archive/v7.0.10/scotch-v7.0.10.tar.gz
@@ -56,25 +56,25 @@ checksums = [
     {'Makefile.inc.CPE.%(version)s': '39d34c95446e68e6010f7a0ad72009efd9c913644abb2ca284b68ea048155974'},
 ]
 
-builddependencies = [ # Create a reproducible build environment.
+build_deps = [ # Create a reproducible build environment.
     ('buildtools',   '%(toolchain_version)s',   '', True), # For CMake
 ]
 
-dependencies = [
+deps = [
     ('bzip2', local_bzip2_version),
     ('XZ',    local_XZ_version),
     ('zlib',  local_zlib_version),
 ]
 
 # Doesn't need ROCm or BLAS, and module unload never fails so this is safe.
-preconfigopts = 'module unload cray-libsci rocm && '
-prebuildopts = preconfigopts
-pretestopts = preconfigopts
-preinstallopts = preconfigopts
+pre_configure_opts = 'module unload cray-libsci rocm && '
+pre_build_opts = pre_configure_opts
+pre_test_opts = pre_configure_opts
+pre_install_opts = pre_configure_opts
 
-postinstallcmds = [
+post_install_cmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
     'cd %(start_dir)s && cp LICENSE_en.txt README.md README.txt %(installdir)s/share/licenses/%(name)s',   
 ]
 
-moduleclass = 'math'
+env_mod_category = 'math'

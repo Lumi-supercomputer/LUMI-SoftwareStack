@@ -28,18 +28,18 @@ software_license_urls = [
 ]
 
 toolchain = {'name': 'cpeGNU', 'version': '25.09'}
-toolchainopts = {'pic': True}
+toolchain_opts = {'pic': True}
 
 # https://storage.googleapis.com/downloads.webmproject.org/releases/webp/libwebp-1.6.0.tar.gz
 source_urls = ['https://storage.googleapis.com/downloads.webmproject.org/releases/webp']
 sources =     [SOURCELOWER_TAR_GZ]
 checksums =   ['e4ab7009bf0629fd11982d4c2aa83964cf244cffba7347ecd39019a9e38c4564']
 
-builddependencies = [ # Create a reproducible build environment.
+build_deps = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
 ]
 
-dependencies = [
+deps = [
     ('giflib',        local_giflib_version),
     ('libjpeg-turbo', local_libjpegturbo_version),
     ('libpng',        local_libpng_version),
@@ -47,18 +47,18 @@ dependencies = [
 ]
 
 # Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
-preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
-prebuildopts = preconfigopts
-preinstallopts = preconfigopts
+pre_configure_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+pre_build_opts = pre_configure_opts
+pre_install_opts = pre_configure_opts
 
-configopts = ' '.join([
+configure_opts = ' '.join([
     '--enable-libwebpmux',
     '--enable-libwebpdemux',
     '--enable-libwebpdecoder',
     '--enable-libwebpextras'
 ])
 
-postinstallcmds = [
+post_install_cmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
     'cp AUTHORS ChangeLog COPYING NEWS PATENTS README.md %(installdir)s/share/licenses/%(name)s',   
 ]
@@ -76,7 +76,7 @@ sanity_check_paths = {
     'dirs':  ['lib/']
 }
 
-sanity_check_commands = [
+sanity_check_cmds = [
     'webpinfo -version',
     'cwebp -h',
     'dwebp -h',
@@ -85,4 +85,4 @@ sanity_check_commands = [
     'webpmux -h',
 ]
 
-moduleclass = 'lib'
+env_mod_category = 'lib'

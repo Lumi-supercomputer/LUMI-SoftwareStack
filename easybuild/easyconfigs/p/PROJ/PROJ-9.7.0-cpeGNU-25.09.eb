@@ -45,37 +45,37 @@ software_license_urls = [
 ]
 
 toolchain = {'name': 'cpeGNU', 'version': '25.09'}
-toolchainopts = {'pic': True, 'usempi': True}
+toolchain_opts = {'pic': True, 'usempi': True}
 
 # https://download.osgeo.org/proj/proj-9.7.0.tar.gz
 source_urls = ['https://download.osgeo.org/%(namelower)s/']
 sources =     [SOURCELOWER_TAR_GZ]
 checksums =   ['65705ecd987b50bf63e15820ce6bd17c042feaabda981249831bd230f6689709']
 
-builddependencies = [ # Create a reproducible build environment.
+build_deps = [ # Create a reproducible build environment.
     ('buildtools',   '%(toolchain_version)s',   '', True),
     ('googletest',   local_googletest_version),
     ('nlohmann-json', local_nlohmannjson_version),
 ]
 
-dependencies = [
+deps = [
     ('LibTIFF',       local_libtiff_version),
     ('SQLite',        local_SQLite_version),
     ('cURL',          local_cURL_version),
 ]
 
 # Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
-preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
-prebuildopts = preconfigopts
-preinstallopts = preconfigopts
+pre_configure_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+pre_build_opts = pre_configure_opts
+pre_install_opts = pre_configure_opts
 
 # build twice, once for static, once for shared libraries
-configopts = [
+configure_opts = [
     '-DCMAKE_INSTALL_LIBDIR=lib -DBUILD_SHARED_LIBS=OFF', 
     '-DCMAKE_INSTALL_LIBDIR=lib -DBUILD_SHARED_LIBS=ON'
 ]
 
-postinstallcmds = [
+post_install_cmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
     'cd %(start_dir)s && cp AUTHORS.md ChangeLog CITATION CITATION.cff COPYING NEWS.md README.md %(installdir)s/share/licenses/%(name)s',   
 ]
@@ -87,9 +87,9 @@ sanity_check_paths = {
     'dirs':  ['include'],
 }
 
-sanity_check_commands = [ 
+sanity_check_cmds = [ 
     'cct -h',
     'gie -h',
 ]
 
-moduleclass = 'lib'
+env_mod_category = 'lib'

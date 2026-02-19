@@ -48,7 +48,7 @@ software_license_urls = [
 ]
 
 toolchain = {'name': 'cpeAMD', 'version': '25.09'}
-toolchainopts = {'pic': True}
+toolchain_opts = {'pic': True}
 
 # https://github.com/jasper-software/jasper/archive/refs/tags/version-4.2.8.tar.gz
 github_account = 'jasper-software'
@@ -59,31 +59,31 @@ sources = {
 }
 checksums = ['987e8c8b4afcff87553833b6f0fa255b5556a0ecc617b45ee1882e10c1b5ec14']
 
-builddependencies = [ # Create a reproducible build environment.
+build_deps = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
 ]
 
-dependencies = [
+deps = [
     ('libjpeg-turbo', local_libjpegturbo_version),
 ]
 
 separate_build_dir = True
 
 # Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
-preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
-prebuildopts = preconfigopts
+pre_configure_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+pre_build_opts = pre_configure_opts
 
-local_configopts  = '-DJAS_ENABLE_DOC=0 '  # No PDFLaTeX on our systems.
-local_configopts += '-DJAS_ENABLE_OPENGL=0 '
-local_configopts += '-DJAS_ENABLE_LIBJPEG=1 '
+local_configure_opts  = '-DJAS_ENABLE_DOC=0 '  # No PDFLaTeX on our systems.
+local_configure_opts += '-DJAS_ENABLE_OPENGL=0 '
+local_configure_opts += '-DJAS_ENABLE_LIBJPEG=1 '
 # Checked the other options, they were mostly for debugging.
 
-configopts = [
-    f'-DBUILD_SHARED_LIBS=OFF -DCMAKE_INSTALL_LIBDIR=lib {local_configopts}',    
-    f'-DBUILD_SHARED_LIBS=ON  -DCMAKE_INSTALL_LIBDIR=lib {local_configopts}',   
+configure_opts = [
+    f'-DBUILD_SHARED_LIBS=OFF -DCMAKE_INSTALL_LIBDIR=lib {local_configure_opts}',    
+    f'-DBUILD_SHARED_LIBS=ON  -DCMAKE_INSTALL_LIBDIR=lib {local_configure_opts}',   
 ]
 
-postinstallcmds = [
+post_install_cmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
     'cd ../%(namelower)s-version-%(version)s && cp COPYRIGHT.txt LICENSE.txt NEWS.txt README.md %(installdir)s/share/licenses/%(name)s',   
 ]
@@ -95,11 +95,11 @@ sanity_check_paths = {
     'dirs' : ["share/man/man1"],
 }
 
-sanity_check_commands = [
+sanity_check_cmds = [
     'jasper --version',
     'imgcmp --version',
     'imginfo --version',
     'pkg-config --libs jasper',
 ]
 
-moduleclass = 'vis'
+env_mod_category = 'vis'

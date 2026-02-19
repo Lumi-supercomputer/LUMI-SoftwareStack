@@ -55,13 +55,13 @@ checksums = [
     {'GObject-Introspection-1.80.1_install-GLib-GIR-files.patch': 'c1909f1b7fd30784ae789ac0b5e45e0ca3dd2456890b864efa86a2f8c2e563aa'},
 ]
 
-builddependencies = [
+build_deps = [
     ('buildtools' ,       '%(toolchain_version)s', '',                                        SYSTEM), # For Ninja, flex, bison
     ('buildtools-python', '%(toolchain_version)s', f'-cray-python{local_craypython_maj_min}', SYSTEM), # For Meson
     ('cairo',             local_cairo_version),
 ]
 
-dependencies = [
+deps = [
     (f'cray-python/{local_craypython_version}', EXTERNAL_MODULE),
     ('libffi',     local_libffi_version),
     ('util-linux', local_util_version),
@@ -69,12 +69,12 @@ dependencies = [
 ]
 
 # Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
-preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
-preinstallopts = pretestopts = prebuildopts = preconfigopts
+pre_configure_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+pre_install_opts = pre_test_opts = pre_build_opts = pre_configure_opts
 
-preconfigopts += 'env GI_SCANNER_DISABLE_CACHE=true '
+pre_configure_opts += 'env GI_SCANNER_DISABLE_CACHE=true '
 
-configopts = ' '.join([
+configure_opts = ' '.join([
     '--buildtype=release',       # Release build (the default actually)
     '--default-library=shared',  # Specifying --default-library=both makes no sense as only shared libraries are supported by this package.
     '--libdir=lib',              # Install libraries in lib (also the default it seems)
@@ -85,10 +85,10 @@ configopts = ' '.join([
 ])
 
 # For debugging
-#buildopts = '-v'
+#build_opts = '-v'
 #maxparallel = 1
 
-postinstallcmds = [
+post_install_cmds = [
     # Fix shebangs and make very sure it uses cray-python.
     f'module load cray-python/{local_craypython_version} && ' +
     f'sed -i -e "s|#!.*python[0-9.]*$|#!$(which python{local_craypython_maj_min})|" %(installdir)s/bin/*',
@@ -104,7 +104,7 @@ sanity_check_paths = {
     'dirs':  ['include', 'share']
 }
 
-sanity_check_commands = [
+sanity_check_cmds = [
     f'g-ir-annotation-tool --version | grep -q {local_GObject_version}',
     'g-ir-annotation-tool --help',
     f'g-ir-compiler --version | grep -q {local_GObject_version}',
@@ -120,8 +120,8 @@ sanity_check_commands = [
     'pkg-config --libs gobject-introspection-no-export-1.0',
 ]
 
-modextrapaths = {
+env_mod_extra_paths = {
     'GI_TYPELIB_PATH': 'share',
 }
 
-moduleclass = 'devel'
+env_mod_category = 'devel'

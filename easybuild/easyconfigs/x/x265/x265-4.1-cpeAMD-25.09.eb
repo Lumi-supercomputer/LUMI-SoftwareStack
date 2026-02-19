@@ -32,30 +32,30 @@ docurls = [
 ]
 
 toolchain = {'name': 'cpeAMD', 'version': '25.09'}
-toolchainopts = {'pic': True}
+toolchain_opts = {'pic': True}
 
 source_urls = ['https://bitbucket.org/multicoreware/x265_git/downloads/']
 sources =     ['%(name)s_%(version)s.tar.gz']
 checksums =   ['a31699c6a89806b74b0151e5e6a7df65de4b49050482fe5ebf8a4379d7af8f29']
 
-builddependencies = [ # Create a reproducible build environment.
+build_deps = [ # Create a reproducible build environment.
     ('buildtools',        '%(toolchain_version)s', '-CMake3', True), # For CMake and YAsm
 ]
 
-#osdependencies = [
+#os_deps = [
 #    ('numactl-devel'), # Optional dependency, but can benefit from libnuma and its header file
 #]
 
-preconfigopts = 'module unload cray-mpich rocm xpmem && '
-prebuildopts = preconfigopts
+pre_configure_opts = 'module unload cray-mpich rocm xpmem && '
+pre_build_opts = pre_configure_opts
 
 start_dir = 'source'
 
-configopts = '-DGIT_ARCHETYPE=1 -DENABLE_PIC=ON'
+configure_opts = '-DGIT_ARCHETYPE=1 -DENABLE_PIC=ON'
 
-#installopts = ' && cp ../COPYING %(installdir)s'
+#install_opts = ' && cp ../COPYING %(installdir)s'
 
-postinstallcmds = [
+post_install_cmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
     'cd ../%(namelower)s_%(version)s && cp COPYING %(installdir)s/share/licenses/%(name)s',   
 ]
@@ -65,4 +65,4 @@ sanity_check_paths = {
     'dirs':  [],
 }
 
-moduleclass = 'vis'
+env_mod_category = 'vis'

@@ -21,19 +21,19 @@ software_license_urls = ['https://github.com/oneapi-src/oneTBB/blob/master/LICEN
 toolchain = {'name': 'cpeGNU', 'version': '25.09'}
 
 # https://github.com/oneapi-src/oneTBB/issues/1180#issuecomment-1690958371
-toolchainopts = {'extra_cxxflags': '-Wno-error=stringop-overflow'}
+toolchain_opts = {'extra_cxxflags': '-Wno-error=stringop-overflow'}
 
 source_urls = ['https://github.com/oneapi-src/oneTBB/archive/refs/tags/']
 sources =     ['v%(version)s.tar.gz']
 checksums =   ['01598a46c1162c27253a0de0236f520fd8ee8166e9ebb84a4243574f88e6e50a']
 
-builddependencies = [
+build_deps = [
     ('buildtools',         '%(toolchain_version)s', '', True),
     ('craype-network-none', EXTERNAL_MODULE),
     ('craype-accel-host',   EXTERNAL_MODULE),
 ]
 
-postinstallcmds = [
+post_install_cmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s && '
     'cd ../%(name)s-%(version)s && '
     'cp CONTRIBUTING.md LICENSE.txt README.md RELEASE_NOTES.md SECURITY.md SUPPORT.md SYSTEM_REQUIREMENTS.md third-party-programs.txt %(installdir)s/share/licenses/%(name)s',   
@@ -44,4 +44,4 @@ sanity_check_paths = {
     'dirs':  ['lib', 'include', 'share'],
 }
 
-moduleclass = 'lib'
+env_mod_category = 'lib'

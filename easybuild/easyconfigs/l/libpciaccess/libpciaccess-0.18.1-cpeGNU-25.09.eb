@@ -30,19 +30,19 @@ source_urls = ['https://www.x.org/releases/individual/lib/']
 sources =     [SOURCE_TAR_XZ]
 checksums =   ['4af43444b38adb5545d0ed1c2ce46d9608cc47b31c2387fc5181656765a6fa76']
 
-builddependencies = [ # Create a reproducible build environment.
+build_deps = [ # Create a reproducible build environment.
     ('buildtools',        '%(toolchain_version)s',   '',                                        True),
     ('buildtools-python', '%(toolchain_version)s',   f'-cray-python{local_craypython_maj_min}', True), # For Meson
     ('xorg-macros',       local_xorg_macros_version, '',                                        True),
 ]
 
 # Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
-preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
-preinstallopts = prebuildopts = preconfigopts
+pre_configure_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+pre_install_opts = pre_build_opts = pre_configure_opts
 
-configopts = "--default-library=both"  # static and shared library
+configure_opts = "--default-library=both"  # static and shared library
 
-postinstallcmds = [
+post_install_cmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
     'cd ../%(namelower)s-%(version)s && cp AUTHORS COPYING README.md %(installdir)s/share/licenses/%(name)s',   
 ]
@@ -54,8 +54,8 @@ sanity_check_paths = {
 }
 
 # Just to be sure, check for pkg-config compatibility with Cray pkg-config.
-sanity_check_commands = [
+sanity_check_cmds = [
     'pkg-config --libs pciaccess | grep "%(installdir)s/lib"',
 ]
 
-moduleclass = 'system'
+env_mod_category = 'system'

@@ -45,32 +45,32 @@ software_license_urls = [
 ]
 
 toolchain = {'name': 'cpeAMD', 'version': '25.09'}
-toolchainopts = {'pic': True}
+toolchain_opts = {'pic': True}
 
 sources =     [SOURCELOWER_TAR_XZ]
 source_urls = ['http://downloads.xiph.org/releases/flac/']
 checksums =   ['f2c1c76592a82ffff8413ba3c4a1299b6c7ab06c734dee03fd88630485c2b920']
 
 # use of assembly routines requires a recent binutils
-builddependencies = [ # Create a reproducible build environment.
+build_deps = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
 ]
 
-dependencies = [
+deps = [
     ('libogg', local_libogg_version),
 ]
 
 # Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
-preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
-prebuildopts = preconfigopts
-preinstallopts = preconfigopts
+pre_configure_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+pre_build_opts = pre_configure_opts
+pre_install_opts = pre_configure_opts
 
-configopts = '--enable-static --enable-shared'
+configure_opts = '--enable-static --enable-shared'
 
 # The tests are extremely time-consuming so you may want to skip them.
-#runtest = 'check'
+#run_test = 'check'
 
-postinstallcmds = [
+post_install_cmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
     'cp AUTHORS CHANGELOG.md COPYING* README.md %(installdir)s/share/licenses/%(name)s',   
 ]
@@ -82,11 +82,11 @@ sanity_check_paths = {
     'dirs': ['include/FLAC', 'include/FLAC++'],
 }
 
-sanity_check_commands = [
+sanity_check_cmds = [
     'flac --help',
     'metaflac --help',
     'pkg-config --libs flac',
     'pkg-config --libs flac++',
 ]
 
-moduleclass = 'data'
+env_mod_category = 'data'

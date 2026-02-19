@@ -40,21 +40,21 @@ sources =     [SOURCELOWER_TAR_GZ]
 checksums =   ['c0f892943208266f9b6543b3ae308fab6284c5c90e627931446fb49b4221a072']
 
 toolchain = {'name': 'cpeCray', 'version': '25.09'}
-toolchainopts = {'pic': True}
+toolchain_opts = {'pic': True}
 
-builddependencies = [
+build_deps = [
     ('buildtools', '%(toolchain_version)s', '', True),
 ]
 
 # Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
-preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
-preinstallopts = pretestopts = prebuildopts = preconfigopts
+pre_configure_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+pre_install_opts = pre_test_opts = pre_build_opts = pre_configure_opts
 
-configopts = '--enable-shared --enable-static'
+configure_opts = '--enable-shared --enable-static'
 
-runtest = 'test'
+run_test = 'test'
 
-postinstallcmds = [
+post_install_cmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
     'cp AUTHORS BUGS ChangeLog COPYING NEWS README THANKS %(installdir)s/share/licenses/%(name)s',   
 ]
@@ -65,8 +65,8 @@ sanity_check_paths = {
     'dirs':  []
 }
 
-sanity_check_commands = [
+sanity_check_cmds = [
     'pkg-config --libs lzo2'
 ]
 
-moduleclass = 'devel'
+env_mod_category = 'devel'

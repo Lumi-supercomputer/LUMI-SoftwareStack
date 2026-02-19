@@ -28,18 +28,18 @@ software_license_urls = [
 ]
 
 toolchain = {'name': 'cpeGNU', 'version': '25.09'}
-toolchainopts = {'pic': True}
+toolchain_opts = {'pic': True}
 
 # https://www.kernel.org/pub/linux/utils/util-linux/v2.41/util-linux-2.41.3.tar.xz
 source_urls = ['https://www.kernel.org/pub/linux/utils/util-linux/v%(version_major_minor)s']
 sources =     [SOURCELOWER_TAR_XZ]
 checksums =   ['3330d873f0fceb5560b89a7dc14e4f3288bbd880e96903ed9b50ec2b5799e58b']
 
-builddependencies = [ # Create a reproducible build environment.
+build_deps = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
 ]
 
-dependencies = [
+deps = [
     ('ncurses',     local_ncurses_version),
     ('libreadline', local_libreadline_version),
     ('zlib',        local_zlib_version),
@@ -50,26 +50,26 @@ dependencies = [
 ]
 
 # Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
-preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
-prebuildopts = preconfigopts
-preinstallopts = preconfigopts
+pre_configure_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+pre_build_opts = pre_configure_opts
+pre_install_opts = pre_configure_opts
 
 # disable account related utilities (they need OS dependent pam-devel files)
 # disable wall and friends (requires group changing permissions for install user)
 # install systemd service files in install dir
 # install bash completion files in install dir
-configopts  = "--disable-chfn-chsh --disable-login --disable-su --disable-rfkill "
-configopts += "--disable-wall --disable-use-tty-group "
-configopts += "--disable-makeinstall-chown --disable-makeinstall-setuid "
-configopts += "--with-systemdsystemunitdir='${prefix}/systemd' "
-configopts += "--with-bashcompletiondir='${prefix}/share/bash-completion/completions' "
+configure_opts  = "--disable-chfn-chsh --disable-login --disable-su --disable-rfkill "
+configure_opts += "--disable-wall --disable-use-tty-group "
+configure_opts += "--disable-makeinstall-chown --disable-makeinstall-setuid "
+configure_opts += "--with-systemdsystemunitdir='${prefix}/systemd' "
+configure_opts += "--with-bashcompletiondir='${prefix}/share/bash-completion/completions' "
 # disable building Python bindings (since we don't include Python as a dep)
-configopts += "--without-python "
+configure_opts += "--without-python "
 # We need to leave out tinfo as it doesn't seem to find the library, leading
 # to a failure to find cur_term.
-configopts += "--without-tinfo "
+configure_opts += "--without-tinfo "
 
-postinstallcmds = [
+post_install_cmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
     'cp AUTHORS ChangeLog COPYING NEWS README README.licensing %(installdir)s/share/licenses/%(name)s',   
 ]
@@ -80,7 +80,7 @@ sanity_check_paths = {
     'dirs':  ['include', 'bin', 'share', 'sbin'],
 }
 
-sanity_check_commands = [
+sanity_check_cmds = [
     'cal --version',
     'chmem --version',
     'choom --version',
@@ -144,4 +144,4 @@ sanity_check_commands = [
     'whereis --version',
 ]
 
-moduleclass = 'tools'
+env_mod_category = 'tools'

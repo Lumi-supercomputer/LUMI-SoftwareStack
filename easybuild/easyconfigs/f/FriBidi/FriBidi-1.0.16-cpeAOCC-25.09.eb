@@ -31,24 +31,24 @@ software_license_urls = [
 ]
 
 toolchain = {'name': 'cpeAOCC', 'version': '25.09'}
-toolchainopts = {'pic': True}
+toolchain_opts = {'pic': True}
 
 # https://github.com/fribidi/fribidi/releases/download/v1.0.10/fribidi-1.0.10.tar.xz
 source_urls = ['https://github.com/%(namelower)s/%(namelower)s/releases/download/v%(version)s']
 sources =     [SOURCELOWER_TAR_XZ]
 checksums =   ['1b1cde5b235d40479e91be2f0e88a309e3214c8ab470ec8a2744d82a5a9ea05c']
 
-builddependencies = [ # Create a reproducible build environment.
+build_deps = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
 ]
 
 # Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
-preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
-prebuildopts = preconfigopts
+pre_configure_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+pre_build_opts = pre_configure_opts
 
-#configopts = '--disable-docs' # Option no longer supported by configure
+#configure_opts = '--disable-docs' # Option no longer supported by configure
 
-postinstallcmds = [
+post_install_cmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
     'cp AUTHORS COPYING NEWS README README.md %(installdir)s/share/licenses/%(name)s',   
 ]
@@ -60,9 +60,9 @@ sanity_check_paths = {
     'dirs':  ['share/man/man3']
 }
 
-sanity_check_commands = [
+sanity_check_cmds = [
     'fribidi -h',
     'pkg-config --libs fribidi',
 ]
 
-moduleclass = 'lang'
+env_mod_category = 'lang'

@@ -43,19 +43,19 @@ checksums =   [
     {'DB-18.1.40_fix_doc_install.patch': '441f48568156f72f02a8662998d293cc7edad687604b4f8af722f21c6db2a52d'}
 ]
 
-builddependencies = [ # Create a reproducible build environment.
+build_deps = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
 ]
 
-osdependencies = [
+os_deps = [
     ('openssl-devel', 'libssl-dev', 'libopenssl-devel'),
 ]
 
 # Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
-preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
-prebuildopts = preconfigopts
+pre_configure_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+pre_build_opts = pre_configure_opts
 
-postinstallcmds = [
+post_install_cmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
     'cp ../LICENSE ../README %(installdir)s/share/licenses/%(name)s',   
 ]
@@ -71,4 +71,4 @@ sanity_check_paths = {
 
 # No easy check with running commands possible.
 
-moduleclass = 'tools'
+env_mod_category = 'tools'

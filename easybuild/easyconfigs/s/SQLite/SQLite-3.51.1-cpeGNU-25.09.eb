@@ -46,7 +46,7 @@ software_license_urls = [
 ]
 
 toolchain = {'name': 'cpeGNU', 'version': '25.09'}
-toolchainopts = {'pic': True}
+toolchain_opts = {'pic': True}
 
 # https://www.sqlite.org/2021/sqlite-autoconf-3350500.tar.gz
 local_filename_version = '%1d%02d%02d00' % (int(version.split('.')[0]), int(version.split('.')[1]), int(version.split('.')[2]))
@@ -54,22 +54,22 @@ source_urls = ['https://www.sqlite.org/2025/']
 sources =     ['%%(namelower)s-autoconf-%s.tar.gz' % (local_filename_version)]
 checksums =   ['4f2445cd70479724d32ad015ec7fd37fbb6f6130013bd4bfbc80c32beb42b7e0']
 
-builddependencies = [ # Create a reproducible build environment.
+build_deps = [ # Create a reproducible build environment.
     ('buildtools',   '%(toolchain_version)s',   '', True),
 ]
 
-dependencies = [
+deps = [
     ('libreadline', local_libreadline_version),
     ('Tcl',         local_Tcl_version),
 ]
 
 # Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
-preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
-prebuildopts = preconfigopts
+pre_configure_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+pre_build_opts = pre_configure_opts
 
 # enable additional APIs that provide access to meta-data about tables and queries
 # needed for GDAL when it used as a dep for QGIS
-buildopts = 'CC="$CC" CFLAGS="$CFLAGS -DSQLITE_ENABLE_COLUMN_METADATA"'
+build_opts = 'CC="$CC" CFLAGS="$CFLAGS -DSQLITE_ENABLE_COLUMN_METADATA"'
 
 #max_parallel = 1
 
@@ -81,8 +81,8 @@ sanity_check_paths = {
     'dirs':  ['lib/pkgconfig'],
 }
 
-sanity_check_commands = [
+sanity_check_cmds = [
     'sqlite3 --version | grep ^%(version)s',
 ]
 
-moduleclass = 'devel'
+env_mod_category = 'devel'

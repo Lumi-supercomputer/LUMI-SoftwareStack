@@ -43,29 +43,29 @@ software_license_urls = [
 ]
 
 toolchain = {'name': 'cpeGNU', 'version': '25.09'}
-toolchainopts = {'pic': True}
+toolchain_opts = {'pic': True}
 
 source_urls = ['https://download.gnome.org/sources/libxslt/%(version_major_minor)s/']
 sources =     [SOURCE_TAR_XZ]
 checksums =   ['9acfe68419c4d06a45c550321b3212762d92f41465062ca4ea19e632ee5d216e']
 
-builddependencies = [ # Create a reproducible build environment.
+build_deps = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
 ]
 
-dependencies = [ # zlib, also used in the EasyBuilders version, comes in via libxml2.
+deps = [ # zlib, also used in the EasyBuilders version, comes in via libxml2.
     ('libxml2', local_libxml2_version),
 ]
 
 # Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
-preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
-prebuildopts = preconfigopts
-preinstallopts = preconfigopts
+pre_configure_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+pre_build_opts = pre_configure_opts
+pre_install_opts = pre_configure_opts
 
 # Make sure it doesn't pick up OS installed libgcrypt or Python
-configopts = '--enable-static --enable-shared --with-crypto=no --with-python=no '
+configure_opts = '--enable-static --enable-shared --with-crypto=no --with-python=no '
 
-postinstallcmds = [
+post_install_cmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
     'cp AUTHORS Copyright FEATURES NEWS README.md %(installdir)s/share/licenses/%(name)s',   
 ]
@@ -76,11 +76,11 @@ sanity_check_paths = {
     'dirs':  ['lib/cmake', 'lib/pkgconfig', 'share/man/man1', 'share/man/man3'],
 }
 
-sanity_check_commands = [
+sanity_check_cmds = [
     'xsltproc --version',
     'xslt-config --version',
     'pkg-config --libs libxslt',
     'pkg-config --libs libexslt',
 ]
 
-moduleclass = 'lib'
+env_mod_category = 'lib'

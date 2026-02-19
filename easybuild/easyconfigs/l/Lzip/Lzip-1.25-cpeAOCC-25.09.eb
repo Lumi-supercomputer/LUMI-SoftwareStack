@@ -26,22 +26,22 @@ software_license_urls = [
 ]
 
 toolchain = {'name': 'cpeAOCC', 'version': '25.09'}
-toolchainopts = {'pic': True}
+toolchain_opts = {'pic': True}
 
 # https://download.savannah.gnu.org/releases/lzip/lzip-1.22.tar.gz
 source_urls = ['https://download.savannah.gnu.org/releases/lzip']
 sources =     [SOURCELOWER_TAR_GZ]
 checksums =   ['09418a6d8fb83f5113f5bd856e09703df5d37bae0308c668d0f346e3d3f0a56f']
 
-builddependencies = [ # Create a reproducible build environment.
+build_deps = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
 ]
 
 # Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
-preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
-prebuildopts = preconfigopts
+pre_configure_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+pre_build_opts = pre_configure_opts
 
-postinstallcmds = [
+post_install_cmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
     'cp AUTHORS ChangeLog COPYING NEWS README %(installdir)s/share/licenses/%(name)s',   
 ]
@@ -51,6 +51,6 @@ sanity_check_paths = {
     'dirs':  [],
 }
 
-sanity_check_commands = [True, ('lzip', '--version')]
+sanity_check_cmds = [True, ('lzip', '--version')]
 
-moduleclass = 'tools'
+env_mod_category = 'tools'

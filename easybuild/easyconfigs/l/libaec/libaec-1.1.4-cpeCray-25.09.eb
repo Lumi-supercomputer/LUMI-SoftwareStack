@@ -40,9 +40,9 @@ software_license_urls = [
 ]
 
 toolchain = {'name': 'cpeCray', 'version': '25.09'}
-toolchainopts = {'pic': 'True'}
+toolchain_opts = {'pic': 'True'}
 
-builddependencies = [ # Create a reproducible build environment.
+build_deps = [ # Create a reproducible build environment.
     ('buildtools',   '%(toolchain_version)s',   '', True), # For CMake among others.
 ]
 
@@ -52,13 +52,13 @@ source_urls = ['https://gitlab.dkrz.de/k202009/libaec/-/archive/v%(version)s/']
 checksums =   ['c1a08789973fa847a7c7403d75416c174257ecf6c49e74144c0dadbfca7f6976']
 
 # Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
-preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
-prebuildopts = preconfigopts
+pre_configure_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+pre_build_opts = pre_configure_opts
 
-configopts  = '-DAEC_FUZZING=OFF ' # OFF is the default, this is just to stress we use the default configuration.
-configopts += '-DCMAKE_INSTALL_LIBDIR=lib'
+configure_opts  = '-DAEC_FUZZING=OFF ' # OFF is the default, this is just to stress we use the default configuration.
+configure_opts += '-DCMAKE_INSTALL_LIBDIR=lib'
 
-postinstallcmds = [
+post_install_cmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
     'cd ../%(namelower)s-v%(version)s-* && cp AUTHORS CHANGELOG.md LICENSE.txt README.md README.SZIP THANKS %(installdir)s/share/licenses/%(name)s',   
 ]
@@ -69,4 +69,4 @@ sanity_check_paths = {
     'dirs':  ['lib', 'include'],
 }
 
-moduleclass = 'data'
+env_mod_category = 'data'

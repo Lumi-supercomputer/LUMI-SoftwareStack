@@ -30,11 +30,11 @@ toolchain = {'name': 'cpeGNU', 'version': '25.09'}
 use_pip = True
 sanity_pip_check = False
 
-builddependencies = [
+build_deps = [
   ('buildtools-python', '%(toolchain_version)s', '-cray-python%(pyshortver)s', True)
 ]
 
-dependencies = [
+deps = [
     ('cray-python', EXTERNAL_MODULE),
 ]
 
@@ -56,6 +56,6 @@ sanity_check_paths = {
     'dirs':  ['lib/python%(pyshortver)s/site-packages/%(namelower)s'],
 }
 
-sanity_check_commands = ['mako-render --help']
+sanity_check_cmds = ['mako-render --help']
 
-moduleclass = 'devel'
+env_mod_category = 'devel'

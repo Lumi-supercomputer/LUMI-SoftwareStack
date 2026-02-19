@@ -22,33 +22,33 @@ software_license_urls = [
 ]
 
 toolchain = {'name': 'cpeCray', 'version': '25.09'}
-toolchainopts = {'pic': True}
+toolchain_opts = {'pic': True}
 
 source_urls = [('http://sourceforge.net/projects/giflib/files', 'download')]
 sources =     [SOURCE_TAR_GZ]
 checksums =   ['be7ffbd057cadebe2aa144542fd90c6838c6a083b5e8a9048b8ee3b66b29d5fb']
 
-builddependencies = [ # Create a reproducible build environment.
+build_deps = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
 ]
 
 # No configure
-skipsteps = ['configure']
+skip_steps = ['configure']
 
 # Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
-prebuildopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
-preinstallopts = prebuildopts
+pre_build_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+pre_install_opts = pre_build_opts
 
 # Skip building the docs to avoid ImageMagick (convert) build dependency
-prebuildopts += "sed -i '/$(MAKE) -C doc/d' Makefile &&"
+pre_build_opts += "sed -i '/$(MAKE) -C doc/d' Makefile &&"
 
 # Override CXX and CFLAGS variables from Makefile
-buildopts = 'CC="$CC" CFLAGS="$CXXFLAGS"'
+build_opts = 'CC="$CC" CFLAGS="$CXXFLAGS"'
 
 # Override PREFIX variable from Makefile
-installopts = "PREFIX=%(installdir)s"
+install_opts = "PREFIX=%(installdir)s"
 
-postinstallcmds = [
+post_install_cmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
     'cp COPYING NEWS README %(installdir)s/share/licenses/%(name)s',   
 ]
@@ -61,4 +61,4 @@ sanity_check_paths = {
 
 # There are several commands but that have no easy options for a sanity check.
 
-moduleclass = 'lib'
+env_mod_category = 'lib'

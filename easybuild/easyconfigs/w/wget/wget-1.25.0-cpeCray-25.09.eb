@@ -34,17 +34,17 @@ software_license_urls = [
 ]
 
 toolchain = {'name': 'cpeCray', 'version': '25.09'}
-toolchainopts = {'extra_cflags': '-Wno-unsupported-target-opt'}
+toolchain_opts = {'extra_cflags': '-Wno-unsupported-target-opt'}
 
 source_urls = [GNU_SOURCE]
 sources =     [SOURCE_TAR_GZ]
 checksums =   ['766e48423e79359ea31e41db9e5c289675947a7fcf2efdcedb726ac9d0da3784']
 
-builddependencies = [ # Create a reproducible build environment.
+build_deps = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
 ]
 
-dependencies = [
+deps = [
     ('zlib',    local_zlib_version),
     ('libidn2', local_libidn2_version),
     ('libpsl',  local_libpsl_version),
@@ -58,23 +58,23 @@ dependencies = [
     # ('GnuTLS', '3.4.11'),
 ]
 
-osdependencies = [
+os_deps = [
     ('openssl-devel', 'libssl-dev', 'libopenssl-devel'),
     # Optionally, you can use gnutls (default) instead of OpenSSL.
-    # Do not forget to comment out configopts in that case.
-    # osdependencies = [('gnutls-devel', 'gnutls-dev', 'libgnutls-devel')]
+    # Do not forget to comment out configure_opts in that case.
+    # os_deps = [('gnutls-devel', 'gnutls-dev', 'libgnutls-devel')]
 ]
 
 # Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
-preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
-prebuildopts = preconfigopts
-preinstallopts = preconfigopts
+pre_configure_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+pre_build_opts = pre_configure_opts
+pre_install_opts = pre_configure_opts
 
 # make sure pkg-config picks up system packages (OpenSSL & co)
-preconfigopts += "export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/usr/lib64/pkgconfig:/usr/lib/pkgconfig:/usr/lib/x86_64-linux-gnu/pkgconfig && "
-configopts =    '--with-ssl=openssl '
+pre_configure_opts += "export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/usr/lib64/pkgconfig:/usr/lib/pkgconfig:/usr/lib/x86_64-linux-gnu/pkgconfig && "
+configure_opts =    '--with-ssl=openssl '
 
-postinstallcmds = [
+post_install_cmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
     'cp AUTHORS ChangeLog COPYING NEWS README %(installdir)s/share/licenses/%(name)s',   
 ]
@@ -85,12 +85,12 @@ sanity_check_paths = {
     'dirs':  []
 }
 
-sanity_check_commands = [
+sanity_check_cmds = [
     'wget -V',
 ]
 
-modextrapaths = {
+env_mod_extra_paths = {
     'INFOPATH' : 'share/info',
 }
 
-moduleclass = 'devel'
+env_mod_category = 'devel'

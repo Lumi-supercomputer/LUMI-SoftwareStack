@@ -25,7 +25,7 @@ a JPEG 2000 Reference Software.
 """
 
 toolchain = {'name': 'cpeAMD', 'version': '25.09'}
-toolchainopts = {'pic': True}
+toolchain_opts = {'pic': True}
 
 # https://github.com/uclouvain/openjpeg/archive/v2.5.4.tar.gz
 sources = [{
@@ -35,12 +35,12 @@ sources = [{
 }]
 checksums =   ['a695fbe19c0165f295a8531b1e4e855cd94d0875d2f88ec4b61080677e27188a']
 
-builddependencies = [
+build_deps = [
     ('buildtools', '%(toolchain_version)s', '', SYSTEM),
 ]
 
 # for running the binary of openjpeg like opj_compress you need the libraries like zlib etc.
-dependencies = [
+deps = [
     ('zlib',      local_zlib_version),
     ('libpng',    local_libpng_version),
     ('LibTIFF',   local_libtiff_version),
@@ -48,12 +48,12 @@ dependencies = [
 ]
 
 # Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
-preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
-preinstallopts = pretestopts = prebuildopts = preconfigopts
+pre_configure_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+pre_install_opts = pre_test_opts = pre_build_opts = pre_configure_opts
 
-configopts = '-DCMAKE_INSTALL_LIBDIR=lib ' # It will install shared and static libraries automatically.
+configure_opts = '-DCMAKE_INSTALL_LIBDIR=lib ' # It will install shared and static libraries automatically.
 
-postinstallcmds = [
+post_install_cmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
     'cd ../%(namelower)s-%(version)s && cp AUTHORS.md CHANGELOG.md LICENSE NEWS.md README.md THANKS.md %(installdir)s/share/licenses/%(name)s',   
 ]
@@ -70,9 +70,9 @@ sanity_check_paths = {
     'dirs': ['bin', 'include', 'lib'],
 }
 
-sanity_check_commands = [ # No easy test on the executables themselves though...
+sanity_check_cmds = [ # No easy test on the executables themselves though...
     f'pkg-config --modversion libopenjp2 | grep -q {local_OpenJPEG_version}',
     'pkg-config --libs libopenjp2 | grep -q lopenjp2',
 ]
 
-moduleclass = 'lib'
+env_mod_category = 'lib'

@@ -36,28 +36,28 @@ software_license_urls = [
 ]
 
 toolchain = {'name': 'cpeAOCC', 'version': '25.09'}
-toolchainopts = {'pic': True}
+toolchain_opts = {'pic': True}
 
 # https://sourceforge.net/projects/libpng/files/libpng16/1.6.54/libpng-1.6.54.tar.xz/download
 source_urls = [SOURCEFORGE_SOURCE]
 sources =     [SOURCELOWER_TAR_XZ]
 checksums =   ['01c9d8a303c941ec2c511c14312a3b1d36cedb41e2f5168ccdaa85d53b887805']
 
-builddependencies = [ # Create a reproducible build environment.
+build_deps = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
 ]
 
-dependencies = [
+deps = [
     ('zlib', local_zlib_version),
 ]
 
 # Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
-preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
-prebuildopts = preconfigopts
+pre_configure_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+pre_build_opts = pre_configure_opts
 
-configopts = "--with-pic"
+configure_opts = "--with-pic"
 
-postinstallcmds = [
+post_install_cmds = [
     'ln -s %(installdir)s/include/libpng16 %(installdir)s/include/libpng',
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
     'cp ANNOUNCE AUTHORS CHANGES LICENSE README TRADEMARK %(installdir)s/share/licenses/%(name)s',   
@@ -72,10 +72,10 @@ sanity_check_paths = {
     'dirs':  ['bin', 'include/libpng%s' % local_majminver, 'share/man'],
 }
 
-sanity_check_commands = [
+sanity_check_cmds = [
     'libpng16-config --version',
     'pkg-config --libs libpng16',
 ]
 
-moduleclass = 'lib'
+env_mod_category = 'lib'
 

@@ -37,7 +37,7 @@ software_license_urls = [
 ]
 
 toolchain = {'name': 'cpeAMD', 'version': '25.09'}
-toolchainopts = {'pic': True}
+toolchain_opts = {'pic': True}
 
 source_urls = ['https://sourceware.org/pub/%(name)s/']
 sources =     [SOURCE_TAR_GZ]
@@ -47,15 +47,15 @@ checksums = [
     {'bzip2-1.0.8-pkgconfig-manpath.patch': 'de11269dc6e4917023af4cee9ff83b204953ad9cde561dbc9d6fc70d9b9578e3'}
 ]
 
-builddependencies = [ # Create a reproducible build environment.
+build_deps = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
 ]
 
 # Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
-preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
-prebuildopts = preconfigopts
+pre_configure_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+pre_build_opts = pre_configure_opts
 
-postinstallcmds = [
+post_install_cmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
     'cp LICENSE README %(installdir)s/share/licenses/%(name)s',   
 ]
@@ -73,9 +73,9 @@ sanity_check_paths = {
     'dirs':  []
 }
 
-sanity_check_commands = [
+sanity_check_cmds = [
     'bzip2 --help',
     'pkg-config --libs bzip2',
 ]
 
-moduleclass = 'tools'
+env_mod_category = 'tools'

@@ -21,24 +21,24 @@ software_license_urls = [
 ]
 
 toolchain = {'name': 'cpeAOCC', 'version': '25.09'}
-toolchainopts = {'pic': True}
+toolchain_opts = {'pic': True}
 
 # https://github.com/unicode-org/icu/releases/download/release-78.1/icu4c-78.1-sources.tgz
 source_urls = ['https://github.com/unicode-org/icu/releases/download/release-%(version)s']
 sources =     ['icu4c-%(version)s-sources.tgz']
 checksums =   ['6217f58ca39b23127605cfc6c7e0d3475fe4b0d63157011383d716cb41617886']
 
-builddependencies = [ # Create a reproducible build environment.
+build_deps = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
 ]
 
 start_dir = 'source'
 
 # Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
-preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
-prebuildopts = preconfigopts
+pre_configure_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+pre_build_opts = pre_configure_opts
 
-postinstallcmds = [
+post_install_cmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
     'cp ../LICENSE %(installdir)s/share/licenses/%(name)s',   
 ]
@@ -52,7 +52,7 @@ sanity_check_paths = {
 # Unfortunately the command line arguments are inconsistent and broken. Some packages mention
 # -V or --version in the help but it turns out that that option does not work, some produce
 # exit code 0 when using -h, but two command produceded exit code 1.
-sanity_check_commands = [
+sanity_check_cmds = [
     'icuinfo',
     'icu-config --version',
     'icuexportdata --version',
@@ -65,4 +65,4 @@ sanity_check_commands = [
     'gendict -h',
 ]
 
-moduleclass = 'lib'
+env_mod_category = 'lib'

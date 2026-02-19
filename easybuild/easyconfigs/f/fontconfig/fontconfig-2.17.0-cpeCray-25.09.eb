@@ -27,31 +27,31 @@ software_license_urls = [
 ]
 
 toolchain = {'name': 'cpeCray', 'version': '25.09'}
-toolchainopts = {'pic': True}
+toolchain_opts = {'pic': True}
 
 # https://gitlab.freedesktop.org/api/v4/projects/890/packages/generic/fontconfig/2.17.0/fontconfig-2.17.0.tar.xz
 source_urls = ['https://gitlab.freedesktop.org/api/v4/projects/890/packages/generic/fontconfig/%(version)s/']
 sources =     [SOURCE_TAR_XZ]
 checksums =   ['6caea32b8076ef313b9b77747daa9afd24b71bcd525447b2a3c585c4542a083b']
 
-builddependencies = [ # Create a reproducible build environment.
+build_deps = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True), # for gperf
 ]
 
-dependencies = [
+deps = [
     ('expat',      local_expat_version),
     ('util-linux', local_util_version),
     ('freetype',   local_freetype_version),
 ]
 
 # Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
-preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
-prebuildopts = preconfigopts
-preinstallopts = preconfigopts
+pre_configure_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+pre_build_opts = pre_configure_opts
+pre_install_opts = pre_configure_opts
 
-configopts = '--disable-docs '
+configure_opts = '--disable-docs '
 
-postinstallcmds = [
+post_install_cmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
     'cp AUTHORS COPYING NEWS README.md %(installdir)s/share/licenses/%(name)s',   
 ]
@@ -64,10 +64,10 @@ sanity_check_paths = {
     'dirs':  []
 }
 
-sanity_check_commands = [
+sanity_check_cmds = [
     'pkg-config --libs fontconfig',
 ] + [
     'fc-%s -V' % x for x in ['cache', 'cat', 'conflist', 'list', 'match', 'pattern', 'query', 'scan', 'validate']
 ]
 
-moduleclass = 'vis'
+env_mod_category = 'vis'

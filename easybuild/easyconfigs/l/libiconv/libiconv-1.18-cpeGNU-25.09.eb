@@ -35,23 +35,23 @@ software_license_urls = [ # No easy way to get files for a specific version on s
 ]
 
 toolchain = {'name': 'cpeGNU', 'version': '25.09'}
-toolchainopts = {'pic': True}
+toolchain_opts = {'pic': True}
 
 source_urls = [GNU_SOURCE]
 sources =     [SOURCE_TAR_GZ]
 checksums =   ['3b08f5f4f9b4eb82f151a7040bfd6fe6c6fb922efe4b1659c66ea933276965e8']
 
-builddependencies = [
+build_deps = [
     ('buildtools', '%(toolchain_version)s', '', True),
     ('gettext',    local_gettext_version,  '-minimal'),
 ]
 
 # Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
-preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
-prebuildopts = preconfigopts
-preinstallopts = preconfigopts
+pre_configure_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+pre_build_opts = pre_configure_opts
+pre_install_opts = pre_configure_opts
 
-postinstallcmds = [
+post_install_cmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
     'cp AUTHORS ChangeLog COPYING* NOTES README THANKS %(installdir)s/share/licenses/%(name)s',   
 ]
@@ -63,4 +63,4 @@ sanity_check_paths = {
     'dirs':  ['share'],
 }
 
-moduleclass = 'lib'
+env_mod_category = 'lib'

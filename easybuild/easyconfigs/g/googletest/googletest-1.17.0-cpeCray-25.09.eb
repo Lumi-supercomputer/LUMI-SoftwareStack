@@ -28,21 +28,21 @@ sources = [{
 }]
 checksums = ['65fab701d9829d38cb77c14acdc431d2108bfdbf8979e40eb8ae567edf10b27c']
 
-builddependencies = [
+build_deps = [
     ('buildtools', '%(toolchain_version)s', '', True),
 ]
 
 # Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
-preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
-prebuildopts = preconfigopts
+pre_configure_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+pre_build_opts = pre_configure_opts
 
 # build twice, once for static, once for shared libraries
-configopts = [
+configure_opts = [
     '-DBUILD_SHARED_LIBS=OFF', 
     '-DBUILD_SHARED_LIBS=ON'
 ]
 
-postinstallcmds = [
+post_install_cmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
     'cd ../%(namelower)s-%(version)s && cp CONTRIBUTING.md CONTRIBUTORS LICENSE README.md %(installdir)s/share/licenses/%(name)s',   
 ]
@@ -54,8 +54,8 @@ sanity_check_paths = {
     'dirs':  ['include/gmock', 'include/gtest'],
 }
 
-sanity_check_commands = [
+sanity_check_cmds = [
     'pkg-config --libs %s' % local_lib for local_lib in ['gmock', 'gmock_main', 'gtest', 'gtest_main']
 ]
 
-moduleclass = 'tools'
+env_mod_category = 'tools'

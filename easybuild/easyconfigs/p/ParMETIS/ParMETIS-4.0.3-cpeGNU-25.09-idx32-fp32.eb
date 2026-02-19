@@ -49,7 +49,7 @@ software_license_urls = [
 ]
 
 toolchain = {'name': 'cpeGNU', 'version': '25.09'}
-toolchainopts = {'usempi': True, 'openmp': True, 'pic': True}
+toolchain_opts = {'usempi': True, 'openmp': True, 'pic': True}
 
 source_urls = [
     'https://karypis.github.io/glaros/files/sw/parmetis',
@@ -58,32 +58,32 @@ source_urls = [
 sources =   [SOURCELOWER_TAR_GZ]
 checksums = ['f2d9a231b7cf97f1fee6e8c9663113ebf6c240d407d3c118c55b3633d6be6e5f']
 
-builddependencies = [ # Create a reproducible build environment.
+build_deps = [ # Create a reproducible build environment.
     ('buildtools',   '%(toolchain_version)s', '-CMake3', True), # For CMake
 ]
 
 # Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
-preconfigopts = 'module unload cray-libsci rocm craype-accel-amd-gfx90a && '
-preinstallopts = pretestopts = prebuildopts = preconfigopts
+pre_configure_opts = 'module unload cray-libsci rocm craype-accel-amd-gfx90a && '
+pre_install_opts = pre_test_opts = pre_build_opts = pre_configure_opts
 
 # Note that the build directory is not what you would expect for a CMake package
 # in EasyBuild.
-preconfigopts += ( f'sed -e \'s|^#define[[:space:]]*IDXTYPEWIDTH.*|#define IDXTYPEWIDTH {local_idxtypewidth}|\' '
+pre_configure_opts += ( f'sed -e \'s|^#define[[:space:]]*IDXTYPEWIDTH.*|#define IDXTYPEWIDTH {local_idxtypewidth}|\' '
                       f'-e \'s|^#define[[:space:]]*REALTYPEWIDTH.*|#define REALTYPEWIDTH {local_realtypewidth}|\' '
                       '-i ../metis/include/metis.h && ' ) 
 
 # Build both static and shared libraries
-configopts = [
+configure_opts = [
     '-DSHARED=0',
     '-DSHARED=1'
 ]
 
 # To better check the log files, do a verbose build.
-buildopts = 'VERBOSE=1'
+build_opts = 'VERBOSE=1'
 
-postinstallcmds = [
+post_install_cmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
     'cp Changelog LICENSE.txt %(installdir)s/share/licenses/%(name)s',   
 ]
 
-moduleclass = 'math'
+env_mod_category = 'math'

@@ -48,20 +48,20 @@ checksums = [
     'e839f7228b2b92301831bca88ed0bc7bce5dbf862568f1644642988204903db6',  # intltool-0.51.0_fix-Perl-compat.patch
 ]
 
-builddependencies = [ # Create a reproducible build environment.
+build_deps = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
 ]
 
-dependencies = [
+deps = [
     ('Perl', local_Perl_version),  # Already contains XML::Parser in our setup
 ]
 
 # Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
-preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
-prebuildopts = preconfigopts
-preinstallopts = preconfigopts
+pre_configure_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+pre_build_opts = pre_configure_opts
+pre_install_opts = pre_configure_opts
 
-postinstallcmds = [
+post_install_cmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
     'cp AUTHORS ChangeLog COPYING NEWS README %(installdir)s/share/licenses/%(name)s',   
 ]
@@ -72,10 +72,10 @@ sanity_check_paths = {
     'dirs':  []
 }
 
-sanity_check_commands = [
+sanity_check_cmds = [
     'intltool%s --version' % x for x in ['-extract', '-merge', '-prepare', '-update', 'ize']
 ]
 
 
 
-moduleclass = 'devel'
+env_mod_category = 'devel'

@@ -30,25 +30,25 @@ software_license_urls = [
 ]
 
 toolchain = {'name': 'cpeAOCC', 'version': '25.09'}
-toolchainopts = {'opt': True, 'optarch': True, 'unroll': True, 'pic': True, 'verbose': True, 'openmp': True}
+toolchain_opts = {'opt': True, 'optarch': True, 'unroll': True, 'pic': True, 'verbose': True, 'openmp': True}
 
 source_urls = [GNU_SOURCE]
 sources =     [SOURCELOWER_TAR_GZ]
 checksums =   ['6a99eeed15632c6354895b1dd542ed5a855c0f15d9ad1326c6fe2b2c9e423190']
 
-builddependencies = [ # Create a reproducible build environment.
+build_deps = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),
 ]
 
 # Doesn't need MPI or ROCm, and module unload never fails so this is safe.
-preconfigopts = 'module unload cray-mpich rocm xpmem && '
-prebuildopts = preconfigopts
-pretestopts = preconfigopts
-preinstallopts = preconfigopts
+pre_configure_opts = 'module unload cray-mpich rocm xpmem && '
+pre_build_opts = pre_configure_opts
+pre_test_opts = pre_configure_opts
+pre_install_opts = pre_configure_opts
 
-configopts = "--with-pic"
+configure_opts = "--with-pic"
 
-postinstallcmds = [
+post_install_cmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
     'cp AUTHORS BUGS COPYING NEWS README THANKS %(installdir)s/share/licenses/%(name)s',   
 ]
@@ -59,12 +59,12 @@ sanity_check_paths = {
     'dirs':  ['include', 'lib'],
 }
 
-sanity_check_commands = [
+sanity_check_cmds = [
     'gsl-config --version',
     'gsl-histogram --version',
     'gsl-randist 0 10000 cauchy 30 | gsl-histogram -100 100 200 >/dev/null',
     'pkg-config --libs gsl',
 ]
 
-moduleclass = 'numlib'
+env_mod_category = 'numlib'
 

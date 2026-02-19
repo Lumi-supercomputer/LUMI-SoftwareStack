@@ -44,9 +44,9 @@ software_license_urls = [
 ]
 
 toolchain = {'name': 'cpeAOCC', 'version': '25.09'}
-#toolchainopts = {'lowopt': True}               # CSCS settings
-#toolchainopts = {'precise': True, 'pic': True} # EasyBuilders settings
-toolchainopts = {
+#toolchain_opts = {'lowopt': True}               # CSCS settings
+#toolchain_opts = {'precise': True, 'pic': True} # EasyBuilders settings
+toolchain_opts = {
     'verbose': True,
     'precise': True,
     'pic': True,
@@ -58,23 +58,23 @@ sources =     [SOURCELOWER_TAR_BZ2]
 checksums =   ['ac28211a7cfb609bae2e2c8d6058d66c8fe96434f740cf6fe2e47b000d1c20cb']
 
 # Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
-preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
-prebuildopts = preconfigopts
-pretestopts = preconfigopts
-preinstallopts = preconfigopts
+pre_configure_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+pre_build_opts = pre_configure_opts
+pre_test_opts = pre_configure_opts
+pre_install_opts = pre_configure_opts
 
 # enable C++ interface
-configopts = '--enable-cxx'
+configure_opts = '--enable-cxx'
 
-runtest = 'check'
+run_test = 'check'
 
-postinstallcmds = [
+post_install_cmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
     'cp COPYING* NEWS README %(installdir)s/share/licenses/%(name)s',   
 ]
 
 # the output of config.guess is used by default and can be changed with --build
-# E.g.: configopts = ' --build=haswell-pc-linux-gnu'
+# E.g.: configure_opts = ' --build=haswell-pc-linux-gnu'
 sanity_check_paths = {
     'files': ['include/%s.h' % x        for x in ['gmp', 'gmpxx']] +
              ['lib/lib%s.%s' % (x, y)   for x in ['gmp', 'gmpxx'] for y in [ 'a', 'la', SHLIB_EXT]] +
@@ -84,9 +84,9 @@ sanity_check_paths = {
 }
 
 # No binaries to easily check, but we do check if pkg-config can read the .pc files.
-sanity_check_commands = [
+sanity_check_cmds = [
     'pkg-config --libs gmp',
     'pkg-config --libs gmpxx',
 ]
 
-moduleclass = 'math'
+env_mod_category = 'math'
