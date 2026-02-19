@@ -42,7 +42,7 @@ build_deps = [ # Create a reproducible build environment.
 
 local_gcc_major = local_gcc_version.split( '.' )[0]
 
-pre_configure_opts  = 'module unload cray-libsci cray-mpich rocm xpmem craype && '
+pre_configure_opts  = 'module unload cray-libsci cray-mpich xpmem craype && '
 pre_configure_opts += f'module load gcc-native/{local_gcc_version} && '
 pre_configure_opts += ' '.join( [
     f'CC=gcc-{local_gcc_major} CXX=g++-{local_gcc_major} ',

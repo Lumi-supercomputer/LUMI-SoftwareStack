@@ -50,8 +50,8 @@ deps = [
 
 max_parallel = 1
 
-# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
-pre_configure_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+# Doesn't need MPI or BLAS, and module unload never fails so this is safe.
+pre_configure_opts = 'module unload cray-libsci cray-mpich xpmem && '
 pre_build_opts = pre_configure_opts
 pre_install_opts = pre_configure_opts
 

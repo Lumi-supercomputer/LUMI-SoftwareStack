@@ -35,8 +35,8 @@ build_deps = [ # Create a reproducible build environment.
 # No configure
 skip_steps = ['configure']
 
-# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
-pre_build_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+# Doesn't need MPI or BLAS, and module unload never fails so this is safe.
+pre_build_opts = 'module unload cray-libsci cray-mpich xpmem && '
 pre_install_opts = pre_build_opts
 
 # Skip building the docs to avoid ImageMagick (convert) build dependency

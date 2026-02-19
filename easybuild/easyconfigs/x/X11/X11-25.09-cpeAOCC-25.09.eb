@@ -67,13 +67,13 @@ source_urls = [
     XORG_DATA_SOURCE,
 ]
 
-builddependencies = [ # Create a reproducible build environment.
+build_deps = [ # Create a reproducible build environment.
     ('buildtools' ,       '%(toolchain_version)s', '',                                        SYSTEM),
     ('buildtools-python', '%(toolchain_version)s', f'-cray-python{local_craypython_maj_min}', SYSTEM),
     ('intltool',          local_intltool_version),
 ]
 
-dependencies = [
+deps = [
     ('bzip2',        local_bzip2_version),
     ('fontconfig',   local_fontconfig_version),
     ('freetype',     local_freetype_version),
@@ -87,12 +87,12 @@ dependencies = [
 default_easyblock = 'ConfigureMake'
 
 default_component_specs = {
-    'sources':        [SOURCE_TAR_GZ],
-    'start_dir':      '%(name)s-%(version)s',
-    'preconfigopts':  'module unload cray-libsci cray-mpich rocm xpmem && ',
-    'prebuildopts':   'module unload cray-libsci cray-mpich rocm xpmem && ',
-    'pretestopts':    'module unload cray-libsci cray-mpich rocm xpmem && ',
-    'preinstallopts': 'module unload cray-libsci cray-mpich rocm xpmem && ',
+    'sources':            [SOURCE_TAR_GZ],
+    'start_dir':          '%(name)s-%(version)s',
+    'pre_configure_opts': 'module unload cray-libsci cray-mpich rocm xpmem && ',
+    'pre_build_opts':     'module unload cray-libsci cray-mpich rocm xpmem && ',
+    'pre_test_opts':      'module unload cray-libsci cray-mpich rocm xpmem && ',
+    'pre_install_opts':   'module unload cray-libsci cray-mpich rocm xpmem && ',
 }
 
 components = [ # List taken from the GCCcore 14.2.0 (2025a) common toolchain with own additions at the end
@@ -122,8 +122,8 @@ components = [ # List taken from the GCCcore 14.2.0 (2025a) common toolchain wit
         'sources': ['xkbcommon-%(version)s.tar.gz'],
         'start_dir': 'libxkbcommon-xkbcommon-%(version)s',
         'checksums': ['0427585a4d6ca17c9fc1ac4b539bf303348e9080af70c5ea402503bc370a9631'],
-        #'preconfigopts': '',
-        'configopts': '-Denable-wayland=false -Denable-docs=false ',
+        #'pre_configure_opts': '',
+        'configure_opts': '-Denable-wayland=false -Denable-docs=false ',
     }),
     ('libX11', '1.8.12', {  # 2025-03-09
         'checksums': ['220fbcf54b6e4d8dc40076ff4ab87954358019982490b33c7802190b62d89ce1'],
@@ -240,8 +240,8 @@ components = [ # List taken from the GCCcore 14.2.0 (2025a) common toolchain wit
         'easyblock': 'MesonNinja',
         'sources': [SOURCE_TAR_XZ],
         'checksums': ['54d2c33eeebb031d48fa590c543e54c9bcbd0f00386ebc6489b2f47a0da4342a'],
-        # required to overrule parent preconfigopts that runs autogen.sh if configure script is missing
-        #'preconfigopts': '',
+        # required to overrule parent pre_configure_opts that runs autogen.sh if configure script is missing
+        #'pre_configure_opts': '',
     }),
     ('printproto', '1.0.5', {  # 2011-01-06
         'checksums': ['e8b6f405fd865f0ea7a3a2908dfbf06622f57f2f91359ec65d13b955e49843fc'],
@@ -270,7 +270,7 @@ components = [ # List taken from the GCCcore 14.2.0 (2025a) common toolchain wit
         'source_urls': ['http://dbus.freedesktop.org/releases/dbus'],
         'checksums':   ['0ba2a1a4b16afe7bceb2c07e9ce99a8c2c3508e5dec290dbb643384bd6beb7e2'],
         'start_dir':   '%(namelower)s-%(version)s',
-        'configopts':  ' '.join([
+        'configure_opts':  ' '.join([
                            '-Dsystemd=disabled',
                            '-Ddoxygen_docs=disabled -Dducktype_docs=disabled -Dxml_docs=disabled',
                            '-Dqt_help=disabled',
@@ -302,7 +302,7 @@ components = [ # List taken from the GCCcore 14.2.0 (2025a) common toolchain wit
 #        'source_urls': ['https://github.com/ThomasDickey/xterm-snapshots/archive/refs/tags'],
 #        'checksums':   ['c9df2063cf62f59143b2e300263c4dcf4f685bdea03b3f94b852392e83d43d6f'],
 #        'start_dir':   'xterm-snapshots-xterm-%(version)s',
-#        'configopts':  '--with-pcre2',
+#        'configure_opts':  '--with-pcre2',
 #    }),
 ]
 
@@ -312,4 +312,4 @@ sanity_check_paths = {
               'share/pkgconfig', 'share/X11/xkb'],
 }
 
-moduleclass = 'vis'
+env_mod_category = 'vis'

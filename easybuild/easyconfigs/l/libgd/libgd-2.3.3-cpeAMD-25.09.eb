@@ -54,8 +54,8 @@ dependencies = [
     ('zlib',          local_zlib_version),
 ]
 
-# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
-preconfigopts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+# Doesn't need MPI or BLAS, and module unload never fails so this is safe.
+preconfigopts = 'module unload cray-libsci cray-mpich xpmem && '
 prebuildopts = preconfigopts
 preinstallopts = preconfigopts
 

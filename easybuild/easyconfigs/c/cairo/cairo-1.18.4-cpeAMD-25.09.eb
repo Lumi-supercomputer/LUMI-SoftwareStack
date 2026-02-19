@@ -93,8 +93,8 @@ deps = [
     ('X11',      '%(toolchain_version)s'),
 ]
 
-# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
-pre_configure_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+# Doesn't need MPI or BLAS, and module unload never fails so this is safe.
+pre_configure_opts = 'module unload cray-libsci cray-mpich xpmem && '
 pre_install_opts = pre_test_opts = pre_build_opts = pre_configure_opts
 
 configure_opts  = ' '.join([ # Most parameters come from meson_options.txt.

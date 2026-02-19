@@ -51,8 +51,8 @@ sources =     [SOURCELOWER_TAR_BZ2]
 source_urls = ['https://gitlab.dkrz.de/k202009/libaec/-/archive/v%(version)s/']
 checksums =   ['c1a08789973fa847a7c7403d75416c174257ecf6c49e74144c0dadbfca7f6976']
 
-# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
-pre_configure_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+# Doesn't need MPI or BLAS, and module unload never fails so this is safe.
+pre_configure_opts = 'module unload cray-libsci cray-mpich xpmem && '
 pre_build_opts = pre_configure_opts
 
 configure_opts  = '-DAEC_FUZZING=OFF ' # OFF is the default, this is just to stress we use the default configuration.

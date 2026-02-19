@@ -62,9 +62,9 @@ build_deps = [ # Create a reproducible build environment.
     ('buildtools',   '%(toolchain_version)s', '-CMake3', True), # For CMake
 ]
 
-# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+# Doesn't need BLAS, and module unload never fails so this is safe.
 pre_configure_opts = ' && '.join([
-    'module unload cray-libsci rocm craype-accel-amd-gfx90a',
+    'module unload cray-libsci craype-accel-amd-gfx90a',
     'export ROCM_LIB=$ROCM_PATH/lib'
     'export LIBRARY_PATH=$ROCM_LIB:$LIBRARY_PATH', # Work around an issue with llvm-link
 ]) + ' && '

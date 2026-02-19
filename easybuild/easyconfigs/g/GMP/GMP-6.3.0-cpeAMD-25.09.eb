@@ -57,8 +57,8 @@ source_urls = [GNU_SOURCE]
 sources =     [SOURCELOWER_TAR_BZ2]
 checksums =   ['ac28211a7cfb609bae2e2c8d6058d66c8fe96434f740cf6fe2e47b000d1c20cb']
 
-# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
-pre_configure_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+# Doesn't need MPI or BLAS, and module unload never fails so this is safe.
+pre_configure_opts = 'module unload cray-libsci cray-mpich xpmem && '
 pre_build_opts = pre_configure_opts
 pre_test_opts = pre_configure_opts
 pre_install_opts = pre_configure_opts

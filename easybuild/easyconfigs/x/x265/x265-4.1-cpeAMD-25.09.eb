@@ -46,7 +46,7 @@ build_deps = [ # Create a reproducible build environment.
 #    ('numactl-devel'), # Optional dependency, but can benefit from libnuma and its header file
 #]
 
-pre_configure_opts = 'module unload cray-mpich rocm xpmem && '
+pre_configure_opts = 'module unload cray-mpich xpmem && '
 pre_build_opts = pre_configure_opts
 
 start_dir = 'source'
