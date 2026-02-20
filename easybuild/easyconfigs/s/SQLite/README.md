@@ -52,5 +52,5 @@
 
 -   Trivial version bump of the 3.47.2 EasyConfig for 25.03.
 
--   For cpeAOCC we needed to inject a `-lm` flag for the linker. 
+-   For cpeAOCC and cpeAMD we needed to inject a `-lm` flag for the linker. 
     This was done via `CFLAGS`.
