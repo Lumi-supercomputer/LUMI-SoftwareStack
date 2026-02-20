@@ -34,7 +34,7 @@ easyconfigs:
   - mpdecimal-4.0.1-cpeGNU-25.09.eb
   - ncurses-6.5-cpeGNU-25.09.eb
   - nlohmann-json-3.12.0-cpeGNU-25.09.eb
-  - oneTBB-2022.2.0-cpeGNU-25.09.eb    # Brought in for LUMI-D
+  - oneTBB-2022.3.0-cpeGNU-25.09.eb    # Brought in for LUMI-D
   - Szip-2.1.1-cpeGNU-25.09.eb
   - termcap-1.3.1-cpeGNU-25.09.eb # Haven't found how to get rid of it for for Term::ReadLine::Gnu
   - x264-20250831-cpeGNU-25.09.eb
