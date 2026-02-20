@@ -8,3 +8,5 @@
 
 -   util-linux for cpeAOCC is not fully functional, in turn due to a possible issue
     with SQLite. The `lslogins` command does not work.
+
+-   GSL does not build for cpeCray.

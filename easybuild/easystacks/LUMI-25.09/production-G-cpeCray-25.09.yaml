@@ -11,8 +11,8 @@ easyconfigs:
   - giflib-5.2.2-cpeCray-25.09.eb
   - GMP-6.3.0-cpeCray-25.09.eb
   - googletest-1.17.0-cpeCray-25.09.eb
-  - GSL-2.8-cpeCray-25.09-sequential.eb
-  - GSL-2.8-cpeCray-25.09-OpenMP.eb
+  #- GSL-2.8-cpeCray-25.09-sequential.eb
+  #- GSL-2.8-cpeCray-25.09-OpenMP.eb
   - gzip-1.14-cpeCray-25.09.eb
   - ICU-78.1-cpeCray-25.09.eb
   - libaec-1.1.4-cpeCray-25.09.eb
