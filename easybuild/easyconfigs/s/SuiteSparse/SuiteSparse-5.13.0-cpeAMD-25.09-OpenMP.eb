@@ -53,7 +53,7 @@ pre_build_opts = ' && '.join([
     'export LD_LIBRARY_PATH=%(builddir)s/SuiteSparse-%(version)s/lib:$LD_LIBRARY_PATH',
     'export CMAKE_OPTIONS="-DCMAKE_INSTALL_PREFIX=%(installdir)s"',
     'rm -f GraphBLAS/CUDA/test/graphblascuda_test',
-    'module unload rocm xpmem'
+    'module unload xpmem'
 ]) + ' && '
 
 
