@@ -121,15 +121,15 @@ easyconfigs:
 ## Line 2: Gnome graphics
 ##
 ## With block 7
-  - GLib-2.87.0-cpeAMD-25.09.eb
+#  - GLib-2.87.0-cpeAMD-25.09.eb
 ## With block 9
-  - cairo-1.18.4-cpeAMD-25.09.eb
+#  - cairo-1.18.4-cpeAMD-25.09.eb
 ## With block 10
-  - GObject-Introspection-1.86.0-cpeAMD-25.09-cray-python3.11.eb
+#  - GObject-Introspection-1.86.0-cpeAMD-25.09-cray-python3.11.eb
 ## With block 11
-  - HarfBuzz-12.2.0-cpeAMD-25.09.eb
+#  - HarfBuzz-12.2.0-cpeAMD-25.09.eb
 ## With block 12
-  - Pango-1.57.0-cpeAMD-25.09.eb
+#  - Pango-1.57.0-cpeAMD-25.09.eb
 ## With apps (as they depend on other low-priority packages)
-  - gnuplot-6.0.3-cpeAMD-25.09.eb
+#  - gnuplot-6.0.3-cpeAMD-25.09.eb
 #
