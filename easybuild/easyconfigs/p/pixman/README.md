@@ -26,4 +26,6 @@
 -   Stuck to 0.42.2 for 25.03 even though 2025a uses 0.46.2. The latter version makes 
     Meson and Ninja mandatory and after an hour of work still did not compile properly
     with the AMD ROCm compiler and this is at least partly due to dirty code.
-  
+
+-   For 25.09, we needed to add the `'extra_cflags': '-Wno-error=implicit-function-declaration'`
+    toolchain option to the cpeAMD version also.

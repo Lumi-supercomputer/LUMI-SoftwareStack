@@ -32,7 +32,7 @@ software_license_urls = [
 ]
 
 toolchain = {'name': 'cpeAMD', 'version': '25.09'}
-toolchain_opts = {'pic': True}
+toolchain_opts = {'pic': True, 'extra_cflags': '-Wno-error=implicit-function-declaration'}
 
 sources =     [SOURCE_TAR_GZ]
 source_urls = ['http://cairographics.org/releases/']
