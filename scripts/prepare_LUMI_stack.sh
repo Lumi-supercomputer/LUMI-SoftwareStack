@@ -523,15 +523,19 @@ then
     5.*)
 	# Somehow when using python3.11 from Cray Python we get an incomplete install and I can't
 	# see why for now.
-        usepython=/usr/bin/python3.11
-        pythonpathpostfix=''
-        #usepython=/opt/cray/pe/python/3.11.7/bin/python3.11
-        #pythonpathpostfix=':/opt/cray/pe/python/3.11.7'
+        #usepython=/usr/bin/python3.11
+        #pythonpathpostfix=''
+        usepython=/opt/cray/pe/python/3.11.7/bin/python3.11
+        usepip=/opt/cray/pe/python/3.11.7/bin/pip3.11
+        pythonpathpostfix=':/opt/cray/pe/python/3.11.7'
 
+        mkdir -p $workdir/easybuild/lib/python3.11/site-packages
+        export PYTHONPATH=$workdir/easybuild/lib/python3.11/site-packages$pythonpathpostfix
+        
         pushd ${EBF_file%.tar.gz}
-        $usepython setup.py install --prefix=$workdir/easybuild
+        $usepip install --prefix=$workdir/easybuild --no-deps --ignore-installed .
         cd ../${EBB_file%.tar.gz}
-        $usepython setup.py install --prefix=$workdir/easybuild
+        $usepip install --prefix=$workdir/easybuild --no-deps --ignore-installed .
         popd
 
         ;;
@@ -544,8 +548,8 @@ then
     #
     # - Clean up files that are not needed anymore
     #
-    rm -rf ${EBF_file%.tar.gz}
-    rm -rf ${EBB_file%.tar.gz}
+    #rm -rf ${EBF_file%.tar.gz}
+    #rm -rf ${EBB_file%.tar.gz}
 
     #
     # - Activate that install
