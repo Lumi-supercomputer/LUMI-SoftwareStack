@@ -1,6 +1,6 @@
 easyblock = 'Bundle'
 
-local_EasyBuild_version =         '5.2.0'
+local_EasyBuild_version =         '5.2.1'
 local_craypython_version =        '3.11.7'
 
 local_wheel_cray_version     =   '0.45.1'      # wheel      20241123 - Check on https://pypi.org/project/wheel/#history
@@ -115,17 +115,17 @@ components = [
         'sources':      [
                         {
                             'filename':    'easybuild_framework-%(version)s.tar.gz',
-                            'source_urls': ['https://files.pythonhosted.org/packages/8b/3f/0498edbddb9cb17b9591cb03198c79512ce09e19b21186a917fde567d595/'],
+                            'source_urls': ['https://files.pythonhosted.org/packages/07/46/a4f61b04bcb4a5c589a4b212d03698a5f5fcccd64485d00e1f4ed3832bf7/'],
                             'extract_cmd': "tar xfvz %s && mv easybuild_framework-%(version)s easybuild-framework-%(version)s",
                         },
                         {
                             'filename':    'easybuild_easyblocks-%(version)s.tar.gz',
-                            'source_urls': ['https://files.pythonhosted.org/packages/e3/5f/c9c3d1c06697cc9f958042d971a271e47a53fddfec89029620609ad17b6f/'],
+                            'source_urls': ['https://files.pythonhosted.org/packages/64/63/ffe746fbff57b16edb1e6bbcda8d3a4762131417bac9109a763c351c09cb/'],
                             'extract_cmd': "tar xfvz %s && mv easybuild_easyblocks-%(version)s easybuild-easyblocks-%(version)s",
                         },
                         {
                             'filename':    'easybuild_easyconfigs-%(version)s.tar.gz',
-                            'source_urls': ['https://files.pythonhosted.org/packages/5e/ee/c029ce4a6b87637b0eca9366919552bb4b0bddb2206d94b47d5548c555b8/'],
+                            'source_urls': ['https://files.pythonhosted.org/packages/5d/d6/16b44fc2cde692aa80b41e05565a95c5cf2d7fbc24a9c7baacb7ee84ee88/'],
                             'extract_cmd': "tar xfvz %s && mv easybuild_easyconfigs-%(version)s easybuild-easyconfigs-%(version)s",
                         },
                         ],
@@ -134,27 +134,25 @@ components = [
                             # Standard EasyBuilders patches with late bugfixes
                             # - None in this version
                             # EasyBuild framework patches for LUMI
-                            {'name': 'EasyBuild-5.2.0_framework_extra-file-formats.patch',                   'level': 0, 'sourcepath': '.'},
-                            {'name': 'EasyBuild-5.2.0_framework_keyring-DBus.patch',                         'level': 0, 'sourcepath': '.'},
-                            {'name': 'EasyBuild-5.2.0_framework_Cray_Toolchain_Issue.patch',                 'level': 0, 'sourcepath': '.'},
+                            {'name': 'EasyBuild-5.2.1_framework_extra-file-formats.patch',                   'level': 0, 'sourcepath': '.'},
+                            {'name': 'EasyBuild-5.2.1_framework_keyring-DBus.patch',                         'level': 0, 'sourcepath': '.'},
                             # EasyBlock patches for LUMI
-                            {'name': 'EasyBuild-5.2.0_EasyBlock_ParMETIS.patch',                             'level': 0, 'sourcepath': '.'},
-                            {'name': 'EasyBuild-5.2.0_EasyBlock_mesonninja.patch',                           'level': 0, 'sourcepath': '.'},
+                            {'name': 'EasyBuild-5.2.1_EasyBlock_ParMETIS.patch',                             'level': 0, 'sourcepath': '.'},
+                            {'name': 'EasyBuild-5.2.1_EasyBlock_mesonninja.patch',                           'level': 0, 'sourcepath': '.'},
                         ],
         'checksums':    [
                             # 3 EasyBuild components
-                            {'easybuild_framework-5.2.0.tar.gz':                            '03f2734cbb4e41dea26c33f553c1b6fa6661b6b7b0d2b06db0846d3d8b75104a'},
-                            {'easybuild_easyblocks-5.2.0.tar.gz':                           'c2e44882dbef56eb9caf9803195c40d6a31324d24fbc97cc8e8b41fbe6eeb588'},
-                            {'easybuild_easyconfigs-5.2.0.tar.gz':                          'eeb4d74f5aef75925664ff3fa6e4e6e2019f40ae91410605bd5e62c5540b5ee8'},
+                            {'easybuild_framework-5.2.1.tar.gz':                            '430380ccd2fd68eb294f8c8d63c4000248aa84987c7c11706bc27af2f7702bd3'},
+                            {'easybuild_easyblocks-5.2.1.tar.gz':                           '38901a804afb62e9a0143d2e808c761af1f3feb11c7955286d423a109cfcc6d7'},
+                            {'easybuild_easyconfigs-5.2.1.tar.gz':                          'e58e675616e8f8c4f61e1a5126fbddd69da4124a3addab81869896045011bad5'},
                             # Standard EasyBuilders patches with late bugfixes
                             # - None in this version
                             # EasyBuild framework patches for LUMI
-                            {'EasyBuild-5.2.0_framework_extra-file-formats.patch':          'd42d07025a565675a6537b95bb39de9e9695357d93b754aa9e7cbc7019c39912'},
-                            {'EasyBuild-5.2.0_framework_keyring-DBus.patch':                '1f173077af17714727b4643dc1e49e9385bb3704232b5733e5e29ec870857e13'},
-                            {'EasyBuild-5.2.0_framework_Cray_Toolchain_Issue.patch':        'a5b0ae9f612343260a2a7bea319fbed95b719118e545b21f581c5d13e8fa2a51'},
+                            {'EasyBuild-5.2.1_framework_extra-file-formats.patch':          '0ae18d80a531fbf9b2302eb564fd54bc44c76c6c86a96d5ca819c61f20122f6a'},
+                            {'EasyBuild-5.2.1_framework_keyring-DBus.patch':                '9e4b372e3ac77c87b21c398cc455179780be3c0e0471b5bdc759ad6bd5d18bf9'},
                             # EasyBlock patches for LUMI
-                            {'EasyBuild-5.2.0_EasyBlock_ParMETIS.patch':                    '84935b54770fb93f948179c6fd339e0d884bf9411bdf136cbfee5f9e27451cce'},
-                            {'EasyBuild-5.2.0_EasyBlock_mesonninja.patch':                  '52f14d833fcae68b5dac20dacc32af1ed5044f6de471db833400945765dd7549'},
+                            {'EasyBuild-5.2.1_EasyBlock_ParMETIS.patch':                    'a32b0ae16c8bdf34ceacab735ab93c48094d39e0b47cd8fc9423d2511558741e'},
+                            {'EasyBuild-5.2.1_EasyBlock_mesonninja.patch':                  '9f8a8234aa82de04cce313aaa51739b5526e73098b37f8c1b891cc5ec256ef55'},
                         ],
         'extract_sources': False,
         'install_cmds': [
