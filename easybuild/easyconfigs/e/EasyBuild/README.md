@@ -379,7 +379,8 @@ e.b., the [MATLAB EasyConfigs in the EasyBuilders repository](https://github.com
 
 ### 5.2.1 for 25.09
 
--   Direct port of the 5.1.2 EasyConfig.
+-   Direct port of the 5.1.2 EasyConfig, but this one needed another patch to the pythonpackage
+    EasyBlock to deal with a bug introduced in that version.
 
 
 ## Fixes needed to EasyConfigs

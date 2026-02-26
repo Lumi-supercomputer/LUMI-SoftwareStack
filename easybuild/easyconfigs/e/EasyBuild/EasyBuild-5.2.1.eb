@@ -6,9 +6,8 @@ local_craypython_version =        '3.11.7'
 local_wheel_cray_version     =   '0.45.1'      # wheel      20241123 - Check on https://pypi.org/project/wheel/#history
 local_flit_core_cray_version =   '3.12.0'      # flit_core  20250325 - Check on https://pypi.org/project/flit-core/#history
 
-name =          'EasyBuild'
-version =       local_EasyBuild_version
-#versionsuffix = '-full'
+name =    'EasyBuild'
+version = local_EasyBuild_version
 
 local_EB_lzip_version =           '1.25'   # 20250117 - https://download.savannah.gnu.org/releases/lzip/
 local_EB_p7zip_version =          '17.05'  # 20230220 - Check on https://github.com/p7zip-project/p7zip/releases
@@ -49,7 +48,7 @@ EasyBuild but are missing in the LUMI OS image. These include
   QEMU user-mode.
 
   It is included in the EasyBuild module as it is a useful tool to enable
-  building containers in `postinstallcmds` in the container modules on LUMI. 
+  building containers in `post_install_cmds` in the container modules on LUMI. 
 
 These tools are all build against the system libraries
 
@@ -79,7 +78,7 @@ docurls = [
 
 toolchain = SYSTEM
 
-builddependencies = [
+build_deps = [
     (f'cray-python/{local_craypython_version}', EXTERNAL_MODULE),
 ]
 
@@ -138,6 +137,7 @@ components = [
                             {'name': 'EasyBuild-5.2.1_framework_extra-file-formats.patch',                   'level': 0, 'sourcepath': '.'},
                             {'name': 'EasyBuild-5.2.1_framework_keyring-DBus.patch',                         'level': 0, 'sourcepath': '.'},
                             # EasyBlock patches for LUMI
+                            {'name': 'EasyBuild-5.2.1_EasyBlock_pythonpackage.patch',                        'level': 0, 'sourcepath': '.'}, # Deals with a bug that will be fixed in the next version.
                             {'name': 'EasyBuild-5.2.1_EasyBlock_ParMETIS.patch',                             'level': 0, 'sourcepath': '.'},
                             {'name': 'EasyBuild-5.2.1_EasyBlock_mesonninja.patch',                           'level': 0, 'sourcepath': '.'},
                         ],
@@ -152,6 +152,7 @@ components = [
                             {'EasyBuild-5.2.1_framework_extra-file-formats.patch':          '0ae18d80a531fbf9b2302eb564fd54bc44c76c6c86a96d5ca819c61f20122f6a'},
                             {'EasyBuild-5.2.1_framework_keyring-DBus.patch':                '9e4b372e3ac77c87b21c398cc455179780be3c0e0471b5bdc759ad6bd5d18bf9'},
                             # EasyBlock patches for LUMI
+                            {'EasyBuild-5.2.1_EasyBlock_pythonpackage.patch':               'c2682eecd1022a3d4c812c956ba767025a9125721cc8b6e84c1d064e78d7781b'},
                             {'EasyBuild-5.2.1_EasyBlock_ParMETIS.patch':                    'a32b0ae16c8bdf34ceacab735ab93c48094d39e0b47cd8fc9423d2511558741e'},
                             {'EasyBuild-5.2.1_EasyBlock_mesonninja.patch':                  '9f8a8234aa82de04cce313aaa51739b5526e73098b37f8c1b891cc5ec256ef55'},
                         ],
@@ -181,10 +182,10 @@ components = [
         'source_urls':  ['https://download.savannah.gnu.org/releases/lzip'],
         'checksums':    ['09418a6d8fb83f5113f5bd856e09703df5d37bae0308c668d0f346e3d3f0a56f'],
         'start_dir':    '%(namelower)s-%(version)s',
-        'configopts':   'CXXFLAGS="-march=znver1 -O2 -Wall -W"',
-                        # We also abuse installopts to clean up the mess with lib and lib64 from the EasyBuild EasyBlock
+        'configure_opts':   'CXXFLAGS="-march=znver1 -O2 -Wall -W"',
+                        # We also abuse install_opts to clean up the mess with lib and lib64 from the EasyBuild EasyBlock
                         # as otherwise, Python packages spread over both.
-        'installopts':  ' && cd %(installdir)s ' +
+        'install_opts':  ' && cd %(installdir)s ' +
                         ' && /bin/rm -rf lib64 ' +
                         ' && ln -s lib lib64 ' +
                         ' && cd - ' +
@@ -199,8 +200,8 @@ components = [
                          } ],
         'checksums':     [{f'p7zip-{local_EB_p7zip_version}.tar.gz': 'd2788f892571058c08d27095c22154579dfefb807ebe357d145ab2ddddefb1a6'}],
         'start_dir':     '%(namelower)s-%(version)s',
-        'prebuildopts':  'cp makefile.linux_amd64 makefile.linux &&',
-        'buildopts':     'all3 CC="gcc" CXX="g++" OPTFLAGS="-O2 -march=znver1"',
+        'pre_build_opts':  'cp makefile.linux_amd64 makefile.linux &&',
+        'build_opts':     'all3 CC="gcc" CXX="g++" OPTFLAGS="-O2 -march=znver1"',
         'files_to_copy': [
                              (['bin/7za', 'bin/7zr', 'bin/7zCon.sfx'],           'bin'),     # stand-alone binaries
                              (['bin/7z', 'bin/7z.%s' % SHLIB_EXT, 'bin/Codecs'], 'libexec'), # 7z requires 7z.so plugin in same directory
@@ -208,7 +209,7 @@ components = [
                          ],
     }),
     # talloc is needed only to be able to build PRoot afterwards and is removed again in
-    # postinstallcmds.
+    # post_install_cmds.
     ('talloc', local_EB_syslibs_talloc_version, {
         'easyblock':   'ConfigureMake',
         # https://www.sqlite.org/2022/sqlite-autoconf-3370200.tar.gz
@@ -216,9 +217,9 @@ components = [
         'source_urls':   ['https://www.samba.org/ftp/talloc'],
         'checksums':     ['dc46c40b9f46bb34dd97fe41f548b0e8b247b77a918576733c528e83abd854dd'],
         'start_dir':     '%(namelower)s-%(version)s',
-        'preconfigopts': 'CC="gcc" CFLAGS="-O2 -march=znver1" ',
-        'configopts':    '--disable-python --disable-rpath',
-        'installopts':   ' && cd %(builddir)s/talloc-%(version)s/bin/default ' +
+        'pre_configure_opts': 'CC="gcc" CFLAGS="-O2 -march=znver1" ',
+        'configure_opts':    '--disable-python --disable-rpath',
+        'install_opts':   ' && cd %(builddir)s/talloc-%(version)s/bin/default ' +
                          ' && /usr/bin/ar rcs %(installdir)s/lib/libtalloc.a talloc.c.*.o ' +
                          ' && /bin/rm %(installdir)s/lib/libtalloc.so*',
     }),
@@ -232,18 +233,18 @@ components = [
                         } ],
         'checksums':    ['8812f3a6c224bdd6a316f13689377e7543e7e3cebcdef6ec98827abee60fa327'],
         'start_dir':    '%(namelower)s-%(version)s/src',
-        'skipsteps':    [ 'configure' ],
-        'prebuildopts': 'sed -e "s/.*GIT_.*//" -i GNUmakefile && ' +
+        'skip_steps':    [ 'configure' ],
+        'pre_build_opts': 'sed -e "s/.*GIT_.*//" -i GNUmakefile && ' +
                         'PKG_CONFIG_PATH="%(installdir)s/lib/pkgconfig" ',
-        'buildopts':    'proot V=1 CC="gcc" CFLAGS="-O2 -march=znver1" VERSION="%(version)s"',
-        'installopts':  'V=1 PREFIX="%(installdir)s" ' +
+        'build_opts':    'proot V=1 CC="gcc" CFLAGS="-O2 -march=znver1" VERSION="%(version)s"',
+        'install_opts':  'V=1 PREFIX="%(installdir)s" ' +
                         '&& mkdir -p %(installdir)s/share/licenses/PRoot && cd .. && cp AUTHORS CHANGELOG.rst COPYING README.rst %(installdir)s/share/licenses/PRoot',
     }),
 ]
 
-exts_defaultclass = 'PythonPackage'
+exts_default_class = 'PythonPackage'
 exts_filter = (f"{local_craypython_exe} -c 'import %(ext_name)s'", '')
-exts_default_options = {
+exts_default_opts = {
     'source_urls':          [PYPI_SOURCE],
     'source_tmpl':          '%(name)s-%(version)s-py3-none-any.whl', # Get wheels for packages that are pure Python anyway.
     'download_dep_fail':    True,
@@ -255,14 +256,37 @@ exts_default_options = {
 }
 
 # All packages are pure python. We install from wheels to avoid having to install all
-# build dependencies of those packages also that EasyBuild normally requires. We had
+# build deps of those packages also that EasyBuild normally requires. We had
 # trouble installing them all. In particular, poetry failed for some reason.
 exts_list = [
+    # rich and deps mdurl, pygments and markdown_it_py
+    ('mdurl',             '0.1.2',    {}), # https://pypi.org/project/mdurl/
+    ('pygments',          '2.19.2',   {}), # https://pypi.org/project/Pygments/
+    ('markdown_it_py',    '4.0.0',    {'modulename': 'markdown_it'}), # https://pypi.org/project/markdown-it-py/, modulename is markdown_it
+    ('rich',              '14.1.0',   {}), # https://pypi.org/project/rich/
+    # Add archspec as it seems easy anyway
+    ('archspec',          '0.2.5',    {}), # https://pypi.org/project/archspec/
+    # pycodestyle for --check-style and --check-contrib
+    ('pycodestyle',       '2.14.0',   {'source_tmpl': '%(name)s-%(version)s-py2.py3-none-any.whl'}), # https://pypi.org/project/pycodestyle/
 ]
 
-postinstallcmds = [
+post_install_cmds = [
     # talloc was only needed for building, so clean up.
     '/bin/rm -f %(installdir)s/lib/libtalloc.a && /bin/rm -rf %(installdir)s/include && /bin/rm -rf %(installdir)s/lib/pkgconfig',
+    # Robustify a number of commands by hard-coding the Python to use and integrating
+    # setting the search path for Python packages.
+    f'sed -i -e \'s|/opt/.*/python|{local_craypython_exe} -E|\' '
+           f'-e \'s|import sys|import sys\\nsys.path.append("%(installdir)s/lib/python{local_pyshortver}/site-packages")|\' '
+            '%(installdir)s/bin/archspec',
+    f'sed -i -e \'s|/opt/.*/python|{local_craypython_exe} -E|\' '
+           f'-e \'s|import sys|import sys\\nsys.path.append("%(installdir)s/lib/python{local_pyshortver}/site-packages")|\' '
+            '%(installdir)s/bin/markdown-it',
+    f'sed -i -e \'s|/opt/.*/python|{local_craypython_exe} -E|\' '
+           f'-e \'s|import sys|import sys\\nsys.path.append("%(installdir)s/lib/python{local_pyshortver}/site-packages")|\' '
+            '%(installdir)s/bin/pygmentize',
+    f'sed -i -e \'s|/opt/.*/python|{local_craypython_exe} -E|\' '
+           f'-e \'s|import sys|import sys\\nsys.path.append("%(installdir)s/lib/python{local_pyshortver}/site-packages")|\' '
+            '%(installdir)s/bin/pycodestyle',
     # p7zip: Create the 7z script in the bin directory.
     'echo \'#!/bin/sh\n%(installdir)s/libexec/7z $@\' > %(installdir)s/bin/7z',
     'chmod 755 %(installdir)s/bin/7z',  # set execution bits according to current umask
@@ -286,7 +310,11 @@ sanity_check_paths = {
              ['libexec/Codecs'],
 }
 
-sanity_check_commands = [
+sanity_check_cmds = [
+    'unset PYTHONPATH && archspec --version',
+    'unset PYTHONPATH && markdown-it --version',
+    'unset PYTHONPATH && pygmentize -V',
+    'unset PYTHONPATH && pycodestyle --version',
     'unset PYTHONPATH && eb --version',           # Taken from the EB_EasyBuildMeta EasyBlock
     'unset PYTHONPATH && eb -a',                  # Taken from the EB_EasyBuildMeta EasyBlock
     'unset PYTHONPATH && eb -e ConfigureMake -a', # Taken from the EB_EasyBuildMeta EasyBlock
@@ -299,7 +327,7 @@ sanity_check_commands = [
     'proot --version',
 ]
 
-modextravars = {
+env_mod_extra_vars = {
     'EB_INSTALLPYTHON':        local_craypython_exe, # Normally set by the EasyBlock but that doesn't work when used in a bundle.
     'EB_PYTHON':               local_craypython_exe, # Normally set by the EasyBlock but that doesn't work when used in a bundle.
     # Some environment variables to get the old EasyBuild behaviour even before editing configuration files.
@@ -307,8 +335,8 @@ modextravars = {
 }
 
 # The next line is only needed should we start using EasyBuild as a library.
-#modextrapaths = {
+#env_mod_extra_paths = {
 #    'PYTHONPATH': [f'lib/python{local_pyshortver}/site-packages'],
 #}
 
-moduleclass = 'tools'
+env_mod_category = 'tools'
