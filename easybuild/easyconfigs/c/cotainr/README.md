@@ -56,5 +56,13 @@ A sample EasyConfig is provided in the
 ### Version 2025.03.0
 
 -   Trivial port of the previous EasyConfigs, but with additional images.
-    
+
+
+### Version 2025.7.1
+
+-   Trivial port of 2025.03.0.
+
+-   No real ROCm 6.3 container available, now using an older AMD-built container and one
+    from the AI factory.
+
     

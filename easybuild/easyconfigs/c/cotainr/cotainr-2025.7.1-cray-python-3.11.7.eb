@@ -1,9 +1,11 @@
 #DOC cotainr for LUMI/24.03 with the ROCm system image updated after the maintenance of September 2024
 easyblock = 'Tarball'
 
+local_craypython_version =  '3.11.7'
+
 name =          'cotainr'
 version =       '2025.7.1'
-#versionsuffix = '-20240909'
+versionsuffix = f'-cray-python-{local_craypython_version}'
 
 homepage = 'https://github.com/DeiC-HPC/container-builder'
 
@@ -55,7 +57,7 @@ sources = [ {
 toolchain = SYSTEM
 
 dependencies = [
-    ('cray-python', EXTERNAL_MODULE),
+    (f'cray-python/{local_craypython_version}', EXTERNAL_MODULE),
 ]
 
 local_systems = """{
