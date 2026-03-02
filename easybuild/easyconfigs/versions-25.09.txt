@@ -6,6 +6,7 @@ local_craypython_version =   '3.11.7'
 local_crayfftw_version =     '3.3.10.11'
 local_gcc_version =          '14'
 local_ROCm_version =         '6.4.4'
+lumi_CrayPath_version =      '0.1'
 
 #
 # EasyBuild EasyConfig
