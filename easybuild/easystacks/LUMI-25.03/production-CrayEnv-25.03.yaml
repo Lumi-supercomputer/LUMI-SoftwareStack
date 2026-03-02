@@ -14,7 +14,7 @@ easyconfigs:
 #  - Eigen-3.4.0.eb          # Removed from CrayEnv
 #  - xorg-macros-1.20.2.eb   # Removed from CrayEnv
   - lumi-container-wrapper-0.4.2-cray-python-default.eb  # Ready but makes no sense in a containerised environment.
-#  - cotainr-2025.03.0.eb    # Ready but makes no sense in a containerised environment.
+  - cotainr-2025.7.1.eb
   - parallel-20250422.eb
   - lumi-CrayPath-0.1.eb
   
