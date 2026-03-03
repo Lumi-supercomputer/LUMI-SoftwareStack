@@ -34,6 +34,14 @@ designed for is actually too old for the current GPU driver). Due to the OS
 and network stack update, we can also not guarantee that CPU-only software 
 will still work as intended.
 
+LUMI/25.09:
+As the LUMI/25.09 stack uses a version of the programming environment that is
+newer than the current default on the system (25.03), please be aware of
+https://lumi-supercomputer.github.io/LUMI-training-materials/2day-20251020/102-CPE/#warning-1-you-do-not-always-get-what-you-expect
+and adapt LD_LIBRARY_PATH as needed. The easiest way to do this, is to simply
+load lumi-CrayPath after loading all other modules, and reloading it after a
+module change.
+
 rocm/6.[1-2].*singularity.*:
 These containers should be fine with the ROCm driver on LUMI, but interfacing
 with the Cray PE outside the container may not always work as expected. Note 
