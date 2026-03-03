@@ -1,6 +1,7 @@
 function cpar {
 
     sed -e 's|versionsuffix|version_suffix|' \
+        -e 's|docurls|doc_urls|' \
         -e 's|toolchainopts|toolchain_opts|' \
         -e 's|preconfigopts|pre_configure_opts|' \
         -e 's|prebuildopts|pre_build_opts|' \
