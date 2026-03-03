@@ -31,7 +31,7 @@ The module does not only provide the file command, but also libmagic on
 which it is based.
 """
 
-docurls = [
+doc_urls = [
     "Manual pages: file (1), libmagic (3) and magic (4)"
 ]
 

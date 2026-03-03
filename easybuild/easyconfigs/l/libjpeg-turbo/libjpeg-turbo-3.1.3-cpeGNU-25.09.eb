@@ -42,7 +42,7 @@ The module also provides the benchmarking tool tjbench.
 The API-documentation is web-based.
 """
 
-docurls = [
+doc_urls = [
     'Web-based API-documentation: https://libjpeg-turbo.org/Documentation',
     'Man pages for the command line utilities cjpeg, djpeg, jpegtran, rdjpgcom and wrjpgcom',
 ]

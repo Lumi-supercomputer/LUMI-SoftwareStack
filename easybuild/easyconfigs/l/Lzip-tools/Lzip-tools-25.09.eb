@@ -75,7 +75,7 @@ This module provides lzip and a number of related tools:
   file name extension. Empty files are considered uncompressed.
 """
 
-docurls = [
+doc_urls = [
    'Man pages for lzip, lunzip, lziprecover, plzip, tarlz, zca, zcmp, zdiff, zgrep, ztest and zupdate in section 1',
    'info command support in lzip, lziprecover, plzip, tarlz and zutils',
    'Web-based documentation for lzip: https://www.nongnu.org/lzip/manual/lzip_manual.html',

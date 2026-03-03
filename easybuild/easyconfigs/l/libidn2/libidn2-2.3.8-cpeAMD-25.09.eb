@@ -20,7 +20,7 @@ IDNA2008 / TR46 implementation, but has yet to be as extensively used as
 the original Libidn library.
 """
 
-docurls = [
+doc_urls = [
     'web-based manual pages on https://www.gnu.org/software/libidn2/manual',
     'man pages for the idn2 command (section 1) and the API (section 3)',
 ]

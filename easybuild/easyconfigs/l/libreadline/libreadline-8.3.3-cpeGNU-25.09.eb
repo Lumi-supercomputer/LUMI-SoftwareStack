@@ -35,7 +35,7 @@ man 3 history
 The info tool is also supported.
 """
 
-docurls = [
+doc_urls = [
    'Web-based readline user interface documentation: https://tiswww.cwru.edu/php/chet/readline/rluserman.html',
    'Web-based libreadline documentation: https://tiswww.cwru.edu/php/chet/readline/readline.html',
    'Web-based libhistory documentation: https://tiswww.cwru.edu/php/chet/readline/history.html',

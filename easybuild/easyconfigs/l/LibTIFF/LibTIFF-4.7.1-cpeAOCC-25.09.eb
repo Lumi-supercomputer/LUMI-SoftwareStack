@@ -80,7 +80,7 @@ The API is documented on the web and via Linux man pages. You can start
 searching the latter via the entry page libtiffi (try man libtiff).
 """
 
-docurls = [
+doc_urls = [
     'Web-based documentation for the tools: http://simplesystems.org/libtiff/tools.html',
     'Web-based documentation for the library: http://simplesystems.org/libtiff/libtiff.html',
 ]

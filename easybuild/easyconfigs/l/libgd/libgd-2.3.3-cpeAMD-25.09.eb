@@ -28,7 +28,7 @@ common applications of GD involve website development.
 This module provides a number of command line tools and static and shared libraries.
 """
 
-docurls = [
+doc_urls = [
     "Web-based documentation: https://libgd.github.io/manuals/%(version)s/files/preamble-txt.html",
 ]
 
@@ -37,17 +37,17 @@ software_license_urls = [
 ]
 
 toolchain = {'name': 'cpeAMD', 'version': '25.09'}
-toolchainopts = {'pic': True}
+toolchain_opts = {'pic': True}
 
 source_urls = ['https://github.com/libgd/libgd/releases/download/gd-%(version)s/']
 sources =     [SOURCELOWER_TAR_GZ]
 checksums =   ['dd3f1f0bb016edcc0b2d082e8229c822ad1d02223511997c80461481759b1ed2']
 
-builddependencies = [
+build_deps = [
     ('buildtools', '%(toolchain_version)s', '', True), # For ninja, meson, pkg-config and for help2man to generate the man page.
 ]
 
-dependencies = [
+deps = [
     ('fontconfig',    local_fontconfig_version),
     ('libjpeg-turbo', local_libjpegturbo_version),
     ('libpng',        local_libpng_version),
@@ -55,14 +55,14 @@ dependencies = [
 ]
 
 # Doesn't need MPI or BLAS, and module unload never fails so this is safe.
-preconfigopts = 'module unload cray-libsci cray-mpich xpmem && '
-prebuildopts = preconfigopts
-preinstallopts = preconfigopts
+pre_configure_opts = 'module unload cray-libsci cray-mpich xpmem && '
+pre_build_opts = pre_configure_opts
+pre_install_opts = pre_configure_opts
 
-configopts  = "--with-fontconfig=$EBROOTFONTCONFIG --with-jpeg=$EBROOTLIBJPEGMINTURBO "
-configopts += "--with-png=$EBROOTLIBPNG --with-zlib=$EBROOTZLIB"
+configure_opts  = "--with-fontconfig=$EBROOTFONTCONFIG --with-jpeg=$EBROOTLIBJPEGMINTURBO "
+configure_opts += "--with-png=$EBROOTLIBPNG --with-zlib=$EBROOTZLIB"
 
-postinstallcmds = [
+post_install_cmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
     'cp CHANGELOG.md COPYING README.md %(installdir)s/share/licenses/%(name)s',   
 ]
@@ -73,8 +73,8 @@ sanity_check_paths = {
     'dirs':  ['bin', 'include'],
 }
 
-sanity_check_commands = [
+sanity_check_cmds = [
     'webpng --help'
 ]
 
-moduleclass = 'lib'
+env_mod_category = 'lib'

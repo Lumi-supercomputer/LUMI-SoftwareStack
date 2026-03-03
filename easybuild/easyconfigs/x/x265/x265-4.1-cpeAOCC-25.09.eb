@@ -27,7 +27,7 @@ command line option.
 Both the command line tool and API are also documented on the web.
 """
 
-docurls = [
+doc_urls = [
     'Web-based documentation: http://x265.readthedocs.io/en/default/',
 ]
 

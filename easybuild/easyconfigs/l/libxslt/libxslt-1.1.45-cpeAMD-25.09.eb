@@ -33,7 +33,7 @@ Besides the xsltproc command line tool, the module also provides static and
 shared libraries.
 """
 
-docurls = [
+doc_urls = [
     'Web-based documentation on the home page: http://xmlsoft.org/libxslt/',
     'Man pages for xsltproc, libxslt and libexslt',
 ]

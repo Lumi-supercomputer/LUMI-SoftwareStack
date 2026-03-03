@@ -33,7 +33,7 @@ This module provides a command line utility pango-view and static and shared
 libraries.
 """
 
-docurls = [
+doc_urls = [
     'Web based documentation: https://developer.gnome.org/pango/unstable/',
     'Man page for pango-view',
 ]

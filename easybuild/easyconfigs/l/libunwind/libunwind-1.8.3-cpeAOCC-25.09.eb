@@ -35,7 +35,7 @@ such, the API is useful in a number of applications
   saved consists of the stack-pointer(s).
 """
 
-docurls = [
+doc_urls = [
     'Documentation: https://www.nongnu.org/libunwind/docs.html'
 ]
 

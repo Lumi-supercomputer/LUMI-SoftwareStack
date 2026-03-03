@@ -25,7 +25,7 @@ See the manual pages for cdawson, cerf, cerfc, cerfcx, cerfi, dawson, erfcx,
 erfi, im_w_of_x, voigt and w_of_z (all in section 3).
 """
 
-docurls = [
+doc_urls = [
     'Web-based documentation on http://apps.jcns.fz-juelich.de/doku/sc/libcerf#user_documentation',
     'Man pages in section 3'
 ]

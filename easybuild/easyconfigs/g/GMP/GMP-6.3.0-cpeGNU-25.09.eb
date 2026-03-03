@@ -33,7 +33,7 @@ speed.
 This module provides static and shared libraries.
 """
 
-docurls = [
+doc_urls = [
     'Web-based documentation: https://gmplib.org/manual/',
     'Support for the info command (info gmp)'
 ]

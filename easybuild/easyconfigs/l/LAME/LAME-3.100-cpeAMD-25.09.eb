@@ -37,7 +37,7 @@ command.
 The API is very poorly documented (basically through the source code).
 """
 
-docurls = [
+doc_urls = [
     "Web-based documentation: http://lame.sourceforge.net/using.php",
     "Man page for lame (section 1)",
 ]

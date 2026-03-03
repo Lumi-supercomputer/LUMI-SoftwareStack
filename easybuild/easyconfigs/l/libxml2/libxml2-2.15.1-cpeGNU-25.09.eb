@@ -37,7 +37,7 @@ xmlcatalog and xmllint also support --help
 The library API is documented on the libxml website.
 """
 
-docurls = [
+doc_urls = [
     'Web-based documentation: http://xmlsoft.org/html/index.html',
     'Man pages for the command line tools and libxml',
 ]

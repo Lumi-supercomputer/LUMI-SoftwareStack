@@ -30,7 +30,7 @@ intltool-merge, intltool-prepare and intltool-update, all documented
 through man pages.
 """
 
-docurls = [
+doc_urls = [
     "Man pages (section 8) for all commands",
 ]
 

@@ -143,7 +143,7 @@ Overview of included libraries:
     to build a static talloc library for Android. 
 """
 
-docurls = [
+doc_urls = [
     'ncurses:       Web-based documentation on https://www.gnu.org/software/ncurses/',
     'libreadline:   Web-based readline user interface documentation: https://tiswww.cwru.edu/php/chet/readline/rluserman.html',
     'libreadline:   Web-based libreadline documentation: https://tiswww.cwru.edu/php/chet/readline/readline.html',

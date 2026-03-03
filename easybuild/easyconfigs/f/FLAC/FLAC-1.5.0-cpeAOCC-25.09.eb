@@ -35,7 +35,7 @@ FLAC is compiled with support for the Ogg container format but without
 XMMS plugin.
 """
 
-docurls = [
+doc_urls = [
     'Web-based documentation on https://xiph.org/flac/documentation.html',
     'Man pages in section 1 for the flac and metaflac commands',
 ]

@@ -15,7 +15,7 @@ description = """
 GoogleTest is Google’s C++ testing and mocking framework.
 """
 
-docurls = ['https://google.github.io/googletest/']
+doc_urls = ['https://google.github.io/googletest/']
 
 software_license_urls = [f'https://github.com/google/googletest/blob/v{version}/LICENSE']
 

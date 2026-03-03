@@ -24,7 +24,7 @@ size in extreme cases.) zlib's memory footprint is also independent of the input
 data and can be reduced, if necessary, at some cost in compression.
 """
 
-docurls = [
+doc_urls = [
     'Web-based manual: http://www.zlib.net/manual.html',
     'Manual page zlib (section 3)',
 ]

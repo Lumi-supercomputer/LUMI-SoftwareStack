@@ -27,7 +27,7 @@ Check the man pages for the available commands or the web-based documentation fo
 library functions.
 """
 
-docurls = [
+doc_urls = [
     'Web-based documentation: http://www.bzip.org/docs.html',
     'Man pages available for bzcmp, bzdiff, bzegrep, bzfgrep, bzgrep, bzip2, bunzip2, bzless and bzmore',
 ]

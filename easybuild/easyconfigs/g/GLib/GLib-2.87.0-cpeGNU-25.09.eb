@@ -34,7 +34,7 @@ The module provides a number of command line utilities and staqtic and shared
 libraries.
 """
 
-docurls= [
+doc_urls= [
     'Web-based documentation: https://developer.gnome.org/glib/',
 ]
 

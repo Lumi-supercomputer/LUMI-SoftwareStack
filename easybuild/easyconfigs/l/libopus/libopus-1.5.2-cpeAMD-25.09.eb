@@ -20,7 +20,7 @@ which incorporated technology from Skype’s SILK codec and Xiph.Org’s
 CELT codec.
 """
 
-docurls = [
+doc_urls = [
     "Man pages in section 3"
 ]
 

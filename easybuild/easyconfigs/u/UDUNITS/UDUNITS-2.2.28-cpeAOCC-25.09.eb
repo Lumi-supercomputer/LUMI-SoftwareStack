@@ -37,7 +37,7 @@ This module provides both static and shared libraries, and a command line
 utility.
 """
 
-docurls = [
+doc_urls = [
     "The package supports the info command (info udunits2, info udunits2prog, info udunits2lib)"
 ]
 

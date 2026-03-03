@@ -87,7 +87,7 @@ Overview of included tools:
     It is provided in this module mainly for use with singularity.
 """
 
-docurls = [
+doc_urls = [
     'GPP:  Web-based documentation on: https://files.nothingisreal.com/software/gpp/gpp.html',
     'GPP:  Mal page in section 1 (man 1 gpp)',
     'htop: Man page in section 1 (man 1 htop)',

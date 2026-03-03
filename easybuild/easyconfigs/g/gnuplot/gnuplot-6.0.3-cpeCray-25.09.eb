@@ -45,7 +45,7 @@ This version of GNUplot does not use Qt5 for its GUI, so the GUI is rather
 primitive.
 """
 
-docurls = [
+doc_urls = [
     'Web-based documentation: http://gnuplot.sourceforge.net/documentation.html',
     'Manual page for gnuplot',
 ]

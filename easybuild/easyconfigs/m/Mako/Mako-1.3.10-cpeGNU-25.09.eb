@@ -22,7 +22,7 @@ and flexible models available, while also maintaining close ties to Python
 calling and scoping semantics.
 """
 
-docurls = ['https://docs.makotemplates.org/']
+doc_urls = ['https://docs.makotemplates.org/']
 software_license_urls = ['https://github.com/sqlalchemy/mako/blob/main/LICENSE']
 
 toolchain = {'name': 'cpeGNU', 'version': '25.09'}

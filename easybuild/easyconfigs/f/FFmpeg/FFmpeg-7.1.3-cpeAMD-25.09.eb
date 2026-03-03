@@ -47,7 +47,7 @@ FFmpeg. Wherever the question of "best" cannot be answered we support both
 options so the end user can choose.
 """
 
-docurls = [
+doc_urls = [
     'Manual pages in section 1 and 3',
     'Web-based documentation at https://ffmpeg.org/documentation.html'
 ]

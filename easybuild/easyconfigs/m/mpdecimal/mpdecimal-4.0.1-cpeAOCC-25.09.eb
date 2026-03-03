@@ -35,7 +35,7 @@ C++ compiler. It is intended to be cross platform and has been tested on
 Starting from Python-3.3, libmpdec is the basis for Python’s decimal module.
 """
 
-docurls = [
+doc_urls = [
     'Web-based documentation on https://www.bytereef.org/mpdecimal/doc/libmpdec/index.html'
 ]
 

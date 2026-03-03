@@ -29,7 +29,7 @@ MPFR is free. It is distributed under the GNU Lesser General Public License
 The module provides both static and shared libraries.
 """
 
-docurls = [
+doc_urls = [
     'Support for the info command (info mpfr)'
 ]
 

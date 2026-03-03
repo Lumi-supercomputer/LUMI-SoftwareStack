@@ -56,7 +56,7 @@ The API is poorly documented. One should check the include files for more
 information on the API.
 """
 
-docurls = [
+doc_urls = [
     'Man pages for the command line tools',
 ]
 

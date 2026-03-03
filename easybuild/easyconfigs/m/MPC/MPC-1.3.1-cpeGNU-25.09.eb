@@ -23,7 +23,7 @@ speed of operation at high precision is a major design goal.
 The library is built upon and follows the same principles as GNU MPFR.
 """
 
-docurls = [
+doc_urls = [
     'PDF manual downloadable at http://www.multiprecision.org/mpc/documentation.html',
     'Support for the info command (info mpc)'
 ]

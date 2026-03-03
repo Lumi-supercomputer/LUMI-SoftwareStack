@@ -33,7 +33,7 @@ Clang-based compilers so the library may be less complete than the
 cpeGNU-based one.
 """
 
-docurls = [
+doc_urls = [
     'Support for the info command (info mpfr)'
 ]
 

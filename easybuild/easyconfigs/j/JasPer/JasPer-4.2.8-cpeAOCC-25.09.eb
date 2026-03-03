@@ -38,7 +38,7 @@ The following command line utilities support the --help option:
 More information on the library is available in the Software Reference Manual.
 """
 
-docurls = [
+doc_urls = [
     'JasPer Software Reference Manual: http://www.ece.uvic.ca/~frodo/jasper/jasper.pdf',
     'Man pages and --help option for the command line tools imgcmp, imginfo and jasper',
 ]

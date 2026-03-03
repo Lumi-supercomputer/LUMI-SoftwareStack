@@ -27,7 +27,7 @@ This library provides functions for manipulating Unicode strings and for
 manipulating C strings according to the Unicode standard.
 """
 
-docurls = [
+doc_urls = [
     'Web-based manual: https://www.gnu.org/software/libunistring/manual/libunistring.html',
     'The package supports the info command, start with info libunistring',
 ]

@@ -53,7 +53,7 @@ This module provides the command line tools cairo-sphinx and cairo-trace and
 static and shared libraries.
 """
 
-docurls = [
+doc_urls = [
     'Web-based documentation: https://www.cairographics.org/documentation/',
 ]
 

@@ -26,7 +26,7 @@ All bitstreams encoded since will remain compatible with all future
 releases of Vorbis.
 """
 
-docurls = [
+doc_urls = [
     'Web-based documentation on https://xiph.org/vorbis/doc/',
 ]
 

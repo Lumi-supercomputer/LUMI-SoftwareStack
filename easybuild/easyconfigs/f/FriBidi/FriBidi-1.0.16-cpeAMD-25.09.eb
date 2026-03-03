@@ -22,7 +22,7 @@ functions are documented through man pages in section 3 while the fribidi
 executable supports the --help command line option.
 """
 
-docurls = [
+doc_urls = [
     "man pages for the FriBidi library functions (section 3)",
 ]
 

@@ -39,7 +39,7 @@ not include support for the obsoleet Speex codec. It also does not include suppo
 for ALSA and SQLite.
 """
 
-docurls = [
+doc_urls = [
     'Web-based API documentation on http://www.mega-nerd.com/libsndfile/api.html',
     'Manual pages for the tools in section 1',
 ]

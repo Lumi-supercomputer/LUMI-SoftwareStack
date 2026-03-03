@@ -34,7 +34,7 @@ Load the cURL module to view the man pages or check the web-based documentation
 which includes a tutoriali page with plenty of examples.
 """
 
-docurls = [
+doc_urls = [
     'Web-based documentation: https://curl.haxx.se/docs/',
     'Man pages for the curl and curl-config commands (section 1) and the library functions (section 3)',
 ]

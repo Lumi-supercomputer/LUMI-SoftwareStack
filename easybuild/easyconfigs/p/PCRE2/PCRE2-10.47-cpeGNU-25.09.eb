@@ -22,7 +22,7 @@ API, as well as a set of wrapper functions that correspond to the POSIX regular
 expression API. The PCRE library is free, even for building proprietary software.
 """
 
-docurls = [
+doc_urls = [
     "Man pages in section 1 (pcre2grep, pcre2test) and 3 (API, start with pcre2)",
     "http://www.pcre.org/current/doc/html/",
 ]

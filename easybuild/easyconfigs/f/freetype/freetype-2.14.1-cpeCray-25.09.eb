@@ -31,7 +31,7 @@ The API is documented on the freetype web page.
 The freetype package now supports pkg-config.
 """
 
-docurls = [
+doc_urls = [
    'Web-based documentation: https://www.freetype.org/freetype2/docs/documentation.html',
    'Man page for freetype-config in section 1',
 ]

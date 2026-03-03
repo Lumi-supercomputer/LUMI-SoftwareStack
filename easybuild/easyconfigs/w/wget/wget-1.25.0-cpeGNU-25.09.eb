@@ -22,7 +22,7 @@ the most widely-used Internet protocols. It is a non-interactive command line to
 so it may easily be called from scripts, cron jobs, terminals without X-Windows support, etc.
 """
 
-docurls = [
+doc_urls = [
     "Man page for the wget command (section 1)",
     "Support for the info command (info wget)",
     "Web-based manuals on https://www.gnu.org/software/wget/manual/",

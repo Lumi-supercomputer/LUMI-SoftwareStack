@@ -27,7 +27,7 @@ Help for this command is available through a man page.
 The library is documented on the expat web page.
 """
 
-docurls = [
+doc_urls = [
     'Web-based documentation: https://libexpat.github.io/doc/',
     'Man page for xmlwf',
 ]

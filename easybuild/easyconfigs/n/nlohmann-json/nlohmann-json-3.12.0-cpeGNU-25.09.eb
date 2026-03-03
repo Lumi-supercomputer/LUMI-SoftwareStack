@@ -28,7 +28,7 @@ are:
    and the Clang Sanitizers that there are no memory leaks.
 """
 
-docurls = ['https://json.nlohmann.me/']
+doc_urls = ['https://json.nlohmann.me/']
 
 software_license_urls = ['https://json.nlohmann.me/home/license/']
 

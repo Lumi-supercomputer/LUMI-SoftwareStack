@@ -34,7 +34,7 @@ also provides traditional dbm and ndbm interfaces.
 This module provides static and shared liberaries.
 """
 
-docurls = [
+doc_urls = [
     'Web-based documentation: http://puszcza.gnu.org.ua/software/gdbm/manual/gdbm.html',
     'Support for the info command (info gdbm)',
     'man pages for gdbmtool. gdbm_dump and gdbm_load in section 1 and for the API as gdbm in section 3',

@@ -31,7 +31,7 @@ No re-compilation required. HDF5 files which contain SZIP encoded data can be de
 using libaec and vice versa.
 """
 
-docurls = [
+doc_urls = [
     'man page for aec in section 1',
 ]
 
