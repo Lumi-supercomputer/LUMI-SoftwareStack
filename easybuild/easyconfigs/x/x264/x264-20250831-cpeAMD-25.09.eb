@@ -1,0 +1,66 @@
+easyblock = 'ConfigureMake'
+
+local_x264_commit =          '0480cb05'      # Just follow EasyBuild as the distribution is currently a mess
+local_x264_version =         '20250831'      # Just follow EasyBuild as the distribution is currently a mess
+
+name =    'x264'
+version = local_x264_version
+
+homepage = 'http://www.videolan.org/developers/x264.html'
+
+whatis = [
+    "Description: x264 is a free library and application for H.264/MPEG-4 AVC encoding, made by the VideoLAN organization",
+    "This module provides both the command line tool and static and shared libraries"
+]
+
+description = """
+x264 is a free software library and application for encoding video streams
+into the H.264/MPEG-4 AVC compression format, and is released under the
+terms of the GNU GPL. It is developed by the VideoLAN organization.
+
+This module provides the encodign tool x264 and static and shared libraries.
+"""
+
+examples = """
+This package does not come with much integrated documentation. It is however
+possible to get some help information for the x264 command line tool using
+the --help option, which includes a few examples.
+"""
+
+toolchain = {'name': 'cpeAMD', 'version': '25.09'}
+toolchain_opts = {'pic': True}
+
+# https://code.videolan.org/videolan/x264/-/archive/0480cb05/x264-0480cb05.tar.gz
+source_urls = [f'https://code.videolan.org/videolan/x264/-/archive/{local_x264_commit}/']
+sources =     [{
+                    'download_filename': f'x264-{local_x264_commit}.tar.gz', 
+                    'filename': SOURCE_TAR_GZ
+               }]
+checksums =   ['b336cdb04eeca5d15a53db323bc716fd7a1dae7bf19df0a8a41379d2d65e05d0']
+
+build_deps = [ # Create a reproducible build environment.
+    ('buildtools', '%(toolchain_version)s', '', True), # USes NASM
+]
+
+# Doesn't need MPI or BLAS, and module unload never fails so this is safe.
+pre_configure_opts = 'module unload cray-libsci cray-mpich xpmem && '
+pre_build_opts = pre_configure_opts
+
+configure_opts = " --enable-shared --enable-static"
+
+install_opts  = ' && cp -r doc %(installdir)s'
+install_opts += ' && mkdir -p %(installdir)s/share/licenses/%(name)s'
+install_opts += ' && cp AUTHORS COPYING %(installdir)s/share/licenses/%(name)s'
+
+sanity_check_paths = {
+    'files': ['bin/x264', 'include/x264_config.h', 'include/x264.h',
+              'lib/libx264.a', 'lib/libx264.%s' % SHLIB_EXT],
+    'dirs':  [],
+}
+
+sanity_check_cmds = [
+    'x264 --version',
+    'pkg-config --libs x264',
+]
+
+env_mod_category = 'vis'

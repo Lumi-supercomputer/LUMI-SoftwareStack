@@ -377,6 +377,20 @@ e.b., the [MATLAB EasyConfigs in the EasyBuilders repository](https://github.com
     the permissions on some of the scripts in the `bin` subdirectory.
 
 
+### 5.2.0 for 25.09
+
+-   Direct port of the 5.1.2 EasyConfig and chosen as the bootstrap procedure works for this version.
+
+
+### 5.2.1 alternative for 25.09
+
+-   Direct port of the 5.1.2 EasyConfig, but this one needed another patch to the pythonpackage
+    EasyBlock to deal with a bug introduced in that version.
+
+-   As it cannot even run without the patch, our bootstrap procedure cannot be used sot 5.2.0 remains
+    the main EasyBuild version for 25.09.
+
+
 ## Fixes needed to EasyConfigs
 
 ### METIS

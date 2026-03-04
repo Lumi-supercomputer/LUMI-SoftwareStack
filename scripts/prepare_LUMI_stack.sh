@@ -4,7 +4,6 @@
 #
 # The script takes the following arguments:
 #  * Version of the software stack
-#  * Version of EasyBuild to use
 #  * Work directory for temporary files
 #
 # The root of the installation is derived from the place where the script is found.
@@ -18,7 +17,7 @@
 # Checks of the arguments
 #
 
-if [ "$#" -ne 3 ]
+if [ "$#" -ne 2 ]
 then
 	# Here document, but avoid using <<- as indentation breaks when tabs would
 	# get replaced with spaces.
@@ -26,7 +25,6 @@ then
 
 This script expects 3 and only 3 command line arguments:
    * The version of the software stack (CPE version, with the extension .dev for a development stack)
-   * The version of EasyBuild to install in the software stack
    * A work directory for temporary files
 
 EOF
@@ -42,18 +40,32 @@ cd ..
 installroot=$(pwd)
 
 stack_version="$1"
-EBversion="$2"
-workdir="$3"
+workdir="$2"
 CPEversion=${stack_version%.dev}
 
-cat <<EOF
+#
+# Check: Does the CPE_packages-*.csv file exist?
+#
+CPEpackages_file="$installroot/$repo/CrayPE/CPEpackages_$CPEversion.csv"
+if [ ! -f "$CPEpackages_file" ]
+then
+	# Here document, but avoid using <<- as indentation breaks when tabs would
+	# get replaced with spaces.
+    cat <<EOF 1>&2
 
-  * Initialising software stack LUMI/$stack_version
-  * Using EasyBuild $EBversion
-  * Root of the installation: $installroot
-  * Using the work directory $workdir
+Failed to find the CPE package file CPEpackages_$CPEversion.csv for the requested
+software stack. The file should be in
+$installroot/$repo/CrayPE
+before running this script.
 
 EOF
+    exit 1
+fi
+
+#
+# Detecting EasyBuild version
+#
+EBversion="$(grep EasyBuild $installroot/$repo/CrayPE/CPEpackages_${stack_version}.csv | sed -e 's|EasyBuild,||')"
 
 #
 # Check: Does the EasyConfig exist?
@@ -76,23 +88,22 @@ EOF
 fi
 
 #
-# Check: Does the CPE_packages-*.csv file exist?
+# Detecting version of ROCm to use
 #
-CPEpackages_file="$installroot/$repo/CrayPE/CPEpackages_$CPEversion.csv"
-if [ ! -f "$CPEpackages_file" ]
-then
-	# Here document, but avoid using <<- as indentation breaks when tabs would
-	# get replaced with spaces.
-    cat <<EOF 1>&2
+ROCMversion="$(grep ROCM $installroot/$repo/CrayPE/CPEpackages_${stack_version}.csv | sed -e 's|ROCM,||')"
 
-Failed to find the CPE package file CPEpackages_$CPEversion.csv for the requested
-software stack. The file should be in
-$installroot/$repo/CrayPE
-before running this script.
+#
+# Print a message
+#
+cat <<EOF
+
+  * Initialising software stack LUMI/$stack_version
+  * Using EasyBuild $EBversion
+  * Root of the installation: $installroot
+  * Using the work directory $workdir
+  * Detected ROCm version: $ROCMversion
 
 EOF
-    exit 1
-fi
 
 
 ###############################################################################
@@ -103,6 +114,7 @@ fi
 if [ -n "$SINGULARITY_CONTAINER" ]
 then
 	partitions=( 'C' 'G' 'L' )
+    GPUpartitions=( 'G' )
 	cpeGNU=( 'C:G:L' )
     cpeCray=( 'C:G:L' )
     cpeAMD=( 'G' )
@@ -110,16 +122,13 @@ then
 elif [[ -d '/appl/lumi' ]]
 then
 	#partitions=( 'C' 'G' 'D' 'L' 'EAP' )
+    #GPUpartitions=( 'G' 'EAP' )
 	#cpeGNU=( 'common:C:G:D:L:EAP' )
     #cpeCray=( 'common:C:G:D:L:EAP' )
     #cpeAOCC=( 'common:C:D:L' )
     #cpeAMD=( 'G:EAP' )
-	#partitions=( 'C' 'G' 'D' 'L' )
-	#cpeGNU=( 'common:C:G:D:L' )
-    #cpeCray=( 'common:C:G:D:L' )
-    #cpeAOCC=( 'common:C:D:L' )
-    #cpeAMD=( 'G' )
 	partitions=( 'C' 'D' 'G' 'L' )
+    GPUpartitions=( 'G' )
 	cpeGNU=( 'common:C:D:G:L' )
     cpeCray=( 'common:C:G:L' )
     cpeAOCC=( 'common:C:L' )
@@ -127,6 +136,7 @@ then
     declare -A cpeENV=( ['cpeGNU']=$cpeGNU ['cpeCray']=$cpeCray ['cpeAOCC']=$cpeAOCC ['cpeAMD']=$cpeAMD )
 else # We're likely on eiger, we can't test everything here.
 	partitions=( 'L' )
+    GPUpartitions=(  )
 	cpeGNU=( 'common:L' )
     cpeCray=( 'common:L' )
     cpeAOCC=( 'common:L' )
@@ -513,15 +523,19 @@ then
     5.*)
 	# Somehow when using python3.11 from Cray Python we get an incomplete install and I can't
 	# see why for now.
-        usepython=/usr/bin/python3.11
-        pythonpathpostfix=''
-        #usepython=/opt/cray/pe/python/3.11.7/bin/python3.11
-        #pythonpathpostfix=':/opt/cray/pe/python/3.11.7'
+        #usepython=/usr/bin/python3.11
+        #pythonpathpostfix=''
+        usepython=/opt/cray/pe/python/3.11.7/bin/python3.11
+        usepip=/opt/cray/pe/python/3.11.7/bin/pip3.11
+        pythonpathpostfix=':/opt/cray/pe/python/3.11.7'
 
+        mkdir -p $workdir/easybuild/lib/python3.11/site-packages
+        export PYTHONPATH=$workdir/easybuild/lib/python3.11/site-packages$pythonpathpostfix
+        
         pushd ${EBF_file%.tar.gz}
-        $usepython setup.py install --prefix=$workdir/easybuild
+        $usepip install --prefix=$workdir/easybuild --no-deps --ignore-installed .
         cd ../${EBB_file%.tar.gz}
-        $usepython setup.py install --prefix=$workdir/easybuild
+        $usepip install --prefix=$workdir/easybuild --no-deps --ignore-installed .
         popd
 
         ;;
@@ -534,8 +548,8 @@ then
     #
     # - Clean up files that are not needed anymore
     #
-    rm -rf ${EBF_file%.tar.gz}
-    rm -rf ${EBB_file%.tar.gz}
+    #rm -rf ${EBF_file%.tar.gz}
+    #rm -rf ${EBB_file%.tar.gz}
 
     #
     # - Activate that install
@@ -589,6 +603,45 @@ done
 #
 
 echo -e "\n## Initialising the main toolchains...\n"
+
+#
+# First check if we can find a proper amd module
+#
+AMDfound=$(module load LUMI/$stack_version partition/G >& /dev/null ; module show amd/$ROCMversion |& grep -q amd/${ROCMversion}.lua ; echo $?)
+
+#
+# Without proper amd module, we have to skip installing cpeAMD.
+# We can then still do so by re-running this script after installing an amd and ROCm module.
+#
+if [[ $AMDfound -ne 0 ]] 
+then 
+    # The next line will actually not cause an error if it is not set, so this is safe.
+    unset cpeENV[cpeAMD]
+    echo -e '\n\n\n!!! No amd module found so not installing cpeAMD.\n\n'
+    # Now remove the GPU partitions everywhere as when amd is not there, rocm isn't either.
+    for cpe in ${!cpeENV[@]}
+    do
+        #echo "\n\nDEBUG Processing $cpe.\n\n"
+        newpartitions=()
+        for partition in ${cpeENV[$cpe]//:/ }
+	    do
+            #echo "DEBUG: Processing partition $partition in $cpe."
+            # Add $partition to the array of new partitions if it is not in GPUpartitions.
+            # Coded with some AI help but checked
+            [[ " ${GPUpartitions[@]} " =~ " $partition " ]] || newpartitions+=( $partition )
+        done
+        # Merge all partitions in the array newpartitions using : as the separator.
+        # Tried with playing with IFS but that didn;t always work.
+        work="${newpartitions[@]}"
+        cpeENV[$cpe]="${work// /:}"
+        echo -e "Building $cpe for partitions ${cpeENV[$cpe]} instead."
+        unset newpartitions
+    done
+fi
+
+#
+# Now go on and install.
+#
 
 pushd $installroot/$repo/easybuild/easyconfigs/c
 

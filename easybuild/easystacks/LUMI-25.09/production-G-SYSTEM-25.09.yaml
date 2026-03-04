@@ -1,0 +1,3 @@
+easyconfigs:
+  - rocm-6.4.4.eb
+  - amd-6.4.4.eb

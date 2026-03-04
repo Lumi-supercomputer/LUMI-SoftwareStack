@@ -375,31 +375,31 @@ class EB_BoostCPE(EasyBlock):
                 else:
                     lib_mt_suffix += '-x64'
 
-        if self.cfg['only_python_bindings']:
-            for pyver in self.pyvers:
-                pymajorver, pyminorver = pyver.split('.')[:2]
-                if LooseVersion(self.version) >= LooseVersion("1.67.0"):
-                    suffix = '%s%s' % (pymajorver, pyminorver)
-                elif int(pymajorver) >= 3:
-                    suffix = pymajorver
-                else:
-                    suffix = ''
-                custom_paths['files'].append(os.path.join('lib', 'libboost_python%s.%s' % (suffix, shlib_ext)))
-                if self.cfg['tagged_layout']:
-                    custom_paths['files'].append(
-                        os.path.join('lib', 'libboost_python%s%s.%s' % (suffix, lib_mt_suffix, shlib_ext)))
-
-        else:
-            custom_paths['files'].append(os.path.join('lib', 'libboost_system.%s' % shlib_ext))
-
-            if self.cfg['tagged_layout']:
-                custom_paths['files'].append(os.path.join('lib', 'libboost_system%s.%s' % (lib_mt_suffix, shlib_ext)))
-                custom_paths['files'].append(os.path.join('lib', 'libboost_thread%s.%s' % (lib_mt_suffix, shlib_ext)))
-
-            if self.cfg['boost_mpi']:
-                custom_paths['files'].append(os.path.join('lib', 'libboost_mpi.%s' % shlib_ext))
-                if self.cfg['tagged_layout']:
-                    custom_paths['files'].append(os.path.join('lib', 'libboost_mpi%s.%s' % (lib_mt_suffix, shlib_ext)))
+#        if self.cfg['only_python_bindings']:
+#            for pyver in self.pyvers:
+#                pymajorver, pyminorver = pyver.split('.')[:2]
+#                if LooseVersion(self.version) >= LooseVersion("1.67.0"):
+#                    suffix = '%s%s' % (pymajorver, pyminorver)
+#                elif int(pymajorver) >= 3:
+#                    suffix = pymajorver
+#                else:
+#                    suffix = ''
+#                custom_paths['files'].append(os.path.join('lib', 'libboost_python%s.%s' % (suffix, shlib_ext)))
+#                if self.cfg['tagged_layout']:
+#                    custom_paths['files'].append(
+#                        os.path.join('lib', 'libboost_python%s%s.%s' % (suffix, lib_mt_suffix, shlib_ext)))
+#
+#        else:
+#            custom_paths['files'].append(os.path.join('lib', 'libboost_system.%s' % shlib_ext))
+#
+#            if self.cfg['tagged_layout']:
+#                custom_paths['files'].append(os.path.join('lib', 'libboost_system%s.%s' % (lib_mt_suffix, shlib_ext)))
+#                custom_paths['files'].append(os.path.join('lib', 'libboost_thread%s.%s' % (lib_mt_suffix, shlib_ext)))
+#
+#            if self.cfg['boost_mpi']:
+#                custom_paths['files'].append(os.path.join('lib', 'libboost_mpi.%s' % shlib_ext))
+#                if self.cfg['tagged_layout']:
+#                    custom_paths['files'].append(os.path.join('lib', 'libboost_mpi%s.%s' % (lib_mt_suffix, shlib_ext)))
 
         super(EB_BoostCPE, self).sanity_check_step(custom_paths=custom_paths)
 

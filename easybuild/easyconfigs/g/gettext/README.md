@@ -44,3 +44,9 @@
 ### Version 0.24 for LUMI/25.03
 
 -   Trivial port of the EasyConfigs for 0.22 used in LUMI/24.03 and 24.11.
+
+
+### Version 0.26 for LUMI/25.09
+
+-   Trivial port of the EasyConfigs for 0.24 used in LUMI/25.03.
+

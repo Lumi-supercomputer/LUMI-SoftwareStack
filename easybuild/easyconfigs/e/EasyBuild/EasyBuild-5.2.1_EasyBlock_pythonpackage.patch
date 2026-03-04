@@ -1,0 +1,21 @@
+Patch taken from the development of EasyBuild 5.2.2 (?)
+Fixes a bug introduced in EasyBuild 5.2.1 where installing Python extensions does not
+work with a non-EasyBuild Python as for some reason during that step the proper
+EBROOT variable is not set for an external Python module (and cannot be set if the
+system Python is used).
+diff -Nau easybuild-easyblocks-5.2.1/easybuild/easyblocks/generic/pythonpackage.py.orig easybuild-easyblocks-5.2.1/easybuild/easyblocks/generic/pythonpackage.py
+--- easybuild-easyblocks-5.2.1/easybuild/easyblocks/generic/pythonpackage.py.orig	2026-02-20 21:35:58.000000000 +0200
++++ easybuild-easyblocks-5.2.1/easybuild/easyblocks/generic/pythonpackage.py	2026-02-26 19:06:14.000000000 +0200
+@@ -919,8 +919,10 @@
+                 else:
+                     self.log.info("No value set for $CC, so not touching $LDSHARED either")
+ 
+-        # gives CMake a hint for which Python version to use
+-        env.setvar("Python3_ROOT_DIR", get_software_root('Python'))
++        # gives CMake a hint for which Python version to use, if a Python dependency is used
++        python_root = get_software_root('Python')
++        if python_root:
++            env.setvar('Python3_ROOT_DIR', python_root)
+ 
+         # creates log entries for python being used, for debugging
+         cmd = "%(python)s -V; %(python)s -c 'import sys; print(sys.executable, sys.path)'"

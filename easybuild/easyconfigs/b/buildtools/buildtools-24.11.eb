@@ -240,7 +240,11 @@ components = [
     ('CMake', local_CMake_version, {
         'sources':     [SOURCELOWER_TAR_GZ],
         'source_urls': ['https://cmake.org/files/v%(version_major_minor)s'],
-        'checksums':   ['653427f0f5014750aafff22727fb2aa60c6c732ca91808cfb78ce22ddd9e55f0'],
+        'patches':     ['CMake-%(version)s_Cray_Fortran_Submodules.patch'],
+        'checksums':   [
+                           '653427f0f5014750aafff22727fb2aa60c6c732ca91808cfb78ce22ddd9e55f0', # cmake-3.31.6.tar.gz
+                           'cb8f9fcfa67bfff137f3b7fe750e169ac9ae4af9734042f572d30a3e7fa25005', # CMake-3.31.6_Cray_Fortran_Submodules.patch
+                       ],
         'start_dir':   '%(namelower)s-%(version)s',
         'configopts':  '-- -DCMAKE_USE_OPENSSL=1'
         }),

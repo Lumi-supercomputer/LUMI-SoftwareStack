@@ -75,3 +75,8 @@
     even if the `cray-ptyhon` module would not be loaded, the right Python executable would
     be used.
 
+
+### Version 2.87.0 for LUMI/25.09
+
+-   Trivial port of the EasyConfig for 2.85.1 in 25.03.
+

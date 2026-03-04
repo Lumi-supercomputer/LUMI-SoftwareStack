@@ -68,3 +68,6 @@ The 4.0.3 release is from 2013.
     So rather than a patch which was used by EasyBuilders in their METIS EasyConfig we work with a `sed`
     to edit the `metis.h` header file. The procedure could actually be done in a modified EasyBlock, but
     we want to continue using the standard EasyBlock with just a small patch.
+
+-   ParMETIS is currently incompatible with CMake 4 until we find a way to patch the configure script
+    and/or CMake recipes.

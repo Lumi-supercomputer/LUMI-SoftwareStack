@@ -57,3 +57,5 @@ The 5.1.0 release is from 2013, but then there was a 5.2.1 release onb GitHub.
     we want to continue using the standard EasyBlock with just a small patch.
 
     We did need to patch the EasyBlock for METIS as it did not honour `preconfigopts`.
+
+-   Need to stick to CMake 3 until we patch the configure script.

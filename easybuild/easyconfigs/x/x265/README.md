@@ -32,3 +32,6 @@
 -   Almost trivial port of the EasyConfig for 3.5 for 24.03/24.11.
 
 -   But added the 'configopts' parameter that is also used in the EasyBuilders repository.
+
+-   It turns out that x265 is not compatible with CMake 4, so we had to prepare a special
+    version of buildtools for now.

@@ -40,4 +40,8 @@
 
 -   Mostly a trivial version bump of the 2.14.2 EasyConfig in 24.03/24.11, but had 
     to change the source URL and the list of files to copy to the licenses subdirectory.
-    
+
+
+### Version 2.17.0 from 25.09 on
+
+-   Trivial version bump of the 2.16.2 EasyConfig in 25.03.

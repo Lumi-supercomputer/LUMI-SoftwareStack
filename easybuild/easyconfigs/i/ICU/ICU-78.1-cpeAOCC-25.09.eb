@@ -1,0 +1,68 @@
+easyblock = 'ConfigureMake'
+
+local_ICU_version =          '78.1'          # http://site.icu-project.org/home
+
+name =          'ICU'
+version =       local_ICU_version
+
+homepage = 'https://icu.unicode.org/'
+
+whatis = [
+    "Description: ICU is a set of C/C++ and Java libraries providing Unicode and globalization support",
+]
+
+description = """
+ICU is a mature, widely used set of C/C++ and Java libraries providing Unicode
+and Globalization support for software applications.
+"""
+
+software_license_urls = [
+   'https://raw.githubusercontent.com/unicode-org/icu/release-%s/icu4c/LICENSE' % '-'.join(version.split('.'))
+]
+
+toolchain = {'name': 'cpeAOCC', 'version': '25.09'}
+toolchain_opts = {'pic': True}
+
+# https://github.com/unicode-org/icu/releases/download/release-78.1/icu4c-78.1-sources.tgz
+source_urls = ['https://github.com/unicode-org/icu/releases/download/release-%(version)s']
+sources =     ['icu4c-%(version)s-sources.tgz']
+checksums =   ['6217f58ca39b23127605cfc6c7e0d3475fe4b0d63157011383d716cb41617886']
+
+build_deps = [ # Create a reproducible build environment.
+    ('buildtools', '%(toolchain_version)s', '', True),
+]
+
+start_dir = 'source'
+
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+pre_configure_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+pre_build_opts = pre_configure_opts
+
+post_install_cmds = [
+    'mkdir -p %(installdir)s/share/licenses/%(name)s',
+    'cp ../LICENSE %(installdir)s/share/licenses/%(name)s',   
+]
+
+sanity_check_paths = {
+    'files': ['lib/libicu%s.%s' % (x, SHLIB_EXT) for x in ['data', 'i18n', 'io', 'test', 'tu', 'uc']] +
+             [f'share/licenses/{name}/LICENSE'],
+    'dirs':  ['bin', 'include/unicode', 'share/icu', 'share/man'],
+}
+
+# Unfortunately the command line arguments are inconsistent and broken. Some packages mention
+# -V or --version in the help but it turns out that that option does not work, some produce
+# exit code 0 when using -h, but two command produceded exit code 1.
+sanity_check_cmds = [
+    'icuinfo',
+    'icu-config --version',
+    'icuexportdata --version',
+    'makeconv --version',
+    'derb --version',
+    'uconv --version',
+    'genbrk -h',
+    'gencfu -h',
+    'gencnval -h',
+    'gendict -h',
+]
+
+env_mod_category = 'lib'

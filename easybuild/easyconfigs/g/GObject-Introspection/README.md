@@ -77,3 +77,8 @@ the RPATH.
 -   Also removed the explicit addition to `XDG_DATA_DIRS` as EasyBuild does this automatically
     when generating the module.
 
+
+### Version 1.86.0 for 25.09
+
+-   Trivial version bump from 1.84.0 for 25.03.
+

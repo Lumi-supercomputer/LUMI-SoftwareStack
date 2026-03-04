@@ -34,3 +34,17 @@
 
 -   Trivial port of the EasyConfig for 6.1.13 in 24.03/24.11.
 
+
+### Version 9.0.3 from 25.09 on
+
+-   Trivial port of the EasyConfig for 8.6.16 for 25.03.
+
+-   Changed the download site to have one level of redirection less.
+
+-   Needed to remove `--enable-threads` from `configopts`.
+
+-   Updated `postinstallcmds` with commands found in the EasyBuilders EasyConfig.
+
+-   Adapted the list of files to copy to the licenses directory.
+
+-   Library names have also changed, requiring changes to the sanity checks.

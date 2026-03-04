@@ -190,12 +190,14 @@ class EB_rocmrpms(Bundle):
             self.log.info('Creating pkg-config file...')
 
             pkgconfig_dir = os.path.join(self.installdir, 'lib/pkgconfig')
-            pkgconfig_filename = 'rocm-' + '.'.join([self.version_major, self.version_minor]) + '.pc'
+            pkgconfig_filename = 'rocm-' + self.version + '.pc'
+            pkgconfig_filename_short = 'rocm-' + '.'.join([self.version_major, self.version_minor]) + '.pc'
             pkgconfig_file = os.path.join(pkgconfig_dir, pkgconfig_filename)
             pkgconfig_content = self.cfg.get('pkg_config')
 
             mkdir(pkgconfig_dir)
             write_file(pkgconfig_file, pkgconfig_content)
+            os.symlink(pkgconfig_file, os.path.join(pkgconfig_dir, pkgconfig_filename_short))
             os.symlink(pkgconfig_file, os.path.join(pkgconfig_dir, 'rocm.pc'))
             self.log.info(f'pkg-config file written: %s\n\n%s', pkgconfig_file, pkgconfig_content)
 

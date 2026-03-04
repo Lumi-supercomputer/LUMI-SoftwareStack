@@ -14,6 +14,6 @@ easyconfigs:
   - lumi-container-wrapper-0.3.3-cray-python-3.11.5.eb
 #  - cotainr-2023.01.0-cray-python-3.11.5.eb
 #  - Rust-1.75.0.eb
-  - parallel-20240422.eb
+  - parallel-20240122.eb
   - lumi-CrayPath-0.1.eb
   

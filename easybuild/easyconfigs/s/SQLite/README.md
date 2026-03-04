@@ -47,3 +47,10 @@
 
 -   Trivial version bump of the 3.43.1 EasyConfig
 
+
+### Version 3.51.1 for LUMI/25.09
+
+-   Trivial version bump of the 3.47.2 EasyConfig for 25.03.
+
+-   For cpeAOCC and cpeAMD we needed to inject a `-lm` flag for the linker. 
+    This was done via `CFLAGS`.

@@ -64,3 +64,10 @@
 
 -   Trivial port of the 2.39.3 EasyConfig for 24.03, but added SQLite as a dependency.
 
+
+### Version 2.41.3 from LUMI/25.09 on
+
+-   Trivial port of the 2.40.0 EasyConfig for 25.03.
+
+-   There is still an issue with the cpeAOCC option which in turn may be due to an issue
+    with SQLite.

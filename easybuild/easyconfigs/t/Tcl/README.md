@@ -31,3 +31,11 @@
 
 -   Trivial version bump of the 8.6.13 EasyConfig.
 
+
+### Version 9.0.3 for LUMI/25.09
+
+-   Started from the EasyConfig for 8.6.16 for 25.03.
+
+-   Switched to a download site that supports https and has one level of redirect 
+    less before offering the source file.
+
