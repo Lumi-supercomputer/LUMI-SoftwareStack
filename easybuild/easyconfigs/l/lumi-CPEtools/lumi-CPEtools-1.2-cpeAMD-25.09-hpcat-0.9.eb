@@ -79,7 +79,7 @@ components = [
         'checksums':     [{ f'lumi-CPEtools-{local_CPEtools_version}.tar.gz': '89e1a01d9ecd30da53c70d866aa4a2d60853e16b2cc2da4b23589742f8d84e86' }],
         'start_dir':     '%(name)s-%(version)s',
         'pre_build_opts':  'cd src && unset LIBRARY_PATH && ', # Cannot do the directory change via start_dir as otherwise the bin etc directories are not found in the copy step.
-        'build_opts':     local_CPEtools_buildopts,
+        'build_opts':     local_CPEtools_build_opts,
         'files_to_copy': [ 'bin', 'man', 'src', 'README.md', (['LICENSE'], 'share/licenses/lumi-CPEtools') ],
         }),    
     ( 'hpcat', local_hpcat_version, {
@@ -105,7 +105,7 @@ components = [
                          ],
         'start_dir':     '%(name)s-%(version)s',
         'pre_configure_opts': 'CFLAGS="$CFLAGS -I/opt/rocm/include"', # Work around an issue where for some reason CMake fails to add the correct path to the include files.
-        'pre_build_opts':  local_hpcat_prebuild_opts, 
+        'pre_build_opts':  local_hpcat_pre_build_opts, 
         'install_opts':   '&& mkdir -p %(installdir)s/share/licenses/hpcat && cp LICENSE README.md %(installdir)s/share/licenses/hpcat',
         })
 ]
