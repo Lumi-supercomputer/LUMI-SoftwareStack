@@ -89,7 +89,7 @@ easyconfigs:
   - wget-1.25.0-cpeGNU-25.09.eb
 ## Block 7
   - fontconfig-2.17.0-cpeGNU-25.09.eb
-  - OpenJPEG-2.5.3-cpeGNU-25.09.eb
+  - OpenJPEG-2.5.4-cpeGNU-25.09.eb
   - PROJ-9.7.0-cpeGNU-25.09.eb
 ## Block 8
   - libgd-2.3.3-cpeGNU-25.09.eb
