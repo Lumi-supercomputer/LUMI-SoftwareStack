@@ -1,6 +1,13 @@
    .Announcements---------------------------------------------------.
- * | IMPORTANT: Check the post-maintenance updates on               |
+ * | IMPORTANT: All LUMI users are asked to re-approve the LUMI     |
+   | Terms of Use here: https://my.csc.fi/terms before Sunday 12    |
+*  | April, 23:59 EST (22:59 CEST) or you will lose your access to  |
+  *| LUMI.                                                          |
+*  | See also: https://lumi-supercomputer.github.io/terms-update/   |
+   .----------------------------------------------------------------.
+ * | Please check the post-maintenance updates on                   |
  * | https://lumi-supercomputer.github.io/update-202601/            |
+   | if you haven't done so since the update.                       |
    |                                                                |
 *  | NOTE: The default version of both the Cray PE and LUMI stack   |
    | is now 25.03, while 25.09 is also offered. We recommend moving |
