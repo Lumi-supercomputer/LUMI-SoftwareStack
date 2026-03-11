@@ -60,12 +60,7 @@ Early Access Platform can compile their code from the login node.
 
 -   Documentation:
 
-<<<<<<< HEAD
     -   [ROCm 6.2.4 documentation](https://rocm.docs.amd.com/en/docs-6.2.4/)
     -   [ROCm 6.3.4 documentation (6.3.3 as this is the closest available)](https://rocm.docs.amd.com/en/docs-6.3.3/)
     -   [ROCm 6.4.4 documentation (6.4.3 as this is the closest available)](https://rocm.docs.amd.com/en/docs-6.4.3/)
-=======
-        -   [ROCm 6.2.4 documentation](https://rocm.docs.amd.com/en/docs-6.2.4/)
-        -   [ROCm 6.4.4 documentation (6.4.3 as this is the closest available)](https://rocm.docs.amd.com/en/docs-6.4.3/)
->>>>>>> parent of 8896fc27 (Documentation and name corrections to ROCm 6.3.4.)
 
