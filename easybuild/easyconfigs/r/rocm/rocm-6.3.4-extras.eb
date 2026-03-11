@@ -1,7 +1,8 @@
-#DOC This version of ROCm(tm) is the base version for the experimental 25.09 
-#DOC stack and is available in `CrayEnv` and `LUMI/25.09`.
+#DOC This ROCm(tm) module can replace the system rocm/6.3.4 module,
+#DOC but offers some more features, including the ROCm profilers,
+#DOC and is available in `CrayEnv` and `LUMI/25.03`.
 easyblock = 'EB_rocmrpms'
-easybuild_version = '5.0.0'
+easybuild_version = '5.1.2'
 
 name = 'rocm'
 version = '6.3.4'
@@ -18,28 +19,19 @@ description = """
 AMD ROCm is the first open-source software development platform for
 HPC/Hyperscale-class GPU computing. AMD ROCm brings the UNIX philosophy of
 choice, minimalism and modular software development to GPU computing.
-"""
-
-description = """
-AMD ROCm is the first open-source software development platform for
-HPC/Hyperscale-class GPU computing. AMD ROCm brings the UNIX philosophy of
-choice, minimalism and modular software development to GPU computing.
 
 ROCm provides the tools required for the development of code using HIP, OpenCL
 and OpenMP programming models including tools for profiling and debugging.
 
-This is an experimental module provided for the convenience of the users.
-This is ROCm installed in a way it is not meant to be installed so we cannot
-offer any guarantee that this module will work properly with HPE Cray PE modules
-nor can we offer any support. Some parts are almost certain to be broken, at
-least in a way that can lead to reduced performance, as ROCm tends to contain
-hidden hard-coded links to the regular installation directories. As the inner
-workings of the HPE Cray PE are not public and as the PE (at least the versions
-up to 23.09 on the system) has even never been tested with this version of ROCm
-by HPE there is absolutely no guarantee that this module will play nice with,
-e.g., Cray MPICH.
+This is a slightly experimental module provided for the convenience of the users.
+It is not installed in the directory where ROCm is usually installed, and in 
+the past this has lead to some issues as some libraries contained hard-coded
+links to the location of some other libraries. Some parts may be broken, at
+least in a way that can lead to reduced performance.
 
-
+This module is meant to replace the rocm/6.3.4 module on the system for
+users who need additional profiling tools or the address sanitizer or
+debug libraries.
 """
 
 docurls = [
@@ -373,7 +365,7 @@ append_path(  "PE_PRODUCT_LIST",   "CRAY_ROCM" )
 prepend_path( "PE_PKGCONFIG_LIBS", "rocm-{local_version_major_minor}" )
 
 if mode() == "load" then
-    LmodMessage( '\\This module comes with rocprof-sys and rocprof-compute installed.\\n' ..
+    LmodMessage( '\\nThis module comes with rocprof-sys and rocprof-compute installed.\\n' ..
                  '\\nWarning For advanced users: This module comes with the asan and debug libraries installed.\\n' ..
                  'However, to make sure that in the runtime the libraries are correctly loaded from this module\\n' ..
                  'and not from /opt/rocm, we have hardcoded the correct paths in the module libraries and executables.\\n' ..

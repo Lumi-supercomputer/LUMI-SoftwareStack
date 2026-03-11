@@ -52,7 +52,7 @@ Early Access Platform can compile their code from the login node.
         -   [ROCm 6.2.2 documentation](https://rocm.docs.amd.com/en/docs-6.2.2/)
 
 
-### 6.2.4 and 6.4.4
+### 6.2.4, 6.3.4-extras and 6.4.4
 
 -   As previous ROCm Easyconfigs, but with support for the address sanitizer and 
     debug symbols also. However, the libraries for the address sanitizer and 
@@ -61,5 +61,6 @@ Early Access Platform can compile their code from the login node.
 -   Documentation:
 
         -   [ROCm 6.2.4 documentation](https://rocm.docs.amd.com/en/docs-6.2.4/)
+        -   [ROCm 6.3.4 documentation (6.3.3 as this is the closest available)](https://rocm.docs.amd.com/en/docs-6.3.3/)
         -   [ROCm 6.4.4 documentation (6.4.3 as this is the closest available)](https://rocm.docs.amd.com/en/docs-6.4.3/)
 
