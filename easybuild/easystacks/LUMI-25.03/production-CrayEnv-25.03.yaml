@@ -5,6 +5,7 @@ easyconfigs:
   - syslibs-25.03-static.eb
   - buildtools-25.03.eb
   - systools-25.03.eb
+  - systools-25.03-2.eb
   - Lzip-tools-25.03.eb
   - lumi-CPEtools-1.0.eb
   - nano-8.5.eb       # System nano is good enough though so update not really needed

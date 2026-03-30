@@ -8,7 +8,7 @@
 
 | Package | EasyBuild |
 |:--------|:----------|
-| [EasyBuild](https://pypi.org/project/easybuild/) | [EB Easy/build](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/e/EasyBuild) |
+| [EasyBuild](https://pypi.org/project/easybuild/) | [EB Easybuild](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/e/EasyBuild) |
 | [lzip](https://download.savannah.gnu.org/releases/lzip/) | / | 
 | [p7zip](https://github.com/p7zip-project/p7zip/releases) | [EB p7zip](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/p/p7zip) | 
 | [talloc](https://www.samba.org/ftp/talloc/) | / |
@@ -89,6 +89,7 @@ better to avoid bugs also).
 | [pbzip2](http://compression.great-site.net/pbzip2/)          | [EB PBZIP2](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/p/PBZIP2) | \ |
 | [libtree](https://github.com/haampie/libtree/releases)       | [EB libtree](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/libtree) | [CSCS libtree](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/l/libtree) |
 | [tree](https://gitlab.com/OldManProgrammer/unix-tree/-/tags) | | |
+| [hwloc for lstopo](https://www.open-mpi.org/projects/hwloc/) | [EB hwloc](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/h/hwloc) |  |
 | [proot](https://github.com/proot-me/proot/releases)          | | |
 
 

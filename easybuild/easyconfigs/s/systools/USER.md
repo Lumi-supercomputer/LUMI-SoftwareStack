@@ -59,6 +59,26 @@ listing of files, which is colorized ala dircolors if the LS_COLORS environment
 variable is set and output is to tty.
 
 
+## The `lstopo` command
+
+The `lstopo` command is part of the 
+[hwloc package](https://www.open-mpi.org/projects/hwloc/). 
+The module only contains the `lstopo` command, not the other components from hwloc.
+The `lstopo` command can be used to show the structure of cluster node.
+This version is compiled with ROCm|(tm) support, which is missing in the
+`lstopo-no-graphics` command pre-installed on the system.
+
+Note that when run on a node without GPU, lstopo will start with an error 
+message: "hwloc/rsmi: Failed to initialize with rsmi_init(): 
+RSMI_STATUS_INIT_ERROR: An error occurred during initialization, during monitor 
+discovery or when when initializing internal data structures". This message is
+harmless, but if you don't want it in the output, run
+HWLOC_COMPONENTS=-rsmi lstopo
+or set
+export HWLOC_COMPONENTS=-rsmi
+before running lstopo.
+
+
 ## The `proot` command
 
 The [`proot` command](https://proot-me.github.io/) is a user-space implementation of 

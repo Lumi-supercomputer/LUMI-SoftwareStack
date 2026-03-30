@@ -6,6 +6,7 @@ easyconfigs:
   - buildtools-25.09.eb
   - buildtools-25.09-CMake3.eb
   - systools-25.09.eb
+  - systools-25.09-2.eb
   - Lzip-tools-25.09.eb
   - nano-8.5.eb       # System nano is good enough though so update not really needed
 #  - Vim-9.1.0447.eb   # System vim is good enough

@@ -41,6 +41,14 @@ The current content is
 
     -   [Old tree web page](http://mama.indstate.edu/users/ice/tree/)
 
+-   lstopo: Part of the hwloc package
+
+    -   [hwloc on GitHub](https://github.com/open-mpi/hwloc)
+
+        -   [tags for releases](https://github.com/open-mpi/hwloc/tags)
+
+    -   [hwloc web page](https://www.open-mpi.org/projects/hwloc/)
+
 -   PRoot
 
     -   [PRoot home page](https://proot-me.github.io/)
@@ -154,3 +162,7 @@ The current content is
 
 -   Except that we switched over to the new set of EasyConfig parameters to prepare for EasyBuild 6.
 
+
+### 25.03-2 and 25.09-2
+
+-   Adding the `lstopo` command with ROCm support to the module.
