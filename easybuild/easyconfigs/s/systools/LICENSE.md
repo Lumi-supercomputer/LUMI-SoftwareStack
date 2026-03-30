@@ -20,6 +20,9 @@ The systools module provides multiple packages:
     [GNU General Public License version 2](https://www.gnu.org/licenses/old-licenses/gpl-2.0.html),
     a copy of which can be found in the 
     [LICENSE file in the GitLab repository](https://gitlab.com/OldManProgrammer/unix-tree/-/blob/master/LICENSE).
+
+-   `lstopo`/ hwloc is published under a BSD 3-clause license a opy of which can be found in
+    the [COPYING file in the GitHub repository](https://github.com/open-mpi/hwloc/blob/master/COPYING).
     
 -   PRoot is published under the 
     [GNU General Public License version 2](https://www.gnu.org/licenses/old-licenses/gpl-2.0.html),
