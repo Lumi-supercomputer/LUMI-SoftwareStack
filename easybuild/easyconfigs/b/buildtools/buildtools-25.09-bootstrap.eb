@@ -45,8 +45,8 @@ local_re2c_version =             '3.0'         # re2c       20210127 - Check on 
 homepage = 'http://www.gnu.org'
 
 whatis = [
-    "Description: A bundle of often used build tools, GNU and others, but fewer features enabled than the regular buildtools module"
-    "Contains: åutoconf, Autoconf_archive, Automake, makeinfo, libtool, M4, make, sed, Bison, flex, Berkeley Yacc (byacc), " +
+    "Description: A bundle of often used build tools, GNU and others, but fewer features enabled than the regular buildtools module. "
+    "Contains: autoconf, Autoconf_archive, Automake, makeinfo, libtool, M4, make, sed, Bison, flex, Berkeley Yacc (byacc), " +
     "CMake, SCons, patchelf, gperf, re2c, help2man, Doxygen and xxd"
 ]
 
