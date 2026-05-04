@@ -46,7 +46,7 @@ local_lumi_conf_version = '0.1.2'
 toolchain = SYSTEM
 
 dependencies =   [
-    ('lumio-ext-tools','1.0.0')
+    ('lumio-ext-tools','1.1.0')
 ]
 
 source_urls =  ['https://github.com/Lumi-supercomputer/LUMI-O-tools/archive/refs/tags/']
