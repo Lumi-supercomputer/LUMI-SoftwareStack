@@ -18,10 +18,15 @@ export AWS_ACCESS_KEY_ID=<MY_ACCESS_KEY>
 export AWS_SECRET_ACCESS_KEY=<MY_SECRET_ACCESS_KEY>
 export AWS_DEFAULT_REGION='default'
 export RESTIC_PASSWORD=Tiator404
-export RESTIC_REPOSITORY="s3:https://462000008.lumidata.eu/kurt-restic"
-restic -r s3:https://<project>.lumidata.eu/<bucket> init
+export RESTIC_REPOSITORY="s3:https://<project_number>.lumidata.eu/<bucket>"
+restic init
 ```
 
 Looks like you may have to create the bucket first though with `s3cmd`.
 
+The alternative for `RESTIC_REPOSITORY` is to always use the `-r` flag of the `restic` command,
+
+``` bash
+restic -r s3:https://<project_number>.lumidata.eu/<bucket> init
+```
 
