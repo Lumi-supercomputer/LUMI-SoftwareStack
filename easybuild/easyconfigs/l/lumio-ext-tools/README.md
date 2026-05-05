@@ -75,6 +75,7 @@ This is a bundle of tools:
 ### Version 1.1.0
 
 -   Triggered by a security issue with the version of `rclone` in 1.0.0.
+    ([NVD-CVE-2026-41176](https://nvd.nist.gov/vuln/detail/CVE-2026-41176)).
 
 -   The EasyConfig builds upon the EasyConfig for version 1.0.0.
 
