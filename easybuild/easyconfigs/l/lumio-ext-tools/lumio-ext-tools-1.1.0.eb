@@ -1,0 +1,111 @@
+# Written by Henrik Nortamo for the LUMI project
+easyblock = 'Bundle'
+
+name =    'lumio-ext-tools'
+version = '1.1.0'
+
+homepage=""
+
+whatis = [ 
+    'Description: Basic tooling for LUMI-O. Provides rclone, s3cmd and restic' 
+]
+
+description = """
+Bundle of external tools used to access LUMI-O  
+
+This module is meant to be used with the `lumio` module which provides a tool
+for authentication.
+""" 
+
+docurls = [
+    'Manual pages for the rclone and s3cmd commands in section 1',
+]
+
+local_rclone_version = '1.74.0'
+local_s3cmd_version =  '2.4.0'
+local_restic_version = '0.18.1'
+
+local_magic_version = '0.4.27' # Dependency for s3cmd that is not already on the system.
+
+local_system_pyshortver = '3.6'
+
+toolchain = SYSTEM
+
+components=[
+    # Static go built binary
+    ('rclone', local_rclone_version,{
+        'easyblock':      'MakeCp',
+        'source_urls' :   ['https://downloads.%(name)s.org/v%(version)s/'],
+        'sources' :       ['%(name)s-v%(version)s-linux-amd64.zip'],
+        'checksums' :     ['61de0a78d8776fe3e080f8385ebe96d817f2ee6a6003fe36b2d9f3b49d3e36ea'],
+        'start_dir':      '%(name)s-v%(version)s-linux-amd64',
+        'skipsteps' :     ['build'],
+        'files_to_copy' : [(['rclone'],      'bin'),
+                           (['rclone.1'],    'share/man/man1'),
+                           (['README.txt'], 'share/doc/rclone')],
+    }),
+    # Static go built binary
+    ('restic', local_restic_version, {
+        'easyblock':      'MakeCp',
+        'source_urls' :   ['https://github.com/%(name)s/%(name)s/releases/download/v%(version)s/'],
+        'sources' :       ['%(name)s_%(version)s_linux_amd64.bz2'],
+        'checksums' :     ['680838f19d67151adba227e1570cdd8af12c19cf1735783ed1ba928bc41f363d'],
+        'files_to_copy' : [(['%(name)s_%(version)s_linux_amd64'],'bin')],
+        'skipsteps' :     ['build'],
+    }),
+    ('python-magic', local_magic_version,{
+        'easyblock':      'PythonPackage',
+        'source_urls':    [PYPI_SOURCE],
+        'sources' :       ['%(name)s-%(version)s.tar.gz'],
+        'start_dir':      '%(namelower)s-%(version)s',
+        'req_py_majver':  int( local_system_pyshortver.split('.')[0] ), # Used to let EasyBuild select the right system Python executable.
+        'req_py_minver':  int( local_system_pyshortver.split('.')[1] ), # Used to let EasyBuild select the right system Python executable.
+        'use_pip':        False, # Like this, we get zipped eggs which is more filesystem-friendly
+    }),
+    ('s3cmd', local_s3cmd_version,{
+        'easyblock':      'PythonPackage',
+        'source_urls':    [PYPI_SOURCE],
+        'sources' :       ['%(name)s-%(version)s.tar.gz'],
+        'start_dir':      '%(namelower)s-%(version)s',
+        'req_py_majver':  int( local_system_pyshortver.split('.')[0] ), # Used to let EasyBuild select the right system Python executable.
+        'req_py_minver':  int( local_system_pyshortver.split('.')[1] ), # Used to let EasyBuild select the right system Python executable.
+        'use_pip':        False, # Like this, we get zipped eggs which is more filesystem-friendly
+    }),
+]
+
+# Probably not the right way to do this...
+postinstallcmds = [
+    # Finish s3cmd
+    #f'sed -i -e \'s|/usr/bin/env python|/usr/bin/python{local_system_pyshortver}|\' '
+    #       f'-e \'s|import sys|import sys\\nsys.path.append("%(installdir)s/lib/python{local_system_pyshortver}/site-packages")|\' '
+    #        '%(installdir)s/bin/s3cmd',
+    f'sed -i -e \'s|/usr/bin/env python|/usr/bin/python{local_system_pyshortver}|\' '
+           f'-e \'s|\(# EASY-INSTALL-SCRIPT.*\)|\\1\\nimport sys\\nsys.path.append("%(installdir)s/lib/python{local_system_pyshortver}/site-packages")|\' '
+            '%(installdir)s/bin/s3cmd',
+    'chmod 755 %(installdir)s/bin/s3cmd', # We used the system sed here rather than the buildtools one, so there is a protection issue.
+    # Finish restic
+    f'mv  %(installdir)s/bin/restic_{local_restic_version}_linux_amd64 %(installdir)s/bin/restic && chmod +x %(installdir)s/bin/restic',
+    f'mkdir -p %(installdir)s/share/man/man1              && cp %(builddir)s/s3cmd-{local_s3cmd_version}/s3cmd.1        %(installdir)s/share/man/man1',
+    f'mkdir -p %(installdir)s/share/licenses/s3cmd        && cp %(builddir)s/s3cmd-{local_s3cmd_version}/LICENSE        %(installdir)s/share/licenses/s3cmd',
+    f'mkdir -p %(installdir)s/share/licenses/python-magic && cp %(builddir)s/python-magic-{local_magic_version}/LICENSE %(installdir)s/share/licenses/python-magic',
+    # Clean-up
+    '/bin/rm -rf %(installdir)s/lib64',
+]
+
+sanity_check_paths = {
+    'files': [ 'bin/rclone', 'bin/restic', 'bin/s3cmd' ],
+    'dirs':  [ f'lib/python{local_system_pyshortver}/site-packages' ],    
+}
+
+sanity_check_commands = [
+    'rclone --version',
+    'restic version',
+    's3cmd --version',
+]
+
+moduleclass = 'tools'
+
+modluafooter = f"""
+extensions( "rclone/{local_rclone_version}", "restic/{local_restic_version}", "s3cmd/{local_s3cmd_version}" )
+"""
+

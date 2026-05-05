@@ -58,7 +58,7 @@ https://lumidata.eu/ is also the s3 API endpoint for e.g raw API calls (not reco
 toolchain = SYSTEM
 
 dependencies =   [
-    ('lumio-ext-tools','1.0.0')
+    ('lumio-ext-tools','1.1.0')
 ]
 
 sources = [ 

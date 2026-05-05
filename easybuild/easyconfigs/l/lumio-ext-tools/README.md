@@ -71,3 +71,16 @@ This is a bundle of tools:
         together with other tools on the system, also tools that would use
         a different Python version.
 
+
+### Version 1.1.0
+
+-   Triggered by a security issue with the version of `rclone` in 1.0.0.
+    ([NVD-CVE-2026-41176](https://nvd.nist.gov/vuln/detail/CVE-2026-41176)).
+
+-   The EasyConfig builds upon the EasyConfig for version 1.0.0.
+
+-   Using a different way to edit the `s3cmd` command, using `sed` rather than
+    creating a whole new script.
+
+-   To keep the same behaviour as before, `use_pip` was set to `False`. This gives
+    two zipped eggs for the Python packages which is also more filesystem-friendly.
