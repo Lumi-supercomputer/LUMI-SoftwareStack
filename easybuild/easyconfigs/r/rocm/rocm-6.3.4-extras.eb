@@ -354,7 +354,7 @@ local_version_major_minor = '.'.join( version.split('.') )
 modextrapaths = {
     'CMAKE_PREFIX_PATH' : 'lib/lib/cmake/hip',
     'LD_LIBRARY_PATH': {
-        'paths':   ['lib', 'lib/rocprofiler', 'lib/roctracer'],
+        'paths':   ['lib', 'lib/rocprofiler', 'lib/roctracer','lib/rocprofiler-systems'],
         'prepend': True,
     },
     'PKG_CONFIG_PATH': 'lib/pkgconfig',
