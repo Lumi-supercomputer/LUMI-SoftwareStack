@@ -9,7 +9,7 @@ the HPE Cray Programming Environment as each version of the CPE is developed
 for particular ROCm(tm) versions.
 
 -   The only modules officially supported by the current AMD GPU driver at the
-    time of writing (February 2026) are the `6.2.2`, `6.2.4` and `6.4.4` modules. 
+    time of writing (February 2026) are the `6.2.2`, `6.2.4`, `6.3.4` and `6.4.4` modules. 
     Older modules may still be present on the system as a full clean-up is
     nearly impossible, but modules older than ROCm(tm) 6.1 will likely not 
     be fully functional and there is nothing the LUMI User Support Team can
@@ -48,3 +48,30 @@ standard path is already occupied by a different ROCm(tm) version), it will not
 solve any problem caused by running a newer version of ROCm(tm) on a too old driver
 (and there may be problems running an old version of ROCm(tm) on a too new driver
 also).
+-   The `rocm\6.2.4`, `rocm\6.2.3-extras`,`rocm\6.4.4` modules comes with extra debugging and performance profiler tools installed.
+    However, to make sure that in the runtime the libraries are correctly loaded from this module
+    and not from /opt/rocm, we have hardcoded the correct paths in the module libraries and executables.
+    If you need to use the asan or debug versions of the libraries you will have to `LD_PRELOAD`
+    them instead of just prepending `LD_LIBRARY_PATH`.
+
+-   To use the provided `rocprof-compute`, the user need to install the python dependencies
+    required by the application itself.
+    As many user have their own python environment, we decided not to offer a central 
+    rocm-python installation that may conflict with all other custom environments.
+    So to enable `rocprof-compute`, you will need to install the following python
+    packages either in your already existing environment or in a small virtual environment:
+    -   astunparse==1.6.2
+    -   colorlover
+    -   dash>=1.12.0
+    -   matplotlib
+    -   numpy==1.23.0
+    -   pandas>=1.4.3
+    -   pymongo
+    -   pyyaml
+    -   tabulate
+    -   tqdm
+    -   dash-svg
+    -   dash-bootstrap-components
+    -   kaleido==0.2.1
+    -   setuptools
+    -   plotille
