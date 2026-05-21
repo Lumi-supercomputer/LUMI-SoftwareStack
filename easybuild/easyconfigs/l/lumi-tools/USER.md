@@ -6,6 +6,12 @@ of commands for monitoring of your account and projects on LUMI:
 -   `lumi-workspaces` is the all-in command and the only one that a user really
     needs.
 
+    There is a modern version and a classic version which is just a shell script
+    calling `lumi-quota` and `lumi-allocations`.
+
+    From 26.05 on, the modern version is used while earlier versions used the
+    classic version.
+
 -   `lumi-quota` and `lumi-allocations` restrict the output to just the file system
     quota and billing unit information respectively.
 
@@ -17,7 +23,31 @@ of commands for monitoring of your account and projects on LUMI:
     user account and group management.
 
 
-## lumi-workspaces
+## lumi-workspaces (modern version, 26.05 and later)
+
+The `lumi-workspaces` command combines the functionality of `lumi-quota` and `lumi-allocations`
+commands shown below, but is currently only capable to show the output for
+all your workspaces/projects (user workspace on `/user`and the various project-related
+workspaces on `/project`, `/scratch` and `/flash`).
+
+Note that currently no output is displayed about storage use on the object file 
+system as that information is not yet available in a format that a tool can 
+always access without temporary access keys.
+
+The check of the allocations in `lumi-workspaces` and `lumi-allocations` 
+is currently done based on pre-stored data. That
+data is refreshed periodically, but the data can be out-of-date, especially
+if the scripts that build up the cache fail. Currently the tool is not
+able to show when the data was collected, so the results may be wrong without
+warning.
+
+The modern version of the tool also shows what percentage of your total 
+project time has been consumed to make it easier to track your relative consumption
+of billing units, and how much time is left until your project data gets 
+removed from LUMI.
+
+
+## lumi-workspaces (classic version)
 
 The `lumi-workspaces` command combines the `lumi-quota` and `lumi-allocations`
 commands shown below, but is currently only capable to show the output for
