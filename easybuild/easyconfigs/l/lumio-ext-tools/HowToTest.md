@@ -42,3 +42,14 @@ export AWS_DEFAULT_REGION="lumi-prod"
 but it does not seem to be really needed. You may want to use it if you get error messages about
 non-matching signatures.
 
+Try backing up a directory:
+
+``` bash
+restic --verbose backup ~
+```
+
+and check the snapshop:
+
+``` bash
+restic snapshots
+```
