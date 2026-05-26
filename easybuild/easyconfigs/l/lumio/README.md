@@ -30,4 +30,9 @@ that don't need frequent updates.
 -   Otherwise it is just a MakeCp EasyConfig file. During the unpacking, we 
     ensure that the executable is actually in the directory that also contains
     the sources.
+
+
+### Version 2.1.0
+
+-   Bugfix release of 2.1.0.
     
