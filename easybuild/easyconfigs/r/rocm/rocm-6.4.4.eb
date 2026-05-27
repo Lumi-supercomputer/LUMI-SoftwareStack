@@ -372,8 +372,8 @@ append_path(  "PE_PRODUCT_LIST",   "CRAY_ROCM" )
 prepend_path( "PE_PKGCONFIG_LIBS", "rocm-{local_version_major_minor}" )
 
 if mode() == "load" then
-    LmodMessage( '\\n This module comes with rocprof-sys, rocprof-compute, asan and debug libraries installed.\\n' ..
-                 'please look at the USER.md document for instructions on how to use them.\\n' )
+    LmodMessage( '\\nThis module comes with rocprof-sys, rocprof-compute, asan and debug libraries installed.\\n' ..
+                 'Please check https://lumi-supercomputer.github.io/LUMI-EasyBuild-docs/r/rocm/ for instructions on how to use them.\\n' )
 end
 """
 

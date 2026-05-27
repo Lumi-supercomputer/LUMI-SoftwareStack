@@ -48,30 +48,22 @@ standard path is already occupied by a different ROCm(tm) version), it will not
 solve any problem caused by running a newer version of ROCm(tm) on a too old driver
 (and there may be problems running an old version of ROCm(tm) on a too new driver
 also).
--   The `rocm\6.2.4`, `rocm\6.2.3-extras`,`rocm\6.4.4` modules comes with extra debugging and performance profiler tools installed.
-    However, to make sure that in the runtime the libraries are correctly loaded from this module
-    and not from /opt/rocm, we have hardcoded the correct paths in the module libraries and executables.
-    If you need to use the asan or debug versions of the libraries you will have to `LD_PRELOAD`
-    them instead of just prepending `LD_LIBRARY_PATH`.
 
--   To use the provided `rocprof-compute`, the user need to install the python dependencies
-    required by the application itself.
-    As many user have their own python environment, we decided not to offer a central 
-    rocm-python installation that may conflict with all other custom environments.
-    So to enable `rocprof-compute`, you will need to install the following python
-    packages either in your already existing environment or in a small virtual environment:
-    -   astunparse==1.6.2
-    -   colorlover
-    -   dash>=1.12.0
-    -   matplotlib
-    -   numpy==1.23.0
-    -   pandas>=1.4.3
-    -   pymongo
-    -   pyyaml
-    -   tabulate
-    -   tqdm
-    -   dash-svg
-    -   dash-bootstrap-components
-    -   kaleido==0.2.1
-    -   setuptools
-    -   plotille
+## Modules with extra debugging and performance profiling tools installed
+
+The `rocm\6.2.4`, `rocm\6.3.4-extras`, `rocm\6.4.4` modules come with extra debugging and performance profiler tools installed.
+However, to make sure that in the runtime the libraries are correctly loaded from this module
+and not from `/opt/rocm`, we have hardcoded the correct paths in the module libraries and executables.
+If you need to use the asan or debug versions of the libraries you will have to `LD_PRELOAD`
+them instead of just prepending `LD_LIBRARY_PATH`.
+
+To use the provided `rocprof-compute`, the user need to install the python dependencies
+required by the application itself.
+As many user have their own python environment, we decided not to offer a central 
+rocm-python installation that may conflict with all other custom environments.
+So to enable `rocprof-compute`, you will need to install the following python
+packages either in your already existing environment or in a small virtual environment.
+The list of packages may also depend on the version of ROCm(tm). You can find the list
+after loading the module in `$EBROOTROCM/libexec/rocprofiler-compute/requirements.txt`.
+For ROCm(tm) versions older than 6.3 where the profiler is still called OmniPerf,
+the list of packages is in `$EBROOTROCM/libexec/omniperf/requirements.txt`.
