@@ -57,3 +57,14 @@ Sources:
 ### Version 23.11
 
 -   No new commands to check so a trivial port of 23.04.
+
+
+### Version 24.05
+
+-   Trivial port of 23.11
+
+
+### Version 26.05
+
+-   Switches to a lua version for `lumi-workspaces`, but the build process has not changed.
+
