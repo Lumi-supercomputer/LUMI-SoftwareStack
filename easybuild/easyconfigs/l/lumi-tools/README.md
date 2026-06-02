@@ -1,21 +1,29 @@
 # lumi-tools instructions
 
-The lumi-tools module provides several in-house developed scripts, depending on
+The lumi-tools module provides several in-house developed scripts and tools, depending on
 the version:
 
 -   `lumi-quota` to check your quota on the Lustre file systems
 -   `lumi-allocations` to check your allocations
 -   `lumi-workspaces` combines the output of both to show an overview for
-    all projects of the user calling the script.
--   `lumni-check-quota` is an equivalent of the checks run at user login to
+    all projects of the user calling the script. A newer version of it (26.05
+    module and later) is a redevelopment in LUA, presenting output in a 
+    different format and with more information.
+-   `lumi-check-quota` is an equivalent of the checks run at user login to
     print warnings when a user is running out of quota or billing units.
+-   `pushover` is a tool to send notification via the pushover service.
+-   `pushslack` is a tool to send notifications to Slack.
 
 Sources:
 
 -   [lumi-allocations GitHub repository](https://github.com/Lumi-supercomputer/lumi-allocations)
 
 -   [lumi-tools GitHub repository](https://github.com/Lumi-supercomputer/lumi-tools)
-    
+
+-   [LUMI-notifications GitHub repository (`pushover` and `pushslack`)](https://github.com/klust/LUMI-notifications)
+
+    -   [inih package used by LUMI-notifications](https://github.com/benhoyt/inih)
+
 
 ## EasyBuild
 
@@ -68,3 +76,20 @@ Sources:
 
 -   Switches to a lua version for `lumi-workspaces`, but the build process has not changed.
 
+
+### Version 26.06
+
+-   This is the first version adding LUMI-notifications
+
+-   Installation of LUMI-notifications:
+
+    -   It currently uses the `MakeCp` EasyBlock.
+
+    -   Sources: Two packages are downloaded from GitHub and unpacked: The sources of 
+        LUMI-notifications and the inih package.
+
+    -   In `prebuildopts`, the two files needed from the inih package are copied to the
+        `src` subdirectory of LUMI-notifications after which the Makefile can be used to
+        compile the package with the system gcc.
+
+    -   At the end, the binaries and manual pages are copied to the installation directory.
