@@ -2,8 +2,9 @@
 #DOC of ROCm(tm) marked as 7.13. Its `mpich` module works internally with Cray MPICH 8.1.33
 #DOC which comes with the 25.09 version of the HPE Cray Programming Environment. It provides
 #DOC a Fortran interface compatible with flang 23, and uses the GTL based on ROCm(tm) 6.
+#DOC It also uses the `rocm/6.3.4` module for the MPICH GTL dependencies.
 #DOC It also provides the `fftw`, `hdf5-parallel`, `pnetcdf`, `netcdf_c` and `netcdf_fortran`
-#DOC modules.
+#DOC modules. 
 #DOC
 #DOC Developed by AMD and HLRS, originally for use on Hunter@HLRS but ported over to LUMI.
 # Written by Kurt Lust
