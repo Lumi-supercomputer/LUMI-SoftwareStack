@@ -10,6 +10,8 @@
     new generation Flang compiler so that code is ready when an equivalent version
     of the compiler is officially released.
 
+## What is it?
+
 These modules offer [pre-release versions of the new generation AMD Flang compiler](https://repo.radeon.com/rocm/misc/flang/).
 The module itself only makes other modules available that should then be used to run 
 the compiler. The Cray wrappers are not used.
@@ -44,3 +46,20 @@ Compiler names:
 -   `amdclang++` for C++
 
 -   `amdflang` for Fortran
+
+These compilers don't work with the Cray wrappers. To compile MPI programs, you can use
+`mpicc` etc.
+
+
+## How can I use these modules?
+
+-   `AMD-flang-experimental/23.2.1` is pre-installed in CrayEnv only, so
+  
+    ``` bash
+    module load CrayEnv
+    module load AMD-flang-experimental/23.2.1
+    ```
+
+The `AMD-flang-experimental` modules don't make the compiler available, but only the modules
+to activate the compiler and other components described above, so you then need to proceed 
+with loading the compiler etc.
