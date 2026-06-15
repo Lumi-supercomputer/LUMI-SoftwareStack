@@ -23,8 +23,9 @@ local_NetCDF_fortran_version = '4.6.2'
 local_PnetCDF_version = '1.14.1'
 local_FFTW_version = '3.3.10'
 
-name =    'AMD-flang-experimental'
-version = '23.2.1'
+name =          'AMD-flang-experimental'
+version =       '23.2.1'
+versionsuffix = '-cray-mpich-8.1.33'
 
 homepage = 'https://repo.radeon.com/rocm/misc/flang/'
 
