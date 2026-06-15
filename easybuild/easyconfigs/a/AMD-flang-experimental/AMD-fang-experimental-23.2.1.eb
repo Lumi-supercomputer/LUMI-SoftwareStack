@@ -12,7 +12,7 @@
 # on scripts developed by AMD, HPE and HLRS for Hunter.
 easyblock = "Binary"
 
-local_install_commit =  'd1f111e'
+local_install_commit =  'bff1c6d'
 local_therock_package = 'therock-afar'
 local_therock_version = '23.2.1'
 local_source_therock = f'{local_therock_package}-{local_therock_version}-gfx90a-7.13.0-7357b5084b.tar.bz2'
@@ -83,7 +83,8 @@ sources = [
     'extract_cmd':       'mkdir -p %(builddir)s/AMD-flang-experimental/cache && cp %s %(builddir)s/AMD-flang-experimental/cache'
 },
 { # https://github.com/HDFGroup/hdf5/releases/download/hdf5_1.14.6/hdf5-1.14.6.tar.gz
-    'filename':          f'hdf5-{local_HDF5_version}.tar.gz',
+    'filename':          f'hdf5-v{local_HDF5_version}.tgz',  # To align with the current install.therock.sh script
+    'download_filename': f'hdf5-{local_HDF5_version}.tar.gz',
     'source_urls':       [f'https://github.com/HDFGroup/hdf5/releases/download/hdf5_{local_HDF5_version}'],
     'extract_cmd':       'mkdir -p %(builddir)s/AMD-flang-experimental/cache && cp %s %(builddir)s/AMD-flang-experimental/cache'
 },
@@ -114,7 +115,7 @@ checksums = [
     None,
     {local_source_therock:                                    '8430bae691ae0b17d90741ac2d871502bd8132684f8403ae9ad39b6f0c72b4d9'},
     {f'mpich-{local_mpich_version}.tar.gz':                   'ca9b9a6d4d858f3f94d2ea1ed0b851fccbc6f2976eb08dfc3379be8c6278aa12'},
-    {f'hdf5-{local_HDF5_version}.tar.gz':                     'e4defbac30f50d64e1556374aa49e574417c9e72c6b1de7a4ff88c4b1bea6e9b'},
+    {f'hdf5-v{local_HDF5_version}.tgz':                       'e4defbac30f50d64e1556374aa49e574417c9e72c6b1de7a4ff88c4b1bea6e9b'},
     {f'netcdf-c-{local_NetCDF_C_version}.tar.gz':             '990f46d49525d6ab5dc4249f8684c6deeaf54de6fec63a187e9fb382cc0ffdff'},
     {f'netcdf-fortran-{local_NetCDF_fortran_version}.tar.gz': '44cc7b5626b0b054a8503b8fe7c1b0ac4e0a79a69dad792c212454906a9224ca'},
     {f'pnetcdf-{local_PnetCDF_version}.tar.gz':               '6f0f7221006c211fce9ddd2c008796b8c69dd717b2ad1be0b4027fc328fd3220'},
@@ -127,8 +128,6 @@ install_cmds = [
     'cp -r %(builddir)s/AMD-flang-experimental/cache %(installdir)s/cache',
     'cp -r %(builddir)s/AMD-flang-experimental/install %(installdir)s/install',
     'cp -r %(builddir)s/AMD-flang-experimental/downloads/templates.therock.tgz %(installdir)s/cache',
-#    'module purge && module load craype-network-ofi craype cce/20.0.0 cray-mpich/8.1.33 && '
-#        'cd %(installdir)s/install && ./install.therock.sh --components therock,mpich,hdf5,netcdf_c,netcdf_fortran,pnetcdf,fftw',
     'module purge && module load craype-network-ofi craype cce/20.0.0 cray-mpich/8.1.33 && '
         'cd %(installdir)s/install && ./install.therock.sh --components therock,mpich,fftw,hdf5,pnetcdf,netcdf_c,netcdf_fortran',
 ]
