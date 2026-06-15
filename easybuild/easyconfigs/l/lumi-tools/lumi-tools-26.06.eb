@@ -43,7 +43,7 @@ is refreshed every hour.
 Note that cleaning up files may not have an immediate effect on the quota reported
 by any of these tools. The lumi-quota and lumi-workspaces tools talk directly to 
 Lustre but there may be some delay also in the results returned by Lustre. 
-The lumi-check-quota tool uses cached data that is refresed once an hour and even just
+The lumi-check-quota tool uses cached data that is refreshed once an hour and even just
 after a refresh the result may not be fully accurate due to the possible delays
 in Lustre reporting.
 
