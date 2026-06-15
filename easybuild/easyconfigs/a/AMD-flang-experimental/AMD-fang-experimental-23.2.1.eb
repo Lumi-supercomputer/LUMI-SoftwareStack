@@ -1,0 +1,162 @@
+#DOC This version is based on the development version of flang 23 and a development version
+#DOC of ROCm(tm) marked as 7.13. Its `mpich` module works internally with Cray MPICH 8.1.33
+#DOC which comes with the 25.09 version of the HPE Cray Programming Environment. It provides
+#DOC a Fortran interface compatible with flang 23, and uses the GTL based on ROCm(tm) 6.
+#DOC It also uses the `rocm/6.3.4` module for the MPICH GTL dependencies.
+#DOC It also provides the `fftw`, `hdf5-parallel`, `pnetcdf`, `netcdf_c` and `netcdf_fortran`
+#DOC modules. 
+#DOC
+#DOC Developed by AMD and HLRS, originally for use on Hunter@HLRS but ported over to LUMI.
+# Written by Kurt Lust
+# Install an experimental AMD Flang compiler and interface with Cray MPICH, based 
+# on scripts developed by AMD, HPE and HLRS for Hunter.
+easyblock = "Binary"
+
+local_install_commit =  'bff1c6d'
+local_therock_package = 'therock-afar'
+local_therock_version = '23.2.1'
+local_source_therock = f'{local_therock_package}-{local_therock_version}-gfx90a-7.13.0-7357b5084b.tar.bz2'
+local_mpich_version = '3.4a2'
+local_HDF5_version = '1.14.6'
+local_NetCDF_C_version = '4.9.3'
+local_NetCDF_fortran_version = '4.6.2'
+local_PnetCDF_version = '1.14.1'
+local_FFTW_version = '3.3.10'
+
+name =    'AMD-flang-experimental'
+version = '23.2.1'
+
+homepage = 'https://repo.radeon.com/rocm/misc/flang/'
+
+whatis = [
+    'Description: Experimental AMD flang compiler with some additional libraries'
+]
+
+description = f"""
+Experimental (pre-production) version of the AMD flang compiler. This version
+also relies on some libraries from an equally experimental ROCm version that
+isn't guaranteed to be compatible with the current driver versions. So do 
+expect issues when compiling or running software. However, AMD is interested
+in learning about experiences with this experimental compiler to further 
+improve it before release, and in particular in the experiences with OpenMP
+offload.
+
+Note that this compiler or the libraries do not work with the Cray wrappers.
+Instead, users should compile in the traditional Linux way, using, e.g., mpiftn
+for Fortran with MPI.
+
+Loading this module will make other modules available that enable the compiler
+and some libraries:
+- therock/{local_therock_version}: The actual compiler module
+- mpich/{local_mpich_version}: A wrapper module making Cray MPICH available
+  with the right Fortran interface
+- hdf5-parallel/{local_HDF5_version}, uses mpich
+- pnetcdf/{local_PnetCDF_version}, uses hdf5-parallel
+- netcdf_c/{local_NetCDF_C_version}, uses pnetcdf
+- netcdf_fortran/{local_NetCDF_fortran_version}, uses netcdf_c
+- fftw/{local_FFTW_version}: An FFTW module compatible with the AMD compiler.
+  Uses mpich.
+"""
+
+toolchain = SYSTEM
+
+extract_sources = True
+sources = [
+{ # Install scripts taken from a GitHub repository. To be changed to a tag when fully tested
+    'filename': f'AMD-flang-experimental-install-{local_install_commit}.tar.bz2',
+    'git_config': {
+        'url':          'https://github.com/klust/',
+        'repo_name':    'AMD-flang-experimental',
+        'commit':       local_install_commit,
+        'recursive':    False,
+        'keep_git_dir': False,
+    }
+},
+{ # https://repo.radeon.com/rocm/misc/flang/therock-afar-23.2.1-gfx90a-7.13.0-7357b5084b.tar.bz2
+    'filename':          local_source_therock,
+    'source_urls':       ['https://repo.radeon.com/rocm/misc/flang'],
+    'extract_cmd':       'mkdir -p %(builddir)s/AMD-flang-experimental/cache && cp %s %(builddir)s/AMD-flang-experimental/cache'
+},
+{ # https://www.mpich.org/static/downloads/3.4a2/mpich-3.4a2.tar.gz
+    'filename':          f'mpich-{local_mpich_version}.tar.gz',
+    'source_urls':       [f'https://www.mpich.org/static/downloads/{local_mpich_version}'],
+    'extract_cmd':       'mkdir -p %(builddir)s/AMD-flang-experimental/cache && cp %s %(builddir)s/AMD-flang-experimental/cache'
+},
+{ # https://github.com/HDFGroup/hdf5/releases/download/hdf5_1.14.6/hdf5-1.14.6.tar.gz
+    'filename':          f'hdf5-v{local_HDF5_version}.tgz',  # To align with the current install.therock.sh script
+    'download_filename': f'hdf5-{local_HDF5_version}.tar.gz',
+    'source_urls':       [f'https://github.com/HDFGroup/hdf5/releases/download/hdf5_{local_HDF5_version}'],
+    'extract_cmd':       'mkdir -p %(builddir)s/AMD-flang-experimental/cache && cp %s %(builddir)s/AMD-flang-experimental/cache'
+},
+{ # https://github.com/Unidata/netcdf-c/archive/refs/tags/v4.9.3.tar.gz
+    'download_filename': f'v{local_NetCDF_C_version}.tar.gz',
+    'filename':          f'netcdf-c-{local_NetCDF_C_version}.tar.gz',
+    'source_urls':       ['https://github.com/Unidata/netcdf-c/archive/refs/tags'],
+    'extract_cmd':       'mkdir -p %(builddir)s/AMD-flang-experimental/cache && cp %s %(builddir)s/AMD-flang-experimental/cache'
+},
+{ # https://github.com/Unidata/netcdf-fortran/archive/refs/tags/v4.6.2.tar.gz
+    'download_filename': f'v{local_NetCDF_fortran_version}.tar.gz',
+    'filename':          f'netcdf-fortran-{local_NetCDF_fortran_version}.tar.gz',
+    'source_urls':       ['https://github.com/Unidata/netcdf-fortran/archive/refs/tags'],
+    'extract_cmd':       'mkdir -p %(builddir)s/AMD-flang-experimental/cache && cp %s %(builddir)s/AMD-flang-experimental/cache'
+},
+{ # https://parallel-netcdf.github.io/Release/pnetcdf-1.14.1.tar.gz
+    'filename':          f'pnetcdf-{local_PnetCDF_version}.tar.gz',
+    'source_urls':       ['https://parallel-netcdf.github.io/Release'],
+    'extract_cmd':       'mkdir -p %(builddir)s/AMD-flang-experimental/cache && cp %s %(builddir)s/AMD-flang-experimental/cache'
+},
+{ # https://www.fftw.org/fftw-3.3.10.tar.gz
+    'filename':          f'fftw-{local_FFTW_version}.tar.gz',
+    'source_urls':       ['https://www.fftw.org/'],
+    'extract_cmd':       'mkdir -p %(builddir)s/AMD-flang-experimental/cache && cp %s %(builddir)s/AMD-flang-experimental/cache'
+},
+]
+checksums = [
+    None,
+    {local_source_therock:                                    '8430bae691ae0b17d90741ac2d871502bd8132684f8403ae9ad39b6f0c72b4d9'},
+    {f'mpich-{local_mpich_version}.tar.gz':                   'ca9b9a6d4d858f3f94d2ea1ed0b851fccbc6f2976eb08dfc3379be8c6278aa12'},
+    {f'hdf5-v{local_HDF5_version}.tgz':                       'e4defbac30f50d64e1556374aa49e574417c9e72c6b1de7a4ff88c4b1bea6e9b'},
+    {f'netcdf-c-{local_NetCDF_C_version}.tar.gz':             '990f46d49525d6ab5dc4249f8684c6deeaf54de6fec63a187e9fb382cc0ffdff'},
+    {f'netcdf-fortran-{local_NetCDF_fortran_version}.tar.gz': '44cc7b5626b0b054a8503b8fe7c1b0ac4e0a79a69dad792c212454906a9224ca'},
+    {f'pnetcdf-{local_PnetCDF_version}.tar.gz':               '6f0f7221006c211fce9ddd2c008796b8c69dd717b2ad1be0b4027fc328fd3220'},
+    {f'fftw-{local_FFTW_version}.tar.gz':                     '56c932549852cddcfafdab3820b0200c7742675be92179e59e6215b340e26467'},
+]
+
+skip_steps = ['configure', 'build']
+
+install_cmds = [
+    'cp -r %(builddir)s/AMD-flang-experimental/cache %(installdir)s/cache',
+    'cp -r %(builddir)s/AMD-flang-experimental/install %(installdir)s/install',
+    'cp -r %(builddir)s/AMD-flang-experimental/downloads/templates.therock.tgz %(installdir)s/cache',
+    'module purge && module load craype-network-ofi craype cce/20.0.0 cray-mpich/8.1.33 && '
+        'cd %(installdir)s/install && ./install.therock.sh --components therock,mpich,fftw,hdf5,pnetcdf,netcdf_c,netcdf_fortran',
+]
+
+sanity_check_paths = {
+    'files': [],
+    'dirs':  [ f'install/therock/{local_therock_version}/bin',
+               f'install/mpich/{local_mpich_version}-{local_therock_version}/lib',
+               f'install/hdf5-parallel/{local_HDF5_version}-{local_therock_version}/lib',
+               f'install/pnetcdf/{local_PnetCDF_version}-{local_therock_version}/lib',
+               f'install/netcdf_c/{local_NetCDF_C_version}-{local_therock_version}/lib',
+               f'install/netcdf_fortran/{local_NetCDF_fortran_version}-{local_therock_version}/lib',
+               f'install/fftw/{local_FFTW_version}-{local_therock_version}/lib' ]
+}
+
+sanity_check_cmds = [ # Each individual module should also load the once it depends upon so we can check one by one.
+    f'module load therock/{local_therock_version}',
+    f'module load mpich/{local_mpich_version}',
+    f'module load hdf5-parallel/{local_HDF5_version}',
+    f'module load pnetcdf/{local_PnetCDF_version}',
+    f'module load netcdf_c/{local_NetCDF_C_version}',
+    f'module load netcdf_fortran/{local_NetCDF_fortran_version}',
+    f'module load fftw/{local_FFTW_version}',
+]
+
+env_mod_lua_footer = f"""
+prepend_path( 'MODULEPATH', '%(installdir)s/install/modulefiles/{local_therock_package}-{local_therock_version}' )
+"""
+
+
+env_mod_category = 'devel'
+

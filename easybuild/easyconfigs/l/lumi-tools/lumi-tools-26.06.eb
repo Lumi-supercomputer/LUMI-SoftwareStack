@@ -1,0 +1,192 @@
+# Contributed by Kurt Lust for the LUMI project
+
+easyblock = 'Bundle'
+
+local_LUMI_tools_version =         '26.06'
+local_allocations_version =        '20230221'
+local_allocations_commit =         '17024f5'
+local_lumi_notifications_version = '0.2'
+local_inih_release =               'r62'
+
+name =    'lumi-tools'
+version = local_LUMI_tools_version
+
+homepage = 'https://lumi-supercomputer.github.io/LUMI-EasyBuild-docs/l/lumi-tools/'
+
+whatis = [
+    'Description: Tools for LUMI: check quota, check status of allocations, push messages'
+]
+
+description = """
+This module provides several commands to check the state of your account:
+  * lumi-workspaces:         to print an overview of the quota and allocations for all your projects
+  * lumi-workspaces-classic: former version of lumi-workspaces
+  * lumi-quota:              to check your quota
+  * lumi-allocations:        to check your remaining allocations
+  * lumi-check-quota:        to print a warning when you are over your quota
+  * lumi-ldap-projectinfo:   to print LDAP information stored about projects on the system
+  * lumi-ldap-userinfo:      to print LDAP information stored about users on the system
+  * pushover:                to send a notification to the pushover service
+  * pushslack:               to send a notification to Slack
+and commands only for the LUMI User Support Team:
+  * lumi-ldap-projectlist:   to list all projects currently on LUMI
+  
+The check of the allocations is currently done based on pre-stored data. That
+data is refreshed periodically, but the data can be out-of-date, especially
+if the scripts that build up the cache fail. Currently the tool is not
+able to show when the data was collected, so the results may be wrong without
+warning.
+
+The checks done by check-quota are also based on cached data that in principle
+is refreshed every hour.
+
+Note that cleaning up files may not have an immediate effect on the quota reported
+by any of these tools. The lumi-quota and lumi-workspaces tools talk directly to 
+Lustre but there may be some delay also in the results returned by Lustre. 
+The lumi-check-quota tool uses cached data that is refresed once an hour and even just
+after a refresh the result may not be fully accurate due to the possible delays
+in Lustre reporting.
+
+The pushover and pushslack commands are two tools to send notifications to the 
+pushover and slack services respectively. They can be used, e.g., in job scripts
+to send a notification when a job starts which can be an alternative to mails from
+Slurm which is not implemented on LUMI.
+"""
+
+usage = """
+To quickly print an overview of quota and allocations, simply run
+  lumi-workspaces
+
+The lumi-quota command comes in three different forms:
+  * lumi-quota         : Shows your workspaces
+  * lumi-quota -v      : Detailed quota information
+  * lumi-quota -p prj  : Show quota of project prj
+
+To check all your remaining allocations, simply run
+  lumi-allocations
+To check only the allocations for a specific project , run
+  lumi-alllocations -p project_465000000
+(replacing the last argument with the project for which you want the result).
+
+lumi-allocations will also print the data at which the data and time at which the data
+was last gathered so you can know if the synchronisation might have failed.
+
+To only get the most important warnings about quota use and billing units for
+storage, run
+  lumi-check-quota
+  
+To get more detailed information about all your projects as retrieved periodically
+from the system and LDAP database:
+  lumi-ldap-projectinfo
+  
+To get more detailed information about your user account as retrieved periodically
+from the system and LDAP database:
+  lumi-ldap-userinfo
+
+For a quick overview of pushover:
+  pushover -h
+
+For a quick overview of pushslack:
+  pushslack -h  
+
+More detailed information is available via man pages and in the LUMI software library
+at https://lumi-supercomputer.github.io/LUMI-EasyBuild-docs/l/lumi-tools/.
+"""
+
+docurls = [
+    'Man pages in section 1, check man lumi-tools',
+]
+
+software_license_urls = [
+    'https://github.com/Lumi-supercomputer/lumi-allocations/blob/main/LICENSE',
+    'https://github.com/Lumi-supercomputer/lumi-tools/blob/main/LICENSE',
+    'https://github.com/klust/LUMI-notifications/blob/main/LICENSE'
+]
+
+toolchain = SYSTEM
+
+components = [
+    ('lumi-allocations', local_allocations_version, {
+        'easyblock':    'Tarball',
+        'sources':      [{
+                            'filename': '%(name)s-%(version)s.tar.bz2',
+                            'git_config': {
+                                'url':          'https://github.com/Lumi-supercomputer',
+                                'repo_name':    '%(name)s',
+                                'commit':       local_allocations_commit,
+                                'keep_git_dir': False,
+                            },
+                        }],
+        'install_type': 'merge',
+        'start_dir':    '%(namelower)s'
+    }),
+    ('LUMI-tools', local_LUMI_tools_version, {
+        'easyblock':    'ConfigureMake',
+        'sources':      [{   # https://github.com/Lumi-supercomputer/lumi-tools/archive/refs/tags/24.05.tar.gz
+                             'filename':          '%(name)s-%(version)s.tar.gz',
+                             'download_filename': '%(version)s.tar.gz',
+                             'source_urls':       ['https://github.com/Lumi-supercomputer/lumi-tools/archive/refs/tags'],
+                        }],
+        'start_dir':    '%(namelower)s-%(version)s',
+        'skipsteps':    'configure',
+        'installopts':  'PREFIX=%(installdir)s',
+    }),
+    ('LUMI-notifications', local_lumi_notifications_version, {
+        'easyblock':      'MakeCp',
+        'sources':        [{ # https://github.com/klust/LUMI-notifications/archive/refs/tags/0.2.tar.gz
+                              'download_filename': '%(version)s.tar.gz',
+                              'filename':          '%(name)s-%(version)s.tar.gz',
+                              'source_urls':       ['https://github.com/klust/%(name)s/archive/refs/tags']
+                          },
+                          { # https://github.com/benhoyt/inih/archive/refs/tags/r62.tar.gz
+                              'download_filename': f'{local_inih_release}.tar.gz',
+                              'filename':          f'inih-{local_inih_release}.tar.gz',
+                              'source_urls':       ['https://github.com/benhoyt/inih/archive/refs/tags']
+                          }],
+        'start_dir':      '%(name)s-%(version)s',
+        'prebuildopts':   f'cd src && cp ../../inih-{local_inih_release}/ini.* . &&',
+        'buildopts':      'CC=gcc',
+        'files_to_copy':  [ # Need to do the copy file by file as copying directories to one that already exists fails.
+                              (['bin/pushover', 'bin/pushslack'],  'bin'),
+                              (['man/man1/pushover.1','man/man1/pushslack.1'],  'share/man/man1'),
+                              (['LICENSE'], 'share/licenses/LUMI-notifications/LICENSE'),
+                              ([f'../inih-{local_inih_release}/LICENSE.txt'], 'share/licenses/LUMI-notifications/inih-LICENSE.txt'),
+                          ],
+    })
+]
+checksums = [
+    {f'lumi-allocations-{local_allocations_version}.tar.bz2':         '6fedaa9217b6eaa311b0c6f6f31056dfe59644bedb59eb3e93da81052d1b8499'},
+    {f'LUMI-tools-{local_LUMI_tools_version}.tar.gz':                 '2d511bcb8bd2a74ce321859aad4a885185b4ef3bfef0f505170a60591700875e'},
+    {f'LUMI-notifications-{local_lumi_notifications_version}.tar.gz': 'eded52fb3bf0ff76d58e328442a49064cc2bb9b1fddf42c85cf3cc5ce072bc3d'},
+    {f'inih-{local_inih_release}.tar.gz':                             '9c15fa751bb8093d042dae1b9f125eb45198c32c6704cd5481ccde460d4f8151'},
+]
+
+postinstallcmds = [
+    # Clean up a file placed in the wrong location by lumi-allocations
+    'mkdir -p %(installdir)s/share/licenses/lumi-allocations',
+    'mv %(installdir)s/LICENSE %(installdir)s/share/licenses/lumi-allocations',
+]
+
+sanity_check_paths = {
+    'files': ['bin/lumi-quota', 'bin/lumi-allocations', 'bin/lumi-workspaces', 'bin/lumi-workspaces-classic', 
+              'bin/lumi-ldap-projectinfo', 'bin/lumi-ldap-userinfo',
+              'bin/pushover', 'bin/pushslack'],
+    'dirs':  ['share/man/man1']
+}
+
+sanity_check_commands = [
+    'lumi-workspaces -h', 
+    'lumi-workspaces-classic -h', 
+    'lumi-quota -h',
+    'lumi-allocations -h',
+    'lumi-ldap-projectinfo -h',
+    'lumi-ldap-userinfo -h',
+    'pushover -h',
+    'pushslack -h',
+]
+
+modluafooter = """
+add_property("lmod","sticky")
+"""
+
+moduleclass = 'tools'
