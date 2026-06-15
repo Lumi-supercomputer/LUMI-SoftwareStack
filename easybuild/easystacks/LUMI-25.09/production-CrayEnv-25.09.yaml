@@ -20,4 +20,4 @@ easyconfigs:
   - lumi-CrayPath-0.1.eb
   - rocm-6.4.4.eb
   - amd-6.4.4.eb
-  - AMD-flang-experimental-23.2.1.eb
+  - AMD-flang-experimental-23.2.1-cray-mpich-8.1.33.eb
