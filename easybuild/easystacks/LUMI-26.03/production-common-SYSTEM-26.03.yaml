@@ -1,0 +1,21 @@
+easyconfigs:
+  - buildtools-26.03-bootstrap.eb
+  - buildtools-python-26.03-systemPython.eb
+  - buildtools-python-26.03-cray-python3.11.eb
+  - syslibs-26.03-static.eb
+  - buildtools-26.03.eb
+  - buildtools-26.03-CMake3.eb
+  - systools-26.03.eb
+  - systools-26.03-2.eb
+  - Lzip-tools-26.03.eb
+  - nano-9.0.eb       # System nano is good enough though so update not really needed
+#  - Vim-9.2.0063.eb   # System vim is good enough
+  - git-2.54.0.eb
+  - Subversion-1.14.5.eb
+  - Eigen-5.0.1.eb
+  - xorg-macros-1.20.2.eb 
+#  - lumi-container-wrapper-0.4.2-cray-python-3.11.7.eb  # Ready but makes no sense in a containerised environment.
+#  - cotainr-2026.03.0-cray-python-3.11.7.eb  # Ready but makes no sense in a containerised environment
+  - parallel-20260622.eb
+  - lumi-CrayPath-0.1.eb
+  
