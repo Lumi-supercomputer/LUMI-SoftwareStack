@@ -50,6 +50,7 @@ Buildtools-python:
 |:--------|:----------|:-----|:--------|
 | [Meson](https://pypi.org/project/meson/#history) | [EB Meson](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/m/Meson) | [CSCS Meson](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/m/Meson) | |
 | [SCons on GitHub](https://github.com/SCons/scons/releases) or [on download page](https://scons.org/pages/download.html) | [EB SCons](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/s/SCons) | [CSCS SCons](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/s/SCons) | |
+| [StrEnum](https://pypi.org/project/StrEnum/) | / | / | Needed to install packages on top of cray-python |
 | [wheel](https://pypi.org/project/wheel/) | / | / | Needed to install packages on top of cray-python |
 | [flit-core](https://pypi.org/project/flit-core/) | / | / | / |
 

@@ -20,91 +20,91 @@ local_EB_syslibs_talloc_version = '2.4.3'  # https://www.samba.org/ftp/talloc/. 
 #
 # Components of buildtools
 #
-local_makeinfo_version =         '7.2'         # texinfo    20241223 - Check on https://gnu.askapache.com/texinfo/ (not yet in 2025a when checked)
-local_Autoconf_version =         '2.72'        # Autoconf   20231222 - Check on https://ftp.gnu.org/gnu/autoconf/
+local_makeinfo_version =         '7.3'         # texinfo    20260601 - Check on https://gnu.askapache.com/texinfo/
+local_Autoconf_version =         '2.73'        # Autoconf   20260320 - Check on https://ftp.gnu.org/gnu/autoconf/
 local_Autoconf_archive_version = '2024.10.16'  # Autoconf-Archive 20241016 - check on https://ftp.gnu.org/gnu/autoconf-archive/
-local_Automake_version =         '1.17'        # Automake   20240712 - Check on https://ftp.gnu.org/gnu/automake/
-local_CMake3_version =           '3.31.11'     # CMake      20260213 - Check on https://cmake.org/download/ (newer than EB 2025a)
-local_CMake_version =            '4.2.3'       # CMake      20260129 - Check on https://cmake.org/download/ (newer than EB 2025a)
+local_Automake_version =         '1.18.1'      # Automake   20250626 - Check on https://ftp.gnu.org/gnu/automake/
+local_CMake3_version =           '3.31.12'     # CMake      20260422 - Check on https://cmake.org/download/
+local_CMake_version =            '4.3.3'       # CMake      20260423 - Check on https://cmake.org/download/
 local_Ninja_version =            '1.13.1'      # Ninja      20250710 - Check on https://ninja-build.org/
-local_Doxygen_version =          '1.15.0'      # Doxygen    20240109 - Check on https://www.doxygen.nl/download.html (not yet in EB 2025a when checking)
+local_Doxygen_version =          '1.17.0'      # Doxygen    20260430 - Check on https://www.doxygen.nl/download.html
 local_help2man_version =         '1.49.3'      # help2man   20221215 - Check on https://ftp.gnu.org/gnu/help2man/
 local_libtool_version =          '2.5.4'       # libtool    20241112 - Check on https://ftp.gnu.org/gnu/libtool/
-local_M4_version =               '1.4.20'      # M4         20250510 - Check on https://ftp.gnu.org/gnu/m4/
+local_M4_version =               '1.4.21'      # M4         20260206 - Check on https://ftp.gnu.org/gnu/m4/
 local_make_version =             '4.4.1'       # Make       20230206 - Check on https://ftp.gnu.org/gnu/make/
-local_NASM_version =             '2.16.03'     # NASM       20240417 - Check on https://www.nasm.us/ (newer than EB 2022b)
+local_NASM_version =             '3.01'        # NASM       20251011 - Check on https://www.nasm.us/
 local_Yasm_version =             '1.3.0'       # Yasm       20140810 - Check on https://yasm.tortall.net/Download.html (not yet in EB 2025a when checking)
-local_gperf_version =            '3.2.1'       # gperf      20150413 - Check on https://ftp.gnu.org/gnu/gperf/ (not yet in EB 2025a when checking)
-local_sed_version =              '4.9'         # sed        20221106 - Check on https://ftp.gnu.org/gnu/sed/
+local_gperf_version =            '3.3'         # gperf      20250420 - Check on https://ftp.gnu.org/gnu/gperf/ (not yet in EB 2025a when checking)
+local_sed_version =              '4.10'        # sed        20260421 - Check on https://ftp.gnu.org/gnu/sed/
 local_patchelf_version =         '0.17.2'      # patchelf   20230110 - Check on https://github.com/NixOS/patchelf/releases - 0.18.0 did not compile with the system compilers
 local_Bison_version =            '3.8.2'       # Bison      20210925 - Check on https://ftp.gnu.org/gnu/bison/
 local_flex_version =             '2.6.4'       # flex       20170506 - Check on https://github.com/westes/flex/releases
-local_byacc_version =            '20241231'    # byacc      20241231 - Check on https://invisible-mirror.net/archives/byacc/
+local_byacc_version =            '20260126'    # byacc      20260126 - Check on https://invisible-mirror.net/archives/byacc/
 # re2c from 3.1 on requires at least Python 3.7.
 local_re2c_version =             '3.0'         # re2c       20210127 - Check on https://github.com/skvadrik/re2c/releases - 3.1 requires Python 3.7 or newer.
-local_xxd_version =              '9.1.1980'    # vim        20251214 - Check on https://github.com/vim/vim/tags (not yet in EB 2025a when checking)
+local_xxd_version =              '9.2.0663'    # vim        20260617 - Check on https://github.com/vim/vim/tags (not yet in EB 2025a when checking)
 
 # Note: Meson 0.61.5 is the last version with Python 3.6 support.
 local_Meson_version =            '0.61.5'      # Meson      20220117 - Check on https://pypi.org/project/meson/#history
-local_Meson_cray_version =       '1.10.0'      # Meson      20251208 - Check on https://pypi.org/project/meson/#history(Newer than EB 2025a)
+local_Meson_cray_version =       '1.11.1'      # Meson      20260421 - Check on https://pypi.org/project/meson/#history(Newer than EB 2025a)
 local_SCons_version =            '4.4.0'       # SCons      20220730 - Check on https://github.com/SCons/scons/releases, https://scons.org/pages/download.html
-local_SCons_cray_version =       '4.9.1'       # SCons      20250327 - Check on https://github.com/SCons/scons/releases, https://scons.org/pages/download.html
+local_SCons_cray_version =       '4.10.1'      # SCons      20251116 - Check on https://github.com/SCons/scons/releases, https://scons.org/pages/download.html
 local_StrEnum_version =          '0.4.8'       # StrEnum    20220622 - Check on https://pypi.org/project/StrEnum/#history, last version for Python 3.6
 local_StrEnum_cray_version =     '0.4.15'      # StrEnum    20230630 - Check on https://pypi.org/project/StrEnum/#history
-local_wheel_cray_version     =   '0.45.1'      # wheel      20241123 - Check on https://pypi.org/project/wheel/#history
+local_wheel_cray_version     =   '0.47.0'      # wheel      20260422 - Check on https://pypi.org/project/wheel/#history
 local_flit_core_cray_version =   '3.12.0'      # flit_core  20250325 - Check on https://pypi.org/project/flit-core/#history
 
 #
 # syslibs bundle
 #
-local_syslibs_ncurses_version =      '6.5'           # https://ftp.gnu.org/pub/gnu/ncurses/ and 6.5 needed for proper working of htop.
+local_syslibs_ncurses_version =      '6.6'           # https://ftp.gnu.org/pub/gnu/ncurses/ and 6.5 needed for proper working of htop.
 local_syslibs_libreadline_version =  '8.3'           # https://ftp.gnu.org/pub/gnu/readline/
 local_syslibs_bzip2_version =        '1.0.8'         # https://sourceware.org/git/?p=bzip2.git;a=summary
-local_syslibs_zlib_version =         '1.3.1'         # https://zlib.net/
+local_syslibs_zlib_version =         '1.3.2'         # https://zlib.net/
 local_syslibs_lz4_version =          '1.10.0'        # https://github.com/lz4/lz4/releases
-local_syslibs_lzlib_version =        '1.15'          # https://download.savannah.gnu.org/releases/lzip/lzlib/
+local_syslibs_lzlib_version =        '1.16'          # https://download.savannah.gnu.org/releases/lzip/lzlib/
 local_syslibs_Brotli_version =       '1.2.0'         # https://github.com/google/brotli/releases
-local_syslibs_cURL_version =         '8.17.0'        # https://curl.haxx.se/download/
-local_syslibs_expat_version =        '2.7.3'         # https://github.com/libexpat/libexpat/releases
+local_syslibs_cURL_version =         '8.20.0'        # https://curl.haxx.se/download/
+local_syslibs_expat_version =        '2.8.1'         # https://github.com/libexpat/libexpat/releases
 local_syslibs_APR_version =          '1.7.6'         # https://apr.apache.org/
 local_syslibs_APR_util_version =     '1.6.3'         # https://apr.apache.org/
-local_syslibs_file_version =         '5.46'          # http://ftp.astron.com/pub/file/
+local_syslibs_file_version =         '5.48'          # http://ftp.astron.com/pub/file/
 local_syslibs_PCRE2_version =        '10.47'         # https://github.com/PhilipHazel/pcre2/releases
 local_syslibs_Serf_version =         '1.3.10'        # https://serf.apache.org/download
-local_syslibs_SQLite3_version =      '3.51.1'        # https://www.sqlite.org/
-local_syslibs_talloc_version =       '2.4.3'         # https://www.samba.org/ftp/talloc/
+local_syslibs_SQLite3_version =      '3.53.2'        # https://www.sqlite.org/
+local_syslibs_talloc_version =       '2.4.3'         # https://www.samba.org/ftp/talloc/, PRoot does not work with 2.4.4
 
 #
 # systools bundle
 #
 local_systools_GPP_version =          '2.28'         # https://github.com/logological/gpp/releases
-local_systools_htop_version =         '3.4.1'        # https://github.com/htop-dev/htop/releases
+local_systools_htop_version =         '3.5.1'        # https://github.com/htop-dev/htop/releases
 local_systools_pbzip2_version =       '1.1.13'       # http://compression.great-site.net/pbzip2/
 local_systools_libtree_version =      '3.1.1'        # https://github.com/haampie/libtree/releases
-local_systools_tree_version =         '2.2.1'        # https://gitlab.com/OldManProgrammer/unix-tree/-/tags
-local_systools_lstopo_version =       '2.13.0'       # https://www.open-mpi.org/projects/hwloc/
+local_systools_tree_version =         '2.3.2'        # https://gitlab.com/OldManProgrammer/unix-tree/-/tags
+local_systools_lstopo_version =       '2.14.0'       # https://www.open-mpi.org/projects/hwloc/
 local_systools_PRoot_version =        '5.4.0'        # https://github.com/proot-me/proot/releases
 
 #
 # Lzip-tools bundle
 #
-local_lzip_version =        '1.25'   # https://download.savannah.gnu.org/releases/lzip/
-local_lunzip_version =      '1.15'   # https://download.savannah.gnu.org/releases/lzip/lunzip/
-local_plzip_version =       '1.12'   # https://download.savannah.gnu.org/releases/lzip/plzip/
-local_lzlib_version =       '1.15'   # https://download.savannah.gnu.org/releases/lzip/lzlib/
-local_lziprecover_version = '1.25'   # https://download.savannah.gnu.org/releases/lzip/lziprecover/
+local_lzip_version =        '1.26'   # https://download.savannah.gnu.org/releases/lzip/
+local_lunzip_version =      '1.16'   # https://download.savannah.gnu.org/releases/lzip/lunzip/
+local_plzip_version =       '1.13'   # https://download.savannah.gnu.org/releases/lzip/plzip/
+local_lzlib_version =       '1.16'   # https://download.savannah.gnu.org/releases/lzip/lzlib/
+local_lziprecover_version = '1.26'   # https://download.savannah.gnu.org/releases/lzip/lziprecover/
 local_tarlz_version =       '0.28.1' # https://download.savannah.gnu.org/releases/lzip/tarlz/
-local_Zutils_version =      '1.15'   # https://download.savannah.gnu.org/releases/zutils/
+local_Zutils_version =      '1.16'   # https://download.savannah.gnu.org/releases/zutils/
 
 #
 # Some SYSTEM applications
 #
-local_git_version =          '2.53.0'        # https://github.com/git/git/tags
-local_nano_version =         '8.5'           # https://www.nano-editor.org/download.php
-local_parallel_version =     '20260122'      # https://ftp.gnu.org/gnu/parallel/ (Not yet in EB 2025a when checking)
-local_Vim_version =          '9.1.1202'      # https://github.com/vim/vim/tags
+local_git_version =          '2.54.0'        # https://github.com/git/git/tags
+local_nano_version =         '9.0'           # https://www.nano-editor.org/download.php
+local_parallel_version =     '20260622'      # https://ftp.gnu.org/gnu/parallel/ (Not yet in EB 2025a when checking)
+local_Vim_version =          '9.2.0663'      # https://github.com/vim/vim/tags
 local_Subversion_version =   '1.14.5'        # https://subversion.apache.org/download.cgi (not yet used)
-local_Eigen_version =        '3.4.0'         # https://gitlab.com/libeigen/eigen/-/releases
+local_Eigen_version =        '5.0.1'         # https://gitlab.com/libeigen/eigen/-/releases
 local_xorg_macros_version =  '1.20.2'        # https://cgit.freedesktop.org/xorg/util/macros
 
 #
