@@ -67,3 +67,5 @@ The list of packages may also depend on the version of ROCm(tm). You can find th
 after loading the module in `$EBROOTROCM/libexec/rocprofiler-compute/requirements.txt`.
 For ROCm(tm) versions older than 6.3 where the profiler is still called OmniPerf,
 the list of packages is in `$EBROOTROCM/libexec/omniperf/requirements.txt`.
+There is however an issue with newer releases of the package `kaleido`, so you need to 
+install an old version ( `kaleido==0.2.1` )
