@@ -14,27 +14,29 @@
 # for which some packages may want to use toolchain-specific versions. These
 # packages should then just assure that module is loaded after buildtools.
 #
-#DOC Tools for use in LUMI/25.09 or on CrayEnv when the LUMI/25.09 stack is also on the system.
+#DOC Tools for use in LUMI/26.03 or on CrayEnv when the LUMI/26.03 stack is also on the system.
 #
-#LUMISTACK 25.09
+#LUMISTACK 26.03
 #
 easyblock = 'Bundle'
 
-local_LUMI_version =         '25.09'
+local_LUMI_version =         '26.03'
 
+#local_craypython_version =   '3.12.12'
 local_craypython_version =   '3.11.7'
 local_system_pyshortver = '.'.join( local_craypython_version.split('.')[:2] )
 
 name =          'buildtools-python'
 version =       local_LUMI_version
-versionsuffix = f'-cray-python{local_system_pyshortver}'
+#versionsuffix = f'-cray-python{local_system_pyshortver}'
+versionsuffix = '-cray-python3.12'
 
 # Version info:
 # Note: Meson 0.61.5 is the last version with Python 3.6 support.
-local_Meson_cray_version =       '1.10.0'      # Meson      20251208 - Check on https://pypi.org/project/meson/#history(Newer than EB 2025a)
-local_SCons_cray_version =       '4.9.1'       # SCons      20250327 - Check on https://github.com/SCons/scons/releases, https://scons.org/pages/download.html
+local_Meson_cray_version =       '1.11.0'      # Meson      20260421 - Check on https://pypi.org/project/meson/#history (No source distribution for 1.11.1 and did't want to switch to a wheel for now)
+local_SCons_cray_version =       '4.9.1'       # SCons      20250327 - Check on https://github.com/SCons/scons/releases, https://scons.org/pages/download.html (Not upgraded as it was not worth to look into the issues with 4.10)
 local_StrEnum_cray_version =     '0.4.15'      # StrEnum    20230630 - Check on https://pypi.org/project/StrEnum/#history
-local_wheel_cray_version     =   '0.45.1'      # wheel      20241123 - Check on https://pypi.org/project/wheel/#history
+local_wheel_cray_version     =   '0.47.0'      # wheel      20260422 - Check on https://pypi.org/project/wheel/#history
 local_flit_core_cray_version =   '3.12.0'      # flit_core  20250325 - Check on https://pypi.org/project/flit-core/#history
 
 homepage = 'http://www.gnu.org'
@@ -80,7 +82,7 @@ components = [
         'easyblock':         'PythonPackage',
         'sources':           [SOURCELOWER_TAR_GZ],
         'source_urls':       [PYPI_SOURCE],
-        'checksums':         ['661e1abd9198507b1409a20c02106d9670b2576e916d58f520316666abca6729'],
+        'checksums':         ['cc72bd1009ba0cf63922e28f94d9d83b920aa2bb28f798a31d0691b02fa3c9b3'],
         'start_dir':         '%(namelower)s-%(version)s',
         'req_py_majver':     local_craypython_version.split('.')[0], # Used to let EasyBuild select the right system Python executable.
         'req_py_minver':     local_craypython_version.split('.')[1], # Used to let EasyBuild select the right system Python executable.
@@ -102,7 +104,7 @@ components = [
         'easyblock':         'PythonPackage',
         'sources':           [SOURCELOWER_TAR_GZ],
         'source_urls':       [PYPI_SOURCE],
-        'checksums':         ['8071860c1f46a75ea34801490fd1c445c9d75147a65508cd3a10366a7006cc1c'],
+        'checksums':         ['dffdd0915ceb028541fe3bed77d63ba35e78514591c043736b450d62634eeb31'],
         'start_dir':         '%(namelower)s-%(version)s',
         'req_py_majver':     local_craypython_version.split('.')[0], # Used to let EasyBuild select the right system Python executable.
         'req_py_minver':     local_craypython_version.split('.')[1], # Used to let EasyBuild select the right system Python executable.
