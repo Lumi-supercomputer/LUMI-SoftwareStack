@@ -1,6 +1,6 @@
 easyblock = 'Bundle'
 
-local_EasyBuild_version =         '5.3.0'
+local_EasyBuild_version =         '5.3.1'
 local_craypython_version =   '3.11.7'
 
 local_wheel_cray_version     =   '0.45.1'      # wheel      20241123 - Check on https://pypi.org/project/wheel/#history
@@ -116,17 +116,17 @@ components = [
         'sources':      [
                         {
                             'filename':    'easybuild_framework-%(version)s.tar.gz',
-                            'source_urls': ['https://files.pythonhosted.org/packages/2b/3c/eb0f99e92ccd99da73410cfd1e342b9d03a09727dd5e97ad528b945ef13a/'],
+                            'source_urls': ['https://files.pythonhosted.org/packages/a9/f7/86ed4d3ce5c19166b255e663959f4d9d36b8506ce104b1075983acb65b67/'],
                             'extract_cmd': "tar xfvz %s && mv easybuild_framework-%(version)s easybuild-framework-%(version)s",
                         },
                         {
                             'filename':    'easybuild_easyblocks-%(version)s.tar.gz',
-                            'source_urls': ['https://files.pythonhosted.org/packages/af/5d/c838ad165c932303624080e7d06fad94f7a7b8f16b105d36bdfd35a29968/'],
+                            'source_urls': ['https://files.pythonhosted.org/packages/ce/6b/f01cc837efbaf04a38c8064e2f16a65d2a11cd7d8f3720873d52bad4ae0f/'],
                             'extract_cmd': "tar xfvz %s && mv easybuild_easyblocks-%(version)s easybuild-easyblocks-%(version)s",
                         },
                         {
                             'filename':    'easybuild_easyconfigs-%(version)s.tar.gz',
-                            'source_urls': ['https://files.pythonhosted.org/packages/4b/f4/3589ad57c539012074af3ed849a4c709fc8f38cbf00fb66e9f63c073ca93/'],
+                            'source_urls': ['https://files.pythonhosted.org/packages/33/b2/866fc43fe61b4057c985c00d4d6c33f24ff25f3ca13cc9a1c45d14894ba7/'],
                             'extract_cmd': "tar xfvz %s && mv easybuild_easyconfigs-%(version)s easybuild-easyconfigs-%(version)s",
                         },
                         ],
@@ -135,25 +135,25 @@ components = [
                             # Standard EasyBuilders patches with late bugfixes
                             # - None in this version
                             # EasyBuild framework patches for LUMI
-                            {'name': 'EasyBuild-5.3.0_framework_extra-file-formats.patch',                   'level': 0, 'sourcepath': '.'},
-                            {'name': 'EasyBuild-5.3.0_framework_keyring-DBus.patch',                         'level': 0, 'sourcepath': '.'},
+                            {'name': 'EasyBuild-5.3.1_framework_extra-file-formats.patch',                   'level': 0, 'sourcepath': '.'},
+                            {'name': 'EasyBuild-5.3.1_framework_keyring-DBus.patch',                         'level': 0, 'sourcepath': '.'},
                             # EasyBlock patches for LUMI
-                            {'name': 'EasyBuild-5.3.0_EasyBlock_ParMETIS.patch',                             'level': 0, 'sourcepath': '.'},
-                            {'name': 'EasyBuild-5.3.0_EasyBlock_mesonninja.patch',                           'level': 0, 'sourcepath': '.'},
+                            {'name': 'EasyBuild-5.3.1_EasyBlock_ParMETIS.patch',                             'level': 0, 'sourcepath': '.'},
+                            {'name': 'EasyBuild-5.3.1_EasyBlock_mesonninja.patch',                           'level': 0, 'sourcepath': '.'},
                         ],
         'checksums':    [
                             # 3 EasyBuild components
-                            {'easybuild_framework-5.3.0.tar.gz':                            'a39f896037b73c533c96ce4aca5d03ba1adce776b72a8de530c1daca94203aba'},
-                            {'easybuild_easyblocks-5.3.0.tar.gz':                           'baf0790a27ed73bcdf6854bf0a052cb352fb9ad8b65460d5c1d9b8eef417dc93'},
-                            {'easybuild_easyconfigs-5.3.0.tar.gz':                          '5f1ca00be3d03f44a1842186ee63328b08b27d7be5932a8872acb00a6a07d424'},
+                            {'easybuild_framework-5.3.1.tar.gz':                            'ea26be6ec4daaf5d187d56fbcd0a592a5d5cdb89f5931a10f668b6650fb5696c'},
+                            {'easybuild_easyblocks-5.3.1.tar.gz':                           '504f94ca7068937867fe27bb4c53f9b4968e20426fa3c43e0236ff79b39b2749'},
+                            {'easybuild_easyconfigs-5.3.1.tar.gz':                          'dbd05ee896fd828ebd96b3773d3afd7e2c5f2574c140bd1ac93abc90836503e5'},
                             # Standard EasyBuilders patches with late bugfixes
                             # - None in this version
                             # EasyBuild framework patches for LUMI
-                            {'EasyBuild-5.3.0_framework_extra-file-formats.patch':          '4817c385f04cca1cc6a09d8fdca23d762f6bcb8bbc3db4119e57b3299983325f'},
-                            {'EasyBuild-5.3.0_framework_keyring-DBus.patch':                '7bcdf2805598ae9eec11a5134ff43abcf250adb8908594f3c30d88a8c1b9e8ce'},
+                            {'EasyBuild-5.3.1_framework_extra-file-formats.patch':          '5e244d1cc0a1dba1ea5cfa6cd8304cedd25f5169cbfadf1a1028b25175b76cf7'},
+                            {'EasyBuild-5.3.1_framework_keyring-DBus.patch':                '6aac4b1a76fdf8d7f535c9e0afb21963e734acb4e2eb8141029df90509a51690'},
                             # EasyBlock patches for LUMI
-                            {'EasyBuild-5.3.0_EasyBlock_ParMETIS.patch':                    'cd9f2d52236f1795b9a1a68667cd60e56b252779f3af91cd4ce68fa3d6a9b6d4'},
-                            {'EasyBuild-5.3.0_EasyBlock_mesonninja.patch':                  '1fae23d33101f2b61cb2d3f10a261198c810d70e55cea8c7f80ec20522ff52fd'},
+                            {'EasyBuild-5.3.1_EasyBlock_ParMETIS.patch':                    '899178c8c92a4285ef9134b3316734c273bcfd39b3a75e87139ca5571f7bdb93'},
+                            {'EasyBuild-5.3.1_EasyBlock_mesonninja.patch':                  '55472d9f53748877a6ff88accba123c59f2697c6d1c75d5de6573a68a13f0b3f'},
                         ],
         'extract_sources': False,
         'install_cmds': [

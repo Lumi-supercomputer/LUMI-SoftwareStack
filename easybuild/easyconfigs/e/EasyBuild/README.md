@@ -391,7 +391,7 @@ e.b., the [MATLAB EasyConfigs in the EasyBuilders repository](https://github.com
     the main EasyBuild version for 25.09.
 
 
-### 5.3.0 for 26.03
+### 5.3.1 for 26.03
 
 -   The pythonpackage patch is not needed anymore.
 

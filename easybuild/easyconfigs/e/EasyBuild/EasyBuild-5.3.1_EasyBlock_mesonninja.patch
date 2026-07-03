@@ -1,9 +1,9 @@
 Patch by Kurt Lust for the LUMI consortium to make the MesonNinja EasyBlock work 
 with the way we install MesonNinja on LUMI.
-mv easybuild_easyblocks-5.3.0 easybuild-easyblocks-5.3.0
-diff -Nau easybuild-easyblocks-5.3.0/easybuild/easyblocks/generic/mesonninja.py.orig easybuild-easyblocks-5.3.0/easybuild/easyblocks/generic/mesonninja.py
---- easybuild-easyblocks-5.3.0/easybuild/easyblocks/generic/mesonninja.py.orig	2026-06-17 12:18:08.000000000 +0300
-+++ easybuild-easyblocks-5.3.0/easybuild/easyblocks/generic/mesonninja.py	2026-06-17 12:33:33.000000000 +0300
+mv easybuild_easyblocks-5.3.1 easybuild-easyblocks-5.3.1
+diff -Nau easybuild-easyblocks-5.3.1/easybuild/easyblocks/generic/mesonninja.py.orig easybuild-easyblocks-5.3.1/easybuild/easyblocks/generic/mesonninja.py
+--- easybuild-easyblocks-5.3.1/easybuild/easyblocks/generic/mesonninja.py.orig	2026-06-17 12:18:08.000000000 +0300
++++ easybuild-easyblocks-5.3.1/easybuild/easyblocks/generic/mesonninja.py	2026-06-17 12:33:33.000000000 +0300
 @@ -82,7 +82,8 @@
          # make sure both Meson and Ninja are included as build dependencies
          build_dep_names = [d['name'] for d in self.cfg.builddependencies()]

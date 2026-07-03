@@ -1,10 +1,10 @@
 Patch works around the problem that importing keyring may fail with other
 other exceptions than ImportError
 By Kurt Lust, kurt.lust@uantwerpen.be for the LUMI consortium.
-diff -Nau easybuild-framework-5.3.0/easybuild/tools/github.py.orig easybuild-framework-5.3.0/easybuild/tools/github.py
-diff -Nau easybuild-framework-5.3.0/easybuild/tools/utilities.py.orig easybuild-framework-5.3.0/easybuild/tools/utilities.py
---- easybuild-framework-5.3.0/easybuild/tools/github.py.orig	2026-06-17 12:08:02.000000000 +0300
-+++ easybuild-framework-5.3.0/easybuild/tools/github.py	2026-06-17 12:09:14.000000000 +0300
+diff -Nau easybuild-framework-5.3.1/easybuild/tools/github.py.orig easybuild-framework-5.3.1/easybuild/tools/github.py
+diff -Nau easybuild-framework-5.3.1/easybuild/tools/utilities.py.orig easybuild-framework-5.3.1/easybuild/tools/utilities.py
+--- easybuild-framework-5.3.1/easybuild/tools/github.py.orig	2026-06-17 12:08:02.000000000 +0300
++++ easybuild-framework-5.3.1/easybuild/tools/github.py	2026-06-17 12:09:14.000000000 +0300
 @@ -72,8 +72,8 @@
  try:
      import keyring
@@ -17,9 +17,9 @@ diff -Nau easybuild-framework-5.3.0/easybuild/tools/utilities.py.orig easybuild-
  
  try:
      from easybuild.base.rest import RestClient
---- easybuild-framework-5.3.0/easybuild/tools/utilities.py.orig	2026-06-17 12:09:22.000000000 +0300
-+++ easybuild-framework-5.3.0/easybuild/tools/utilities.py	2026-06-17 12:10:01.000000000 +0300
-@@ -175,7 +175,7 @@
+--- easybuild-framework-5.3.1/easybuild/tools/utilities.py.orig	2026-06-17 12:09:22.000000000 +0300
++++ easybuild-framework-5.3.1/easybuild/tools/utilities.py	2026-06-17 12:10:01.000000000 +0300
+@@ -182,7 +182,7 @@
                      __import__(modname)
                      imported = modname
                      break

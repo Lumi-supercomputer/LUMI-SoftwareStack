@@ -1,10 +1,10 @@
 Patch by Kurt Lust for LUMI.
 Extend the ParMETIS EasyBlock so that it not only honours prebuildopts, but also
 preconfigopts and preinstallopts.
-mv easybuild_easyblocks-5.3.0 easybuild-easyblocks-5.3.0
-diff -Nau easybuild-easyblocks-5.3.0/easybuild/easyblocks/p/parmetis.py.orig easybuild-easyblocks-5.3.0/easybuild/easyblocks/p/parmetis.py
---- easybuild-easyblocks-5.3.0/easybuild/easyblocks/p/parmetis.py.orig	2026-06-17 12:13:42.000000000 +0300
-+++ easybuild-easyblocks-5.3.0/easybuild/easyblocks/p/parmetis.py	2026-06-17 12:15:39.000000000 +0300
+mv easybuild_easyblocks-5.3.1 easybuild-easyblocks-5.3.1
+diff -Nau easybuild-easyblocks-5.3.1/easybuild/easyblocks/p/parmetis.py.orig easybuild-easyblocks-5.3.1/easybuild/easyblocks/p/parmetis.py
+--- easybuild-easyblocks-5.3.1/easybuild/easyblocks/p/parmetis.py.orig	2026-06-17 12:13:42.000000000 +0300
++++ easybuild-easyblocks-5.3.1/easybuild/easyblocks/p/parmetis.py	2026-06-17 12:15:39.000000000 +0300
 @@ -92,7 +92,7 @@
              self.parmetis_builddir = 'build'
              try:
