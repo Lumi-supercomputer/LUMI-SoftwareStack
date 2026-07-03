@@ -7,8 +7,7 @@ import os as local_os
 # it helps to make this EasyConfig independent of the LUMI software stack version as there is
 # no other reference to that version in the file that we can use since it relies on the
 # SYSTEM toolchain.
-import os
-local_lumi_stack_version = os.getenv('LUMI_STACK_VERSION', default='26.03')
+local_LUMI_autoversion = local_os.environ['LUMI_STACK_CPE_VERSION']
 
 name =    'Eigen'
 version = local_Eigen_version
@@ -62,7 +61,7 @@ checksums =   ['e4de6b08f33fd8b8985d2f204381408c660bffa6170ac65b68ae1bd3cd575c0a
 configopts = '-Wno-dev' # Suppress warnings that are only for developers during the  CMake process.
 
 builddependencies = [
-    ('buildtools', local_lumi_stack_version),  # For CMake
+    ('buildtools', local_LUMI_autoversion),  # For CMake
 ]
 
 moduleclass = 'math'
