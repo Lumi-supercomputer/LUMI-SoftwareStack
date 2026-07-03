@@ -130,3 +130,8 @@ use.
 
 -   Also switched to the new set of EasyConfig parameters to prepare for EasyBuild 6.
 
+
+### 26.03
+
+-   Trivial update of 25.09 with just some version updates.
+
