@@ -6,7 +6,7 @@ easyblock = 'ConfigureMake'
 # no other reference to that version in the file that we can use since it relies on the
 # SYSTEM toolchain.
 import os as local_os
-local_LUMI_version = local_os.getenv('LUMI_STACK_VERSION', default='25.03')
+local_LUMI_autoversion = local_os.getenv('LUMI_STACK_VERSION', default='25.03')
 
 local_xorg_macros_version =  '1.20.2'        # https://cgit.freedesktop.org/xorg/util/macros
 
@@ -32,7 +32,7 @@ sources =     ['macros-util-macros-%(version)s.tar.gz']
 checksums =   ['beac7e00e5996bd0c9d9bd8cf62704583b22dbe8613bd768626b95fcac955744']
 
 build_deps = [ # Create a reproducible build environment
-    ('buildtools', local_LUMI_version), # Uses autotools
+    ('buildtools', local_LUMI_autoversion), # Uses autotools
 ]
 
 pre_configure_opts = './autogen.sh && '
