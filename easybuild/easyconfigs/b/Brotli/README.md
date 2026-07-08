@@ -30,3 +30,5 @@
 ### Versiuon 1.2.0 from CPE 25.09 on
 
 -   Trivial version change from the 1.2.0 EasyConfig for 25.03.
+
+-   Switched to the new EasyConfig parameters in 25.09.

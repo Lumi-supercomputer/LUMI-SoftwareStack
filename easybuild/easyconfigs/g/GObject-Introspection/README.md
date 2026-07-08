@@ -82,3 +82,5 @@ the RPATH.
 
 -   Trivial version bump from 1.84.0 for 25.03.
 
+-   Switched to the new EasyConfig parameters in 25.09.
+

@@ -52,3 +52,5 @@
 
 -   For 25.09, we needed to add ` -DCMAKE_POLICY_VERSION_MINIMUM=3.5` to the `configopts`
     for compatibility with CMake 4.
+
+-   Switched to the new EasyConfig parameters in 25.09.

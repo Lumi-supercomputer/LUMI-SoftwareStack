@@ -56,3 +56,9 @@
 
 -   Trivial version update of the EasyConfig for version 1.56.3 in 25.03.
 
+-   Switched to the new EasyConfig parameters in 25.09.
+
+
+### Version 1.571 for 26.03
+
+-   Trivial version update of the EasyConfig for 1.57.0 in 25.09.

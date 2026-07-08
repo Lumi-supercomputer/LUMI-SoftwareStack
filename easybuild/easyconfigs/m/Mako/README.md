@@ -27,4 +27,10 @@
 
 -   Almost trivial port of the EasyConfig for 1.3.5 in 24.03, but needed to add
     source lines as it appears the names of the source tars have changed.    
-    
+
+-   Switched to the new EasyConfig parameters in 25.09.
+
+
+### Version 1.3.12 for 26.03
+
+-   Almost trivial port of the EasyConfig for 1.3.10 in 25.09.

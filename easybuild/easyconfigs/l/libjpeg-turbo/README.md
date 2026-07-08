@@ -81,4 +81,10 @@
 
 -   Trivial port of the 3.1.0 EasyConfig for 25.03.
 
+-   Switched to the new EasyConfig parameters.
+
+
+### Version 3.2.0 for 26.03
+
+-   Trivial port of the 3.1.3 EasyConfig for 25.09.
  

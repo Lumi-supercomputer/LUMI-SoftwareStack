@@ -1,39 +1,48 @@
 # MPC
 
-  * [MPC home page](http://www.multiprecision.org/mpc/)
+-   [MPC home page](http://www.multiprecision.org/mpc/)
 
-  * [Download from GNU](https://ftp.gnu.org/gnu/mpc/)
+-   [Download from GNU](https://ftp.gnu.org/gnu/mpc/)
 
-  * [MPC source development is hosted in the INRIA GitLab](https://gitlab.inria.fr/mpc/mpc)
+-   [MPC source development is hosted in the INRIA GitLab](https://gitlab.inria.fr/mpc/mpc)
 
 
 ## Issues
 
-  * MPC does build a mpc.pc file for pkg-config (at least not in 1.2.1 or earlier)
+-   MPC does build a mpc.pc file for pkg-config (at least not in 1.2.1 or earlier)
 
 
 ## EasyBuild
 
-  * [MPC in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/m/MPC)
+-   [MPC in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/m/MPC)
 
-  * There is no support for MPC in the CSCS repository
+-   There is no support for MPC in the CSCS repository
 
 
 ### Version 1.2.1 from CPE 21.06 on
 
-  * The EasyConfig is a mix of the EasyBuilders and University of Antwerpen versions,
+-   The EasyConfig is a mix of the EasyBuilders and University of Antwerpen versions,
     with improved URLs and help information.
 
-  * To find the test results in the log files, grep for "Testsuite".
+-   To find the test results in the log files, grep for "Testsuite".
 
-    **NOTE:** When compiled with cpeCray or cpeAMD two of the tests are skipped, while
+  -  *NOTE:** When compiled with cpeCray or cpeAMD two of the tests are skipped, while
     in the cpeGNU versions all tests pass.
 
     
 ### Version 1.3.1 from CPE 22.12 on
 
-  * The EasyConfig is a straightforward port of the 1.2.1 one.
+-   The EasyConfig is a straightforward port of the 1.2.1 one.
 
-  * For LUMI/23.12, license information was added to the installation.
+-   For LUMI/23.12, license information was added to the installation.
+
+-   Switched to the new EasyConfig parameters in 25.09.
+
+
+### Version 1.4.1 from CPE 26.03 on
+
+-   Almost trivial port of the 1.3.1 EasyConfig for 25.09.
+
+-   But the downloads have changed to `.tar.xz` format.
 
     

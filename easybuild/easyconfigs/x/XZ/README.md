@@ -39,3 +39,10 @@
 
 -   Trivial version bump of the EasyConfig for 5.6.3 in LUMI/25.03.
 
+-   Switched to the new EasyConfig parameters in 25.09.
+
+
+### Version 5.8.3 fro LUMI/26.03
+
+-   Trivial version bump of the EasyConfig for 5.8.1 in LUMI/25.09, but switched to the https protocol.
+

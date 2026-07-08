@@ -78,3 +78,5 @@
 -   Straightforward port of the EasyConfig for 9.6.2 in 25.03.
 
 -   Switched to https to download the sources tarball.
+
+-   Switched to the new EasyConfig parameters in 25.09.

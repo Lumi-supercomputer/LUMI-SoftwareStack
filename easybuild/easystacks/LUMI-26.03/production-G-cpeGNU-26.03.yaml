@@ -65,7 +65,7 @@ easyconfigs:
   - libxslt-1.1.45-cpeGNU-26.03.eb
   - MPC-1.4.1-cpeGNU-26.03.eb
   - PCRE2-10.47-cpeGNU-26.03.eb
-  - pixman-0.46.4-cpeGNU-26.03.eb
+  - pixman-0.42.2-cpeGNU-26.03.eb
   - SQLite-3.53.3-cpeGNU-26.03.eb
   - XZ-5.8.3-cpeGNU-26.03.eb
 ## Block 4
@@ -131,7 +131,7 @@ easyconfigs:
 ## With block 9
   - cairo-1.18.4-cpeGNU-26.03.eb
 ## With block 10
-  - GObject-Introspection-1.86.0-cpeGNU-26.03-cray-python3.11.eb
+  - GObject-Introspection-1.86.0-cpeGNU-26.03-cray-python3.12.eb
 ## With block 11
   - HarfBuzz-14.2.1-cpeGNU-26.03.eb
 ## With block 12

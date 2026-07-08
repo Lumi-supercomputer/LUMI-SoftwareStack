@@ -37,3 +37,5 @@
 
 -   Trivial port of the EasyConfig for 4.0.1 for 24.03/24.11.
 
+-   Switched to the new EasyConfig parameters in 25.09.
+

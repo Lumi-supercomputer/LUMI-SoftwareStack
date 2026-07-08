@@ -54,3 +54,11 @@
 
 -   For cpeAOCC and cpeAMD we needed to inject a `-lm` flag for the linker. 
     This was done via `CFLAGS`.
+
+-   Switched to the new EasyConfig parameters in 25.09.
+
+
+### Version 3.53.3 for LUMI/26.03
+
+-   Trivial version bump of the 3.51.1 EasyConfig for 25.09.
+

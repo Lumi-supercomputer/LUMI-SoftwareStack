@@ -58,5 +58,13 @@
 
 ### Version 2.14.1 from LUMI/25.09 on
 
--   Trivial port of the EasyConfig for version 2.14.1 for LUMI/25.03.
+-   Trivial port of the EasyConfig for version 2.13.3 for LUMI/25.03.
 
+-   Switched to the new EasyConfig parameters in 25.09.
+
+
+### Version 2.14.3 from LUMI/26.03 on
+
+-   Trivial port of the EasyConfig for 2.14.1 for LUMI/25.09.
+
+-   Switched to the more compact `.tar.xz` source files.

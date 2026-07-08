@@ -60,5 +60,12 @@
 
 -   Trivial port of the EasyConfig for 8.11.1 for 25.03.
 
--   Switched to the https protocol.
+-   Switched to the https protocol for source download
+
+-   Switched to the new EasyConfig parameters in 25.09.
+
+
+### Version 8.21.0 fir 26.03
+
+-   Trivial port of the EasyConfig for 8.17.0 in 25.09.
 

@@ -92,3 +92,5 @@ TODO: Problems on eiger likely because the configure process fails to find the p
     as it is also used with Score-P, we did not want to move that one to the software stack 
     and make it a dependency as in the past it has not always been trivial to support this library
     so it would slow down the development of the software stack.
+
+-   Switched to the new EasyConfig parameters in 25.09.

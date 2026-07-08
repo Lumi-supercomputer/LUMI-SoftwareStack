@@ -59,3 +59,5 @@ This README was developed starting with snappy 1.1.8 in the CPE 21.06.
 ### 1.2.2 for LUMI/25.03
 
 -   Trivial port of the 1.1.10 EasyConfig for 24.03/24.11.
+
+-   Switched to the new EasyConfig parameters in 25.09.

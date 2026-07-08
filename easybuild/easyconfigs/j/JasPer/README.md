@@ -40,3 +40,14 @@
 
 -   Trivial port of the EasyConfig for 4.0.0 for 24.03/24.11.
 
+
+### Version 4.2.8 in 25.09
+
+-   Trivial port of the EasyConfig for 4.2.5 in 25.03.
+
+-   Switched to the new EasyConfig parameters.
+
+
+### Version 4.2.9 from 26.03 on
+
+-   Trivial port of the EasyConfig for 4.2.8 in 25.09.

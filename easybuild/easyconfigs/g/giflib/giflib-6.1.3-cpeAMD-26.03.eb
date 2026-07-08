@@ -1,0 +1,65 @@
+easyblock = 'ConfigureMake'
+
+local_giflib_version =       '6.1.3'         # https://sourceforge.net/projects/giflib/files/
+
+name =    'giflib'
+version = local_giflib_version
+
+homepage = 'http://giflib.sourceforge.net/'
+
+whatis = [
+    "Description: giflib is a library for reading and writing gif images compatible with libungif",
+]
+
+description = """
+giflib is a library for reading and writing gif images. It is API and ABI
+compatible with libungif which was in wide use while the LZW compression
+algorithm was patented.
+"""
+
+software_license_urls = [
+    f'https://sourceforge.net/p/giflib/code/ci/{version}/tree/COPYING',
+]
+
+toolchain = {'name': 'cpeAMD', 'version': '26.03'}
+toolchain_opts = {'pic': True}
+
+# https://sourceforge.net/projects/giflib/files/giflib-6.x/giflib-6.1.3.tar.gz/download
+source_urls = [('http://sourceforge.net/projects/giflib/files', 'download')]
+sources =     [SOURCE_TAR_GZ]
+checksums =   ['b65b66b99f0424b93525f987386f22fc5efb9da2bfc92ad4a532249aaffbab0e']
+
+build_deps = [ # Create a reproducible build environment.
+    ('buildtools', '%(toolchain_version)s', '', True),
+]
+
+# No configure
+skip_steps = ['configure']
+
+# Doesn't need MPI or BLAS, and module unload never fails so this is safe.
+pre_build_opts = 'module unload cray-libsci cray-mpich xpmem && '
+pre_install_opts = pre_build_opts
+
+# Skip building the docs to avoid ImageMagick (convert) build dependency
+pre_build_opts += "sed -i '/$(MAKE) -C doc/d' Makefile &&"
+
+# Override CXX and CFLAGS variables from Makefile
+build_opts = 'CC="$CC" CFLAGS="$CXXFLAGS"'
+
+# Override PREFIX variable from Makefile
+install_opts = "PREFIX=%(installdir)s"
+
+post_install_cmds = [
+    'mkdir -p %(installdir)s/share/licenses/%(name)s',
+    'cp COPYING NEWS README %(installdir)s/share/licenses/%(name)s',   
+]
+
+sanity_check_paths = {
+    'files': ['bin/gif%s' %x for x in ['2rgb', 'build', 'clrmp', 'fix', 'text', 'tool']] + 
+             ['lib/libgif.%s' % x for x in ['a', SHLIB_EXT]],
+    'dirs':  []
+}
+
+# There are several commands but that have no easy options for a sanity check.
+
+env_mod_category = 'lib'

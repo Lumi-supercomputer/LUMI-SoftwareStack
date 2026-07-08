@@ -114,3 +114,9 @@
 
 -   Straightforward port of the EasyConfig for 5.40.0.
 
+-   Switched to the new EasyConfig parameters in 25.09.
+
+
+### Version 5.42.0 for LUMI/26.03
+
+-   Straightforward port of the EasyConfig for 5.40.2 in 25.09.

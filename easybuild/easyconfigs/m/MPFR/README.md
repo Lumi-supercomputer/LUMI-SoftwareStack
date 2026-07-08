@@ -39,4 +39,5 @@
 ### Version 4.2.2 from 24.03 on
 
 -   The EasyConfig is a trivial port of the 4.2.2 EasyCponfig for 24.03/24.11.
-    
+
+-   Switched to the new EasyConfig parameters in 25.09.

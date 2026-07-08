@@ -123,3 +123,5 @@ HPE-Cray has a sample build script for Boost in their
 
 -   Trivial port of the EasyConfig for 1.88.0 in 25.03.
 
+-   Switched to the new EasyConfig parameters in 25.09.
+

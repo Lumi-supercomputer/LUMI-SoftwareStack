@@ -36,4 +36,5 @@
 ### 3.12.0 from 25.03 on
 
 -   Trivial port of the 3.11.3 EasyConfig for 24.03/24.11.
-    
+
+-   Switched to the new EasyConfig parameters in 25.09.

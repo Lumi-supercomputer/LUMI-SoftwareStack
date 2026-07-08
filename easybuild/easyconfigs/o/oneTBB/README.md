@@ -35,3 +35,5 @@ The oneTBB package is often also just known as TBB or tbb.
 
 -   Trivial port of the EasyConfig for 2022.2.0 in 25.03.
 
+-   Switched to the new EasyConfig parameters.
+

@@ -60,5 +60,11 @@
 ### Version 2.7.3 from CPE 25.09 on
 
 -   Trivial version bump of the EasyConfig for 2.6.4 in 25.03.
-  
+
+-   Switched to the new EasyConfig parameters in 25.09.
+
+
+### Version 2.8.2 from CPE 26.03 on
+
+-   Trivial version pump of the EasyConfig for 2.7.3 in 25.09
   

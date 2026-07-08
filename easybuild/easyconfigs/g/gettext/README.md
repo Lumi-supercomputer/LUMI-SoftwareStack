@@ -50,3 +50,9 @@
 
 -   Trivial port of the EasyConfigs for 0.24 used in LUMI/25.03.
 
+-   Switched to the new EasyConfig parameters in 25.09.
+
+
+### Version 1.0 from 26.03 on
+
+-   Trivial port of the EasyConfigs for 0.26 used in 25.09.

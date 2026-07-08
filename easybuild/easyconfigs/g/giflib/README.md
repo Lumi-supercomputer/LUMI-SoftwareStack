@@ -25,3 +25,11 @@
 
 -   But one change taken from the EasyBuilders version was needed to avoid needing 
     ImageMagick as a build dependency.
+
+-   Switched to the new EasyConfig parameters in 25.09.
+
+
+### Version 6.1.3 from 26.03 on
+
+-   The EasyConfig is a trivial port of the 25.09 one.
+

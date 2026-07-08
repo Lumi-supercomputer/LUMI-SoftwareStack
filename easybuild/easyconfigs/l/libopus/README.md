@@ -1,27 +1,39 @@
 # libopus
 
-  * [libopus home page](https://opus-codec.org/)
+-   [libopus home page](https://opus-codec.org/)
 
-      * [libopus downloads](https://opus-codec.org/downloads/)
+    -   [libopus downloads](https://opus-codec.org/downloads/)
 
-  * [libopus GitLAb](https://gitlab.xiph.org/xiph/opus)
+-   [libopus GitLAb](https://gitlab.xiph.org/xiph/opus)
 
 
 ## EasyBuild
 
-  * [libopus in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/libopus)
+-   [libopus in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/libopus)
 
-  * No support found in the CSCS repository
+-   No support found in the CSCS repository
 
 
 ### Version 1.3.1 from CPE 21.06 on
 
-  * The EasyConfig is derived from the one of the University of Antwerpen.
+-   The EasyConfig is derived from the one of the University of Antwerpen.
 
-  * For LUMI/23.12, license information was added to the installation and the sanity
+-   For LUMI/23.12, license information was added to the installation and the sanity
     checks were improved.
 
 
 ### Version 1.4 from LUMI/24.03 on
 
-  * The EasyConfig is a trivial port of the one for version 1.3.1 for LUMI/23.12.
+-   The EasyConfig is a trivial port of the one for version 1.3.1 for LUMI/23.12.
+
+
+### Version 1.5.2 from LUMI/25.03 on
+
+-   The EasyConfig is a trivial version bump of the 1.4 one in 24.03.
+
+-   Switched to the new EasyConfig parameters in 25.09.
+
+
+### Version 1.6.1 from 26.03 on
+
+-   Trivial version bump of the 1.5.2 EasyConfig for 1.5.2

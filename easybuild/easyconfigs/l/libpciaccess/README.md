@@ -30,3 +30,10 @@
 -   Major reworking of the EasyConfig as the library now needs Meson and Ninja
     unfortunately.
 
+-   Switched to the new EasyConfig parameters in 25.09.
+
+
+### Version 0.19 for 26.03
+
+-   Trivial port of the EasyConfig for 0.18.1 in 25.09.
+

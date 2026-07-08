@@ -36,3 +36,5 @@
 
 -   The EasyConfig is a trivial port of the 1.25 EasyConfig for 25.09.
 
+-   Switched to the new EasyConfig parameters in 25.09.
+

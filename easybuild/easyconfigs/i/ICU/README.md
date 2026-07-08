@@ -65,3 +65,7 @@ Build problem with cpeGNU when using the 12.2.0 compilers:
 
 -   But source URL structure has changed.
 
+
+### 78.1 for LUMI/25.09
+
+-   Trivial port of the 76.1 EasyConfig for 25.03, but switched to the new EasyConfig parameters.

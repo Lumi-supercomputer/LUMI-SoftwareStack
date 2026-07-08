@@ -57,4 +57,10 @@
 
 -   Turned out to be a rather trivial version update despite the major version bump.
     We did re-edit the way configuration options are set though.
-  
+
+-   Switched to the new EasyConfig parameters in 25.09.
+
+
+### Version 6.0.4 for 26.03
+
+-   Trivial version bump of the 6.0.3 EasyConfig for 25.09.

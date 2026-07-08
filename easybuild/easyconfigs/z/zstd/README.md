@@ -38,3 +38,5 @@
 
 -   Trivial port of the EasyConfig of 1.5.5 for 24.03 and 24.11.
 
+-   Switched to the new EasyConfig parameters in 25.09.
+

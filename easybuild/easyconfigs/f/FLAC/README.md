@@ -51,3 +51,5 @@
 
 -   Trivial port of the EasyConfig for 1.4.3 for LUMI/24.03
 
+-   Switched to the new EasyConfig parameters in 25.09.
+

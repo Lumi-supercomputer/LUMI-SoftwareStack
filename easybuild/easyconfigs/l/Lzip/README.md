@@ -24,4 +24,10 @@ There is no support for Lzip in EasyBuild
 ### Version 1.25 from 25.03 on
 
 -   The EasyConfig is a trivial port of the 1.23 one for 24.03/24.11.
-  
+
+-   Switched to the new EasyConfig parameters in 25.09.
+
+
+### Version 1.26 from 26.03 on
+
+-   The EasyConfig is a trivial port of the 1.25 one for 25.09.

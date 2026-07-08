@@ -39,3 +39,9 @@
 -   Switched to a download site that supports https and has one level of redirect 
     less before offering the source file.
 
+-   Switched to the new EasyConfig parameters in 25.09.
+
+
+### Version 9.0.4 for LUMI/26.03
+
+-   Trivial port of the EasyConfig for 9.0.3 in 25.09.

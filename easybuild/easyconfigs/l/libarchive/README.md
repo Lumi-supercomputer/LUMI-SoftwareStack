@@ -56,3 +56,11 @@
 
 -   Trivial version bump of the 3.7.7 EasyConfig in 25.03.
 
+-   Switched to the new EasyConfig parameters in 25.09.
+
+
+### Version 3.8.8 for 26.03
+
+-   Trivial version bump of the 3.8.4 EasyConfig for 25.09.
+
+-   Switched to the usually more compact `.tar.xz` download format.

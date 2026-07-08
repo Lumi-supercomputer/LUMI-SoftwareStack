@@ -80,3 +80,9 @@
 
 -   Trivial port of the EasyConfig for 2.85.1 in 25.03.
 
+-   Switched to the new EasyConfig parameters in 25.09.
+
+
+### Version 2.89.1 for LUMI/26.03
+
+-   Trivial port f the EasyConfig for 2.87.0 in 25.09.

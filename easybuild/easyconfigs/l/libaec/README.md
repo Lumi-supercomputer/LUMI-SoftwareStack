@@ -27,3 +27,11 @@
 -   But the `aec` program does no longer exist. It is now called `graec` and needs
     to be compiled separately as it is only meant for internal testing. So it was 
     removed from the `sanity_check_commands`.
+
+-   Switched to the new EasyConfig parameters in 25.09.
+
+
+### Version 1.1.7 for 26.03
+
+-   Trivial port of the EasyConfig for 1.1.4 in 25.09.
+

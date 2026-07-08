@@ -42,3 +42,5 @@
 ### Version 10.47 for LUMI/25.03
 
 -   Trivial version bump of the 10.45 EasyConfig.
+
+-   Switched to the new EasyConfig parameters in 25.09.

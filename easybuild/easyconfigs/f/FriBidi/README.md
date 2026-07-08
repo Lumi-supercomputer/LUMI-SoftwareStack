@@ -34,3 +34,5 @@
 
 -   Trivial update of the EasyConfig of 1.0.13 for LUMI/24.03 and 24.11.
 
+-   Switched to the new EasyConfig parameters in 25.09.
+

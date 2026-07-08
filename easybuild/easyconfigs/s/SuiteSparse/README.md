@@ -22,3 +22,5 @@
 -   For 25.03 we did a small renaming to make it possible to later add
     SuiteSparse 7. But that one might require a whole new EasyConfig an a 
     build with CMake.
+
+-   Switched to the new EasyConfig parameters in 25.09.

@@ -74,5 +74,11 @@
 ### Version 4.7.1 for LUMI/25.09
 
 -   Trivial version bump of the EasyConfig for 4.7.0 in 25.03.
- 
+
+-   Switched to the new EasyConfig parameters in 25.09.
+
+
+### Version 4.7.2 for LUMI/26.03
+
+-   Trivial version bump of the EasyConfig for 4.7.1 in 25.09.
  

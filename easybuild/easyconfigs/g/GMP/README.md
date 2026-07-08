@@ -56,3 +56,5 @@ There is a difference in settings:
     -   C++-based tests fail with cpeCray. 
         It is currently not clear what is the cause. Tests have been disabled,
         but it means that the library may be buggy.
+
+-   Switched to the new EasyConfig parameters in 25.09.

@@ -71,3 +71,5 @@ The 4.0.3 release is from 2013.
 
 -   ParMETIS is currently incompatible with CMake 4 until we find a way to patch the configure script
     and/or CMake recipes.
+
+-   Switched to the new EasyConfig parameters in 25.09.

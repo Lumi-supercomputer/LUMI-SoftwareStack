@@ -20,3 +20,5 @@
     
 -   For LUMI/23.12, added license information to the installation, and added
     the  `--enable-native=no` to ensure proper cross-compiling.
+
+-   Switched to the new EasyConfig parameters in 25.09.

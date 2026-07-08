@@ -43,3 +43,10 @@
 -   Trivial update of the EasyConfig for 1.6.47 in 25.03.
 
 -   But switched to .tar.xz files that are smaller.
+
+-   Switched to the new EasyConfig parameters in 25.09.
+
+
+### Version 1.6.58 from 26.03 on
+
+-   Trivial update of the EasyConfig for 1.6.54 in 25.09.

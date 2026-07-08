@@ -74,3 +74,9 @@ in EasyBuild.
 
 -   Switched to https for downloading the source tarballs.
 
+-   Switched to the new EasyConfig parameters in 25.09.
+
+
+### Version 8.1.1 for 26.03
+
+-   The EasyConfig is a straightforward port of the 7.1.3 EasyConfig for 26.03.

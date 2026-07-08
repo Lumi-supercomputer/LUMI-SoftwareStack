@@ -24,3 +24,9 @@
 
 -   LUMIfied the EasyConfig.
 
+-   Switched to the new EasyConfig parameters in 25.09.
+
+
+### Version 2.19.1 from 26.03 on
+
+-   Trivial version bump of the 2.17 EasyConfig for 26.03

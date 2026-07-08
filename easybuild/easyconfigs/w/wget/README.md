@@ -51,3 +51,4 @@
 
 -   Trivial port of the EasyConfig for version 1.25.0 in 24.03/24.11.
 
+-   Switched to the new EasyConfig parameters in 25.09.
