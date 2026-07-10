@@ -71,7 +71,7 @@ local_syslibs_APR_util_version =     '1.6.3'         # https://apr.apache.org/
 local_syslibs_file_version =         '5.48'          # http://ftp.astron.com/pub/file/
 local_syslibs_PCRE2_version =        '10.47'         # https://github.com/PhilipHazel/pcre2/releases
 local_syslibs_Serf_version =         '1.3.10'        # https://serf.apache.org/download
-local_syslibs_SQLite3_version =      '3.53.2'        # https://www.sqlite.org/
+local_syslibs_SQLite3_version =      '3.53.3'        # https://www.sqlite.org/
 local_syslibs_talloc_version =       '2.4.3'         # https://www.samba.org/ftp/talloc/, PRoot does not work with 2.4.4
 
 #
