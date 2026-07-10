@@ -54,3 +54,10 @@
 ### nano 8.5 for 25.03
 
 -   Trivial version bump from 8.0, but cleaned up the EasyConfig a bit.
+
+
+### nano 9.0 for 26.03
+
+-   Trivial version bump from 8.5.
+
+-   Switched to the new EasyConfig parameters.
