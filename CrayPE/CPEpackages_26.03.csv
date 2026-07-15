@@ -1,5 +1,5 @@
 Package,Version
-CCE,21.0.1
+CCE,21.0.0
 MPICH,9.1.0
 MPIxlate,1.0.9
 DSMML,0.3.1
@@ -25,7 +25,7 @@ craype-dl-plugin-ftr,22.06.1.2
 craype-dl-plugin-py3,24.03.1
 craypkg-gen,1.3.37
 craype,2.7.36
-cpe-prgenv,8.6.0
+cpe-prgenv,8.7.0
 cray-lmod,8.7.60
 modules,3.2.11.8
 HDF5,1.14.3.9
