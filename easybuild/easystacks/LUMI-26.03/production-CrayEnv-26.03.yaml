@@ -1,7 +1,7 @@
 easyconfigs:
   - buildtools-26.03-bootstrap.eb
   - buildtools-python-26.03-systemPython.eb
-  - buildtools-python-26.03-cray-python3.11.eb
+  - buildtools-python-26.03-cray-python3.12.eb
   - syslibs-26.03-static.eb
   - buildtools-26.03.eb
   - systools-26.03.eb
