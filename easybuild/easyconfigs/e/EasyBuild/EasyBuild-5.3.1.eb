@@ -1,7 +1,7 @@
 easyblock = 'Bundle'
 
 local_EasyBuild_version =         '5.3.1'
-local_craypython_version =   '3.11.7'
+local_craypython_version =        '3.12.12'
 
 local_wheel_cray_version     =   '0.45.1'      # wheel      20241123 - Check on https://pypi.org/project/wheel/#history
 local_flit_core_cray_version =   '3.12.0'      # flit_core  20250325 - Check on https://pypi.org/project/flit-core/#history
@@ -260,11 +260,11 @@ exts_default_opts = {
 exts_list = [
     # rich and deps mdurl, pygments and markdown_it_py
     ('mdurl',             '0.1.2',    {}), # https://pypi.org/project/mdurl/
-    ('pygments',          '2.19.2',   {}), # https://pypi.org/project/Pygments/
-    ('markdown_it_py',    '4.0.0',    {'modulename': 'markdown_it'}), # https://pypi.org/project/markdown-it-py/, modulename is markdown_it
-    ('rich',              '14.1.0',   {}), # https://pypi.org/project/rich/
+    #('pygments',          '2.19.2',   {}), # https://pypi.org/project/Pygments/ - 2.19.2 already in cray-python 3.12.12 and cannot uninstall
+    ('markdown_it_py',    '4.2.0',    {'modulename': 'markdown_it'}), # https://pypi.org/project/markdown-it-py/, modulename is markdown_it
+    ('rich',              '15.0.0',   {}), # https://pypi.org/project/rich/
     # Add archspec as it seems easy anyway
-    ('archspec',          '0.2.5',    {}), # https://pypi.org/project/archspec/
+    ('archspec',          '0.2.6',    {}), # https://pypi.org/project/archspec/
     # pycodestyle for --check-style and --check-contrib
     ('pycodestyle',       '2.14.0',   {'source_tmpl': '%(name)s-%(version)s-py2.py3-none-any.whl'}), # https://pypi.org/project/pycodestyle/
 ]
@@ -280,9 +280,9 @@ post_install_cmds = [
     f'sed -i -e \'s|/opt/.*/python|{local_craypython_exe} -E|\' '
            f'-e \'s|import sys|import sys\\nsys.path.append("%(installdir)s/lib/python{local_pyshortver}/site-packages")|\' '
             '%(installdir)s/bin/markdown-it',
-    f'sed -i -e \'s|/opt/.*/python|{local_craypython_exe} -E|\' '
-           f'-e \'s|import sys|import sys\\nsys.path.append("%(installdir)s/lib/python{local_pyshortver}/site-packages")|\' '
-            '%(installdir)s/bin/pygmentize',
+    #f'sed -i -e \'s|/opt/.*/python|{local_craypython_exe} -E|\' '
+    #       f'-e \'s|import sys|import sys\\nsys.path.append("%(installdir)s/lib/python{local_pyshortver}/site-packages")|\' '
+    #        '%(installdir)s/bin/pygmentize',
     f'sed -i -e \'s|/opt/.*/python|{local_craypython_exe} -E|\' '
            f'-e \'s|import sys|import sys\\nsys.path.append("%(installdir)s/lib/python{local_pyshortver}/site-packages")|\' '
             '%(installdir)s/bin/pycodestyle',
@@ -312,7 +312,7 @@ sanity_check_paths = {
 sanity_check_cmds = [
     'unset PYTHONPATH && archspec --version',
     'unset PYTHONPATH && markdown-it --version',
-    'unset PYTHONPATH && pygmentize -V',
+    #'unset PYTHONPATH && pygmentize -V',
     'unset PYTHONPATH && pycodestyle --version',
     'unset PYTHONPATH && eb --version',           # Taken from the EB_EasyBuildMeta EasyBlock
     'unset PYTHONPATH && eb -a',                  # Taken from the EB_EasyBuildMeta EasyBlock
