@@ -23,7 +23,7 @@ then
 	# get replaced with spaces.
     cat <<EOF 1>&2
 
-This script expects 3 and only 3 command line arguments:
+This script expects 2 and only 2 command line arguments:
    * The version of the software stack (CPE version, with the extension .dev for a development stack)
    * A work directory for temporary files
 
@@ -118,7 +118,8 @@ then
 	cpeGNU=( 'C:G:L' )
     cpeCray=( 'C:G:L' )
     cpeAMD=( 'G' )
-    declare -A cpeENV=( ['cpeGNU']=$cpeGNU ['cpeCray']=$cpeCray ['cpeAMD']=$cpeAMD )
+    #declare -A cpeENV=( ['cpeGNU']=$cpeGNU ['cpeCray']=$cpeCray ['cpeAMD']=$cpeAMD )
+    declare -A cpeENV=( ['cpeGNU']=$cpeGNU ['cpeCray']=$cpeCray )
 elif [[ -d '/appl/lumi' ]]
 then
 	#partitions=( 'C' 'G' 'D' 'L' 'EAP' )
@@ -520,7 +521,7 @@ then
 
         ;;
 
-    5.*)
+    5.1.*|5.2.*) # For 25.03 and 25.09
 	# Somehow when using python3.11 from Cray Python we get an incomplete install and I can't
 	# see why for now.
         #usepython=/usr/bin/python3.11
@@ -531,6 +532,26 @@ then
 
         mkdir -p $workdir/easybuild/lib/python3.11/site-packages
         export PYTHONPATH=$workdir/easybuild/lib/python3.11/site-packages$pythonpathpostfix
+        
+        pushd ${EBF_file%.tar.gz}
+        $usepip install --prefix=$workdir/easybuild --no-deps --ignore-installed .
+        cd ../${EBB_file%.tar.gz}
+        $usepip install --prefix=$workdir/easybuild --no-deps --ignore-installed .
+        popd
+
+        ;;
+
+    5.3.*) # For 26.03
+	# Somehow when using python3.11 from Cray Python we get an incomplete install and I can't
+	# see why for now.
+        #usepython=/usr/bin/python3.12
+        #pythonpathpostfix=''
+        usepython=/opt/cray/pe/python/3.12.12/bin/python3.12
+        usepip=/opt/cray/pe/python/3.12.12/bin/pip3.12
+        pythonpathpostfix=':/opt/cray/pe/python/3.12.12'
+
+        mkdir -p $workdir/easybuild/lib/python3.12/site-packages
+        export PYTHONPATH=$workdir/easybuild/lib/python3.12/site-packages$pythonpathpostfix
         
         pushd ${EBF_file%.tar.gz}
         $usepip install --prefix=$workdir/easybuild --no-deps --ignore-installed .
