@@ -22,10 +22,10 @@ def gen_CPE_VisibilityHookData( CPEpackages_dir, VisibilityHookData_dir, version
         nonlocal version_stack
         nonlocal version_alias
         
-        nversion_stack = re.sub( '\D+', '', version_stack )
-        nversion_alias = re.sub( '\D+', '', version_alias )
-        nminv =          re.sub( '\D+', '', minv )
-        nmaxv =          re.sub( '\D+', '', maxv )
+        nversion_stack = re.sub( '\\D+', '', version_stack ) # Delete non-digits (\D)
+        nversion_alias = re.sub( '\\D+', '', version_alias ) # Delete non-digits (\D)
+        nminv =          re.sub( '\\D+', '', minv )          # Delete non-digits (\D)
+        nmaxv =          re.sub( '\\D+', '', maxv )          # Delete non-digits (\D)
         if nversion_stack >= nminv and nversion_stack <= nmaxv and nversion_alias >= nminv and nversion_alias <= nmaxv and PEpackage in package_versions:
             mversion = package_versions[PEpackage]
             fileH.write( f"['{module}']='{mversion}'," )

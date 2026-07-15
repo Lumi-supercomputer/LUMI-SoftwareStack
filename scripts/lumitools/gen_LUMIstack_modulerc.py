@@ -22,10 +22,10 @@ def gen_LUMIstack_modulerc( CPEpackages_dir, modulerc_file, version_stack, versi
         nonlocal version_stack
         nonlocal version_alias
         
-        nversion_stack = re.sub( '\D+', '', version_stack )
-        nversion_alias = re.sub( '\D+', '', version_alias )
-        nminv =    re.sub( '\D+', '', minv )
-        nmaxv =    re.sub( '\D+', '', maxv )
+        nversion_stack = re.sub( '\\D+', '', version_stack ) # Delete non-digits (\D)
+        nversion_alias = re.sub( '\\D+', '', version_alias ) # Delete non-digits (\D)
+        nminv =    re.sub( '\\D+', '', minv )                # Delete non-digits (\D)
+        nmaxv =    re.sub( '\\D+', '', maxv )                # Delete non-digits (\D)
             
         if PEpackage in package_versions['stack'] and PEpackage in package_versions['alias'] and nversion_stack >= nminv and nversion_stack <= nmaxv and nversion_alias >= nminv and nversion_alias <= nmaxv :
             mversion_stack = package_versions['stack'][PEpackage]
