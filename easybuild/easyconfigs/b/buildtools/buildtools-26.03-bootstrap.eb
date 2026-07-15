@@ -106,6 +106,8 @@ build_deps = [
 #    ('Bison', local_Bison_version),  # For Doxygen
 ]
 
+# OS dependencies cause issues in the 26.03 container. Check with `rpm -qa` as
+# names may be different from what you expect.
 os_deps = [
     ('openssl-devel', 'libssl-dev', 'libopenssl-devel'), # For CMake, suse is libopenssl-devel
 ##    ('ncurses-devel'),                                   # For CMake - RE-enable if installed on LUMI.
