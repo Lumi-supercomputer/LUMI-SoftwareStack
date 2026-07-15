@@ -17,4 +17,3 @@ easyconfigs:
 #  - cotainr-2026.03.0-cray-python-3.11.7.eb  # Ready but makes no sense in a containerised environment
   - parallel-20260622.eb
   - lumi-CrayPath-0.1.eb
-  
