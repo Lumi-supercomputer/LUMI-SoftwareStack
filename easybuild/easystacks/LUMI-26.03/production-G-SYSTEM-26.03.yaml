@@ -1,0 +1,3 @@
+easyconfigs:
+  - rocm-7.0.3.eb
+  - amd-7.0.3.eb
