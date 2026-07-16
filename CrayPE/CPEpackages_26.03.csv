@@ -36,9 +36,9 @@ GCC,14
 cray-python,3.12.12
 cray-R,4.4.0
 jemalloc,5.1.0.4
-AOCC,4.1.0
-ROCM,6.4.4
-intel,2024.0
-NVIDIA,23.11
+AOCC,5.0.0
+ROCM,7.0.3
+intel,2025.2.1
+NVIDIA,25.9
 craype-targets,1.18.0
 EasyBuild,5.3.1
