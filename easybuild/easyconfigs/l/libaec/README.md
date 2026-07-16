@@ -35,3 +35,9 @@
 
 -   Trivial port of the EasyConfig for 1.1.4 in 25.09.
 
+-   The download location for libaec has changed though and downloading from it seems to be a pain.
+    For now we download manually. Downloading with wget does not seem to work and EasyBuild also
+    suffers to download.
+
+-   Added the patch used in the EasyBuilders version for optimal compatibility of the
+    installations (basically a binary that without the patch does not get installed).

@@ -3,7 +3,7 @@ easyblock = 'MesonNinja'
 local_xorg_macros_version =  '1.20.2'        # https://cgit.freedesktop.org/xorg/util/macros
 local_craypython_version =   '3.12.12'
 
-local_libpciaccess_version = '0.19'.         # https://cgit.freedesktop.org/xorg/lib/libpciaccess/
+local_libpciaccess_version = '0.19'          # https://cgit.freedesktop.org/xorg/lib/libpciaccess/
 
 local_craypython_maj_min = '.'.join( local_craypython_version.split('.')[:2] )
 
