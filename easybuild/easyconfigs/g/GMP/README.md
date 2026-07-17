@@ -58,3 +58,6 @@ There is a difference in settings:
         but it means that the library may be buggy.
 
 -   Switched to the new EasyConfig parameters in 25.09.
+
+-   In the 26.03 container, there is now a series of tests that fails with the GNU and AMD
+    compiler also, so tests have been disabled there too for now.

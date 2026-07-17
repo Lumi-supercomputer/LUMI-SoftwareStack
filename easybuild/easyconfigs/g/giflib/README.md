@@ -31,5 +31,6 @@
 
 ### Version 6.1.3 from 26.03 on
 
--   The EasyConfig is a trivial port of the 25.09 one.
+-   The EasyConfig is an almost trivial port of the 25.09 one.
 
+-   `gif2rgb` is removed in giflib 6, so the sanity test needed changes.

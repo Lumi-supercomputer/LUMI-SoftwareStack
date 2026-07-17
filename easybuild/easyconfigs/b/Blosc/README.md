@@ -54,3 +54,6 @@
     for compatibility with CMake 4.
 
 -   Switched to the new EasyConfig parameters in 25.09.
+
+-   Did an additional check on what cmake does. Blosc does use LZ4, zlib and ZSTD through
+    internal sources in this build.
