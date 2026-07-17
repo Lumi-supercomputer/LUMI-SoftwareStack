@@ -41,7 +41,11 @@
 
 -   Switched to the new EasyConfig parameters in 25.09.
 
+-   Note that in the EasyBuilders repository, Tcl has libtommath as a dependency. As it is
+    built internally we did not see the need to add this library which we use nowhere
+    else.
 
-### Version 9.0.4 for LUMI/26.03
-
--   Trivial port of the EasyConfig for 9.0.3 in 25.09.
+-   For LUMI/26.03, we tried Tcl 9.0.4, but that didn't build: At some point `tclsh` failed 
+    to find a shared library that was still in the same directory. As there may be more 
+    issues, we did not want to work around it by playing with `LD_LIBRARY_PATH` during
+    the build.

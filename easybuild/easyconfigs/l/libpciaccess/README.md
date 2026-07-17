@@ -37,3 +37,5 @@
 
 -   Trivial port of the EasyConfig for 0.18.1 in 25.09.
 
+-   It turned out that the program picks up a zlib from the system which was not
+    in the dependencies, so that has been corrected.

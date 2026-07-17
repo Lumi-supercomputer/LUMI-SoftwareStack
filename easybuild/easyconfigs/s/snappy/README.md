@@ -22,6 +22,7 @@ This README was developed starting with snappy 1.1.8 in the CPE 21.06.
 
 -   [Support for snappy in the CSCS repository](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/s/snappy)
 
+
 ### 1.1.8 from CPE 21.06 on.
 
 -   We stuck to 1.1.8 even though 1.1.9 was out because in 1.1.9 the build process
@@ -61,3 +62,6 @@ This README was developed starting with snappy 1.1.8 in the CPE 21.06.
 -   Trivial port of the 1.1.10 EasyConfig for 24.03/24.11.
 
 -   Switched to the new EasyConfig parameters in 25.09.
+
+-   When double-checking for 26.03, it was found that snappy also looks for the lz4 libraries, so
+    these were added as a dependency.

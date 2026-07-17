@@ -51,7 +51,7 @@ easyconfigs:
   - MPFR-4.2.2-cpeAOCC-26.03.eb
   - Perl-5.42.0-cpeAOCC-26.03.eb
   - snappy-1.2.2-cpeAOCC-26.03.eb
-  - Tcl-9.0.4-cpeAOCC-26.03.eb
+  - Tcl-9.0.3-cpeAOCC-26.03.eb
   - UDUNITS-2.2.28-cpeAOCC-26.03.eb
 ## Block 3
   - freetype-2.14.3-cpeAOCC-26.03.eb
@@ -92,7 +92,7 @@ easyconfigs:
   - X11-26.03-cpeAOCC-26.03.eb
 ## Block 9
   - FFmpeg-8.1.1-cpeAOCC-26.03.eb
-  - Tk-9.0.4-cpeAOCC-26.03.eb
+  - Tk-9.0.3-cpeAOCC-26.03.eb
 ## Block 10
 ## Block 11
 ## Block 12
