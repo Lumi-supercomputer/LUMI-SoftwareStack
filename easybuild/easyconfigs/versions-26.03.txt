@@ -165,6 +165,7 @@ local_ICU_version =          '78.3'          # http://site.icu-project.org/home
 local_intltool_version =     '0.51.0'        # https://launchpad.net/intltool/+download
 
 local_JasPer_version =       '4.2.9'         # https://github.com/jasper-software/jasper/releases
+local_jbigkit_version =      '2.1'           # https://www.cl.cam.ac.uk/~mgk25/jbigkit/download/
 
 local_LAME_version =         '3.100'         # http://lame.sourceforge.net/
 local_libaec_version =       '1.1.7'         # https://gitlab.dkrz.de/k202009/libaec/-/tags

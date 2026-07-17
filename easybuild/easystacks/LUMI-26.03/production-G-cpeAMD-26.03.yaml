@@ -15,6 +15,7 @@ easyconfigs:
   - GSL-2.8-cpeAMD-26.03-OpenMP.eb
   - gzip-1.14-cpeAMD-26.03.eb
   - ICU-78.3-cpeAMD-26.03.eb
+  - jbigkit-2.1-cpeAMD-26.03.eb
   - libaec-1.1.7-cpeAMD-26.03.eb
   - libb2-0.98.1-cpeAMD-26.03.eb
   - libcerf-3.3-cpeAMD-26.03.eb

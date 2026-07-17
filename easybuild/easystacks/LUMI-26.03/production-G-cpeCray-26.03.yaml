@@ -15,6 +15,7 @@ easyconfigs:
   #- GSL-2.8-cpeCray-26.03-OpenMP.eb
   - gzip-1.14-cpeCray-26.03.eb
   - ICU-78.3-cpeCray-26.03.eb
+  - jbigkit-2.1-cpeCray-26.03.eb
   - libaec-1.1.7-cpeCray-26.03.eb
   - libb2-0.98.1-cpeCray-26.03.eb
   - libcerf-3.3-cpeCray-26.03.eb
