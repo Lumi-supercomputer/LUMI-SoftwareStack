@@ -64,7 +64,7 @@ configure_opts += '-DCMAKE_INSTALL_LIBDIR=lib'
 
 post_install_cmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
-    'cd ../%(namelower)s-v%(version)s-* && cp AUTHORS CHANGELOG.md LICENSE.txt README.md README.SZIP THANKS %(installdir)s/share/licenses/%(name)s',   
+    'cd ../%(namelower)s-v%(version)s && cp AUTHORS CHANGELOG.md LICENSE.txt README.md THANKS %(installdir)s/share/licenses/%(name)s',   
 ]
 
 sanity_check_paths = {

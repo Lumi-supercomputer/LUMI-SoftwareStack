@@ -86,5 +86,8 @@
 
 ### Version 3.2.0 for 26.03
 
--   Trivial port of the 3.1.3 EasyConfig for 25.09.
+-   Almost trivial port of the 3.1.3 EasyConfig for 25.09.
  
+-   The same tests that already failed with the clang-based compilers
+    now also fail with the GNU compilers.
+
