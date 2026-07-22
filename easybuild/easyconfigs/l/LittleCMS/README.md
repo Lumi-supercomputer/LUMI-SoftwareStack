@@ -30,3 +30,6 @@
 ### Version 2.19.1 from 26.03 on
 
 -   Trivial version bump of the 2.17 EasyConfig for 26.03
+
+-   It turns out that the version is reported as major.minor without patchlevel,
+    so the sanity checks needed changes.

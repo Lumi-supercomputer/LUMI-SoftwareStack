@@ -69,3 +69,4 @@
 
 -   Trivial port of the EasyConfig for 8.17.0 in 25.09.
 
+-   Added zstd as an explicit dependency as it was picking the one from the system.
