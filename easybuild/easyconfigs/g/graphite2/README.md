@@ -29,3 +29,5 @@
 ### Version 1.3.15 for cpeGNU 26.03
 
 -   Trivial version bump of the EasyConfig for 25.09.
+
+-   Added freetype as an explicit dependency as it was picking this from the system.

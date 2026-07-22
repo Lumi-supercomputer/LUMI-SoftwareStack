@@ -47,9 +47,13 @@ build_deps = [ # Create a reproducible build environment.
 ]
 
 # https://gitlab.dkrz.de/k202009/libaec/-/archive/v1.0.6/libaec-v1.0.6.tar.bz2
-sources =     [SOURCELOWER_TAR_BZ2]
-source_urls = ['https://gitlab.dkrz.de/k202009/libaec/-/archive/v%(version)s/']
-checksums =   ['c1a08789973fa847a7c7403d75416c174257ecf6c49e74144c0dadbfca7f6976']
+source_urls = ['https://gitlab.dkrz.de/dkrz-sw/%(namelower)s/-/archive/v%(version)s']
+sources =     ['%(name)s-v%(version)s.tar.bz2']
+patches =     ["libaec-1.1.7_install_binary.patch"]
+checksums = [
+    {'libaec-v1.1.7.tar.bz2':             '7cf0034eca8f53449252f2fab863d855aedc0520ceb8d3f3fcd3bd601ce4c85e'},
+    {'libaec-1.1.7_install_binary.patch': '3cf759efef38acbfa93cfac14920cefe54fa660cea513e32d62d973000b06626'},
+]
 
 # Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
 pre_configure_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
@@ -60,7 +64,7 @@ configure_opts += '-DCMAKE_INSTALL_LIBDIR=lib'
 
 post_install_cmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
-    'cd ../%(namelower)s-v%(version)s-* && cp AUTHORS CHANGELOG.md LICENSE.txt README.md README.SZIP THANKS %(installdir)s/share/licenses/%(name)s',   
+    'cd ../%(namelower)s-v%(version)s && cp AUTHORS CHANGELOG.md LICENSE.txt README.md THANKS %(installdir)s/share/licenses/%(name)s',   
 ]
 
 sanity_check_paths = {

@@ -51,11 +51,11 @@ install_opts = "PREFIX=%(installdir)s"
 
 post_install_cmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
-    'cp COPYING NEWS README %(installdir)s/share/licenses/%(name)s',   
+    'cp COPYING NEWS README.adoc %(installdir)s/share/licenses/%(name)s',   
 ]
 
 sanity_check_paths = {
-    'files': ['bin/gif%s' %x for x in ['2rgb', 'build', 'clrmp', 'fix', 'text', 'tool']] + 
+    'files': ['bin/gif%s' %x for x in ['build', 'clrmp', 'fix', 'text', 'tool']] + 
              ['lib/libgif.%s' % x for x in ['a', SHLIB_EXT]],
     'dirs':  []
 }

@@ -16,7 +16,7 @@ easyconfigs:
   - GSL-2.8-cpeGNU-26.03-OpenMP.eb
   - gzip-1.14-cpeGNU-26.03.eb
   - ICU-78.3-cpeGNU-26.03.eb
-  - libaec-1.1.7-cpeGNU-26.03.eb
+#  - libaec-1.1.7-cpeGNU-26.03.eb
   - libb2-0.98.1-cpeGNU-26.03.eb
   - libcerf-3.3-cpeGNU-26.03.eb
   - libdeflate-1.25-cpeGNU-26.03.eb

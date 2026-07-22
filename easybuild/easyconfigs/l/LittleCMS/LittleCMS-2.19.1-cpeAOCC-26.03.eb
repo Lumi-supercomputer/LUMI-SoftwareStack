@@ -23,7 +23,7 @@ with special focus on accuracy and performance.
 toolchain = {'name': 'cpeAOCC', 'version': '26.03'}
 
 # https://sourceforge.net/projects/lcms/files/lcms/2.19.1/lcms2-2.19.1.tar.gz/download
-source_urls = ['https://sourceforge.net/projects/lcms/files/lcms/%s/' % '.'.join(version.split('.')[:2])]
+source_urls = ['https://sourceforge.net/projects/lcms/files/lcms/%(version)s/']
 sources =     ['lcms2-%(version)s.tar.gz']
 checksums =   ['bfc54f7bab59fbc921012014a8032e4cba4abd46db47d46b76416a8c0b2815c8']
 

@@ -15,6 +15,7 @@ easyconfigs:
   #- GSL-2.8-cpeCray-26.03-OpenMP.eb
   - gzip-1.14-cpeCray-26.03.eb
   - ICU-78.3-cpeCray-26.03.eb
+  - jbigkit-2.1-cpeCray-26.03.eb
   - libaec-1.1.7-cpeCray-26.03.eb
   - libb2-0.98.1-cpeCray-26.03.eb
   - libcerf-3.3-cpeCray-26.03.eb
@@ -51,7 +52,7 @@ easyconfigs:
   - MPFR-4.2.2-cpeCray-26.03.eb
   - Perl-5.42.0-cpeCray-26.03.eb
   - snappy-1.2.2-cpeCray-26.03.eb
-  - Tcl-9.0.4-cpeCray-26.03.eb
+  - Tcl-9.0.3-cpeCray-26.03.eb
   - UDUNITS-2.2.28-cpeCray-26.03.eb
 ## Block 3
   - freetype-2.14.3-cpeCray-26.03.eb
@@ -92,7 +93,7 @@ easyconfigs:
   - X11-26.03-cpeCray-26.03.eb
 ## Block 9
   - FFmpeg-8.1.1-cpeCray-26.03.eb
-  - Tk-9.0.4-cpeCray-26.03.eb
+  - Tk-9.0.3-cpeCray-26.03.eb
 ## Block 10
 ## Block 11
 ## Block 12

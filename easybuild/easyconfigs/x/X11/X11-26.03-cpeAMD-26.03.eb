@@ -4,7 +4,7 @@ local_bzip2_version =        '1.0.8'         # http://www.bzip.org/downloads.htm
 local_fontconfig_version =   '2.18.1'        # https://www.freedesktop.org/software/fontconfig/release/ - Fallback to 2.17.1 if needed
 local_freetype_version =     '2.14.3'        # https://download.savannah.gnu.org/releases/freetype/ (Not yet in EB 2025a when checking)
 local_intltool_version =     '0.51.0'        # https://launchpad.net/intltool/+download
-local_libpciaccess_version = '0.19'.         # https://cgit.freedesktop.org/xorg/lib/libpciaccess/
+local_libpciaccess_version = '0.19'          # https://cgit.freedesktop.org/xorg/lib/libpciaccess/
 local_xorg_macros_version =  '1.20.2'        # https://cgit.freedesktop.org/xorg/util/macros
 local_zlib_version =         '1.3.2'         # https://zlib.net/
 local_PCRE2_version =        '10.47'         # https://github.com/PCRE2Project/pcre2/releases  # Not yet in EB 2025a when checked for installation
@@ -124,7 +124,7 @@ components = [ # List taken from the GCCcore 15.2.0 (2026a) common toolchain wit
         'easyblock': 'MesonNinja',
         'sources': ['xkbcommon-%(version)s.tar.gz'],
         'start_dir': 'libxkbcommon-xkbcommon-%(version)s',
-        'checksums': ['0427585a4d6ca17c9fc1ac4b539bf303348e9080af70c5ea402503bc370a9631'],
+        'checksums': ['aeb951964c2f7ecc08174cb5517962d157595e9e3f38fc4a130b91dc2f9fec18'],
         #'pre_configure_opts': '',
         'configure_opts': '-Denable-wayland=false -Denable-docs=false ',
     }),
@@ -254,8 +254,8 @@ components = [ # List taken from the GCCcore 15.2.0 (2026a) common toolchain wit
     }),
     ('xkeyboard-config', '2.47', {  # 2026-02-23
         'easyblock': 'MesonNinja',
-        'sources': [SOURCE_TAR_XZ],
-        'checksums': ['54d2c33eeebb031d48fa590c543e54c9bcbd0f00386ebc6489b2f47a0da4342a'],
+        'sources':   [SOURCE_TAR_XZ],
+        'checksums': ['e59984416a72d58b46a52bfec1b1361aa7d84354628227ee2783626c7a6db6b6'],
         # required to overrule parent pre_configure_opts that runs autogen.sh if configure script is missing
         #'pre_configure_opts': '',
     }),

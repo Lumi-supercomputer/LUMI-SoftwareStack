@@ -55,4 +55,7 @@
 
 ### Version 1.0 from 26.03 on
 
--   Trivial port of the EasyConfigs for 0.26 used in 25.09.
+-   Almost trivial port of the EasyConfigs for 0.26 used in 25.09.
+
+-   There is an issue with implicit function declarations though when using 
+    clang-based compilers.

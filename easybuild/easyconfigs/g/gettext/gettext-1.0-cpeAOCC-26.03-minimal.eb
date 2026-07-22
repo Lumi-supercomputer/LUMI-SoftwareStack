@@ -56,6 +56,7 @@ software_license_urls = [
 ]
 
 toolchain = {'name': 'cpeAOCC', 'version': '26.03'}
+toolchainopts = {'extra_cflags': '-Wno-error=implicit-function-declaration'}
 
 # https://ftp.gnu.org/pub/gnu/gettext/gettext-1.0.tar.xz
 source_urls = [GNU_SOURCE]

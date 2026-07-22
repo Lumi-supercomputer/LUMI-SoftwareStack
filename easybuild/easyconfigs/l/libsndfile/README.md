@@ -79,4 +79,6 @@
 
 -   Switched to the new EasyConfig parameters in 25.09.
 
+-   Made the configure options nicer in 26.03.
+
 

@@ -9,7 +9,7 @@ the HPE Cray Programming Environment as each version of the CPE is developed
 for particular ROCm(tm) versions.
 
 -   The only modules officially supported by the current AMD GPU driver at the
-    time of writing (February 2026) are the `6.2.2`, `6.2.4`, `6.3.4` and `6.4.4` modules. 
+    time of writing (February 2026) are the `6.2.2`, `6.2.4`, `6.3.4`, `6.4.4` and `7.0.3` modules. 
     Older modules may still be present on the system as a full clean-up is
     nearly impossible, but modules older than ROCm(tm) 6.1 will likely not 
     be fully functional and there is nothing the LUMI User Support Team can
@@ -40,6 +40,13 @@ for particular ROCm(tm) versions.
     the SuiteSparse module needs to be **loaded before** the `rocm` module
     or the regular `rocm` module for the toolchain will be used.
 
+-   The `rocm/6.4.4` module is best used with CPE 25.09, where it is the 
+    recommended ROCm(tm) version.
+
+-   The `rocm/7.0.3` module is meant specifically for CPE 26.03. It will not be 
+    compatible with Cray MPICH from earlier CPE versions and may also cause 
+    conflicts with earlier versions of CCE.
+
 Note that using ROCm(tm) in containers is still subject to the same driver
 compatibility problems as when using these modules. 
 Though containers will solve the problem of ROCm(tm) being
@@ -51,7 +58,8 @@ also).
 
 ## Modules with extra debugging and performance profiling tools installed
 
-The `rocm\6.2.4`, `rocm\6.3.4-extras`, `rocm\6.4.4` modules come with extra debugging and performance profiler tools installed.
+The `rocm\6.2.4`, `rocm\6.3.4-extras`, `rocm\6.4.4`  and `rocm/7.0.3` 
+modules come with extra debugging and performance profiler tools installed.
 However, to make sure that in the runtime the libraries are correctly loaded from this module
 and not from `/opt/rocm`, we have hardcoded the correct paths in the module libraries and executables.
 If you need to use the asan or debug versions of the libraries you will have to `LD_PRELOAD`

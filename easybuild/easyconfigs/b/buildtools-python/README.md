@@ -80,4 +80,8 @@ Links for quick checking for version updates:
         switching to an installation from wheel (though as this is a pure Python package, it 
         should not be too hard to do should the need arise)
 
-    -   Scons: Stuck to 4.9.1 as we got strange installation issues when trying 4.10.1.
+    -   Scons: Could install 4.10.1, which did not work during early testing still using Cray
+        Python 3.11.7.
+
+    -   With Cray Python 3.12, installing StrEnum did not work but it looks like we may not need
+        that package anymore?

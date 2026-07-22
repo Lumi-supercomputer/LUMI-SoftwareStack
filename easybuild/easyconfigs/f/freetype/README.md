@@ -5,6 +5,13 @@
 -   [FreeType downloads](https://download.savannah.gnu.org/releases/freetype/)
 
 
+## General notes
+
+-   According to the configuration output, freetype also supports HarfBuzz but that creates 
+    a circular dependency, so freetype would likely have to be split in two if that is
+    possible.
+
+
 ## EasyBuild
 
 -   [freetype in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/f/freetype)

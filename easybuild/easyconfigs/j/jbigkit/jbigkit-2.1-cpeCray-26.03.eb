@@ -1,0 +1,60 @@
+easyblock = 'MakeCp'
+
+local_jbigkit_version =      '2.1'           # https://www.cl.cam.ac.uk/~mgk25/jbigkit/download/
+
+name =    'jbigkit'
+version = local_jbigkit_version
+
+homepage = 'https://www.cl.cam.ac.uk/~mgk25/jbigkit/'
+
+whatis = [
+    'Description: BIG-KIT is a software implementation of the JBIG1 data compression standard (ITU-T T.82)'
+]
+
+description = """
+JBIG-KIT is a software implementation of the JBIG1 data
+compression standard (ITU-T T.82), which was designed for bi-level image
+data, such as scanned documents.  This library is available in portable 
+C code. It is widely used in fax products, printer firmware, printer drivers,
+document management systems and imaging software.
+"""
+
+toolchain = {'name': 'cpeCray', 'version': '26.03'}
+toolchain_opts = {'pic': True}
+
+source_urls = ['https://www.cl.cam.ac.uk/~mgk25/jbigkit/download']
+sources =     [SOURCE_TAR_GZ]
+patches = [
+    '%(name)s-%(version)s_libpath.patch',
+    '%(name)s-%(version)s_shlib.patch',
+]
+checksums = [
+    {'jbigkit-2.1.tar.gz':        'de7106b6bfaf495d6865c7dd7ac6ca1381bd12e0d81405ea81e7f2167263d932'},
+    {'jbigkit-2.1_libpath.patch': '97c88956090097b484fcdb90e12eab82212e67ddc862f035d7c6446a696786ce'},
+    {'jbigkit-2.1_shlib.patch':   '54ae429e8ec949eceee0f902b676f572f1cdfbff46f77c7222acdeafb643a696'},
+]
+
+build_deps = [ # Create a reproducible build environment.
+    ('buildtools', '%(toolchain_version)s', '', True),
+]
+
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+pre_configure_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+pre_build_opts = pre_configure_opts
+
+files_to_copy = [
+    ([f'libjbig/libjbig{x}.{y}' for x in ['85', ''] for y in ['a', SHLIB_EXT, SHLIB_EXT + '.0']], 'lib'),
+    (['libjbig/jbig85.h', 'libjbig/jbig.h', 'libjbig/jbig_ar.h'], 'include'),
+    (['pbmtools/pbmtojbg', 'pbmtools/jbgtopbm'], 'bin'),
+    (['ANNOUNCE', 'CHANGES', 'COPYING'], 'share/licenses/%(name)s'),
+]
+
+sanity_check_paths = {
+    'files': ['lib/libjbig85.a', 'lib/libjbig.a',
+              'bin/pbmtojbg', 'bin/jbgtopbm',
+              'include/jbig.h', 'include/jbig_ar.h',
+              ],
+    'dirs': ['bin', 'include', 'lib']
+}
+
+env_mod_category = 'vis'

@@ -40,7 +40,7 @@ toolchain_opts = {'pic': True}
 # https://github.com/libffi/libffi/releases/download/v3.4.2/libffi-3.4.2.tar.gz
 sources =     [SOURCELOWER_TAR_GZ]
 source_urls = ['https://github.com/libffi/libffi/releases/download/v%(version)s']
-checksums =   ['96fff4e589e3b239d888d9aa44b3ff30693c2ba1617f953925a70ddebcc102b2']
+checksums =   ['f3a3082a23b37c293a4fcd1053147b371f2ff91fa7ea1b2a52e335676bac82dc']
 
 build_deps = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),

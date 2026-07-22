@@ -54,7 +54,7 @@ toolchain = SYSTEM
 
 sources =     [SOURCELOWER_TAR_BZ2]
 source_urls = [GNU_SOURCE]
-checksums =   ['bcdb706d92a9f0a496c05e143d90c26b57e1848f06842c7de419dc3efb56a865']
+checksums =   ['e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855']
 
 os_deps = [
     ('perl')

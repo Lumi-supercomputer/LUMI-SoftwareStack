@@ -175,6 +175,7 @@ better to avoid bugs also).
 | [ICU](http://site.icu-project.org/home) | [EB ICU](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/i/ICU) | / |
 | [intltool](https://launchpad.net/intltool/+download) | [EB intltool](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/i/intltool) | / |
 | [JasPer](https://github.com/jasper-software/jasper/releases) | [ EB JasPer](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/j/JasPer) | [CSCS JasPer](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/j/JasPer) |
+| [jbigkit](https://www.cl.cam.ac.uk/~mgk25/jbigkit/download/) | [EB jbigkit](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/j/jbigkit) | / | / |
 | [LAME](http://lame.sourceforge.net/) | [EB LAME](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/LAME) | [EB CSCS](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/l/LAME) |
 | [libaec](https://gitlab.dkrz.de/k202009/libaec/-/tags) | [EB libaec](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/libaec) | [CSCS libaec](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/l/libaec) |
 | [libarchive](https://github.com/libarchive/libarchive/releases) | [EB libarchive](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/libarchive) | / |
