@@ -80,3 +80,6 @@ in EasyBuild.
 ### Version 8.1.1 for 26.03
 
 -   The EasyConfig is a straightforward port of the 7.1.3 EasyConfig for 26.03.
+
+-   libpostproc is no longer available (confirmed by the EasyConfig in the EasyBuilders
+    repository).
