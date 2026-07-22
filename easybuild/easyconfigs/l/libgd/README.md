@@ -23,3 +23,5 @@
 -   For LUMI/23.12, license information was added to the installation.
 
 -   Switched to the new EasyConfig parameters in 25.09.
+
+-   For 26.03, we added support for TIFF and webp to the EasyConfig.

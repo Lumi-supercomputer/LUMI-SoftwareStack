@@ -2,7 +2,9 @@ easyblock = 'ConfigureMake'
 
 local_fontconfig_version =   '2.18.1'        # https://www.freedesktop.org/software/fontconfig/release/ - Fallback to 2.17.1 if needed
 local_libjpegturbo_version = '3.2.0'         # https://github.com/libjpeg-turbo/libjpeg-turbo/releases
+local_libtiff_version =      '4.7.2'         # https://download.osgeo.org/libtiff/
 local_libpng_version =       '1.6.58'        # http://www.libpng.org/pub/png/libpng.html (Not yet in EB 2025a when checking)
+local_libwebp_version =      '1.6.0'         # https://github.com/webmproject/libwebp/releases
 local_zlib_version =         '1.3.2'         # https://zlib.net/
 
 local_libgd_version =        '2.3.3'         # http://www.libgd.org/
@@ -48,9 +50,11 @@ build_deps = [
 ]
 
 deps = [
-    ('fontconfig',    local_fontconfig_version),
+    ('fontconfig',    local_fontconfig_version),  # Also brings in freetype
     ('libjpeg-turbo', local_libjpegturbo_version),
     ('libpng',        local_libpng_version),
+    ('LibTIFF',       local_libtiff_version),  # Comes in via libwebp anyway, but nice to make explicit
+    ('libwebp',       local_libwebp_version),
     ('zlib',          local_zlib_version),
 ]
 
@@ -59,8 +63,15 @@ pre_configure_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
 pre_build_opts = pre_configure_opts
 pre_install_opts = pre_configure_opts
 
-configure_opts  = "--with-fontconfig=$EBROOTFONTCONFIG --with-jpeg=$EBROOTLIBJPEGMINTURBO "
-configure_opts += "--with-png=$EBROOTLIBPNG --with-zlib=$EBROOTZLIB"
+configure_opts = ' '.join([
+    "--with-zlib=$EBROOTZLIB",
+    "--with-png=$EBROOTLIBPNG",
+    "--with-freetype=$EBROOTFREETYPE",
+    "--with-fontconfig=$EBROOTFONTCONFIG",
+    "--with-jpeg=$EBROOTLIBJPEGMINTURBO",
+    "--with-tiff=$EBROOTLIBTIFF",
+    "--with-webp=$EBROOTLIBWEBP",
+])
 
 post_install_cmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
