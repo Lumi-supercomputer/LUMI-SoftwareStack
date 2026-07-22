@@ -94,3 +94,6 @@ TODO: Problems on eiger likely because the configure process fails to find the p
     so it would slow down the development of the software stack.
 
 -   Switched to the new EasyConfig parameters in 25.09.
+
+-   26.03: cpeAMD version explicitly deleted from the repository as the GLib dependency does
+    not build.
