@@ -53,14 +53,16 @@ sanity_check_paths = {
     'dirs':  ['share/man'],
 }
 
+local_reported_version = '.'.join( local_LittleCMS_version.split('.')[:2] )
+
 sanity_check_cmds = [ # No easy test on the executables themselves though...
-    f'pkg-config --modversion lcms2 | grep -q {local_LittleCMS_version}',
+    f'pkg-config --modversion lcms2 | grep -q {local_reported_version}',
     'pkg-config --libs lcms2 | grep -q llcms2',
-    f'jpgicc   2>&1 | grep -q "LittleCMS {local_LittleCMS_version}"',
-    f'linkicc  2>&1 | grep -q "LittleCMS {local_LittleCMS_version}"',
-    f'psicc    2>&1 | grep -q "LittleCMS {local_LittleCMS_version}"',
-    f'tificc   2>&1 | grep -q "LittleCMS {local_LittleCMS_version}"',
-    f'transicc 2>&1 | grep -q "LittleCMS {local_LittleCMS_version}"',
+    f'jpgicc   2>&1 | grep -q "LittleCMS {local_reported_version}"',
+    f'linkicc  2>&1 | grep -q "LittleCMS {local_reported_version}"',
+    f'psicc    2>&1 | grep -q "LittleCMS {local_reported_version}"',
+    f'tificc   2>&1 | grep -q "LittleCMS {local_reported_version}"',
+    f'transicc 2>&1 | grep -q "LittleCMS {local_reported_version}"',
 ]
 
 env_mod_category = 'vis'
