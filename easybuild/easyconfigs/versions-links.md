@@ -246,7 +246,8 @@ better to avoid bugs also).
 | [x265](http://download.videolan.org/pub/videolan/x265/) | [EB x265](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/x/x265) | [CSCS x265](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/x/x265) |
 | [xterm](https://github.com/ThomasDickey/xterm-snapshots/tags) | / | / | [Use tar.gz](https://github.com/ThomasDickey/xterm-snapshots/tags) |
 | [XZ](https://tukaani.org/xz/#_stable) | [EB XZ](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/x/XZ) | [CSCS XZ](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/x/XZ) |
-| [zlib](https://zlib.net/) | [EB zlib](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/z/zlib) | [CSCS zlib](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/z/zlib) |
+| [zlib (classic)](https://zlib.net/) | [EB zlib](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/z/zlib) | [CSCS zlib](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/z/zlib) |
+| [zlib-ng](https://github.com/zlib-ng/zlib-ng/releases) | [EB zlib-ng](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/z/zlib-ng)/[EB zlib](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/z/zlib) | / |
 | [zstd](https://github.com/facebook/zstd/releases) | [ EB zstd](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/z/zstd) | [CSCS zstd](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/z/zstd) |
 
 
