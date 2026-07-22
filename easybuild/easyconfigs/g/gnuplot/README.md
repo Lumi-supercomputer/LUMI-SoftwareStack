@@ -64,3 +64,6 @@
 ### Version 6.0.4 for 26.03
 
 -   Trivial version bump of the 6.0.3 EasyConfig for 25.09.
+
+-   cpeAMD version explicitly removed as the GLib dependency does not yet build.
+

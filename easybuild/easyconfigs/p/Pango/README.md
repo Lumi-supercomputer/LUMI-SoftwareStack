@@ -61,4 +61,7 @@
 
 ### Version 1.571 for 26.03
 
--   Trivial version update of the EasyConfig for 1.57.0 in 25.09.
+-   Trivial version update of the EasyConfig for 1.57.0 in 25.09.]
+
+-   cpeAMD version explicitly deleted as we lack a working GLib for cpeAMD.
+
