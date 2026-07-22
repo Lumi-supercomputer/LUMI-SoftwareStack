@@ -81,4 +81,6 @@
 ### Version 4.7.2 for LUMI/26.03
 
 -   Trivial version bump of the EasyConfig for 4.7.1 in 25.09.
- 
+
+-   But added jbigkit as a dependency to align with the EasyBuilders configuration for
+    LibTIFF.
