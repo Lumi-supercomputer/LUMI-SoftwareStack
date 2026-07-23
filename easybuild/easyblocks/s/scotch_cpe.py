@@ -1,3 +1,6 @@
+# Adapted for LUMI by Kurt Lust
+# Based on a very old version though from the early EasyBuild 4 days, and then 
+# adapted for EB 5/6.
 ##
 # Copyright 2009-2021 Ghent University
 #
@@ -33,6 +36,7 @@ EasyBuild support for SCOTCH, implemented as an easyblock
 """
 import os
 
+from easybuild.tools.version import VERSION as EB_VERSION # Note that this is already a value that went through LooseVersion
 try:
     from easybuild.tools import LooseVersion
 except ImportError:
@@ -44,7 +48,10 @@ from easybuild.framework.easyconfig import CUSTOM
 from easybuild.tools.build_log import EasyBuildError
 from easybuild.tools.filetools import apply_regex_substitutions, change_dir, copy_dir, copy_file
 from easybuild.tools.filetools import remove_file, write_file
-from easybuild.tools.run import run_cmd
+if EB_VERSION < LooseVersion( '5.0.0' ):
+    from easybuild.tools.run import run_cmd
+else:
+    from easybuild.tools.run import run_shell_cmd
 from easybuild.tools.modules import get_software_root
 
 class EB_SCOTCH_CPE(EasyBlock):
@@ -176,7 +183,10 @@ class EB_SCOTCH_CPE(EasyBlock):
 
         for app in apps:
             cmd = 'make CCS="%s" CCP="%s" CCD="%s" CFLAGS="%s" EXTRA_LD_FLAGS="%s" %s' % (ccs, ccp, ccd, cflags, extra_ld_flags, app)
-            run_cmd(cmd, log_all=True, simple=True)
+            if EB_VERSION < LooseVersion( '5.0.0' ):
+                run_cmd(cmd, log_all=True, simple=True)
+            else:
+                run_shell_cmd(cmd)
 
     def install_step(self):
         """Install by copying files and creating group library file."""
