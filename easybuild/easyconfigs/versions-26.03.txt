@@ -78,7 +78,7 @@ local_syslibs_talloc_version =       '2.4.3'         # https://www.samba.org/ftp
 # systools bundle
 #
 local_systools_GPP_version =          '2.28'         # https://github.com/logological/gpp/releases
-local_systools_htop_version =         '3.5.1'        # https://github.com/htop-dev/htop/releases
+local_systools_htop_version =         '3.5.2'        # https://github.com/htop-dev/htop/releases
 local_systools_pbzip2_version =       '1.1.13'       # http://compression.great-site.net/pbzip2/
 local_systools_libtree_version =      '3.1.1'        # https://github.com/haampie/libtree/releases
 local_systools_tree_version =         '2.3.2'        # https://gitlab.com/OldManProgrammer/unix-tree/-/tags
