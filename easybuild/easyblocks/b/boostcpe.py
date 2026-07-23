@@ -38,16 +38,18 @@ EasyBuild support for Boost, implemented as an easyblock
 @author: Michele Dolfi (ETH Zurich)
 @author: Simon Branford (University of Birmingham)
 """
-try:
-    from easybuild.tools import LooseVersion
-except ImportError:
-    from distutils.version import LooseVersion
 
 import fileinput
 import glob
 import os
 import re
 import sys
+
+from easybuild.tools.version import VERSION as EB_VERSION # Note that this is already a value that went through LooseVersion
+try:
+    from easybuild.tools import LooseVersion
+except ImportError:
+    from distutils.version import LooseVersion
 
 import easybuild.tools.toolchain as toolchain
 from easybuild.framework.easyblock import EasyBlock
@@ -56,7 +58,10 @@ from easybuild.tools.build_log import EasyBuildError, print_msg
 from easybuild.tools.config import ERROR
 from easybuild.tools.filetools import apply_regex_substitutions, read_file, symlink, which, write_file
 from easybuild.tools.modules import get_software_root, get_software_version
-from easybuild.tools.run import run_cmd
+if EB_VERSION < LooseVersion( '5.0.0' ):
+    from easybuild.tools.run import run_cmd
+else:
+    from easybuild.tools.run import run_shell_cmd
 from easybuild.tools.systemtools import AARCH64, POWER, UNKNOWN
 from easybuild.tools.systemtools import get_cpu_architecture, get_glibc_version, get_shared_lib_ext
 
@@ -186,7 +191,10 @@ class EB_BoostCPE(EasyBlock):
         # Now bootstrap the build process (build b2)
         cmd = "%s ./bootstrap.sh --with-toolset=%s --prefix=%s %s"
         tup = (self.cfg['preconfigopts'], toolset, self.installdir, self.cfg['configopts'])
-        run_cmd(cmd % tup, log_all=True, simple=True)
+        if EB_VERSION < LooseVersion( '5.0.0' ):
+            run_cmd(cmd % tup, log_all=True, simple=True)
+        else:
+            run_shell_cmd(cmd % tup)
 
 
         user_config = []
@@ -328,7 +336,11 @@ class EB_BoostCPE(EasyBlock):
             self.paracmd,
             self.cfg['buildopts'],
         ])
-        run_cmd(cmd, log_all=True, simple=True)
+        if EB_VERSION < LooseVersion( '5.0.0' ):
+            run_cmd(cmd, log_all=True, simple=True)
+        else:
+            run_shell_cmd(cmd)
+
 
     def install_step(self):
         """Install Boost by copying files to install dir."""
@@ -344,7 +356,10 @@ class EB_BoostCPE(EasyBlock):
             self.paracmd,
             self.cfg['installopts'],
         ])
-        run_cmd(cmd, log_all=True, simple=True)
+        if EB_VERSION < LooseVersion( '5.0.0' ):
+            run_cmd(cmd, log_all=True, simple=True)
+        else:
+            run_shell_cmd(cmd)
 
         if self.cfg['tagged_layout']:
             if LooseVersion(self.version) >= LooseVersion("1.69.0") or not self.cfg['single_threaded']:
