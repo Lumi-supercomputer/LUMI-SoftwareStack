@@ -46,7 +46,10 @@ import re
 from distutils.version import LooseVersion
 
 from easybuild.tools.version import VERSION as EB_VERSION # Note that this is already a value that went through LooseVersion
-from easybuild.tools import LooseVersion
+try:
+    from easybuild.tools import LooseVersion
+except ImportError:
+    from distutils.version import LooseVersion
 
 import easybuild.tools.systemtools as systemtools
 from easybuild.tools.build_log import EasyBuildError
