@@ -31,6 +31,12 @@ Adapted for Cray system
 """
 import os
 
+from easybuild.tools.version import VERSION as EB_VERSION # Note that this is already a value that went through LooseVersion
+try:
+    from easybuild.tools import LooseVersion
+except ImportError:
+    from distutils.version import LooseVersion
+
 import easybuild.tools.environment as env
 import easybuild.tools.toolchain as toolchain
 from easybuild.easyblocks.generic.configuremake import ConfigureMake
@@ -38,7 +44,10 @@ from easybuild.framework.easyblock import EasyBlock
 from easybuild.framework.easyconfig import CUSTOM
 from easybuild.tools.build_log import EasyBuildError
 from easybuild.tools.modules import get_software_root
-from easybuild.tools.run import run_cmd
+if EB_VERSION < LooseVersion( '5.0.0' ):
+    from easybuild.tools.run import run_cmd
+else:
+    from easybuild.tools.run import run_shell_cmd
 from easybuild.tools.systemtools import get_shared_lib_ext
 
 
@@ -163,7 +172,10 @@ class esmfcray(ConfigureMake):
 
         # 'make info' provides useful debug info
         cmd = ' '.join( [ self.cfg['preconfigopts'], 'make info'] )
-        run_cmd(cmd, log_all=True, simple=True, log_ok=True)
+        if EB_VERSION < LooseVersion( '5.0.0' ):
+            run_cmd(cmd, log_all=True, simple=True, log_ok=True)
+        else:
+            run_shell_cmd(cmd)
 
     def sanity_check_step(self):
         """Custom sanity check for ESMF."""
