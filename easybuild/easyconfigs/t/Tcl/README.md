@@ -45,7 +45,21 @@
     built internally we did not see the need to add this library which we use nowhere
     else.
 
--   For LUMI/26.03, we tried Tcl 9.0.4, but that didn't build: At some point `tclsh` failed 
-    to find a shared library that was still in the same directory. As there may be more 
-    issues, we did not want to work around it by playing with `LD_LIBRARY_PATH` during
-    the build.
+
+### Version 9.0.4 for LUMI/26.03
+
+-   Porting the EasyConfig was a little problematic:
+
+    -   We needed to implement the changes used in the EasyBuilders version for 9.0.3 to use an 
+        internal zlib library as somehow the build process tried to use the header files from
+        both the internal one and the external one, which did cause conflicts as these are 
+        different versions.
+
+    -   Moreover, halfway the build process, a second step tries to use the `tclsh` command built
+        in the first step, but cannot find it. To get that to work, two steps were needed:
+
+        -   Add `'TCLSH_NATIVE=$PWD/tclsh'` to the arguments of the `configure` command so that 
+            it finds a working tclsh and
+
+        -   Also set `'LD_LIBRARY_PATH=$PWD:$LD_LIBRARY_PATH'` in the `pre_build_opts` so that 
+            that `tclsh` command also finds its shared library.
