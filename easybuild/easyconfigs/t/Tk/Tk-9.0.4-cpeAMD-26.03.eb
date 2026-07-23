@@ -1,10 +1,10 @@
 # contributed by Luca Marsella (CSCS)
 easyblock = 'ConfigureMake'
 
-local_Tcl_version =          '9.0.3'         # https://tcl.tk/
+local_Tcl_version =          '9.0.4'         # https://tcl.tk/
 local_zlib_version =         '2.3.3'         # https://github.com/zlib-ng/zlib-ng/releases
 
-local_Tk_version =           '9.0.3'         # https://tcl.tk/
+local_Tk_version =           '9.0.4'         # https://tcl.tk/
 
 name =    'Tk'
 version = local_Tk_version
@@ -27,13 +27,13 @@ software_license_urls = [
     'https://tcl.tk/software/tcltk/license.html',
 ]
 
-toolchain = {'name': 'cpeCray', 'version': '26.03'}
+toolchain = {'name': 'cpeAMD', 'version': '26.03'}
 
-# https://downloads.sourceforge.net/project/tcl/Tcl/9.0.3/tk9.0.3-src.tar.gz
+# https://downloads.sourceforge.net/project/tcl/Tcl/9.0.4/tk9.0.4-src.tar.gz
 source_urls = ["https://downloads.sourceforge.net/project/tcl/Tcl/%(version)s"]
 sources =     ['%(namelower)s%(version)s-src.tar.gz']
 checksums =   [
-    {'tk9.0.3-src.tar.gz': 'bf344efadb618babb7933f69275620f72454d1c8220130da93e3f7feb0efbf9b'},
+    {'tk9.0.4-src.tar.gz': 'd7a146d2917eb8b5cc95276dbf0e3d03c7464d2b19c1675357857c989301dbb4'},
 ]
 
 build_deps = [ # Create a reproducible build environment.
@@ -48,8 +48,8 @@ deps = [
 
 start_dir = 'unix'
 
-# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
-pre_configure_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+# Doesn't need MPI or BLAS, and module unload never fails so this is safe.
+pre_configure_opts = 'module unload cray-libsci cray-mpich xpmem && '
 pre_build_opts = pre_configure_opts
 pre_test_opts = pre_configure_opts
 pre_install_opts = pre_configure_opts

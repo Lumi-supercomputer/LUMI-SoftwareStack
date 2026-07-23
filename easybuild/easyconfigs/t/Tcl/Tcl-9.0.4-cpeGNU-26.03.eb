@@ -2,8 +2,7 @@
 # Adapted by Kurt Lust (kurt.lust@uantwerpen.be) for the LUMI consortium
 easyblock = 'ConfigureMake'
 
-local_zlib_version =         '2.3.3'         # https://github.com/zlib-ng/zlib-ng/releases
-local_Tcl_version =          '9.0.3'         # https://tcl.tk/
+local_Tcl_version =          '9.0.4'         # https://tcl.tk/
 
 name =    'Tcl'
 version = local_Tcl_version
@@ -24,19 +23,15 @@ software_license_urls = [
     'https://tcl.tk/software/tcltk/license.html',
 ]
 
-toolchain = {'name': 'cpeAOCC', 'version': '26.03'}
+toolchain = {'name': 'cpeGNU', 'version': '26.03'}
 
-# https://downloads.sourceforge.net/project/tcl/Tcl/9.0.3/tcl9.0.3-src.tar.gz
+# https://downloads.sourceforge.net/project/tcl/Tcl/9.0.4/tcl9.0.4-src.tar.gz
 source_urls = ['https://downloads.sourceforge.net/project/%(namelower)s/%(name)s/%(version)s']
 sources =     ['%(namelower)s%(version)s-src.tar.gz']
-checksums =   ['2537ba0c86112c8c953f7c09d33f134dd45c0fb3a71f2d7f7691fd301d2c33a6']
+checksums =   ['d0aed49230bc02a65c1e0229e65f34590a4b037ec40d546f32573b467f7551ea']
 
 build_deps = [ # Create a reproducible build environment.
     ('buildtools',   '%(toolchain_version)s',   '', True),
-]
-
-deps = [
-    ('zlib', local_zlib_version),
 ]
 
 # Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
@@ -44,8 +39,22 @@ pre_configure_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
 pre_build_opts = pre_configure_opts
 pre_test_opts = pre_configure_opts
 pre_install_opts = pre_configure_opts
+# Fix: The tclsh command used during the second step in the internal build process does
+# not find its shared library that has also just been built./
+pre_build_opts += 'LD_LIBRARY_PATH=$PWD:$LD_LIBRARY_PATH'
 
-configure_opts = 'EXTRA_INSTALL="install-private-headers"'
+configure_opts = ' '.join([
+    # Fix: Second step in the build process does not find the tclsh built during
+    # the first step
+    'TCLSH_NATIVE=$PWD/tclsh',
+    # Taken from the EasyBuilders recipe
+    'EXTRA_INSTALL="install-private-headers"',
+    # Avoid picking up a system tclsh, taken from the EasyBuilders recipe
+    'ac_cv_path_tclsh=no',
+    # Use internal minizip and zlib libraries, since using external ones
+    # causes conflicts between header files. Taken from the EasyBuilders recipe
+    'ac_cv_header_zlib_h=no ac_cv_path_zip=no',
+])
 
 start_dir = 'unix'
 

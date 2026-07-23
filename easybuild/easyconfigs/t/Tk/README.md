@@ -48,3 +48,9 @@
 -   Adapted the list of files to copy to the licenses directory.
 
 -   Library names have also changed, requiring changes to the sanity checks.
+
+
+### Version 9.0.4 for 26.03
+
+-   The EasyConfig is a trivial port of the 9.0.3 one for 25.09.
+
