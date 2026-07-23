@@ -18,7 +18,7 @@ whatis = [
 ]
 
 local_systools_GPP_version =          '2.28'         # https://github.com/logological/gpp/releases
-local_systools_htop_version =         '3.5.1'        # https://github.com/htop-dev/htop/releases
+local_systools_htop_version =         '3.5.2'        # https://github.com/htop-dev/htop/releases
 local_systools_pbzip2_version =       '1.1.13'       # http://compression.great-site.net/pbzip2/
 local_systools_libtree_version =      '3.1.1'        # https://github.com/haampie/libtree/releases
 local_systools_tree_version =         '2.3.2'        # https://gitlab.com/OldManProgrammer/unix-tree/-/tags
@@ -142,11 +142,11 @@ components = [
     }),
     ('htop', local_systools_htop_version, {
         'easyblock':            'ConfigureMake',
-        'sources':              [ { # https://github.com/htop-dev/htop/releases/download/3.3.0/htop-3.3.0.tar.xz
+        'sources':              [ { # https://github.com/htop-dev/htop/releases/download/3.5.2/htop-3.5.2.tar.xz
                                     'filename':          SOURCE_TAR_XZ,
                                     'source_urls':       [f'https://github.com/htop-dev/htop/releases/download/{local_systools_htop_version}']
                                 } ],
-        'checksums':            ['526cecd62870aa8d14d2a79a35ea197e4e2b5317d275b567cee0574b2ddb2e9a'],
+        'checksums':            ['225128e697c4a8c8a878fd0078c965ff8bd5fb24913bfc8473b8edbd50f843f8'],
         'start_dir':            '%(name)s-%(version)s',
         'pre_configure_opts':   'CFLAGS="-O2 -march=znver1" CXXFLAGS="-O2 -march=znver1" LDFLAGS="-L$EBROOTNCURSES/lib" ',
         #'configure_opts':      '--enable-static --enable-unicode --enable-affinity',
