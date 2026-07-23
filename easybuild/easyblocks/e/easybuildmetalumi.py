@@ -32,6 +32,7 @@ import os
 import re
 import sys
 
+from easybuild.tools.version import VERSION as EB_VERSION # Note that this is already a value that went through LooseVersion
 try:
     from easybuild.tools import LooseVersion
 except ImportError:
@@ -121,7 +122,7 @@ class EB_EasyBuildMetaLUMI(PythonPackage):
         except OSError as err:
             raise EasyBuildError("Failed to install EasyBuild packages: %s", err)
 
-    def post_install_step(self):
+    def _post_processing_step(self):
         """Remove setuptools.pth file that hard includes a system-wide (site-packages) path, if it is there."""
 
         setuptools_pth = os.path.join(self.installdir, self.pylibdir, 'setuptools.pth')
@@ -138,6 +139,13 @@ class EB_EasyBuildMetaLUMI(PythonPackage):
                     raise EasyBuildError("Failed to remove %s: %s", setuptools_pth, err)
                 
         super(EB_EasyBuildMetaLUMI, self).post_install_step()
+
+    if EB_VERSION < LooseVersion( '5.0.0' ):
+        def post_install_step(self):
+            self._post_processing_step()
+    else:
+        def post_processing_step(self):
+            self._post_processing_step()
 
     def sanity_check_step(self):
         """Custom sanity check for EasyBuild."""

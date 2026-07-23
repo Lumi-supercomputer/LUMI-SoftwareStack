@@ -192,8 +192,7 @@ class EB_rocmrpms(Bundle):
 
         super(EB_rocmrpms, self).__init__(*args, **kwargs)
 
-    def post_install_step(self, *args, **kwargs):
-        super(EB_rocmrpms, self).post_install_step(*args, **kwargs)
+    def _post_processing_step(self):
 
         if self.cfg.get('pkg_config'):
             self.log.info('Creating pkg-config file...')
@@ -241,6 +240,19 @@ class EB_rocmrpms(Bundle):
                 run_shell_cmd(postinstall_script)
 
             self.log.info('Finished running post-install script')
+
+
+    if EB_VERSION < LooseVersion( '5.0.0' ):
+        def post_install_step(self, *args, **kwargs):
+            super(EB_rocmrpms, self).post_install_step(*args, **kwargs)
+
+            self._post_processing_step()
+    else:
+        def post_processing_step(self, *args, **kwargs):
+            super(EB_rocmrpms, self).post_processing_step(*args, **kwargs)
+
+            self._post_processing_step()
+
 
     def make_module_extra(self, *args, **kwargs):
         """Extra statements to include in module file: update $PYTHONPATH."""
