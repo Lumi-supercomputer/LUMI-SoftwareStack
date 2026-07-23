@@ -1,7 +1,7 @@
 easybuild_version = '5.0.0'
 easyblock = 'ConfigureMake'
 
-local_parallel_version =     '20260622'      # https://ftp.gnu.org/gnu/parallel/ (Not yet in EB 2025a when checking)
+local_parallel_version =     '20260722'      # https://ftp.gnu.org/gnu/parallel/ (Not yet in EB 2025a when checking)
 
 # The two lines below are a dirty trick not very much loved by the EasyBuild developers but
 # it helps to make this EasyConfig independent of the LUMI software stack version as there is
@@ -54,7 +54,7 @@ toolchain = SYSTEM
 
 sources =     [SOURCELOWER_TAR_BZ2]
 source_urls = [GNU_SOURCE]
-checksums =   ['e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855']
+checksums =   ['afe4b572a4334aac3a002a080ad618249f00b84d7659d03e77412727d18f1ad6']
 
 os_deps = [
     ('perl')
