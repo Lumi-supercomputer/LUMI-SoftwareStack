@@ -1,0 +1,53 @@
+easyblock = 'CMakeMake'
+
+local_libaom_version =       '3.14.1'        # https://aomedia.googlesource.com/aom/
+
+name =    'libaom'
+version = local_libaom_version
+
+homepage = 'https://aomedia.googlesource.com/aom/'
+
+whatis = [
+    'Description: Alliance for Open Media AV1 codec'
+]
+
+description = """
+This module provides the Alliance for Open Media AV1 codec.
+"""
+
+toolchain = {'name': 'cpeCray', 'version': '26.03'}
+
+sources = [{
+    'filename': SOURCELOWER_TAR_XZ,
+    'git_config': {
+        'url':       'https://aomedia.googlesource.com',
+        'repo_name': 'aom',
+        'tag':       'v%(version)s',
+    }
+}]
+checksums = ['0729d53d375b27da50654e86ab5e95de3e8ddcfda6a1adb9657c6861cb7c6afe']
+
+build_deps = [
+    ('buildtools', '%(toolchain_version)s', '', True), # For CMake and Yasm
+]
+
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+pre_configure_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+pre_build_opts = pre_configure_opts
+
+configure_opts = [
+    '-DBUILD_SHARED_LIBS=OFF', 
+    '-DBUILD_SHARED_LIBS=ON'
+]
+
+sanity_check_paths = {
+    'files': ['bin/aomdec', 'bin/aomenc', 'lib/libaom.a', f'lib/libaom.{SHLIB_EXT}'],
+    'dirs':  [],
+}
+
+sanity_check_cmds = [
+    'aomdec --help',
+    'aomenc --help',
+]
+
+env_mod_category = 'lib'

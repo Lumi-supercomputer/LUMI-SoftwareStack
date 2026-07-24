@@ -1,0 +1,44 @@
+easyblock = 'MesonNinja'
+
+local_OpenH264_version =     '2.6.0'         # https://github.com/cisco/openh264/releases
+
+name =    'OpenH264'
+version = local_OpenH264_version
+
+homepage = 'https://github.com/cisco/openh264'
+
+description = 'Open Source H.264 Codec'
+
+toolchain = {'name': 'cpeGNU', 'version': '26.03'}
+
+source_urls = ['https://github.com/cisco/openh264/archive/refs/tags/']
+sources =     [V_VERSION_TAR_GZ]
+checksums =   ['558544ad358283a7ab2930d69a9ceddf913f4a51ee9bf1bfb9e377322af81a69']
+
+build_deps = [
+    ('buildtools', '%(toolchain_version)s', '', True),                     # For NASM and ninja
+    ('buildtools-python', '%(toolchain_version)s', '-systemPython', True), # For Meson
+]
+
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+pre_configure_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+pre_build_opts = pre_configure_opts
+
+configure_opts = '-Ddefault_library=both'
+
+post_install_cmds = [
+    'mkdir -p %(installdir)s/share/licenses/%(name)s',
+    'cd ../%(namelower)s-%(version)s && cp LICENSE README.md RELEASES SECURITY.md %(installdir)s/share/licenses/%(name)s',   
+]
+
+sanity_check_paths = {
+    'files': ['lib/libopenh264.a', f'lib/libopenh264.{SHLIB_EXT}'],
+    'dirs':  ['include/wels'],
+}
+
+sanity_check_commands = [
+    'pkg-config --libs openh264'
+]
+
+
+env_mod_category = 'lib'

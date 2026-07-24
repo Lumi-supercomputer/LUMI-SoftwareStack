@@ -3,7 +3,9 @@
 # in that case.
 easyblock = 'CMakeMake'
 
+local_libheif_version =      '1.23.1'        # https://github.com/strukturag/libheif/releases
 local_libjpegturbo_version = '3.2.0'         # https://github.com/libjpeg-turbo/libjpeg-turbo/releases
+
 local_JasPer_version =       '4.2.9'         # https://github.com/jasper-software/jasper/releases
 
 name =    'JasPer'
@@ -64,7 +66,8 @@ build_deps = [ # Create a reproducible build environment.
 ]
 
 deps = [
-    ('libjpeg-turbo', local_libjpegturbo_version),
+    ('libjpeg-turbo', local_libjpegturbo_version), # Brought in by libheif also, but want to make it explicit.
+    ('libheif',       local_libheif_version),
 ]
 
 separate_build_dir = True

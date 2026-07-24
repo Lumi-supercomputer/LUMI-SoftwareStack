@@ -1,0 +1,62 @@
+# This file is an EasyBuild reciPY as per https://github.com/easybuilders/easybuild
+# Author: Denis Kristak
+easyblock = 'CMakeMake'
+
+local_libde265_version =     '1.1.1'         # https://github.com/strukturag/libde265/releases
+
+name =    'libde265'
+version = local_libde265_version
+
+homepage = 'https://github.com/strukturag/libde265'
+
+whatis = [
+    'Description: libde265 is an open source implementation of the h.265 video codec'
+]
+
+description = """
+Libde265 is an open source implementation of the h.265 video codec. It is 
+written from scratch and has a plain C API to enable a simple integration
+into other software.
+
+Libde265 supports WPP and tile-based multithreading and includes SSE
+optimizations. The decoder includes all features of the Main profile and
+correctly decodes almost all conformance streams
+"""
+
+toolchain = {'name': 'cpeCray', 'version': '26.03'}
+
+source_urls = ['https://github.com/strukturag/libde265/releases/download/v%(version)s/']
+sources =     [SOURCE_TAR_GZ]
+checksums =   ['fd48a927e94ed74fc7ce8829d222b9d8599fcbfe8b6448ba66705babc56ab219']
+
+build_deps = [
+    ('buildtools', '%(toolchain_version)s', '', True), # For CMake
+]
+
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+pre_configure_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+pre_build_opts = pre_configure_opts
+
+local_libde265_opts = ' -DENABLE_DECODER=ON -DENABLE_SDL=OFF'
+
+configure_opts = [
+    '-DBUILD_SHARED_LIBS=OFF' + local_libde265_opts,
+    '-DBUILD_SHARED_LIBS=ON'  + local_libde265_opts
+]
+
+post_install_cmds = [
+    'mkdir -p %(installdir)s/share/licenses/%(name)s',
+    'cd ../%(namelower)s-%(version)s && cp AUTHORS COPYING NEWS README README.md SECURITY.md %(installdir)s/share/licenses/%(name)s',
+]
+
+sanity_check_paths = {
+    'files': ['bin/dec265', 'lib/libde265.a', f'lib/libde265.{SHLIB_EXT}', 'lib/pkgconfig/libde265.pc'],
+    'dirs':  ['include/libde265', 'lib/cmake/libde265'],
+}
+
+sanity_check_cmds = [
+    'dec265 --help',
+    'pkg-config --libs libde265'
+]
+
+env_mod_category = 'tools'
