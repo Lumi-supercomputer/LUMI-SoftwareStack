@@ -169,14 +169,18 @@ local_jbigkit_version =      '2.1'           # https://www.cl.cam.ac.uk/~mgk25/j
 
 local_LAME_version =         '3.100'         # http://lame.sourceforge.net/
 local_libaec_version =       '1.1.7'         # https://gitlab.dkrz.de/k202009/libaec/-/tags
+local_libaom_version =       '3.14.1'        # https://aomedia.googlesource.com/aom/
 local_libarchive_version =   '3.8.8'         # https://github.com/libarchive/libarchive/releases
 local_libatomic_version =    '7.10.0'        # https://github.com/ivmai/libatomic_ops/releases (with gc)
 local_libb2_version =        '0.98.1'        # https://github.com/BLAKE2/libb2/releases
 local_libcerf_version =      '3.3'           # https://jugit.fz-juelich.de/mlz/libcerf/-/releases
+local_libde265_version =     '1.1.1'         # https://github.com/strukturag/libde265/releases
 local_libdeflate_version =   '1.25'          # https://github.com/ebiggers/libdeflate/releases
 local_libevent_version =     '2.1.13'        # https://libevent.org/
 local_libffi_version =       '3.5.2'         # https://sourceware.org/libffi/
 local_libgd_version =        '2.3.3'         # http://www.libgd.org/
+local_libgeotiff_version =   '1.7.4'         # https://github.com/OSGeo/libgeotiff/releases
+local_libheif_version =      '1.23.1'        # https://github.com/strukturag/libheif/releases
 local_libiconv_version =     '1.19'          # https://ftp.gnu.org/pub/gnu/libiconv/
 local_libidn2_version =      '2.3.8'         # https://ftp.gnu.org/gnu/libidn/
 local_libidn_version =       '1.43'          # https://ftp.gnu.org/gnu/libidn/
@@ -215,6 +219,7 @@ local_ncurses_version =      '6.6'           # https://ftp.gnu.org/pub/gnu/ncurs
 local_nlohmannjson_version = '3.12.0'        # https://github.com/nlohmann/json/releases
 
 local_oneTBB_version =       '2022.3.0'      # https://github.com/uxlfoundation/oneTBB/releases
+local_OpenH264_version =     '2.6.0'         # https://github.com/cisco/openh264/releases
 local_OpenJPEG_version =     '2.5.4'         # https://github.com/uclouvain/openjpeg/releases
 
 local_Pango_version =        '1.57.1'        # http://ftp.gnome.org/pub/GNOME/sources/pango/

@@ -58,4 +58,7 @@
 
 ### Version 4.2.9 from 26.03 on
 
--   Trivial port of the EasyConfig for 4.2.8 in 25.09.
+-   Started as a trivial port of the EasyConfig for 4.2.8 in 25.09.
+
+-   However, we added support for the HEIC image format which pulled in a lot of
+    additional dependencies, moving this package to the back of the build chain.

@@ -1,0 +1,71 @@
+easyblock = 'ConfigureMake'
+
+local_libgeotiff_version =   '1.7.4'         # https://github.com/OSGeo/libgeotiff/releases
+
+local_cURL_version =         '8.21.0'        # https://curl.haxx.se/download/ - Newer than 2026.1?
+local_PROJ_version =         '9.8.1'         # https://proj.org/download.html
+local_SQLite_version =       '3.53.3'        # https://www.sqlite.org/
+local_libjpegturbo_version = '3.2.0'         # https://github.com/libjpeg-turbo/libjpeg-turbo/releases
+local_libtiff_version =      '4.7.2'         # https://download.osgeo.org/libtiff/
+local_zlib_version =         '2.3.3'         # https://github.com/zlib-ng/zlib-ng/releases
+
+name =    'libgeotiff'
+version = local_libgeotiff_version
+
+homepage = 'https://directory.fsf.org/wiki/Libgeotiff'
+
+whatis = [
+    'Description: libgeotiff is a library for reading and writing coordinate system information from/to GeoTIFF files'    
+]
+
+description = """
+'libgeotiff' is a library (normally built on top of libtiff) for reading and 
+writing coordinate system information from/to GeoTIFF files. It includes CSV 
+files for expanding projected coordinate system codes into full projections, 
+and definitions and examples of transforming the definitions into a form that 
+can be used with the PROJ.4 projections library. It also includes the sample 
+applications listgeo (for dumping GeoTIFF information in readable form) and 
+geotifcp (for applying geotiff tags to an existing TIFF or GeoTIFF file).
+"""
+
+toolchain = {'name': 'cpeCray', 'version': '26.03'}
+
+source_urls = ['https://download.osgeo.org/geotiff/libgeotiff']
+sources =     [SOURCE_TAR_GZ]
+checksums =   ['c598d04fdf2ba25c4352844dafa81dde3f7fd968daa7ad131228cd91e9d3dc47']
+
+build_deps = [
+    ('buildtools',         '%(toolchain_version)s', '', True),
+    ('craype-network-none', EXTERNAL_MODULE),
+]
+
+deps = [
+    ('PROJ',          local_PROJ_version),
+    ('libjpeg-turbo', local_libjpegturbo_version),
+    ('zlib',          local_zlib_version),
+    ('SQLite',        local_SQLite_version),
+    ('LibTIFF',       local_libtiff_version),
+    ('cURL',          local_cURL_version),
+]
+
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+pre_configure_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+pre_build_opts = pre_configure_opts
+
+configure_opts  = '--with-libtiff=$EBROOTLIBTIFF --with-proj=$EBROOTPROJ --with-zlib=$EBROOTZLIB '
+configure_opts += '--with-jpeg=$EBROOTLIBJPEGMINTURBO '
+
+post_install_cmds = [
+    # The tricky bit: Some applications use the include file geotiff/geotiff.h instead of geotiff.h.
+    'mkdir -p %(installdir)s/include/geotiff',
+    'cd %(installdir)s/include ; for file in $(/bin/ls -1 *.h *.inc); do ln -s ../$file geotiff/$file; done',
+    # Copy license information
+    'mkdir -p %(installdir)s/share/licenses/libgeotiff && cp -f LICENSE %(installdir)s/share/licenses/libgeotiff/LICENSE',
+]
+
+sanity_check_paths = {
+    'files': ['bin/listgeo', 'lib/libgeotiff.a', 'lib/libgeotiff.%s' % SHLIB_EXT, 'share/licenses/libgeotiff/LICENSE'],
+    'dirs':  ['include', 'share/man/man1'],
+}
+
+env_mod_category = 'lib'

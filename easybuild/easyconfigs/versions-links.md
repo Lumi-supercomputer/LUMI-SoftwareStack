@@ -178,15 +178,19 @@ better to avoid bugs also).
 | [jbigkit](https://www.cl.cam.ac.uk/~mgk25/jbigkit/download/) | [EB jbigkit](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/j/jbigkit) | / | / |
 | [LAME](http://lame.sourceforge.net/) | [EB LAME](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/LAME) | [EB CSCS](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/l/LAME) |
 | [libaec](https://gitlab.dkrz.de/k202009/libaec/-/tags) | [EB libaec](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/libaec) | [CSCS libaec](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/l/libaec) |
+| [libaom web page](https://aomedia.googlesource.com/aom/) | [EB libaom](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/libaom) | / | / |
 | [libarchive](https://github.com/libarchive/libarchive/releases) | [EB libarchive](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/libarchive) | / |
 | [libatomic](https://github.com/ivmai/libatomic_ops/releases) | / | / |
 | [libb2](https://github.com/BLAKE2/libb2/releases) | / | / |
 | [libcerf](https://jugit.fz-juelich.de/mlz/libcerf/-/releases) | [ EB libcerf](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/libcerf) | [CSCS libcerf](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/l/libcerf) |
+| [libde265](https://github.com/strukturag/libde265/releases) | [EB libde265](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/libde265) | / | / |
 | [libdeflate](https://github.com/ebiggers/libdeflate/releases) | [EB libdeflate](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/libdeflate) | / |
 | [libevent](https://libevent.org/) | [EB libevent](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/libevent) | [CSCS libevent](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/l/libevent) |
 | [libffi](https://sourceware.org/libffi/) | [EB libffi](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/libffi) | [CSCS libffi](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/l/libffi) | [Better use github](https://github.com/libffi/libffi/releases) |
 | [libgd](http://www.libgd.org/) | [EB libgd](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/libgd) | [CSCS libgd](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/l/libgd) |
+| [libgeotiff](https://github.com/OSGeo/libgeotiff) | [EB libgeotiff](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/libgeotiff) | / | / |
 | [libiconv](https://ftp.gnu.org/pub/gnu/libiconv/) | [EB libiconv](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/libiconv) | / |
+| [libheif](https://github.com/strukturag/libheif/releases) | [EB libheif](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/libheif) | / | / |
 | [libidn](https://ftp.gnu.org/gnu/libidn/) | [EB libidn](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/libidn) | / |
 | [libidn2](https://ftp.gnu.org/gnu/libidn/) | [EB libidn2](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/libidn2) | / |
 | [libjpeg-turbo](https://github.com/libjpeg-turbo/libjpeg-turbo/releases) | [EB libjpeg-turbo](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/libjpeg-turbo) | [CSCS libjpeg-turbo](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/l/libjpeg-turbo) |
@@ -221,6 +225,7 @@ better to avoid bugs also).
 | [ncurses](https://ftp.gnu.org/pub/gnu/ncurses/) | [EB ncurses](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/n/ncurses) | [CSCS ncurses](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/n/ncurses) |
 | [nlohmann-json](https://github.com/nlohmann/json/releases) | [EB nlo...](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/n/nlohmann_json) | / |  |
 | [oneTBB](https://github.com/uxlfoundation/oneTBB/releases) | [EB tbb](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/t/tbb) | / |  |
+| [OpenH264](https://github.com/cisco/openh264/releases) | [EB OpenH264](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/o/OpenH264) | / | / |
 | [OpenJPEG](https://github.com/uclouvain/openjpeg) | [EB OpenJPEG](https://github.com/easybuilders/easybuild-easyconfigs/tree/main/easybuild/easyconfigs/o/OpenJPEG) | / |   |
 | [Pango](https://download.gnome.org/sources/pango/) | [EB Pango](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/p/Pango) | / |
 | [ParMETIS](https://karypis.github.io/glaros/software/metis/overview.html#parmetis---parallel-graph-partitioning-and-fill-reducing-matrix-ordering) | [EB ParMETIS](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/p/ParMETIS) | [CSCS ParMETIS](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/p/ParMETIS) |
