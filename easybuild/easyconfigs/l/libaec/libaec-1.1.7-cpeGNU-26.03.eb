@@ -3,12 +3,12 @@
 # for the LUMI consortium.
 easyblock = 'CMakeMake'
 
-local_libaec_version =       '1.1.7'         # https://gitlab.dkrz.de/k202009/libaec/-/tags
+local_libaec_version =       '1.1.7'         # https://github.com/Deutsches-Klimarechenzentrum/libaec/releases
 
 name =    'libaec'
 version = local_libaec_version
 
-homepage = 'https://gitlab.dkrz.de/k202009/libaec'
+homepage = 'https://github.com/Deutsches-Klimarechenzentrum/libaec'
 
 whatis = [
     'Description: libaec - Adaptive Entropy Coding Library (lossless compression)'
@@ -36,7 +36,7 @@ doc_urls = [
 ]
 
 software_license_urls = [
-    f'https://gitlab.dkrz.de/k202009/libaec/-/blob/v{version}/LICENSE.txt',
+    f'https://github.com/Deutsches-Klimarechenzentrum/libaec/blob/v%(version)s/LICENSE.txt',
 ]
 
 toolchain = {'name': 'cpeGNU', 'version': '26.03'}
@@ -46,12 +46,12 @@ build_deps = [ # Create a reproducible build environment.
     ('buildtools',   '%(toolchain_version)s',   '', True), # For CMake among others.
 ]
 
-# https://gitlab.dkrz.de/dkrz-sw/libaec/-/archive/v1.1.7/libaec-v1.1.7.tar.bz2
-source_urls = ['https://gitlab.dkrz.de/dkrz-sw/%(namelower)s/-/archive/v%(version)s']
-sources =     ['%(name)s-v%(version)s.tar.bz2']
+# https://github.com/Deutsches-Klimarechenzentrum/libaec/releases/download/v1.1.7/libaec-1.1.7.tar.gz
+source_urls = ['https://github.com/Deutsches-Klimarechenzentrum/libaec/releases/download/v%(version)s']
+sources =     ['%(name)s-%(version)s.tar.gz']
 patches =     ["libaec-1.1.7_install_binary.patch"]
 checksums = [
-    {'libaec-v1.1.7.tar.bz2':             '7cf0034eca8f53449252f2fab863d855aedc0520ceb8d3f3fcd3bd601ce4c85e'},
+    {'libaec-1.1.7.tar.gz':              'cc7b93be9002e25a88b45d6b8d5f6120756cb5e1000613f91d803ce0beba24d9'},
     {'libaec-1.1.7_install_binary.patch': '3cf759efef38acbfa93cfac14920cefe54fa660cea513e32d62d973000b06626'},
 ]
 
@@ -64,7 +64,7 @@ configure_opts += '-DCMAKE_INSTALL_LIBDIR=lib'
 
 post_install_cmds = [
     'mkdir -p %(installdir)s/share/licenses/%(name)s',
-    'cd ../%(namelower)s-v%(version)s && cp AUTHORS CHANGELOG.md LICENSE.txt README.md THANKS %(installdir)s/share/licenses/%(name)s',   
+    'cd ../%(namelower)s-%(version)s && cp AUTHORS CHANGELOG.md LICENSE.txt README.md THANKS %(installdir)s/share/licenses/%(name)s',   
 ]
 
 sanity_check_paths = {

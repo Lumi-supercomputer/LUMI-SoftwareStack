@@ -2,6 +2,10 @@
 
 -   [libaec web site / gitlab](https://gitlab.dkrz.de/k202009/libaec)
 
+-   [libaec on GitHub](https://github.com/Deutsches-Klimarechenzentrum/libaec)
+
+    -   [GitHub downloads](https://github.com/Deutsches-Klimarechenzentrum/libaec/releases) (currently recommended)
+
 
 ## EasyBuild
 
@@ -35,12 +39,13 @@
 
 -   Almost trivial port of the EasyConfig for 1.1.4 in 25.09.
 
--   The download location for libaec has changed though and downloading from it seems to be a pain.
-    For now we download manually. Downloading with wget does not seem to work and EasyBuild also
-    suffers to download.
+-   The old download location does not work anymore. DKRZ recommended to switch to
+    downloads from GitHub as the new download location on the old site is not reliable
+    when using automated downloads.
 
 -   Added the patch used in the EasyBuilders version for optimal compatibility of the
     installations (basically a binary that without the patch does not get installed).
 
 -   Needed to correct the copying of some files to the licenses area as the directory name
     of the unpacked sources has changed and as one of the files is no longer there.
+
