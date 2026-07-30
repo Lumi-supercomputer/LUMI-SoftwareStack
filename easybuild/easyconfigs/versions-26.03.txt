@@ -254,3 +254,4 @@ local_xterm_version =        '410'           # https://github.com/ThomasDickey/x
 local_XZ_version =           '5.8.3'         # https://tukaani.org/xz/
 
 local_zlib_version =         '2.3.3'         # https://github.com/zlib-ng/zlib-ng/releases
+local_zstd_version =         '1.5.7'         # https://github.com/facebook/zstd/releases
