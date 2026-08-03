@@ -798,6 +798,7 @@ local mapT =
         -- ['modules/spack/']                        = 'Spack managed software for software stack _STACK_ on _PARTITION_',
         -- ['modules/manual/system']                 = 'Manually installed system-wide software',
         -- ['modules/manual/']                       = 'Manually installed software for software stack _STACK_ on _PARTITION_',
+        ['modules/craype%-targets']               = 'HPE-Cray PE target modules',
         ['cray/pe/.*/craype%-targets']            = 'HPE-Cray PE target modules',
         ['cray/pe/.*/core']                       = 'HPE-Cray PE modules',
         ['modules/CrayOverwrite/core']            = 'HPE-Cray PE modules',

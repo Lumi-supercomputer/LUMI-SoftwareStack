@@ -115,16 +115,23 @@ then
 fi
 
 #
-# Link the style modules
+# Link the init-lumi module
 #
-# We simply link the directory.
+# We simply link the directory. The defaults are set in LMOD/modulerc.lua
 #
 create_link "$installroot/$repo/modules/init-lumi" "$installroot/modules/init-$repo/init-lumi"
 
 #
-# Link the init-lumi module
+# Link the additional target module(s)
 #
-# We simply link the directory. The defaults are set in LMOD/modulerc.lua
+# We simply link the directory.
+#
+create_link "$installroot/$repo/modules/CrayMissing/craype-targets" "$installroot/modules/craype-targets"
+
+#
+# Link the style modules
+#
+# We simply link the directory.
 #
 create_link "$installroot/$repo/modules/StyleModifiers" "$installroot/modules/StyleModifiers"
 
