@@ -62,3 +62,4 @@
 
 -   Trivial version bump of the 3.51.1 EasyConfig for 25.09.
 
+-   Needed to explicitly enable the `rtree` extension for GDAL.

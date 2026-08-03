@@ -68,6 +68,8 @@ deps = [
 pre_configure_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
 pre_build_opts = pre_configure_opts
 
+configure_opts = '--rtree' # Needed for GDAL
+
 # enable additional APIs that provide access to meta-data about tables and queries
 # needed for GDAL when it used as a dep for QGIS
 build_opts = 'CC="$CC" CFLAGS="$CFLAGS -DSQLITE_ENABLE_COLUMN_METADATA"'
