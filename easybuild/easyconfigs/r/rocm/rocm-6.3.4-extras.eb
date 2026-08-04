@@ -349,7 +349,7 @@ modextravars = {
   'CRAY_AMD_COMPILER_VERSION' : '%(version)s',
 }
 
-local_version_major_minor = '.'.join( version.split('.') )
+local_version_major_minor = '.'.join( version.split('.')[:2] )
 
 modextrapaths = {
     'CMAKE_PREFIX_PATH' : 'lib/lib/cmake/hip',
