@@ -70,4 +70,18 @@ Links for quick checking for version updates:
     
 -   We stuck to the same version of SCons as in 25.03 as the newer version required 
     a newer version of some setup tools in Cray Python (likely setuptools).
-    
+
+
+### 26.03
+
+-   Port of 25.09 with some version updates, but for the Cray Python version:
+
+    -   Meson 1.11.1 is not available as a source distribution so we stuck to 1.10.0 rather than
+        switching to an installation from wheel (though as this is a pure Python package, it 
+        should not be too hard to do should the need arise)
+
+    -   Scons: Could install 4.10.1, which did not work during early testing still using Cray
+        Python 3.11.7.
+
+    -   With Cray Python 3.12, installing StrEnum did not work but it looks like we may not need
+        that package anymore?

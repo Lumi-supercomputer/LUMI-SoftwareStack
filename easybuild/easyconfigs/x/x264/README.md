@@ -35,4 +35,5 @@ versions on the home page so we simply follow the state in EasyBuild.
 ### Version 20250831 from CPE 25.09 on
 
 -   Trivial port of the EasyConfig for 20250619 for 25.03.
-    
+
+-   Switched to the new EasyConfig parameters in 25.09.

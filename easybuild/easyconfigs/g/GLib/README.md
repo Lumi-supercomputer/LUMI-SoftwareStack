@@ -80,3 +80,13 @@
 
 -   Trivial port of the EasyConfig for 2.85.1 in 25.03.
 
+-   Switched to the new EasyConfig parameters in 25.09.
+
+
+### Version 2.89.1 for LUMI/26.03
+
+-   Trivial port f the EasyConfig for 2.87.0 in 25.09.
+
+-   It still seems impossible to get the cpeAMD version to work. Linking fails with the
+    strange error that libamdhip64 cannot be found. It looks a lot like this might be 
+    an issue with Meson which is being used to configure this package.

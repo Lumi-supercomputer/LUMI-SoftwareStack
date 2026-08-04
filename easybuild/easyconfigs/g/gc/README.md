@@ -48,3 +48,5 @@
 
 -   Trivial version bump of the 8.2.6 EasyConfig.
 
+-   Switched to the new EasyConfig parameters in 25.09.
+

@@ -58,9 +58,21 @@ Early Access Platform can compile their code from the login node.
     debug symbols also. However, the libraries for the address sanitizer and 
     debug symbols need to be activated with `LD_PRELOAD`.
 
+-   6.4.4 version is made specifically for the Cray PE 25.09.
+
 -   Documentation:
 
     -   [ROCm 6.2.4 documentation](https://rocm.docs.amd.com/en/docs-6.2.4/)
     -   [ROCm 6.3.4 documentation (6.3.3 as this is the closest available)](https://rocm.docs.amd.com/en/docs-6.3.3/)
     -   [ROCm 6.4.4 documentation (6.4.3 as this is the closest available)](https://rocm.docs.amd.com/en/docs-6.4.3/)
 
+
+### 7.0.3
+
+-   Made specifically for the Cray PE 26.03.
+
+-   As previous ROCm Easyconfigs, but with support for the address sanitizer and 
+    debug symbols also. However, the libraries for the address sanitizer and 
+    debug symbols need to be activated with `LD_PRELOAD`.
+
+-   Documentation: [ROCm 7.0.3 documentation (7.0.2 as this is the closest available)](https://rocm.docs.amd.com/en/docs-7.0.3/)

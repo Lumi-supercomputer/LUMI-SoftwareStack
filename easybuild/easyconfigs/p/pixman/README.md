@@ -29,3 +29,5 @@
 
 -   For 25.09, we needed to add the `'extra_cflags': '-Wno-error=implicit-function-declaration'`
     toolchain option to the cpeAMD version also.
+
+-   Switched to the new EasyConfig parameters in 25.09.

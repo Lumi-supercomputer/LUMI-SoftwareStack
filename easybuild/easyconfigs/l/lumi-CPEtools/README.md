@@ -107,3 +107,5 @@ for the CrayEnv software stack.
 ### Version 1.2-cpe*-hpcat-0.9
 
 -   Direct port of the EasyConfig for 1.2a, but decided to make the version of hpcat explicit in the suffix.
+
+-   Switched to the new EasyConfig parameters in 25.09.

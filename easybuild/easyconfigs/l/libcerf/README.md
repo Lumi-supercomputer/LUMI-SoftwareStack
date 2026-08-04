@@ -47,3 +47,5 @@
 
 -   Disabling running `pkg-config` for now as the structure of the .pc-file is not
     compatible with the command on LUMI.
+
+-   Switched to the new EasyConfig parameters in 25.09.

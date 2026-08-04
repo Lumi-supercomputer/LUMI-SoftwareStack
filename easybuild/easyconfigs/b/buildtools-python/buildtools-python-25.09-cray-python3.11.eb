@@ -14,9 +14,9 @@
 # for which some packages may want to use toolchain-specific versions. These
 # packages should then just assure that module is loaded after buildtools.
 #
-#DOC Tools for use in LUMI/25.03 or on CrayEnv when the LUMI/25.03 stack is also on the system.
+#DOC Tools for use in LUMI/25.09 or on CrayEnv when the LUMI/25.09 stack is also on the system.
 #
-#LUMISTACK 25.03
+#LUMISTACK 25.09
 #
 easyblock = 'Bundle'
 

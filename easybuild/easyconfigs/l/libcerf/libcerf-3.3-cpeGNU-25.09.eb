@@ -40,6 +40,8 @@ toolchain_opts = {'pic': True}
 # https://jugit.fz-juelich.de/mlz/libcerf/-/archive/v3.3/libcerf-v3.3.tar.bz2
 sources =     [ '%(name)s-v%(version)s.tar.bz2' ]
 source_urls = [ 'https://jugit.fz-juelich.de/mlz/libcerf/-/archive/v%(version)s' ]
+# Note that if you do a fresh download, you get another checksum. But we want to use
+# the same download we already had...
 checksums =   [ '6177829f3ebbe52970aa784de2de68d0e2a450e6d20eb78f4d14f6f2b6119572' ]
 
 build_deps = [ # Create a reproducible build environment.

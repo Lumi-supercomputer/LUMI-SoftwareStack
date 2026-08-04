@@ -39,3 +39,27 @@
 -   Switched to a download site that supports https and has one level of redirect 
     less before offering the source file.
 
+-   Switched to the new EasyConfig parameters in 25.09.
+
+-   Note that in the EasyBuilders repository, Tcl has libtommath as a dependency. As it is
+    built internally we did not see the need to add this library which we use nowhere
+    else.
+
+
+### Version 9.0.4 for LUMI/26.03
+
+-   Porting the EasyConfig was a little problematic:
+
+    -   We needed to implement the changes used in the EasyBuilders version for 9.0.3 to use an 
+        internal zlib library as somehow the build process tried to use the header files from
+        both the internal one and the external one, which did cause conflicts as these are 
+        different versions.
+
+    -   Moreover, halfway the build process, a second step tries to use the `tclsh` command built
+        in the first step, but cannot find it. To get that to work, two steps were needed:
+
+        -   Add `'TCLSH_NATIVE=$PWD/tclsh'` to the arguments of the `configure` command so that 
+            it finds a working tclsh and
+
+        -   Also set `'LD_LIBRARY_PATH=$PWD:$LD_LIBRARY_PATH'` in the `pre_build_opts` so that 
+            that `tclsh` command also finds its shared library.

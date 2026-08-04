@@ -42,3 +42,5 @@
     
 -   Because of this we do not follow the 2025a toolchain as that one still uses an unpatched
     8.2.
+
+-   Switched to the new EasyConfig parameters in 25.09.

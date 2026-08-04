@@ -62,3 +62,5 @@ of the library that SCons generates.
 ### 3.4.0 from 25.09 on
 
 -   Trivial version bump of the 3.3.1 EasyConfig for 25.03.
+
+-   Switched to the new EasyConfig parameters.

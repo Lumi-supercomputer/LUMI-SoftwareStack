@@ -2,11 +2,20 @@ import os
 import re
 import stat
 
+from easybuild.tools.version import VERSION as EB_VERSION # Note that this is already a value that went through LooseVersion
+try:
+    from easybuild.tools import LooseVersion
+except ImportError:
+    from distutils.version import LooseVersion
+
 from easybuild.easyblocks.generic.bundle import Bundle
 from easybuild.tools.build_log import EasyBuildError
 from easybuild.tools.filetools import download_file, mkdir, write_file, read_file, symlink, adjust_permissions, apply_regex_substitutions
 from easybuild.tools.systemtools import get_shared_lib_ext
-from easybuild.tools.run import run_cmd
+if EB_VERSION < LooseVersion( '5.0.0' ):
+    from easybuild.tools.run import run_cmd
+else:
+    from easybuild.tools.run import run_shell_cmd
 from easybuild.framework.easyconfig import CUSTOM
 
 try:
@@ -183,8 +192,7 @@ class EB_rocmrpms(Bundle):
 
         super(EB_rocmrpms, self).__init__(*args, **kwargs)
 
-    def post_install_step(self, *args, **kwargs):
-        super(EB_rocmrpms, self).post_install_step(*args, **kwargs)
+    def _post_processing_step(self):
 
         if self.cfg.get('pkg_config'):
             self.log.info('Creating pkg-config file...')
@@ -226,9 +234,25 @@ class EB_rocmrpms(Bundle):
 
             write_file(postinstall_script, self.cfg.get('postinstall_script'))
             adjust_permissions(postinstall_script, stat.S_IXUSR)
-            run_cmd(postinstall_script, log_all=True, simple=True)
+            if EB_VERSION < LooseVersion( '5.0.0' ):
+                run_cmd(postinstall_script, log_all=True, simple=True)
+            else:
+                run_shell_cmd(postinstall_script)
 
             self.log.info('Finished running post-install script')
+
+
+    if EB_VERSION < LooseVersion( '5.0.0' ):
+        def post_install_step(self, *args, **kwargs):
+            super(EB_rocmrpms, self).post_install_step(*args, **kwargs)
+
+            self._post_processing_step()
+    else:
+        def post_processing_step(self, *args, **kwargs):
+            super(EB_rocmrpms, self).post_processing_step(*args, **kwargs)
+
+            self._post_processing_step()
+
 
     def make_module_extra(self, *args, **kwargs):
         """Extra statements to include in module file: update $PYTHONPATH."""

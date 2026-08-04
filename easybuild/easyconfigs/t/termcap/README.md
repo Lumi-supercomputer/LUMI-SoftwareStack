@@ -34,4 +34,5 @@ to find the required functionality in ncurses.
 
 -   For the GNU compilers in CPE 25.03, we also needed to set the language standard
     explicitly to `c90`.    
-    
+
+-   Switched to the new EasyConfig parameters in 25.09.

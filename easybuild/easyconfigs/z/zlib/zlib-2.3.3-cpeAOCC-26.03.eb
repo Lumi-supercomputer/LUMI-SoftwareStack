@@ -1,0 +1,73 @@
+# Contributed by Kurt Lust, LUMI project & UAntwerpen
+#DOC Version based on zlib-ng code, including both the compatibility and regular interfaces.
+easyblock = 'CMakeMake'
+
+local_zlib_version =         '2.3.3'         # https://github.com/zlib-ng/zlib-ng/releases
+
+name =    'zlib'
+version = local_zlib_version
+
+homepage = 'https://github.com/zlib-ng/zlib-ng'
+
+whatis = [
+    'Description: Free lossless data-compression library, not covered by any patents.',
+    'This package provides static and shared libraries compiled with the Intel compilers'
+]
+
+description = """
+This module actually provides zlib-ng, with both the compatibility and the
+new interface libraries. The compatibility libraries should be a direct 
+replacement for the classic zlib libraries offered in 25.09 and earlier versions
+of the LUMI software stack. 
+
+The code is a fork of the original zlib library, with many performance-enhancing
+features and using modern processor features. Many of the enhancements are based
+on code from Intel and Cloudflare.
+"""
+
+toolchain = {'name': 'cpeAOCC', 'version': '26.03'}
+toolchain_opts = {'pic': True}
+
+# https://github.com/zlib-ng/zlib-ng/archive.2.3.3.tar.gz
+source_urls = ['https://github.com/zlib-ng/zlib-ng/archive']
+sources =     [{'download_filename': '%(version)s.tar.gz', 'filename': 'zlib-ng-%(version)s.tar.gz'}]
+checksums =   ['f9c65aa9c852eb8255b636fd9f07ce1c406f061ec19a2e7d508b318ca0c907d1']
+
+build_deps = [ # Create a reproducible build environment.
+    ('buildtools', '%(toolchain_version)s', '', True),
+]
+
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+pre_configure_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+pre_build_opts = pre_configure_opts
+
+configopts = [
+    '-DZLIB_COMPAT=OFF -DINSTALL_UTILS=ON',
+    '-DZLIB_COMPAT=ON'
+]
+
+post_install_cmds = [
+    'mkdir -p %(installdir)s/share/licenses/%(name)s',
+    'cd ../zlib-ng-%(version)s && cp LICENSE.md %(installdir)s/share/licenses/%(name)s',   
+]
+
+sanity_check_paths = {
+    'files': ['include/zconf.h', 'include/zlib.h', 'lib/libz.a', 'lib/libz.%s' % SHLIB_EXT,
+              'include/zconf-ng.h', 'include/zlib-ng.h', 'lib/libz-ng.a', 'lib/libz-ng.%s' % SHLIB_EXT,
+              f'share/licenses/{name}/LICENSE.md'],
+    'dirs':  [],
+}
+
+sanity_check_cmds = [
+    'pkg-config --libs zlib-ng',
+    'pkg-config --libs zlib',
+    'minigzip --help',
+    'minideflate --help',
+]
+
+env_mod_extra_vars = {
+    'EBROOTZLIBMINNG':    '%(installdir)s',
+    'EBVERSIONZLIBMINNG': version,
+}
+
+env_mod_category = 'lib'

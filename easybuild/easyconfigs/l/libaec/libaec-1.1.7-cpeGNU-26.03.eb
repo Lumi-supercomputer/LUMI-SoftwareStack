@@ -1,0 +1,76 @@
+# Contributed by Matthias Kraushaar and Luca Marsella (CSCS)
+# Modified for use on LUMI by Kurt Lust (kurt.lust@uantwerpen.be)
+# for the LUMI consortium.
+easyblock = 'CMakeMake'
+
+local_libaec_version =       '1.1.7'         # https://github.com/Deutsches-Klimarechenzentrum/libaec/releases
+
+name =    'libaec'
+version = local_libaec_version
+
+homepage = 'https://github.com/Deutsches-Klimarechenzentrum/libaec'
+
+whatis = [
+    'Description: libaec - Adaptive Entropy Coding Library (lossless compression)'
+]
+
+description = """
+Libaec, the Adaptive Entropy Coding library,  provides fast lossless compression
+of 1 up to 32 bit wide signed or unsigned integers (samples). The library
+achieves best results for low entropy data as often encountered in space imaging
+instrument data or numerical model output from weather or climate simulations. While
+floating point representations are not directly supported, they can also be
+efficiently coded by grouping exponents and mantissa.
+
+
+*****************  SZIP compatibility ***********************
+Libaec includes a free drop-in replacement for the SZIP library (http://www.hdfgroup.org/doc_resource/SZIP).
+Just replace SZIP's shared library libsz.so* with libaec.so* and libsz.so* from libaec.
+Code which is dynamically linked with SZIP such as HDF5 should continue to work with libaec.
+No re-compilation required. HDF5 files which contain SZIP encoded data can be decoded by HDF5
+using libaec and vice versa.
+"""
+
+doc_urls = [
+    'man page for aec in section 1',
+]
+
+software_license_urls = [
+    f'https://github.com/Deutsches-Klimarechenzentrum/libaec/blob/v%(version)s/LICENSE.txt',
+]
+
+toolchain = {'name': 'cpeGNU', 'version': '26.03'}
+toolchain_opts = {'pic': 'True'}
+
+build_deps = [ # Create a reproducible build environment.
+    ('buildtools',   '%(toolchain_version)s',   '', True), # For CMake among others.
+]
+
+# https://github.com/Deutsches-Klimarechenzentrum/libaec/releases/download/v1.1.7/libaec-1.1.7.tar.gz
+source_urls = ['https://github.com/Deutsches-Klimarechenzentrum/libaec/releases/download/v%(version)s']
+sources =     ['%(name)s-%(version)s.tar.gz']
+patches =     ["libaec-1.1.7_install_binary.patch"]
+checksums = [
+    {'libaec-1.1.7.tar.gz':              'cc7b93be9002e25a88b45d6b8d5f6120756cb5e1000613f91d803ce0beba24d9'},
+    {'libaec-1.1.7_install_binary.patch': '3cf759efef38acbfa93cfac14920cefe54fa660cea513e32d62d973000b06626'},
+]
+
+# Doesn't need MPI, ROCm or BLAS, and module unload never fails so this is safe.
+pre_configure_opts = 'module unload cray-libsci cray-mpich rocm xpmem && '
+pre_build_opts = pre_configure_opts
+
+configure_opts  = '-DAEC_FUZZING=OFF ' # OFF is the default, this is just to stress we use the default configuration.
+configure_opts += '-DCMAKE_INSTALL_LIBDIR=lib'
+
+post_install_cmds = [
+    'mkdir -p %(installdir)s/share/licenses/%(name)s',
+    'cd ../%(namelower)s-%(version)s && cp AUTHORS CHANGELOG.md LICENSE.txt README.md THANKS %(installdir)s/share/licenses/%(name)s',   
+]
+
+sanity_check_paths = {
+    'files': ['lib/lib%s.%s' % (x, y) for x in ['aec', 'sz'] for y in ['a', SHLIB_EXT]] +
+             [f'share/licenses/{name}/LICENSE.txt'],
+    'dirs':  ['lib', 'include'],
+}
+
+env_mod_category = 'data'

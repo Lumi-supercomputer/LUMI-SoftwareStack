@@ -62,5 +62,14 @@
 
 ### Version 12.2.0 for 25.09
 
--   Trivial version bump of the 11.2.1 EasyConfig for 25.09.
+-   Trivial version bump of the 11.2.1 EasyConfig for 25.03.
 
+-   Switched to the new EasyConfig parameters.
+
+
+### Version 14.2.1 for 26.03
+
+-   Trivial version bump of the 12.2.0 EasyConfig for 25.09.
+
+-   cpeAMD version explicitly deleted as it does not compile as we still have issues
+    with GLib with Meson.

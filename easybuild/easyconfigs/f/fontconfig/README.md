@@ -45,3 +45,10 @@
 ### Version 2.17.0 from 25.09 on
 
 -   Trivial version bump of the 2.16.2 EasyConfig in 25.03.
+
+-   Switched to the new EasyConfig parameters in 25.09.
+
+
+### Version 2.18.1 from 26.03 on
+
+-   Trivial version bump of the 2.17.0 EasyConfig for 25.09.

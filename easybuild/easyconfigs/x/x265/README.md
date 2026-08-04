@@ -35,3 +35,10 @@
 
 -   It turns out that x265 is not compatible with CMake 4, so we had to prepare a special
     version of buildtools for now.
+
+-   Switched to the new EasyConfig parameters in 25.09.
+
+
+### Version 4.2 from 25.09 on
+
+-   Trivial port of the EasyConfig for 4.1 in 25.09.

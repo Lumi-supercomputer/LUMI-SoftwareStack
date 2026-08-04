@@ -166,3 +166,9 @@ The current content is
 ### 25.03-2 and 25.09-2
 
 -   Adding the `lstopo` command with ROCm support to the module.
+
+
+### 26.03
+
+-   Trivial version updates startiong from 25.09-2.
+

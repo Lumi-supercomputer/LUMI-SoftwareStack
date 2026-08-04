@@ -38,3 +38,5 @@
 ### Version 2.3.8 from 25.09 on
 
 -   Trivial port of the 2.3.7 EasyConfig for 25.03.
+
+-   Switched to the new EasyConfig parameters.

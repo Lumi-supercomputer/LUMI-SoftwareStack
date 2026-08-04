@@ -91,3 +91,16 @@ cluster).
 -   Straightforward update of the EasyConfig for 2.49.0.
 
 -   But we did switch to the new set of EasyConfig parameters to prepare for EasyBuild 6.
+
+
+### Git 2.54.0 for 26.03
+
+-   Straightforward update of the EasyConfig for 2.53.0.
+
+-   Version 2.55.0 had just come out, but this version causes issues as it now requires Rust by default.
+
+    -   The `configure` script does not have a way to turn off Rust, ot it should be undocumented.
+
+    -   The Meson configuration path is said to have an option to disable the use of Rust, but as this
+        also requires a substantial rework of the EasyBuild recipe, it was not done.
+

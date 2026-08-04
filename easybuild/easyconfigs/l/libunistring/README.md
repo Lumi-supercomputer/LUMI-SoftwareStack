@@ -37,3 +37,9 @@
 
 -   Trivial update of the EasyConfig for 1.3 in 25.03.
 
+-   Switched to the new EasyConfig parameters.
+
+
+### 1.4.2 from 26.03 on
+
+-   Trivial update of the EasyConfig for 1.4.1 in 26.03.

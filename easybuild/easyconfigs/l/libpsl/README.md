@@ -33,3 +33,10 @@
 -   The versions for 23.09 and 24.03 have been reworked for the system update of January 2026 so that it would
     still rebuild and link correctly now that libidn2 seems missing on the system (at least, it was
     missing on the TDS).
+
+-   Switched to the new EasyConfig parameters in 25.09.
+
+
+### Version 0.22.0 from LUMI/26.03 on
+
+-   Trivial port of the EasyConfig for version 0.21.5 for LUMI/25.09.

@@ -40,3 +40,9 @@
 
 -   Trivial port of the 3.4.4 EasyConfig for 24.03/24.11.
 
+-   Switched to the new EasyConfig parameters in 25.09.
+
+
+### Version 3.5.2 fr 26.03
+
+-   Trivial version bump of the 3.4.5 EasyConfig for 25.09

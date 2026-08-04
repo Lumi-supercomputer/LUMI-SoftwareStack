@@ -178,3 +178,10 @@ Not included at the moment:
 
 -   Also switched to the new set of EasyConfig parameters to prepare for EasyBuild 6.
 
+
+### 26.03
+
+-   Mostly trivial package updates from the 25.09 version. We did not upgrade `doxygen` as the new
+    1.17.0 version did not compile. The configure process had added a compiler flag that is not valid
+    for the old gcc version on LUMI.
+

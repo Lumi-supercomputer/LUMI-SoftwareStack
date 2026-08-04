@@ -30,3 +30,5 @@
 ### Version 2.8 from CPE 25.03 on
 
 -   Trivial port of the EasyConfig for 2.7.1 for 24.03/24.11.
+
+-   Switched to the new EasyConfig parameters in 25.09.

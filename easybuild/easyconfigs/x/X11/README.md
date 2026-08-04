@@ -112,3 +112,10 @@ This is a bundle of X11 tools provided by EasyBuild.
 
 -   Used the same software versions as for 25.03 due to the need to rush development.
 
+-   Switched to the new EasyConfig parameters in 25.09.
+
+
+### Bundle for 26.03
+
+
+

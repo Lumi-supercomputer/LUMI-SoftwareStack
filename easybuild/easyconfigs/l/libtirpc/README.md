@@ -62,4 +62,5 @@
 ### Version 1.3.7 from 25.09 on
 
 -   Trivial port of the EasyConfig for 1.3.6 in 25.09.
-   
+
+-   Switched to the new EasyConfig parameters in 25.09.

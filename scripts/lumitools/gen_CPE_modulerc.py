@@ -21,9 +21,9 @@ def gen_CPE_modulerc( CPEpackages_dir, modulerc_file, version ):
 
         nonlocal version
         
-        nversion = re.sub( '\D+', '', version )
-        nminv =    re.sub( '\D+', '', minv )
-        nmaxv =    re.sub( '\D+', '', maxv )
+        nversion = re.sub( '\\D+', '', version ) # Delete non-digits (\D)
+        nminv =    re.sub( '\\D+', '', minv )    # Delete non-digits (\D)
+        nmaxv =    re.sub( '\\D+', '', maxv )    # Delete non-digits (\D)
         if nversion >= nminv and nversion <= nmaxv and PEpackage in package_versions:
             mversion = package_versions[PEpackage]
             fileH.write( f'module_version( \'{module}/{mversion}\', \'default\')\n' )

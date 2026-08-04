@@ -38,3 +38,5 @@
 ### Version 1.8.3 for 25.09
 
 -   Trivial version bump of 1.8.1 for 25.03.
+
+-   Switched to the new EasyConfig parameters in 25.09.

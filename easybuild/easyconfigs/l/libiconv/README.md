@@ -28,3 +28,9 @@
 
 -   Trivial port of the 1.17 EasyConfig from 24.03/24.11.
 
+-   Switched to the new EasyConfig parameters in 25.09.
+
+
+### 1.19 from 26.03 on
+
+-   Trivial port of the EasyConfig for 1.18 in 25.09.

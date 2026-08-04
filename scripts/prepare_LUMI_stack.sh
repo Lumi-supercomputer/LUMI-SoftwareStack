@@ -23,7 +23,7 @@ then
 	# get replaced with spaces.
     cat <<EOF 1>&2
 
-This script expects 3 and only 3 command line arguments:
+This script expects 2 and only 2 command line arguments:
    * The version of the software stack (CPE version, with the extension .dev for a development stack)
    * A work directory for temporary files
 
@@ -113,6 +113,7 @@ EOF
 
 if [ -n "$SINGULARITY_CONTAINER" ]
 then
+    echo -e "\n\nAssuming we're in a CPE container without aocc.\n\n"
 	partitions=( 'C' 'G' 'L' )
     GPUpartitions=( 'G' )
 	cpeGNU=( 'C:G:L' )
@@ -121,6 +122,7 @@ then
     declare -A cpeENV=( ['cpeGNU']=$cpeGNU ['cpeCray']=$cpeCray ['cpeAMD']=$cpeAMD )
 elif [[ -d '/appl/lumi' ]]
 then
+    echo -e "\n\nInstalling for LUMI\n\n"
 	#partitions=( 'C' 'G' 'D' 'L' 'EAP' )
     #GPUpartitions=( 'G' 'EAP' )
 	#cpeGNU=( 'common:C:G:D:L:EAP' )
@@ -135,6 +137,7 @@ then
     cpeAMD=( 'G' )
     declare -A cpeENV=( ['cpeGNU']=$cpeGNU ['cpeCray']=$cpeCray ['cpeAOCC']=$cpeAOCC ['cpeAMD']=$cpeAMD )
 else # We're likely on eiger, we can't test everything here.
+    echo -e "\n\nInstalling for eiger?\n\n"
 	partitions=( 'L' )
     GPUpartitions=(  )
 	cpeGNU=( 'common:L' )
@@ -299,14 +302,31 @@ done
 # - Create the LUMIstack_..._modulerc.lua file with the default versions of Cray
 #   modules for this stack
 #
+echo -e "\nGenerating mgmt/LMOD/ModuleRC/LUMIstack_${stack_version%.dev}_modulerc.lua with make_LUMIstack_modulerc.sh..."
+make_dir $installroot/mgmt/LMOD
 $installroot/$repo/scripts/make_LUMIstack_modulerc.sh ${stack_version%.dev}
+if [ $? -eq 0 ]
+then
+    echo "mgmt/LMOD/ModuleRC/LUMIstack_${stack_version%.dev}_modulerc.lua generated."
+else
+    echo "\e[31mGeneration of mgmt/LMOD/ModuleRC/LUMIstack_${stack_version%.dev}_modulerc.lua FAILED.\e[0m"
+    exit 1
+fi
 
 #
 # - Create the VisibilityHoodData/CPE_modules_*.lua file with the default versions of
 #   Cray modules for this stack
 #
+echo -e "\nGenerating mgmt/LMOD/VisibilityHookData/CPEmodules_${stack_version%.dev}.lua with make_CPE_VisibilityHookData.sh..."
+make_dir $installroot/mgmt/LMOD/VisibilityHookData
 $installroot/$repo/scripts/make_CPE_VisibilityHookData.sh ${stack_version%.dev}
-
+if [ $? -eq 0 ]
+then
+    echo "mgmt/LMOD/VisibilityHookData/CPEmodules_${stack_version%.dev}.lua generated."
+else
+    echo "\e[31mGeneration of mgmt/LMOD/VisibilityHookData/CPEmodules_${stack_version%.dev}.lua FAILED.\e[0m"
+    exit 1
+fi
 
 #
 # - Create the other directories for modules, and other toolchain-specific directories
@@ -322,7 +342,7 @@ make_dir $installroot/modules/Infrastructure/LUMI/$stack_version/partition
 
 make_dir $installroot/SW/LUMI-$stack_version
 
-make_dir $installroot/mgmt/ebrepo_files/LUMI-$stack_version
+make_dir $installroot/mgmt/ebfiles_repo/LUMI-$stack_version
 
 for partition in ${partitions[@]} common
 do
@@ -337,7 +357,7 @@ do
    	make_dir $installroot/SW/LUMI-$stack_version/$partition/SP
    	make_dir $installroot/SW/LUMI-$stack_version/$partition/MNL
 
-   	make_dir $installroot/mgmt/ebrepo_files/LUMI-$stack_version/LUMI-$partition
+   	make_dir $installroot/mgmt/ebfiles_repo/LUMI-$stack_version/LUMI-$partition
 
 done
 
@@ -520,7 +540,7 @@ then
 
         ;;
 
-    5.*)
+    5.1.*|5.2.*) # For 25.03 and 25.09
 	# Somehow when using python3.11 from Cray Python we get an incomplete install and I can't
 	# see why for now.
         #usepython=/usr/bin/python3.11
@@ -531,6 +551,26 @@ then
 
         mkdir -p $workdir/easybuild/lib/python3.11/site-packages
         export PYTHONPATH=$workdir/easybuild/lib/python3.11/site-packages$pythonpathpostfix
+        
+        pushd ${EBF_file%.tar.gz}
+        $usepip install --prefix=$workdir/easybuild --no-deps --ignore-installed .
+        cd ../${EBB_file%.tar.gz}
+        $usepip install --prefix=$workdir/easybuild --no-deps --ignore-installed .
+        popd
+
+        ;;
+
+    5.3.*) # For 26.03
+	# Somehow when using python3.11 from Cray Python we get an incomplete install and I can't
+	# see why for now.
+        #usepython=/usr/bin/python3.12
+        #pythonpathpostfix=''
+        usepython=/opt/cray/pe/python/3.12.12/bin/python3.12
+        usepip=/opt/cray/pe/python/3.12.12/bin/pip3.12
+        pythonpathpostfix=':/opt/cray/pe/python/3.12.12'
+
+        mkdir -p $workdir/easybuild/lib/python3.12/site-packages
+        export PYTHONPATH=$workdir/easybuild/lib/python3.12/site-packages$pythonpathpostfix
         
         pushd ${EBF_file%.tar.gz}
         $usepip install --prefix=$workdir/easybuild --no-deps --ignore-installed .
@@ -615,9 +655,9 @@ AMDfound=$(module load LUMI/$stack_version partition/G >& /dev/null ; module sho
 #
 if [[ $AMDfound -ne 0 ]] 
 then 
+    echo -e '\n\n\n!!! No amd/${ROCMversion} module found so not installing cpeAMD.\n\n'
     # The next line will actually not cause an error if it is not set, so this is safe.
     unset cpeENV[cpeAMD]
-    echo -e '\n\n\n!!! No amd module found so not installing cpeAMD.\n\n'
     # Now remove the GPU partitions everywhere as when amd is not there, rocm isn't either.
     for cpe in ${!cpeENV[@]}
     do
@@ -683,7 +723,7 @@ do
         if [[ $is_present != 0 ]]
         then
             echo "Installing toolchain $cpe/$CPEversion for partition $partition."
-            eb "$cpe/$cpe-$CPEversion.eb" -f || die "Failed to install $cpe/$CPEversion for partition $partition."
+            eb "$cpe/$cpe-$CPEversion.eb" -f || echo -e "\n\e[31mWARNING: Failed to install $cpe/$CPEversion for partition $partition.\e[0m\n"
         fi
 
 	done
@@ -692,6 +732,41 @@ done
 #unset IFS
 
 popd
+
+#
+# As output risks getting lost among all EasyBuild output, look over the 
+# toolchain modules again to check which ones are installed.
+#
+toolchains_total=0
+toolchains_installed=0
+toolchains_failed=0
+echo -e "\n\nToolchain installation summary\n==============================\n"
+if [[ $AMDfound -ne 0 ]]
+then
+    echo -e "amd/${ROCMversion} module was not found, so anything partition/G or cpeAMD has been removed from the list.\n"
+fi
+for cpe in ${!cpeENV[@]}
+do
+
+	for partition in ${cpeENV[$cpe]//:/ }
+	do
+
+        toolchains_total=$((toolchains_total+1))
+
+        module load LUMI/$stack_version partition/$partition >& /dev/null
+        if [[ -f "$EASYBUILD_INSTALLPATH_MODULES/$cpe/$CPEversion.lua" ]]
+        then
+            toolchains_installed=$((toolchains_installed+1))
+            echo -e "Partition $partition, toolchain $cpe/$CPEversion: \e[32mInstalled\e[0m"
+        else
+            toolchains_failed=$((toolchains_failed+1))
+            echo -e "Partition $partition, toolchain $cpe/$CPEversion: \e[31mNOT INSTALLED\e[0m"
+        fi
+
+    done
+
+done
+echo -e "$toolchains_total in setup, $toolchains_installed installed and $toolchains_failed missing.\n"
 
 
 ###############################################################################

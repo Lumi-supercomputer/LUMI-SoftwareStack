@@ -6,6 +6,14 @@
 
 -   [JasPer home page (outdated downloads)](https://www.ece.uvic.ca/~frodo/jasper/)
 
+
+## General notes
+
+-   Some programs that come with JasPer require GLUT. These are not built.
+
+-   JasPer now also supports HEIC but that support is not included in our builds.
+
+
 ## EasyBuild
 
 -   [JasPer support in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/j/JasPer)
@@ -13,7 +21,7 @@
 -   [JasPer support in the CSCS repository](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/j/JasPer)
 
 
-## 2.0.33 from CPE 21.06 on
+### 2.0.33 from CPE 21.06 on
 
 -   The EasyConfig is derived from the University of Antwerpen one with a version
     bump and change of download location.
@@ -40,3 +48,17 @@
 
 -   Trivial port of the EasyConfig for 4.0.0 for 24.03/24.11.
 
+
+### Version 4.2.8 in 25.09
+
+-   Trivial port of the EasyConfig for 4.2.5 in 25.03.
+
+-   Switched to the new EasyConfig parameters.
+
+
+### Version 4.2.9 from 26.03 on
+
+-   Started as a trivial port of the EasyConfig for 4.2.8 in 25.09.
+
+-   However, we added support for the HEIC image format which pulled in a lot of
+    additional dependencies, moving this package to the back of the build chain.

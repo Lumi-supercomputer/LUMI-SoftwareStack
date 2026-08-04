@@ -43,3 +43,4 @@
 
 -   Trivial port of the EasyConfig for 1.13 in 24.03 and 24.11.
 
+-   Switched to the new EasyConfig parameters in 25.09.

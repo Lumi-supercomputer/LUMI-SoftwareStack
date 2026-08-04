@@ -1,0 +1,74 @@
+# Developed by Kurt Lust (kurt.lust@uantwerpen.be) for LUMI
+# Based on deprecated EasyConfigs developed by Fotis Georgatos <fotis@cern.ch>
+
+easyblock = 'ConfigureMake'
+
+import os as local_os
+
+# The first line below is a dirty trick not very much loved by the EasyBuild developers but
+# it helps to make this EasyConfig indpendent of the LUMI software stack version as there is
+# no other reference to that version in the file that we can use since it relies on the
+# SYSTEM toolchain.
+local_LUMI_autoversion = local_os.environ['LUMI_STACK_CPE_VERSION']
+
+local_nano_version =         '9.0'           # https://www.nano-editor.org/download.php
+
+name =    'nano'
+version = local_nano_version
+
+homepage = 'http://www.nano-editor.org/'
+
+whatis = [
+    'Description: nano is a small and friendly test editor and a free replacement for Pico',
+]
+
+description = """
+GNU nano was designed to be a free replacement for the Pico text editor, part
+of the Pine email suite from The University of Washington. It aimed to "emulate
+Pico as closely as is reasonable and then include extra functionality".
+"""
+
+doc_urls = [
+    'Online documentation at https://www.nano-editor.org/docs.php',
+    'Manual pages for nano and rnano in section 1 and nanorc in section 5',
+    'Support for the GNU info command (info nano)',
+]
+
+toolchain = SYSTEM
+
+# https://www.nano-editor.org/dist/v5/nano-5.9.tar.xz
+sources =     [SOURCE_TAR_XZ]
+source_urls = ['http://www.nano-editor.org/dist/v%(version_major)s']
+checksums =   ['9f384374b496110a25b73ad5a5febb384783c6e3188b37063f677ac908013fde']
+
+build_deps = [ # Create a reproducible build environment
+    ('buildtools', local_LUMI_autoversion),
+    ('syslibs',    local_LUMI_autoversion, '-static'), # for ncurses, zlib and file.
+]
+
+os_deps = [
+#    ('ncurses-devel'), # Use syslibs version instead
+#    ('zlib-devel'),    # Use syslibs version instead
+]
+
+pre_configure_opts = ' '.join([ # Set compiler flags.
+    'CFLAGS="-O2 -march=znver1"',
+    'LDFLAGS="-Wl,-Bstatic -L$EBROOTZLIB -lz -Wl,-Bdynamic"'
+])
+
+configure_opts  = ' '.join([
+    '--enable-utf8',
+    '--enable-threads=posix',
+    '--enable-libmagic',
+])
+
+sanity_check_paths = {
+    'files': ['bin/nano'],
+    'dirs':  ['share/man', 'share/info'],
+}
+
+sanity_check_cmds = [
+    'nano --version',
+]
+
+env_mod_category = 'tools'

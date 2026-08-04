@@ -70,7 +70,7 @@ class CrayPEToolchain(Bundle):
         extra_vars = {
             'PrgEnv': [None, 'PrgEnv module to load, e.g., cray to load PrgEnv-cray, or None for automatic determination', CUSTOM],
             'PrgEnv_load': [True, 'Load the PrgEnv module (if True) or just set the corresponding environment variable (if False)', CUSTOM],
-            'PrgEnv_family': [None, 'Declare to be a member of the PrgEnv family (if \'PrgEnv\), of the cpeToolchain family (if \'cpeToolchain\') or manually unload all known PrgEnv and cpe* modules (if None, needed when LMOD is not used)', CUSTOM],
+            'PrgEnv_family': [None, 'Declare to be a member of the PrgEnv family (if \'PrgEnv\'), of the cpeToolchain family (if \'cpeToolchain\') or manually unload all known PrgEnv and cpe* modules (if None, needed when LMOD is not used)', CUSTOM],
             'CPE_compiler': [None, 'Versionless compiler module to load, or None for automatic determination', CUSTOM],
             'CPE_version': [None, 'Version of the CPE, if different from the version of the module', CUSTOM],
             'CPE_load': [ 'first', 'First load the cpe module (if \'first\'), after the PrgEnv module (if \'after\'), load it at the end (if \'last\'), or do not load the cpe module (if None)', CUSTOM],

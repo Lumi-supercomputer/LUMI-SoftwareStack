@@ -52,3 +52,10 @@
 
 -   Version 2.15 does no longer support LZMA, so the `XZ` dependency
     has been dropped.
+
+-   Switched to the new EasyConfig parameters in 25.09.
+
+
+### Version 2.15.3 for LUMI/26.03
+
+-   Trivial version bump of the EasyConfig for 2.15.1 in 25.09.

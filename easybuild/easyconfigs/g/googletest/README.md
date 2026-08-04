@@ -31,3 +31,5 @@
 
 -   Direct port of the 1.14.0 EasyConfig for 24.03/24.11.
 
+-   Switched to the new EasyConfig parameters in 25.09.
+

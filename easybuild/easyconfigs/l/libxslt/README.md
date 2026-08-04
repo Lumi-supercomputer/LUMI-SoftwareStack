@@ -47,3 +47,5 @@
 -   Trivial version bump of the 1.1.42 EasyConfig.
 
 -   Needed to adapt the list of files to copy to the licenses directory.
+
+-   Switched to the new EasyConfig parameters in 25.09.

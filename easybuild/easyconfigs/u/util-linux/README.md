@@ -71,3 +71,10 @@
 
 -   There is still an issue with the cpeAOCC option which in turn may be due to an issue
     with SQLite.
+
+-   Switched to the new EasyConfig parameters in 25.09.
+
+
+### Version 2.42.2 from LUMI/26.03 on.
+
+-   Trivial port of the EasyConfig for 2.41.3 in 25.09.

@@ -22,3 +22,12 @@
     with the LUST layout and conventions.
 
 -   Needed to add `-DCMAKE_POLICY_VERSION_MINIMUM=3.5` to `configopts` 
+
+-   Switched to the new EasyConfig parameters in 25.09.
+
+
+### Version 1.3.15 for cpeGNU 26.03
+
+-   Trivial version bump of the EasyConfig for 25.09.
+
+-   Added freetype as an explicit dependency as it was picking this from the system.

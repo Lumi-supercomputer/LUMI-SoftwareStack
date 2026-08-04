@@ -52,3 +52,5 @@
 ### Version 1.25 from 25.09 on
 
 -   Trivial port of the 1.24 EasyConfig for 25.03.
+
+-   Switched to the new EasyConfig parameters in 25.09.

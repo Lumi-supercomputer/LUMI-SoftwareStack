@@ -1,32 +1,33 @@
 # libvorbis instructions
 
-  * [libvorbis web site](https://www.xiph.org/vorbis/)
+-   [libvorbis web site](https://www.xiph.org/vorbis/)
 
-      * [downloads via the web site](https://www.xiph.org/downloads/)
+    -   [downloads via the web site](https://www.xiph.org/downloads/)
 
-  * [libvorbis on GitHub](https://github.com/xiph/vorbis)
+-   [libvorbis on GitHub](https://github.com/xiph/vorbis)
 
-      * [libvorbis releases on GitHub](https://github.com/xiph/vorbis/releases)
+    -   [libvorbis releases on GitHub](https://github.com/xiph/vorbis/releases)
 
 
 ## General information
 
-  * libvorbis needs libogg.
+-   libvorbis needs libogg.
 
-  * libvorbis has a configure - make - make install build process.
+-   libvorbis has a configure - make - make install build process.
 
 ## EasyConfig
 
-  * [libvorbis support in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/libvorbis)
+-   [libvorbis support in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/libvorbis)
 
-  * There is no support for libvorbis in the CSCS repository
+-   There is no support for libvorbis in the CSCS repository
 
 
 ### Version 1.3.7 from CPE 21.06 on
 
-  * The EasyConfig is a combination of the EasyBuilders one and the University
+-   The EasyConfig is a combination of the EasyBuilders one and the University
     of Antwerpen one which predates the EasyBuilders one.
 
-  * From LUMI/23.12 onwards, license information was added to the installation and 
+-   From LUMI/23.12 onwards, license information was added to the installation and 
     the sanity checks were improved.
-    
+
+-   Switched to the new EasyConfig parameters in 25.09.

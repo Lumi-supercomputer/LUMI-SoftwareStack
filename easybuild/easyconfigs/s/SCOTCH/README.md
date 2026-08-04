@@ -66,6 +66,8 @@
   
 -   For LUMI/23.12, license information was added to the installation.
 
+-   Switched to the new EasyConfig parameters in 25.09.
+
 
 ### Version 7.0.3 from CPE 22.12 on
 
@@ -93,3 +95,9 @@
 
 -   Trivial version update from the 7.0.8 EasyConfig for LUMI/25.03.
 
+-   Switched to the new EasyConfig parameters.
+
+
+### Version 7.0.12 for LUMI/26.03
+
+-   Trivial version update from the 7.0.10 EasyConfig for LUMI/25.09.

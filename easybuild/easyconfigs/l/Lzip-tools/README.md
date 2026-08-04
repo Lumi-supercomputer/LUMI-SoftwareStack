@@ -72,3 +72,9 @@ The module contains:
 
 -   But we switched to the new parameter names to prepare for EasyBuild 6.
 
+
+### LZip-tools for 26.03
+
+-   A trivial port from 25.09 with various package updates.
+
+
