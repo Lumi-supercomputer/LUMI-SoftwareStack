@@ -278,6 +278,8 @@ local system_packagepath =         pathJoin( system_prefix, 'packages' )
 
 local system_SIFrepo =             get_EB_container_repository()
 
+local system_extra_sources =       pathJoin( system_prefix, 'extra-easybuild-sources' )
+
 local user_sourcepath =            pathJoin( user_prefix,   'sources' )
 local user_containerpath =         pathJoin( user_prefix,   'containers' )
 local user_packagepath =           pathJoin( user_prefix,   'packages' )
@@ -399,6 +401,11 @@ table.insert( source_paths, system_sourcepath )
 --   + For the container partition we also need to add the SIF repository so that we can easily copy
 --     container files without much hassle in the EasyConfig files.
 table.insert( source_paths, system_SIFrepo )
+
+--    + Backup site where we store applications that are hard to download, e.g., due to protection
+--      stopping automated downloads by scrapers. The side effect is sometimes that EasyBuild also
+--      cannot download.
+table.insert( source_paths, system_extra_sources )
 
 -- - Build the robot path ROBOT_PATHS
 
