@@ -5,7 +5,7 @@ local_LUMI_version =         '26.03'
 local_craypython_version =   '3.12.12'
 local_crayfftw_version =     '3.3.10.11'
 local_gcc_version =          '14'
-local_ROCm_version =         '7.0.2'
+local_ROCm_version =         '7.0.3'
 local_CrayPath_version =     '0.1'
 
 #
