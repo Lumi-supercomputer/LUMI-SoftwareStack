@@ -105,6 +105,7 @@ local_parallel_version =     '20260722'      # https://ftp.gnu.org/gnu/parallel/
 local_Vim_version =          '9.2.0663'      # https://github.com/vim/vim/tags
 local_Subversion_version =   '1.14.5'        # https://subversion.apache.org/download.cgi (not yet used)
 local_Eigen_version =        '5.0.1'         # https://gitlab.com/libeigen/eigen/-/releases
+local_Eigen3_version =       '3.4.0'         # https://gitlab.com/libeigen/eigen/-/releases, LAMMPS needs Eigen 3.x.
 local_xorg_macros_version =  '1.20.2'        # https://cgit.freedesktop.org/xorg/util/macros
 
 #
