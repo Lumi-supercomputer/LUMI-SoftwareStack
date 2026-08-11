@@ -11,6 +11,7 @@ function cpar {
         -e 's|buildopts|build_opts|' \
         -e 's|testopts|test_opts|' \
         -e 's|installopts|install_opts|' \
+        -e 's|maxparallel|max_parallel|' \
         -e 's|postinstallcmds|post_install_cmds|' \
         -e 's|runtest|run_test|' \
         -e 's|sanity_check_commands|sanity_check_cmds|' \
