@@ -391,7 +391,7 @@ e.b., the [MATLAB EasyConfigs in the EasyBuilders repository](https://github.com
     the main EasyBuild version for 25.09.
 
 
-### 5.3.1 for 26.03
+### 5.4.0 for 26.03
 
 -   The pythonpackage patch is not needed anymore.
 
@@ -400,6 +400,10 @@ e.b., the [MATLAB EasyConfigs in the EasyBuilders repository](https://github.com
 
 -   We had to stick to talloc version 2.4.3. When trying with 2.4.4, we got an undefined symbol 
     error when building PRoot.
+
+-   Added the requests package and its dependencies as EasyBuild falls back to try this way
+    of downloading a file if the regular way does not work, and produces a nasty error message
+    if it cannot find it.
 
 
 ## Fixes needed to EasyConfigs

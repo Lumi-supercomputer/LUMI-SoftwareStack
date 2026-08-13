@@ -259,14 +259,43 @@ exts_default_opts = {
 # trouble installing them all. In particular, poetry failed for some reason.
 exts_list = [
     # rich and deps mdurl, pygments and markdown_it_py
-    ('mdurl',             '0.1.2',    {}), # https://pypi.org/project/mdurl/
-    #('pygments',          '2.19.2',   {}), # https://pypi.org/project/Pygments/ - 2.19.2 already in cray-python 3.12.12 and cannot uninstall
-    ('markdown_it_py',    '4.2.0',    {'modulename': 'markdown_it'}), # https://pypi.org/project/markdown-it-py/, modulename is markdown_it
-    ('rich',              '15.0.0',   {}), # https://pypi.org/project/rich/
+    ('mdurl',              '0.1.2',     { # https://pypi.org/project/mdurl/
+        'checksums': ['84008a41e51615a49fc9966191ff91509e3c40b939176e643fd50a5c2196b8f8'],
+    }),
+    #('pygments',           '2.19.2',    {}), # https://pypi.org/project/Pygments/ - 2.19.2 already in cray-python 3.12.12 and cannot uninstall
+    ('markdown_it_py',     '4.2.0',     {  # https://pypi.org/project/markdown-it-py/, modulename is markdown_it
+        'checksums':  ['9f7ebbcd14fe59494226453aed97c1070d83f8d24b6fc3a3bcf9a38092641c4a'],
+        'modulename': 'markdown_it',
+    }),
+    ('rich',               '15.0.0',    { # https://pypi.org/project/rich/
+        'checksums': ['33bd4ef74232fb73fe9279a257718407f169c09b78a87ad3d296f548e27de0bb'],
+    }),
     # Add archspec as it seems easy anyway
-    ('archspec',          '0.2.6',    {}), # https://pypi.org/project/archspec/
+    ('archspec',           '0.2.6',     { # https://pypi.org/project/archspec/
+        'checksums': ['22463371fe8e9fa92fa144bf320cb445373a99f2ca6a5914c890e0c0b7816f8f'],
+    }),
     # pycodestyle for --check-style and --check-contrib
-    ('pycodestyle',       '2.14.0',   {'source_tmpl': '%(name)s-%(version)s-py2.py3-none-any.whl'}), # https://pypi.org/project/pycodestyle/
+    ('pycodestyle',        '2.14.0',    { # https://pypi.org/project/pycodestyle/
+        'source_tmpl': '%(name)s-%(version)s-py2.py3-none-any.whl',
+        'checksums':   ['dd6bf7cb4ee77f8e016f9c8e74a35ddd9f67e1d5fd4184d86c3b98e07099f42d'],
+    }),
+    # requests and its dependencies are also needed as that is a fallback method
+    # if the regular way of downloading files fails.
+    ('certifi',            '2026.7.22', { # https://pypi.org/project/certifi/
+        'checksums': ['62f22742b58a1a33014a2b6b706588a8d7e2a88ae7bd1a6ebe8c992928483775'],
+    }),
+    ('urllib3',            '2.7.0',     { # https://pypi.org/project/urllib3/
+        'checksums': ['9fb4c81ebbb1ce9531cce37674bbc6f1360472bc18ca9a553ede278ef7276897'],
+    }),
+    ('idna',               '3.18',      { # https://pypi.org/project/idna/
+        'checksums': ['7f952cbe720b688055e3f87de14f5c3e5fdaa8bc3928985c4077ca689de849a2'],
+    }),
+    ('charset_normalizer', '3.5.0',     { # https://pypi.org/project/charset-normalizer/
+        'checksums': ['993dfcbe75a85a3784abb5084f2c41b915767c90546fcc92803cffa28611baea'],
+    }),
+    ('requests',           '2.34.2',    { # https://pypi.org/project/requests/
+        'checksums': ['2a0d60c172f83ac6ab31e4554906c0f3b3588d37b5cb939b1c061f4907e278e0'],
+    }),
 ]
 
 post_install_cmds = [
@@ -286,6 +315,12 @@ post_install_cmds = [
     f'sed -i -e \'s|/opt/.*/python|{local_craypython_exe} -E|\' '
            f'-e \'s|import sys|import sys\\nsys.path.append("%(installdir)s/lib/python{local_pyshortver}/site-packages")|\' '
             '%(installdir)s/bin/pycodestyle',
+    f'sed -i -e \'s|/opt/.*/python|{local_craypython_exe} -E|\' '
+           f'-e \'s|import sys|import sys\\nsys.path.append("%(installdir)s/lib/python{local_pyshortver}/site-packages")|\' '
+            '%(installdir)s/bin/idna',
+    f'sed -i -e \'s|/opt/.*/python|{local_craypython_exe} -E|\' '
+           f'-e \'s|import sys|import sys\\nsys.path.append("%(installdir)s/lib/python{local_pyshortver}/site-packages")|\' '
+            '%(installdir)s/bin/normalizer',
     # p7zip: Create the 7z script in the bin directory.
     'echo \'#!/bin/sh\n%(installdir)s/libexec/7z $@\' > %(installdir)s/bin/7z',
     'chmod 755 %(installdir)s/bin/7z',  # set execution bits according to current umask
