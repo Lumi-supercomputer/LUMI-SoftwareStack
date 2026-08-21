@@ -36,7 +36,7 @@ GCC,14
 cray-python,3.12.12
 cray-R,4.4.0
 jemalloc,5.1.0.4
-AOCC,5.0.0
+AOCC,5.1.0
 ROCM,7.0.3
 intel,2025.2.1
 NVIDIA,25.9
