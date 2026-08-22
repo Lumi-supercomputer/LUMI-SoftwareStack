@@ -560,9 +560,7 @@ then
 
         ;;
 
-    5.3.*) # For 26.03
-	# Somehow when using python3.11 from Cray Python we get an incomplete install and I can't
-	# see why for now.
+    5.3.*|5.4.*) # For 26.03
         #usepython=/usr/bin/python3.12
         #pythonpathpostfix=''
         usepython=/opt/cray/pe/python/3.12.12/bin/python3.12
