@@ -1,3 +1,4 @@
 easyconfigs:
-  - rocm-7.0.3.eb
+  - rocm-7.0.3-flang-classic.eb
+  - rocm-7.0.3-new-flang.eb
   - amd-7.0.3.eb

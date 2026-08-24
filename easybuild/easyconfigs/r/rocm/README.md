@@ -76,3 +76,24 @@ Early Access Platform can compile their code from the login node.
     debug symbols need to be activated with `LD_PRELOAD`.
 
 -   Documentation: [ROCm 7.0.3 documentation (7.0.2 as this is the closest available)](https://rocm.docs.amd.com/en/docs-7.0.3/)
+
+-   Versions **rocm-7.0.3-flang-clasic.eb** and **rocm-7.0.3-new-flang.eb** are specifically
+    for installation with 26.03
+
+    -   `rocm-7.0.3-flang-clasic.eb` actually installs `rocm/7.0.3` rather than `rocm/7.0.3-flang-classic`
+        and was developed to have a ROCm(tm) module in the 26.03 container that is as similar as possible
+        as what we expect to get after the system update that brings ROVm 7 and CPE 26.03 onto the system.
+
+    -   `rocm/7.0.3-flang-classic` installs ROCm 7.0.3 as intended, with the new generation Flang compiler.
+        But that compiler is not compatible with the Cray wrappers or LibSci for PrgEnv-amd in 26.03.
+
+-   Development of `rocm-7.0.3-flang-clasic.eb`: All that is needed to get classic Flang, is to replace 3
+    libraries in `llvm/lib`.  AMD provides a tar file with those libraries as
+    [repo.radeon.com/rocm/misc/flang/7.0ClassicFlang.tar](https://repo.radeon.com/rocm/misc/flang/7.0ClassicFlang.tar).
+
+    It was not possible to download these as sources as the ROCm EasyBlock builds the sources, so for now we
+    do the download in the custom `postinstall_script` and do so at the beginning of that script to ensure
+    that the other corrections that are done in that script, are also applied to the classic flang libraries.
+
+    Finally, we also create a symbolic link `amdflang-classic` as that is what the compiler wrappers now expect.
+
