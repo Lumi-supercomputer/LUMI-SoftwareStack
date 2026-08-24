@@ -80,6 +80,21 @@ wait
 echo "Done"
 
 #
+# Sync the extra sources as they can be used by user EasyConfigs also to pick up sources.
+#
+directory='extra-easybuild-sources'
+printf "\nPushing the $directory directory...\n"
+for i in "${!destinations[@]}"
+do
+    destination="${destinations[$i]}"
+    echo "- Starting the sync of $directory from $main_appl to $destination."
+    mkdir -p $destination/$directory
+    rsync --archive --delete --exclude '.git*' $main_appl/$directory/ $destination/$directory/ >& "$logdir/${dest_short[$i]}_$logfile" &
+done
+wait
+echo "Done"
+
+#
 # Sync the licenses, but be careful with Vampir.
 #
 directory='licenses'
