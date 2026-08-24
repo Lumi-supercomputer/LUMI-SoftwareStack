@@ -88,9 +88,10 @@ EOF
 fi
 
 #
-# Detecting version of ROCm to use
+# Detecting version of ROCm and AOCC to use
 #
 ROCMversion="$(grep ROCM $installroot/$repo/CrayPE/CPEpackages_${stack_version}.csv | sed -e 's|ROCM,||')"
+AOCCversion="$(grep AOCC $installroot/$repo/CrayPE/CPEpackages_${stack_version}.csv | sed -e 's|AOCC,||')"
 
 #
 # Print a message
@@ -102,6 +103,7 @@ cat <<EOF
   * Root of the installation: $installroot
   * Using the work directory $workdir
   * Detected ROCm version: $ROCMversion
+  * Detected AOCC version: $AOCCversion
 
 EOF
 
@@ -113,27 +115,25 @@ EOF
 
 if [ -n "$SINGULARITY_CONTAINER" ]
 then
-    echo -e "\n\nAssuming we're in a CPE container without aocc.\n\n"
+    echo -e "\n\nAssuming we're in a CPE container.\n\n"
 	partitions=( 'C' 'G' 'L' )
     GPUpartitions=( 'G' )
 	cpeGNU=( 'C:G:L' )
     cpeCray=( 'C:G:L' )
+    cpeAOCC=( 'C:L' )
     cpeAMD=( 'G' )
-    declare -A cpeENV=( ['cpeGNU']=$cpeGNU ['cpeCray']=$cpeCray ['cpeAMD']=$cpeAMD )
+    declare -A cpeENV=( ['cpeGNU']=$cpeGNU ['cpeCray']=$cpeCray ['cpeAOCC']=$cpeAOCC ['cpeAMD']=$cpeAMD )
 elif [[ -d '/appl/lumi' ]]
 then
     echo -e "\n\nInstalling for LUMI\n\n"
-	#partitions=( 'C' 'G' 'D' 'L' 'EAP' )
-    #GPUpartitions=( 'G' 'EAP' )
-	#cpeGNU=( 'common:C:G:D:L:EAP' )
-    #cpeCray=( 'common:C:G:D:L:EAP' )
-    #cpeAOCC=( 'common:C:D:L' )
-    #cpeAMD=( 'G:EAP' )
 	partitions=( 'C' 'D' 'G' 'L' )
     GPUpartitions=( 'G' )
-	cpeGNU=( 'common:C:D:G:L' )
-    cpeCray=( 'common:C:G:L' )
-    cpeAOCC=( 'common:C:L' )
+	#cpeGNU=( 'common:C:D:G:L' )
+    #cpeCray=( 'common:C:G:L' )
+    #cpeAOCC=( 'common:C:L' )
+	cpeGNU=( 'C:D:G:L' )
+    cpeCray=( 'C:G:L' )
+    cpeAOCC=( 'C:L' )
     cpeAMD=( 'G' )
     declare -A cpeENV=( ['cpeGNU']=$cpeGNU ['cpeCray']=$cpeCray ['cpeAOCC']=$cpeAOCC ['cpeAMD']=$cpeAMD )
 else # We're likely on eiger, we can't test everything here.
@@ -560,9 +560,7 @@ then
 
         ;;
 
-    5.3.*) # For 26.03
-	# Somehow when using python3.11 from Cray Python we get an incomplete install and I can't
-	# see why for now.
+    5.3.*|5.4.*) # For 26.03
         #usepython=/usr/bin/python3.12
         #pythonpathpostfix=''
         usepython=/opt/cray/pe/python/3.12.12/bin/python3.12
@@ -677,6 +675,22 @@ then
         echo -e "Building $cpe for partitions ${cpeENV[$cpe]} instead."
         unset newpartitions
     done
+fi
+
+#
+# First check if we can find a proper amd module
+#
+AOCCfound=$(module load LUMI/$stack_version partition/L >& /dev/null ; module show aocc/$AOCCversion |& grep -q aocc/${AOCCversion}.lua ; echo $?)
+
+#
+# Without proper amd module, we have to skip installing cpeAMD.
+# We can then still do so by re-running this script after installing an amd and ROCm module.
+#
+if [[ $AOCCfound -ne 0 ]] 
+then 
+    echo -e '\n\n\n!!! No aocc/${AOCCversion} module found so not installing cpeAOCC.\n\n'
+    # The next line will actually not cause an error if it is not set, so this is safe.
+    unset cpeENV[cpeAOCC]
 fi
 
 #
