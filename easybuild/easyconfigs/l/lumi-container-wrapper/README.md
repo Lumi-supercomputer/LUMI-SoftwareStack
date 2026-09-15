@@ -43,4 +43,8 @@ version of cray-python that is already loaded when the module is loaded.
 ### Version 0.4.2
 
 -   Trivial update from 0.3.3.
- 
+
+
+### Version 0.5.2
+
+-   Trivial update from 0.4.2, but switched to EB6-compatible parameters.
