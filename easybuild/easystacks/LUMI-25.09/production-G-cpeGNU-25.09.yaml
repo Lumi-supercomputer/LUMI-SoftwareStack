@@ -78,6 +78,7 @@ easyconfigs:
   - libarchive-3.8.4-cpeGNU-25.09.eb
   - libpsl-0.21.5-cpeGNU-25.09.eb
   - LibTIFF-4.7.1-cpeGNU-25.09.eb
+  - libzip-1.11.4-cpeGNU-25.09.eb
   - util-linux-2.41.3-cpeGNU-25.09.eb
 ## Block 6
 ## TODO: New Boost.python.
