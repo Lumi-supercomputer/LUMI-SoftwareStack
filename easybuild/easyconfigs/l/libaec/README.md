@@ -1,5 +1,9 @@
 # libaec - Adaptive Entropy Coding library
 
+The libaec package is a replacement for Szip for almost all if not all practical purposes,
+but is properly maintained and has less copyright issues. Its use is recommended over the
+use of Szip wherever possible and from 26.03 onwards we are fully making the switch.
+
 -   [libaec web site / gitlab](https://gitlab.dkrz.de/k202009/libaec)
 
 -   [libaec on GitHub](https://github.com/Deutsches-Klimarechenzentrum/libaec)
@@ -9,7 +13,7 @@
 
 ## EasyBuild
 
--   There is no libaec support in the EasyBuilders repository.
+-   [libaec in the EasyBuilders repository](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/l/libaec)
 
 -   [libaec in the CSCS repository](https://github.com/eth-cscs/production/tree/master/easybuild/easyconfigs/l/libaec)
 

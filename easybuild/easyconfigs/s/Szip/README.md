@@ -1,5 +1,8 @@
 # Szip
 
+Szip is unmaintained software and for almost all uses, libaec is the perfect 
+replacement. Szip may disappear from the LUMI software stack over time.
+
 -   [Szip home page](https://support.hdfgroup.org/doc_resource/SZIP/)
 
     -   [Szip downloads](https://support.hdfgroup.org/ftp/lib-external/szip/)
