@@ -74,6 +74,7 @@ easyconfigs:
   - libpsl-0.21.5-cpeAOCC-25.03.eb
   - LibTIFF-4.7.0-cpeAOCC-25.03.eb
   - libxslt-1.1.42-cpeAOCC-25.03.eb
+  - libzip-1.11.4-cpeAOCC-25.03.eb
 ## Block 6
 ## TODO: New Boost.python.
   - cURL-8.11.1-cpeAOCC-25.03.eb
