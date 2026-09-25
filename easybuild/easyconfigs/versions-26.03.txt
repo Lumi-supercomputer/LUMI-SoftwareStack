@@ -203,6 +203,7 @@ local_libwebp_version =      '1.6.0'         # https://github.com/webmproject/li
 local_libxml2_version =      '2.15.3'        # http://xmlsoft.org/sources/
 local_libxslt_version =      '1.1.45'        # http://xmlsoft.org/sources/
 local_libyaml_version =      '0.2.5'         # https://github.com/yaml/libyaml/releases
+local_libzip_version =       '1.11.4'        # https://github.com/nih-at/libzip
 local_LittleCMS_version =    '2.19.1'        # https://sourceforge.net/projects/lcms/files/lcms/
 local_LLVM_version =         '18.1.8'        # https://github.com/llvm/llvm-project/releases - to check based on dependencies 21.1.8|?
 local_LMDB_version =         '1.0.0'         # https://github.com/LMDB/lmdb/releases

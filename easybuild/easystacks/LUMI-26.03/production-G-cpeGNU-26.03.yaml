@@ -90,6 +90,7 @@ easyconfigs:
   - intltool-0.51.0-cpeGNU-26.03.eb
   - libwebp-1.6.0-cpeGNU-26.03.eb
   - LittleCMS-2.19.1-cpeGNU-26.03.eb
+  - libzip-1.11.4-cpeGNU-26.03.eb
   - wget-1.25.0-cpeGNU-26.03.eb
 ## Block 7
   - fontconfig-2.18.1-cpeGNU-26.03.eb

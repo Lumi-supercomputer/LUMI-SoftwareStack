@@ -77,6 +77,7 @@ easyconfigs:
   - libarchive-3.8.8-cpeAOCC-26.03.eb
   - libpsl-0.22.0-cpeAOCC-26.03.eb
   - LibTIFF-4.7.2-cpeAOCC-26.03.eb
+  - libzip-1.11.4-cpeAOCC-26.03.eb
   - util-linux-2.42.2-cpeAOCC-26.03.eb
 ## Block 6
 ## TODO: New Boost.python.
