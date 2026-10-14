@@ -1,0 +1,48 @@
+# Written by Henrik Nortamo for the LUMI project
+easyblock = 'Bundle'
+
+name =    'lumik-ext-tools'
+version = '1.0.0'
+
+homepage=""
+
+whatis = [ 
+    'Description: Basic tooling for LUMI-k. Provides oc cli.' 
+]
+
+description = """
+Bundle of external tools used to access LUMI-K 
+""" 
+
+docurls = [
+    'TODO'
+]
+
+local_openshift_client_version = '4.9.59'
+
+toolchain = SYSTEM
+
+components = [
+    # Static go built binary
+    ('openshift-client', local_openshift_client_version,{
+# https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/latest-4.9/openshift-client-linux-4.9.59.tar.gz
+        'easyblock':      'MakeCp',
+        'source_urls' :   ['https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/latest-4.9/'],
+        'sources' :       ['%(name)s-linux-%(version)s.tar.gz'],
+        'checksums' :     ['9df232a1b9fe120b2284272de2f144abf44febf40bcb2b0f22ad4456081337b6'],
+        #'start_dir':      '%(name)s-linux-%(version)s',
+        'skipsteps' :     ['build'],
+        'files_to_copy' : [(['oc', 'kubectl'],      'bin'),],
+    }),
+]
+
+sanity_check_paths = {
+    'files': [ 'bin/oc', 'bin/kubectl' ],
+    'dirs':  [ 'bin' ],    
+}
+
+sanity_check_commands = [
+    'oc version',
+]
+
+moduleclass = 'tools'
