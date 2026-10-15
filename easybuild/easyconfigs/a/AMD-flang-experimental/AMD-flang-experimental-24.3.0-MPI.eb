@@ -1,0 +1,145 @@
+#DOC This version is based on the development version of flang 24 and ROCm 10.1.0.
+#DOC The MPI module includes is compiled from MPICH sources after which libmpi was
+#DOC replaced with a matching version of Cray MPICH. These libraries are installed
+#DOC in the module to run independent of whatever is installed on LUMI.
+#DOC
+#DOC Make sure no Cray PE programming environment or compiler module is loaded as
+#DOC this causes failure of some of the sanity checks.
+#DOC
+#DOC Developed by AMD and HLRS, originally for use on Hunter@HLRS and reworked by
+#DOC Kurt Lust for LUMI.
+# Written by Kurt Lust
+# Install an experimental AMD Flang compiler and interface with Cray MPICH, based 
+# on scripts developed by AMD, HPE and HLRS for Hunter.
+easyblock = 'Binary'
+
+local_install_commit =  'e301bc5'
+local_therock_package = 'therock-afar'
+local_therock_version = '24.3.0'
+# therock-afar-24.3.0-multiarch-10.1.0-592954c.tar.bz2
+local_source_therock = f'{local_therock_package}-{local_therock_version}-multiarch-10.1.0-592954c.tar.bz2'
+local_mpich_version = '4.3.1'
+
+name =          'AMD-flang-experimental'
+version =       local_therock_version
+versionsuffix = '-MPI'
+
+# The first line below is a dirty trick not very much loved by the EasyBuild developers but
+# it helps to make this EasyConfig independent of the LUMI software stack version as there is
+# no other reference to that version in the file that we can use since it relies on the
+# SYSTEM toolchain.
+import os as local_os
+local_LUMI_autoversion = local_os.getenv('LUMI_STACK_VERSION', default='25.03')
+
+homepage = 'https://repo.radeon.com/rocm/misc/flang/'
+
+whatis = [
+    'Description: Experimental AMD flang compiler with some additional libraries'
+]
+
+description = f"""
+Experimental (pre-production) version of the AMD flang compiler. This version
+also relies on some libraries from an equally experimental ROCm version that
+isn't guaranteed to be compatible with the current driver versions. So do 
+expect issues when compiling or running software. However, AMD is interested
+in learning about experiences with this experimental compiler to further 
+improve it before release, and in particular in the experiences with OpenMP
+offload.
+
+Note that this compiler or the libraries do not work with the Cray wrappers.
+Instead, users should compile in the traditional Linux way, using, e.g., mpiftn
+for Fortran with MPI.
+
+Loading this module will make other modules available that enable the compiler
+and some libraries:
+- therock/{local_therock_version}: The actual compiler module
+- mpich/{local_mpich_version}: A wrapper module making Cray MPICH available
+  with the right Fortran interface. It basically provides an MPICH build
+  with libmpi replaced with the one from a corresponding version of Cray MPICH.
+  Note that the GTL has to be linked in manually with -L$MPICH_DIR/lib -lmpi_gtl_hsa.
+"""
+
+toolchain = SYSTEM
+
+extract_sources = True
+sources = [
+{ # Install scripts taken from a GitHub repository. To be changed to a tag when fully tested
+    'filename': f'AMD-flang-experimental-install-{local_install_commit}.tar.xz',
+    'git_config': {
+        'url':          'https://github.com/klust/',
+        'repo_name':    'AMD-flang-experimental',
+        'commit':       local_install_commit,
+        'recursive':    False,
+        'keep_git_dir': False,
+    }
+},
+{ # Need a fake URL here as we really don't want this to make publicly downloadable and
+  # will put this in the source directory instead.
+  # https://462000265.lumidata.eu/private-downloads/cray-mpich-9.1.0-amd.tar
+    'filename':    'cray-mpich-9.1.0-amd.tar',
+    'source_urls': ['https://462000265.lumidata.eu/private-downloads'],
+    'extract_cmd': 'mkdir -p %(builddir)s/AMD-flang-experimental/cache && cp %s %(builddir)s/AMD-flang-experimental/cache'
+},
+{ # https://repo.radeon.com/rocm/misc/flang/therock-afar-24.3.0-multiarch-10.1.0-592954c.tar.bz2
+    'filename':          local_source_therock,
+    'source_urls':       ['https://repo.radeon.com/rocm/misc/flang'],
+    'extract_cmd':       'mkdir -p %(builddir)s/AMD-flang-experimental/cache && cp %s %(builddir)s/AMD-flang-experimental/cache'
+},
+{ # https://www.mpich.org/static/downloads/3.4a2/mpich-3.4a2.tar.gz
+    'filename':          f'mpich-{local_mpich_version}.tar.gz',
+    'source_urls':       [f'https://www.mpich.org/static/downloads/{local_mpich_version}'],
+    'extract_cmd':       'mkdir -p %(builddir)s/AMD-flang-experimental/cache && cp %s %(builddir)s/AMD-flang-experimental/cache'
+},
+]
+checksums = [
+    None,
+    None,
+    {local_source_therock:                                    'fb93db344cbdfd1efcb217a598968fb18b439e2321ef71bfcd0f72eba9113131'},
+    {f'mpich-{local_mpich_version}.tar.gz':                   'acc11cb2bdc69678dc8bba747c24a28233c58596f81f03785bf2b7bb7a0ef7dc'},
+]
+
+build_deps = [
+    ('buildtools', local_LUMI_autoversion), # Uses patchelf
+]
+
+skip_steps = ['configure', 'build']
+
+install_cmds = [
+    'cp -r %(builddir)s/AMD-flang-experimental/cache %(installdir)s/cache',
+    'cp -r %(builddir)s/AMD-flang-experimental/install %(installdir)s/install',
+    'cp -r %(builddir)s/AMD-flang-experimental/downloads/templates.therock.tgz %(installdir)s/cache',
+    'find /tmp -name "tmp.*" -exec /bin/rm -rf \'{}\' \\; ; echo "Cleaned up."',
+    'cd %(installdir)s/install && ln -s  source.set_versions.24.3.0.sh source.set_versions.sh',
+    f'module purge && module load craype-network-ofi libfabric buildtools/{local_LUMI_autoversion} && '
+        'cd %(installdir)s/install && '
+        'export PATCHELF="${EBROOTBUILDTOOLS}/bin/patchelf" && '
+        './install.therock.sh --components therock,mpich',
+]
+
+sanity_check_paths = {
+    'files': [],
+    'dirs':  [ f'install/therock/{local_therock_version}/bin',
+               f'install/mpich/{local_mpich_version}-{local_therock_version}/lib',
+             ]
+}
+
+sanity_check_cmds = [ # Each individual module should also load the once it depends upon so we can check one by one.
+    f'module load therock/{local_therock_version}',
+    f'module load mpich/{local_mpich_version}',
+    f'module load buildtools/{local_LUMI_autoversion} mpich/{local_mpich_version} ; [ "$(patchelf --print-soname $MPICH_DIR/lib/libmpi.so.12.5.1)" == "libmpi.so.12" ]',
+]
+
+env_mod_lua_footer = f"""
+family( 'PrgEnv' )  -- Will make sure the Cray PrgEnv modules get removed.
+
+if ( mode() == 'load' ) then
+    LmodMessage( 'It may be safer to do `module purge` before loading this module to avoid side effects (but not `module --force purge`).' )
+end
+
+-- Note: Dangerous line for EasyBuild.
+conflict( 'rocm', 'amd', 'cce', 'aocc', 'gcc-native', 'gcc' )  -- A loaded ROCm module may or may not cause issues.
+ 
+prepend_path( 'MODULEPATH', '%(installdir)s/install/modulefiles/{local_therock_package}-{local_therock_version}' )
+"""
+
+env_mod_category = 'devel'
