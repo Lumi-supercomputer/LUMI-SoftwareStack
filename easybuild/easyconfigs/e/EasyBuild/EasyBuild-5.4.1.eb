@@ -137,6 +137,7 @@ components = [
                             # Standard EasyBuilders patches with late bugfixes
                             # - None in this version
                             # EasyBuild framework patches for LUMI
+                            {'name': 'EasyBuild-5.4.1_framework_short_description.patch',                    'level': 0, 'sourcepath': '.'},
                             {'name': 'EasyBuild-5.4.1_framework_extra-file-formats.patch',                   'level': 0, 'sourcepath': '.'},
                             {'name': 'EasyBuild-5.4.1_framework_keyring-DBus.patch',                         'level': 0, 'sourcepath': '.'},
                             # EasyBlock patches for LUMI
@@ -145,17 +146,18 @@ components = [
                         ],
         'checksums':    [
                             # 3 EasyBuild components
-                            {'easybuild_framework-5.4.1.tar.gz':                            '18c7cb3cdb448a2ec9b4f9cdc38517b5f9ca1b63b5691f1589f67f114958c2c9'},
-                            {'easybuild_easyblocks-5.4.1.tar.gz':                           'ec76f56bfb6398ecb863dfc456a15aacc8da8c1ebf21e560a1410d8210825386'},
-                            {'easybuild_easyconfigs-5.4.1.tar.gz':                          '9b0407a0dd19d4c1ccfd2735392df0d22a09738254b10fc3ed7cf826d44c47c2'},
+                            {'easybuild_framework-5.4.1.tar.gz':                   '18c7cb3cdb448a2ec9b4f9cdc38517b5f9ca1b63b5691f1589f67f114958c2c9'},
+                            {'easybuild_easyblocks-5.4.1.tar.gz':                  'ec76f56bfb6398ecb863dfc456a15aacc8da8c1ebf21e560a1410d8210825386'},
+                            {'easybuild_easyconfigs-5.4.1.tar.gz':                 '9b0407a0dd19d4c1ccfd2735392df0d22a09738254b10fc3ed7cf826d44c47c2'},
                             # Standard EasyBuilders patches with late bugfixes
                             # - None in this version
                             # EasyBuild framework patches for LUMI
-                            {'EasyBuild-5.4.1_framework_extra-file-formats.patch':          '8930e562a0e31b895f2c1a42e1ecb80a086ecaf273de49397949bdff3836c60d'},
-                            {'EasyBuild-5.4.1_framework_keyring-DBus.patch':                'a2a51dbe90a6a7c829d14960f0bbecb5fdccad19716fb5bda66d8c328db8bd68'},
+                            {'EasyBuild-5.4.1_framework_short_description.patch':  '1c02f7dafd6397a14fc68386c827122422538fd8a75d14d41dda8990a9afaf59'},
+                            {'EasyBuild-5.4.1_framework_extra-file-formats.patch': '8930e562a0e31b895f2c1a42e1ecb80a086ecaf273de49397949bdff3836c60d'},
+                            {'EasyBuild-5.4.1_framework_keyring-DBus.patch':       'a2a51dbe90a6a7c829d14960f0bbecb5fdccad19716fb5bda66d8c328db8bd68'},
                             # EasyBlock patches for LUMI
-                            {'EasyBuild-5.4.1_EasyBlock_ParMETIS.patch':                    '5daf3e7c5873a3bbdecc6b6698aafc3a49f26d22d37a5c0a7785556c9ad7f677'},
-                            {'EasyBuild-5.4.1_EasyBlock_mesonninja.patch':                  '74d8c2a312a3adb06e92e294db18065310bf49e73fd5104a4bfc080f5c99fe30'},
+                            {'EasyBuild-5.4.1_EasyBlock_ParMETIS.patch':           '5daf3e7c5873a3bbdecc6b6698aafc3a49f26d22d37a5c0a7785556c9ad7f677'},
+                            {'EasyBuild-5.4.1_EasyBlock_mesonninja.patch':         '74d8c2a312a3adb06e92e294db18065310bf49e73fd5104a4bfc080f5c99fe30'},
                         ],
         'extract_sources': False,
         'install_cmds': [

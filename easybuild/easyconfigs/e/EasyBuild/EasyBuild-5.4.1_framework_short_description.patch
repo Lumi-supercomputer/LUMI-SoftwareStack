@@ -1,0 +1,45 @@
+This patch adds the short_description easyconfig parameter and uses this, if present,
+instead of description to build the "Description:" whatis line in the module file.
+Patch by Kurt Lust, kurt.lust@uantwerpen.be for the LUMI consortium.
+diff -Nau ./easybuild_framework-5.4.1/easybuild/framework/easyconfig/default.py.orig ./easybuild_framework-5.4.1/easybuild/framework/easyconfig/default.py
+diff -Nau easybuild_framework-5.4.1/easybuild/tools/module_generator.py.orig easybuild_framework-5.4.1/easybuild/tools/module_generator.py
+--- ./easybuild-framework-5.4.1/easybuild/framework/easyconfig/default.py.orig	2026-10-23 15:57:42.000000000 +0300
++++ ./easybuild-framework-5.4.1/easybuild/framework/easyconfig/default.py	2026-10-23 15:58:19.000000000 +0300
+@@ -65,7 +65,7 @@
+ # List of tuples. Each tuple has the following format (key, [default, help text, category])
+ DEFAULT_CONFIG = {
+     # MANDATORY easyconfig parameters
+-    'description': [None, 'A short description of the software', MANDATORY],
++    'description': [None, 'A description of the software for the module help information, also used instead of short_description if that is not given', MANDATORY],
+     'homepage': [None, 'The homepage of the software', MANDATORY],
+     'name': [None, "Name of software", MANDATORY],
+     'toolchain': [None, 'Name and version of toolchain', MANDATORY],
+@@ -229,6 +229,7 @@
+     'citing': [None, "Free-form text that describes how the software should be cited in publications", MODULES],
+     'docpaths': [None, "List of paths for documentation relative to installation directory", MODULES],
+     'examples': [None, "Free-form text with examples on using the software", MODULES],
++    'short_description': [None, "Short (one-line) description used for the whatis information in the module", MODULES],
+     'site_contacts': [None, "String/list of strings with site contacts for the software", MODULES],
+     'upstream_contacts': [None, "String/list of strings with upstream contact addresses "
+                           "(e.g., support e-mail, mailing list, bugtracker)", MODULES],
+--- easybuild-framework-5.4.1/easybuild/tools/module_generator.py.orig	2026-04-09 18:24:09.000000000 +0300
++++ easybuild-framework-5.4.1/easybuild/tools/module_generator.py	2026-10-23 15:59:15.000000000 +0300
+@@ -754,11 +754,13 @@
+         whatis = self.app.cfg['whatis']
+         if whatis is None:
+             # default: include 'whatis' statements with description, homepage, and extensions (if any)
+-            whatis = [
+-                "Description: %s" % self.app.cfg['description'],
+-                "Homepage: %s" % self.app.cfg['homepage'],
+-                "URL: %s" % self.app.cfg['homepage'],
+-            ]
++            if self.app.cfg['short_description'] is None:
++                whatis = ["Description: %s" % self.app.cfg['description']]
++            else:
++                whatis = ["Description: %s" % self.app.cfg['short_description']]
++
++            whatis.append("Homepage: %s" % self.app.cfg['homepage'])
++            whatis.append("URL: %s" % self.app.cfg['homepage'])
+ 
+             multi_deps = self._generate_multi_deps_list()
+             if multi_deps:
