@@ -406,6 +406,11 @@ e.b., the [MATLAB EasyConfigs in the EasyBuilders repository](https://github.com
     if it cannot find it.
 
 
+### 5.4.1 for 26.03
+
+-   A trivial adaptation of the 5.4.0 EasyConfig.
+
+
 ## Fixes needed to EasyConfigs
 
 ### METIS
