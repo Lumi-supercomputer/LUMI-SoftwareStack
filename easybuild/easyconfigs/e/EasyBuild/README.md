@@ -410,6 +410,9 @@ e.b., the [MATLAB EasyConfigs in the EasyBuilders repository](https://github.com
 
 -   A trivial adaptation of the 5.4.0 EasyConfig.
 
+-   The keyring-patch may not be needed anymore though this may be due to an installation without
+    full GitHub integration.
+
 
 ## Fixes needed to EasyConfigs
 
