@@ -285,8 +285,8 @@ exts_list = [
     }),
     # requests and its dependencies are also needed as that is a fallback method
     # if the regular way of downloading files fails.
-    ('certifi',            '2026.7.22', { # https://pypi.org/project/certifi/
-        'checksums': ['62f22742b58a1a33014a2b6b706588a8d7e2a88ae7bd1a6ebe8c992928483775'],
+    ('certifi',            '2026.10.23', { # https://pypi.org/project/certifi/
+        'checksums': ['e9b54de76e530bb6cf0ccd036787103acb58fd42ba930ea8bf948ddbaa2f61d1'],
     }),
     ('urllib3',            '2.7.0',     { # https://pypi.org/project/urllib3/
         'checksums': ['9fb4c81ebbb1ce9531cce37674bbc6f1360472bc18ca9a553ede278ef7276897'],
