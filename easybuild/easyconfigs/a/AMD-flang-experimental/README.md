@@ -22,7 +22,7 @@ for LUMI and integration with EasyBuild.
 
 ## EasyBuild
 
-### 23.2.1
+### 23.2.1-cray-mpich-8.1.33
 
 -   This pre-release version was recommended by AMD for first experiments and also comes with
     some experimental ROCm libraries.
@@ -42,3 +42,16 @@ for LUMI and integration with EasyBuild.
         files also where expected by the install script, and then runs the install script.
 
         That install script actually does depend on Cray MPICH 8.1.33 at the moment.
+
+
+### 24.3.0-MPI
+
+-   The EasyConfig itself is a rather straightforwatd port of the one for 23.2.1.
+
+-   The installation scripts have been reworked a lot as we do MPI in a different way, using some
+    RPMs of a newer version provided by HPE to have a GTL compatible with ROCm(tm) 7.
+
+-   We still have issues installing fftw and HDF5, so no modules are included besides the compiler 
+    module `therock` and the MPI module `mpich`. At this point, we do not understand why the
+    configure scripts for fftw, etc., behave differently when running directly on the command line
+    and from the install scripts.
