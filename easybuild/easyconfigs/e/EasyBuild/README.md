@@ -414,6 +414,14 @@ e.b., the [MATLAB EasyConfigs in the EasyBuilders repository](https://github.com
     full GitHub integration.
 
 
+### 5.4.2 for 26.03
+
+-   A trivial adaptation of the 5.4.1 EasyConfig.
+
+-   The ParMETIS patch is not needed anymore.
+
+
+
 ## Fixes needed to EasyConfigs
 
 ### METIS
