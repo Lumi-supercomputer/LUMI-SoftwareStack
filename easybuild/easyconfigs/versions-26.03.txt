@@ -127,7 +127,7 @@ local_VirtualGL_version =    '3.1.1'         # https://github.com/VirtualGL/virt
 
 local_Blosc_version =        '1.21.6'        # https://github.com/Blosc/c-blosc/releases
 local_Boost_version =        '1.90.0'        # https://www.boost.org/
-local_Brotli_version =       '1.2.0'         # https://github.com/google/brotli/releases (not yet in EB 2025a when checking)
+local_Brotli_version =       '1.2.1'         # https://github.com/google/brotli/releases (not yet in EB 2025a when checking)
 local_bzip2_version =        '1.0.8'         # http://www.bzip.org/downloads.html
 
 local_cairo_version =        '1.18.4'        # https://www.cairographics.org/
