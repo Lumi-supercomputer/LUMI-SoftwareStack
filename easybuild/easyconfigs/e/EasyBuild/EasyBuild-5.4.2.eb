@@ -2,6 +2,7 @@ easyblock = 'Bundle'
 
 local_EasyBuild_version =         '5.4.2'
 local_craypython_version =        '3.12.12'
+local_gnuconfig_version =         '2025-07-10' # https://github.com/spack/gnuconfig/releases
 
 local_wheel_cray_version     =   '0.45.1'      # wheel      20241123 - Check on https://pypi.org/project/wheel/#history
 local_flit_core_cray_version =   '3.12.0'      # flit_core  20250325 - Check on https://pypi.org/project/flit-core/#history
@@ -88,7 +89,22 @@ build_deps = [
 local_pyshortver = '.'.join(local_craypython_version.split('.')[:2])
 local_craypython_exe = f'/opt/cray/pe/python/{local_craypython_version}/bin/python{local_pyshortver}'
 
+import os as local_os
+local_sourcepath = local_os.getenv( 'EASYBUILD_SOURCEPATH' ).split(':')[0]
+
 components = [
+    ('gnuconfig', local_gnuconfig_version, {
+        'easyblock':    'Binary',
+        # https://github.com/spack/gnuconfig/releases/download/2025-07-10/gnuconfig-2025-07-10.tar.gz
+        'sources':      [SOURCELOWER_TAR_GZ], # .tar.lz not yet supported on our systems and not available as a constant in EasyBuild.
+        'source_urls':  ['https://github.com/spack/gnuconfig/releases/download/%(version)s'],
+        'checksums':    ['7f7425886afe47aa574793f580a67a2d1a49db7c43822bcb72001e8b9797b19d'],
+        'start_dir':    '%(namelower)s-%(version)s',
+        'install_cmds': [
+                             f'mkdir -p {local_sourcepath}/generic/eb_v{local_EasyBuild_version}/ConfigureMake',
+                             f'/usr/bin/cp -f config.guess {local_sourcepath}/generic/eb_v{local_EasyBuild_version}/ConfigureMake'
+                        ]
+    }),
     ('flit_core', local_flit_core_cray_version, {
         'easyblock':         'PythonPackage',
         'sources':           [SOURCELOWER_TAR_GZ],

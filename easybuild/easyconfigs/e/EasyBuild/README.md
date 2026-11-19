@@ -420,6 +420,12 @@ e.b., the [MATLAB EasyConfigs in the EasyBuilders repository](https://github.com
 
 -   The ParMETIS patch is not needed anymore.
 
+-   We now also install `config.guess` though the way in which we do it is specific to LUMI as we expect the
+    path to the source directories to be set in `EASYBUILD_SOURCEPATH`.
+
+    As downloading from the GNU savannah git repository is unreliable (lots of timeouts), we download from 
+    a Spack repository instead that has versioned downloads of `gnuconfig` and extract the file from there
+    and copy it to the right location in the sources directory.
 
 
 ## Fixes needed to EasyConfigs
