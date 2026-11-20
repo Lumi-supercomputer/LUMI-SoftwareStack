@@ -36,6 +36,7 @@ if os.getenv( 'LUMI_LMOD_POWERUSER' ) == nil then
     hide_version( 'craype-x86-milan-x' )
     hide_version( 'craype-x86-genoa' )
     hide_version( 'craype-x86-genoa-x' )
+    hide_version( 'craype-x86-turin' )
     hide_version( 'craype-network-ucx' )
     -- Irrelevant hugepages
     hide_version( 'craype-hugepages4M' )
