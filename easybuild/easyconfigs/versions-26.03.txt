@@ -11,11 +11,12 @@ local_CrayPath_version =     '0.1'
 #
 # EasyBuild EasyConfig
 #
-local_EasyBuild_version =         '5.3.0'
-local_EB_lzip_version =           '1.26'   # 20260317 - https://download.savannah.gnu.org/releases/lzip/
-local_EB_p7zip_version =          '17.05'  # 20240220 - Check on https://github.com/p7zip-project/p7zip/releases
-local_EB_PRoot_version =          '5.4.0'  # https://github.com/proot-me/proot/releases
-local_EB_syslibs_talloc_version = '2.4.3'  # https://www.samba.org/ftp/talloc/. PRoot did not build with 2.4.4
+local_EasyBuild_version =         '5.4.2'
+local_gnuconfig_version =         '2025-07-10' # https://github.com/spack/gnuconfig/releases
+local_EB_lzip_version =           '1.26'       # 20260317 - https://download.savannah.gnu.org/releases/lzip/
+local_EB_p7zip_version =          '17.05'      # 20240220 - Check on https://github.com/p7zip-project/p7zip/releases
+local_EB_PRoot_version =          '5.4.0'      # https://github.com/proot-me/proot/releases
+local_EB_syslibs_talloc_version = '2.4.3'      # https://www.samba.org/ftp/talloc/. PRoot did not build with 2.4.4
 
 #
 # Components of buildtools
@@ -126,7 +127,7 @@ local_VirtualGL_version =    '3.1.1'         # https://github.com/VirtualGL/virt
 
 local_Blosc_version =        '1.21.6'        # https://github.com/Blosc/c-blosc/releases
 local_Boost_version =        '1.90.0'        # https://www.boost.org/
-local_Brotli_version =       '1.2.0'         # https://github.com/google/brotli/releases (not yet in EB 2025a when checking)
+local_Brotli_version =       '1.2.1'         # https://github.com/google/brotli/releases (not yet in EB 2025a when checking)
 local_bzip2_version =        '1.0.8'         # http://www.bzip.org/downloads.html
 
 local_cairo_version =        '1.18.4'        # https://www.cairographics.org/
