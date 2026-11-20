@@ -1,9 +1,9 @@
    .Announcements---------------------------------------------------.
  * | Terms of Use: https://lumi-supercomputer.eu/termsandpolicies/  |
    .----------------------------------------------------------------.
- * | Please check the post-maintenance updates on                   |
- * | https://lumi-supercomputer.github.io/update-202601/            |
-   | if you haven't done so since the update.                       |
+ * | System maintenance and update January 11-29, 2027: Check       |
+   | https://lumi-supercomputer.github.io/update/ for the expected  |
+  *| (impact of the) changes and how to prepare for them.           |
    |                                                                |
 *  | NOTE: The default version of both the Cray PE and LUMI stack   |
    | is 25.03, while 25.09 is also offered. We recommend moving to  |
