@@ -4,7 +4,7 @@
 easyblock = 'ConfigureMake'
 
 local_zlib_version =         '2.3.3'         # https://github.com/zlib-ng/zlib-ng/releases
-local_Brotli_version =       '1.2.0'         # https://github.com/google/brotli/releases (not yet in EB 2025a when checking)
+local_Brotli_version =       '1.2.1'         # https://github.com/google/brotli/releases (not yet in EB 2025a when checking)
 local_libpsl_version =       '0.22.0'        # https://github.com/rockdaboot/libpsl/releases
 local_zstd_version =         '1.5.7'         # https://github.com/facebook/zstd/releases
 

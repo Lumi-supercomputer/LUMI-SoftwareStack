@@ -9,6 +9,7 @@
 | Package | EasyBuild |
 |:--------|:----------|
 | [EasyBuild](https://pypi.org/project/easybuild/) | [EB Easybuild](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/e/EasyBuild) |
+| [gnuconfig](https://github.com/spack/gnuconfig/releases) | / |
 | [lzip](https://download.savannah.gnu.org/releases/lzip/) | / | 
 | [p7zip](https://github.com/p7zip-project/p7zip/releases) | [EB p7zip](https://github.com/easybuilders/easybuild-easyconfigs/tree/develop/easybuild/easyconfigs/p/p7zip) | 
 | [talloc](https://www.samba.org/ftp/talloc/) | / |

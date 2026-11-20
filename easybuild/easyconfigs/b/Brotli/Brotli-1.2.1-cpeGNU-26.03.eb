@@ -1,7 +1,7 @@
 # Contributed by Kurt Lust, LUMI project & UAntwerpen
 easyblock = 'CMakeMake'
 
-local_Brotli_version =       '1.2.0'         # https://github.com/google/brotli/releases (not yet in EB 2025a when checking)
+local_Brotli_version =       '1.2.1'         # https://github.com/google/brotli/releases (not yet in EB 2025a when checking)
 
 name =    'Brotli'
 version = local_Brotli_version
@@ -30,7 +30,7 @@ software_license_urls = [
     'https://raw.githubusercontent.com/google/brotli/v%(version)s/LICENSE',
 ]
 
-toolchain = {'name': 'cpeAOCC', 'version': '26.03'}
+toolchain = {'name': 'cpeGNU', 'version': '26.03'}
 toolchain_opts = {'pic': True}
 
 sources = [ {
@@ -38,7 +38,7 @@ sources = [ {
               'filename':          SOURCELOWER_TAR_GZ,
               'source_urls':       ['https://github.com/google/brotli/archive']
             } ]
-checksums =   ['816c96e8e8f193b40151dad7e8ff37b1221d019dbcb9c35cd3fadbfe6477dfec']
+checksums =   ['98d35d11a78dc453aebb7d10c3748f3f73ff78c8267c0dc697b8631f67bf7e8f']
 
 build_deps = [ # Create a reproducible build environment.
     ('buildtools', '%(toolchain_version)s', '', True),

@@ -27,8 +27,15 @@
     process.
  
 
-### Versiuon 1.2.0 from CPE 25.09 on
+### Version 1.2.0 from CPE 25.09 on
 
--   Trivial version change from the 1.2.0 EasyConfig for 25.03.
+-   Trivial version change from the 1.1.0 EasyConfig for 25.03.
 
 -   Switched to the new EasyConfig parameters in 25.09.
+
+### Version 1.2.1 from CPE 26.03 on
+
+-   Contains an important security fix! But we did not update old toolchains, but as 26.03
+    was still in experimental status, it got adapted.
+
+-   Trivial version change of the 1.2.0 EasyConfig for 25.09.
