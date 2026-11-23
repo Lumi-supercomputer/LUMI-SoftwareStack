@@ -427,6 +427,10 @@ e.b., the [MATLAB EasyConfigs in the EasyBuilders repository](https://github.com
     a Spack repository instead that has versioned downloads of `gnuconfig` and extract the file from there
     and copy it to the right location in the sources directory.
 
+    This also needed a small patch in `configuremake.py` as it turns out that the version of `config.guess`
+    and its checksum is hardcoded in there so we needed to make it compatible with the version we took from the
+    Spack fork of `gnuconfig`.
+
 
 ## Fixes needed to EasyConfigs
 

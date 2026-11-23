@@ -157,6 +157,7 @@ components = [
                             {'name': 'EasyBuild-5.4.2_framework_extra-file-formats.patch',                   'level': 0, 'sourcepath': '.'},
                             {'name': 'EasyBuild-5.4.2_framework_keyring-DBus.patch',                         'level': 0, 'sourcepath': '.'},
                             # EasyBlock patches for LUMI
+                            {'name': 'EasyBuild-5.4.2_EasyBlock_configuremake.patch',                        'level': 0, 'sourcepath': '.'},
                             {'name': 'EasyBuild-5.4.2_EasyBlock_mesonninja.patch',                           'level': 0, 'sourcepath': '.'},
                         ],
         'checksums':    [
@@ -171,6 +172,7 @@ components = [
                             {'EasyBuild-5.4.2_framework_extra-file-formats.patch': 'f5fb51bc655eb19a53388d3537dbfa315df7f058d753687466979aeeb737bcb1'},
                             {'EasyBuild-5.4.2_framework_keyring-DBus.patch':       '1ef1a1b86719fc88cd8b8b4c784c9f869e2d24750b939608c1203cf23e116853'},
                             # EasyBlock patches for LUMI
+                            {'EasyBuild-5.4.2_EasyBlock_configuremake.patch':      '9b79ca2e8ce841afe40c8fde110ab581aabfb5e87e1f89d954d73035c4ddfac8'},
                             {'EasyBuild-5.4.2_EasyBlock_mesonninja.patch':         'bede6c30bda22a4b856ebf0ada4d4ba6ace383680738f6d4e292652eccd6b704'},
                         ],
         'extract_sources': False,
