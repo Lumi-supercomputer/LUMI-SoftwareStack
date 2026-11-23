@@ -1,4 +1,4 @@
 easyconfigs:
-  - rocm-7.0.3-flang-classic.eb
-  - rocm-7.0.3-new-flang.eb
+  - rocm-7.0.3-flang-classic.eb # Will install the module rocm/7.0.3 but with classic flang while our older rocm/7.0.3 module provided new flang.
+#  - rocm-7.0.3-new-flang.eb # Doesn't make sense as we already have newer versions
   - amd-7.0.3.eb
