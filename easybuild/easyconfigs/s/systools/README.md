@@ -172,3 +172,9 @@ The current content is
 
 -   Trivial version updates startiong from 25.09-2.
 
+
+### 26.04
+
+-   Very minor update of 26.03, but we switched to the use of `short_description`
+    and adding a `whatis` line with the `Contains:` in `env_mod_lua_footer` to have an as consistent
+    display of the `whatis` information in the software stack as possible.
