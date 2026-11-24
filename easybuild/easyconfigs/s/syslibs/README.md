@@ -135,3 +135,10 @@ use.
 
 -   Trivial update of 25.09 with just some version updates.
 
+
+### 26.04
+
+-   Trivial update of 26.03 with some version bumps, but we switched to the use of `short_description`
+    and adding a `whatis` line with the `Contains:` in `env_mod_lua_footer` to have an as consistent
+    display of the `whatis` information in the software stack as possible. 
+
