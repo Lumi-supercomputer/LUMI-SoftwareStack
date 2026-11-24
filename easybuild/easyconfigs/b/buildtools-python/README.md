@@ -85,3 +85,8 @@ Links for quick checking for version updates:
 
     -   With Cray Python 3.12, installing StrEnum did not work but it looks like we may not need
         that package anymore?
+
+
+### 26.04
+
+-   Port of 26.03 with some rather trivial version bumps.

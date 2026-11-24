@@ -1,0 +1,166 @@
+# This easyconfig requires at least EasyBuild 3.9.4 due to a bug in the Bundle
+# EasyBlock in earlier versions. Or use the patched bundle.py of
+# https://github.com/easybuilders/easybuild-easyblocks/pull/1777 via --include-easyblocks
+#
+# NOTE: This module is developed at UAntwerp
+# NOTE: meson, which is included, requires python3 with setuptools installed in the OS.
+#
+# It is the first module we compile when starting a new toolchain.
+#
+# This bundle collects a number of GNU tools useful during the building process
+# and a few other tools.
+#
+# We do include a Flex and Bison even though they do contain libraries
+# for which some packages may want to use toolchain-specific versions. These
+# packages should then just assure that module is loaded after buildtools.
+#
+#DOC Tools for use in LUMI/26.03 or on CrayEnv when the LUMI/26.03 stack is also on the system.
+#
+#LUMISTACK 26.03
+#
+easyblock = 'Bundle'
+
+local_LUMI_version =         '26.04'
+
+local_craypython_version =   '3.12.12'
+local_system_pyshortver = '.'.join( local_craypython_version.split('.')[:2] )
+
+name =          'buildtools-python'
+version =       local_LUMI_version
+#versionsuffix = f'-cray-python{local_system_pyshortver}'
+versionsuffix = '-cray-python3.12'
+
+# Version info:
+# Note: Meson 0.61.5 is the last version with Python 3.6 support.
+local_Meson_cray_version =       '1.12.1'      # Meson      20260421 - Check on https://pypi.org/project/meson/#history (No source distribution for 1.11.1 and did't want to switch to a wheel for now)
+local_SCons_cray_version =       '4.11.1'      # SCons      20251116 - Check on https://github.com/SCons/scons/releases, https://scons.org/pages/download.html (Not upgraded as it was not worth to look into the issues with 4.10)
+#local_StrEnum_cray_version =     '0.5.0'       # StrEnum    20261031 - Check on https://pypi.org/project/StrEnum/#history
+local_wheel_cray_version     =   '0.48.0'      # wheel      20260422 - Check on https://pypi.org/project/wheel/#history
+local_flit_core_cray_version =   '4.2.0'       # flit_core  20261027 - Check on https://pypi.org/project/flit-core/#history
+
+homepage = 'http://www.gnu.org'
+
+whatis = [
+    "Description: An addition to buildtools with tools that require Python."
+    f"Contains: Meson, SCons, using the cray-python module of CPE {version}"
+]
+
+description = f"""
+This bundle collects a number of python-based build tools.
++ Meson {local_Meson_cray_version}    - https://mesonbuild.com/Manual.html
++ SCons {local_SCons_cray_version}    - https://www.scons.org/
+In this module, they are built against the cray-python module which is a 
+newer version of Python as the system Python.
+"""
+toolchain = SYSTEM
+
+builddependencies = [
+    ('buildtools', version, '-bootstrap'),
+]
+
+dependencies = [
+    (f'cray-python/{local_craypython_version}', EXTERNAL_MODULE),
+]
+
+default_easyblock = 'ConfigureMake'
+
+components = [
+    ('flit_core', local_flit_core_cray_version, {
+        'easyblock':         'PythonPackage',
+        'sources':           [SOURCELOWER_TAR_GZ],
+        'source_urls':       [PYPI_SOURCE],   
+        'checksums':         ['84e4e4d8fdd45ba2613800a3ebc6834de26d47ec9746efc3719f94181137b460'],
+        'start_dir':         '%(namelower)s-%(version)s',
+        'req_py_majver':     local_craypython_version.split('.')[0], # Used to let EasyBuild select the right system Python executable.
+        'req_py_minver':     local_craypython_version.split('.')[1], # Used to let EasyBuild select the right system Python executable.
+        'download_dep_fail': True,
+        'use_pip':           True,
+        'sanity_pip_check':  False,
+    }),
+    ('wheel', local_wheel_cray_version, {
+        'easyblock':         'PythonPackage',
+        'sources':           [SOURCELOWER_TAR_GZ],
+        'source_urls':       [PYPI_SOURCE],
+        'checksums':         ['94800765601e9171bf5d58d066e640662842bcedcbab982b2c90787a2c987322'],
+        'start_dir':         '%(namelower)s-%(version)s',
+        'req_py_majver':     local_craypython_version.split('.')[0], # Used to let EasyBuild select the right system Python executable.
+        'req_py_minver':     local_craypython_version.split('.')[1], # Used to let EasyBuild select the right system Python executable.
+        'download_dep_fail': True,
+        'use_pip':           True,
+        'sanity_pip_check':  False,
+    }), 
+#    ('StrEnum', local_StrEnum_cray_version, {
+#        'easyblock':     'PythonPackage',
+#        'sources':       [SOURCE_TAR_GZ],
+#        #'sources':       ['StrEnum-%(version)s-py3-none-any.whl'],
+#        'source_urls':   [PYPI_SOURCE],
+#        'checksums':     ['878fb5ab705442070e4dd1929bb5e2249511c0bcf2b0eeacf3bcd80875c82eff'],
+#        #'checksums':     ['a30cda4af7cc6b5bf52c8055bc4bf4b2b6b14a93b574626da33df53cf7740659'],
+#        'start_dir':     '%(name)s-%(version)s',
+#        'req_py_majver': local_craypython_version.split('.')[0], # Used to let EasyBuild select the right system Python executable.
+#        'req_py_minver': local_craypython_version.split('.')[1], # Used to let EasyBuild select the right system Python executable.
+#        'options':       {'modulename': 'strenum'}
+#    }),
+    ('Meson', local_Meson_cray_version, { # Does require Ninja
+        'easyblock':         'PythonPackage',
+        'sources':           [SOURCELOWER_TAR_GZ],
+        'source_urls':       [PYPI_SOURCE],
+        'checksums':         ['ab0a6ca09f8ef70c564c8241fb5a23957886a0b53fb58412b5e07eaf07dba743'],
+        'start_dir':         '%(namelower)s-%(version)s',
+        'req_py_majver':     local_craypython_version.split('.')[0], # Used to let EasyBuild select the right system Python executable.
+        'req_py_minver':     local_craypython_version.split('.')[1], # Used to let EasyBuild select the right system Python executable.
+        'options':           {'modulename': 'mesonbuild'},
+        'download_dep_fail': True,
+        'use_pip':           True,
+        'sanity_pip_check':  False, 
+    }),
+    ('SCons', local_SCons_cray_version, {
+        'easyblock':         'PythonPackage',
+        'sources':           [SOURCELOWER_TAR_GZ],
+        'source_urls':       [PYPI_SOURCE],
+        'checksums':         ['4210d1a80a62e986029208117991b6347ccaaaab37b67463a3ff31ee065dc487'],
+        'start_dir':         '%(namelower)s-%(version)s',
+        'req_py_majver':     local_craypython_version.split('.')[0], # Used to let EasyBuild select the right system Python executable.
+        'req_py_minver':     local_craypython_version.split('.')[1], # Used to let EasyBuild select the right system Python executable.
+        'download_dep_fail': True,
+        'use_pip':           True,
+        'sanity_pip_check':  False,
+        'options':           {'modulename': False},
+        }),
+]
+
+sanity_check_paths = {
+    'files': # Meson
+             # SCons
+             ['bin/scons', 'bin/sconsign', 'bin/scons-configure-cache'], # scons-time is missing in SCons 4? Strange as there is a manual page for it.
+    'dirs':  [],
+}
+
+sanity_check_commands = [
+    # Meson
+    'meson --version',
+    # SCons
+    'scons --help',
+]
+
+modextrapaths = {
+    'PYTHONPATH': ['lib/python%s/site-packages' % local_system_pyshortver]
+}
+
+#
+# We set EBROOT and EBVERSION variables that correspond to each of the regular
+# EasyBuild packages that are replaced by this bundle.
+modextravars = {
+    'EBROOTMESON':                 '%(installdir)s',
+    'EBVERSIONMESON':              local_Meson_cray_version,
+    'EBROOTSCONS':                 '%(installdir)s',
+    'EBVERSIONSCONS':              local_SCons_cray_version,
+    'EBROOTWHEEL':                 '%(installdir)s',
+    'EBVERSIONWHEEL':              local_wheel_cray_version,
+}
+
+moduleclass = 'devel'
+modluafooter = f"""
+extensions( "Meson/{local_Meson_cray_version}, SCons/{local_SCons_cray_version}, wheel/{local_SCons_cray_version}"
+          )
+"""
