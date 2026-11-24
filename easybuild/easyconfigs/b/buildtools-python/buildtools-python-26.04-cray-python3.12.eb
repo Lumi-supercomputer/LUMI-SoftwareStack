@@ -27,8 +27,8 @@ local_system_pyshortver = '.'.join( local_craypython_version.split('.')[:2] )
 
 name =          'buildtools-python'
 version =       local_LUMI_version
-#versionsuffix = f'-cray-python{local_system_pyshortver}'
-versionsuffix = '-cray-python3.12'
+#version_suffix = f'-cray-python{local_system_pyshortver}'
+version_suffix = '-cray-python3.12'
 
 # Version info:
 # Note: Meson 0.61.5 is the last version with Python 3.6 support.
@@ -40,10 +40,7 @@ local_flit_core_cray_version =   '4.2.0'       # flit_core  20261027 - Check on 
 
 homepage = 'http://www.gnu.org'
 
-whatis = [
-    "Description: An addition to buildtools with tools that require Python."
-    f"Contains: Meson, SCons, using the cray-python module of CPE {version}"
-]
+short_description = 'An addition to buildtools with tools that require Python.'
 
 description = f"""
 This bundle collects a number of python-based build tools.
@@ -54,11 +51,11 @@ newer version of Python as the system Python.
 """
 toolchain = SYSTEM
 
-builddependencies = [
+build_deps = [
     ('buildtools', version, '-bootstrap'),
 ]
 
-dependencies = [
+deps = [
     (f'cray-python/{local_craypython_version}', EXTERNAL_MODULE),
 ]
 
@@ -136,21 +133,21 @@ sanity_check_paths = {
     'dirs':  [],
 }
 
-sanity_check_commands = [
+sanity_check_cmds = [
     # Meson
     'meson --version',
     # SCons
     'scons --help',
 ]
 
-modextrapaths = {
+env_mod_extra_paths = {
     'PYTHONPATH': ['lib/python%s/site-packages' % local_system_pyshortver]
 }
 
 #
 # We set EBROOT and EBVERSION variables that correspond to each of the regular
 # EasyBuild packages that are replaced by this bundle.
-modextravars = {
+env_mod_extra_vars = {
     'EBROOTMESON':                 '%(installdir)s',
     'EBVERSIONMESON':              local_Meson_cray_version,
     'EBROOTSCONS':                 '%(installdir)s',
@@ -159,8 +156,10 @@ modextravars = {
     'EBVERSIONWHEEL':              local_wheel_cray_version,
 }
 
-moduleclass = 'devel'
-modluafooter = f"""
+env_mod_category = 'devel'
+
+env_mod_lua_footer = f"""
 extensions( "Meson/{local_Meson_cray_version}, SCons/{local_SCons_cray_version}, wheel/{local_SCons_cray_version}"
           )
+whatis( "Contains: Meson/{local_Meson_cray_version}, SCons/{local_SCons_cray_version}, using the cray-python module of CPE {version}" )
 """

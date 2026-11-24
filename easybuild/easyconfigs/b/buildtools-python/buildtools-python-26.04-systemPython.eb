@@ -20,7 +20,7 @@ local_LUMI_version =         '26.04'
 
 name =          'buildtools-python'
 version =       local_LUMI_version
-versionsuffix = '-systemPython'
+version_suffix = '-systemPython'
 
 local_system_pyshortver = '3.6'
 
@@ -34,10 +34,7 @@ local_wheel_version     =        '0.37.1'      # wheel      20211222 - Check on 
 
 homepage = 'http://www.gnu.org'
 
-whatis = [
-    "Description: An addition to buildtools with tools that require Python."
-    "Contains: Meson, SCons, using the Python provided by the OS"
-]
+short_description = 'An addition to buildtools with tools that require Python.'
 
 description = """
 This bundle collects a number of python-based build tools.
@@ -49,11 +46,11 @@ versions we can support.
 
 toolchain = SYSTEM
 
-builddependencies = [
+build_deps = [
     ('buildtools', version, '-bootstrap'),
 ]
 
-osdependencies = [
+os_deps = [
     ('python3'),                                          # For git, Meson, SCons
 ]
 
@@ -119,7 +116,7 @@ components = [
         }),
 ]
 
-postinstallcmds = [
+post_install_cmds = [
     # Fix scons for use in the container as we don't have the python link at the moment
     'sed -e \'s|#!.*python.*|#!/usr/bin/python3.6|\' '
        f'-e \'s|import sys|import sys\\nsys.path.append("%(installdir)s/lib/python{local_system_pyshortver}/site-packages")|\' '
@@ -146,7 +143,7 @@ sanity_check_paths = {
     'dirs':  [],
 }
 
-sanity_check_commands = [
+sanity_check_cmds = [
     # wheel
     'wheel --help',
      # Meson
@@ -155,14 +152,14 @@ sanity_check_commands = [
     'scons --help',
 ]
 
-modextrapaths = {
+env_mod_extra_paths = {
     'PYTHONPATH': ['lib/python%s/site-packages' % local_system_pyshortver]
 }
 
 #
 # We set EBROOT and EBVERSION variables that correspond to each of the regular
 # EasyBuild packages that are replaced by this bundle.
-modextravars = {
+env_mod_extra_vars = {
     'EBROOTMESON':    '%(installdir)s',
     'EBVERSIONMESON': local_Meson_version,
     'EBROOTSCONS':    '%(installdir)s',
@@ -171,8 +168,10 @@ modextravars = {
     'EBVERSIONWHEEL': local_wheel_version,
 }
 
-moduleclass = 'devel'
-modluafooter = f"""
+env_mod_category = 'devel'
+
+env_mod_lua_footer = f"""
 extensions( "Meson/{local_Meson_version}, SCons/{local_SCons_version}, wheel/{local_wheel_version}"
           )
+whatis( "Contains: Meson/{local_Meson_version}, SCons/{local_SCons_version}, using the Python provided by the OS" )
 """

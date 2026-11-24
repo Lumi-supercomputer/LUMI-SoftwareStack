@@ -90,3 +90,7 @@ Links for quick checking for version updates:
 ### 26.04
 
 -   Port of 26.03 with some rather trivial version bumps.
+
+-   But switched to EB6-compatible parameters. We also switched to the use of `short_description`
+    and adding a `whatis` line with the `Contains:` in `env_mod_lua_footer` to have an as consistent
+    display of the `whatis` information in the software stack as possible. 
