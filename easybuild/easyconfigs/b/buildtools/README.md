@@ -185,3 +185,15 @@ Not included at the moment:
     1.17.0 version did not compile. The configure process had added a compiler flag that is not valid
     for the old gcc version on LUMI.
 
+
+### 26.04
+
+-   Mostly trivial package updates from the 26.03 version. We did not upgrade `doxygen` as the new
+    1.17.0 version did not compile and we didn't try any newer one either. The configure process 
+    in 1.17.0 had added a compiler flag that is not valid for the old gcc version on LUMI and
+    changing configure scripts with patches is highly nontrivial as they tend to change a lot 
+    when generated with a different version of autotools.
+
+-   We switched to the use of `short_description`
+    and adding a `whatis` line with the `Contains:` in `env_mod_lua_footer` to have an as consistent
+    display of the `whatis` information in the software stack as possible. 
