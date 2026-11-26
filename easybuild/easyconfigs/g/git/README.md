@@ -104,3 +104,9 @@ cluster).
     -   The Meson configuration path is said to have an option to disable the use of Rust, but as this
         also requires a substantial rework of the EasyBuild recipe, it was not done.
 
+
+### Git 2.55.1 for 26.04
+
+-   Mostly a trivial version bump of 2.54.0, but needed to enforce a non-rust build.
+
+-   Now use `short_description`.
