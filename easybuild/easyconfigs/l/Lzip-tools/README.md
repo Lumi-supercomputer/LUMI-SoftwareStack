@@ -73,8 +73,15 @@ The module contains:
 -   But we switched to the new parameter names to prepare for EasyBuild 6.
 
 
-### LZip-tools for 26.03
+### Lzip-tools for 26.03
 
 -   A trivial port from 25.09 with various package updates.
 
+### Lzip-tools for 26.04
+
+-   A trivial port from 26.03 with minor package updates.
+
+-   We also switched to the use of `short_description`
+    and adding a `whatis` line with the `Contains:` in `env_mod_lua_footer` to have an as consistent
+    display of the `whatis` information in the software stack as possible.
 
