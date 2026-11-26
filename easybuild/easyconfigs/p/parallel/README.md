@@ -77,3 +77,9 @@
 
 -   Trivial version bump of the EasyConfig for 20260122
 
+
+### Version 20261122 using the system perl for 26.04
+
+-   Trivial version bump of the EasyConfig for 20260622
+
+-   Switched to `short_description`.
